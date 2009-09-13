@@ -13,7 +13,7 @@ Zingiri Web Shop is a Wordpress plugin that brings together a great content mana
 
 Zingiri Web Shop is a Wordpress plugin that brings together a great content management system with a fantastic e-commerce solution.
 
-FreeWebshop.org — FWS in short and released under GNU/GPL by Roya Khosravi— is a free, full featured software package that allows you to set up your own online webshop within minutes. It is designed to provide you with all the features you need from a webshop while having an absolute minimal impact on the resources of the server. And best of all it is and will always remain completely free!
+FreeWebshop.org - FWS in short and released under GNU/GPL by Elmar Wenners - is a free, full featured software package that allows you to set up your own online webshop within minutes. It is designed to provide you with all the features you need from a webshop while having an absolute minimal impact on the resources of the server. And best of all it is and will always remain completely free!
 
 WordPress ... well you know.
 
