@@ -1,15 +1,14 @@
-=== Plugin Name ===
+=== Zingiri Web Shop ===
 Contributors: erikpbogaerts
 Donate link: http://www.zingiri.com/
 Tags: ecommerce, e-commerce, paypal, freewebshop
 Requires at least: 2.1.7
 Tested up to: 2.8.4
-Stable tag: 0.9.12
+Stable tag: 0.9.13
 
-Zingiri Web Shop is a Wordpress plugin that brings together a great content management system with the fantastic FreeWebShop solution.
+Zingiri Web Shop is a Wordpress plugin that brings together a great content management system with the fantastic FreeWebShop ecommerce solution.
 
 == Description ==
-
 
 Zingiri Web Shop is a Wordpress plugin that brings together a great content management system with a fantastic e-commerce solution.
 
@@ -17,7 +16,7 @@ FreeWebshop.org - FWS in short and released under GNU/GPL by Elmar Wenners - is 
 
 WordPress ... well you know.
 
-Zingiri Web Shop provides the glue to connect both. 
+Zingiri Web Shop provides the glue to connect both providing a fully functional proven shopping cart and ecommerce solution. 
 
 == Installation ==
 
