@@ -38,6 +38,7 @@ Please visit the [Zingiri](http://www.zingiri.com/web-shop "Zingiri") website fo
 
 = 0.9.14b =
 * Repackaging of the files.
+* Correction of "table *_zing_errorlog doesn't exist" problem when activating the plugin.
 
 = 0.9.14a =
 * Removal of a debugging display.
