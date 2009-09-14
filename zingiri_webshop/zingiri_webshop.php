@@ -108,8 +108,8 @@ register_deactivation_hook(__FILE__,'zing_deactivate');
  * @return unknown_type
  */
 function zing_echo($stringData) {
-	error_reporting(E_ALL & ~E_NOTICE);
-	ini_set('display_errors', '1');
+//	error_reporting(E_ALL & ~E_NOTICE);
+//	ini_set('display_errors', '1');
 
 	$myFile = ZING_LOC."/log.txt";
 	$fh = fopen($myFile, 'a') or die("can't open file");
@@ -124,8 +124,8 @@ function zing_echo($stringData) {
 function zing_activate() {
 	global $wpdb;
 
-	error_reporting(E_ALL & ~E_NOTICE);
-	ini_set('display_errors', '1');
+//	error_reporting(E_ALL & ~E_NOTICE);
+//	ini_set('display_errors', '1');
 	$wpdb->show_errors();
 	$url=ZING_DIR.'FreeWebshop.sql';
 	$prefix=$wpdb->prefix."zing_";
@@ -319,8 +319,8 @@ function zing_main($process,$content="") {
 	global $weight_metric;
 	global $zing_loaded;
 
-	error_reporting(E_ALL & ~E_NOTICE);
-	ini_set('display_errors', '1');
+//	error_reporting(E_ALL & ~E_NOTICE);
+//	ini_set('display_errors', '1');
 
 	switch ($process)
 	{
@@ -414,8 +414,8 @@ function zing_get_header()
 	global $customerid;
 
 	require (ZING_LOC."./zing.readcookie.inc.php");      // read the cookie
-	error_reporting(E_ALL & ~E_NOTICE);
-	ini_set('display_errors', '1');
+//	error_reporting(E_ALL & ~E_NOTICE);
+//	ini_set('display_errors', '1');
 
 	if (!empty($_GET['page_id']) && ($_GET['page_id']==zing_page_id("logout")))
 	{
@@ -568,6 +568,7 @@ function zing_init()
 		$zing_page_id_to_page[$o->post_id][1]=$o->meta_value;
 	}
 
+	$zing_page_to_page_id=array();
 	foreach ($zing_page_id_to_page as $i => $a)
 	{
 		$page=$a[0];
@@ -578,7 +579,7 @@ function zing_init()
 		}
 		if (isset($a[0]) && !isset($a[1]))
 		{
-			$zing_page_to_page_id[$page]=$i;
+			$zing_page_to_page_id[$page]['*']=$i;
 		}
 	}
 
@@ -658,8 +659,8 @@ function zing_exclude_pages( & $pages )
 	Global $lang2;
 	Global $lang3;
 
-	error_reporting(E_ALL & ~E_NOTICE);
-	ini_set('display_errors', '1');
+//	error_reporting(E_ALL & ~E_NOTICE);
+//	ini_set('display_errors', '1');
 
 	require (ZING_DIR."./includes/settings.inc.php");        // database settings
 
