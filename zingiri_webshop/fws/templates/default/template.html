@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=<?php echo $charset ?>" />
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Expires" content="-1">
+	<meta name="description" content="<?php echo $description ?>" />
+	<meta name="keywords" content="<?php echo $keywords ?>" />
+	<meta name="author" content="E. Wenners / FreeWebshop.org" />
+	<title><?php echo $page_title ?></title>
+	<link rel="stylesheet" type="text/css" href="<?php echo $template_dir."/".$template."/"; ?>stylesheet.css" />
+	<link rel="stylesheet" href="addons/lightbox/lightbox.css" type="text/css" media="screen" />
+	<script type="text/javascript" src="addons/lightbox/lightbox.js"></script>
+</HEAD>
+<body <?php if ($autosubmit == 1 && $page == "checkout") { echo "onload=\"document.autosubmit.submit()\""; } ?>>
+<div id="container">
+	<div id="header">
+	     <?php include("header.php"); ?><br />
+		 <?php include("slogan.php"); ?><br />
+         <div id="navcontainer2"><?php include("topmenu.php"); ?></div>
+	</div>
+	<div id="menu"> 
+	 <div id="navcontainer">
+		 <?php include("menu_cart.php"); ?><br />
+		 <?php include("menu_products.php"); ?><br />
+		 <?php include("menu_general.php"); ?><br />
+		 <?php include("menu_extra.php"); ?>
+	 </div>	 
+	</div>
+	<div id="content">
+		 <?php 
+		       include("loadmain.php"); 
+		 ?>
+	</div>
+	<div id="footer">
+		 <?php 
+		       include("footer.php"); 
+		 ?>
+	</div>
+</div>
+</body>
+</html>
