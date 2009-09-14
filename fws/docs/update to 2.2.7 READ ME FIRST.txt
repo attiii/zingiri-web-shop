@@ -1,0 +1,19 @@
+Update to 2.2.7 READ ME FIRST!
+------------------------------
+
+Version 2.2.7 uses a different format for saving orders. If you are updating to 2.2.7 from
+and older version, you need to convert your old orders. To do so, do the following:
+
+- go to your server with an FTP program and backup your 'orders' folder, just to be safe
+- log into your shop as administrator (IMPORTANT!)
+- type this in the same IE window as you opened your shop:
+  
+  http://the_url_of_your_shop/index.php?page=convert_orders
+
+  this will open the converter, and it will give a report of the conversion.
+
+- if there are no errors, then FTP to your server and remove all .BAK files from your orders folder
+- remove or rename convert_orders.php , because it's now not longer needed
+
+
+That's it.

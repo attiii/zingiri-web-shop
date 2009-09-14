@@ -1,0 +1,339 @@
+CHANGELOG FOR FREEWEBSHOP.ORG
+Copyright 2006, 2007, 2008 Elmar Wenners
+----------------------------------
+
+Legend:
+* = changed
++ = added
+- = removed
+! = comments
+
+
+
+-------------------------
+Version     : 2.2.9_R1
+released on : 23-06-2008
+-------------------------
+* small bug fixed in UK lang file (reported and fixed by coreyspeed)
+
+-------------------------
+Version     : 2.2.9
+released on : 23-06-2008
+-------------------------
+* cart doesn't get emptied when checking out. instead it's status changes. better, for historical purposes
+* multiple products per row on the frontpage
+* md5 encrypted passwords (mod by sermoa)
+* xpertmailer dropped, I now use 'email'. an excellent PHP class
+- PDF's no longer get mailed as attachment. Instead, it's offered as a download at checkout
+* full customer details on order confirmation
+* extra pages are now sorted alphabeticly
++ pdf icon added to order list for quick access to pdf (admin and customer list)
++ discount codes
++ optionally show/hide out of stock products
++ optionally show/hide stock amount under product description 
+
+-------------------------
+Version     : 2.2.8
+released on : 03-04-07
+-------------------------
+* admins can now change their username, customers can not (to prevent mistakes)
+* thumbnails can be larger then 127x127 due to a database change
+* pricelist sorting (price or description) can be set from settings
+* now features can also correctly decrease the product price (tweak by Onixs)
+  syntax:
+  size:S+-1.00,M+2.00,L+3.00,XL+4.00|
+* more feature news: you can now add an empty feature, that will create a textbox that customers can fill in
+  ideal for texts on shirts, domain names, etc
+  syntax:
+  color:red,gold,green|text
++ show the number of items in a customers cart in the customer admin page
++ the adminscreen now shows the number of customers, admins, products and orders (the last one shows: orders that need your attention/total amount or orders)
+* updated the search code; it now also searches in the product ID
+* default country is remembered when saving a shipping method
+* fixed the mailinglist; now it actually looks if a customer wants it or not
++ added a filemanager to TinyMCE to allow upload of pictures (thanks to Anns)
+* template system is made more flexible thanks to Den Walterfang
+* sales mail and webmaster mail fields are larger so multiple addresses can be added, seperated by ;
++ added autosubmit function. if enabled and the payment method supports it, a customer will be redirected automaticly to the payment portal of the selected payment method, for example the paypal site
++ always shows the username of logged in user in the topmenu
++ the shop now creates a PDF of the order and mails it as an attachment to the customer
+* fixed the sql error presented when leaving the searchfield empty (bug reported by Dronix)
+* you can now also add pages (pagesadmin) that are hidden. useful for pages you need for return urls for payment methods and such
+
+
+-------------------------
+Version     : 2.2.7_R2
+released on : 20-12-07
+-------------------------
+* in my hurry to fix the hack, I made an error in my code. This update fixes that
+
+
+-------------------------
+Version     : 2.2.7_R1
+released on : 20-12-07
+-------------------------
+* only optimize tables with the prefix that was specified (code by Safemode)
+* fixed a very important bug. hackers could use a cookie grabber to get admin login
+
+
+-------------------------
+Version     : 2.2.7
+released on : 10-10-07
+-------------------------
+* max order amount changed from 999 to 9999
+* thumbsize from max 99x99 to 999x999 on popular request
++ added an errorlog
++ table prefix so if you install freewebshop in a database in which are already other tables, it will not cause a confict
+* you can no longer remove the main admin (user id 1)
+* bug fixed in customer admin. now showing the joindate correct
+* better email address check in contact form and customer registration
++ abillity to search customers on their last name
+* customer list is now ordered alphabaticly on lastname
+* orders are no longer saved as [webid] but as [webid].php with an added first security line to prevent others from reading the files
+* order confirmation via email is changed. it no longer contains the entire order confirmation, but merely a link to the online order due to payment portal html problems
++ product weight (for shipping costs)
++ weight classes in shipping methods
++ dynamic calculation of total weight and correct shipping costs
++ accesslog, which logs who tried to login with what data, and if it was succesful
+* customer login must now be alphanumeric (to prevent the - and ' character related sign in problems)
+* when a customer joins, they get the option to receive the newsletter/mailing
++ a mailinglist creator, which lists all email adresses of customers who want to recieve your mailing
++ ordering directly from pricelist, in addition to ordering from product details
++ reports if there is news from freewebshop.org in the admin console using a Notification
++ datefix, for php5 users who get a lot of datewarnings in their errorlogs
+* fixed checkout bug introduced in 2.2.7; number of products ordered was ignored on order confirmation - bug found by Genius
+* updated the login procedure to make it more secure
+* login and logout now use the correct css file
+
+
+-------------------------
+Version     : 2.2.6
+released on : 28-07-07
+-------------------------
++ cart preview in menu
++ guest can put products in cart before making an account or logging in
++ WorldPay support
+* cart bug (concerning thumbnails) fixed
+* order administration and customer administration both are paginated ([1] 2 3)
++ currency position can be set: $1234 or 1234$
+* WYSIWYG can now be turned off
++ WorldPay integration
++ Google Checkout integration
+* auto logout after 1 hour for customers AND admins for better security
+* Implemented a template system. You can now make custom templates and switch between them from administration
+* Default template updated
+* Print order now uses same stylesheet as the shop does
+* New icons for customeradmin. No longer resized icons, but high quality small icons
++ additional costs for features is now possible:
+  feature1:value1,value2+2.50,value3+15.00
++ added STATE to customer table 
++ extra pages can be added to the menu from the admin screen
+
+
+-------------------------
+Version     : 2.2.5
+released on : 08-04-07
+-------------------------
++ optional captcha for contact form and customer registration
+* if a search result has multiple pages, the next pages now also work
+* (re)uploading of a product picture (no ID error) is now fixed
++ basket preview in left menu, with total quantity and total amount
+* cart bug fixed: when stock is enabled and you have 2x product X in
+  cart, and the current stock is 2, you get an error when you try add 1x product X
++ added an optional nicer picture popup for large images
++ added product features like size, color, etc
+
+* numerous small fixes
+
+
+-------------------------
+Version     : 2.2.4
+released on : 22-01-07
+-------------------------
+* wrong FROM address in email send to new customer
+* NULL values in empty fields with new customers
+* browse.php: products that have 0 stock can now be seen by admins
+* minor security fix in orderadmin.php
++ browse.php now support multiple pages, number of products per page can be set
+  in administration
++ page description can be added, for better search engine indexing
+* page with New products can optionally be switched off
+* WYSIWYG can optionally be turned off
++ added support for auto-generation of thumbnails when uploading pictures
+* fixed iDeal payment module (and added a HOWTO to the doc folder)
+* numerous small fixes
+* install routine now detects double installs
+* WYSIWYG editor can be set to simple and advanced
+
+
+-------------------------
+Version     : 2.2.3
+released on : 09-11-06
+-------------------------
+* page inclusion fixed (hackers could include other files on the server)
+* a few small fixes
+
+
+-------------------------
+Version     : 2.2.2
+released on : 03-11-06
+-------------------------
+* fixed bug in orderadmin, 2 strings got switched
+* countries.txt is extended (thanks Newbs)
+* small bug fixed in UK and NL language concerning double HTTP strings
+
+! this release has been rushed into a security patch, so sorry there are
+  real new features
+* fixed numerous security related issues
+
+
+-------------------------
+Version     : 2.2.1
+released on : 16-10-06
+-------------------------
+CHANGES:
++ Added WYSIWYG to editor (TinyMCE)
++ SMTP mail option added (edit settings.inc.php if you are updating from version 2.x)
+* Unable to change countries and banlist in v2.2 (fixed)
+* Unable to change shipping settings in v2.2 (fixed)
+* Error when loggin out in v2.2 (fixed)
+* Customers can register using existing names, too short passwords, etc in v2.2 (fixed)
+* Updated order email to customer has some bugs in v2.2 (fixed)
+* Categories show wrong number of products when out of stock in v2.2 (unknown)
+* SQL errors when trying to change/delete shipping and payment options? (fixed)
+* Not able to add products to shopping cart (fixed)
+* Error opening personal page (when not admin) (fixed)
+* HTML stipped from product descriptions in browse, cart and checkout
+
+
+-------------------------
+Version     : 2.2
+released on : 21-09-06
+-------------------------
+CHANGES:
+* Removed all HTML make-up, thus improving the readability of the code by 100%
++ Better CSS: everything from page setup to coloring can be set in the CSS file
+* Changed shipping and payment settings; new method provides optimal flexibility
+  by allowing you to add your own payment options (including portals like paypal)
+  and shipping options
+* Fixed picture name issues
+* Character set is setable from settings
++ An "about us" page, optional, setable from the Admin screen
+* REAL live news.. from now it reads the latest news of the freewebshop.org homepage
+* Smarter and better admin screen and settings screen > more readable, less options
+* Many small bugfixes
+
+
+-------------------------
+Version     : 2.1.1 hotfix
+released on : 03-06-06
+-------------------------
+* Stock amounts getting updated properly
+* Default language can be changed back from 'uk'
+
+
+-------------------------
+Version     : 2.1
+released on : 02-06-06
+-------------------------
+CHANGES:
++ option to enable thumbs in pricelist
+* fixed bug in cart and checkout. some php versions don't like empty ID's
+* if a picture is resized in the details page, you get a link which opens the fullsize picture
+* stripslashes added to adminedit to prevent ' to be saved as \' , etc
+* updated installation file, so the right folders and files get CHMODDED (whichs seems to be an issue)
+* using charset=ISO-8859-1. if your language is not supported in this charset, please edit header.php
+* saving orders in html so I can use the charset as well, emails now also get send in html for proper charset handling
+* customizable keywords, on which search engines will find your shop
+* live news can be disabled by removing the file "live_news" from your server (on some servers the live news gave loading problems)
+
+
+-------------------------
+Version     : 2.0.3 hotfix
+released on : 21 may 2006
+-------------------------
+CHANGES:
+* bugfix in printorder.php and readorder.php (thanks to Tiago Ramalho)
++ added Portuguese language files (thanks to Tiago Ramalho)
+* fixed hide menu in orderadmin.php
+* many more bugs fixed that were reported on the forums
+
+
+-------------------------
+Version     : 2.0
+released on : 14 may 2006
+-------------------------
+CHANGES:
+* NAME CHANGE! UltraShop (already widely used on the internet) is now known as
+  FreeWebshop.org (with corresponding website www.freewebshop.org)
+  
+
+-------------------------
+Version     : 1.2
+released on : released end march 2006
+-------------------------
+CHANGES:
+* highlighting of selected product category in menu (browse.php, menu.php)
+* background link fixed (header.php)
+* small bugfix in uk.txt, concerning the email title of the contact-form
+* added icons for fax, phone and mail to contact.php
++ pictures can now be on a remote server, this disables the uploading functionality ofcourse
+* changed some table widths
++ added 5 configurable options, so the table SETTINGS in the database is altered
+* submenu.php is now called categories.php and uses a gif instead of a jpg file
+* almost every php file has had changes, because the header and footer where altered
++ added PAYPAL SUPPORT!
+
+
+-------------------------
+Version     : 1.1b
+released on : 21-feb-2006
+-------------------------
+CHANGES:
+* major bugfix in checkout.php. when stock amounts are enabled, ordering failes when
+  trying to update the new stock in database
+* support forum link added to about.php
+! next version will most likely have PayPal support
+  
+
+-------------------------
+Version     : 1.1a
+released on : 18-feb-2006
+-------------------------
+CHANGES:
+* 2 minor but needed bugfixes in main.php and productadmin.php in relation to product ID's with spaces
+
+
+-------------------------
+Version     : 1.1
+released on : 16-feb-2006
+-------------------------
+CHANGES:
+* fixed the mySql dump reader (both install.php and uploadadmin.php)
+* in menu the cart shows the number of items in the users cart
+* cart bug fixed. product id length adjusted so longer id's will still get into cart
+* date format is changeble in settings (mm-dd-jjjj or dd-mm-jjjj)
+* join date of customer is saved for later reference
+* menu branch shows how many products it holds:
+  > Harddisks
+    > Maxtor (9)
+    > Western Digital (10)
+    etc..
+* too big product pictures get auto resised if over 350x350
+* customer can add additional notes to an order
+* small number formatting related fixes in order screens
+! tested under IE7 Beta2. works perfectly
+* besides JPG images, uploading GIF images for categories and products is also possible. additionally it no longer uses the database id
+  of products as the filename, but it uses the product ID given by the admin (row[1] instead of row[0]). it still uses
+  the database id for categories
+* submenu displayes logo's above the brands, instead of the other way around
+* menu displays groups and categories in hidden tables, so categories with multiple lines won't messup the menu
+* name of bank can now be added in settings screen
+* max lenght of groups and categories fixed. groups is now 30, categories 40
+  
+-------------------------
+Version     : 1.0
+released on : 15-jan-2006
+-------------------------
+CHANGES:
+! first public release
