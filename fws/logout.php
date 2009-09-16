@@ -22,7 +22,7 @@
 */
 ?>
 <?php
-	 include ("./includes/startmodules.inc.php");
+//	 include ("./includes/startmodules.inc.php");
 
      if(setcookie ("fws_cust","", time() - 3600)==TRUE)
 			{
@@ -31,7 +31,6 @@
                  <META HTTP-EQUIV="Refresh" CONTENT="1; URL=index.php"></head>
                  <body><br /><br /><br /><br /><br /><br /><br />
                  <h4><?php echo $txt['logout1'] ?></h4></body></html>
-				<?php
-
+<?php 
 			}
 ?>

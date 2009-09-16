@@ -22,7 +22,7 @@
 */
 ?>
 <?php if ($index_refer <> 1) { exit(); } ?>
-<?php include ("./includes/checklogin.inc.php"); ?>
+<?php include (dirname(__FILE__)."/includes/checklogin.inc.php"); ?>
 <?php
     if (!empty($_GET['id'])) { $id=intval($_GET['id']); } 
 if (IsAdmin() == false && $customerid != $id) {

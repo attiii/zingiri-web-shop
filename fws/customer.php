@@ -272,7 +272,7 @@
                           <OPTION VALUE="<?php echo $country ?>" SELECTED><?php echo $country ?>
                             <?php
                              // read countries
-                             $file = file('countries.txt');
+                             $file = file(ZING_SUB.'/countries.txt');
                              @array_walk($file, 'file_trim');
                              while (list($key, $val) = each($file)) {
                                      if ($val != $country) { echo "<OPTION VALUE=\"".$val."\">".$val; }

@@ -22,7 +22,7 @@
 */
 ?>
 <?php if ($index_refer <> 1) { exit(); } ?>
-<?php if ($action == "checkout") { include (dirname(__FILE__)."./includes/checklogin.inc.php"); } ?>
+<?php if ($action == "checkout") { include (dirname(__FILE__)."/includes/checklogin.inc.php"); } ?>
 <?php
   if (LoggedIn() == False && $action == "checkout") {
 	  // do nothing

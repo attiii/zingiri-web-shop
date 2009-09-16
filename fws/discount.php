@@ -22,7 +22,7 @@
 */
 ?>
 <?php if ($index_refer <> 1) { exit(); } ?>
-<?php include ("./includes/checklogin.inc.php"); ?>
+<?php include (ZING_SUB."./includes/checklogin.inc.php"); ?>
 <?php
     if (!empty($_POST['shippingid'])) 		{ $shippingid	= intval($_POST['shippingid']); }
     if (!empty($_POST['weightid'])) 		{ $weightid		= intval($_POST['weightid']); }

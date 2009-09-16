@@ -22,7 +22,7 @@
 */
 ?>
 <?php if ($index_refer <> 1) { exit(); } ?>
-<?php include ("./includes/checklogin.inc.php"); ?>
+<?php include (ZING_SUB."./includes/checklogin.inc.php"); ?>
 <?php
 	if (!empty($_POST['shippingid'])) { $shippingid=intval($_POST['shippingid']); }
 	if (!empty($_POST['weightid'])) { $weightid=intval($_POST['weightid']); }
@@ -283,7 +283,7 @@ if (LoggedIn() == True) {
 		 $pdf = "";
 		 $fullpdf = "";
 		 if ($create_pdf == 1) {
-			 require_once(dirname(__FILE__)."./addons/dompdf/dompdf_config.inc.php");
+			 require_once(dirname(__FILE__)."/addons/dompdf/dompdf_config.inc.php");
 			 $dompdf = new DOMPDF();
 			 $dompdf->load_html($message);
 			 $dompdf->render();
@@ -308,7 +308,8 @@ if (LoggedIn() == True) {
 	
 		 // save the order in order folder for administration
 		 $security = "<?php if ($"."index_refer <> 1) { exit(); } ?>";
-		 $handle = fopen ($orders_dir."/".strval($webid).".php", "w+");
+//		 $handle = fopen (dirname(__FILE__)."/".$orders_dir."/".strval($webid).".php", "w+");
+		 $handle = fopen (dirname(__FILE__)."/"."orders"."/".strval($webid).".php", "w+");
 		 if (!fwrite($handle, $security.$message))
 			{
 			 $retVal = false;

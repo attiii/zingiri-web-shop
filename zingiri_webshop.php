@@ -87,13 +87,13 @@ require (ZING_LOC."./zing.startfunctions.inc.php");
  ini_set('display_errors', '1');
  set_error_handler("zing_error_handler");
  function zing_error_handler($severity, $msg, $filename, $linenum) {
- echo $severity."-".$msg."-".$filename."-".$linenum;
+ if ($severity != 8) echo $severity."-".$msg."-".$filename."-".$linenum;
  }
  */
 
+add_action("init","zing_init");
 add_filter('option_art_footer_content','zing_footer');
 add_filter('get_pages','zing_exclude_pages');
-add_action("init","zing_init");
 add_action("plugins_loaded", "zing_sidebar_init");
 add_filter('the_content', 'zing_content', 10, 3);
 add_action('get_header','zing_get_header');
@@ -148,6 +148,9 @@ function zing_activate() {
 		}
 	}
 
+	//set default language to English
+	$query="UPDATE ".$prefix."settings SET `default_lang` = 'en'";
+	$wpdb->query($query);
 	$pages=array();
 	$pages[]=array("Shop","main","*",0);
 	$pages[]=array("Cart","cart","",0);
@@ -364,7 +367,9 @@ function zing_main($process,$content="") {
 	} else {
 		require (ZING_DIR."./includes/readvals.inc.php");        // get and post values
 	}
+//	echo $scripts_dir."/".$to_include;
 	include($scripts_dir."/".$to_include);
+//	echo "ok";
 }
 
 /**
@@ -396,6 +401,7 @@ function zing_header()
  */
 function zing_get_header()
 {
+
 	global $dbtablesprefix;
 	global $dblocation;
 	global $dbname;
@@ -413,17 +419,22 @@ function zing_get_header()
 	global $name;
 	global $customerid;
 
+	
 	require (ZING_LOC."./zing.readcookie.inc.php");      // read the cookie
+	
+	/*
 //	error_reporting(E_ALL & ~E_NOTICE);
 //	ini_set('display_errors', '1');
 
+	/*
 	if (!empty($_GET['page_id']) && ($_GET['page_id']==zing_page_id("logout")))
 	{
 		require(ZING_DIR."./logout.php");
 		$redir=ZING_HOME."/?&page_id=".zing_page_id("main");
 		header("Location: ".$redir);
 	}
-
+	*/
+/*
 	if ($_POST['page']=="login")
 	{
 		require(ZING_DIR."./includes/settings.inc.php");        // database settings
@@ -439,7 +450,9 @@ function zing_get_header()
 		}
 		header("Location: ".$redir);
 	}
+	*/
 
+	/*
 	if (substr($_GET['page'],0,3) =='set')
 	{
 		require(ZING_DIR."./".$_GET['page'].".php");
@@ -449,6 +462,7 @@ function zing_get_header()
 	{
 		require(ZING_DIR."./setlang.php");
 	}
+	*/
 }
 
 /**
@@ -544,6 +558,23 @@ function zing_sidebar_init()
  */
 function zing_init()
 {
+	global $dbtablesprefix;
+	global $dblocation;
+	global $dbname;
+	global $dbuser;
+	global $dbpass;
+	global $product_dir;
+	global $brands_dir;
+	global $orders_dir;
+	global $lang_dir;
+	global $template_dir;
+	global $gfx_dir;
+	global $scripts_dir;
+	global $products_dir;
+	global $index_refer;
+	global $name;
+	global $customerid;
+	
 	$bail_out = ( ( defined( 'WP_ADMIN' ) && WP_ADMIN == true ) || ( strpos( $_SERVER[ 'PHP_SELF' ], 'wp-admin' ) !== false ) );
 	if ( $bail_out ) { return $pages; }
 
@@ -583,6 +614,40 @@ function zing_init()
 		}
 	}
 
+	if ($_POST['page']=="login")
+	{
+		include (ZING_LOC."./zing.startmodules.inc.php");
+//		require(ZING_DIR."./includes/settings.inc.php");        // database settings
+		require(ZING_DIR."login.php");
+
+		if (isset($_POST['pagetoload']))
+		{
+//			$redir=ZING_HOME."/?".$pagetoload;
+//			die("something wrogn ehre");
+//			header("Location: ".$redir);
+			exit;
+		}
+		else
+		{
+			//$_GET['page_id']=zing_page_id("main");
+//			$redir=ZING_HOME."/page_id=".zing_page_id("main");
+//			header("Location: ".$redir);
+			exit;
+		}
+		
+	}
+	if (!empty($_GET['page_id']) && ($_GET['page_id']==zing_page_id("logout")))
+	{
+		include (ZING_LOC."./zing.startmodules.inc.php");
+		require(ZING_DIR."logout.php");
+//		$redir=ZING_HOME."/?&page_id=".zing_page_id("main");
+//		$_GET['page_id']=zing_page_id("main");
+//		header("Location: ".$redir);
+		exit;
+
+
+	}
+		
 	if (!isset($_GET['page_id']))
 	{
 		//cat is a parameter used by Wordpress for categories

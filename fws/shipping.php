@@ -22,7 +22,7 @@
 */
 ?>
 <?php if ($index_refer <> 1) { exit(); } ?>
-<?php include ("./includes/checklogin.inc.php"); ?>
+<?php include (ZING_SUB."./includes/checklogin.inc.php"); ?>
 <?php
 if (LoggedIn() == true) {
     // if the cart is empty, then you shouldn't be here

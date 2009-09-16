@@ -23,7 +23,6 @@
 ?>
 <?php if ($index_refer <> 1) { exit(); } ?>
 <?php
-
 	   echo "<h1>".$txt['menu2']."</h1>\n"; 
 	   echo "<ul id=\"navlist\">\n";
 	   echo "<li"; if ($page == "cart") { echo " id=\"active\""; }; echo "><a href=\"?page=cart&action=show\">".$txt['cart5'].": ".CountCart($customerid)."<br />";
