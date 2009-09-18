@@ -66,7 +66,7 @@ else {
   // if action == write_changes, then do so
   if ($action == "write_changes") {
     if ($name[1] == "txt" || $name[1] == "fws") {
-	    $fp=fopen($fullfilename,"w") or die("FWS: Couldn't save ".$fullfilename.".. Make sure it exists and is writable (chmod 666 or 777).");
+	    $fp=fopen(dirname(__FILE__)."/".$fullfilename,"w") or die("FWS: Couldn't save ".$fullfilename.".. Make sure it exists and is writable (chmod 666 or 777).");
         fwrite($fp,$text2edit);
         fclose($fp);   
         PutWindow($gfx_dir, $txt['general13'], $txt['adminedit2'], "notify.gif", "50");
@@ -75,8 +75,8 @@ else {
   
   if ($name[1] == "txt" || $name[1] == "fws") {
 	  // try to open
-	  $fp = fopen($fullfilename, "rb") or die("FWS: Couldn't open ".$fullfilename.".. Make sure it exists and is readable.");
-	  if (filesize($fullfilename) > 0) { $text2edit = fread($fp, filesize($fullfilename)); }
+	  $fp = fopen(dirname(__FILE__)."/".$fullfilename, "rb") or die("FWS: Couldn't open ".$fullfilename.".. Make sure it exists and is readable.");
+	  if (filesize(dirname(__FILE__)."/".$fullfilename) > 0) { $text2edit = fread($fp, filesize(dirname(__FILE__)."/".$fullfilename)); }
 	  fclose($fp);
 	  echo "<strong>".$txt['adminedit3']." ".$fullfilename."</strong>";
 ?>

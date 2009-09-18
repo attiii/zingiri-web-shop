@@ -369,7 +369,7 @@ else {
                           <OPTION VALUE="<?php echo $send_default_country ?>" SELECTED><?php echo $send_default_country ?>	                  
                            <?php 
                              // read countries from countries.txt file
-                             $file = file('countries.txt');
+                             $file = file(dirname(__FILE__).'/countries.txt');
                              @array_walk($file, 'file_trim');
                              while (list($key, $val) = each($file)) {
                                      echo "<OPTION VALUE=\"".$val."\">".$val;

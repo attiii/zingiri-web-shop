@@ -24,14 +24,14 @@
 /**
  * @package Zingiri Web Shop
  * @author Erik Bogaerts
- * @version 0.9.12
+ * @version 0.9.17
  */
 /*
  Plugin Name: Zingiri Web Shop
  Plugin URI: http://www.zingiri.com/WebShop
  Description: This plugin integrates the fabulous Free Web Shop e-commerce solution with Wordpress.
  Author: Erik Bogaerts
- Version: 0.9.12
+ Version: 0.9.17
  Author URI: http://www.zingiri.com/
  */
 
@@ -42,6 +42,8 @@ if (!defined("WP_CONTENT_URL")) {
 if (!defined("WP_CONTENT_DIR")) {
 	define("WP_CONTENT_DIR", ABSPATH . "wp-content");
 }
+
+define("ZING_VERSION","0.9.17");
 
 if (!defined("ZING_PLUGIN")) {
 
@@ -108,9 +110,6 @@ register_deactivation_hook(__FILE__,'zing_deactivate');
  * @return unknown_type
  */
 function zing_echo($stringData) {
-//	error_reporting(E_ALL & ~E_NOTICE);
-//	ini_set('display_errors', '1');
-
 	$myFile = ZING_LOC."/log.txt";
 	$fh = fopen($myFile, 'a') or die("can't open file");
 	fwrite($fh, $stringData);
@@ -124,8 +123,16 @@ function zing_echo($stringData) {
 function zing_activate() {
 	global $wpdb;
 
-//	error_reporting(E_ALL & ~E_NOTICE);
-//	ini_set('display_errors', '1');
+	$zing_version=get_option("zing_webshop_version");
+	if (!$zing_version)
+	{
+		add_option("zing_webshop_version",ZING_VERSION);
+	}
+	else
+	{
+		update_option("zing_webshop_version",ZING_VERSION);
+	}
+	
 	$wpdb->show_errors();
 	$url=ZING_DIR.'FreeWebshop.sql';
 	$prefix=$wpdb->prefix."zing_";
@@ -161,6 +168,7 @@ function zing_activate() {
 	$pages[]=array("Logout","logout","*",3);
 	$pages[]=array("Register","customer","add",1);
 
+	$ids="";
 	foreach ($pages as $i =>$p)
 	{
 		$my_post = array();
@@ -172,9 +180,17 @@ function zing_activate() {
 		//  $my_post['post_category'] = array(8,39);
 		$my_post['menu_order'] = 100+$i;
 		$id=wp_insert_post( $my_post );
+		if (empty($ids)) { $ids.=$id; } else { $ids.=",".$id; }
 		if (!empty($p[1])) add_post_meta($id,'zing_page',$p[1]);
 		if (!empty($p[2])) add_post_meta($id,'zing_action',$p[2]);
 		if (!empty($p[3])) add_post_meta($id,'zing_security',$p[3]);
+	}
+	if (get_option("zing_webshop_pages"))
+	{
+		update_option("zing_webshop_pages",$ids);
+	}
+	else {
+		add_option("zing_webshop_pages",$ids);
 	}
 }
 
@@ -192,6 +208,11 @@ function zing_deactivate() {
 		$query="drop table ".$row[0];
 		$wpdb->query($query);
 	}
+	$ids=get_option("zing_webshop_pages");
+	$ida=explode(",",$ids);
+	foreach ($ida as $id) {
+		wp_delete_post($id);	
+	}
 }
 
 /**
@@ -202,6 +223,7 @@ function zing_deactivate() {
  */
 function zing_main($process,$content="") {
 
+	global $post;
 	global $wpdb;
 	global $aboutus_page;
 	global $action;
@@ -401,7 +423,6 @@ function zing_header()
  */
 function zing_get_header()
 {
-
 	global $dbtablesprefix;
 	global $dblocation;
 	global $dbname;
@@ -418,7 +439,6 @@ function zing_get_header()
 	global $index_refer;
 	global $name;
 	global $customerid;
-
 	
 	require (ZING_LOC."./zing.readcookie.inc.php");      // read the cookie
 	
@@ -477,7 +497,12 @@ function widget_sidebar_extra($args) {
 	echo $before_title;
 	echo $txt['menu19'];
 	echo $after_title;
+	echo '<div id="zing-sidebar">';
+	echo '<style type="text/css">';
+	echo 'h1 {display:none; }';
+	echo '</style>';
 	zing_main("sidebar","extra");
+	echo '</div>';
 	echo $after_widget;
 }
 
@@ -494,7 +519,12 @@ function widget_sidebar_general($args) {
 	echo $before_title;
 	echo $txt['menu14'];
 	echo $after_title;
+	echo '<div id="zing-sidebar">';
+	echo '<style type="text/css">';
+	echo 'h1 {display:none; }';
+	echo '</style>';
 	zing_main("sidebar","general");
+	echo '</div>';
 	echo $after_widget;
 
 }
@@ -511,9 +541,13 @@ function widget_sidebar_products($args) {
 	echo $before_title;
 	echo $txt['menu15'];
 	echo $after_title;
+	echo '<div id="zing-sidebar">';
+	echo '<style type="text/css">';
+	echo 'h1 {display:none; }';
+	echo '</style>';
 	zing_main("sidebar","products");
+	echo "</div>";
 	echo $after_widget;
-
 }
 
 /**
@@ -529,11 +563,9 @@ function widget_sidebar_cart($args) {
 	echo $txt['menu2'];
 	echo $after_title;
 	echo '<div id="zing-sidebar">';
-
 	echo '<style type="text/css">';
 	echo 'h1 {display:none; }';
 	echo '</style>';
-
 	zing_main("sidebar","cart");
 	echo '</div>';
 	echo $after_widget;
@@ -617,45 +649,23 @@ function zing_init()
 	if ($_POST['page']=="login")
 	{
 		include (ZING_LOC."./zing.startmodules.inc.php");
-//		require(ZING_DIR."./includes/settings.inc.php");        // database settings
 		require(ZING_DIR."login.php");
-
-		if (isset($_POST['pagetoload']))
-		{
-//			$redir=ZING_HOME."/?".$pagetoload;
-//			die("something wrogn ehre");
-//			header("Location: ".$redir);
-			exit;
-		}
-		else
-		{
-			//$_GET['page_id']=zing_page_id("main");
-//			$redir=ZING_HOME."/page_id=".zing_page_id("main");
-//			header("Location: ".$redir);
-			exit;
-		}
-		
+		exit;
 	}
 	if (!empty($_GET['page_id']) && ($_GET['page_id']==zing_page_id("logout")))
 	{
 		include (ZING_LOC."./zing.startmodules.inc.php");
 		require(ZING_DIR."logout.php");
-//		$redir=ZING_HOME."/?&page_id=".zing_page_id("main");
-//		$_GET['page_id']=zing_page_id("main");
-//		header("Location: ".$redir);
 		exit;
-
-
 	}
 		
-	if (!isset($_GET['page_id']))
+	if (!isset($_GET['page_id']) && isset($_GET['page']))
 	{
 		//cat is a parameter used by Wordpress for categories
 		if (isset($_GET['cat']) && isset($_GET['page'])) {
 			$_GET['kat']=$_GET['cat'];
 			unset($_GET['cat']);
 		}
-
 		$_GET['page_id']=zing_page_id("main");
 	}
 }
@@ -723,9 +733,6 @@ function zing_exclude_pages( & $pages )
 	Global $lang;
 	Global $lang2;
 	Global $lang3;
-
-//	error_reporting(E_ALL & ~E_NOTICE);
-//	ini_set('display_errors', '1');
 
 	require (ZING_DIR."./includes/settings.inc.php");        // database settings
 
@@ -800,6 +807,8 @@ function zing_footer($footer="")
 	else {
 		echo $footer;
 	}
+	//Please contact us if you wish to remove the Zingiri logo in the footer
+	echo '<div style="margin-top:5px"><a href="http://www.zingiri.com" alt="Zingiri Web Shop"><img src="'.ZING_URL.'zingiri-logo.png"></a></div>';
 }
 
 /**
