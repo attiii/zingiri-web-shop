@@ -1,7 +1,7 @@
 === Zingiri Web Shop ===
-Contributors: erikpbogaerts
+Contributors: Erik Bogaerts
 Donate link: http://www.zingiri.com/
-Tags: ecommerce, e-commerce, paypal, freewebshop
+Tags: ecommerce, e-commerce, paypal, freewebshop, shop, cart
 Requires at least: 2.1.7
 Tested up to: 2.8.4
 Stable tag: 0.9.17
