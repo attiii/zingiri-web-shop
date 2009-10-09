@@ -112,7 +112,8 @@ table.borderless td h5
 	border: 1px solid #808080;/*darkgrey*/
 	border-collapse: collapse;
 	margin-left: auto;  
-	margin-right: auto;  
+	margin-right: auto;
+	min-width: 100%;
 }
 .datatable td {
 	border: 1px solid #808080;/*darkgrey*/	
@@ -141,6 +142,9 @@ table.borderless td h5
 	margin-right: auto;
 }
 
+.datatable input[type="text"],.datatable textarea 
+{ 
+}
 .datatable tr.altrow td
 {
 	background-color: #D6DDE6;/*verylightgrey*/

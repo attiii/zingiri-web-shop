@@ -105,7 +105,6 @@ add_action('wp_head','zing_header');
 //register_deactivation_hook(__FILE__,'zing_deactivate');
 
 require_once(dirname(__FILE__) . '/controlpanel.php'); 
-
 /**
  * Output activation messages to log
  * @param $stringData
@@ -348,7 +347,6 @@ function zing_main($process,$content="") {
 	global $zing_loaded;
 
 	include (ZING_LOC."./zing.globals.inc.php");
-
 //	error_reporting(E_ALL & ~E_NOTICE);
 //	ini_set('display_errors', '1');
 
@@ -415,8 +413,8 @@ function zing_content($content) {
  */
 function zing_header()
 {
-	echo '<link rel="stylesheet" href="' . ZING_URL . 'addons/lightbox/lightbox.css" type="text/css" media="screen" />';
-	echo '<script type="text/javascript" src="' . ZING_URL . 'addons/lightbox/lightbox.js"></script>';
+	echo '<link rel="stylesheet" href="' . ZING_URL . 'fws/addons/lightbox/lightbox.css" type="text/css" media="screen" />';
+	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/addons/lightbox/lightbox.js"></script>';
 	echo '<link rel="stylesheet" type="text/css" href="' . ZING_URL . 'zing.css" media="screen" />';
 }
 
