@@ -82,17 +82,10 @@ $dbname = DB_NAME;
 $dbuser = DB_USER;
 $dbpass = DB_PASSWORD;
 
+$zing_version=get_option("zing_webshop_version");
+
+if ($zing_version) {
 require (ZING_LOC."./zing.startfunctions.inc.php");
-
-/* used for debugging purposes only
- error_reporting(E_ALL & ~E_NOTICE);
- ini_set('display_errors', '1');
- set_error_handler("zing_error_handler");
- function zing_error_handler($severity, $msg, $filename, $linenum) {
- if ($severity != 8) echo $severity."-".$msg."-".$filename."-".$linenum;
- }
- */
-
 add_action("init","zing_init");
 add_filter('option_art_footer_content','zing_footer');
 add_filter('get_pages','zing_exclude_pages');
@@ -100,6 +93,7 @@ add_action("plugins_loaded", "zing_sidebar_init");
 add_filter('the_content', 'zing_content', 10, 3);
 add_action('get_header','zing_get_header');
 add_action('wp_head','zing_header');
+}
 
 //register_activation_hook(__FILE__,'zing_activate');
 //register_deactivation_hook(__FILE__,'zing_deactivate');
@@ -442,69 +436,7 @@ function zing_get_header()
 	global $customerid;
 	
 	require (ZING_LOC."./zing.readcookie.inc.php");      // read the cookie
-	
-	/*
-//	error_reporting(E_ALL & ~E_NOTICE);
-//	ini_set('display_errors', '1');
 
-	/*
-	if (!empty($_GET['page_id']) && ($_GET['page_id']==zing_page_id("logout")))
-	{
-		require(ZING_DIR."./logout.php");
-		$redir=ZING_HOME."/?&page_id=".zing_page_id("main");
-		header("Location: ".$redir);
-	}
-	*/
-/*
-	if ($_POST['page']=="login")
-	{
-		require(ZING_DIR."./includes/settings.inc.php");        // database settings
-		require(ZING_DIR."login.php");
-
-		if (isset($_POST['pagetoload']))
-		{
-			$redir=ZING_HOME."/?".$pagetoload;
-		}
-		else
-		{
-			$redir=ZING_HOME."/page_id=".zing_page_id("main");
-		}
-		header("Location: ".$redir);
-	}
-	*/
-
-	/*
-	if (substr($_GET['page'],0,3) =='set')
-	{
-		require(ZING_DIR."./".$_GET['page'].".php");
-	}
-
-	if ($_GET['page']=='setlang' || !empty($_GET['lang']))
-	{
-		require(ZING_DIR."./setlang.php");
-	}
-	*/
-}
-
-/**
- * Sidebar extra menu widget
- * @param $args
- * @return unknown_type
- */
-function widget_sidebar_extra($args) {
-	global $txt;
-	extract($args);
-	echo $before_widget;
-	echo $before_title;
-	echo $txt['menu19'];
-	echo $after_title;
-	echo '<div id="zing-sidebar">';
-	echo '<style type="text/css">';
-	echo 'h1 {display:none; }';
-	echo '</style>';
-	zing_main("sidebar","extra");
-	echo '</div>';
-	echo $after_widget;
 }
 
 /**
@@ -579,7 +511,6 @@ function widget_sidebar_cart($args) {
  */
 function zing_sidebar_init()
 {
-	register_sidebar_widget(__('Zingiri Web Shop Extra'), 'widget_sidebar_extra');
 	register_sidebar_widget(__('Zingiri Web Shop Cart'), 'widget_sidebar_cart');
 	register_sidebar_widget(__('Zingiri Web Shop General'), 'widget_sidebar_general');
 	register_sidebar_widget(__('Zingiri Web Shop Products'), 'widget_sidebar_products');

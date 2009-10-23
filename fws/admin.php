@@ -136,34 +136,23 @@ else {
               </tr>
               <tr><td colspan="3"><h6><?php echo $txt['admin24']; ?></h6></td></tr>
               <tr>   
-                 <td><div style="text-align:center;"><a class="plain" href="?page=adminedit&filename=shipping.txt&root=0"><img src="<?php echo $gfx_dir; ?>/shipping.gif" alt="" /><br /><?php echo $txt['admin16']; ?></a><br /><br /></div></td>
-                 <td><div style="text-align:center;"><a class="plain" href="?page=adminedit&filename=guarantee.txt&root=0"><img src="<?php echo $gfx_dir; ?>/guaranteeadmin.gif" alt="" /><br /><?php echo $txt['admin17']; ?></a><br /><br /></div></td>
                  <td><div style="text-align:center;"><a class="plain" href="?page=adminedit&filename=conditions.txt&root=0&wysiwyg=0"><img src="<?php echo $gfx_dir; ?>/conditionsadmin.gif" alt="" /><br /><?php echo $txt['admin15']; ?></a><br /><br /></div></td>
-              </tr>
-              <tr>   
-                 <td><div style="text-align:center;"><a class="plain" href="?page=adminedit&filename=banned.txt&root=1&wysiwyg=0"><img src="<?php echo $gfx_dir; ?>/banned.gif" alt="" /><br /><?php echo $txt['admin19']; ?></a><br /><br /></div></td>
-                 <td><div style="text-align:center;"><a class="plain" href="?page=adminedit&filename=aboutus.txt&root=0"><img src="<?php echo $gfx_dir; ?>/aboutusicon.gif" alt="" /><br /><?php echo $txt['admin20']; ?></a><br /><br /></div></td>
+              	 <td><div style="text-align:center;"><a class="plain" href="?page=adminedit&filename=banned.txt&root=1&wysiwyg=0"><img src="<?php echo $gfx_dir; ?>/banned.gif" alt="" /><br /><?php echo $txt['admin19']; ?></a><br /><br /></div></td>
                  <td><div style="text-align:center;"><a class="plain" href="?page=adminedit&filename=main.txt&root=0"><img src="<?php echo $gfx_dir; ?>/mainadmin.gif" alt="" /><br /><?php echo $txt['admin22']; ?></a><br /><br /></div></td>
               </tr>
               <tr>   
-                 <td><div style="text-align:center;"><a class="plain" href="?page=pagesadmin"><img src="<?php echo $gfx_dir; ?>/pagesadmin.gif" alt="" /><br /><?php echo $txt['admin30']; ?></a><br /><br /></div></td>
                  <td><div style="text-align:center;"><a class="plain" href="?page=adminedit&filename=countries.txt&root=1&wysiwyg=0"><img src="<?php echo $gfx_dir; ?>/countries.gif" alt="" /><br /><?php echo $txt['admin37']; ?></a><br /><br /></div></td>
                  <td>&nbsp;</td>
               </tr>
               <tr><td colspan="3"><h6><?php echo $txt['admin25']; ?></h6></td></tr>
               <tr>
-                 <td><div style="text-align:center;"><a class="plain" href="?page=about"><img src="<?php echo $gfx_dir; ?>/about.gif" alt="" /><br /><?php echo $txt['admin13']; ?></a><br /><br /></div></td>
-                 <td><div style="text-align:center;"><a class="plain" href="http://www.chaozz.nl/?checkupdate=12&version=<?php echo $version ?>"><img src="<?php echo $gfx_dir; ?>/update.gif" alt="" /><br /><?php echo $txt['admin14']; ?></a><br /><br /></div></td>
                  <td><div style="text-align:center;"><a class="plain" href="?page=errorlogadmin"><img src="<?php echo $gfx_dir; ?>/errorlog.gif" alt="" /><br /><?php echo $txt['admin26']; ?></a><br /><br /></div></td>
-              </tr>   
-              <tr>
                  <td><div style="text-align:center;"><a class="plain" href="?page=accesslogadmin"><img src="<?php echo $gfx_dir; ?>/accesslog.gif" alt="" /><br /><?php echo $txt['admin31']; ?></a><br /><br /></div></td>
                  <td><div style="text-align:center;"><a class="plain" href="?page=stockadmin"><img src="<?php echo $gfx_dir; ?>/stockadmin.gif" alt="" /><br /><?php echo $txt['admin32']; ?></a><br /><br /></div></td>
-                 <td><div style="text-align:center;"><a class="plain" href="?page=admin&adminaction=optimize_tables"><img src="<?php echo $gfx_dir; ?>/optimize.gif" alt="" /><br /><?php echo $txt['admin7']; ?></a><br /><br /></div></td>
               </tr>   
               <tr>   
+                 <td><div style="text-align:center;"><a class="plain" href="?page=admin&adminaction=optimize_tables"><img src="<?php echo $gfx_dir; ?>/optimize.gif" alt="" /><br /><?php echo $txt['admin7']; ?></a><br /><br /></div></td>
                  <td><div style="text-align:center;"><a class="plain" href="?page=mailinglist"><img src="<?php echo $gfx_dir; ?>/mailinglist.gif" alt="" /><br /><?php echo $txt['admin35']; ?></a><br /><br /></div></td>
-                 <td>&nbsp;</td>
                  <td>&nbsp;</td>
               </tr>
           </table>       
@@ -174,10 +163,6 @@ else {
       
       <?php
           // show the live news feed
-          if ($live_news == 1) {
-    	     PutWindow($gfx_dir, "Live from FreeWebshop.org", $news->DownloadToString(), "news.gif", "100");
-		      			  
-          }
       }
 }          
       ?>

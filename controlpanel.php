@@ -1,7 +1,7 @@
 <?php
 $zing_ws_name = "Zingiri Web Shop";
 $zing_ws_shortname = "zing_ws";
-$install_type = array("Clean","Upgrade" );
+$install_type = array("Clean" );
 //$banner_select = array("Yes","No" );
 $zing_ws_options = array (
 
@@ -18,20 +18,6 @@ array(	"name" => "Type of install",
 			"options" => $install_type),
  
 );
-/*
-array(	"name" => "Show on all pages",
-			"desc" => "Select if banner to be displayed on all pages.",
-			"id" => $zing_ws_shortname."_gldallpages",
-			"std" => "Yes",
-			"type" => "select",
-			"options" => $banner_select),
-
-array(	"name" => "Banner width",
-			"desc" => "Width of banner to display (only applies to SlidingDoors).",
-			"id" => $zing_ws_shortname."_gldwidth",
-			"std" => "990",
-			"type" => "text"),
-*/
 
 function zing_ws_add_admin() {
 
@@ -66,7 +52,7 @@ function zing_ws_add_admin() {
 		}
 	}
 
-	add_options_page($zing_ws_name." Options", "$zing_ws_name Options", 8, basename(__FILE__), 'zing_ws_admin');
+	add_options_page($zing_ws_name." Options", "$zing_ws_name", 8, basename(__FILE__), 'zing_ws_admin');
 }
 
 function zing_ws_admin() {
@@ -90,6 +76,7 @@ elseif ($zing_version == ZING_VERSION)
 	echo 'Your version is up to date!';
 	 	
 ?>
+<?php if ($zing_version != ZING_VERSION) { ?>
 <form method="post">
 
 <table class="optiontable">
@@ -168,14 +155,18 @@ elseif ($zing_version == ZING_VERSION)
 }
 ?>
 </table>
+
 <p class="submit"><input name="install" type="submit" value="Install" />
 <input type="hidden" name="action" value="install" /></p>
 </form>
+<?php } ?>
+<?php if ($zing_version) { ?>
 <form method="post">
 <p class="submit"><input name="uninstall" type="submit"
 	value="Uninstall" /> <input type="hidden" name="action"
 	value="uninstall" /></p>
 </form>
+<?php } ?>
 <p>For more info and support, contact us at <a
 	href="http://www.zingiri.com/webshop/">Zingiri</a> or check out our <a
 	href="http://forums.zingiri.com/">support forums</a>.</p>

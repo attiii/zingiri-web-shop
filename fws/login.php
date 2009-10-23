@@ -184,13 +184,14 @@ if ($lostlogin == 1) {
 if ($lostlogin == 2) {
 	// lets find the correct data in the database
 	$query = sprintf("SELECT * FROM `".$dbtablesprefix."customer` WHERE `EMAIL` = %s", quote_smart($email));
+	
 	$sql = mysql_query($query) or die(mysql_error());
 	if (mysql_num_rows($sql) == 0) {
 		PutWindow($gfx_dir, $txt['general12'], $txt['checklogin15'], "warning.gif", "50");
 		echo "<h4><a href=\"javascript:history.go(-1)\">" . $txt['checklogin18'] . "</a></h4>";
 		exit;
 	}
-	while ($row = mysql_fetch_row($sql)) {
+	if ($row = mysql_fetch_row($sql)) {
 		$login = $row[1];
 		// Make up a random new password, simplest case, a 5-digit number
 		$pass = CreateRandomCode(6);

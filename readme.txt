@@ -36,6 +36,11 @@ Please visit the [Zingiri](http://www.zingiri.com/web-shop "Zingiri") website fo
 
 == Changelog ==
 
+= 0.9.18 =
+* Removed extra pages side bar - this is replaced by standard Wordpress functionality
+* Removed aboutus, shipping, guarantee pages - Wordpress pages can be used instead
+* Fixed error message when requesting a lost password
+
 = 0.9.17 =
 * Resolved issue when trying to change default sending country in Admin menu.
 * Resolved issues when trying to edit Ban list & Shipping countries from Admin menu.
