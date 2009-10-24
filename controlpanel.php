@@ -2,7 +2,7 @@
 $zing_ws_name = "Zingiri Web Shop";
 $zing_ws_shortname = "zing_ws";
 $install_type = array("Clean" );
-//$banner_select = array("Yes","No" );
+
 $zing_ws_options = array (
 
 array(  "name" => "Zingiri Web Shop Settings",
@@ -25,6 +25,7 @@ function zing_ws_add_admin() {
 
 	if ( $_GET['page'] == basename(__FILE__) ) {
 
+		
 		if ( 'install' == $_REQUEST['action'] ) {
 			zing_activate();
 			foreach ($zing_ws_options as $value) {
@@ -39,16 +40,16 @@ function zing_ws_add_admin() {
 			}
 			header("Location: options-general.php?page=controlpanel.php&installed=true");
 			die;
-
-		} else if( 'uninstall' == $_REQUEST['action'] ) {
-			zing_deactivate();
+		} 
+		
+		if( 'uninstall' == $_REQUEST['action'] ) {
+			zing_uninstall();
 			foreach ($zing_ws_options as $value) {
 				delete_option( $value['id'] );
 				update_option( $value['id'], $value['std'] );
 			}
 			header("Location: options-general.php?page=controlpanel.php&uninstalled=true");
 			die;
-
 		}
 	}
 
@@ -69,7 +70,7 @@ function zing_ws_admin() {
 <?php 
 $zing_version=get_option("zing_webshop_version");
 if (empty($zing_version))
-	echo 'Please proceed with a clean install';
+	echo 'Please proceed with a clean install or deactivate your plugin';
 elseif ($zing_version != ZING_VERSION) 
 	echo 'You downloaded version '.ZING_VERSION.' and need to upgrade your database (currently at version '.$zing_version.').';
 elseif ($zing_version == ZING_VERSION)
@@ -81,7 +82,7 @@ elseif ($zing_version == ZING_VERSION)
 
 <table class="optiontable">
 
-<?php foreach ($zing_ws_options as $value) {
+<?php if ($zing_ws_options) foreach ($zing_ws_options as $value) {
 
 	if ($value['type'] == "text") { ?>
 
@@ -161,12 +162,22 @@ elseif ($zing_version == ZING_VERSION)
 </form>
 <?php } ?>
 <?php if ($zing_version) { ?>
+<hr />
+<p>Please note that the user administration in the Zingiri Webshop is separate from <br />
+	the Wordpress user administration (mainly for security purposes).<br /><br />
+	If it's your first time logging in, you can use user <strong>admin</strong> with password <strong>admin_1234</strong>.</p>
+<form method="post" action="<?php echo get_option("home");?>/index.php?page=admin">
+<p class="submit"><input name="admin" type="submit"
+	value="Admin" /></p>
+</form>
+<hr />
 <form method="post">
 <p class="submit"><input name="uninstall" type="submit"
 	value="Uninstall" /> <input type="hidden" name="action"
 	value="uninstall" /></p>
 </form>
 <?php } ?>
+<hr />
 <p>For more info and support, contact us at <a
 	href="http://www.zingiri.com/webshop/">Zingiri</a> or check out our <a
 	href="http://forums.zingiri.com/">support forums</a>.</p>

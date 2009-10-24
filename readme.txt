@@ -3,8 +3,8 @@ Contributors: Erik Bogaerts
 Donate link: http://www.zingiri.com/
 Tags: ecommerce, e-commerce, paypal, freewebshop, shop, cart
 Requires at least: 2.1.7
-Tested up to: 2.8.4
-Stable tag: 0.9.17
+Tested up to: 2.8.5
+Stable tag: 0.9.18
 
 Zingiri Web Shop is a Wordpress plugin that brings together a great content management system with the fantastic FreeWebShop ecommerce solution.
 
@@ -23,6 +23,7 @@ Zingiri Web Shop provides the glue to connect both providing a fully functional 
 1. Upload the `zingiri-web-shop` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Activate the 4 sidebar widgets.
+4. Go to the Wordpress Settings page and find the link to the Admininistration Panel of Zingiri Web Shop, login with the default user admin and password admin_1234.
 
 Please visit the [Zingiri](http://www.zingiri.com/web-shop "Zingiri") website for more information and a Demo.
 
@@ -37,9 +38,12 @@ Please visit the [Zingiri](http://www.zingiri.com/web-shop "Zingiri") website fo
 == Changelog ==
 
 = 0.9.18 =
-* Removed extra pages side bar - this is replaced by standard Wordpress functionality
+* Removed Extra Pages side bar - this is replaced by standard Wordpress functionality
 * Removed aboutus, shipping, guarantee pages - Wordpress pages can be used instead
 * Fixed error message when requesting a lost password
+* Added settings page for administration, installation and uninstallation
+* Resolved error "Table 'db-name.wp_zing_settings' doesn't exist" showing in certain cases
+* Checked compatibility with Wordpress version 2.8.5
 
 = 0.9.17 =
 * Resolved issue when trying to change default sending country in Admin menu.
