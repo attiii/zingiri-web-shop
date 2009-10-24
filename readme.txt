@@ -4,7 +4,7 @@ Donate link: http://www.zingiri.com/
 Tags: ecommerce, e-commerce, paypal, freewebshop, shop, cart
 Requires at least: 2.1.7
 Tested up to: 2.8.5
-Stable tag: 0.9.18
+Stable tag: 0.9.18.1
 
 Zingiri Web Shop is a Wordpress plugin that brings together a great content management system with the fantastic FreeWebShop ecommerce solution.
 
@@ -22,7 +22,7 @@ Zingiri Web Shop provides the glue to connect both providing a fully functional 
 
 1. Upload the `zingiri-web-shop` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Activate the 4 sidebar widgets.
+3. Activate the 3 sidebar widgets.
 4. Go to the Wordpress Settings page and find the link to the Admininistration Panel of Zingiri Web Shop, login with the default user admin and password admin_1234.
 
 Please visit the [Zingiri](http://www.zingiri.com/web-shop "Zingiri") website for more information and a Demo.
