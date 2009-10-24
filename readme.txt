@@ -4,7 +4,7 @@ Donate link: http://www.zingiri.com/
 Tags: ecommerce, e-commerce, paypal, freewebshop, shop, cart
 Requires at least: 2.1.7
 Tested up to: 2.8.5
-Stable tag: 0.9.18.1
+Stable tag: 0.9.18.2
 
 Zingiri Web Shop is a Wordpress plugin that brings together a great content management system with the fantastic FreeWebShop ecommerce solution.
 
