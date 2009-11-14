@@ -30,8 +30,8 @@ if (!defined("WP_CONTENT_DIR")) {
 }
 
 if (!defined("ZING_PLUGIN")) {
-
-	$zing_plugin=substr(dirname(__FILE__),strlen(WP_CONTENT_DIR)+9,strlen(dirname(__FILE__))-strlen(WP_CONTENT_DIR)-9);
+	//$zing_plugin=substr(dirname(__FILE__),strlen(WP_CONTENT_DIR)+9,strlen(dirname(__FILE__))-strlen(WP_CONTENT_DIR)-9);
+	$zing_plugin=str_replace(WP_CONTENT_DIR."/plugins/","",dirname(__FILE__));
 	define("ZING_PLUGIN", $zing_plugin);
 }
 
@@ -44,7 +44,7 @@ if (!defined("ZING_SUB")) {
 		define("ZING_SUB", "wp-content/plugins/".ZING_PLUGIN."/fws/");
 	}
 	else {
-		define("ZING_SUB", "wordpress/wp-content/plugins/".ZING_PLUGIN."/fws/");
+		define("ZING_SUB", str_replace(get_option("home")."/","",get_option("siteurl"))."/wp-content/plugins/".ZING_PLUGIN."/fws/");
 	}
 }
 if (!defined("ZING_DIR")) {
