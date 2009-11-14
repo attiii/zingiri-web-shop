@@ -1,0 +1,1 @@
+<!--img src=gfx/businessman.gif align=right-->Bun venit la magazinul online  <a href="http://localhost/webshop/?page=my"><u>Autentificati-va</u></a> folosind Numele de inregistrare <strong>admin</strong> si parola <strong>admin_1234</strong>.  <a href="http://www.freewebshop.org/"><u>Vizitati FreeWebshop.org!</u></a>

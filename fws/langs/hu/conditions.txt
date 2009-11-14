@@ -1,0 +1,1 @@
+Itt határozhatja meg az oldal használatának és a megrendelések általános feltételeit (egyszerű szöveg, HTML kód letiltva).

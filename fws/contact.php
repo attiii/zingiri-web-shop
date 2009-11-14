@@ -30,15 +30,15 @@
 	             $number = "0"; 
 	             $error = 0;
        			 if (!empty($_POST['image_code'])) { $number = $_POST['image_code']; }
-      			 if(!file_exists("addons/captcha/".$number.".key") || $number == "0"){
+      			 if(!file_exists(dirname(__FILE__)."/addons/captcha/".$number.".key") || $number == "0"){
 	                PutWindow($gfx_dir, $txt['general12'], $txt['general16'], "warning.gif", "50");
 	                $error = 1;
 			     }
-			     else { unlink ("addons/captcha/".$number.".key"); }
+			     else { unlink (dirname(__FILE__)."/addons/captcha/".$number.".key"); }
 		     }
              $mail = 0;
-	         if (!empty($_POST['name'])) {
-   	            $name=strip_tags($_POST['name']);
+	         if (!empty($_POST['customername'])) {
+   	            $name=strip_tags($_POST['customername']);
    	            $mail = $mail +1;
 	         }
 			 else { $error = 1; }
@@ -85,16 +85,16 @@
          <br />
          <?php echo $txt['contact11']; ?><br />
 
-         <form method="POST" action="index.php?page=contact">
+         <form method="POST" action="?page=contact">
 	       <?php echo $txt['contact13']; ?><br />
-	       <input type="text" name="name" size="25" maxlength="25" value=""><br />
+	       <input type="text" name="customername" size="25" maxlength="25" value=""><br />
 	       <?php echo $txt['contact14']; ?><br />
 	       <input type="text" name="email" size="45" maxlength="45" value=""><br />
 	       <?php echo $txt['contact15']; ?><br />
 	       <textarea name="message" rows=15 cols=50 value=""></textarea><br />
 	       <?php
 	             if ($use_captcha == 1) {
-					 echo "<img src=\"addons/captcha/php_captcha.php\"><br />";
+					 echo "<img src=\"".ZING_SUB."/addons/captcha/php_captcha.php\"><br />";
 		             echo $txt['general15']." <input type=\"text\" name=\"image_code\" size=\"10\"><br />";
 	             }
 	       ?>      

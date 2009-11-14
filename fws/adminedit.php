@@ -61,7 +61,7 @@ else {
   if ($root == 0) { 
 	  $fullfilename = $lang_dir."/".$lang."/".$filename;  // the file is not in the root of the shop, so it must be in the lang folder
   }
-  else { $fullfilename = $filename; } // the fullfilename just the filename
+  else { $fullfilename = ZING_SUB.$filename; } // the fullfilename just the filename
   
   // if action == write_changes, then do so
   if ($action == "write_changes") {

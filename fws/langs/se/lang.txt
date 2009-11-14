@@ -1,0 +1,641 @@
+<?php
+// The character set we should use for this language. If you are unsure, use ISO-8859-1
+$charset = "ISO-8859-1";
+
+// first some values that can also be used further along in this lang file
+// database values for orders
+$txt['frontpage1'] = 'Mer information';
+
+$txt['db_shipping1'] = 'Hämta produkten själv, efter överenskommelse, ingen frakt';
+
+// database values for payments
+$txt['db_payment1'] = 'Betala via bank';
+$txt['db_payment2'] = 'Betala i affären (endast vid hämta själv)';
+$txt['db_payment3'] = 'Betala med  PayPal';
+$txt['db_payment4'] = 'Postförskott';
+
+// order status
+$txt['db_status1'] = 'Order emottagen';
+$txt['db_status2'] = 'Väntar på betalning';
+$txt['db_status3'] = 'Väntar på möte';
+$txt['db_status4'] = 'Order behandlas';
+$txt['db_status5'] = 'Skickad till kund (avslutad)';
+$txt['db_status6'] = 'Hämtad av kund (avslutad)';
+$txt['db_status7'] = 'Avbruten';
+
+$txt['db_status10'] = 'Förklaringar av status';
+$txt['db_status11'] = 'Din order är motagen, Men ännu inte godkänd av anställd';
+$txt['db_status12'] = 'Din order är godkänd. Du måste överföra summan till vårt bankkonto';
+$txt['db_status13'] = 'Betalning mottagen. Vi har skickat ett mail för att informera om att ordern är färdig att hämtas. Du behöver höra av dig fär att komma överns om ett möte';
+$txt['db_status14'] = 'Betalning mottagen. Orden behandlas. Detta betyder antingen att vi håller på att få in produkten, eller förbereder att skicka den.';
+$txt['db_status15'] = 'Orden skickad med posten. Ordern avslutad';
+$txt['db_status16'] = 'Ordern hämtad av er. Ordern avslutad';
+$txt['db_status17'] = 'Order avbruten, antingen av er eller oss';
+
+// database values for stock
+$txt['db_stock1'] = 'I lager';
+$txt['db_stock2'] = 'Slut på lager';
+$txt['db_stock3'] = 'Restnoterad';
+
+$txt['db_stock10'] = 'Förklaringar av lager status';
+$txt['db_stock11'] = 'Produkten i lager. Om du beställer nu, levereras produkten snarast';
+$txt['db_stock12'] = 'Produkten slut på lager';
+$txt['db_stock13'] = 'Produkten restnoterad, snart i lager igen';
+
+// general values
+$txt['general1'] = 'Tillträde nekat!';
+$txt['general2'] = 'Din ip adress har blivit loggad för att förhindra fortsatt missbruk';
+$txt['general3'] = 'Ny';
+$txt['general4'] = 'Tillbaka till admin options';
+$txt['general5'] = 'Moms';
+$txt['general6'] = 'exkl.';
+$txt['general7'] = 'inkl.';
+$txt['general8'] = 'OBS: Webshopen avstängd! Kunder kan inte söka eller beställa';
+$txt['general9'] = '404 FEL. Sidan kan ej hittas!';
+$txt['general10'] = 'Du har blivit avstängd från webshopen';
+$txt['general11'] = 'Om oss';
+$txt['general12'] = 'FEL';
+$txt['general13'] = 'Notera';
+$txt['general14'] = 'Bakåt';
+$txt['general15'] = 'Skriv in denna kod';
+$txt['general16'] = 'Koden angavs inte korrekt. Försök igen';
+
+// header.php
+$txt['header1'] = 'Säkerhetsrisk';
+$txt['header2'] = 'Välkommen';
+$txt['header3'] = 'gäst';
+$txt['header4'] = '<font color=red><b>install.php</b></font> hittad. Du måste radera/byta namn på filen innan du fortsätter!';
+
+// menu.php
+$txt['menu1'] = 'Hem';
+$txt['menu2'] = 'Din kundvagn';
+$txt['menu3'] = 'Till kassan';
+$txt['menu4'] = 'Sök';
+$txt['menu5'] = 'Allmänna villkor';
+$txt['menu6'] = 'Leverans alternativ';
+$txt['menu7'] = 'Köpinformation';
+$txt['menu8'] = 'Kontakta oss';
+$txt['menu9'] = 'Administration';
+$txt['menu10'] = 'Min sida';
+$txt['menu11'] = 'Logga ut';
+$txt['menu12'] = 'Logga in';
+$txt['menu13'] = 'Registrera';
+$txt['menu14'] = 'Information';
+$txt['menu15'] = 'Produkter';
+$txt['menu16'] = 'Nya produkter';
+$txt['menu17'] = 'Inga produkter';
+$txt['menu18'] = 'Om oss';
+$txt['menu19'] = 'Extra';
+
+// sendprocedure.php
+$txt['send1'] = 'Fraktmetod';
+
+// cart.php
+$txt['cart1'] = 'Kundvagn';
+$txt['cart2'] = 'Din kundvagn är tom.<br /><br />';
+$txt['cart3'] = 'Beskrivning';
+$txt['cart4'] = 'Pris';
+$txt['cart5'] = 'Antal';
+$txt['cart6'] = 'Ta bort';
+$txt['cart7'] = 'Total';
+$txt['cart8'] = 'Töm';
+$txt['cart9'] = 'Till kassan';
+$txt['cart10'] = 'Updatera';
+$txt['cart11'] = 'Vad finns i kundvagnen';
+$txt['cart12'] = 'Fortsätt handla ';
+
+// browse.php
+$txt['browse1'] = 'Sökresultat';
+$txt['browse2'] = 'Produktbeskrivning';
+$txt['browse3'] = 'Pris';
+$txt['browse4'] = '<font color=white><b>Sortera</b></font> ';
+$txt['browse5'] = 'Inga produkter funna';
+$txt['browse6'] = 'bilden kanske inte stämmer med texten';
+$txt['browse7'] = 'redigera';
+$txt['browse8'] = 'ta bort';
+$txt['browse9'] = 'Produktlista';
+$txt['browse10'] = 'Byt bild';
+$txt['browse11'] = 'Sidor';
+$txt['browse12'] = 'Slutsålt';
+$txt['browse13'] = 'I lager';
+
+// submenu.php
+$txt['submenu1'] = 'Kategorier i denna grupp';
+$txt['submenu2'] = 'Inga kategorier hittades i denna grupp';
+
+// main.php
+$txt['main1'] = 'Välkommen';
+$txt['main2'] = 'Specialerbjudanden';
+
+// details.php
+$txt['details1'] = 'Produktbeskrivning';
+$txt['details2'] = 'ArtNr';
+$txt['details4'] = 'Beskrivning';
+$txt['details5'] = 'Pris/st';
+$txt['details6'] = 'Antal';
+$txt['details7'] = 'Köp';
+$txt['details8'] = 'Tillbaka till listan';
+$txt['details9'] = 'Klicka för full storlek';
+
+// conditions.php
+$txt['conditions1'] = 'Godkänner';
+$txt['conditions2'] = 'Jag godkänner INTE allmänna vilkor';
+$txt['conditions3'] = 'Inte tillgänglig';
+$txt['conditions4'] = 'Beställning inte möjlig för tillfället';
+$txt['conditions5'] = 'Generella villkor';
+
+// shipping.php
+$txt['shipping1'] = 'Fraktalternativ';
+$txt['shipping2'] = 'Välj fraktmetod';
+$txt['shipping3'] = 'Kommentar/frågor';
+$txt['shipping4'] = 'Rabattkod';
+$txt['shipping5'] = 'Om du har en rabattkod, så kan du skriva den här';
+$txt['shipping9'] = 'Nästa steg';
+$txt['shipping10'] = 'Välj betalningsmetod';
+
+// checkout.php
+$txt['checkout1'] = 'Ogiltig rabattkod. Om du anser att detta är fel, var god kontakta oss innan du fortsätter med utcheckningen';
+$txt['checkout2'] = 'Sidan har upphört. Gå tillbaka till kundvagnen och gå till kassan';
+$txt['checkout3'] = "Kära $lastname,<br /><br /><br />Detta meddelande bekräftar din order från <a href=$shopurl>$shopname</a><br /><br />Ert order nummer: $webid<br />Ert kund nr: $customerid<br /><br />Du beställde följande produkter:<br />";
+$txt['checkout4'] = ' x Produkt ';
+$txt['checkout5'] = ' a antal';
+$txt['checkout6'] = "<br />";
+$txt['checkout7'] = 'Du försökte beställa:';
+$txt['checkout8'] = 'finns i lager:';
+$txt['checkout9'] = "<br /><br />Du kan kontrollera stausen på din order när som helst, genom att klicka på din <a href=\"$shopurl/index.php?page=orders&id=$customerid\">$shopurl/index.php?page=orders&id=$customerid>order status</a>.<br /><br />Tack för din order.<br />Om du har frågor kontakta oss (kontaktuppgifter finns på hemsidan). ";
+$txt['checkout10'] = 'Din order är godkänd av '.$shopname;
+$txt['checkout11'] = 'Din order är färdig. Ett bekräftelse mail har skickats till er.';
+$txt['checkout12'] = 'Bekräftelse mailet kunde inte skickas. Skriv därför ut bekräftelsen nedan.';
+$txt['checkout13'] = 'Nedan är en kopia på bekräftelse mailet:';
+$txt['checkout13'] = 'Rabatt';
+$txt['checkout15'] = 'Finns inte tillräckligt i lager av den vara du försökte beställa:';
+$txt['checkout16'] = "Fraktalternativ: ";
+$txt['checkout17'] = "<strong>Leveransadress:</strong><br />$company<br />$initials $middlename $lastname<br />$address<br />$zipcode  $city<br />$state<br />$country<br />$phone";
+$txt['checkout18'] = 'Rabattkod';
+$txt['checkout19'] = "<strong>Betalningsalternativ:</strong>";
+$txt['checkout20'] = "<strong>Bankinforamtion:</strong><br />Kontonr: $bankaccount<br />Kontohavare: $bankaccountowner<br />Stad: $bankcity<br />Land: $bankcountry<br />Bank: $bankname<br />IBAN: $bankiban<br />BIC: $bankbic<br />Referensnr: $webid";
+$txt['checkout21'] = "Vi kontaktar dig när vi åter har produkten i lager.";
+$txt['checkout22'] = "Använd ditt PayPal konto för att betala.";
+$txt['checkout23'] = "Du måste betala på post stället när du får paketet.";
+$txt['checkout24'] = "Totalsumma";
+$txt['checkout25'] = "Inklusive $show_vat ".$txt['general5'];
+$txt['checkout26'] = "Betala hela fakturans belopp innom $paymentdays dagar. När vi motagit betalning så kommer ordern att skickas snarast möjligt.";
+$txt['checkout27'] = 'eller spara ordern i PDF-format';
+
+// Search.php
+$txt['search1'] = '<font color=Black><b>Sök Produkt</b></font>';
+$txt['search2'] = 'Sök efter';
+$txt['search3'] = 'Sök metod';
+$txt['search4'] = 'Matcha alla ord';
+$txt['search5'] = 'Matcha något';
+$txt['search6'] = 'Sök';
+
+// guarantee.php
+$txt['guarantee1'] = 'Köpinformation';
+
+// contact.php
+$txt['contact1'] = 'Fråga via formulär på '. $shopurl;
+$txt['contact2'] = 'Skicka meddelande';
+$txt['contact3'] = 'Ert meddelande är skickat. Vi kommer att svara så snart möjligt';
+$txt['contact5'] = 'Du måste fylla i alla fälten i formuläret.<br /><a href="javascript:history.go(-1)"><strong>Klicka här</strong></a> för att gå bakåt.';
+$txt['contact6'] = 'Kontakta oss';
+$txt['contact7'] = '<strong>Hur kommer man i kontakt med</strong>';
+$txt['contact8'] = 'E-mail';
+$txt['contact9'] = 'Telefon';
+$txt['contact10'] = 'Fax';
+$txt['contact11'] = '<strong>Fyll i ditt meddelande så kontaktar vi er så fort vi kan</strong> ';
+$txt['contact12'] = 'Skicka till';
+$txt['contact13'] = '<strong>Namn</strong>';
+$txt['contact14'] = '<strong>E-mail adress</strong>';
+$txt['contact15'] = '<strong>Meddelande</strong>';
+
+// checklogin.php
+$txt['checklogin1'] = 'Logga in';
+$txt['checklogin2'] = 'Användarnamn';
+$txt['checklogin3'] = 'Lösenord';
+$txt['checklogin4'] = 'Login';
+$txt['checklogin5'] = 'Ej medlem.  Klicka här! ';
+$txt['checklogin6'] = 'Varför bli medlem?';
+$txt['checklogin7'] = 'För att kunna beställa från vår hemsida måste du registrera dig. Under registreringen kommer vi att behöva namn, leverans adress , e-mail adress, etc. Vi behöver denna information för att korrekt kunna behandla din order.<br /><br /><strong>Dina uppgifter kommer bara att användas av oss.</strong><br /><br /><br />När du blivit registrerad kan du:<ul><li>- Logga in från vilken dator som helst<li>- Beställa produkter<li>- Övervaka status på din order<li>- Hantera din kundvagn</ul>';
+$txt['checklogin8'] = 'Glömt ditt användarnamn/lösenord';
+$txt['checklogin9'] = 'Fyll i mailadressen du använde när du registrerade dig. Användarnamn och lösen ord kommer att skickas dit.';
+$txt['checklogin10'] = 'Skicka mail';
+$txt['checklogin11'] = 'Glömt ditt användarnamn/lösenord Klicka här';
+$txt['checklogin12'] = 'användarnamn/lösenord skickat till';
+$txt['checklogin13'] = 'Glömt användarnamn/lösenord '. $shopurl;
+$txt['checklogin14'] = 'Detta mail skickades till er, för att ni begärt ert användarnamn/lösenord i vår webshop ('. $shopurl .').';
+$txt['checklogin15'] = 'Det finns ingen kund med den mailadressen du angav';
+$txt['checklogin18'] = 'Bakåt';
+
+// login.php
+$txt['login1'] = 'Fel vid inloggning.....vänta';
+$txt['login2'] = 'eller klicka här';
+$txt['login3'] = 'Du är inloggad....vänta';
+
+// logout.php
+$txt['logout1'] = 'Du har loggat ut..';
+
+// my.php
+$txt['my3'] = 'Om din personliga sida';
+$txt['my4'] = 'Detta är din personliga sida. Bara du har tillgång till denna sida om du är korrekt inloggad med användarnamn och lösenord.<br /><br />På denna skärm kan du se dina personliga uppgifter, order och kundvagn. Allt tillgängligt från en skärm.';
+$txt['my5'] = 'Alternativ för mina sidor';
+$txt['my6'] = 'Ert kund-ID';
+$txt['my7'] = 'Ändra information';
+$txt['my8'] = 'Visa order';
+$txt['my9'] = 'Visa kundvagn';
+
+// admin.php
+$txt['admin1'] = 'Affärsadministration';
+$txt['admin2'] = 'Order';
+$txt['admin3'] = 'Kunder';
+$txt['admin4'] = 'Affär';
+$txt['admin5'] = 'Produkter';
+$txt['admin6'] = 'Grupper&<br />Kategorier';
+$txt['admin7'] = 'Optimera databas';
+$txt['admin8'] = 'Inställningar';
+$txt['admin9'] = 'Ladda upp prislista';
+$txt['admin10'] = 'Optimerar alla databas tabeller..';
+$txt['admin11'] = 'Optimerar';
+$txt['admin12'] = 'Optimering slutförd!';
+$txt['admin13'] = 'Info och support';
+$txt['admin14'] = 'Leta efter uppdateringar';
+$txt['admin15'] = 'Allmänna villkor';
+$txt['admin16'] = 'Fraktsida';
+$txt['admin17'] = 'Garantisida';
+$txt['admin18'] = 'Fraktalternativ';
+$txt['admin19'] = 'Spärrlista';
+$txt['admin20'] = 'Om oss';
+$txt['admin21'] = 'Betalningsalternativ';
+$txt['admin22'] = 'Förstasida';
+$txt['admin23'] = 'Ändra inställningar';
+$txt['admin24'] = 'Redigera filer';
+$txt['admin25'] = 'Information';
+$txt['admin26'] = 'Fel-logg';
+$txt['admin27'] = 'Säkerhetskopiera databas';
+$txt['admin28'] = 'Säkerhetskopiering är klar. För att ladda hem den, klicka på länken nedan';
+$txt['admin29'] = 'Administratörer';
+$txt['admin30'] = 'Extra sidor';
+$txt['admin31'] = 'Inloggningslogg';
+$txt['admin32'] = 'Lagerskötsel';
+$txt['admin33'] = 'Antal produkter (';
+$txt['admin34'] = ') är under den minimala värdet!';
+$txt['admin35'] = 'Mailing-lista';
+$txt['admin36'] = '<strong><font color="red">There is news from FreeWebshop.org</font></strong><br /><br />It might be a security fix, new version or other important news. Check it out below or visit <a href="http://www.freewebshop.org">FreeWebshop.org</a>!<br /><br />(you only get this notification once when there is new news)';
+$txt['admin37'] = 'Leveransländer';
+$txt['admin38'] = 'Rabatt';
+
+
+// customeradmin.php
+$txt['customeradmin1'] = 'Efternamn';
+$txt['customeradmin2'] = 'Medlem sedan';
+$txt['customeradmin3'] = 'E-mail';
+$txt['customeradmin4'] = 'Telefon';
+$txt['customeradmin5'] = 'Inställningar';
+$txt['customeradmin6'] = 'Administratörer';
+$txt['customeradmin7'] = 'Den här personen tillhör nu administrationsgruppen';
+$txt['customeradmin8'] = 'Den här personen tillhör nu kunderna';
+$txt['customeradmin9'] = 'Inga kunder funna';
+$txt['customeradmin10'] = 'Sök';
+
+// orderadmin.php
+$txt['orderadmin1'] = 'Status på din order ';
+$txt['orderadmin2'] = ' Har ändrats';
+$txt['orderadmin3'] = 'Order bortagen';
+$txt['orderadmin4'] = "<br /><br />Besök http://$shopurl/index.php?page=orders&id=";
+$txt['orderadmin5'] = ' för nuvarande order status';
+$txt['orderadmin6'] = 'Skicka E-mail till';
+$txt['orderadmin7'] = 'Maila kund?';
+$txt['orderadmin8'] = 'Uppdatera';
+$txt['orderadmin9'] = 'Alla order';
+$txt['orderadmin10'] = 'Det finns inga order med den status du skrev';
+$txt['orderadmin11'] = 'visa';
+$txt['orderadmin12'] = 'NOTERA: Kunden har skrivit extra information!';
+$txt['orderadmin13'] = 'Order administration';
+$txt['orderadmin14'] = 'Ändra status';
+$txt['orderadmin15'] = 'Order status ändrad';
+
+// orders.php
+$txt['orders3'] = 'Din order <a href=# class=info>(?)<span>Nedan är en lista över dina order, och deras nuvarande status<br />KLicka på ett order nummer för att se detaljerna</span></a>';
+$txt['orders4'] = 'Order Nummer';
+$txt['orders5'] = 'Leverans och betalning';
+$txt['orders6'] = 'Summa faktura';
+$txt['orders7'] = 'Order datum';
+$txt['orders8'] = 'Status';
+$txt['orders9'] = 'Du har ännu inte lagt någon order i vår webshop';
+
+// customer.php
+$txt['customer1'] = 'Län';
+$txt['customer2'] = 'Kund bortagen';
+$txt['customer3'] = 'Bakåt';
+$txt['customer5'] = 'Du måste rätta till felen i ordern för att fortsätta';
+$txt['customer6'] = 'Alla fält markerade med en (*) är obligatoriska';
+$txt['customer7'] = 'Mellan slag inte tillåtet i användar namnet';
+$txt['customer8'] = 'Båda lösenorden måste stämma överens';
+$txt['customer9'] = 'Ditt lösenord måste vara minst 5 tecken';
+$txt['customer10'] = 'Du skrev ogiltig mail adress';
+$txt['customer11'] = "Välkommen till $shopname";
+$txt['customer12'] = "Kära herr, fru $tussenvoegsels $naam,<br /><br />Tack för att du registrerade dig hos $shopname Webshop ($shopurl).<br /><br />Du kan nu logga in i vår webshop och beställa varor<br />eller kontrollera statusen på dina order.<br /><br />Här är dina användar uppgifter:<br />Användar namn:  $login<br />Lösenord: $pass1<br /><br />Förvara dessa uppgifter på ett säkert sätt!<br /><br />träffas snart på $shopurl<br /><br />Vänliga hälsningar,<br /><br /><br />Webmaster";
+$txt['customer13'] = 'Dina uppgifter sparades korrekt.';
+$txt['customer14'] = 'Ge så mycket information som möjligt';
+$txt['customer15'] = 'Användarnamn';
+$txt['customer16'] = 'Lösenord';
+$txt['customer17'] = 'Lösenord igen';
+$txt['customer18'] = 'Namn och Efternamn';
+$txt['customer19'] = 'Herr/Fru/Unge herr/Fröken';
+$txt['customer20'] = 'Initialer';
+$txt['customer21'] = 'Adress';
+$txt['customer22'] = 'Post nr';
+$txt['customer23'] = 'Ort';
+$txt['customer24'] = 'Land';
+$txt['customer25'] = 'Telefon';
+$txt['customer26'] = 'E-mail';
+$txt['customer27'] = '* = Måste fyllas i';
+$txt['customer28'] = 'Spara';
+$txt['customer29'] = 'Användarnamnet du valde, används redan av annan användare';
+$txt['customer30'] = 'Företag';
+$txt['customer32'] = 'Du försökte ta bort ett admin konto. Detta KAN hindra dig från att logga in i webshopen. Din förfrågan har blivit VÄGRAD.';
+$txt['customer33'] = '(Mellan 5 och 10 tecken)';
+$txt['customer34'] = 'Mail adressn du angav används redan av annan användare';
+$txt['customer35'] = 'Klicka här för att logga in';
+$txt['customer36'] = 'Ny kund';
+$txt['customer37'] = 'En kund har registrerat sig i din webshop. En kopia av mailet som skickades till kunden finnes nedan:';
+$txt['customer38'] = 'Nyhetsbrev';
+
+// readorder.php
+$txt['readorder1'] = 'Skriv ut denna order';
+$txt['readorder2'] = 'Go back to your orders';
+
+// editsettings.php
+$txt['editsettings1'] = 'Ändra inställningar';
+$txt['editsettings2'] = 'Spara inställningar';
+$txt['editsettings3'] = 'Dölj slutsålda produkter';
+$txt['editsettings4'] = 'Standardfraktland <a href=# class=info>(?)<span>Vanligtvis det land ditt företag finns i</span></a>';
+$txt['editsettings5'] = 'Visa antal i lager';
+$txt['editsettings7'] = 'Postförskottsavgift <a href=# class=info>(?)<span>Tilläg på vanlig frakt kostnad, denna form av frakt kostar extra. Format: 12.34</span></a>';
+$txt['editsettings8'] = 'Valuta';
+$txt['editsettings9'] = 'Valutasymbol <a href=# class=info>(?)<span>I ditt fall troligen: SEK </span></a>';
+$txt['editsettings10'] = 'Betala innom xx dagar <a href=# class=info>(?)<span>Innom hur många dagar skall beloppet vara dig tillhanda?</span></a>';
+$txt['editsettings11'] = 'Inklusive moms <a href=# class=info>(?)<span>om momsen är 25% skall det stå: 1.25</span></a>';
+$txt['editsettings12'] = 'Momstext <a href=# class=info>(?)<span>om momsen är 25% skall det stå: 25%</span></a>';
+$txt['editsettings13'] = 'Priser i  DB är inkl moms';
+$txt['editsettings14'] = 'Order-Mailadress <a href=# class=info>(?)<span>PÅ denna adress kommer du att få order, till exempel: sales@yourdomain.com</span></a>';
+$txt['editsettings15'] = 'Namn på affären';
+$txt['editsettings16'] = 'Webshop URL <a href=# class=info>(?)<span>URL börjar med http://, utan avslutande /, till exempel: http://www.yourdomain.com/shop</span></a>';
+$txt['editsettings17'] = 'Standardspråk';
+$txt['editsettings18'] = 'Orderprefix  <a href=# class=info>(?)<span>Varje order börjar med detta prefix, till exempel: 2008</span></a>';
+$txt['editsettings19'] = 'Ordersuffix  <a href=# class=info>(?)<span>Varje order slutar med detta suffix, till exempel: W</span></a>';
+$txt['editsettings20'] = 'Använd lagersaldo <a href=# class=info>(?)<span><b>enabled:</b> Du använder lager saldo<br><br><b>avaktiverad:</b> du använder lager status (i lager/beställt/ej i lager)</span></a>';
+$txt['editsettings21'] = 'Aktivera order-modul';
+$txt['editsettings22'] = 'Avaktivera webshop';
+$txt['editsettings23'] = 'Avaktivera webshoptitel';
+$txt['editsettings24'] = 'Avaktivera webshopmeddelande';
+$txt['editsettings25'] = 'e-mailadress (webmaster)';
+$txt['editsettings26'] = 'Telefonnummer';
+$txt['editsettings27'] = 'Faxnummer';
+$txt['editsettings28'] = 'Bankkonto';
+$txt['editsettings29'] = 'Kontohavare';
+$txt['editsettings30'] = 'Bankens stad';
+$txt['editsettings31'] = 'Bankens land';
+$txt['editsettings32'] = 'Bank IBAN';
+$txt['editsettings33'] = 'Bank BIC';
+$txt['editsettings34'] = 'Startår <a href=# class=info>(?)<span>Året du startade ditt företag</span></a>';
+$txt['editsettings35'] = 'Logo <a href=# class=info>(?)<span>Bilden med din logotype. Den skall finnas i mappen <b>'.$gfx_dir.'</b></span></a>';
+$txt['editsettings37'] = 'Slogan <a href=# class=info>(?)<span>Slogan skrivs ut under logotypen</span></a>';
+$txt['editsettings38'] = 'Browsertitel <a href=# class=info>(?)<span>Namnet som visas i browserfönstret i vilken din webshop visas</span></a>';
+$txt['editsettings39'] = 'Sidfot';
+$txt['editsettings44'] = 'Inställningarna sparades i databasen';
+$txt['editsettings45'] = 'Bank';
+$txt['editsettings46'] = 'Utseende';
+$txt['editsettings47'] = 'Butik';
+$txt['editsettings48'] = 'Finans';
+$txt['editsettings49'] = 'Talformat';
+$txt['editsettings50'] = 'Maximal beskrivningslängd <a href=# class=info>(?)<span>Detta är för att korta beskrivningen i prislistan. <br><b>0 = Korta inte<br>1-99 = wordwrap on xx characters</b></span></a>';
+$txt['editsettings51'] = 'Ingen moms <a href=# class=info>(?)<span>Aktivera detta om du inte vill använda moms i din butik.</span></a>';
+$txt['editsettings52'] = 'Namn på banken';
+$txt['editsettings53'] = 'Prislisteformat <a href=# class=info>(?)<span>Denna inställning gäller prislistor, kundvagn och orderbekräftelsemail</span></a>';
+$txt['editsettings54'] = 'Artikelnr';
+$txt['editsettings55'] = 'Beskrivning';
+$txt['editsettings56'] = 'Artikelnr och beskrivning';
+$txt['editsettings57'] = 'Datumformat <a href=# class=info>(?)<span><b>d-m-Y  G:i</b> for dd-mm-jjjj  23:59<br><b>m-d-Y  G:i</b> for mm-dd-jjjj  23:59<br></span></a>';
+$txt['editsettings58'] = 'Sök gfx i prislista <a href=# class=info>(?)<span>Sök efter bilder på dom olika produkterna när prislistan laddas. om en bild hittas, kommer en icon visas brevid produkten, så att besökaren känner igen produkten. <br><br>för att minska inläsnings tid, eller om du har bilder på en avlägsen server, är det bäst att stänga av detta</span></a>';
+$txt['editsettings59'] = 'Använd bilder <a href=# class=info>(?)<span>om du inte har bilder på produkterna, är det bättre att stänga av detta</span></a>';
+$txt['editsettings69'] = 'Använd tumnaglar i prislista <a href=# class=info>(?)<span>visar (om det finns) en minibild av produkten före beskrivningen</span></a>';
+$txt['editsettings70'] = 'Nyckelord<a href=# class=info>(?)<span>Ord som sökmotorn hittar på internet. Använd komma och separerade ord.</span></a>';
+$txt['editsettings71'] = 'Använt teckenuppsättning <a href=# class=info>(?)<span>Vissa språk kan behöva en annat teckenuppsättning. För dig är det troligen  ISO-8859-1</span></a>';
+$txt['editsettings72'] = 'Visa Allmänna villkor (länk)';
+$txt['editsettings73'] = 'Visa garantilänk';
+$txt['editsettings74'] = 'Visa fraktlänk';
+$txt['editsettings75'] = 'Bild (filnamn) <a href=# class=info>(?)<span>En del språk innehåller tecken som inte är tillåtna i filnamn.. Det är bäst att använda databas id som filnamn i dom (och dom flesta andra) fallen</span></a>';
+$txt['editsettings76'] = 'DatabasID (rekomenderas)';
+$txt['editsettings77'] = 'Artikelnr';
+$txt['editsettings78'] = 'Visa "om oss"-länk';
+$txt['editsettings79'] = 'Använd live-nyheter <a href=# class=info>(?)<span>Detta gör att du får live nyheter fårn FreeWebshop.org, Som informera om uppdateringar och relaterade nyheter. Stäng bara av detta om du har problem med detta</span></a>';
+$txt['editsettings80'] = 'Prislisteminibildsbredd <a href=# class=info>(?)<span>Bredd i  pixels.<br />default=50<br/>0=Stäng av ändra storlek</span></a>';
+$txt['editsettings81'] = 'Prislisteminibildshöjd <a href=# class=info>(?)<span>Höjd i  pixels.<br />default=50<br />0=Stäng av ändra storlek</span></a>';
+$txt['editsettings82'] = 'Katergoriminibildsbredd <a href=# class=info>(?)<span>bredd i pixels.<br />default=50<br />0=Stäng av ändra storlek</span></a>';
+$txt['editsettings83'] = 'Katergoriminibildshöjd <a href=# class=info>(?)<span>höjd i pixels.<br />default=50<br />0=Stäng av ändra storlek</span></a>';
+$txt['editsettings84'] = 'Produktbild. max. Bredd <a href=# class=info>(?)<span>Max bredd i pixels.<br />default=450<br />9999=stäng av max</span></a>';
+$txt['editsettings85'] = 'Produktbild. max. höjd <a href=# class=info>(?)<span>Max höjd i  pixels.<br />default=350<br />9999=stäng av max</span></a>';
+$txt['editsettings86'] = 'Alla';
+$txt['editsettings87'] = 'Visa "Nya Produkter"-länk';
+$txt['editsettings88'] = 'Använd WYSIWYG-redigerare';
+$txt['editsettings89'] = 'Autoskapa minibild <a href=# class=info>(?)<span>Auto skapar minibild vid upladning av produktbild.<br />Kräver <strong>GD extension (i php tolken)</strong> för att fungera</span></a>';
+$txt['editsettings90'] = 'Butiksbeskrivning <a href=# class=info>(?)<span>Beskrivningen används av sökmotorer för att indexera din butik</span></a>';
+$txt['editsettings91'] = 'Produkter per sida <a href=# class=info>(?)<span>Antalet produkter som visas per sida.<br />0 = ingen gräns</span></a>';
+$txt['editsettings92'] = 'Avstängd';
+$txt['editsettings93'] = 'Avancerad';
+$txt['editsettings94'] = 'Enkel';
+$txt['editsettings95'] = 'Använd "Captcha" <a href=# class=info>(?)<span>Use Captcha (anti-spambot) with contact form and customer registration</span></a>';
+$txt['editsettings96'] = 'Använd bild-popup <a href=# class=info>(?)<span>Use the better looking image popup<br />Javascript required</span></a>';
+$txt['editsettings97'] = 'Placering av valutasymbol';
+$txt['editsettings98'] = 'Tema';
+$txt['editsettings99'] = 'Använd varning för produktantal ';
+$txt['editsettings100'] = 'Minsta produktantal';
+$txt['editsettings101'] = 'Viktklass <a href=# class=info>(?)<span>För dig antagligen <strong>Kg</strong></span></a>';
+$txt['editsettings102'] = 'Beställa från prislistan';
+$txt['editsettings103'] = 'Använd datumfix <a href=# class=info>(?)<span>Only use this if your errorlog is filling up with date warnings</span></a>';
+$txt['editsettings104'] = 'Prislistsortering';
+$txt['editsettings105'] = 'Beskrivning';
+$txt['editsettings106'] = 'Pris';
+$txt['editsettings107'] = 'Aktivera automatisk framhållning <a href=# class=info>(?)<span>Om det är PÅ och betalningsmetoden stöder det, kommer kunden automatiskt att dirigeras om till betalningssida av den valda betalningsmetoden.</span></a>';
+$txt['editsettings108'] = 'Skapa PDF:er <a href=# class=info>(?)<span>Om aktiverat, så konverteras orderekräftelsen till en PDF som bifogas ett e-mail till kunden.</span></a>';
+$txt['editsettings109'] = 'Använd PHP Mail() <a href=# class=info>(?)<span>Använd PHP Mail() för att skicka mail</span></a>';
+
+// productadmin.php
+$txt['productadmin1'] = ' Har blivit uppladdad till ';
+$txt['productadmin2'] = 'Det upstod ett fel under uppladdning, försök igen!';
+$txt['productadmin3'] = 'Endast .jpg, .png or .gif filer';
+$txt['productadmin4'] = 'Lägg till ny produkt';
+$txt['productadmin5'] = 'Tillbaka till produktlistan';
+$txt['productadmin6'] = 'Lägg till produkt';
+$txt['productadmin7'] = 'Uppdatera a produkt';
+$txt['productadmin8'] = 'Lägg till några grupper först';
+$txt['productadmin9'] = 'Art nr';
+$txt['productadmin10'] = 'Beskrivning <a href=# class=info>(?)<span>HTML tillåten</span></a>';
+$txt['productadmin11'] = 'Pris <a href=# class=info>(?)<span>format: 123456.78</span></a>';
+$txt['productadmin12'] = 'Lager kvantitet';
+$txt['productadmin13'] = 'Lager (0|1|2) <a href=# class=info>(?)<span>0=Slut på lager<br>1=Finns på lager<br>2=Beställt från leverantör</span></a>';
+$txt['productadmin14'] = 'På första sida';
+$txt['productadmin15'] = 'NY';
+$txt['productadmin16'] = 'Lägg till produkt';
+$txt['productadmin17'] = 'Updatera produkt';
+$txt['productadmin18'] = 'Grupp/kategori';
+$txt['productadmin19'] = 'Välj en  jpg, png eller gif file';
+$txt['productadmin20'] = 'ladda upp';
+$txt['productadmin21'] = 'Ladda upp bild';
+$txt['productadmin22'] = 'Skapa några kategorier först';
+$txt['productadmin23'] = 'Du kan inte lägga upp en bild, för produkten har inget artikel nr';
+$txt['productadmin24'] = 'Radera denna bild';
+$txt['productadmin25'] = 'Bild raderad korrekt';
+$txt['productadmin26'] = 'Produkten raderad korrekt';
+$txt['productadmin27'] = 'Extra val';
+$txt['productadmin28'] = 'Skapa minibild för alla bilder (kan ta ett bra tag)';
+$txt['productadmin29'] = 'Alla minibilder är skapade (där det behövdes)..';
+$txt['productadmin30'] = 'Typ <a href=# class=info>(?)<span>Feature1:Red,White,Blue|Feature2:Small,Medium,Large<br />No spaces!</span></a>';
+$txt['productadmin31'] = 'Vikt <a href=# class=info>(?)<span>The weight is used is the shipping rate is calculated using the total weight of the order</span></a>';
+
+// groupadmin.php
+$txt['groupadmin1'] = ' har blivit uppladdat till ';
+$txt['groupadmin2'] = 'Ett fel uppstod, försök igen!';
+$txt['groupadmin3'] = 'Bara .jpg, png eller .gif filer';
+$txt['groupadmin4'] = 'Grupp skapad..';
+$txt['groupadmin5'] = 'Grupp uppdaterad..';
+$txt['groupadmin6'] = 'Grupp (och underliggande kategorier och produkter) raderad..';
+$txt['groupadmin7'] = 'kategori skapad..';
+$txt['groupadmin8'] = 'kategori uppdaterad..';
+$txt['groupadmin9'] = 'kategori flyttad..';
+$txt['groupadmin10'] = 'kategori (och underliggande produkter) raderad..';
+$txt['groupadmin11'] = 'Grupp namn';
+$txt['groupadmin12'] = 'Lägg till grupp';
+$txt['groupadmin13'] = 'Det finns inga grupper än';
+$txt['groupadmin14'] = 'Grupp';
+$txt['groupadmin15'] = 'Nytt grupp namn';
+$txt['groupadmin16'] = 'Uppdatera grupp';
+$txt['groupadmin17'] = 'Radera grupp';
+$txt['groupadmin18'] = 'Grupp alternativ';
+$txt['groupadmin19'] = 'Kategori alternativ';
+$txt['groupadmin20'] = 'Kategori namn';
+$txt['groupadmin21'] = 'Lägg till kategori';
+$txt['groupadmin22'] = 'Kategori';
+$txt['groupadmin23'] = 'Nytt kategori namn';
+$txt['groupadmin24'] = 'Uppdatera kategori';
+$txt['groupadmin25'] = 'Flytta kategori';
+$txt['groupadmin26'] = 'Radera kategori';
+$txt['groupadmin27'] = 'Välj en  jpg, png eller gif bild';
+$txt['groupadmin28'] = 'Ladda upp';
+$txt['groupadmin29'] = 'Ladda upp en bild';
+$txt['groupadmin30'] = 'Allmänna alternativ';
+$txt['groupadmin31'] = 'Radera tomma kategorier och grupper';
+$txt['groupadmin32'] = 'antal kategorier raderade';
+$txt['groupadmin33'] = 'antal grupper raderade';
+$txt['groupadmin34'] = 'En grupp med namnet '.$gname.' finns redan';
+$txt['groupadmin35'] = 'Gruppnamnet är tomt';
+$txt['groupadmin36'] = 'Du har inte angivit ett nytt gruppnamn';
+$txt['groupadmin37'] = 'En kategori med namnet '.$cname.' finns redan';
+$txt['groupadmin38'] = 'Du har inte angivit ett nytt kategorinamn';
+$txt['groupadmin39'] = 'Kategorinamnet är tomt';
+
+// uploadadmin.php
+$txt['uploadadmin1'] = ' har laddats upp till ';
+$txt['uploadadmin2'] = 'Ett fel uppstod....försök igen!';
+$txt['uploadadmin3'] = 'Endast .sql filer';
+$txt['uploadadmin4'] = 'Ladda upp en prislista (.SQL)';
+$txt['uploadadmin5'] = 'Välj en  SQL fil';
+$txt['uploadadmin6'] = 'ladda upp SQL';
+$txt['uploadadmin7'] = 'SQL fil inlagd i databasen';
+
+// adminedit.php
+$txt['adminedit1'] = 'Spara ändringar';
+$txt['adminedit2'] = 'Ändringar sparade...';
+$txt['adminedit3'] = 'redigeras nu ';
+
+// shippingadmin.php
+$txt['shippingadmin1'] = 'Fraktmetod tillagd';
+$txt['shippingadmin2'] = 'Frakt metod borttagen';
+$txt['shippingadmin3'] = 'Frakt metod redigerad';
+$txt['shippingadmin4'] = 'Tillgängliga frakt metoder';
+$txt['shippingadmin5'] = 'Beskrivning';
+$txt['shippingadmin6'] = 'Kostnader';
+$txt['shippingadmin7'] = "Bara i  $send_default_country?";
+$txt['shippingadmin8'] = 'Redigera';
+$txt['shippingadmin9'] = 'Ta bort';
+$txt['shippingadmin10'] = 'Lägg till';
+$txt['shippingadmin11'] = 'Redigera frakt länder';
+$txt['shippingadmin12'] = 'Inställningar';
+$txt['shippingadmin13'] = 'Betalnings alternativ';
+$txt['shippingadmin14'] = 'Redigera fraktmetod';
+$txt['shippingadmin15'] = 'OBS: Du håller på att ändra en systemfraktmetod. Denna metod är beroende av andra delar av denna webshop. Bara ändra beskrivningen så att det passar dig, Men inte själva metoden';
+$txt['shippingadmin16'] = 'Redigera standard frakt land';
+$txt['shippingadmin17'] = 'Övriga alternativ';
+$txt['shippingadmin18'] = 'Från';
+$txt['shippingadmin19'] = 'Till';
+$txt['shippingadmin20'] = 'Kostnader';
+$txt['shippingadmin21'] = 'Fraktkostnader/vikt-regel togs bort';
+$txt['shippingadmin22'] = 'Ingen frakt (kunden hämtar)';
+
+// paymentadmin.php
+$txt['paymentadmin1'] = 'Betalnings alternativ tillagt';
+$txt['paymentadmin2'] = 'Betalnings alternativ borttaget';
+$txt['paymentadmin3'] = 'Betalnings alternativ redigerat';
+$txt['paymentadmin4'] = 'Accepterade betalnings alternativ';
+$txt['paymentadmin5'] = 'Beskrivning';
+$txt['paymentadmin6'] = 'Ändra betalnings alternativ';
+$txt['paymentadmin7'] = 'Betalning HTML kod';
+$txt['paymentadmin8'] = 'Redigera';
+$txt['paymentadmin9'] = 'Ta bort';
+$txt['paymentadmin10'] = 'Lägg till';
+$txt['paymentadmin11'] = 'Alternativ';
+$txt['paymentadmin12'] = 'OBS: Du håller på att ändra en systembetalningsmetod. Denna metod är beroende av andra delar av denna webshop. Bara ändra beskrivningen så att det passar dig, Men inte själva metoden';
+
+// errorlogadmin.php
+$txt['errorlogadmin1'] = 'Fel logg';
+$txt['errorlogadmin2'] = 'Allvarlighetsgrad';
+$txt['errorlogadmin3'] = 'Fel';
+$txt['errorlogadmin4'] = 'Fil';
+$txt['errorlogadmin5'] = 'Rad';
+$txt['errorlogadmin6'] = 'Datum';
+$txt['errorlogadmin7'] = 'Inga loggade fel funna';
+$txt['errorlogadmin8'] = 'Rensa logg';
+$txt['errorlogadmin9'] = 'Fel loggen rensad korrekt';
+
+// pagesadmin.php
+$txt['pagesadmin1'] = 'Extra sidor';
+$txt['pagesadmin2'] = 'Sidans namn';
+$txt['pagesadmin3'] = 'Inställningar';
+$txt['pagesadmin4'] = 'Byt namn';
+$txt['pagesadmin5'] = 'Lägg till vanlig sida';
+$txt['pagesadmin6'] = 'Namnet är ändrad';
+$txt['pagesadmin7'] = 'Sidan är bortagen';
+$txt['pagesadmin8'] = 'Försöket misslyckades';
+$txt['pagesadmin9'] = 'Ny sida är skapad';
+$txt['pagesadmin10'] = 'Lägg till privat sida';
+$txt['pagesadmin11'] = 'Dold';
+
+// accessadmin.php
+$txt['accesslogadmin1'] = 'Åtkomstlog';
+$txt['accesslogadmin2'] = 'Inloggning';
+$txt['accesslogadmin3'] = 'Lösenord';
+$txt['accesslogadmin4'] = 'Tid';
+$txt['accesslogadmin5'] = 'Lyckades';
+//$txt['accesslogadmin6'] = 'Datum';
+$txt['accesslogadmin7'] = 'Ingen åtkomstlogsdata funnen';
+$txt['accesslogadmin8'] = 'Töm åtkomstloggen';
+$txt['accesslogadmin9'] = 'Åtkomstloggen tömdes';
+
+// stockadmin.php
+$txt['stockadmin2'] = 'Visa';
+$txt['stockadmin3'] = 'Lager skötsel';
+
+// mailinglist.php
+$txt['mailinglist1'] = 'Copy/paste this to your favourite Mass mailer software';
+
+// discountadmin.php
+$txt['discountadmin2'] = 'Antal rabattkoder';
+$txt['discountadmin3'] = 'Summa rabatter';
+$txt['discountadmin4'] = 'Procent? <a href=# class=info>(?)<span>If you want to give for example 25% discount fill in 25 in the Amount field and check this box. If you want to give a fixed discount, do not check this box</span></a>';
+$txt['discountadmin5'] = 'Gör rabattkoder';
+$txt['discountadmin6'] = 'Alla oanvända rabattkoder';
+$txt['discountadmin7'] = 'Rabattkod';
+$txt['discountadmin8'] = 'Inga oanvända rabattkoder';
+$txt['discountadmin9'] = 'Skapad den';
+?>

@@ -1,10 +1,10 @@
 === Zingiri Web Shop ===
 Contributors: Erik Bogaerts
 Donate link: http://www.zingiri.com/
-Tags: ecommerce, e-commerce, paypal, freewebshop, shop, cart
+Tags: ecommerce, e-commerce, paypal, freewebshop, shop, cart, web shop, shopping cart, iDEAL, Google Checkout, Worldpay
 Requires at least: 2.1.7
 Tested up to: 2.8.5
-Stable tag: 0.9.18.2
+Stable tag: 0.9.19
 
 Zingiri Web Shop is a Wordpress plugin that brings together a great content management system with the fantastic FreeWebShop ecommerce solution.
 
@@ -17,6 +17,16 @@ FreeWebshop.org - FWS in short and released under GNU/GPL by Elmar Wenners - is 
 WordPress ... well you know.
 
 Zingiri Web Shop provides the glue to connect both providing a fully functional proven shopping cart and ecommerce solution. 
+
+The main feaures are:
+
+* Simple installation
+* Easy configuration
+* Many useful features that simplify your work
+* Complete order and customer management module
+* Free support and updates
+* Support for payment portals like Paypal, Worldpay, Google Checkout and iDEAL and possibility to add your own
+* Multilingual support: English, Dutch, French, German, Spanish, ... 
 
 == Installation ==
 
@@ -37,6 +47,14 @@ Please visit the [Zingiri](http://www.zingiri.com/web-shop "Zingiri") website fo
 
 == Changelog ==
 
+= 0.9.19 =
+* Added Paypal Instant Payment Notification (IPN) integration
+* Added more languages: German, Spanish, Czech, Brazilian, Danish, Estonian, Finnish, French, Greek, Hungarian, Norwegian, Polish, Portuguese, Romanian, Russian, Serbian, Swedish, Thai, Turkish
+* Fixed issue with captcha not showing on contact form
+* Fixed issue with contact form being redirected to wrong page
+* Changed length of sales_mail field in settings to 255 chars for compatibility with older versions of mysql
+* Fixed problem with management of features and incorrect price calculation when feature field empty 
+ 
 = 0.9.18 =
 * Removed Extra Pages side bar - this is replaced by standard Wordpress functionality
 * Removed aboutus, shipping, guarantee pages - Wordpress pages can be used instead

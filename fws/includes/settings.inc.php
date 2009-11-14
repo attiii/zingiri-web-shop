@@ -25,7 +25,7 @@
     // database values
     $dbtablesprefix = "wp_zing_";
     $dblocation = "localhost";
-    $dbname = "zingiri_wp";
-    $dbuser = "zingiri_wp";
-    $dbpass = "florida";
+    $dbname = "";
+    $dbuser = "";
+    $dbpass = "";
 ?>

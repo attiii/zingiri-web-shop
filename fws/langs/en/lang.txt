@@ -20,7 +20,7 @@ $txt['db_status2'] = 'Waiting for payment';
 $txt['db_status3'] = 'Waiting for appointment';
 $txt['db_status4'] = 'Order being processed';
 $txt['db_status5'] = 'Sent to customer (completed)';
-$txt['db_status6'] = 'picked up by customer (completed)';
+$txt['db_status6'] = 'Picked up by customer (completed)';
 $txt['db_status7'] = 'Cancelled';
 
 $txt['db_status10'] = 'Explanation of status';

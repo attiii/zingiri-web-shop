@@ -1,0 +1,548 @@
+<?php
+// first some values that can also be used further along in this lang file
+// database values for orders
+$txt['db_shipping1'] = 'Wybierz produkt ustalaj¹c warunki odbioru, bez oplat za przesylke';
+
+// database values for payments
+$txt['db_payment1'] = 'P³atnoœæ przez bank';
+$txt['db_payment2'] = 'P³atnoœæ w sklepie (tylko przy odbiorze)';
+$txt['db_payment3'] = 'P³atnoœæ przez PayPal';
+$txt['db_payment4'] = 'P³atnoœæ przy odbiorze';
+
+// order status
+$txt['db_status1'] = 'Zamówienie od klienta';
+$txt['db_status2'] = 'Oczekiwanie na p³atnoœæ';
+$txt['db_status3'] = 'Oczekiwanie na umówienie odbioru';
+$txt['db_status4'] = 'Zamówienie w realizacji';
+$txt['db_status5'] = 'Wys³ane do klienta (zrealizowane)';
+$txt['db_status6'] = 'Odebrane przez klienta (zrealizowane)';
+$txt['db_status7'] = 'Zamówienie odwo³ane/anulowane';
+
+$txt['db_status10'] = 'Opis statusu';
+$txt['db_status11'] = 'Zamówienie otrzymano, ale nie potwierdzone przez pracownika';
+$txt['db_status12'] = 'Zamówienie potwierdzono. Nale¿y przes³aæ pieni¹dze na nasze konto bankowe';
+$txt['db_status13'] = 'Otrzymano zap³atê. Wys³alismy e-mail z powiadomieniem o odbiorze produktu, prosimy o telefon aby uzgodniæ termin odbioru.';
+$txt['db_status14'] = 'Otrzymano zap³atê. Zamówienie jest realizowane. To znaczy ze wkrótce otrzymasz produkt lub jest on w³aœnie wysy³any';
+$txt['db_status15'] = 'Zamówienie zosta³o przes³ane drog¹ pocztow¹. Zamówienie zosta³o zrealizowane';
+$txt['db_status16'] = 'Zamówienie zosta³o odebrane. Zamówienie jest realizowane';
+$txt['db_status17'] = 'Zamowienie zosta³o usuniête';
+
+// database values for stock
+$txt['db_stock1'] = 'Dostêpny';
+$txt['db_stock2'] = 'Niedostêpny';
+$txt['db_stock3'] = 'Zamówiony';
+
+$txt['db_stock10'] = 'Opis';
+$txt['db_stock11'] = 'Dostêpny. Je¿eli zamówisz produkt wkrótce go otrzymasz';
+$txt['db_stock12'] = 'Produkt jest niedostêpny';
+$txt['db_stock13'] = 'Produkt zosta³ zamówiony wkrótce bêdzie dostêpny';
+
+// general values
+$txt['general1'] = 'Brak dostêpu!';
+$txt['general2'] = 'Zosta³eœ wylogowany w celu unikniecia dalszych problemów';
+$txt['general3'] = 'nowy';
+$txt['general4'] = 'powrót do panelu admina';
+$txt['general5'] = 'VAT';
+$txt['general6'] = 'bez.';
+$txt['general7'] = 'z.';
+$txt['general8'] = 'UWAGA: prace konserwacyjne! Nie mo¿na przegl¹daæ produktów';
+$txt['general9'] = '404 b³¹d. Page not found!';
+$txt['general10'] = 'Strona zosta³a zablokowana';
+$txt['general11'] = 'O nas';
+$txt['general12'] = 'B³¹d';
+$txt['general13'] = 'Powiadomienia';
+$txt['general14'] = 'Wróæ';
+
+// header.php
+$txt['header1'] = 'Zagrozenie bezpieczenstwa';
+$txt['header2'] = 'Witamy';
+$txt['header3'] = 'Klient';
+$txt['header4'] = '<font color=red><strong>install.php</strong></font> found. musisz usunac ten plik aby kontynuowaæ!';
+
+// menu.php
+$txt['menu1'] = 'Home';
+$txt['menu2'] = 'Koszyk';
+$txt['menu3'] = 'Kasa';
+$txt['menu4'] = 'Szukaj';
+$txt['menu5'] = 'Regulamin sklepu';
+$txt['menu6'] = 'Zasady przesy³ki';
+$txt['menu7'] = 'Gwarancja';
+$txt['menu8'] = 'Kontakt';
+$txt['menu9'] = 'Administracja';
+$txt['menu10'] = 'Osobista strona';
+$txt['menu11'] = 'Wyloguj sie';
+$txt['menu12'] = 'Zaloguj sie';
+$txt['menu13'] = 'Rejestracja';
+$txt['menu14'] = 'Informacja';
+$txt['menu15'] = 'Produkty';
+$txt['menu16'] = '<font color=red><strong>Nowy</strong></font> produkt';
+$txt['menu17'] = 'Brak produktów';
+$txt['menu18'] = 'O nas';
+
+// sendprocedure.php
+$txt['send1'] = 'Metody przesy³ki';
+
+// cart.php
+$txt['cart1'] = 'Koszyk';
+$txt['cart2'] = 'Koszyk jest pusty.<br /><br />';
+$txt['cart3'] = 'Opis';
+$txt['cart4'] = 'Cena';
+$txt['cart5'] = 'Iloœæ';
+$txt['cart6'] = 'Usuñ';
+$txt['cart7'] = 'Total';
+$txt['cart8'] = 'Pusty';
+$txt['cart9'] = 'Kasa';
+$txt['cart10'] = 'Update';
+$txt['cart11'] = 'Twój koszyk';
+
+// browse.php
+$txt['browse1'] = 'Szukaj';
+$txt['browse2'] = 'Opis produktu';
+$txt['browse3'] = 'Cena';
+$txt['browse4'] = 'Rodzaj';
+$txt['browse5'] = 'Brak produktu';
+$txt['browse6'] = 'UWAGA: prawa autorskie do fotografi zastrze¿one!';
+$txt['browse7'] = 'Edytuj';
+$txt['browse8'] = 'Usuñ';
+$txt['browse9'] = 'Lista produktów';
+$txt['browse10'] = 'Zmieñ fotografiê';
+$txt['browse11'] = 'Strony';
+
+// submenu.php
+$txt['submenu1'] = 'Kategorie w tej grupie';
+$txt['submenu2'] = 'Brak kategorii dla tej grupy';
+
+// main.php
+$txt['main1'] = 'Zapraszamy';
+$txt['main2'] = 'Specjalne oferty';
+
+// details.php
+$txt['details1'] = 'Opis produktu';
+$txt['details2'] = 'ID produktu';
+$txt['details4'] = 'Opis produktu';
+$txt['details5'] = 'Cena';
+$txt['details6'] = 'Iloœæ';
+$txt['details7'] = 'Zamówienie';
+$txt['details8'] = 'Powrót do listy';
+$txt['details9'] = 'Pe³en wymiar';
+
+// conditions.php
+$txt['conditions1'] = 'Zgadzam sie na warunki';
+$txt['conditions2'] = 'Nie zgadzam sie na warunki';
+$txt['conditions3'] = 'Niedostêpny';
+$txt['conditions4'] = 'Zamówienie jest obecnie niedostêpne';
+
+// shipping.php
+$txt['shipping1'] = 'Przesy³ka i p³atnoœæ';
+$txt['shipping2'] = 'Wybierz rodzaj przesy³ki';
+$txt['shipping3'] = 'Dodatkowy komentarz i pytania';
+$txt['shipping9'] = 'Zrealizuj zamówienie';
+$txt['shipping10'] = 'Wybierz metodê p³atnoœci';
+
+// checkout.php
+$txt['checkout2'] = 'Strona wygas³a. Powróæ do koszyka i realizuj zamówienie';
+$txt['checkout3'] = "Szanowni Panstwo $lastname,<br /><br /><br />Potwierdzamy zamówienie <a href=$shopurl>$shopname</a><br /><br />Numer zamówienia: $webid<br />Numer klienta: $customerid<br /><br />Zamówi³eœ nastêpujacy produkt:<br />";
+$txt['checkout4'] = ' x produkt ';
+$txt['checkout5'] = ' sztuka';
+$txt['checkout6'] = "<br />";
+$txt['checkout7'] = 'Próbowa³es zamówiæ:';
+$txt['checkout8'] = 'Obecnie w asortymencie:';
+$txt['checkout9'] = "<br /><br />SprawdŸ status swoich zamówieñ, kliknij <a href=$shopurl/index.php?page=orders&id=$customerid>tutaj</a><br /><br />Dziêkujemy za zamówienie.<br />Je¿eli masz pytania przeœlij email (email na naszej stronie)";
+$txt['checkout10'] = 'Potwierdzenie zamówienia '.$shopname;
+$txt['checkout11'] = 'Zamówienie zosta³o zrealizowane. Email z potwierdzeniem zamówienia zosta³ wys³any.';
+$txt['checkout12'] = 'Email z potwierdzeniem nie moze byc wyslany. Prosze wydrukowac potwierdzenie.';
+$txt['checkout13'] = 'Poni¿ej znajduje sie kopia zamówienia:';
+$txt['checkout15'] = 'Nie posiadamy takiej iloœci towaru:';
+$txt['checkout16'] = "Rodzaje przesy³ek: ";
+$txt['checkout17'] = "Adres przesy³ki:<br />$company<br />$address<br />$zipcode $city<br />$country";
+$txt['checkout19'] = "Metoda p³atnoœci: ";
+$txt['checkout20'] = "Informacje bankowe:<br />Numer rachunku: $bankaccount<br />W³aœciciel rachunku: $bankaccountowner<br />Miasto: $bankcity<br />pañstwo: $bankcountry<br />nazwa banku: $bankname<br />IBAN: $bankiban<br />BIC: $bankbic<br />Subject/Reference: $webid";
+$txt['checkout21'] = "Jak tylko towar bêdzie dostêpny, wyœlemy Pañstwu e-mail .";
+$txt['checkout22'] = "Sko¿ystaj z PayPal aby prze³aæ pieni¹dze.";
+$txt['checkout23'] = "Nale¿y dodaæ op³atê pocztow¹ przy odbiorze towaru.";
+$txt['checkout24'] = "faktura wystawiona na sume: $currency_symbol $totalprint (including $currency_symbol $print_sendcosts shipping rate)";
+$txt['checkout25'] = "w³¹cznie z $show_vat ".$txt['general5'];
+$txt['checkout26'] = "Prosze przelaæ sume w ciagu $paymentdays days. Zamówienie bêdzie zrealizowane, gdy tylko otrzymamy nale¿noœæ.";
+$txt['checkout27'] = 'PayPal transfer';
+
+// search.php
+$txt['search1'] = 'Szukaj';
+$txt['search2'] = 'Szukaj w';
+$txt['search3'] = 'Metody wyszukiwania';
+$txt['search4'] = 'Wszystkie wyrazy';
+$txt['search5'] = 'Dopasuj jakiekolwiek s³owo';
+$txt['search6'] = 'Szukaj';
+
+// guarantee.php
+$txt['guarantee1'] = 'Gwarancja';
+
+// contact.php
+$txt['contact1'] = 'Forma zapytania '. $shopurl;
+$txt['contact2'] = 'Wiadomosc wys³ana';
+$txt['contact3'] = 'Wiadomosc zosta³a wys³ana. w razie potrzeby odpowiemy na Pañstwa email';
+$txt['contact5'] = 'Nale¿y wype³niæ ka¿d¹ pozycjê.<br /><a href="javascript:history.go(-1)"><strong>Kliknij tutaj</strong></a> aby wrócic.';
+$txt['contact6'] = 'Kontakt';
+$txt['contact7'] = 'Jak siê z nami skontaktowaæ';
+$txt['contact8'] = 'E-mail';
+$txt['contact9'] = 'Telefon';
+$txt['contact10'] = 'Fax';
+$txt['contact11'] = 'Aby skontaktowaæ sie z nami poprzez strone skorzystaj z formularza poni¿ej:';
+$txt['contact12'] = 'Wyœlij do';
+$txt['contact13'] = 'Imiê';
+$txt['contact14'] = 'Twój adres e-mail';
+$txt['contact15'] = 'Wiadomoœæ';
+
+// checklogin.php
+$txt['checklogin1'] = 'U¿yj has³a aby siê zalogowaæ';
+$txt['checklogin2'] = 'U¿ytkownik';
+$txt['checklogin3'] = 'Has³o';
+$txt['checklogin4'] = 'Zaloguj sie';
+$txt['checklogin5'] = 'Je¿eli nie masz konta, Kliknij tutaj';
+$txt['checklogin6'] = 'Dlaczego za³o¿yæ konto?';
+$txt['checklogin7'] = 'Aby dokonaæ zakupów wymagana jest rejestracja. Podczas której nale¿y podaæ imiê i nazwisko, adres przesy³ki , e-mail, itp. Informacje te s¹ niezbêdne do przes³ania zamówionego towaru.<br /><br /><strog> Dane bêd¹ wykorzystane tylko do celu wysy³ki.</strong><br /><br /><br />Po rejestracji bêdziesz rownie¿ móg³:<ul><li>Zalogowaæ sie z dowolnego komputera<li>Zamawiaæ produkty<li>Monitorowaæ status swoich zamówieñ<li>Zarz¹dzaæ koszykiem</ul>';
+$txt['checklogin8'] = 'Zapomnia³eœ danych';
+$txt['checklogin9'] = 'Wpisz email, który u¿y³eœ podczas rejestracji. Dane bêd¹ przes³ane na ten adres.';
+$txt['checklogin10'] = 'Wyœlij email';
+$txt['checklogin11'] = 'Zgubi³eœ dane?';
+$txt['checklogin12'] = 'Twoje dane zosta³y wys³ane';
+$txt['checklogin13'] = 'Twoje dane '. $shopurl;
+$txt['checklogin14'] = 'Twoje dane zosta³y wys³ane ('. $shopurl .').';
+$txt['checklogin15'] = 'Niem ma takiego klienta';
+$txt['checklogin18'] = 'Wróæ';
+
+// login.php
+$txt['login1'] = 'B³¹d logowania.... proszê poczekaæ';
+$txt['login2'] = 'lub klikn¹æ tutaj';
+$txt['login3'] = 'Jesteœ zalogowany.. proszê poczekaæ';
+
+// logout.php
+$txt['logout1'] = 'Zosta³eœ wylogowany..';
+
+// my.php
+$txt['my3'] = 'Twoja strona personalna';
+$txt['my4'] = 'To jest twoja strona personalna. Tylko ty masz dostêp do tej strony .<br /><br />Tutaj mo¿esz mieæ wglad w swoje dane personalne, zamówienia i koszyk.  Dostep form 1.';
+$txt['my5'] = 'Opcje strony prsonalnej';
+$txt['my6'] = 'Twój-ID';
+$txt['my7'] = 'Zmieñ dane';
+$txt['my8'] = 'Poka¿ zamówienia';
+$txt['my9'] = 'Poka¿ koszyk';
+
+// admin.php
+$txt['admin1'] = 'Administracja sklepu';
+$txt['admin2'] = 'Zamówienia';
+$txt['admin3'] = 'Klienci';
+$txt['admin4'] = 'Sklep';
+$txt['admin5'] = 'Produkty';
+$txt['admin6'] = 'Grupy&<br />Kategorie';
+$txt['admin7'] = 'Optymalizuj bazê danych';
+$txt['admin8'] = 'Ustawienia';
+$txt['admin9'] = 'Za³aduj listê cen';
+$txt['admin10'] = 'Optymalizuj tabelê bazy danych..';
+$txt['admin11'] = 'Optymalizacja w toku';
+$txt['admin12'] = 'Optymalizacja zakoñczona!';
+$txt['admin13'] = 'Info i pomoc';
+$txt['admin14'] = 'SprawdŸ aktualizacje';
+$txt['admin15'] = 'Regulamin sklepu';
+$txt['admin16'] = 'Przesy³ki';
+$txt['admin17'] = 'Gwarancja';
+$txt['admin18'] = 'Opcje przesy³ek';
+$txt['admin19'] = 'Lista zablokowañ';
+$txt['admin20'] = 'O nas';
+$txt['admin21'] = 'Opcje P³atnoœci';
+$txt['admin22'] = 'Strona g³ówna';
+$txt['admin23'] = 'Zmieñ ustawienia';
+$txt['admin24'] = 'Edytuj pliki';
+$txt['admin25'] = 'Informacja';
+$txt['admin26'] = 'B³¹d logowania';
+
+// customeradmin.php
+$txt['customeradmin1'] = 'Nazwisko';
+$txt['customeradmin2'] = 'Data';
+$txt['customeradmin3'] = 'E-mail';
+$txt['customeradmin4'] = 'Telefon';
+$txt['customeradmin5'] = 'Opcje';
+$txt['customeradmin6'] = 'Administracja klienta';
+
+// orderadmin.php
+$txt['orderadmin1'] = 'Status zamówienia';
+$txt['orderadmin2'] = ' zmieni³ sie';
+$txt['orderadmin3'] = 'Zamówienie zosta³o usuniete';
+$txt['orderadmin4'] = "<br /><br />Visit $shopurl/index.php?page=orders&id=";
+$txt['orderadmin5'] = ' dla obecnego zamówienia';
+$txt['orderadmin6'] = 'E-mail wys³any do';
+$txt['orderadmin7'] = 'e-mail klient?';
+$txt['orderadmin8'] = 'Aktualizuj';
+$txt['orderadmin9'] = 'Wszystkie zamówienia';
+$txt['orderadmin10'] = 'Nie ma zamówieñ o takim statusie';
+$txt['orderadmin11'] = 'Poka¿';
+$txt['orderadmin12'] = 'UWAGA: Klient doda³ komentarz!';
+$txt['orderadmin13'] = 'Administracja zamówieñ';
+$txt['orderadmin14'] = 'Zmieñ status';
+$txt['orderadmin15'] = 'Status zamówienia jest zmieniony';
+
+// orders.php
+$txt['orders3'] = 'Zló¿ zamówienie <a href=# class=info>(?)<span>Poni¿ej znajduje sie lista twoich zamówieñ<br />Kliknij na ID zamówienia aby zobaczyc szczegó³y</span></a>';
+$txt['orders4'] = 'Zamówienie ID';
+$txt['orders5'] = 'Przesy³ka&P³atnoœæ';
+$txt['orders6'] = 'Faktura na sumê';
+$txt['orders7'] = 'data zamówienia';
+$txt['orders8'] = 'Status';
+$txt['orders9'] = 'Nie z³o¿y³eœ jeszcze zamówienia';
+
+// customer.php
+$txt['customer2'] = 'Klient usuniety';
+$txt['customer3'] = 'Wróæ';
+$txt['customer5'] = 'Musisz usun¹æ b³êdy aby kontynuowaæ';
+$txt['customer6'] = 'Pola zaznaczone (*) musz¹ byæ wype³nione';
+$txt['customer7'] = 'Przerwy s¹ niedozwolone';
+$txt['customer8'] = 'Has³a nie s¹ zgodne';
+$txt['customer9'] = 'Has³o powinno mieæ co najmniej 5 znaków';
+$txt['customer10'] = 'Wpisa³eœ b³êdny email';
+$txt['customer11'] = "Zapraszamy do $shopname";
+$txt['customer12'] = "Szanowni Panstwo $tussenvoegsels $naam,<br /><br />dziêkujemy za skorzystanie z us³ug naszego sklepu $shopname Webshop ($shopurl).<br /><br />Mo¿esz siê teraz zalogowaæ<br />lub sprawdziæ status twoich zamówieñ<br /><br />Twoje dane:<br />U¿ytkownik:  $login<br />haslo: $pass1<br /><br />Trzymaj dane w bezpiecznym miejscu!<br /><br />zapraszamy do $shopurl<br /><br />Z powa¿aniem,<br /><br /><br />The Webmaster";
+$txt['customer13'] = 'Informacje zosta³y zapisane.';
+$txt['customer14'] = 'Proszê o podanie informacji';
+$txt['customer15'] = 'U¿ytkownik';
+$txt['customer16'] = 'has³o';
+$txt['customer17'] = 'Powtórz has³o';
+$txt['customer18'] = 'Nazwisko';
+$txt['customer19'] = 'Prefix';
+$txt['customer20'] = 'Inicja³';
+$txt['customer21'] = 'Adres';
+$txt['customer22'] = 'Kod';
+$txt['customer23'] = 'Miasto';
+$txt['customer24'] = 'Pañstwo';
+$txt['customer25'] = 'Telefon';
+$txt['customer26'] = 'E-mail';
+$txt['customer27'] = '* = musi byc wype³nione';
+$txt['customer28'] = 'Zapisz';
+$txt['customer29'] = 'Wybrana nazwa u¿ytkownika jest ju¿ zarezerwowana';
+$txt['customer30'] = 'Firma';
+$txt['customer32'] = 'Probójesz usun¹æ dane administratora.  Twoja proœba zosta³a odrzucona.';
+$txt['customer33'] = '(pomiedzy 5 a 10 znakami)';
+$txt['customer34'] = 'Email,który wybra³eœ ju¿ jest u¿ywany';
+$txt['customer35'] = 'Kliknij tutaj aby sie zalogowaæ';
+$txt['customer36'] = 'Nowy klient';
+$txt['customer37'] = 'Klient zarejestrowa³ sie w twoim sklepie.   Kopia e-mail znajduje sie poni¿ej:';
+
+// readorder.php
+$txt['readorder1'] = 'Wydrukuj to zamówienie';
+$txt['readorder2'] = 'Wróæ do zamówieñ';
+
+// editsettings.php
+$txt['editsettings1'] = 'Zmieñ ustawienia';
+$txt['editsettings2'] = 'Zapisz ustawienia';
+$txt['editsettings3'] = 'Wybór kolorów';
+$txt['editsettings4'] = 'Standartowe pañstwa przesy³ek <a href=# class=info>(?)<span>This is usually the country in which your company resides</span></a>';
+$txt['editsettings5'] = 'Standartowe op³aty za przesy³kê <a href=# class=info>(?)<span>Standartowe op³aty za wysy³ke za granicê. Format: 12.34</span></a>';
+$txt['editsettings6'] = 'Op³ata za wysy³kê za granicê';
+$txt['editsettings7'] = 'Dodatkowe op³aty za wysy³kê za granicê <a href=# class=info>(?)<span>W dotatku do standartowej op³aty za przesy³kê. Format: 12.34</span></a>';
+$txt['editsettings8'] = 'Waluta';
+$txt['editsettings9'] = 'Symbol waluty <a href=# class=info>(?)<span>Prawdopodobnie: $</span></a>';
+$txt['editsettings10'] = 'P³atnoœæ w ci¹gu <a href=# class=info>(?)<span>W ci¹gu ilu dni przelew powinien byæ na twoim koncie?</span></a>';
+$txt['editsettings11'] = 'W³¹cznie z VAT <a href=# class=info>(?)<span>Je¿eli wat wynosi 19% suma powinna byæ: 1.19</span></a>';
+$txt['editsettings12'] = 'VAT text <a href=# class=info>(?)<span>Je¿eli 19% VAT suma powinna wynosiæ: 19%</span></a>';
+$txt['editsettings13'] = 'Ceny w DB sa w³¹cznie z. VAT';
+$txt['editsettings14'] = 'Email do departamentu sprzeda¿y <a href=# class=info>(?)<span>Na ten adres otrzymasz zamówienie, na przyk³ad: sprzedaz@twojadomena.pl</span></a>';
+$txt['editsettings15'] = 'Nazwa sklepu';
+$txt['editsettings16'] = 'Webshop URL <a href=# class=info>(?)<span>URL starting with http://, but without trailing /, for example: http://www.yourdomain.com/shop</span></a>';
+$txt['editsettings17'] = 'Standartowy jêzyk';
+$txt['editsettings18'] = 'Prefiks zamówienia (opcjonalny) <a href=# class=info>(?)<span>Ka¿de ID zamówienia zaczyna sie od prefixu, na przyk³ad: WEB-</span></a>';
+$txt['editsettings19'] = 'Suffix (optional) <a href=# class=info>(?)<span>Ka¿de ID zamówienia zakoñczone jest suffixem, na przyk³ad bie¿¹cy: -06</span></a>';
+$txt['editsettings20'] = 'Skorzysaj ze stanu na magazynie <a href=# class=info>(?)<span><strong>aktywny:</strong> korzystasz ze stanu na magazynie<br /><br /><strong>nieaktywny:</strong> ko¿ystasz ze statusu magazynu (Dostêpny/zamówiony/niedostêpny)</span></a>';
+$txt['editsettings21'] = 'W³¹cz modu³ zamówienia ';
+$txt['editsettings22'] = 'Wy³¹cz sklep';
+$txt['editsettings23'] = 'Wy³¹cz tytu³ sklepu';
+$txt['editsettings24'] = 'Wy³¹cz wiadomoœci sklepu';
+$txt['editsettings25'] = 'Email address webmaster';
+$txt['editsettings26'] = 'Numer telefonu (opcionalny)';
+$txt['editsettings27'] = 'Numer faxu (opcjonalny)';
+$txt['editsettings28'] = 'Numer konta bankowego';
+$txt['editsettings29'] = 'W³aœciciel konta bankowego';
+$txt['editsettings30'] = 'Miasto';
+$txt['editsettings31'] = 'Pañstwo';
+$txt['editsettings32'] = 'Bank IBAN';
+$txt['editsettings33'] = 'Bank BIC';
+$txt['editsettings34'] = 'Rok rozpoczêcia dzia³alnoœci <a href=# class=info>(?)<span>Rok w ,którym rozpocz¹³eœ dzia³alnoœæ</span></a>';
+$txt['editsettings35'] = 'Logo <a href=# class=info>(?)<span>Logo image. Powinien znajdowaæ sie w folderze <strong>'.$gfx_dir.'</strong></span></a>';
+$txt['editsettings36'] = 'Background (optional) <a href=# class=info>(?)<span>The picture holding your background. This should be in the folder <strong>'.$gfx_dir.'</strong></span></a>';
+$txt['editsettings37'] = 'Slogan firmy (optional) <a href=# class=info>(?)<span>Slogan znajduje sie poni¿ej logo</span></a>';
+$txt['editsettings38'] = 'Tytu³ strony <a href=# class=info>(?)<span>Tytu³ pojawia siê w okienku wyszukiwarki</span></a>';
+$txt['editsettings39'] = 'Footer';
+$txt['editsettings40'] = 'W³¹cz przesy³anie zamówienia przez serwis pocztowy';
+$txt['editsettings41'] = 'W³acz odbiór ze sklepu';
+$txt['editsettings44'] = 'Ustawienia zosta³y zapisane';
+$txt['editsettings45'] = 'Dane banku';
+$txt['editsettings46'] = 'Uk³ad strony';
+$txt['editsettings47'] = 'Sklep';
+$txt['editsettings48'] = 'Finansowe';
+$txt['editsettings49'] = 'Number format';
+$txt['editsettings50'] = 'Maximum opisu <a href=# class=info>(?)<span>aby skrócic opis. <br /><strong>0 = do not shorten<br />1-99 = zwijanie wyrazów przy xx znaków</strong></span></a>';
+$txt['editsettings51'] = 'No VAT <a href=# class=info>(?)<span>Enable this if you do not want to use VAT in your shop prices, for example when it is a webshop with personal products</span></a>';
+$txt['editsettings52'] = 'Name of bank';
+$txt['editsettings53'] = 'Format listy cen<a href=# class=info>(?)<span>Te ustawienia dotycza listy cen, koszyka i potwierdzenia zamówienia przez email</span></a>';
+$txt['editsettings54'] = 'ID produktu';
+$txt['editsettings55'] = 'Opis';
+$txt['editsettings56'] = 'ID produktu i opis';
+$txt['editsettings57'] = 'Date format <a href=# class=info>(?)<span><strong>d-m-Y @ G:i</strong> for dd-mm-jjjj @ 23:59<br /><strong>m-d-Y @ G:i</strong> for mm-dd-jjjj @ 23:59<br /></span></a>';
+$txt['editsettings58'] = 'Szukaj gfx w liscie cen <a href=# class=info>(?)<span>Szukaj obrazków dla róznych produktów podczas ladowania listy cen. Je¿eli znajdzie sie obrazek pojawi sie ikonka on ponizej produktu. <br /><br />Aby zmniejszyc czas ladowania,lub gdy obrazek znajduje sie na innym serwerze, lepiej wylaczyc ta opcje</span></a>';
+$txt['editsettings59'] = 'Urzyj obrazka <a href=# class=info>(?)<span>Je¿eli nie masz obrazka dla tego produktu lepiej wylacz ta opcje/span></a>';
+$txt['editsettings60'] = 'Przesylki';
+$txt['editsettings61'] = 'Oplaty';
+$txt['editsettings62'] = 'W³¹cz p³atnoœæ przez bank';
+$txt['editsettings63'] = 'W³¹cz p³atnoœæ w sklepie';
+$txt['editsettings64'] = 'W³¹cz p³atnoœæ przez PayPal';
+$txt['editsettings65'] = 'W³¹cz p³atnoœæ przy odbiorze';
+$txt['editsettings67'] = 'Twój PayPal email adres';
+$txt['editsettings68'] = 'PayPal waluta';
+$txt['editsettings69'] = 'U¿yj ikon przy liœcie cen <a href=# class=info>(?)<span>Pokazuje (Je¿eli dostêpny) ma³y obrazek przy produkcie</span></a>';
+$txt['editsettings70'] = 'S³owa kluczowe (rozdzielone przecinkiem) <a href=# class=info>(?)<span>S³owa które bêd¹ odczytane przez wyszukiwarke </span></a>';
+$txt['editsettings71'] = 'U¿yj charset <a href=# class=info>(?)<span>Ró¿ne jêzyki maj¹ okreœlone symbole . W przypadku Polskiego ISO-8859-2</span></a>';
+$txt['editsettings72'] = 'Poka¿ regulamin sklepu';
+$txt['editsettings73'] = 'Poka¿ zasady gwarancji';
+$txt['editsettings74'] = 'Poka¿ zasady przesy³ek';
+$txt['editsettings75'] = 'Plik image <a href=# class=info>(?)<span>Niektóre jêzyki maj¹ znaki niedozwolone. Najlepiej jest u¿ywaæ ID image</span></a>';
+$txt['editsettings76'] = 'Database ID (zalecane)';
+$txt['editsettings77'] = 'Produkt ID';
+$txt['editsettings78'] = 'Link O nas';
+$txt['editsettings79'] = 'W³¹cz wiadomoœci na ¿ywo <a href=# class=info>(?)<span>Ta opcja dotyczy wiadomoœci z FreeWebshop.org, które informuja o aktualizacjach. Wy³¹cz tylko wtedy gdy masz problemy z t¹ opcj¹</span></a>';
+$txt['editsettings80'] = 'Odnoœnik listy cen szerokoœæ <a href=# class=info>(?)<span>Szerokoœæ w pixels.<br />default=50<br/>0=disable resize</span></a>';
+$txt['editsettings81'] = 'Odnoœnik listy cen wysokoœæ <a href=# class=info>(?)<span>Height in pixels.<br />default=50<br />0=disable resize</span></a>';
+$txt['editsettings82'] = 'Odnoœnik kotegori szerokosc <a href=# class=info>(?)<span>Width in pixels.<br />default=50<br />0=disable resize</span></a>';
+$txt['editsettings83'] = 'Odnoœnik kategori wysokosc <a href=# class=info>(?)<span>Height in pixels.<br />default=50<br />0=disable resize</span></a>';
+$txt['editsettings84'] = 'Product pic. max. width <a href=# class=info>(?)<span>Maximum width in pixels.<br />default=450<br />9999=disable max</span></a>';
+$txt['editsettings85'] = 'Product pic. max. height <a href=# class=info>(?)<span>Maximum height in pixels.<br />default=350<br />9999=disable max</span></a>';
+$txt['editsettings86'] = 'Wszystkie';
+$txt['editsettings87'] = 'Poka¿ link nowego produktu';
+$txt['editsettings88'] = 'U¿yj WYSIWYG editor';
+$txt['editsettings89'] = 'Auto miniatury <a href=#   class=info>(?)<span>Autominiatury zmniejsza fotografiê automatycznie podczas ³adowania produktu.<br   />Wymaga <strong>rozszerzenia GD</strong>aby dzia³aæ</span></a>';
+$txt['editsettings90'] = 'Opis sklepu <a href=#   class=info>(?)<span>Opis twojech sklepu u¿ywany przez wyszukiwarki</span></a>';
+$txt['editsettings91'] = 'Produktów na stronê <a href=#   class=info>(?)<span>Iloœæ produktów na stronê.<br />0 = bez limitu</span></a>';
+$txt['editsettings92'] = 'Zablokowany';
+$txt['editsettings93'] = 'Zaawansowany';
+$txt['editsettings94'] = 'Prosty';
+
+// productadmin.php
+$txt['productadmin1'] = ' zosta³ zapisany w ';
+$txt['productadmin2'] = 'Wystapi³ b³¹d spróbuj ponownie!';
+$txt['productadmin3'] = 'Zapisz jako .jpg, .png or .gif files';
+$txt['productadmin4'] = 'Dodaj kolejny produkt';
+$txt['productadmin5'] = 'Wróæ do listy cen';
+$txt['productadmin6'] = 'Dodaj produkt';
+$txt['productadmin7'] = 'Zmieñ produkt';
+$txt['productadmin8'] = 'Musisz najpierw dodaæ grupe';
+$txt['productadmin9'] = 'ID';
+$txt['productadmin10'] = 'Opis <a href=# class=info>(?)<span>HTML code niedozwolony</span></a>';
+$txt['productadmin11'] = 'Cena <a href=# class=info>(?)<span>format: 123456.78</span></a>';
+$txt['productadmin12'] = 'Iloœæ na magazynie';
+$txt['productadmin13'] = 'Magazyn (0|1|2) <a href=# class=info>(?)<span>0=Out of stock<br />1=In stock<br />2=In backorder</span></a>';
+$txt['productadmin14'] = 'Na stronie g³ównej';
+$txt['productadmin15'] = 'Nowy';
+$txt['productadmin16'] = 'Dodaj produkt';
+$txt['productadmin17'] = 'Zmieñ produkt';
+$txt['productadmin18'] = 'Grupy/Kategorie';
+$txt['productadmin19'] = 'Wybierz jpg, png or gif file';
+$txt['productadmin20'] = 'Zapisz';
+$txt['productadmin21'] = 'Zapisz image';
+$txt['productadmin22'] = 'Najpierw dodaj kategoriê';
+$txt['productadmin23'] = 'Nie mo¿na zapisaæ image, produkt nie posiada ID';
+$txt['productadmin24'] = 'Usuñ ten image';
+$txt['productadmin25'] = 'Image zosta³ usuniety';
+$txt['productadmin26'] = 'Produkt zosta³ usuniety';
+$txt['productadmin27'] = 'Dodatkowe opcje';
+$txt['productadmin28'] = 'Utwórz miniaturki dla fotografi (mo¿e to zaj¹æ chwilê   )';
+$txt['productadmin29'] = 'Miniatury zosta³y utworzone (tam gdzie wymagane)..';
+
+// groupadmin.php
+$txt['groupadmin1'] = ' zapisany w ';
+$txt['groupadmin2'] = 'Wystapi³ b³¹d!';
+$txt['groupadmin3'] = 'Tylko .jpg, png or .gif files';
+$txt['groupadmin4'] = 'Grupa zosta³a dodana..';
+$txt['groupadmin5'] = 'Grupa zosta³a zmieniona..';
+$txt['groupadmin6'] = 'Grupa (z kategorie i produkty) usuniêta..';
+$txt['groupadmin7'] = 'Kategoria zosta³a dodana..';
+$txt['groupadmin8'] = 'Kategoria zmieniona..';
+$txt['groupadmin9'] = 'Kategoria przeniesiona..';
+$txt['groupadmin10'] = 'Kategoria (z produktami) usuniêta..';
+$txt['groupadmin11'] = 'nazwa grup';
+$txt['groupadmin12'] = 'Dodaj grupê';
+$txt['groupadmin13'] = 'Nie ma obecnie grup';
+$txt['groupadmin14'] = 'Grupa';
+$txt['groupadmin15'] = 'Nowa nazwa grupy';
+$txt['groupadmin16'] = 'Zmieñ grupê';
+$txt['groupadmin17'] = 'Usuñ grupê';
+$txt['groupadmin18'] = 'Opcje grup';
+$txt['groupadmin19'] = 'Opcje kategorii';
+$txt['groupadmin20'] = 'Nazwa kategorii';
+$txt['groupadmin21'] = 'Dodaj kategorie';
+$txt['groupadmin22'] = 'Kategoria';
+$txt['groupadmin23'] = 'Nowa nazwa kategorii';
+$txt['groupadmin24'] = 'Zmieñ kategoriê';
+$txt['groupadmin25'] = 'przesuñ kategoriê';
+$txt['groupadmin26'] = 'Usuñ kategoriê';
+$txt['groupadmin27'] = 'Wybierz  jpg, png or gif ';
+$txt['groupadmin28'] = 'Za³aduj';
+$txt['groupadmin29'] = 'Za³aduj image';
+$txt['groupadmin30'] = 'Ogólne opcje';
+$txt['groupadmin31'] = 'Usuñ puste grupy i kategorie';
+$txt['groupadmin32'] = 'iloœæ kategorii usuniêty';
+$txt['groupadmin33'] = 'iloœæ grup usuniêty';
+
+// uploadadmin.php
+$txt['uploadadmin1'] = ' zosta³ za³adowany do ';
+$txt['uploadadmin2'] = 'Wyst¹pi³ b³¹d spróbuj ponownie!';
+$txt['uploadadmin3'] = 'tylko pliki sql';
+$txt['uploadadmin4'] = 'Za³aduj listê cen (.SQL)';
+$txt['uploadadmin5'] = 'Wybierz plik SQL ';
+$txt['uploadadmin6'] = 'Za³aduj SQL';
+$txt['uploadadmin7'] = 'Plik SQL zosta³ za³adowany';
+
+// adminedit.php
+$txt['adminedit1'] = 'zapisz zmiany';
+$txt['adminedit2'] = 'Zmiany zosta³y zapisane...';
+$txt['adminedit3'] = 'Obecnie w edycji ';
+
+// shippingadmin.php
+$txt['shippingadmin1'] = 'Dodano metode przesy³ki';
+$txt['shippingadmin2'] = 'Usuniêto metodê przesy³ki';
+$txt['shippingadmin3'] = 'Wyedytowano metodê przesy³ki';
+$txt['shippingadmin4'] = 'Wspieraj¹ca metoda przesy³ki';
+$txt['shippingadmin5'] = 'Opis';
+$txt['shippingadmin6'] = 'Koszty';
+$txt['shippingadmin7'] = "Only in $send_default_country?";
+$txt['shippingadmin8'] = 'Edytuj';
+$txt['shippingadmin9'] = 'Usuñ';
+$txt['shippingadmin10'] = 'Dodaj';
+$txt['shippingadmin11'] = 'Edytuj Pañstwa przesy³ki';
+$txt['shippingadmin12'] = 'Opcje';
+$txt['shippingadmin13'] = 'Opcje p³atnoœci';
+$txt['shippingadmin14'] = 'Edytuj opcje przesy³ek';
+$txt['shippingadmin15'] = 'UWAGA: Chcesz zmieniæ metode przesy³ek.Zmieñ tylko opis zmiana metody nie jest zalecana.';
+$txt['shippingadmin16'] = 'Edytuj Pañstwa przesy³ki';
+$txt['shippingadmin17'] = 'Nadpisz opcje';
+
+// paymentadmin.php
+$txt['paymentadmin1'] = 'Dodana metoda p³atnoœci';
+$txt['paymentadmin2'] = 'Usuniêta metoda p³atnoœci';
+$txt['paymentadmin3'] = 'Edycja metody p³atnoœci';
+$txt['paymentadmin4'] = 'Wsparcie metody p³atnoœci';
+$txt['paymentadmin5'] = 'Opis';
+$txt['paymentadmin6'] = 'Zmieñ metode p³atnoœci';
+$txt['paymentadmin7'] = 'P³atnoœæ HTML code';
+$txt['paymentadmin8'] = 'Edytuj';
+$txt['paymentadmin9'] = 'Usuñ';
+$txt['paymentadmin10'] = 'Dodaj';
+$txt['paymentadmin11'] = 'Opcje';
+$txt['paymentadmin12'] = 'UWAGA: Chcesz zmieniæ metodê p³atnoœci. Zmieñ tylko link w opisie nie metodê -zalecane';
+
+// errorlogadmin.php
+$txt['errorlogadmin1'] = 'B³¹d logowania';
+$txt['errorlogadmin2'] = 'Intensywnoœæ';
+$txt['errorlogadmin3'] = 'B³¹d';
+$txt['errorlogadmin4'] = 'Plik';
+$txt['errorlogadmin5'] = 'Linia';
+$txt['errorlogadmin6'] = 'Data';
+$txt['errorlogadmin7'] = 'Nie znaleziono b³êdów logowania';
+$txt['errorlogadmin8'] = 'Wyczyœæ logowanie';
+$txt['errorlogadmin9'] = 'B³¹d logowania zosta³ pomyœlnie usuniêty';     
+?>
