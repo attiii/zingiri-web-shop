@@ -49,7 +49,7 @@ if (LoggedIn() == True) {
 		PutWindow($gfx_dir, $txt['general12'], $txt['checkout2'], "warning.gif", "50");
 		$error = 1;
 	}
-		
+
 	// if you gave a discount code, let's check if it's valid
 	if ($discount_code <> "") {
 		$discount_query="SELECT * FROM `".$dbtablesprefix."discount` WHERE `code` = '".$discount_code."' AND `orderid` = '0'";
@@ -256,7 +256,7 @@ if (LoggedIn() == True) {
 			$payment_code = str_replace("%paypal_email%", $sales_mail, $payment_code);
 			$payment_code = str_replace("%return%", $shopurl . '/index.php?page=checkout&paypal=1', $payment_code);
 			$payment_code = str_replace("%cancel%", $shopurl . '/index.php?page=checkout&paypal=9', $payment_code);
-			
+
 		}
 		$message .= $txt['checkout19'].$payment_descr; // Payment method:
 		$message .= $txt['checkout6']; // line break
@@ -299,10 +299,21 @@ if (LoggedIn() == True) {
 		// make pdf
 		$pdf = "";
 		$fullpdf = "";
+		//$message=iconv($charset,'ISO-8859-1',$message);
 		if ($create_pdf == 1) {
+			$m = '<html><head><meta http-equiv="Content-Type" content="text/html; charset='.$charset.'" /></head><body>';
+			if ($charset='UTF-8' && $lang='se') {
+				$m.='<div style="font-family:FreeSerif">';
+				ini_set("memory_limit","128M");
+				$m.= utf8_decode($message);
+			} else {
+				$m.=$message;
+			}
+			$m.= '</div>';
+			$m.='</body></html>';
 			require_once(dirname(__FILE__)."/addons/dompdf/dompdf_config.inc.php");
 			$dompdf = new DOMPDF();
-			$dompdf->load_html($message);
+			$dompdf->load_html($m);
 			$dompdf->render();
 			$output = $dompdf->output();
 			$random = CreateRandomCode(5);

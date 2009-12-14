@@ -4,7 +4,7 @@ Donate link: http://www.zingiri.com/
 Tags: ecommerce, e-commerce, paypal, freewebshop, shop, cart, web shop, shopping cart, iDEAL, Google Checkout, Worldpay
 Requires at least: 2.1.7
 Tested up to: 2.8.5
-Stable tag: 0.9.19.2
+Stable tag: 1.0.0
 
 Zingiri Web Shop is a Wordpress plugin that brings together a great content management system with the fantastic FreeWebShop ecommerce solution.
 
@@ -46,6 +46,11 @@ Please visit the [Zingiri](http://www.zingiri.com/web-shop "Zingiri") website fo
 Please visit the [Zingiri](http://www.zingiri.com/web-shop "Zingiri") website for more information and a Demo.
 
 == Changelog ==
+
+= 1.0.0 =
+* Added support for WAMP configurations
+* Aligned charset used by the Web Shop with the one used by Wordpress
+* Added support for unicode in PDF generation
 
 = 0.9.19 =
 * Added Paypal Instant Payment Notification (IPN) integration

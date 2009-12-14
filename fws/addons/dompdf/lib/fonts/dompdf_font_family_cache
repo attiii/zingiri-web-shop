@@ -1,135 +1,86 @@
 array (
   'sans-serif' => 
   array (
-    'normal' => DOMPDF_FONT_DIR . 'Helvetica',
-    'bold' => DOMPDF_FONT_DIR . 'Helvetica-Bold',
-    'italic' => DOMPDF_FONT_DIR . 'Helvetica-BoldOblique',
-    'bold_italic' => DOMPDF_FONT_DIR . 'Helvetica-BoldOblique',   
+    'normal' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Helvetica',
+    'bold' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Helvetica-Bold',
+    'italic' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Helvetica-BoldOblique',
+    'bold_italic' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Helvetica-BoldOblique',
   ),
-  'times' =>
+  'times' => 
   array (
-    'normal' => DOMPDF_FONT_DIR . 'Times-Roman',
-    'bold' => DOMPDF_FONT_DIR . 'Times-Bold',
-    'italic' => DOMPDF_FONT_DIR . 'Times-BoldItalic',
-    'bold_italic' => DOMPDF_FONT_DIR . 'Times-BoldItalic',
+    'normal' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Times-Roman',
+    'bold' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Times-Bold',
+    'italic' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Times-BoldItalic',
+    'bold_italic' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Times-BoldItalic',
   ),
-  'times-roman' =>
+  'times-roman' => 
   array (
-    'normal' => DOMPDF_FONT_DIR . 'Times-Roman',
-    'bold' => DOMPDF_FONT_DIR . 'Times-Bold',
-    'italic' => DOMPDF_FONT_DIR . 'Times-BoldItalic',
-    'bold_italic' => DOMPDF_FONT_DIR . 'Times-BoldItalic',
+    'normal' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Times-Roman',
+    'bold' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Times-Bold',
+    'italic' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Times-BoldItalic',
+    'bold_italic' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Times-BoldItalic',
   ),
-  'courier' =>
+  'courier' => 
   array (
-    'normal' => DOMPDF_FONT_DIR . 'Courier',
-    'bold' => DOMPDF_FONT_DIR . 'Courier-Bold',
-    'italic' => DOMPDF_FONT_DIR . 'Courier-BoldOblique',
-    'bold_italic' => DOMPDF_FONT_DIR . 'Courier-BoldOblique',
+    'normal' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Courier',
+    'bold' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Courier-Bold',
+    'italic' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Courier-BoldOblique',
+    'bold_italic' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Courier-BoldOblique',
   ),
-  'helvetica' =>
+  'helvetica' => 
   array (
-    'normal' => DOMPDF_FONT_DIR . 'Helvetica',
-    'bold' => DOMPDF_FONT_DIR . 'Helvetica-Bold',
-    'italic' => DOMPDF_FONT_DIR . 'Helvetica-BoldOblique',
-    'bold_italic' => DOMPDF_FONT_DIR . 'Helvetica-BoldOblique',   
+    'normal' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Helvetica',
+    'bold' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Helvetica-Bold',
+    'italic' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Helvetica-BoldOblique',
+    'bold_italic' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Helvetica-BoldOblique',
   ),
-  'zapfdingbats' =>
+  'zapfdingbats' => 
   array (
-    'normal' => DOMPDF_FONT_DIR . 'ZapfDingbats',
-    'bold' => DOMPDF_FONT_DIR . 'ZapfDingbats',
-    'italic' => DOMPDF_FONT_DIR . 'ZapfDingbats',
-    'bold_italic' => DOMPDF_FONT_DIR . 'ZapfDingbats',   
+    'normal' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/ZapfDingbats',
+    'bold' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/ZapfDingbats',
+    'italic' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/ZapfDingbats',
+    'bold_italic' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/ZapfDingbats',
   ),
   'serif' => 
   array (
-    'normal' => DOMPDF_FONT_DIR . 'Times-Roman',
-    'bold' => DOMPDF_FONT_DIR . 'Times-Bold',
-    'italic' => DOMPDF_FONT_DIR . 'Times-Italic',
-    'bold_italic' => DOMPDF_FONT_DIR . 'Times-BoldItalic',
+    'normal' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Times-Roman',
+    'bold' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Times-Bold',
+    'italic' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Times-Italic',
+    'bold_italic' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Times-BoldItalic',
   ),
   'monospace' => 
   array (
-    'normal' => DOMPDF_FONT_DIR . 'Courier',
-    'bold' => DOMPDF_FONT_DIR . 'Courier-Bold',
-    'italic' => DOMPDF_FONT_DIR . 'Courier-BoldOblique',
-    'bold_italic' => DOMPDF_FONT_DIR . 'Courier-BoldOblique',
+    'normal' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Courier',
+    'bold' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Courier-Bold',
+    'italic' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Courier-BoldOblique',
+    'bold_italic' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Courier-BoldOblique',
   ),
   'fixed' => 
   array (
-    'normal' => DOMPDF_FONT_DIR . 'Courier',
-    'bold' => DOMPDF_FONT_DIR . 'Courier-Bold',
-    'italic' => DOMPDF_FONT_DIR . 'Courier-BoldOblique',
-    'bold_italic' => DOMPDF_FONT_DIR . 'Courier-BoldOblique',
+    'normal' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Courier',
+    'bold' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Courier-Bold',
+    'italic' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Courier-BoldOblique',
+    'bold_italic' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Courier-BoldOblique',
   ),
-//  'arial' => 
-//  array (
-//    'normal' => DOMPDF_FONT_DIR . 'Arial',
-//    'bold' => DOMPDF_FONT_DIR . 'Arial_Bold',
-//    'italic' => DOMPDF_FONT_DIR . 'Arial_Italic',
-//    'bold_italic' => DOMPDF_FONT_DIR . 'Arial_Bold_Italic',
-//  ),
-//  'comic sans' =>
-//  array (
-//    'normal' => DOMPDF_FONT_DIR . 'Comic_Sans_MS.ttf',
-//    'bold' => DOMPDF_FONT_DIR . 'Comic_Sans_MS_Bold.ttf',
-//    'italic' => DOMPDF_FONT_DIR . 'Comic_Sans_MS.ttf',
-//    'bold_italic' => DOMPDF_FONT_DIR . 'Comic_Sans_MS.ttf',
-//  ),
-//  'georgia' => 
-//  array (
-//    'normal' => DOMPDF_FONT_DIR . 'Georgia',
-//    'bold' => DOMPDF_FONT_DIR . 'Georgia_Bold',
-//    'italic' => DOMPDF_FONT_DIR . 'Georgia_Italic',
-//    'bold_italic' => DOMPDF_FONT_DIR . 'Georgia_Bold_Italic',
-//  ),
-//  'lucida console' => 
-//  array (
-//    'normal' => DOMPDF_FONT_DIR . 'lucon',
-//    'bold' => DOMPDF_FONT_DIR . 'lucon',
-//    'italic' => DOMPDF_FONT_DIR . 'lucon',
-//    'bold_italic' => DOMPDF_FONT_DIR . 'lucon',
-//  ),
-//  'times new roman' => 
-//  array (
-//    'normal' => DOMPDF_FONT_DIR . 'Times_New_Roman',
-//    'bold' => DOMPDF_FONT_DIR . 'Times_New_Roman_Bold',
-//    'italic' => DOMPDF_FONT_DIR . 'Times_New_Roman_Italic',
-//    'bold_italic' => DOMPDF_FONT_DIR . 'Times_New_Roman_Bold_Italic',
-//  ),
-//  'trebuchet' => 
-//  array (
-//    'normal' => DOMPDF_FONT_DIR . 'Trebuchet_MS',
-//    'bold' => DOMPDF_FONT_DIR . 'Trebuchet_MS_Bold',
-//    'italic' => DOMPDF_FONT_DIR . 'Trebuchet_MS_Italic',
-//    'bold_italic' => DOMPDF_FONT_DIR . 'Trebuchet_MS_Bold_Italic',
-//  ),
-//  'trebuchet ms' => 
-//  array (
-//    'normal' => DOMPDF_FONT_DIR . 'Trebuchet_MS',
-//    'bold' => DOMPDF_FONT_DIR . 'Trebuchet_MS_Bold',
-//    'italic' => DOMPDF_FONT_DIR . 'Trebuchet_MS_Italic',
-//    'bold_italic' => DOMPDF_FONT_DIR . 'Trebuchet_MS_Bold_Italic',
-//  ),
-//  'silkscreen' => 
-//  array (
-//    'normal' => DOMPDF_FONT_DIR . 'slkscr',
-//    'bold' => DOMPDF_FONT_DIR . 'slkscrb',
-//    'italic' => DOMPDF_FONT_DIR . 'slkscr',
-//    'bold_italic' => DOMPDF_FONT_DIR . 'slkscr',
-//  ),
-//  'silkscreen expanded' => 
-//  array (
-//    'normal' => DOMPDF_FONT_DIR . 'slkscre',
-//    'bold' => DOMPDF_FONT_DIR . 'slkscreb',
-//    'italic' => DOMPDF_FONT_DIR . 'slkscre',
-//    'bold_italic' => DOMPDF_FONT_DIR . 'slkscre',
-//  ),
-//  'verdana' => 
-//  array (
-//    'normal' => DOMPDF_FONT_DIR . 'Verdana',
-//    'bold' => DOMPDF_FONT_DIR . 'Verdana_Bold',
-//    'italic' => DOMPDF_FONT_DIR . 'Verdana_Italic',
-//    'bold_italic' => DOMPDF_FONT_DIR . 'Verdana_Bold_Italic',
-//  ),
+  'cyberbit' => 
+  array (
+    'normal' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/cyberbit',
+    'bold' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/cyberbit',
+    'italic' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/cyberbit',
+    'bold_italic' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/cyberbit',
+  ),
+  'swedish' => 
+  array (
+    'normal' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Swedish-AntoniousOL',
+    'bold' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Swedish-AntoniousOL',
+    'italic' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Swedish-AntoniousOL',
+    'bold_italic' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/Swedish-AntoniousOL',
+  ),
+  'freeserif' => 
+  array (
+    'normal' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/FreeSerif',
+    'bold' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/FreeSerif',
+    'italic' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/FreeSerif',
+    'bold_italic' => '/disk1/wwwroot/Sites/zingiri/webshop/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf/lib/fonts/FreeSerif',
+  ),
 )

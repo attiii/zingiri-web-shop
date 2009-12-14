@@ -23,6 +23,7 @@
 ?>
 <?php
  	// get language from cookie
+ 	print_r($_SESSION);
     if (isset($_COOKIE['cookie_lang'])) { $lang = $_COOKIE['cookie_lang']; }
  	// if the lang.txt file from the cookie doesnt exist (anymore), then switch to the default language
     if (!isset($lang)) { $lang = $default_lang; }    

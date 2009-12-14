@@ -28,13 +28,14 @@ if (!defined("WP_CONTENT_URL")) {
 if (!defined("WP_CONTENT_DIR")) {
 	define("WP_CONTENT_DIR", ABSPATH . "wp-content");
 }
-
+if (!defined("ZING_PLUGINSDIR")) {
+	define("ZING_PLUGINSDIR",realpath(dirname(__FILE__).'/..').'/');
+}
 if (!defined("ZING_PLUGIN")) {
-	//$zing_plugin=substr(dirname(__FILE__),strlen(WP_CONTENT_DIR)+9,strlen(dirname(__FILE__))-strlen(WP_CONTENT_DIR)-9);
-	$zing_plugin=str_replace(WP_CONTENT_DIR."/plugins/","",dirname(__FILE__));
+	//$zing_plugin=str_replace(WP_CONTENT_DIR."/plugins/","",dirname(__FILE__));
+	$zing_plugin=str_replace(ZING_PLUGINSDIR,"",dirname(__FILE__));
 	define("ZING_PLUGIN", $zing_plugin);
 }
-
 if (!defined("ZING")) {
 	define("ZING", true);
 }
@@ -48,10 +49,12 @@ if (!defined("ZING_SUB")) {
 	}
 }
 if (!defined("ZING_DIR")) {
-	define("ZING_DIR", WP_CONTENT_DIR . "/plugins/".ZING_PLUGIN."/fws/");
+//	define("ZING_DIR", WP_CONTENT_DIR . "/plugins/".ZING_PLUGIN."/fws/");
+	define("ZING_DIR", dirname(__FILE__)."/fws/");
 }
 if (!defined("ZING_LOC")) {
-	define("ZING_LOC", WP_CONTENT_DIR . "/plugins/".ZING_PLUGIN."/");
+	//define("ZING_LOC", WP_CONTENT_DIR . "/plugins/".ZING_PLUGIN."/");
+	define("ZING_LOC",dirname(__FILE__)."/");
 }
 if (!defined("ZING_URL")) {
 	define("ZING_URL", WP_CONTENT_URL . "/plugins/".ZING_PLUGIN."/");
@@ -345,6 +348,7 @@ function zing_main($process,$content="") {
 	global $webmaster_mail;
 	global $weight_metric;
 	global $zing_loaded;
+	global $charset;
 
 	include (ZING_LOC."./zing.globals.inc.php");
 	//	error_reporting(E_ALL & ~E_NOTICE);

@@ -52,4 +52,5 @@ if (function_exists("qtrans_getLanguage")) {
 	include (ZING_DIR."./includes/initlang.inc.php");        // init the language
 }
 include ($lang_file);                         // read the language
+$charset=get_option("blog_charset");
 ?>
