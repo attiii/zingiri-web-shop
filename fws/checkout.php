@@ -302,7 +302,7 @@ if (LoggedIn() == True) {
 		//$message=iconv($charset,'ISO-8859-1',$message);
 		if ($create_pdf == 1) {
 			$m = '<html><head><meta http-equiv="Content-Type" content="text/html; charset='.$charset.'" /></head><body>';
-			if ($charset='UTF-8' && $lang='se') {
+			if ($charset=='UTF-8' && $lang=='se') {
 				$m.='<div style="font-family:FreeSerif">';
 				ini_set("memory_limit","128M");
 				$m.= utf8_decode($message);

@@ -48,6 +48,7 @@ if (!defined("ZING_SUB")) {
 		define("ZING_SUB", str_replace(get_option("home")."/","",get_option("siteurl"))."/wp-content/plugins/".ZING_PLUGIN."/fws/");
 	}
 }
+
 if (!defined("ZING_DIR")) {
 //	define("ZING_DIR", WP_CONTENT_DIR . "/plugins/".ZING_PLUGIN."/fws/");
 	define("ZING_DIR", dirname(__FILE__)."/fws/");
@@ -71,6 +72,7 @@ $dbpass = DB_PASSWORD;
 
 $zing_version=get_option("zing_webshop_version");
 
+
 if ($zing_version) {
 	require (ZING_LOC."./zing.startfunctions.inc.php");
 	add_action("init","zing_init");
@@ -82,8 +84,6 @@ if ($zing_version) {
 	add_action('wp_head','zing_header');
 }
 
-register_activation_hook(__FILE__,'zing_activate');
-register_deactivation_hook(__FILE__,'zing_deactivate');
 
 require_once(dirname(__FILE__) . '/controlpanel.php');
 /**

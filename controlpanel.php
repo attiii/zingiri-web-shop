@@ -1,13 +1,13 @@
 <?php
-$zing_ws_name = "Zingiri Hoster";
+$zing_ws_name = "Zingiri Web Shop";
 $zing_ws_shortname = "zing_ws";
 $install_type = array("Clean" );
 
 $zing_ws_options = array (
 
-array(  "name" => "Zingiri Hoster Settings",
+array(  "name" => "Zingiri Web Shop Settings",
             "type" => "heading",
-			"desc" => "This section customizes the Zingiri Hoster area.",
+			"desc" => "This section customizes the Zingiri Web Shop area.",
 ),
 
 array(	"name" => "Type of install",
@@ -46,7 +46,6 @@ function zing_ws_add_admin() {
 			zing_uninstall();
 			foreach ($zing_ws_options as $value) {
 				delete_option( $value['id'] );
-				update_option( $value['id'], $value['std'] );
 			}
 			header("Location: options-general.php?page=controlpanel.php&uninstalled=true");
 			die;
@@ -163,7 +162,7 @@ elseif ($zing_version == ZING_VERSION)
 <?php } ?>
 <?php if ($zing_version) { ?>
 <hr />
-<p>Please note that the user administration in the Zingiri Hoster is separate from <br />
+<p>Please note that the user administration in the Zingiri Webshop is separate from <br />
 	the Wordpress user administration (mainly for security purposes).<br /><br />
 	If it's your first time logging in, you can use user <strong>admin</strong> with password <strong>admin_1234</strong>.</p>
 <form method="post" action="<?php echo get_option("home");?>/index.php?page=admin">
@@ -179,7 +178,7 @@ elseif ($zing_version == ZING_VERSION)
 <?php } ?>
 <hr />
 <p>For more info and support, contact us at <a
-	href="http://www.zingiri.com/hoster/">Zingiri</a> or check out our <a
+	href="http://www.zingiri.com/webshop/">Zingiri</a> or check out our <a
 	href="http://forums.zingiri.com/">support forums</a>.</p>
 <?php
 }

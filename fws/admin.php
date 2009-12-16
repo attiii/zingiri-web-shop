@@ -79,7 +79,7 @@ else {
 	else {
 		 
 		// the live news feed
-		if ($live_news == 1) {
+		if ($live_news == 'not_used') {
 			$news = new HTTPRequest('http://news.freewebshop.org');
 			 
 			// open old news

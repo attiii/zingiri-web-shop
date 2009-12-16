@@ -23,7 +23,8 @@
 ?>
 <?php if ($index_refer <> 1) { exit(); } ?>
 <?php
-    if (file_exists('install.php')) { 
+    if (file_exists(dirname(__FILE__).'/install.php')) { 
+    	echo dirname(__FILE__);
 	    PutWindow($gfx_dir, $txt['header12'],$txt['header4'],"warning.gif", "50"); 
 	}
     elseif ($shop_disabled == 1 && IsAdmin() == false && $page != "my") { 
