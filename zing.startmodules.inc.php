@@ -34,7 +34,7 @@ include (ZING_DIR."./includes/readvals.inc.php");        // get and post values
 include (ZING_DIR."./includes/readsettings.inc.php");    // read shop settigns
 include( ZING_DIR."./includes/setfolders.inc.php");      // set appropriate folders
 $product_dir = ZING_SUB.$product_dir;
-$brands_dir = ZING_DIR.$brands_dir;
+$brands_dir = ZING_SUB.$brands_dir;
 $orders_dir = ZING_SUB.$orders_dir;
 $suporders_dir = ZING_SUB.$suporders_dir;
 $lang_dir = ZING_SUB.$lang_dir;

@@ -26,9 +26,9 @@
 <?php
 if (IsAdmin() == false) {
 	if (defined("ZING") &&	current_user_can('manage_options'))
-		include (ZING_SUB."./includes/checklogin.inc.php");
+	include (ZING_SUB."./includes/checklogin.inc.php");
 	else
-		PutWindow($gfx_dir, $txt['general12'], $txt['general2'], "warning.gif", "50");
+	PutWindow($gfx_dir, $txt['general12'], $txt['general2'], "warning.gif", "50");
 }
 else {
 	?>
@@ -77,22 +77,20 @@ else {
 		}
 	}
 	else {
-		 
+			
 		// the live news feed
-		if ($live_news == 'not_used') {
-			$news = new HTTPRequest('http://news.freewebshop.org');
-			 
+		if ($live_news == true || $live_news == false) {
+			global $current_user;
+			get_currentuserinfo();
+			$news = new HTTPRequest('http://www.zingiri.com/news.php?e='.$current_user->user_email.'&w='.ZING_HOME);
+
 			// open old news
 			$news_file = dirname(__FILE__)."/news.txt";
 			$fp = fopen($news_file, "rb") or die("Can't read from news.txt");
 			if (filesize($news_file) > 0) { $oldnews = fread($fp, filesize($news_file)); }
 			fclose($fp);
-				
-			// check if it's new or old news
-			if (trim($news->DownloadToString()) != trim($oldnews)) {
-				// alert the admin
-				PutWindow($gfx_dir, $txt['general13'], $txt['admin36'], "news.gif", "90");
-			}
+
+			PutWindow($gfx_dir, $txt['general13'], $news->DownloadToString(), "news.gif", "90");
 
 			// save the current news to avoid endless admin alerts ;)
 			$fp = fopen ($news_file, "w+");
@@ -104,7 +102,7 @@ else {
 				fclose($fp);
 			}
 		}
-		 
+			
 		$num_below_stock = StockWarning($stock_warning_level);
 		if ($stock_enabled == 1 && $use_stock_warning == 1 && $num_below_stock != 0) {
 			PutWindow($gfx_dir, $txt['general13'], $txt['admin33'].$num_below_stock.$txt['admin34']."<br /><br />".$txt['editsettings100'].": ".$stock_warning_level, "warning.gif", "90");

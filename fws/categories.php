@@ -56,7 +56,6 @@
                  $height = "";
                  if ($category_thumb_width != 0) { $width = " width=\"".$category_thumb_width."\""; }
                  if ($category_thumb_height != 0) { $height = " height=\"".$category_thumb_height."\""; }
-                 
 	             if (file_exists($brands_dir."/" . $row_cat[0] . ".jpg")) { $thumb = "<img src=\"".$brands_dir."/" . $row_cat[0] . ".jpg\"".$width.$height." alt=\"\" />"; }
 	             if (file_exists($brands_dir."/" . $row_cat[0] . ".gif")) { $thumb = "<img src=\"".$brands_dir."/" . $row_cat[0] . ".gif\"".$width.$height." alt=\"\" />"; }
 	             if (file_exists($brands_dir."/" . $row_cat[0] . ".png")) { $thumb = "<img src=\"".$brands_dir."/" . $row_cat[0] . ".png\"".$width.$height." alt=\"\" />"; }

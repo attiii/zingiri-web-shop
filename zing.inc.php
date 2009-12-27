@@ -171,7 +171,7 @@ function zing_activate() {
 			$my_post['post_status'] = 'publish';
 			$my_post['post_author'] = 1;
 			$my_post['post_type'] = 'page';
-			//  $my_post['post_category'] = array(8,39);
+			$my_post['comment_status'] = 'closed';
 			$my_post['menu_order'] = 100+$i;
 			$id=wp_insert_post( $my_post );
 			if (empty($ids)) { $ids.=$id; } else { $ids.=",".$id; }
@@ -186,6 +186,15 @@ function zing_activate() {
 		else {
 			add_option("zing_webshop_pages",$ids);
 		}
+	}
+	//set comment status to closed
+	$ids=get_option("zing_webshop_pages");
+	$ida=explode(",",$ids);
+	foreach ($ida as $id) {
+		$my_post = array();
+		$my_post['ID']=$id;
+		$my_post['comment_status'] = 'closed';
+		wp_update_post($my_post);
 	}
 }
 

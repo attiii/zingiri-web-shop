@@ -171,7 +171,6 @@
                   $height = "";
                   if ($pricelist_thumb_width != 0) { $width = " width=\"".$pricelist_thumb_width."\""; }
                   if ($pricelist_thumb_height != 0) { $height = " height=\"".$pricelist_thumb_height."\""; }
-                  
 	              if (thumb_exists($product_dir ."/". $picture . ".jpg")) { $thumb = "<img class=\"imgleft\" src=\"".$product_dir."/".$picture.".jpg\"".$width.$height." alt=\"\" />"; }
 	              if (thumb_exists($product_dir ."/". $picture . ".gif")) { $thumb = "<img class=\"imgleft\" src=\"".$product_dir."/".$picture.".gif\"".$width.$height." alt=\"\" />"; }
 	              if (thumb_exists($product_dir ."/". $picture . ".png")) { $thumb = "<img class=\"imgleft\" src=\"".$product_dir."/".$picture.".png\"".$width.$height." alt=\"\" />"; }

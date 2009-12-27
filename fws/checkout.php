@@ -113,7 +113,7 @@ if (LoggedIn() == True) {
 			$query_details = "SELECT * FROM ".$dbtablesprefix."product WHERE ID = '" . $row[2] . "'";
 			$sql_details = mysql_query($query_details) or die(mysql_error());
 
-			while ($row_details = mysql_fetch_row($sql_details)) {
+			while ($row_details = mysql_fetch_array($sql_details)) {
 				$product_price = $row[3]; // read from the cart
 				// additional costs for features?
 				if (!empty($row[7])) {
