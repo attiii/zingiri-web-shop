@@ -4,19 +4,13 @@ Donate link: http://www.zingiri.com/
 Tags: ecommerce, e-commerce, paypal, freewebshop, shop, cart, web shop, shopping cart, iDEAL, Google Checkout, Worldpay
 Requires at least: 2.1.7
 Tested up to: 2.8.5
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 
 Zingiri Web Shop is a Wordpress plugin that brings together a great content management system with the fantastic FreeWebShop ecommerce solution.
 
 == Description ==
 
-Zingiri Web Shop is a Wordpress plugin that brings together a great content management system with a fantastic e-commerce solution.
-
-FreeWebshop.org - FWS in short and released under GNU/GPL by Elmar Wenners - is a free, full featured software package that allows you to set up your own online webshop within minutes. It is designed to provide you with all the features you need from a webshop while having an absolute minimal impact on the resources of the server. And best of all it is and will always remain completely free!
-
-WordPress ... well you know.
-
-Zingiri Web Shop provides the glue to connect both providing a fully functional proven shopping cart and ecommerce solution. 
+Zingiri Web Shop is a Wordpress plugin that turns a great content management system into a fantastic e-commerce solution.
 
 The main feaures are:
 
@@ -39,13 +33,28 @@ Please visit the [Zingiri](http://www.zingiri.com/web-shop "Zingiri") website fo
 
 == Frequently Asked Questions ==
 
-Please visit the [Zingiri](http://www.zingiri.com/web-shop "Zingiri") website for more information and a Demo.
+Please visit the [Zingiri](http://forums.zingiri.com/forumdisplay.php?fid=8 "Zingiri") forums for more information.
 
 == Screenshots ==
 
-Please visit the [Zingiri](http://www.zingiri.com/web-shop "Zingiri") website for more information and a Demo.
+Register yourself as a user on the [Zingiri](http://webshop.zingiri.com "Zingiri") demo website and try it out. You can also login as an administrator using ID admin and password admin_1234.
+
+== Other == 
+
+The Zingiri Web Shop plugin is based on FreeWebshop.org - FWS in short - released under GNU/GPL by Elmar Wenners. A free, full featured software package that allows you to set up your own online webshop within minutes. It is designed to provide you with all the features you need from a webshop while having an absolute minimal impact on the resources of the server. And best of all it is and will always remain completely free!
+
+== Upgrade notice ==
+
+Upgrades are handled automatically. Simply download the latest version and activate. 
+
+Before upgrading, make sure you back up your database first!
 
 == Changelog ==
+
+= 1.0.4 = 
+* Fixed issue with language not defaulting to English
+* Fixed issue with database update files not loading in correct order
+* Updated footer link
 
 = 1.0.3 =
 * Fixed issue with category images not showing

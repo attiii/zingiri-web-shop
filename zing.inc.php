@@ -50,7 +50,7 @@ if (!defined("ZING_SUB")) {
 }
 
 if (!defined("ZING_DIR")) {
-//	define("ZING_DIR", WP_CONTENT_DIR . "/plugins/".ZING_PLUGIN."/fws/");
+	//	define("ZING_DIR", WP_CONTENT_DIR . "/plugins/".ZING_PLUGIN."/fws/");
 	define("ZING_DIR", dirname(__FILE__)."/fws/");
 }
 if (!defined("ZING_LOC")) {
@@ -76,7 +76,8 @@ $zing_version=get_option("zing_webshop_version");
 if ($zing_version) {
 	require (ZING_LOC."./zing.startfunctions.inc.php");
 	add_action("init","zing_init");
-	add_filter('option_art_footer_content','zing_footer');
+	//add_filter('option_art_footer_content','zing_footer');
+	add_filter('wp_footer','zing_footer');
 	add_filter('get_pages','zing_exclude_pages');
 	add_action("plugins_loaded", "zing_sidebar_init");
 	add_filter('the_content', 'zing_content', 10, 3);
@@ -120,35 +121,42 @@ function zing_activate() {
 	$prefix=$wpdb->prefix."zing_";
 
 	if ($handle = opendir(dirname(__FILE__).'/fws/db')) {
+		$files=array();
 		while (false !== ($file = readdir($handle))) {
 			if (strstr($file,".sql")) {
 				$f=explode("-",$file);
 					
 				$v=str_replace(".sql","",$f[1]);
 				if ($zing_version < $v) {
-					$file_content = file(dirname(__FILE__).'/fws/db/'.$file);
-					$query = "";
-					foreach($file_content as $sql_line) {
-						$tsl = trim($sql_line);
-						if (($sql_line != "") && (substr($tsl, 0, 2) != "--") && (substr($tsl, 0, 1) != "#")) {
-							$sql_line = str_replace("CREATE TABLE `", "CREATE TABLE `".$prefix, $sql_line);
-							$sql_line = str_replace("INSERT INTO `", "INSERT INTO `".$prefix, $sql_line);
-							$sql_line = str_replace("ALTER TABLE `", "ALTER TABLE `".$prefix, $sql_line);
-							$sql_line = str_replace("UPDATE `", "UPDATE `".$prefix, $sql_line);
-							$sql_line = str_replace("TRUNCATE TABLE `", "TRUNCATE TABLE `".$prefix, $sql_line);
-							$query .= $sql_line;
-
-							if(preg_match("/;\s*$/", $sql_line)) {
-								$wpdb->query($query);
-								$query = "";
-							}
-						}
-
-					}
+					$files[]=dirname(__FILE__).'/fws/db/'.$file;
 				}
 			}
 		}
 		closedir($handle);
+		asort($files);
+		if (count($files) > 0) {
+			foreach ($files as $file) {
+				$file_content = file($file);
+				$query = "";
+				foreach($file_content as $sql_line) {
+					$tsl = trim($sql_line);
+					if (($sql_line != "") && (substr($tsl, 0, 2) != "--") && (substr($tsl, 0, 1) != "#")) {
+						$sql_line = str_replace("CREATE TABLE `", "CREATE TABLE `".$prefix, $sql_line);
+						$sql_line = str_replace("INSERT INTO `", "INSERT INTO `".$prefix, $sql_line);
+						$sql_line = str_replace("ALTER TABLE `", "ALTER TABLE `".$prefix, $sql_line);
+						$sql_line = str_replace("UPDATE `", "UPDATE `".$prefix, $sql_line);
+						$sql_line = str_replace("TRUNCATE TABLE `", "TRUNCATE TABLE `".$prefix, $sql_line);
+						$query .= $sql_line;
+
+						if(preg_match("/;\s*$/", $sql_line)) {
+							$wpdb->query($query);
+							$query = "";
+						}
+					}
+				}
+			}
+		}
+
 	}
 
 	if ($zing_version < '0.9.15') {
@@ -759,15 +767,8 @@ function zing_footer($footer="")
 {
 	$bail_out = ( ( defined( 'WP_ADMIN' ) && WP_ADMIN == true ) || ( strpos( $_SERVER[ 'PHP_SELF' ], 'wp-admin' ) !== false ) );
 	if ( $bail_out ) return $footer;
-	if (empty($footer))
-	{
-		zing_main("footer",$footer);
-	}
-	else {
-		echo $footer;
-	}
 	//Please contact us if you wish to remove the Zingiri logo in the footer
-	echo '<div style="margin-top:5px"><a href="http://www.zingiri.com" alt="Zingiri Web Shop"><img src="'.ZING_URL.'zingiri-logo.png"></a></div>';
+	echo '<center style="font-size:smaller;margin-top:5px">Powered by <a href="http://www.zingiri.com" alt="Zingiri Web Shop">Zingiri Web Shop</a></center>';
 }
 
 /**
