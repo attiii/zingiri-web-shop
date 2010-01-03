@@ -71,6 +71,8 @@ Before upgrading, make sure you back up your database first!
 * Fixed issue with language not defaulting to English
 * Fixed issue with database update files not loading in correct order
 * Updated footer link
+* Fixed issue with display of news feed
+* Fixed issue with generation of PDF files
 
 = 1.0.3 =
 * Fixed issue with category images not showing

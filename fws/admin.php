@@ -84,23 +84,8 @@ else {
 			get_currentuserinfo();
 			$news = new HTTPRequest('http://www.zingiri.com/news.php?e='.$current_user->user_email.'&w='.ZING_HOME);
 
-			// open old news
-			$news_file = dirname(__FILE__)."/news.txt";
-			$fp = fopen($news_file, "rb") or die("Can't read from news.txt");
-			if (filesize($news_file) > 0) { $oldnews = fread($fp, filesize($news_file)); }
-			fclose($fp);
-
 			PutWindow($gfx_dir, $txt['general13'], $news->DownloadToString(), "news.gif", "90");
 
-			// save the current news to avoid endless admin alerts ;)
-			$fp = fopen ($news_file, "w+");
-			if (!fwrite($fp, trim($news->DownloadToString())))
-			{
-				echo "Can't write to news.txt, chmod it to 777";
-			}
-			else {
-				fclose($fp);
-			}
 		}
 			
 		$num_below_stock = StockWarning($stock_warning_level);
