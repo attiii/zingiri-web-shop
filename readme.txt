@@ -25,9 +25,25 @@ The main feaures are:
 == Installation ==
 
 1. Upload the `zingiri-web-shop` folder to the `/wp-content/plugins/` directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Activate the 3 sidebar widgets.
-4. Go to the Wordpress Settings page and find the link to the Admininistration Panel of Zingiri Web Shop, login with the default user admin and password admin_1234.
+2. A few files need to be chmod'd:
+    * log.txt 666
+    * fws/cats 777
+    * fws/langs/xx 777
+    * fws/orders 777
+    * fws/prodgfx 777
+    * fws/addons/captcha 777
+    * fws/addons/tinymce/jscripts/up 777
+    * fws/banned.txt 666
+    * fws/countries.txt 666
+    * fws/news.txt 666
+    * fws/langs/xx/main.txt 666
+    * fws/langs/xx/conditions.txt 666
+    * fws/langs/xx/schipping.txt 666
+    * fws/langs/xx/aboutus.txt 666
+    * fws/includes/.htaccess 440
+3. Activate the plugin through the 'Plugins' menu in WordPress
+4. Activate the 3 sidebar widgets.
+5. Go to the Wordpress Settings page and find the link to the Admininistration Panel of Zingiri Web Shop, login with the default user admin and password admin_1234.
 
 Please visit the [Zingiri](http://www.zingiri.com/web-shop "Zingiri") website for more information and a Demo.
 
