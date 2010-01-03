@@ -141,7 +141,7 @@
 
    // read basket
    $query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (`CUSTOMERID` = ".$customerid." AND `ORDERID` = 0) ORDER BY ID";
-   $sql = mysql_query($query) or die(mysql_error());
+   $sql = mysql_query($query) or zfdbexit($query);
    $count = mysql_num_rows($sql);
 
    if ($count == 0) {

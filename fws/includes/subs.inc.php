@@ -712,4 +712,18 @@ function gen_rand_value($num)
 	return $rand_value;
 }
 
+// new functions
+function zfdbexit($query) {
+	global $gfx_dir, $txt, $page;
+	$error="<strong>A database error occured, please contact the Zingiri support team with the details of this error:</strong><br /><br />";
+	$error.="Query: ".$query."<br /><br />";
+	$error.="Error: ".mysql_error()."<br />";
+	$pageURL = $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://';
+	$pageURL .= $_SERVER['SERVER_PORT'] != '80' ? $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"] : $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+	$error.="URL:   ".$pageURL."<br />";
+	$error.="Page:  ".$page."<br />";
+	PutWindow($gfx_dir, $txt['general12'], $error, "warning.gif", "100");
+	die();
+} 
+
 ?>
