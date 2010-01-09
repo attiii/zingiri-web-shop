@@ -352,7 +352,7 @@ else {
                              // detection of language files in the language dir. for each language it finds, it will add a flag :)
            			         if ($dir = @opendir($lang_dir)) {
                                 while (($file = readdir($dir)) !== false) {
-                                      list($language, $filetype) = split('[.]', $file);
+                                      list($language, $filetype) = explode('[.]', $file);
                                       if ($file != "." && $file != ".." && $file != "index.php") {
 	                                     echo "<OPTION VALUE=\"".$language."\">".$language;
                                       }

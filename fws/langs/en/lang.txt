@@ -639,4 +639,15 @@ $txt['discountadmin6'] = 'All unused codes';
 $txt['discountadmin7'] = 'Discount code';
 $txt['discountadmin8'] = 'No unused codes';
 $txt['discountadmin9'] = 'Created on';
+
+//v1.1.0
+$txt['groupadmin100'] = 'Category type';
+$txt['groupadmin101'] = 'Physical';
+$txt['groupadmin102'] = 'Digital';
+$txt['groupadmin103'] = 'New category type';
+$txt['productadmin100'] = 'Digital source? <a href=# class=info>(?)<span>If this is a digital product you can upload the music, video, ebook, ... file here</span></a>';
+$txt['readorder100'] = 'Your downloads';
+$txt['products1'] = 'Download';
+
+
 ?>

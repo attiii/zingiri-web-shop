@@ -40,7 +40,7 @@
     else {
 	    $fp = fopen($orders_dir."/".$webid.".php", "rb") or die("Couldn't open order");
 	    $ordertext = fread($fp, filesize($orders_dir."/".$webid.".php"));
-		list($security, $order) = split("\?>", $ordertext);
+		list($security, $order) = explode("\?>", $ordertext);
 	    fclose($fp);
 	    
 	    // in version 2.1 we switched to html orders, but included the html header. that is wrong

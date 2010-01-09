@@ -83,8 +83,9 @@ else {
 			global $current_user;
 			get_currentuserinfo();
 			$news = new HTTPRequest('http://www.zingiri.com/news.php?e='.$current_user->user_email.'&w='.ZING_HOME);
-
-			PutWindow($gfx_dir, $txt['general13'], $news->DownloadToString(), "news.gif", "90");
+			if ($news->live()) {
+				PutWindow($gfx_dir, $txt['general13'], $news->DownloadToString(), "news.gif", "90");
+			}
 
 		}
 			

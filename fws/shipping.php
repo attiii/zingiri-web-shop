@@ -36,7 +36,7 @@ if (LoggedIn() == true) {
    if (!empty($_POST['step'])) {
  	   $step=2;
    }
-   if ($step == 2) { list($weightid, $shippingid) = split(":", $_POST['shipping']); }
+   if ($step == 2) { list($weightid, $shippingid) = explode(":", $_POST['shipping']); }
 ?>
     <?php
         if ($step == 1) {

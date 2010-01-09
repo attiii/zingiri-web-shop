@@ -122,4 +122,4 @@ else {
                   <td><?php echo $txt['db_status17']; ?></td>
               </tr>
        </table>
-<?php } ?>       
+<?php } ?>

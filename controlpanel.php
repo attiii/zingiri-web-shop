@@ -16,8 +16,22 @@ array(	"name" => "Type of install",
 			"std" => "Clean",
 			"type" => "select",
 			"options" => $install_type),
- 
+
 );
+
+if (!defined("ZING_DIG")) {
+	if (!get_option('zing_webshop_dig')) {
+		update_option('zing_webshop_dig',CreateRandomCode(15));
+	}
+	define("ZING_DIG",ZING_DIR.'prodgfx/'.get_option('zing_webshop_dig').'/');
+}
+if (!is_dir(ZING_DIG)) {
+	if (mkdir(ZING_DIG)) {
+		$tmp = fopen(ZING_DIG.'index.php', 'w');
+		fclose($tmp);
+	}
+
+}
 
 function zing_ws_add_admin() {
 
@@ -25,23 +39,23 @@ function zing_ws_add_admin() {
 
 	if ( $_GET['page'] == basename(__FILE__) ) {
 
-		
+
 		if ( 'install' == $_REQUEST['action'] ) {
 			zing_activate();
 			foreach ($zing_ws_options as $value) {
-				update_option( $value['id'], $_REQUEST[ $value['id'] ] ); 
+				update_option( $value['id'], $_REQUEST[ $value['id'] ] );
 			}
 
 			foreach ($zing_ws_options as $value) {
-				if( isset( $_REQUEST[ $value['id'] ] ) ) { 
-					update_option( $value['id'], $_REQUEST[ $value['id'] ]  ); 
-				} else { delete_option( $value['id'] ); 
-				} 
+				if( isset( $_REQUEST[ $value['id'] ] ) ) {
+					update_option( $value['id'], $_REQUEST[ $value['id'] ]  );
+				} else { delete_option( $value['id'] );
+				}
 			}
 			header("Location: options-general.php?page=controlpanel.php&installed=true");
 			die;
-		} 
-		
+		}
+
 		if( 'uninstall' == $_REQUEST['action'] ) {
 			zing_uninstall();
 			foreach ($zing_ws_options as $value) {
@@ -62,21 +76,20 @@ function zing_ws_admin() {
 	if ( $_REQUEST['installed'] ) echo '<div id="message" class="updated fade"><p><strong>'.$zing_ws_name.' installed.</strong></p></div>';
 	if ( $_REQUEST['uninstalled'] ) echo '<div id="message" class="updated fade"><p><strong>'.$zing_ws_name.' uninstalled.</strong></p></div>';
 
-?>
+	?>
 <div class="wrap">
 <h2><b><?php echo $zing_ws_name; ?></b></h2>
 
-<?php 
-$zing_version=get_option("zing_webshop_version");
-if (empty($zing_version))
+	<?php
+	$zing_version=get_option("zing_webshop_version");
+	if (empty($zing_version))
 	echo 'Please proceed with a clean install or deactivate your plugin';
-elseif ($zing_version != ZING_VERSION) 
+	elseif ($zing_version != ZING_VERSION)
 	echo 'You downloaded version '.ZING_VERSION.' and need to upgrade your database (currently at version '.$zing_version.').';
-elseif ($zing_version == ZING_VERSION)
+	elseif ($zing_version == ZING_VERSION)
 	echo 'Your version is up to date!';
-	 	
-?>
-<?php if ($zing_version != ZING_VERSION) { ?>
+
+	?> <?php if ($zing_version != ZING_VERSION) { ?>
 <form method="post">
 
 <table class="optiontable">
@@ -159,15 +172,17 @@ elseif ($zing_version == ZING_VERSION)
 <p class="submit"><input name="install" type="submit" value="Install" />
 <input type="hidden" name="action" value="install" /></p>
 </form>
-<?php } ?>
-<?php if ($zing_version) { ?>
+<?php } ?> <?php if ($zing_version) { ?>
 <hr />
-<p>Please note that the user administration in the Zingiri Webshop is separate from <br />
-	the Wordpress user administration (mainly for security purposes).<br /><br />
-	If it's your first time logging in, you can use user <strong>admin</strong> with password <strong>admin_1234</strong>.</p>
-<form method="post" action="<?php echo get_option("home");?>/index.php?page=admin">
-<p class="submit"><input name="admin" type="submit"
-	value="Admin" /></p>
+<p>Please note that the user administration in the Zingiri Webshop is
+separate from <br />
+the Wordpress user administration (mainly for security purposes).<br />
+<br />
+If it's your first time logging in, you can use user <strong>admin</strong>
+with password <strong>admin_1234</strong>.</p>
+<form method="post"
+	action="<?php echo get_option("home");?>/index.php?page=admin">
+<p class="submit"><input name="admin" type="submit" value="Admin" /></p>
 </form>
 <hr />
 <form method="post">

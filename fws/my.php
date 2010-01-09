@@ -38,6 +38,7 @@ if (LoggedIn() == true) {
              <td><div style="text-align:center;"><a class="plain" href="index.php?page=customer&action=show"><img src="<?php echo $gfx_dir ?>/customers.gif" alt="" /><br /><?php echo $txt['my7'] ?></a></div></td>
              <td><div style="text-align:center;"><a class="plain" href="index.php?page=orders&id=<?php echo $customerid; ?>"><img src="<?php echo $gfx_dir; ?>/orders.gif" alt="" /><br /><?php echo $txt['my8'] ?></a></div></td>
              <td><div style="text-align:center;"><a class="plain" href="index.php?page=cart&action=show"><img src="<?php echo $gfx_dir; ?>/carticon.gif" alt="" /><br /><?php echo $txt['my9'] ?></a></div></td>
+             <td><div style="text-align:center;"><a class="plain" href="index.php?page=products&action=show"><img src="<?php echo $gfx_dir; ?>/products.gif" alt="" /><br /><?php echo $txt['admin5'] ?></a></div></td>
            </tr></table>
           </td> 
       </tr>

@@ -32,8 +32,8 @@ if (!defined("ZING_PLUGINSDIR")) {
 	define("ZING_PLUGINSDIR",realpath(dirname(__FILE__).'/..').'/');
 }
 if (!defined("ZING_PLUGIN")) {
-	//$zing_plugin=str_replace(WP_CONTENT_DIR."/plugins/","",dirname(__FILE__));
-	$zing_plugin=str_replace(ZING_PLUGINSDIR,"",dirname(__FILE__));
+	$zing_plugin=str_replace(realpath(dirname(__FILE__).'/..'),"",dirname(__FILE__));
+	$zing_plugin=substr($zing_plugin,1);
 	define("ZING_PLUGIN", $zing_plugin);
 }
 if (!defined("ZING")) {
@@ -125,7 +125,7 @@ function zing_activate() {
 		while (false !== ($file = readdir($handle))) {
 			if (strstr($file,".sql")) {
 				$f=explode("-",$file);
-					
+
 				$v=str_replace(".sql","",$f[1]);
 				if ($zing_version < $v) {
 					$files[]=dirname(__FILE__).'/fws/db/'.$file;
@@ -236,6 +236,7 @@ function zing_uninstall() {
 	}
 	delete_option("zing_webshop_version",ZING_VERSION);
 	delete_option("zing_webshop_pages",ZING_VERSION);
+	delete_option("zing_webshop_dig",ZING_VERSION);
 }
 
 /**
@@ -690,7 +691,7 @@ function zing_page_id($page,$action="*")
  * @param $pages
  * @return unknown_type
  */
-function zing_exclude_pages( & $pages )
+function zing_exclude_pages( $pages )
 {
 	$bail_out = ( ( defined( 'WP_ADMIN' ) && WP_ADMIN == true ) || ( strpos( $_SERVER[ 'PHP_SELF' ], 'wp-admin' ) !== false ) );
 	if ( $bail_out ) return $pages;
