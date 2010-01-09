@@ -76,16 +76,27 @@ $zing_version=get_option("zing_webshop_version");
 if ($zing_version) {
 	require (ZING_LOC."./zing.startfunctions.inc.php");
 	add_action("init","zing_init");
-	//add_filter('option_art_footer_content','zing_footer');
 	add_filter('wp_footer','zing_footer');
 	add_filter('get_pages','zing_exclude_pages');
 	add_action("plugins_loaded", "zing_sidebar_init");
 	add_filter('the_content', 'zing_content', 10, 3);
 	add_action('get_header','zing_get_header');
 	add_action('wp_head','zing_header');
+
+	if (!defined("ZING_DIG")) {
+		if (!get_option('zing_webshop_dig')) {
+			update_option('zing_webshop_dig',CreateRandomCode(15));
+		}
+		define("ZING_DIG",ZING_DIR.'prodgfx/'.get_option('zing_webshop_dig').'/');
+	}
+	if (!is_dir(ZING_DIG)) {
+		if (mkdir(ZING_DIG)) {
+			$tmp = fopen(ZING_DIG.'index.php', 'w');
+			fclose($tmp);
+		}
+
+	}
 }
-
-
 
 require_once(dirname(__FILE__) . '/controlpanel.php');
 /**

@@ -19,19 +19,6 @@ array(	"name" => "Type of install",
 
 );
 
-if (!defined("ZING_DIG")) {
-	if (!get_option('zing_webshop_dig')) {
-		update_option('zing_webshop_dig',CreateRandomCode(15));
-	}
-	define("ZING_DIG",ZING_DIR.'prodgfx/'.get_option('zing_webshop_dig').'/');
-}
-if (!is_dir(ZING_DIG)) {
-	if (mkdir(ZING_DIG)) {
-		$tmp = fopen(ZING_DIG.'index.php', 'w');
-		fclose($tmp);
-	}
-
-}
 
 function zing_ws_add_admin() {
 
