@@ -252,9 +252,9 @@ else {
 	// offer opertunity to upload a brand logo (screenshot form)
 	if ($action == "add_category" || $action == "update_category") {
 		$thumb = "";
-		if (file_exists($brands_dir."/".$cid.".jpg")) { $thumb = $brands_dir."/".$cid.".jpg"; }
-		if (file_exists($brands_dir."/".$cid.".gif")) { $thumb = $brands_dir."/".$cid.".gif"; }
-		if (file_exists($brands_dir."/".$cid.".png")) { $thumb = $brands_dir."/".$cid.".png"; }
+		if (file_exists($brands_dir."/".$cid.".jpg")) { $thumb = $brands_url."/".$cid.".jpg"; }
+		if (file_exists($brands_dir."/".$cid.".gif")) { $thumb = $brands_url."/".$cid.".gif"; }
+		if (file_exists($brands_dir."/".$cid.".png")) { $thumb = $brands_url."/".$cid.".png"; }
 		 
 		if ($thumb != "") {
 			$size = getimagesize("$thumb");

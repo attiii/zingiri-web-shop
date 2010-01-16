@@ -1,39 +1,40 @@
 <?php
 /*  discount.php
-    Copyright 2006, 2007, 2008 Elmar Wenners
-    Support site: http://www.chaozz.nl
+ Copyright 2006, 2007, 2008 Elmar Wenners
+ Support site: http://www.chaozz.nl
 
-    This file is part of FreeWebshop.org.
+ This file is part of FreeWebshop.org.
 
-    FreeWebshop.org is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
+ FreeWebshop.org is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
 
-    FreeWebshop.org is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ FreeWebshop.org is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with FreeWebshop.org; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ You should have received a copy of the GNU General Public License
+ along with FreeWebshop.org; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-*/
+ */
 ?>
 <?php if ($index_refer <> 1) { exit(); } ?>
-<?php include (ZING_SUB."./includes/checklogin.inc.php"); ?>
 <?php
-    if (!empty($_POST['shippingid'])) 		{ $shippingid	= intval($_POST['shippingid']); }
-    if (!empty($_POST['weightid'])) 		{ $weightid		= intval($_POST['weightid']); }
-    if (!empty($_POST['paymentid'])) 		{ $paymentid	= intval($_POST['paymentid']); }
-    if (!empty($_POST['notes']))    		{ $notes		= $_POST['notes']; } else { $notes = ""; }
+include (ZING_SUB."./includes/checklogin.inc.php");
+if (!empty($_POST['shippingid'])) 		{ $shippingid	= intval($_POST['shippingid']); }
+if (!empty($_POST['weightid'])) 		{ $weightid		= intval($_POST['weightid']); }
+if (!empty($_POST['paymentid'])) 		{ $paymentid	= intval($_POST['paymentid']); }
+if (!empty($_POST['notes']))    		{ $notes		= $_POST['notes']; } else { $notes = ""; }
 ?>
 <?php
 if (LoggedIn() == True) {
 	$error = 0;
-	echo "<h4><img src=\"".$gfx_dir."/1_.gif\" alt=\"1\">&nbsp;<img src=\"".$gfx_dir."/2_.gif\" alt=\"step 2\">&nbsp;<img src=\"".$gfx_dir."/3_.gif\" alt=\"3\">&nbsp;<img src=\"".$gfx_dir."/arrow.gif\" alt=\"arrow\">&nbsp;<img src=\"".$gfx_dir."/4.gif\" alt=\"4\">&nbsp;<img src=\"".$gfx_dir."/5_.gif\" alt=\"5\"></h4><br /><br />";
-	
+	CheckoutShowProgress();
+	//echo "<h4><img src=\"".$gfx_dir."/1_.gif\" alt=\"1\">&nbsp;<img src=\"".$gfx_dir."/2_.gif\" alt=\"step 2\">&nbsp;<img src=\"".$gfx_dir."/3_.gif\" alt=\"3\">&nbsp;<img src=\"".$gfx_dir."/arrow.gif\" alt=\"arrow\">&nbsp;<img src=\"".$gfx_dir."/4.gif\" alt=\"4\">&nbsp;<img src=\"".$gfx_dir."/5_.gif\" alt=\"5\"></h4><br /><br />";
+
 	// if the cart is empty, then you shouldn't be here
 	if (CountCart($customerid) == 0) {
 		PutWindow($gfx_dir, $txt['general12'], $txt['checkout2'], "warning.gif", "50");
@@ -55,5 +56,6 @@ if (LoggedIn() == True) {
 				</td></tr>
 			</table>';
 	}
+	CheckoutNextStep();
 }
-?>     
+?>

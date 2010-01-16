@@ -63,6 +63,9 @@ if (!defined("ZING_URL")) {
 if (!defined("ZING_HOME")) {
 	define("ZING_HOME", get_option("home"));
 }
+if (!defined("ZING_UPLOADS_URL")) {
+	define("ZING_UPLOADS_URL", get_option("siteurl") . "/wp-content/uploads/zingiri-web-shop/");
+}
 
 $dbtablesprefix = $wpdb->prefix."zing_";
 $dblocation = DB_HOST;
@@ -82,20 +85,10 @@ if ($zing_version) {
 	add_filter('the_content', 'zing_content', 10, 3);
 	add_action('get_header','zing_get_header');
 	add_action('wp_head','zing_header');
+}
 
-	if (!defined("ZING_DIG")) {
-		if (!get_option('zing_webshop_dig')) {
-			update_option('zing_webshop_dig',CreateRandomCode(15));
-		}
-		define("ZING_DIG",ZING_DIR.'prodgfx/'.get_option('zing_webshop_dig').'/');
-	}
-	if (!is_dir(ZING_DIG)) {
-		if (mkdir(ZING_DIG)) {
-			$tmp = fopen(ZING_DIG.'index.php', 'w');
-			fclose($tmp);
-		}
-
-	}
+if (!defined("ZING_DIG") && get_option('zing_webshop_dig')!="") {
+	define("ZING_DIG",WP_CONTENT_DIR.'/uploads/zingiri-web-shop/digital-'.get_option('zing_webshop_dig').'/');
 }
 
 require_once(dirname(__FILE__) . '/controlpanel.php');
@@ -111,6 +104,44 @@ function zing_echo($stringData) {
 	fclose($fh);
 }
 
+/**
+ * Check if the web shop has been properly activated
+ * @return boolean
+ */
+function zing_check() {
+	$errors=array();
+	$files=array();
+	$dirs=array();
+	$zing_version=get_option("zing_webshop_version");
+	
+	if ($zing_version == "") { $errors[]='Please proceed with a clean install or deactivate your plugin'; return $errors; }
+	elseif ($zing_version != ZING_VERSION) $errors[]='You downloaded version '.ZING_VERSION.' and need to upgrade your database (currently at version '.$zing_version.').';
+
+	if ($zing_version < '1.2.0') return $errors;
+
+	$files[]=ZING_LOC.'log.txt';
+	$files[]=ZING_DIR.'banned.txt';
+
+	foreach ($files as $file) {
+		if (!file_exists($file)) $errors[]='File '.$file. " doesn't exist";
+		elseif (!is_writable($file)) $errors[]='File '.$file.' is not writable, please chmod to 666';
+	}
+
+	$dirs[]=WP_CONTENT_DIR.'/uploads/zingiri-web-shop/prodgfx';
+	$dirs[]=WP_CONTENT_DIR.'/uploads/zingiri-web-shop/cats';
+	$dirs[]=WP_CONTENT_DIR.'/uploads/zingiri-web-shop/orders';
+	$dirs[]=WP_CONTENT_DIR.'/uploads/zingiri-web-shop/digital-'.get_option('zing_webshop_dig');
+	$dirs[]=ZING_DIR.'addons/captcha';
+	$dirs[]=ZING_DIR.'addons/tinymce/jscripts/up';
+
+	foreach ($dirs as $file) {
+		if (!file_exists($file)) $errors[]='Directory '.$file. " doesn't exist";
+		elseif (!is_writable($file)) $errors[]='Directory '.$file.' is not writable, please chmod to 777';
+	}
+
+	return $errors;
+
+}
 /**
  * Activation of web shop: creation of database tables & set up of pages
  * @return unknown_type
@@ -170,6 +201,7 @@ function zing_activate() {
 
 	}
 
+	//Create default pages
 	if ($zing_version < '0.9.15') {
 		$pages=array();
 		$pages[]=array("Shop","main","*",0);
@@ -207,14 +239,54 @@ function zing_activate() {
 		}
 	}
 	//set comment status to closed
-	$ids=get_option("zing_webshop_pages");
-	$ida=explode(",",$ids);
-	foreach ($ida as $id) {
-		$my_post = array();
-		$my_post['ID']=$id;
-		$my_post['comment_status'] = 'closed';
-		wp_update_post($my_post);
+	if ($zing_version < '1.2.0') {
+		$ids=get_option("zing_webshop_pages");
+		$ida=explode(",",$ids);
+		foreach ($ida as $id) {
+			$my_post = array();
+			$my_post['ID']=$id;
+			$my_post['comment_status'] = 'closed';
+			wp_update_post($my_post);
+		}
 	}
+
+	//Create digital products directory if it doesn't exist yet
+	if (!get_option('zing_webshop_dig')) {
+		update_option('zing_webshop_dig',CreateRandomCode(15));
+	}
+	$dig=WP_CONTENT_DIR.'/uploads/zingiri-web-shop/digital-'.get_option('zing_webshop_dig').'/';
+	if (!is_dir($dig)) {
+		if (mkdir($dig)) {
+			$tmp = fopen($dig.'index.php', 'w');
+			fclose($tmp);
+		}
+	}
+
+	//Copy cats, product & order data to data subsdirectory to avoid overwritting with new releases
+	if (file_exists(WP_CONTENT_DIR.'/uploads')) {
+		$dir=WP_CONTENT_DIR.'/uploads/zingiri-web-shop';
+		if (!file_exists($dir)) {
+			mkdir($dir);
+		}
+		foreach (array('cats' => 'cats','prodgfx' => 'prodgfx','orders' => 'orders','prodgfx/'.get_option('zing_webshop_dig') => 'digital-'.get_option('zing_webshop_dig')) as $subori => $subdir) {
+			$dir=WP_CONTENT_DIR.'/uploads/zingiri-web-shop/'.$subdir.'/';
+			$ori=ZING_DIR.$subori.'/';
+			if (!file_exists($dir)) {
+				mkdir($dir);
+			}
+			if (file_exists($ori)) {
+				if ($handle = opendir($ori)) {
+					while (false !== ($file = readdir($handle))) {
+						if (strstr($file,'.php') || strstr($file,'.jpg') || strstr($file,'.png') || strstr($file,'.gif') || strstr($file,'.pdf')) {
+							copy($ori.$file,$dir.$file);
+						}
+					}
+					closedir($handle);
+				}
+			}
+		}
+	}
+
 }
 
 /**
@@ -257,7 +329,6 @@ function zing_uninstall() {
  * @return unknown_type
  */
 function zing_main($process,$content="") {
-
 	global $post;
 	global $wpdb;
 	global $aboutus_page;
@@ -332,6 +403,7 @@ function zing_main($process,$content="") {
 	global $pricelist_thumb_height;
 	global $pricelist_thumb_width;
 	global $product_dir;
+	global $product_url,$orders_url,$brands_url;
 	global $product_max_height;
 	global $product_max_width;
 	global $products_dir;
@@ -431,8 +503,11 @@ function zing_main($process,$content="") {
 		require (ZING_DIR."./includes/readvals.inc.php");        // get and post values
 	}
 	//	echo $scripts_dir."/".$to_include;
+	if (!$conditions_page && $_GET['page']=="conditions" && $_GET['action']=="checkout") {
+		//$page=$_GET['page']="shipping";
+		//$action=$_GET['action']="";
+	}
 	if ($to_include) include($scripts_dir."/".$to_include);
-	//	echo "ok";
 }
 
 /**
@@ -498,9 +573,6 @@ function widget_sidebar_general($args) {
 	echo $txt['menu14'];
 	echo $after_title;
 	echo '<div id="zing-sidebar">';
-	echo '<style type="text/css">';
-	echo 'h1 {display:none; }';
-	echo '</style>';
 	zing_main("sidebar","general");
 	echo '</div>';
 	echo $after_widget;
@@ -521,9 +593,6 @@ function widget_sidebar_products($args) {
 	echo $txt['menu15'];
 	echo $after_title;
 	echo '<div id="zing-sidebar">';
-	echo '<style type="text/css">';
-	echo 'h1 {display:none; }';
-	echo '</style>';
 	zing_main("sidebar","products");
 	echo "</div>";
 	echo $after_widget;
@@ -543,9 +612,6 @@ function widget_sidebar_cart($args) {
 	echo $txt['menu2'];
 	echo $after_title;
 	echo '<div id="zing-sidebar">';
-	echo '<style type="text/css">';
-	echo 'h1 {display:none; }';
-	echo '</style>';
 	zing_main("sidebar","cart");
 	echo '</div>';
 	echo $after_widget;
@@ -569,6 +635,8 @@ function zing_sidebar_init()
  */
 function zing_init()
 {
+	ob_start();
+
 	global $dbtablesprefix;
 	global $dblocation;
 	global $dbname;

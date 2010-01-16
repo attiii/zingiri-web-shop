@@ -1,7 +1,7 @@
 <?php
 $zing_ws_name = "Zingiri Web Shop";
 $zing_ws_shortname = "zing_ws";
-$install_type = array("Clean" );
+$install_type = array("Yes","No");
 
 $zing_ws_options = array (
 
@@ -10,10 +10,13 @@ array(  "name" => "Zingiri Web Shop Settings",
 			"desc" => "This section customizes the Zingiri Web Shop area.",
 ),
 
-array(	"name" => "Type of install",
-			"desc" => "Select the type install.",
+array(	"name" => "Newsletter",
+			"desc" => "We regularly send out a newsletter containing information about new releases, security warnings, ... 
+			<br />If you don't wish to receive this newsletter, please select 'No'.
+			<br />If you choose to receive the newsletter, we will send it to <strong>".get_option('admin_email')."</strong>
+			<br />You can change this option at any time.",
 			"id" => $zing_ws_shortname."_install",
-			"std" => "Clean",
+			"std" => "Yes",
 			"type" => "select",
 			"options" => $install_type),
 
@@ -65,18 +68,16 @@ function zing_ws_admin() {
 
 	?>
 <div class="wrap">
-<h2><b><?php echo $zing_ws_name; ?></b></h2>
+<h2><b><?php echo $zing_ws_name; ?></b></h2><div id="message" class="updated fade"><p>
 
 	<?php
+	$zing_errors=zing_check();
 	$zing_version=get_option("zing_webshop_version");
-	if (empty($zing_version))
-	echo 'Please proceed with a clean install or deactivate your plugin';
-	elseif ($zing_version != ZING_VERSION)
-	echo 'You downloaded version '.ZING_VERSION.' and need to upgrade your database (currently at version '.$zing_version.').';
-	elseif ($zing_version == ZING_VERSION)
-	echo 'Your version is up to date!';
+	
+	if ($zing_errors) foreach ($zing_errors as $zing_error) echo $zing_error.'<br />';
+	elseif ($zing_version == ZING_VERSION)	echo 'Your version is up to date!';
 
-	?> <?php if ($zing_version != ZING_VERSION) { ?>
+	?> </p></div><?php if (1==1) { ?>
 <form method="post">
 
 <table class="optiontable">
@@ -156,10 +157,11 @@ function zing_ws_admin() {
 ?>
 </table>
 
-<p class="submit"><input name="install" type="submit" value="Install" />
+<?php if ($zing_version) {?><p class="submit"><input name="install" type="submit" value="Update" />
+<?php } else {?><p class="submit"><input name="install" type="submit" value="Install" /><?php }?>
 <input type="hidden" name="action" value="install" /></p>
 </form>
-<?php } ?> <?php if ($zing_version) { ?>
+<?php } ?> <?php if ($zing_version == ZING_VERSION && !$zing_errors) { ?>
 <hr />
 <p>Please note that the user administration in the Zingiri Webshop is
 separate from <br />

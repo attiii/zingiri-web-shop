@@ -32,9 +32,9 @@
 	              
 	              $thumb = "";
 	              
-		          if (thumb_exists($product_dir ."/". $picture . ".jpg")) { $thumb = $product_dir ."/". $picture . ".jpg"; }
-		          if (thumb_exists($product_dir ."/". $picture . ".gif")) { $thumb = $product_dir ."/". $picture . ".gif"; }
-		          if (thumb_exists($product_dir ."/". $picture . ".png")) { $thumb = $product_dir ."/". $picture . ".png"; }
+		          if (thumb_exists($product_dir ."/". $picture . ".jpg")) { $thumb = $product_url ."/". $picture . ".jpg"; }
+		          if (thumb_exists($product_dir ."/". $picture . ".gif")) { $thumb = $product_url ."/". $picture . ".gif"; }
+		          if (thumb_exists($product_dir ."/". $picture . ".png")) { $thumb = $product_url ."/". $picture . ".png"; }
 		          
 			      if ($thumb == "") { $thumb = $gfx_dir."/nothumb.jpg"; }
 				  $screenshot = "<img src=\"".$thumb."\" width=\"100\" height=\"100\" />";

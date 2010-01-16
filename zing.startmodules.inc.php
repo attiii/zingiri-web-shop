@@ -33,11 +33,16 @@ if (isset($_GET['kat'])) { $_GET['cat']=$_GET['kat']; }
 include (ZING_DIR."./includes/readvals.inc.php");        // get and post values
 include (ZING_DIR."./includes/readsettings.inc.php");    // read shop settigns
 include( ZING_DIR."./includes/setfolders.inc.php");      // set appropriate folders
-$product_dir = ZING_SUB.$product_dir;
-$brands_dir = ZING_SUB.$brands_dir;
-$orders_dir = ZING_SUB.$orders_dir;
-$suporders_dir = ZING_SUB.$suporders_dir;
-$lang_dir = ZING_SUB.$lang_dir;
+
+$product_url = WP_CONTENT_URL.'/uploads/zingiri-web-shop/'.$product_dir;
+$brands_url = WP_CONTENT_URL.'/uploads/zingiri-web-shop/'.$brands_dir;
+$orders_url = WP_CONTENT_URL.'/uploads/zingiri-web-shop/'.$orders_dir;
+
+$product_dir = WP_CONTENT_DIR.'/uploads/zingiri-web-shop/'.$product_dir;
+$brands_dir = WP_CONTENT_DIR.'/uploads/zingiri-web-shop/'.$brands_dir;
+$orders_dir = WP_CONTENT_DIR.'/uploads/zingiri-web-shop/'.$orders_dir;
+$lang_dir = ZING_DIR.$lang_dir;
+
 $template_dir = ZING_SUB.$template_dir;
 $gfx_dir = $template_dir."/".$template."/images";
 $scripts_dir = ZING_DIR;

@@ -24,11 +24,15 @@
 <?php if ($index_refer <> 1) { exit(); } ?>
 <?php include (ZING_SUB."./includes/checklogin.inc.php"); ?>
 <?php
+global $shippingid,$weightid,$paymentid,$notes,$discount_code;
+CheckoutInit();
+/*
 if (!empty($_POST['shippingid'])) { $shippingid=intval($_POST['shippingid']); }
 if (!empty($_POST['weightid'])) { $weightid=intval($_POST['weightid']); }
 if (!empty($_POST['paymentid'])) { $paymentid=intval($_POST['paymentid']); }
 if (!empty($_POST['notes']))    { $notes=$_POST['notes']; } else { $notes = ""; }
 if (!empty($_POST['discount_code']))	{ $discount_code= stripslashes(htmlentities($_POST['discount_code'])); } else { $discount_code = ""; }
+*/
 ?>
 <?php
 if (LoggedIn() == True) {
@@ -294,7 +298,8 @@ if (LoggedIn() == True) {
 			
 			
 		// now lets show the customer some details
-		echo "<h4><img src=\"".$gfx_dir."/1_.gif\" alt=\"1\">&nbsp;<img src=\"".$gfx_dir."/2_.gif\" alt=\"step 2\">&nbsp;<img src=\"".$gfx_dir."/3_.gif\" alt=\"3\">&nbsp;<img src=\"".$gfx_dir."/4_.gif\" alt=\"4\">&nbsp;<img src=\"".$gfx_dir."/arrow.gif\" alt=\"arrow\">&nbsp;<img src=\"".$gfx_dir."/5.gif\" alt=\"5\"></h4><br /><br />";
+		CheckoutShowProgress();
+		//echo "<h4><img src=\"".$gfx_dir."/1_.gif\" alt=\"1\">&nbsp;<img src=\"".$gfx_dir."/2_.gif\" alt=\"step 2\">&nbsp;<img src=\"".$gfx_dir."/3_.gif\" alt=\"3\">&nbsp;<img src=\"".$gfx_dir."/4_.gif\" alt=\"4\">&nbsp;<img src=\"".$gfx_dir."/arrow.gif\" alt=\"arrow\">&nbsp;<img src=\"".$gfx_dir."/5.gif\" alt=\"5\"></h4><br /><br />";
 
 		// make pdf
 		$pdf = "";
@@ -353,7 +358,7 @@ if (LoggedIn() == True) {
 		       </td></tr>
 		     </table>
 		     <h4><a href="?page=printorder&orderid='.$lastid.'">'.$txt['readorder1'].'</a>';
-		if ($create_pdf == 1) { echo "<br /><a href=\"".$fullpdf."\">".$txt['checkout27']."</a></h4>"; }
+		if ($create_pdf == 1) { echo "<br /><a href=\"".$orders_url."/".$pdf."\">".$txt['checkout27']."</a></h4>"; }
 			
 	}
 }

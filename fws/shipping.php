@@ -25,6 +25,8 @@
 <?php include (ZING_SUB."./includes/checklogin.inc.php"); ?>
 <?php
 if (LoggedIn() == true) {
+	global $shippingid,$weightid,$paymentid,$notes,$discount_code;
+	CheckoutNextStep();
     // if the cart is empty, then you shouldn't be here
    if (CountCart($customerid) == 0) {
       PutWindow($gfx_dir, $txt['cart1'], $txt['cart2'], "carticon.gif", "50");	   
@@ -36,11 +38,16 @@ if (LoggedIn() == true) {
    if (!empty($_POST['step'])) {
  	   $step=2;
    }
-   if ($step == 2) { list($weightid, $shippingid) = explode(":", $_POST['shipping']); }
+   elseif (!empty($_GET['step'])) {
+ 	   $step=2;
+   }
+   if ($step == 2 && isset($_POST['shipping'])) { list($weightid, $shippingid) = explode(":", $_POST['shipping']); }
+   elseif ($step == 2 && isset($_GET['shipping'])) { $weightid=$_GET['weightid']; $shippingid=$_GET['shippingid']; }
 ?>
     <?php
-        if ($step == 1) {
-			echo "<h4><img src=\"".$gfx_dir."/1_.gif\" alt=\"1\">&nbsp;<img src=\"".$gfx_dir."/arrow.gif\" alt=\"2\">&nbsp;<img src=\"".$gfx_dir."/2.gif\" alt=\"step 2\">&nbsp;<img src=\"".$gfx_dir."/3_.gif\" alt=\"3\">&nbsp;<img src=\"".$gfx_dir."/4_.gif\" alt=\"4\">&nbsp;<img src=\"".$gfx_dir."/5_.gif\" alt=\"5\"></h4><br /><br />";
+      	CheckoutShowProgress();
+    if ($step == 1) {
+			//echo "<h4><img src=\"".$gfx_dir."/1_.gif\" alt=\"1\">&nbsp;<img src=\"".$gfx_dir."/arrow.gif\" alt=\"2\">&nbsp;<img src=\"".$gfx_dir."/2.gif\" alt=\"step 2\">&nbsp;<img src=\"".$gfx_dir."/3_.gif\" alt=\"3\">&nbsp;<img src=\"".$gfx_dir."/4_.gif\" alt=\"4\">&nbsp;<img src=\"".$gfx_dir."/5_.gif\" alt=\"5\"></h4><br /><br />";
 	?>
 	<table width="100%" class="datatable">
     <caption><?php echo $txt['shipping1']; ?></caption>
@@ -75,7 +82,7 @@ if (LoggedIn() == true) {
       <?php
         }    
         else {
-			echo "<h4><img src=\"".$gfx_dir."/1_.gif\" alt=\"1\">&nbsp;<img src=\"".$gfx_dir."/2_.gif\" alt=\"step 2\">&nbsp;<img src=\"".$gfx_dir."/arrow.gif\" alt=\"2\">&nbsp;<img src=\"".$gfx_dir."/3.gif\" alt=\"3\">&nbsp;<img src=\"".$gfx_dir."/4_.gif\" alt=\"4\">&nbsp;<img src=\"".$gfx_dir."/5_.gif\" alt=\"5\"></h4><br /><br />";
+			//echo "<h4><img src=\"".$gfx_dir."/1_.gif\" alt=\"1\">&nbsp;<img src=\"".$gfx_dir."/2_.gif\" alt=\"step 2\">&nbsp;<img src=\"".$gfx_dir."/arrow.gif\" alt=\"2\">&nbsp;<img src=\"".$gfx_dir."/3.gif\" alt=\"3\">&nbsp;<img src=\"".$gfx_dir."/4_.gif\" alt=\"4\">&nbsp;<img src=\"".$gfx_dir."/5_.gif\" alt=\"5\"></h4><br /><br />";
 	?>
 	<table width="100%" class="datatable">
     <caption><?php echo $txt['shipping1']; ?></caption>
@@ -87,8 +94,8 @@ if (LoggedIn() == true) {
           <SELECT NAME="paymentid">
            <?php 
                  // find out the payment methods
-                 $query="SELECT * FROM `".$dbtablesprefix."shipping_payment` WHERE `shippingid`='".$shippingid."' ORDER BY `paymentid`";
-                 $sql = mysql_query($query) or die(mysql_error());
+		         $query="SELECT * FROM `".$dbtablesprefix."shipping_payment` WHERE `shippingid`='".$shippingid."' ORDER BY `paymentid`";
+		         $sql = mysql_query($query) or die(mysql_error());
                  
                  while ($row = mysql_fetch_row($sql)) {
 		                 $query_pay="SELECT * FROM `".$dbtablesprefix."payment` WHERE `id`='".$row[1]."'";
@@ -103,7 +110,8 @@ if (LoggedIn() == true) {
          <br />
          <br />
        	 <?php echo $txt['shipping3']."<br /><textarea name=\"notes\" rows=\"15\" cols=\"65\">".$pdescription."</textarea><br />"; ?>
-      <?php    
+      <?php
+      
         }
       ?> 
          <br /><br /> 

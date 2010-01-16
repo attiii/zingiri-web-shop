@@ -422,9 +422,7 @@ $txt['editsettings59'] = 'Use pictures <a href=# class=info>(?)<span>If you do n
 $txt['editsettings69'] = 'Use thumbnails in pricelist <a href=# class=info>(?)<span>Shows (if found) a small preview of the product picture in front of the description</span></a>';
 $txt['editsettings70'] = 'Keywords (comma seperated) <a href=# class=info>(?)<span>Words on which you want to be found by search engines</span></a>';
 $txt['editsettings71'] = 'Used charset <a href=# class=info>(?)<span>Some languages need different character sets. For you it is probably ISO-8859-1</span></a>';
-$txt['editsettings72'] = 'Show General conditions link';
 $txt['editsettings73'] = 'Show Guarantee link';
-$txt['editsettings74'] = 'Show Shipping link';
 $txt['editsettings75'] = 'Pictures filename <a href=# class=info>(?)<span>Some languages have characters that are not allowed in filenames. It is best to use the database id as the picture ID in those (and most other) cases</span></a>';
 $txt['editsettings76'] = 'Database ID (recommended)';
 $txt['editsettings77'] = 'Product ID';
@@ -640,7 +638,7 @@ $txt['discountadmin7'] = 'Discount code';
 $txt['discountadmin8'] = 'No unused codes';
 $txt['discountadmin9'] = 'Created on';
 
-//v1.1.0
+//v1.1.0 - new
 $txt['groupadmin100'] = 'Category type';
 $txt['groupadmin101'] = 'Physical';
 $txt['groupadmin102'] = 'Digital';
@@ -649,5 +647,8 @@ $txt['productadmin100'] = 'Digital source? <a href=# class=info>(?)<span>If this
 $txt['readorder100'] = 'Your downloads';
 $txt['products1'] = 'Download';
 
+//v1.2.0 - modified
+$txt['editsettings72'] = 'Show General Conditions page';
+$txt['editsettings74'] = 'Show Shipping page';
 
 ?>

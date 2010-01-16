@@ -205,7 +205,7 @@ else {
 	           
 	           // if a pdf was created, lets show it here
 	           if ($row[10] != "" && !is_null($row[10]) && file_exists($orders_dir ."/". $row[10])) { 
-		           echo "<a href=\"".$orders_dir ."/". $row[10]."\"><img src=\"".$gfx_dir."/pdf.gif\" alt=\"PDF\"></a> "; 
+		           echo "<a href=\"".$orders_url ."/". $row[10]."\"><img src=\"".$gfx_dir."/pdf.gif\" alt=\"PDF\"></a> "; 
 		       }
 	           // if customer added notes to the order, then lets bring this to the admins attention by adding a note icon
 	           if ($row[8] != "" && !is_null($row[8])) { 

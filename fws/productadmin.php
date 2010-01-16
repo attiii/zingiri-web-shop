@@ -253,7 +253,7 @@ else {
 					$percent = ($size[0] / $width);
 					$height = round($size[1] / $percent);
 				}
-				echo "<h4><img src=\"".$product_dir."/".$thumb."\" class=\"borderimg\" height=".$height." width=".$width."><br />";
+				echo "<h4><img src=\"".$product_url."/".$thumb."\" class=\"borderimg\" height=".$height." width=".$width."><br />";
 				echo "<a href=\"index.php?page=productadmin&action=del_image&picid=".$picid."\">".$txt['productadmin24']."</a></h4>";
 			}
 			echo "<br /><br />";
