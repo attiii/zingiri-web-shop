@@ -66,6 +66,11 @@ if (!defined("ZING_HOME")) {
 if (!defined("ZING_UPLOADS_URL")) {
 	define("ZING_UPLOADS_URL", get_option("siteurl") . "/wp-content/uploads/zingiri-web-shop/");
 }
+if (!defined("ZING_OWNER")) {
+	$zing_owner=posix_getpwuid(fileowner(__FILE__));
+	if ($zing_owner && count($zing_owner) > 0 && $zing_owner['name']) define("ZING_OWNER", $zing_owner['name']);
+	else define("ZING_OWNER",false);
+}
 
 $dbtablesprefix = $wpdb->prefix."zing_";
 $dblocation = DB_HOST;
@@ -76,8 +81,8 @@ $dbpass = DB_PASSWORD;
 $zing_version=get_option("zing_webshop_version");
 
 
+require (ZING_LOC."./zing.startfunctions.inc.php");
 if ($zing_version) {
-	require (ZING_LOC."./zing.startfunctions.inc.php");
 	add_action("init","zing_init");
 	add_filter('wp_footer','zing_footer');
 	add_filter('get_pages','zing_exclude_pages');
@@ -109,7 +114,9 @@ function zing_echo($stringData) {
  * @return boolean
  */
 function zing_check() {
+	global $lang_dir;
 	$errors=array();
+	$warnings=array();
 	$files=array();
 	$dirs=array();
 	$zing_version=get_option("zing_webshop_version");
@@ -121,12 +128,13 @@ function zing_check() {
 
 	$files[]=ZING_LOC.'log.txt';
 	$files[]=ZING_DIR.'banned.txt';
-
+	
 	foreach ($files as $file) {
 		if (!file_exists($file)) $errors[]='File '.$file. " doesn't exist";
 		elseif (!is_writable($file)) $errors[]='File '.$file.' is not writable, please chmod to 666';
 	}
 
+	$dirs[]=WP_CONTENT_DIR.'/uploads/zingiri-web-shop';
 	$dirs[]=WP_CONTENT_DIR.'/uploads/zingiri-web-shop/prodgfx';
 	$dirs[]=WP_CONTENT_DIR.'/uploads/zingiri-web-shop/cats';
 	$dirs[]=WP_CONTENT_DIR.'/uploads/zingiri-web-shop/orders';
@@ -139,7 +147,8 @@ function zing_check() {
 		elseif (!is_writable($file)) $errors[]='Directory '.$file.' is not writable, please chmod to 777';
 	}
 
-	return $errors;
+	if (phpversion() < '5')	$warnings[]="You are running PHP version ".phpversion().". If you wish to use the PDF invoice generation functionality, you will need to upgrade to version 5.x.x";
+	return array('errors'=> $errors, 'warnings' => $warnings);
 
 }
 /**
@@ -267,12 +276,14 @@ function zing_activate() {
 		$dir=WP_CONTENT_DIR.'/uploads/zingiri-web-shop';
 		if (!file_exists($dir)) {
 			mkdir($dir);
+			chmod($dir,0777);
 		}
 		foreach (array('cats' => 'cats','prodgfx' => 'prodgfx','orders' => 'orders','prodgfx/'.get_option('zing_webshop_dig') => 'digital-'.get_option('zing_webshop_dig')) as $subori => $subdir) {
 			$dir=WP_CONTENT_DIR.'/uploads/zingiri-web-shop/'.$subdir.'/';
 			$ori=ZING_DIR.$subori.'/';
 			if (!file_exists($dir)) {
 				mkdir($dir);
+				chmod($dir,0777);
 			}
 			if (file_exists($ori)) {
 				if ($handle = opendir($ori)) {
@@ -307,7 +318,6 @@ function zing_uninstall() {
 	$rows=$wpdb->get_results("show tables like '".$prefix."%'",ARRAY_N);
 	if (count($rows) > 0) {
 		foreach ($rows as $id => $row) {
-			zing_echo(print_r($row,true));
 			$query="drop table ".$row[0];
 			$wpdb->query($query);
 		}
@@ -817,7 +827,7 @@ function zing_exclude_pages( $pages )
 		elseif ($security == "9" && $loggedin && $isadmin) {
 			$show=true;
 		}
-		if (!$show)
+		if (!$show || get_option("zing_ws_show_menu_".$page->ID)=="No")
 		{
 			unset($pages[$i]);
 			$unsetpages[$page->ID]=true;

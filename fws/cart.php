@@ -27,8 +27,14 @@
       if (!empty($_POST['numprod'])) {
 	      $numprod=intval($_POST['numprod']);
       }
+      elseif (!empty($_GET['numprod'])) {
+	      $numprod=intval($_GET['numprod']);
+      }
       if (!empty($_POST['prodid'])) {
 	      $prodid=intval($_POST['prodid']);
+      }
+      elseif (!empty($_GET['prodid'])) {
+	      $prodid=intval($_GET['prodid']);
       }
       if (!empty($_POST['prodprice'])) {
 	      $prodprice=$_POST['prodprice'];
@@ -71,10 +77,11 @@
         
         if ($error == 0) {
 		    // product features
-		    $query = sprintf("SELECT `FEATURES` FROM `".$dbtablesprefix."product` WHERE `ID` = %s", quote_smart($prodid));
+		    $query = sprintf("SELECT `FEATURES`,`PRICE` FROM `".$dbtablesprefix."product` WHERE `ID` = %s", quote_smart($prodid));
 		    $sql = mysql_query($query) or die(mysql_error());
-		    $row = mysql_fetch_row($sql);
+		    $row = mysql_fetch_array($sql);
 		   
+			$prodprice = $row['PRICE'];
 		    $allfeatures = $row[0];
 		    $productfeatures = "";
 			

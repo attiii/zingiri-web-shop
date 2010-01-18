@@ -342,7 +342,7 @@ if (LoggedIn() == True) {
 		// save the order in order folder for administration
 		$security = "<?php if ($"."index_refer <> 1) { exit(); } ?>";
 		//		 $handle = fopen (dirname(__FILE__)."/".$orders_dir."/".strval($webid).".php", "w+");
-		$handle = fopen (dirname(__FILE__)."/"."orders"."/".strval($webid).".php", "w+");
+		$handle = fopen ($orders_dir."/".strval($webid).".php", "w+");
 		if (!fwrite($handle, $security.$message))
 		{
 			$retVal = false;

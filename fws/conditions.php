@@ -31,7 +31,6 @@ if (LoggedIn() == False && $action == "checkout") {
 }
 else {
 	$count = CountCart($customerid);
-	echo 'steps='.CheckoutSteps();
 	if ($count == 0 && $action == "checkout") {
 		PutWindow($gfx_dir, $txt['cart1'], $txt['cart2'], "carticon.gif", "50");
 	}
