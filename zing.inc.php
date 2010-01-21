@@ -66,11 +66,6 @@ if (!defined("ZING_HOME")) {
 if (!defined("ZING_UPLOADS_URL")) {
 	define("ZING_UPLOADS_URL", get_option("siteurl") . "/wp-content/uploads/zingiri-web-shop/");
 }
-if (!defined("ZING_OWNER")) {
-	$zing_owner=posix_getpwuid(fileowner(__FILE__));
-	if ($zing_owner && count($zing_owner) > 0 && $zing_owner['name']) define("ZING_OWNER", $zing_owner['name']);
-	else define("ZING_OWNER",false);
-}
 
 $dbtablesprefix = $wpdb->prefix."zing_";
 $dblocation = DB_HOST;
@@ -130,8 +125,8 @@ function zing_check() {
 	$files[]=ZING_DIR.'banned.txt';
 	
 	foreach ($files as $file) {
-		if (!file_exists($file)) $errors[]='File '.$file. " doesn't exist";
-		elseif (!is_writable($file)) $errors[]='File '.$file.' is not writable, please chmod to 666';
+		if (!file_exists($file)) $warnings[]='File '.$file. " doesn't exist";
+		elseif (!is_writable($file)) $warnings[]='File '.$file.' is not writable, please chmod to 666';
 	}
 
 	$dirs[]=WP_CONTENT_DIR.'/uploads/zingiri-web-shop';
@@ -143,8 +138,8 @@ function zing_check() {
 	$dirs[]=ZING_DIR.'addons/tinymce/jscripts/up';
 
 	foreach ($dirs as $file) {
-		if (!file_exists($file)) $errors[]='Directory '.$file. " doesn't exist";
-		elseif (!is_writable($file)) $errors[]='Directory '.$file.' is not writable, please chmod to 777';
+		if (!file_exists($file)) $warnings[]='Directory '.$file. " doesn't exist";
+		elseif (!is_writable($file)) $warnings[]='Directory '.$file.' is not writable, please chmod to 777';
 	}
 
 	if (phpversion() < '5')	$warnings[]="You are running PHP version ".phpversion().". If you wish to use the PDF invoice generation functionality, you will need to upgrade to version 5.x.x";
