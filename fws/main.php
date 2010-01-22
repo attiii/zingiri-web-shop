@@ -40,7 +40,7 @@
       $fp = fopen($main_file, "rb") or die("Couldn't open ".$main_file.". Make sure it exists and is readable.");
       $main = fread($fp, filesize($main_file));
       fclose($fp);
-      $main=str_replace("templates/default/images",ZING_SUB."templates/default/images",$main);
+      $main=str_replace("templates/default/images",$gfx_dir,$main);
       echo "<p>".nl2br($main)."</p>";
      ?>
     </td></tr>

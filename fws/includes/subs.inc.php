@@ -866,4 +866,7 @@ function CheckoutNextStep() {
 	}
 
 }
+function zurl($url) {
+	return ZING_HOME.'/'.$url;
+}
 ?>

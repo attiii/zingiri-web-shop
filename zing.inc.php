@@ -115,15 +115,15 @@ function zing_check() {
 	$files=array();
 	$dirs=array();
 	$zing_version=get_option("zing_webshop_version");
-	
-	if ($zing_version == "") { $errors[]='Please proceed with a clean install or deactivate your plugin'; return $errors; }
+
+	if ($zing_version == "") { $errors[]='Please proceed with a clean install or deactivate your plugin'; 	return array('errors'=> $errors, 'warnings' => $warnings); }
 	elseif ($zing_version != ZING_VERSION) $errors[]='You downloaded version '.ZING_VERSION.' and need to upgrade your database (currently at version '.$zing_version.').';
 
 	if ($zing_version < '1.2.0') return $errors;
 
 	$files[]=ZING_LOC.'log.txt';
 	$files[]=ZING_DIR.'banned.txt';
-	
+
 	foreach ($files as $file) {
 		if (!file_exists($file)) $warnings[]='File '.$file. " doesn't exist";
 		elseif (!is_writable($file)) $warnings[]='File '.$file.' is not writable, please chmod to 666';
@@ -143,6 +143,7 @@ function zing_check() {
 	}
 
 	if (phpversion() < '5')	$warnings[]="You are running PHP version ".phpversion().". If you wish to use the PDF invoice generation functionality, you will need to upgrade to version 5.x.x";
+	if (ini_get("zend.ze1_compatibility_mode")) $warnings[]="You are running PHP in PHP 4 compatibility mode. The PDF invoice functionality requires this mode to be turned off.";
 	return array('errors'=> $errors, 'warnings' => $warnings);
 
 }
@@ -456,7 +457,8 @@ function zing_main($process,$content="") {
 	global $weight_metric;
 	global $zing_loaded;
 	global $charset;
-
+	require (ZING_LOC."./zing.readcookie.inc.php");      // read the cookie
+	
 	include (ZING_LOC."./zing.globals.inc.php");
 	//	error_reporting(E_ALL & ~E_NOTICE);
 	//	ini_set('display_errors', '1');
@@ -534,6 +536,7 @@ function zing_header()
 	echo '<link rel="stylesheet" href="' . ZING_URL . 'fws/addons/lightbox/lightbox.css" type="text/css" media="screen" />';
 	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/addons/lightbox/lightbox.js"></script>';
 	echo '<link rel="stylesheet" type="text/css" href="' . ZING_URL . 'zing.css" media="screen" />';
+	
 }
 
 /**
@@ -559,7 +562,7 @@ function zing_get_header()
 	global $name;
 	global $customerid;
 
-	require (ZING_LOC."./zing.readcookie.inc.php");      // read the cookie
+	//require (ZING_LOC."./zing.readcookie.inc.php");      // read the cookie
 
 }
 
@@ -720,6 +723,7 @@ function zing_init()
 		}
 		$_GET['page_id']=zing_page_id("main");
 	}
+
 }
 
 /**

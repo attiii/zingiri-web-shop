@@ -651,4 +651,7 @@ $txt['products1'] = 'Download';
 $txt['editsettings72'] = 'Show General Conditions page';
 $txt['editsettings74'] = 'Show Shipping page';
 
+//v1.2.2 - added
+$txt['generic1'] = 'Delete';
+
 ?>

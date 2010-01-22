@@ -25,7 +25,7 @@ else {
 	?>
 
 <table width="100%" class="datatable">
-	<caption><?php echo $txt['cart11'] ?></caption>
+	<caption><?php echo $txt['menu15'] ?></caption>
 	<tr>
 		<th><?php echo $txt['cart3']; ?></th>
 		<th><?php echo $txt['cart4']; ?></th>

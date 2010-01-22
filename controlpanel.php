@@ -1,11 +1,12 @@
 <?php
-$zing_ws_name = "Zingiri Web Shop";
-$zing_ws_shortname = "zing_ws";
-$install_type = array("Yes","No");
-$zing_yn = array("Yes", "No");
-
 function zing_set_options() {
-	global $wpdb,$zing_ws_options;
+	global $wpdb,$zing_ws_options,$zing_ws_name,$zing_ws_shortname;
+	
+	$zing_ws_name = "Zingiri Web Shop";
+	$zing_ws_shortname = "zing_ws";
+	$install_type = array("Yes","No");
+	$zing_yn = array("Yes", "No");
+	
 	$zing_ws_options = array (
 
 	array(  "name" => "Zingiri Web Shop Settings",
@@ -44,6 +45,8 @@ function zing_ws_add_admin() {
 
 	global $zing_ws_name, $zing_ws_shortname, $zing_ws_options;
 
+	zing_set_options();
+	
 	if ( $_GET['page'] == basename(__FILE__) ) {
 
 
@@ -81,7 +84,7 @@ function zing_ws_admin() {
 	global $zing_ws_name, $zing_ws_shortname, $zing_ws_options;
 
 	zing_set_options();
-	
+
 	if ( $_REQUEST['installed'] ) echo '<div id="message" class="updated fade"><p><strong>'.$zing_ws_name.' installed.</strong></p></div>';
 	if ( $_REQUEST['uninstalled'] ) echo '<div id="message" class="updated fade"><p><strong>'.$zing_ws_name.' uninstalled.</strong></p></div>';
 
@@ -97,7 +100,7 @@ $zing_version=get_option("zing_webshop_version");
 
 if ($zing_errors) foreach ($zing_errors as $zing_error) echo $zing_error.'<br />';
 if ($zing_warnings) foreach ($zing_warnings as $zing_warning) echo $zing_warning.'<br />';
-elseif ($zing_version == ZING_VERSION)	echo 'Your version is up to date!';
+elseif (!$zing_errors && !$zing_warnings)	echo 'Your version is up to date!';
 
 ?></p>
 </div>
@@ -181,13 +184,14 @@ elseif ($zing_version == ZING_VERSION)	echo 'Your version is up to date!';
 ?>
 </table>
 
-<?php if ($zing_version && !$zing_errors) {?>
-<p class="submit"><input name="install" type="submit" value="Update" />
+<?php if (!$zing_version) {?>
+<p class="submit"><input name="install" type="submit" value="Install" />
+<?php } elseif ($zing_version != ZING_VERSION) {?>
+<p class="submit"><input name="install" type="submit" value="Upgrade" />
 <?php } else {?>
-<p class="submit"><input name="install" type="submit"
-	value="Install or Upgrade" /><?php }?> <input type="hidden"
-	name="action" value="install" /></p>
-
+<p class="submit"><input name="install" type="submit" value="Update" />
+<?php }?>
+<input type="hidden" name="action" value="install" /></p>
 </form>
 <?php } ?> <?php if ($zing_version == ZING_VERSION && !$zing_errors) { ?>
 <hr />

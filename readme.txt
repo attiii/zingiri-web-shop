@@ -4,7 +4,7 @@ Donate link: http://www.zingiri.com/
 Tags: ecommerce, e-commerce, paypal, freewebshop, shop, cart, web shop, shopping cart, iDEAL, Google Checkout, Worldpay
 Requires at least: 2.1.7
 Tested up to: 2.9.1
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 
 Zingiri Web Shop is a Wordpress plugin that brings together a great content management system with the fantastic FreeWebShop ecommerce solution.
 
@@ -58,6 +58,14 @@ Upgrades are handled automatically. Simply upload the latest version, go to sett
 Before upgrading, make sure you back up your database first!
 
 == Changelog ==
+
+= 1.2.3 =
+* Fixed issue with default option values in Admin panel
+* Removed display of "Strict Standards: is_a(): Deprecated." warning message
+* Added a check on "zend.ze1_compatibility_mode"
+* Added possibility to delete all unused discount codes
+* Changed Products view to show title Products instead of What is in your cart
+* Adjusted management of cookie to work with themes without header
 
 = 1.2.2 =
 * Corrected issue caused by undefined function posix_getpwuid() on certain installations

@@ -43,8 +43,9 @@ $brands_dir = WP_CONTENT_DIR.'/uploads/zingiri-web-shop/'.$brands_dir;
 $orders_dir = WP_CONTENT_DIR.'/uploads/zingiri-web-shop/'.$orders_dir;
 $lang_dir = ZING_DIR.$lang_dir;
 
-$template_dir = ZING_SUB.$template_dir;
-$gfx_dir = $template_dir."/".$template."/images";
+//$template_dir = ZING_SUB.$template_dir;
+//$gfx_dir = $template_dir."/".$template."/images";
+$gfx_dir = ZING_URL.'fws/'.$template_dir."/".$template."/images";
 $scripts_dir = ZING_DIR;
 
 if (function_exists("qtrans_getLanguage")) {
