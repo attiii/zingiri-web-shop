@@ -713,8 +713,13 @@ function gen_rand_value($num)
 }
 
 // new functions
-function zfdbexit($query) {
+function zing_query_db($query) {
+	if ($sql=mysql_query($query)) return $sql;
+	zfdbexit($query);
+}
+function zfdbexit($query="") {
 	global $gfx_dir, $txt, $page;
+	echo 'info='.mysql_info();
 	$error="<strong>A database error occured, please contact the Zingiri support team with the details of this error:</strong><br /><br />";
 	$error.="Query: ".$query."<br /><br />";
 	$error.="Error: ".mysql_error()."<br />";

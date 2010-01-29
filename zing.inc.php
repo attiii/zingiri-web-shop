@@ -67,6 +67,11 @@ if (!defined("ZING_UPLOADS_URL")) {
 	define("ZING_UPLOADS_URL", get_option("siteurl") . "/wp-content/uploads/zingiri-web-shop/");
 }
 
+if (function_exists("qtrans_getLanguage")) {
+	session_start();
+	if (isset($_GET['lang'])) $_SESSION['lang']=$_GET['lang'];
+	elseif (isset($_SESSION['lang'])) $_GET['lang']= $_SESSION['lang'];
+}
 $dbtablesprefix = $wpdb->prefix."zing_";
 $dblocation = DB_HOST;
 $dbname = DB_NAME;
@@ -83,7 +88,6 @@ if ($zing_version) {
 	add_filter('get_pages','zing_exclude_pages');
 	add_action("plugins_loaded", "zing_sidebar_init");
 	add_filter('the_content', 'zing_content', 10, 3);
-	add_action('get_header','zing_get_header');
 	add_action('wp_head','zing_header');
 }
 
@@ -458,7 +462,7 @@ function zing_main($process,$content="") {
 	global $zing_loaded;
 	global $charset;
 	require (ZING_LOC."./zing.readcookie.inc.php");      // read the cookie
-	
+
 	include (ZING_LOC."./zing.globals.inc.php");
 	//	error_reporting(E_ALL & ~E_NOTICE);
 	//	ini_set('display_errors', '1');
@@ -536,33 +540,6 @@ function zing_header()
 	echo '<link rel="stylesheet" href="' . ZING_URL . 'fws/addons/lightbox/lightbox.css" type="text/css" media="screen" />';
 	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/addons/lightbox/lightbox.js"></script>';
 	echo '<link rel="stylesheet" type="text/css" href="' . ZING_URL . 'zing.css" media="screen" />';
-	
-}
-
-/**
- * Manage redirects for login, logout, set language
- * @return unknown_type
- */
-function zing_get_header()
-{
-	global $dbtablesprefix;
-	global $dblocation;
-	global $dbname;
-	global $dbuser;
-	global $dbpass;
-	global $product_dir;
-	global $brands_dir;
-	global $orders_dir;
-	global $lang_dir;
-	global $template_dir;
-	global $gfx_dir;
-	global $scripts_dir;
-	global $products_dir;
-	global $index_refer;
-	global $name;
-	global $customerid;
-
-	//require (ZING_LOC."./zing.readcookie.inc.php");      // read the cookie
 
 }
 

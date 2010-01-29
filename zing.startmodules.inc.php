@@ -48,9 +48,9 @@ $lang_dir = ZING_DIR.$lang_dir;
 $gfx_dir = ZING_URL.'fws/'.$template_dir."/".$template."/images";
 $scripts_dir = ZING_DIR;
 
+	
 if (function_exists("qtrans_getLanguage")) {
 	$lang=qtrans_getLanguage();
-	if (!isset($lang)) { $lang = $default_lang; }
 	if (!file_exists($lang_dir."/".$lang."/lang.txt")) { $lang = $default_lang;}
 	$lang_file = $lang_dir."/".$lang."/lang.txt";
 	$main_file = $lang_dir."/".$lang."/main.txt";

@@ -6,7 +6,7 @@ if (!is_numeric($basketid)) die('Error downloading');
 
 require($abspath.'wp-blog-header.php');
 
-zing_get_header();
+require (ZING_LOC."./zing.readcookie.inc.php");      // read the cookie
 
 $query = "SELECT ORDERID,PRODUCTID FROM `".$dbtablesprefix."basket` WHERE `CUSTOMERID` = ".$customerid." AND `ID` = ".$basketid." ORDER BY ID DESC";
 $sql = mysql_query($query) or zfdbexit($query);

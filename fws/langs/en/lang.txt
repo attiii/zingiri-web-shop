@@ -253,7 +253,6 @@ $txt['admin5'] = 'Products';
 $txt['admin6'] = 'Groups&<br />Categories';
 $txt['admin7'] = 'Optimize database';
 $txt['admin8'] = 'Settings';
-$txt['admin9'] = 'Upload pricelist';
 $txt['admin10'] = 'Optimizing all database tables..';
 $txt['admin11'] = 'Optimzing';
 $txt['admin12'] = 'Optimization completed!';
@@ -537,11 +536,6 @@ $txt['groupadmin39'] = 'The category name is empty';
 // uploadadmin.php
 $txt['uploadadmin1'] = ' has been uploaded to ';
 $txt['uploadadmin2'] = 'There was an error uploading the file, please try again!';
-$txt['uploadadmin3'] = 'Please only upload .sql files';
-$txt['uploadadmin4'] = 'Import SQL (update, pricelist, etc)';
-$txt['uploadadmin5'] = 'Select an SQL file';
-$txt['uploadadmin6'] = 'Import SQL';
-$txt['uploadadmin7'] = 'SQL file inserted into database';
 
 // adminedit.php
 $txt['adminedit1'] = 'Save changes';
@@ -653,5 +647,21 @@ $txt['editsettings74'] = 'Show Shipping page';
 
 //v1.2.2 - added
 $txt['generic1'] = 'Delete';
+
+//v1.2.4 - added
+$txt['checkout100'] = "Your payment was processed successfully";
+$txt['checkout101'] = "Your payment could not be processed";
+
+//v1.2.4 - modified
+$txt['uploadadmin3'] = 'Please only upload .xml or .sql files';
+$txt['uploadadmin4'] = 'Import data (product, pricelist, etc)';
+$txt['uploadadmin5'] = 'Select an XML or SQL file';
+$txt['uploadadmin6'] = 'Import file';
+$txt['uploadadmin7'] = 'Data inserted into database';
+$txt['uploadadmin100'] = "Couldn't upload file:";
+$txt['uploadadmin101'] = "Field missing:";
+$txt['uploadadmin102'] = "on line";
+$txt['uploadadmin103'] = "Warning: skipping unrecognized field ";
+$txt['admin9'] = 'Upload products';
 
 ?>

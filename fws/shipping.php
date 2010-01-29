@@ -22,7 +22,7 @@
 */
 ?>
 <?php if ($index_refer <> 1) { exit(); } ?>
-<?php include (ZING_SUB."./includes/checklogin.inc.php"); ?>
+<?php include (dirname(__FILE__)."/includes/checklogin.inc.php"); ?>
 <?php
 if (LoggedIn() == true) {
 	global $shippingid,$weightid,$paymentid,$notes,$discount_code;
