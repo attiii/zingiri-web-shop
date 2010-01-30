@@ -664,4 +664,7 @@ $txt['uploadadmin102'] = "on line";
 $txt['uploadadmin103'] = "Warning: skipping unrecognized field ";
 $txt['admin9'] = 'Upload products';
 
+//v1.2.5
+$txt['uploadadmin104'] = 'Maximum file size in bytes <a href=# class=info>(?)<span>This is the maximum file size as set on your system. If you want to increase it, you will need to edit your php.ini file.</span></a>';;
+
 ?>

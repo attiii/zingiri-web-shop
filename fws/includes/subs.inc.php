@@ -872,6 +872,8 @@ function CheckoutNextStep() {
 
 }
 function zurl($url) {
-	return ZING_HOME.'/'.$url;
+	$url=str_replace('index.php','',$url);
+	
+	echo $url;
 }
 ?>

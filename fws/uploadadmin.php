@@ -56,6 +56,7 @@ class parse_upload {
 	var $productid;
 	var $xml;
 	var $image;
+	var $thumbnail;
 	var $digital;
 	var $success=true;
 	var $messages=array();
@@ -103,6 +104,7 @@ class parse_upload {
 				$this->productid="";
 				$this->groupid=0;
 				$this->image=false;
+				$this->thumbnail=false;
 				$this->digital=false;
 				foreach ($rowxml->children() as $col) {
 					$i++;
@@ -156,6 +158,7 @@ class parse_upload {
 		$this->productid="";
 		$this->groupid=0;
 		$this->image=false;
+		$this->thumbnail=false;
 		$this->digital=false;
 		foreach ($row->children() as $cell) {
 			$i++;
@@ -187,20 +190,24 @@ class parse_upload {
 			if ($this->image) {
 				$this->upload_image($id,$this->image);
 			}
+			if ($this->thumbnail) {
+				$this->upload_image($id,$this->thumbnail);
+			}
 		}
 
 	}
 
 	private function upload_image($picid,$file) {
 		global $product_dir, $make_thumbs,$pricelist_thumb_width,$pricelist_thumb_height;
+		if ($this->thumbnail) $tn='tn_'; else $tn='';
 		$ext = explode(".", $file);
 		$ext = strtolower(array_pop($ext));
 		if ($ext == "jpg" || $ext == "gif" || $ext == "png") {
-			$target_path = $product_dir."/".$picid.".".$ext;
+			$target_path = $product_dir."/".$tn.$picid.".".$ext;
 			if(copy($file, $target_path)) {
 				chmod($target_path,0644); // new uploaded file can sometimes have wrong permissions
 				// lets try to create a thumbnail of this new image shall we
-				if ($make_thumbs == 1) {
+				if (!$this->thumbnail && $make_thumbs == 1) {
 					createthumb($target_path,$product_dir.'/tn_'.$picid.".".$ext,$pricelist_thumb_width,$pricelist_thumb_height);
 				}
 			}
@@ -270,6 +277,9 @@ class parse_upload {
 			case 'image':
 				$this->image=$data;
 				break;
+			case 'thumbnail':
+				$this->thumbnail=$data;
+				break;
 			case 'digital':
 				$file = basename($data);
 				$random = CreateRandomCode(15);
@@ -302,6 +312,12 @@ if (IsAdmin() == false) {
 	PutWindow($gfx_dir, $txt['general12'], $txt['general2'], "warning.gif", "50");
 }
 else {
+	// calculate max size
+	$max=preg_replace('/([0-9].*)[a-zA-Z].*/','$1',ini_get('upload_max_filesize'));
+	$unit=strtoupper(preg_replace('/[0-9].*([a-zA-Z].*)/','$1',ini_get('upload_max_filesize')));
+	if (strstr($unit,'M')) $max=1024*1024*$max;
+	if (strstr($unit,'K')) $max=1024*$max;
+	
 	// upload the SQL file
 	if ($action == "upload_pricelist") {
 		$target_path = $brands_dir."/";
@@ -330,6 +346,7 @@ else {
 		}
 		else{
 			$success=false;
+			$messages.='<br />'.$_FILES['uploadedfile']['error'].'-'.UPLOAD_ERR_FORM_SIZE;
 		}
 		if (!$success)	PutWindow($gfx_dir, $txt['general12'], $txt['uploadadmin2'].$messages, "warning.gif", "50");
 		else PutWindow($gfx_dir, $txt['general13'], $txt['uploadadmin7'], "notify.gif", "50");
@@ -340,14 +357,15 @@ else {
 	<tr>
 		<td>
 		<form enctype="multipart/form-data"
-			action="index.php?page=uploadadmin" method="POST"><input
+			action="<?php zurl('index.php?page=uploadadmin');?>" method="POST"><input
 			type="hidden" name="action" value="upload_pricelist"> <input
-			type="hidden" name="MAX_FILE_SIZE" value="500000"> <input
-			name="uploadedfile" type="file" size="50"><br />
+			type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max;?>"> <input
+			name="uploadedfile" type="file" size="50" maxlength="256"><br />
 		<br />
 		<div style="text-align: center;"><input type="submit"
 			value="<?php echo $txt['uploadadmin6']; ?>"></div>
 		</form>
+		<?php echo $txt['uploadadmin104'].' '.$max;?>
 		</td>
 	</tr>
 </table>
