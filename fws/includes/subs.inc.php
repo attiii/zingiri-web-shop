@@ -501,20 +501,22 @@ function thumb_exists($thumbnail) {
 	}
 }
 // get user IP
-function GetUserIP() {
-	if (isset($_SERVER)) { if (isset($_SERVER["HTTP_X_FORWARDED_FOR"]))
-	{ $ip = $_SERVER["HTTP_X_FORWARDED_FOR"]; }
-	elseif(isset($_SERVER["HTTP_CLIENT_IP"]))
-	{ $ip = $_SERVER["HTTP_CLIENT_IP"]; }
-	else { $ip = $_SERVER["REMOTE_ADDR"]; }
+if (!function_exists('GetUserIP')) {
+	function GetUserIP() {
+		if (isset($_SERVER)) { if (isset($_SERVER["HTTP_X_FORWARDED_FOR"]))
+		{ $ip = $_SERVER["HTTP_X_FORWARDED_FOR"]; }
+		elseif(isset($_SERVER["HTTP_CLIENT_IP"]))
+		{ $ip = $_SERVER["HTTP_CLIENT_IP"]; }
+		else { $ip = $_SERVER["REMOTE_ADDR"]; }
+		}
+		else { if ( getenv( 'HTTP_X_FORWARDED_FOR' ) )
+		{ $ip = getenv( 'HTTP_X_FORWARDED_FOR' ); }
+		elseif ( getenv( 'HTTP_CLIENT_IP' ) )
+		{ $ip = getenv( 'HTTP_CLIENT_IP' ); }
+		else { $ip = getenv( 'REMOTE_ADDR' ); }
+		}
+		return $ip;
 	}
-	else { if ( getenv( 'HTTP_X_FORWARDED_FOR' ) )
-	{ $ip = getenv( 'HTTP_X_FORWARDED_FOR' ); }
-	elseif ( getenv( 'HTTP_CLIENT_IP' ) )
-	{ $ip = getenv( 'HTTP_CLIENT_IP' ); }
-	else { $ip = getenv( 'REMOTE_ADDR' ); }
-	}
-	return $ip;
 }
 // trim a string
 function file_trim(&$value, $key){
@@ -758,7 +760,7 @@ function CheckoutInit() {
 
 function CheckoutSteps() {
 	global $page,$action,$step,$dbtablesprefix,$customerid,$conditions_page,$shipping_page;
-	
+
 	$steps=5;
 	if (!$conditions_page) $steps--;
 	if (!$shipping_page) {
@@ -770,13 +772,13 @@ function CheckoutSteps() {
 			$query="SELECT * FROM `".$dbtablesprefix."shipping_payment` WHERE `shippingid`='".$row[0]."' ORDER BY `paymentid`";
 			$sql = mysql_query($query) or die(mysql_error());
 			if (mysql_num_rows($sql) <= 1) {
-					$steps--;
+				$steps--;
 			}
 		}
 	}
 	if (!ActiveDiscounts()) $steps--;
 	return $steps;
-	
+
 }
 
 function CheckoutThisStep() {
@@ -795,22 +797,22 @@ function CheckoutThisStep() {
 	if ($page=="discount") $step=4;
 
 	if ($page=="checkout") $step=5;
-	
+
 	$newstep=$step;
 	if ($step>1 && !$conditions_page) $newstep--;
 	if ($step>2 && !$shipping_page) $newstep--;
 	if ($step>3 && !ActiveDiscounts()) $newstep--;
-	
+
 	return $newstep;
 }
 
 function CheckoutShowProgress() {
 
 	global $gfx_dir,$use_discounts;
-	
+
 	$steps=CheckoutSteps();
 	$step=CheckoutThisStep();
-	
+
 	echo '<h4>';
 	for ($i=1; $i<=$steps; $i++) {
 		if ($step == $i) {
@@ -821,7 +823,7 @@ function CheckoutShowProgress() {
 		}
 	}
 	echo '</h4><br /><br />';
-	
+
 }
 
 function CheckoutNextStep() {
@@ -871,9 +873,49 @@ function CheckoutNextStep() {
 	}
 
 }
-function zurl($url) {
-	$url=str_replace('index.php','',$url);
-	
-	echo $url;
+function zurl($url,$printurl=false) {
+	$url=str_replace('index.php',ZING_HOME.'/index.php',$url);
+	if ($printurl) echo $url;
+	else return $url;
 }
+
+function z_($label) {
+	global $txt,$txt2;
+
+	$label=trim($label);
+	if (isset($txt[$label])) return $txt[$label];
+
+	if (count($txt2)==0) {
+		$txt2=reorder_txt();
+	}
+
+	if (isset($txt2[$label])) {
+		$key=$txt2[$label];
+		if (isset($txt[$key])) return $txt[$key];
+	}
+	return '<strong style="color:red">'.$label.'</strong>';
+}
+
+function reorder_txt() {
+	global $lang_dir;
+
+	include($lang_dir."/en/lang.txt");
+	return array_flip($txt);
+}
+
+function similarProducts($productid,$catid) {
+	global $dbtablesprefix;
+	$s=array();
+	$query = sprintf("SELECT `ID`,`CATID` FROM `".$dbtablesprefix."product` where `PRODUCTID`=%s AND `CATID`!=%s", quote_smart($productid),quote_smart($catid));
+	$sql = mysql_query($query) or die(mysql_error());
+	while ($row = mysql_fetch_array($sql)) {
+		$query = sprintf("SELECT `DESC` FROM `".$dbtablesprefix."category` where `ID`=%s", quote_smart($row['CATID']));
+		$sqlcat = mysql_query($query) or die(mysql_error());
+		$rowcat = mysql_fetch_array($sqlcat);
+		$s[$row['ID']]=$rowcat['DESC'].' - '.$productid;
+	}
+	return $s;
+
+}
+
 ?>

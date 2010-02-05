@@ -33,7 +33,7 @@ else {
     <div align="center">
 	    <table border="0">
 		 <tr><td align="left">
-	         <form method="POST" action="index.php?page=stockadmin">
+	         <form method="POST" action="?page=stockadmin">
                <strong><?php echo $txt['productadmin12']; ?> <</strong><br />
 		       <input type="text" name="minimal_stock" value="<?php echo $stock_warning_level; ?>" size="5">
 			   <input type="submit" value="<?php echo $txt['stockadmin2']; ?>">

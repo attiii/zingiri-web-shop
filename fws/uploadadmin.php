@@ -54,6 +54,7 @@ class parse_upload {
 	var	$error=false;
 	var $prefix;
 	var $productid;
+	var $catid;
 	var $xml;
 	var $image;
 	var $thumbnail;
@@ -63,7 +64,7 @@ class parse_upload {
 	var $line=1;
 
 	//function to parse Excel XML file
-	function __construct($url) {
+	function parse_upload($url) {
 		global $dbtablesprefix;
 		$this->prefix=$dbtablesprefix;
 		if ($this->xml=simplexml_load_file($url)) {
@@ -86,7 +87,7 @@ class parse_upload {
 		}
 	}
 
-	private function parse_filemakerxml($url) {
+	function parse_filemakerxml($url) {
 		if ($this->xml) {
 			$i=0;
 			foreach ($this->xml->METADATA->children() as $field) {
@@ -119,7 +120,7 @@ class parse_upload {
 		}
 	}
 
-	private function parse_excelxml($url) {
+	function parse_excelxml($url) {
 		$firstrow=true;
 		if ($this->xml) {
 			foreach ($this->xml->Worksheet->Table->children() as $row) {
@@ -144,7 +145,7 @@ class parse_upload {
 		}
 	}
 
-	private function parse_header_excel($row) {
+	function parse_header_excel($row) {
 		$i=0;
 		foreach ($row->children() as $cell) {
 			$i++;
@@ -153,7 +154,7 @@ class parse_upload {
 		}
 	}
 
-	private function parse_data_excel($row) {
+	function parse_data_excel($row) {
 		$i=0;
 		$this->productid="";
 		$this->groupid=0;
@@ -170,12 +171,12 @@ class parse_upload {
 	}
 
 
-	private function save_product() {
+	function save_product() {
 		if (!$this->error) {
 			if ($this->digital) {
 				$this->upload_digital($this->digital);
 			}
-			$query="SELECT `ID` FROM `".$this->prefix."product` WHERE `productid` = '".$this->productid."'";
+			$query="SELECT `ID` FROM `".$this->prefix."product` WHERE `productid` = '".$this->productid."' AND `catid` = '".$this->catid."'";
 			$sql = mysql_query($query) or die(mysql_error());
 			if (mysql_num_rows($sql) == 0) {
 				$query="INSERT INTO `".$this->prefix."product` (".implode(",",$this->fields).") VALUES (".implode(",",$this->values).")";
@@ -188,50 +189,72 @@ class parse_upload {
 				$sql = zing_query_db($query);
 			}
 			if ($this->image) {
-				$this->upload_image($id,$this->image);
+				$this->upload_image($id,$this->image,false);
 			}
 			if ($this->thumbnail) {
-				$this->upload_image($id,$this->thumbnail);
+				$this->upload_image($id,$this->thumbnail,true);
 			}
 		}
 
 	}
 
-	private function upload_image($picid,$file) {
+	function upload_image($picid,$file,$thumbnail) {
 		global $product_dir, $make_thumbs,$pricelist_thumb_width,$pricelist_thumb_height;
-		if ($this->thumbnail) $tn='tn_'; else $tn='';
+		if ($thumbnail) $tn='tn_'; else $tn='';
 		$ext = explode(".", $file);
 		$ext = strtolower(array_pop($ext));
 		if ($ext == "jpg" || $ext == "gif" || $ext == "png") {
 			$target_path = $product_dir."/".$tn.$picid.".".$ext;
-			if(copy($file, $target_path)) {
-				chmod($target_path,0644); // new uploaded file can sometimes have wrong permissions
+			if($this->copy($file, $target_path)) {
 				// lets try to create a thumbnail of this new image shall we
 				if (!$this->thumbnail && $make_thumbs == 1) {
 					createthumb($target_path,$product_dir.'/tn_'.$picid.".".$ext,$pricelist_thumb_width,$pricelist_thumb_height);
 				}
 			}
 			else{
+				$this->messages[]=$txt['uploadadmin100'].' '.$file.' -> '.$target_path;
 				$this->error=true;
 			}
 		}
 	}
 
-	private function upload_digital($files) {
+	function upload_digital($files) {
 		global $txt;
 		list($file,$link) = $files;
 		$target_path = ZING_DIG.$link;
 			
-		if(copy($file, $target_path)) {
-			chmod($target_path,0644); // new uploaded file can sometimes have wrong permissions
-		}
-		else {
+		if(!$this->copy($file, $target_path,true)) {
 			$this->messages[]=$txt['uploadadmin100'].' '.$file.' -> '.$target_path;
 			$this->error=true;
 		}
 	}
 
-	private function parse_data($data,$i) {
+	function copy($file,$target,$symlink=false) {
+		$success=0;
+		if (!file_exists($file)) {
+			$this->messages[]="File doesn't exist: ".$file;
+		} else {
+			if ($symlink && $_POST['symlink']) {
+				if (symlink($file,$target)) {
+					$success=1;
+				}
+			} else {
+				if (dirname($file) == dirname($target)) {
+					if (rename($file,$target)) {
+						$success=1;
+					}
+				} else {
+					if (copy($file,$target)) {
+						$success=1;
+					}
+				}
+				//if ($success) chmod($target,0644); // new uploaded file can sometimes have wrong permissions
+			}
+		}
+		return $success;
+	}
+
+	function parse_data($data,$i) {
 		global $txt;
 		$data=str_replace(chr(13),'<br />',$data);
 		$data=mysql_real_escape_string($data);
@@ -267,6 +290,7 @@ class parse_upload {
 				$this->fields[]="`catid`";
 				$this->values[]=$catid;
 				$this->pairs[]="`catid`='".$catid."'";
+				$this->catid=$catid;
 				break;
 			case 'productid':
 				$this->productid=$data;
@@ -317,7 +341,7 @@ else {
 	$unit=strtoupper(preg_replace('/[0-9].*([a-zA-Z].*)/','$1',ini_get('upload_max_filesize')));
 	if (strstr($unit,'M')) $max=1024*1024*$max;
 	if (strstr($unit,'K')) $max=1024*$max;
-	
+
 	// upload the SQL file
 	if ($action == "upload_pricelist") {
 		$target_path = $brands_dir."/";
@@ -346,7 +370,7 @@ else {
 		}
 		else{
 			$success=false;
-			$messages.='<br />'.$_FILES['uploadedfile']['error'].'-'.UPLOAD_ERR_FORM_SIZE;
+			$messages.='<br /><a href="http://www.php.net/manual/en/features.file-upload.errors.php">Err:'.$_FILES['uploadedfile']['error'].'</a>';
 		}
 		if (!$success)	PutWindow($gfx_dir, $txt['general12'], $txt['uploadadmin2'].$messages, "warning.gif", "50");
 		else PutWindow($gfx_dir, $txt['general13'], $txt['uploadadmin7'], "notify.gif", "50");
@@ -357,16 +381,16 @@ else {
 	<tr>
 		<td>
 		<form enctype="multipart/form-data"
-			action="<?php zurl('index.php?page=uploadadmin');?>" method="POST"><input
+			action="<?php zurl('index.php?page=uploadadmin',true);?>" method="POST"><input
 			type="hidden" name="action" value="upload_pricelist"> <input
 			type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max;?>"> <input
 			name="uploadedfile" type="file" size="50" maxlength="256"><br />
-		<br />
+			<?php echo $txt['uploadadmin105']?><input type="checkbox"
+			name="symlink"> <br />
 		<div style="text-align: center;"><input type="submit"
 			value="<?php echo $txt['uploadadmin6']; ?>"></div>
 		</form>
-		<?php echo $txt['uploadadmin104'].' '.$max;?>
-		</td>
+		<?php echo $txt['uploadadmin104'].' '.$max;?></td>
 	</tr>
 </table>
-	<?php } ?>
+<?php } ?>

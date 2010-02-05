@@ -51,7 +51,7 @@ else {
 	<caption><?php echo $txt['conditions5']; ?></caption>
 	<tr>
 		<td>
-		<form method="post" action="index.php?page=shipping"><textarea
+		<form method="post" action="?page=shipping"><textarea
 			rows="30" cols="65" readonly><?php echo $conditions ?></textarea><br />
 			<?php
 

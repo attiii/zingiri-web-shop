@@ -70,7 +70,7 @@ else {
 			   $status_text = $txt["db_status$status"];		       
 		       echo "<img src=\"".$gfx_dir."/bullit_".$status_color.".gif\" alt=\"".$status_text."\" />&nbsp;".$status_text."<br />";
 			   echo "<br />"; 
-		       echo "<form method=\"post\" action=\"index.php?page=orderadmin&action=changestatus\">";
+		       echo "<form method=\"post\" action=\"".zurl('index.php?page=orderadmin&action=changestatus')."\">";
 		       echo "<input type=\"hidden\" name=\"orderid\" value=\"" . $orderid . "\">";
 			   echo "<SELECT NAME=\"newstatus\">";
 		       echo "    <OPTION SELECTED VALUE=\"\">";
@@ -163,7 +163,7 @@ else {
     $sql = mysql_query($query.$limit) or die(mysql_error());
     ?>
 
-    <FORM METHOD="post" action="index.php?page=orderadmin">
+    <FORM METHOD="post" action="?page=orderadmin">
      <SELECT NAME="status">
            <OPTION VALUE="%"><?php echo $txt['orderadmin9']; ?>
            <OPTION VALUE="1"><?php echo $txt['db_status1'] ?>

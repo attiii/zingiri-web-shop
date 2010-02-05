@@ -22,7 +22,7 @@
  */
 ?>
 <?php
-if(setcookie ("fws_cust","", time() - 3600)==TRUE)
+if(setcookie ("fws_cust","", time() - 3600, '/')==TRUE)
 {
 	?>
 <html>

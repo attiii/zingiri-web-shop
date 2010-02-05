@@ -94,7 +94,7 @@
 	       <textarea name="message" rows=15 cols=50 value=""></textarea><br />
 	       <?php
 	             if ($use_captcha == 1) {
-					 echo "<img src=\"".ZING_SUB."/addons/captcha/php_captcha.php\"><br />";
+					 echo "<img src=\"".ZING_URL."fws/addons/captcha/php_captcha.php\"><br />";
 		             echo $txt['general15']." <input type=\"text\" name=\"image_code\" size=\"10\"><br />";
 	             }
 	       ?>      

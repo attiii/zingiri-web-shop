@@ -239,12 +239,12 @@
                        ?>
                    </td>
                    <td>
-                   <form method="POST" action="index.php?page=cart&action=update">
+                   <form method="POST" action="?page=cart&action=update">
                     <input type="hidden" name="prodid" value="<?php echo $row_details[0] ?>">
                     <input type="hidden" name="basketid" value="<?php echo $row[0] ?>">
                     <div style="text-align:right;"><input type="text" size="4" name="numprod" value="<?php echo $row[6] ?>">&nbsp;<input type="submit" value="<?php echo $txt['cart10'] ?>" name="sub">
                    </form>
-                   <form method="POST" action="index.php?page=cart&action=update">
+                   <form method="POST" action="?page=cart&action=update">
                     <input type="hidden" name="prodid" value="<?php echo $row_details[0] ?>">
                     <input type="hidden" name="basketid" value="<?php echo $row[0] ?>">
                     <input type="hidden" name="numprod" value="0">
@@ -272,15 +272,15 @@
 
     <table class="borderless" width="50%">
      <tr><td nowrap>
-           <form method="post" action="index.php?page=cart&action=empty">
+           <form method="post" action="?page=cart&action=empty">
             <input type="submit" value="<?php echo $txt['cart8']; ?>">
            </form>
          </td>
          <td nowrap>
             <?php
                // if the conditions page is disabled, then we might as well skip it ;)
-               if ($conditions_page == 1) { echo "<form method=\"post\" action=\"index.php?page=conditions&action=checkout\">"; }
-               else { echo "<form method=\"post\" action=\"index.php?page=shipping\">"; }
+               if ($conditions_page == 1) { echo "<form method=\"post\" action=\"".zurl("index.php?page=conditions&action=checkout")."\">"; }
+               else { echo "<form method=\"post\" action=\"".zurl("index.php?page=shipping")."\">"; }
                if ($ordering_enabled == 1) { echo "<input type=\"submit\" value=\"".$txt['cart9']."\">"; }
             ?>  
            </form>
@@ -295,7 +295,7 @@
              while ($row = mysql_fetch_row($sql)) {
 	             $jump2cat = $row[0];
              }
-             echo "<form method=\"post\" action=\"index.php?page=browse&action=list&cat=".$jump2cat."&orderby=DESCRIPTION\">";
+             echo "<form method=\"post\" action=\"".zurl("index.php?page=browse&action=list&cat=".$jump2cat."&orderby=DESCRIPTION")."\">";
              echo "<input type=\"submit\" value=\"".$txt['cart12']."\">";
              echo "</form>";
              echo "</td>";

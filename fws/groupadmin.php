@@ -257,7 +257,7 @@ else {
 		if (file_exists($brands_dir."/".$cid.".png")) { $thumb = $brands_url."/".$cid.".png"; }
 		 
 		if ($thumb != "") {
-			$size = getimagesize("$thumb");
+			$size = getimagesize(str_replace($brands_url,$brands_dir,$thumb));
 			$height = $size[1];
 			$width = $size[0];
 			if ($height > 350)
@@ -280,7 +280,7 @@ else {
 	<caption><?php echo $txt['groupadmin29']; ?></caption>
 	<tr>
 		<td>
-		<form enctype="multipart/form-data" action="index.php?page=groupadmin"
+		<form enctype="multipart/form-data" action="?page=groupadmin"
 			method="POST"><input type="hidden" name="action"
 			value="upload_screenshot"> <input type="hidden" name="cid"
 			value="<?php echo $cid; ?>"> <input type="hidden"
@@ -361,7 +361,7 @@ else {
 	echo "  <caption>".$txt['groupadmin12']."</caption>";
 	 
 	echo "<tr><td>";
-	echo "    <form method=\"POST\" action=\"index.php?page=groupadmin&action=add_group\">";
+	echo "    <form method=\"POST\" action=\"".zurl("index.php?page=groupadmin&action=add_group")."\">";
 	echo "     ".$txt['groupadmin11']." <input type=\"text\" name=\"gname\" size=\"15\" maxlength=\"30\" ><br />";
 	echo "     <input type=\"submit\" name = \"submit\" value=\"".$txt['groupadmin12']."\">";
 	echo "     </form>";
@@ -384,7 +384,7 @@ else {
 	}
 	else {
 		 
-		echo "<form method=\"POST\" action=\"index.php?page=groupadmin&action=update_group\">";
+		echo "<form method=\"POST\" action=\"".zurl("index.php?page=groupadmin&action=update_group")."\">";
 		echo $txt['groupadmin14']." <select name=\"gid\">";
 		 
 		// all groups in pulldown
@@ -415,7 +415,7 @@ else {
 	}
 	else {
 		 
-		echo "    <form method=\"POST\" action=\"index.php?page=groupadmin&action=delete_group\">";
+		echo "    <form method=\"POST\" action=\"".zurl("index.php?page=groupadmin&action=delete_group")."\">";
 		echo "   ".$txt['groupadmin14']." <select name=\"gid\">";
 		 
 		// all groups in pulldown
@@ -450,7 +450,7 @@ else {
 	}
 	else {
 		 
-		echo "    <form method=\"POST\" action=\"index.php?page=groupadmin&action=add_category\">";
+		echo "    <form method=\"POST\" action=\"".zurl("index.php?page=groupadmin&action=add_category")."\">";
 		echo "    ".$txt['groupadmin14']." <select name=\"gid\">";
 		 
 		// all groups in pulldown
@@ -480,7 +480,7 @@ else {
 		echo $txt['groupadmin13'];
 	}
 	else {
-		echo "<form method=\"POST\" action=\"index.php?page=groupadmin&action=update_category\">";
+		echo "<form method=\"POST\" action=\"".zurl("index.php?page=groupadmin&action=update_category")."\">";
 		echo " ".$txt['groupadmin22']." <select name=\"cid\">";
 		while ($row = mysql_fetch_row($sql)) {
 			$query_cat = "SELECT * FROM `".$dbtablesprefix."category` WHERE `GROUPID` = " . $row[0] . " ORDER BY `DESC` ASC";
@@ -515,7 +515,7 @@ else {
 		echo $txt['groupadmin13'];
 	}
 	else {
-		echo "<form method=\"POST\" action=\"index.php?page=groupadmin&action=move_category\">";
+		echo "<form method=\"POST\" action=\"".zurl("index.php?page=groupadmin&action=move_category")."\">";
 		echo " ".$txt['groupadmin22']." <select name=\"movecatcode\">";
 		while ($row = mysql_fetch_row($sql)) {
 			$query_cat = "SELECT * FROM `".$dbtablesprefix."category` WHERE `GROUPID` = " . $row[0] . " ORDER BY `DESC` ASC";
@@ -564,7 +564,7 @@ else {
 		echo $txt['groupadmin13'];
 	}
 	else {
-		echo "<form method=\"POST\" action=\"index.php?page=groupadmin&action=delete_category\">";
+		echo "<form method=\"POST\" action=\"".zurl("index.php?page=groupadmin&action=delete_category")."\">";
 		echo " ".$txt['groupadmin22']." <select name=\"cid\">";
 		while ($row = mysql_fetch_row($sql)) {
 			$query_cat = "SELECT * FROM `".$dbtablesprefix."category` WHERE `GROUPID` = " . $row[0] . " ORDER BY `DESC` ASC";

@@ -89,7 +89,7 @@ else {
 	          if ($row[3] == 1) { PutWindow($gfx_dir, $txt['general13'], $txt['paymentadmin12'], "warning.gif", "50"); }   // part of system!
 	          echo "<table width=\"100%\" class=\"datatable\">";
 	          echo "<caption>".$txt['paymentadmin6']."</caption>";
-	          echo "<form method=\"POST\" action=\"index.php?page=paymentadmin&action=update_payment\">";
+	          echo "<form method=\"POST\" action=\"".zurl("index.php?page=paymentadmin&action=update_payment")."\">";
 	          echo "<input name=\"pid\" type=\"hidden\" value=\"".$row[0]."\">";
 	          echo "<tr><td>";
 	          echo $txt['paymentadmin5']."<br />";
@@ -110,7 +110,7 @@ else {
          echo "  <caption>".$txt['paymentadmin4']."</caption>";
          echo "  <tr><th>".$txt['paymentadmin5']."</th><th>".$txt['paymentadmin11']."</th></tr>";
          // add a payment method
-         echo "  <form method=\"POST\" action=\"index.php?page=paymentadmin&action=add_payment\">";
+         echo "  <form method=\"POST\" action=\"".zurl("index.php?page=paymentadmin&action=add_payment")."\">";
          echo "  <tr class=\"altrow\">";
          echo "    <td><input name=\"pay_description\" type=\"text\" value=\"\" size=\"30\" maxlength=\"150\"></td>";
          echo "    <td><input type=\"submit\" value=\"".$txt['paymentadmin10']."\"></td>";

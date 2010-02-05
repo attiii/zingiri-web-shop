@@ -227,7 +227,7 @@ else { $limit = ""; }
 			echo "<td><div style=\"text-align:right;\">";
 			if ($order_from_pricelist == 1) {
 				?>
-	<form method="POST" action="index.php?page=cart&action=add">
+	<form method="POST" action="?page=cart&action=add">
 	<div style="text-align: right"><input type="hidden" name="prodid"
 		value="<?php echo $row[0] ?>"> <input type="hidden" name="prodprice"
 		value="<?php echo $row[4] ?>"> <?php

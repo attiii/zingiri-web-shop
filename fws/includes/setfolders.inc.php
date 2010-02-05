@@ -1,5 +1,5 @@
 <?php
-/*  startmodules.inc.php
+/*  setfolders.inc.php
     Copyright 2006, 2007 Elmar Wenners
     Support site: http://www.chaozz.nl
 

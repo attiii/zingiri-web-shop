@@ -20,6 +20,7 @@ if ($row = mysql_fetch_array($sql)) {
 	$row_details = mysql_fetch_array($sql_details);
 	if ($row_details['LINK'] && ($row_order['STATUS']==5 || $row_order['STATUS']==6 || IsAdmin())) {
 		send_file(ZING_DIG,$row_details['LINK']);
+		exit;
 	}
 
 }
@@ -27,27 +28,49 @@ if ($row = mysql_fetch_array($sql)) {
 #-------------------------------------
 function send_file($path, $file){
 
-	# Make sure the file exists before sending headers
-	#-------------------------------------------------
 	$mainpath = "$path/$file";
 	$filesize2 = sprintf("%u", filesize($mainpath));
+	set_time_limit(0);
 
-	if(!$fdl=@fopen($mainpath,'r')){
-		#include ("$header");
-		print "<p><center><font class=\"changed\">ERROR - Invalid Request (Downloadable file Missing or Unreadable)</font></center><br><br>";
-		die;
-	}else{
-		set_time_limit(0);
-		# Send the headers then send the file
-		#------------------------------------
-		header("Cache-Control: ");# leave blank to avoid IE errors
-		header("Pragma: ");# leave blank to avoid IE errors
-		header("Content-type: application/octet-stream");
+	//header("Cache-Control: ");# leave blank to avoid IE errors
+	//header("Pragma: ");# leave blank to avoid IE errors
+	//header("Content-type: application/octet-stream");
+	//header("Content-type: application/exe");
+
+	$file = @fopen($mainpath,"rb");
+	if ($file) {
+		header("Pragma: public");
+		header("Expires: 0");
+		header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+		header("Cache-Control: public");
+		header("Content-Description: File Transfer");
+		header("Content-Transfer-Encoding: binary");
+		header("Content-Type: application/zip");
 		header("Content-Disposition: attachment; filename=\"".$file."\"");
+		header("Content-Type: application/force-download");
 		header("Content-length:".(string)($filesize2));
-		sleep(1);
-		fpassthru($fdl);
+		while(!feof($file)) {
+			print(fread($file, 1024*8));
+			flush_now();
+			if (connection_status()!=0) {
+				@fclose($file);
+				die();
+			}
+		}
+		@fclose($file);
+	} else {
+		print "<p><center><font class=\"changed\">ERROR - Invalid Request (Downloadable file Missing or Unreadable)</font></center><br><br>";
 	}
 	return;
+}
+
+function flush_now() {
+	@apache_setenv('no-gzip', 1);
+	@ini_set('output_buffering', 0);
+	@ini_set('zlib.output_compression', 0);
+	@ini_set('implicit_flush', 1);
+	for ($i = 0; $i < ob_get_level(); $i++) { ob_end_flush(); }
+	ob_implicit_flush(1);
+	return true;
 }
 ?>

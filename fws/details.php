@@ -31,24 +31,27 @@ if (mysql_num_rows($sql) == 0) {
 	PutWindow($gfx_dir, $txt['general12'], $txt['general9'], "warning.gif", "50");
 }
 else {
-	while ($row = mysql_fetch_row($sql)) {
+	while ($row = mysql_fetch_array($sql)) {
+		
+		$similar=similarProducts($row['PRODUCTID'],$row['CATID']);
+		
 		$screenshot = "";
-		 
+			
 		if ($use_prodgfx == 1) {
 			if ($pictureid == 1) {
 				$picture = $row[0];
 			}
 			else { $picture = $row[1]; }
-			 
+
 			$thumb = "";
-			 
+
 			if (thumb_exists($product_dir ."/". $picture . ".jpg")) { $thumb = $product_url ."/". $picture . ".jpg"; }
 			if (thumb_exists($product_dir ."/". $picture . ".gif")) { $thumb = $product_url ."/". $picture . ".gif"; }
 			if (thumb_exists($product_dir ."/". $picture . ".png")) { $thumb = $product_url ."/". $picture . ".png"; }
 
 			if ($thumb == "") { $thumb = $gfx_dir."/nothumb.jpg"; }
-			 
-			$size = getimagesize("$thumb");
+
+			$size = getimagesize(str_replace($product_url,$product_dir,$thumb));
 			$height = $size[1];
 			$width = $size[0];
 			$resized = 0;
@@ -80,7 +83,7 @@ else {
 <table width="85%" class="datatable">
 	<caption><?php echo $txt['details1'] ?></caption>
 	<tr>
-		<td>
+		<td colspan=2>
 		<h5><?php echo $txt['details2'] ?>: <?php echo $row[1] ?></h5>
 		<br />
 		<br />
@@ -109,7 +112,7 @@ else {
 		</table>
 		</div>
 		<br />
-		<form method="POST" action="index.php?page=cart&action=add">
+		<form method="POST" action="?page=cart&action=add">
 		<div style="text-align: right"><input type="hidden" name="prodid"
 			value="<?php echo $row[0] ?>"> <input type="hidden" name="prodprice"
 			value="<?php echo $row[4] ?>"> <?php
@@ -170,7 +173,7 @@ else {
 					}
 				}
 			}
-				?> <br />
+			?> <br />
 		<br />
 		<?php echo $txt['details6'] ?>: <input type="text" size="4"
 			name="numprod" value="1" maxlength="4">&nbsp;<input type="submit"
@@ -180,14 +183,23 @@ else {
 		</div>
 		</td>
 	</tr>
+	<?php if ($similar) {
+		echo '<tr><td width="25%"><h5>'.$txt['details100'].'</h5></td><td width="75%">';
+		foreach ($similar as $sId => $sName) {
+			echo '<a href="?page=details&prod='.$sId.'">'.$sName.'</a>';
+			echo '<br />';
+		}
+		echo '</td></tr>';
+	}
+	?>
 </table>
-		<?php
-		if (!isset($refermain)) {
-			?>
+	<?php
+	if (!isset($refermain)) {
+		?>
 <br />
 <h4><a href="javascript:history.go(-1)"><?php echo $txt['details8'] ?></a></h4>
-			<?php
-		}
+		<?php
+	}
 	}
 }
 ?>

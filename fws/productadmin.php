@@ -260,7 +260,7 @@ else {
 			echo "<table width=\"80%\" class=\"datatable\">";
 			echo "<caption>".$txt['productadmin21']."</caption>";
 			echo "<tr><td>";
-			echo "<form enctype=\"multipart/form-data\" action=\"index.php?page=productadmin\" method=\"POST\">";
+			echo "<form enctype=\"multipart/form-data\" action=\"".zurl('index.php?page=productadmin',false)."\" method=\"POST\">";
 			echo "<input type=\"hidden\" name=\"action\" value=\"upload_screenshot\">";
 			echo "<input type=\"hidden\" name=\"picid\" value=\"".$picid."\">";
 			echo "<input type=\"hidden\" name=\"pcat\" value=\"".$pcat."\">";
@@ -318,7 +318,7 @@ else {
 		}
 		echo "</caption>";
 		echo "<tr><td>";
-		echo "<form enctype=\"multipart/form-data\" method=\"POST\" action=\"index.php?page=productadmin\">";
+		echo "<form enctype=\"multipart/form-data\" method=\"POST\" action=\"".zurl('index.php?page=productadmin',false)."\">";
 		echo $txt['productadmin18']." <select name=\"pcat\">";
 
 		$error = 0;

@@ -237,7 +237,7 @@ $txt['logout1'] = 'You have been logged off..';
 
 // my.php
 $txt['my3'] = 'About your personal page';
-$txt['my4'] = 'This is your personal page. Only you have access to this page if your are properly logged in on the webshop with your loginname and password.<br /><br />In this screen you can view your personal data, orders and shopping cart. All accessable from 1 screen.';
+$txt['my4'] = 'This is your personal page. Only you have access to this page if your are properly logged in on the webshop with your loginname and password.<br /><br />In this screen you can view your personal data, orders and shopping cart. All accessible from 1 screen.';
 $txt['my5'] = 'Personal page options';
 $txt['my6'] = 'Your customer-ID';
 $txt['my7'] = 'Change data';
@@ -665,6 +665,8 @@ $txt['uploadadmin103'] = "Warning: skipping unrecognized field ";
 $txt['admin9'] = 'Upload products';
 
 //v1.2.5
-$txt['uploadadmin104'] = 'Maximum file size in bytes <a href=# class=info>(?)<span>This is the maximum file size as set on your system. If you want to increase it, you will need to edit your php.ini file.</span></a>';;
+$txt['uploadadmin104'] = 'Maximum file size in bytes <a href=# class=info>(?)<span>This is the maximum file size as set on your system. If you want to increase it, you will need to edit your php.ini file.</span></a>';
+$txt['uploadadmin105'] = 'Use symlinks for digital products <a href=# class=info>(?)<span>Instead of copying digital products a symlink is created to the digital product.</span></a>';
+$txt['details100'] = 'Other products';
 
 ?>

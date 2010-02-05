@@ -39,7 +39,7 @@
 	         }
 	         else { $error =1 ; }
 	         if (!empty($_POST['surname'])) {
-		         $name=$_POST['surname'];
+		         $surname=$_POST['surname'];
 	         }
 	         else { $error =1 ; }
 	         if (!empty($_POST['initials'])) {
@@ -180,7 +180,7 @@
                   // everything ok? then lets put the new customer in the database
 	              if ($error == 0) {
 			          include ($lang_file);
-		              $query = sprintf("INSERT INTO `".$dbtablesprefix."customer` ( `LOGINNAME`, `PASSWORD`, `LASTNAME`, `MIDDLENAME`, `INITIALS`, `IP`, `ADDRESS`, `ZIP`, `CITY`, `STATE`, `PHONE`, `EMAIL`, `GROUP`, `COUNTRY`,`COMPANY`,`JOINDATE`,`NEWSLETTER`) VALUES (%s, %s, %s, %s, %s, '".GetUserIP()."', %s, %s, %s, %s, %s, %s, 'CUSTOMER', %s, %s, '".Date($date_format)."', '".$newsletter."')", quote_smart($login), quote_smart(md5($pass1)), quote_smart($name), quote_smart($middle), quote_smart($initials), quote_smart($address), quote_smart($zip), quote_smart($city), quote_smart($state), quote_smart($phone), quote_smart($email), quote_smart($country), quote_smart($company));
+		              $query = sprintf("INSERT INTO `".$dbtablesprefix."customer` ( `LOGINNAME`, `PASSWORD`, `LASTNAME`, `MIDDLENAME`, `INITIALS`, `IP`, `ADDRESS`, `ZIP`, `CITY`, `STATE`, `PHONE`, `EMAIL`, `GROUP`, `COUNTRY`,`COMPANY`,`DATE_CREATED`,`NEWSLETTER`) VALUES (%s, %s, %s, %s, %s, '".GetUserIP()."', %s, %s, %s, %s, %s, %s, 'CUSTOMER', %s, %s, '".Date($date_format)."', '".$newsletter."')", quote_smart($login), quote_smart(md5($pass1)), quote_smart($surname), quote_smart($middle), quote_smart($initials), quote_smart($address), quote_smart($zip), quote_smart($city), quote_smart($state), quote_smart($phone), quote_smart($email), quote_smart($country), quote_smart($company));
                       mymail($webmaster_mail, $webmaster_mail, $txt['customer36'], $txt['customer37']."<br /><br />".$txt['customer12'], $charset);
 		              mymail($webmaster_mail, $email, $txt['customer11'], $txt['customer12'], $charset);
 	                  $sql = mysql_query($query) or die(mysql_error());
@@ -190,7 +190,7 @@
 	          }
 	          else {
 	              // update existing customer
-		          $query = sprintf("UPDATE `".$dbtablesprefix."customer` SET `LOGINNAME` =%s, `PASSWORD` = %s, `LASTNAME` = %s, `MIDDLENAME` = %s, `INITIALS` = %s, `IP` = '".GetUserIP()."', `ADDRESS` = %s, `ZIP` = %s, `CITY` = %s, `STATE` = %s, `PHONE` = %s, `EMAIL` = %s, `COUNTRY` = %s, `COMPANY` = %s, `NEWSLETTER` = '".$newsletter."' WHERE ID = %s", quote_smart($login), quote_smart(md5($pass1)), quote_smart($name), quote_smart($middle), quote_smart($initials), quote_smart($address), quote_smart($zip), quote_smart($city), quote_smart($state), quote_smart($phone), quote_smart($email), quote_smart($country), quote_smart($company), quote_smart($customerid));
+		          $query = sprintf("UPDATE `".$dbtablesprefix."customer` SET `LOGINNAME` =%s, `PASSWORD` = %s, `LASTNAME` = %s, `MIDDLENAME` = %s, `INITIALS` = %s, `IP` = '".GetUserIP()."', `ADDRESS` = %s, `ZIP` = %s, `CITY` = %s, `STATE` = %s, `PHONE` = %s, `EMAIL` = %s, `COUNTRY` = %s, `COMPANY` = %s, `NEWSLETTER` = '".$newsletter."' WHERE ID = %s", quote_smart($login), quote_smart(md5($pass1)), quote_smart($surname), quote_smart($middle), quote_smart($initials), quote_smart($address), quote_smart($zip), quote_smart($city), quote_smart($state), quote_smart($phone), quote_smart($email), quote_smart($country), quote_smart($company), quote_smart($customerid));
 	              $sql = mysql_query($query) or die(mysql_error());
 	              PutWindow($gfx_dir, $txt['general13'], $txt['customer13'], "notify.gif", "50"); // succesfully saved
      			  $action =  "show";
@@ -207,7 +207,7 @@
          $login      = $row[1];
          $pass1      = $row[2];
          $pass2      = $row[2];
-         $name       = $row[3];
+         $surname       = $row[3];
          $middle     = $row[4];
          $initials   = $row[5];
          $address    = $row[7];
@@ -227,7 +227,7 @@
 		       <tr><td>
                  <table width="100%" class="borderless">
 
-                  <form method="POST" action="index.php?page=customer&action=save">
+                  <form method="POST" action="?page=customer&action=save">
 	              <tr><td><?php echo $txt['customer15'] ?> (*)</td>
 	              <?php
 	                    if ($action == show && IsAdmin() == false) { echo "<td>" . $login . "<input type=hidden name=login value='" . $login . "'></td>"; }
@@ -243,7 +243,7 @@
 	                  <td><input type="password" name="pass2" size="10" maxlength="10" value=""></td>
 	              </tr>
 	              <tr><td><?php echo $txt['customer18'] ?> (*)</td>
-	                  <td><input type="text" name="surname" size="30" maxlength="30" value="<?php echo $name ?>"></td>
+	                  <td><input type="text" name="surname" size="30" maxlength="30" value="<?php echo $surname ?>"></td>
 	              </tr>
 	              <tr><td><?php echo $txt['customer19'] ?></td>
 	                  <td><input type="text" name="middle" size="10" maxlength="10" value="<?php echo $middle ?>"></td>
@@ -269,13 +269,13 @@
 	              <tr><td><?php echo $txt['customer24'] ?> (*)</td>
 	                  <td>
                          <SELECT NAME="country">
-                          <OPTION VALUE="<?php echo $country ?>" SELECTED><?php echo $country ?>
+                          <OPTION VALUE="<?php echo $country ?>" SELECTED><?php echo $country ?></OPTION>
                             <?php
                              // read countries
                              $file = file(ZING_SUB.'/countries.txt');
                              @array_walk($file, 'file_trim');
                              while (list($key, $val) = each($file)) {
-                                     if ($val != $country) { echo "<OPTION VALUE=\"".$val."\">".$val; }
+                                     if ($val != $country) { echo "<OPTION VALUE=\"".$val."\">".$val.'</OPTION>'; }
                              }
                           ?>
                          </SELECT>
@@ -294,7 +294,7 @@
 			      if (LoggedIn() == false) {
 				      // new customer, so lets use captcha to make sure it's human ;-)
 		             if ($use_captcha == 1) {
-						 echo "<tr><td><img src=\"".ZING_SUB."/addons/captcha/php_captcha.php\"><br />".$txt['general15']."</td>";
+						 echo "<tr><td><img src=\"".ZING_URL."fws/addons/captcha/php_captcha.php\"><br />".$txt['general15']."</td>";
 			             echo "<td><input type=\"text\" name=\"image_code\" size=\"10\"></td></tr>";
 		             }
 			      }

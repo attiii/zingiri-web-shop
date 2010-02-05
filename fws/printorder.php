@@ -25,7 +25,6 @@
     if (!empty($_GET['orderid'])) {
 	   $orderid=intval($_GET['orderid']);
     }
-//    include ("./includes/startmodules.inc.php");
  	    
     // lets check if the order you are trying to read is REALLY your own order
     $query = sprintf("SELECT * FROM `".$dbtablesprefix."order` WHERE ID = %s", quote_smart($orderid));

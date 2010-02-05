@@ -34,7 +34,6 @@ if ($email == "") { $email = "--"; }
 
 
 if ($lostlogin == 0) {
-		    //include ("./includes/startmodules.inc.php");
 
 	if ($_POST['name'] == NULL) {
 		?>
@@ -88,7 +87,7 @@ if ($lostlogin == 0) {
 				$update_sql = mysql_query($update_query) or die(mysql_error());
 			}
 			// now kill the cookie
-			setcookie ("fws_guest", "", time() - 3600);
+			setcookie ("fws_guest", "", time() - 3600, '/');
 		}
 
 		$cookie_data = $name.'-'.$id.'-'.md5($pass); //name userid and encrypted password
@@ -101,7 +100,7 @@ if ($lostlogin == 0) {
 		$sql = mysql_query($query) or die(mysql_error());
 		 
 
-		if(setcookie ("fws_cust",$cookie_data, 0)==TRUE) //time()+3600
+		if(setcookie ("fws_cust",$cookie_data, 0, '/')==TRUE) //time()+3600
 		{
 			if (!empty($_POST['pagetoload'])) {
 				$pagetoload=$_POST['pagetoload'];

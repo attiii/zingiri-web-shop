@@ -35,7 +35,7 @@
 		$redirect_to = "index.php";
 	}
 	if (!$lang == NULL) {
-                         if (setcookie ("cookie_lang",$lang, $time+30240000)==TRUE)
+                         if (setcookie ("cookie_lang",$lang, $time+30240000, '/')==TRUE)
                             {
  		                    ?>
                              <html><head><link href="freewebshop.css" rel="stylesheet" type="text/css">

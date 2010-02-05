@@ -68,7 +68,7 @@ else {
            <th><?php echo $txt['pagesadmin3']; ?></th>
            </tr>
 <?php               	
-        echo "<tr><td colspan=\"2\"><form method=\"POST\" action=\"?page=pagesadmin\">\n<input type=\"hidden\" name=\"action\" value=\"add\">\n<input type=\"text\" name=\"filename\" value=\"\"> <input type=\"submit\" value=\"".$txt['pagesadmin5']."\">\n</td></tr></form>\n";
+        echo "<tr><td colspan=\"2\"><form method=\"POST\" action=\"".zurl("index.php?page=pagesadmin")."\">\n<input type=\"hidden\" name=\"action\" value=\"add\">\n<input type=\"text\" name=\"filename\" value=\"\"> <input type=\"submit\" value=\"".$txt['pagesadmin5']."\">\n</td></tr></form>\n";
            
 	    $pages = 0;
 	    if ($dir = @opendir($lang_dir."/".$lang)) {
@@ -78,7 +78,7 @@ else {
 	                   if ($filename[1] == "fws") {
 					      $hidden = "";
 						  if (is_integer(strpos($filename[0],"~"))) { $hidden = " (".$txt['pagesadmin11'].")"; }
-	                      echo "<tr><td><form method=\"POST\" action=\"?page=pagesadmin\">\n<input type=\"hidden\" name=\"action\" value=\"rename\">\n<input type=\"hidden\" name=\"oldname\" value=\"".$filename[0]."\">\n<input type=\"text\" name=\"newname\" value=\"".$filename[0]."\"> <input type=\"submit\" value=\"".$txt['pagesadmin4']."\">\n</td>";
+	                      echo "<tr><td><form method=\"POST\" action=\"".zurl("index.php?page=pagesadmin")."\">\n<input type=\"hidden\" name=\"action\" value=\"rename\">\n<input type=\"hidden\" name=\"oldname\" value=\"".$filename[0]."\">\n<input type=\"text\" name=\"newname\" value=\"".$filename[0]."\"> <input type=\"submit\" value=\"".$txt['pagesadmin4']."\">\n</td>";
 	                      echo "<td><a href=\"?page=adminedit&filename=".$filename[0].".fws&root=0\"><img src=\"".$gfx_dir."/pagesadmin_edit.png\" alt=\"edit\" /></a> <a href=\"?page=pagesadmin&action=delete&filename=".$filename[0]."\"><img src=\"".$gfx_dir."/pagesadmin_delete.png\" alt=\"delete\" /></a>".$hidden."</td></tr></form>\n";
 	                      $pages += 1;
 	                  }

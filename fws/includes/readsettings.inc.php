@@ -126,6 +126,7 @@
 		$orderby = $row[34];
 		$autosubmit = $row[38];
 		$create_pdf = $row[39];
+		if (phpversion() < '5') $create_pdf=0;
 		
 		// new in 2.2.9
 		$use_phpmail = $row[40];

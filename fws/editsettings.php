@@ -249,7 +249,7 @@ else {
 	          <caption><?php echo $txt['editsettings1']; ?></caption>
              <tr><td>
                  <table width="100%" class="borderless">
-                      <form method="POST" action="index.php?page=editsettings&show=<?php echo $show; ?>">
+                      <form method="POST" action="?page=editsettings&show=<?php echo $show; ?>">
                       <input type="hidden" name="action" value="save">
                       
         	      <?php
@@ -325,7 +325,7 @@ else {
 	                  <td><input type="checkbox" name="autosubmit" <?php if ($autosubmit == 1) { echo "checked"; } ?>></td>
         	      </tr>
 	              <tr><td><?php echo $txt['editsettings108'] ?></td>
-	                  <td><input type="checkbox" name="create_pdf" <?php if ($create_pdf == 1) { echo "checked"; } ?>></td>
+	                  <td><input type="checkbox" name="create_pdf" <?php if ($create_pdf == 1) { echo "checked "; if (phpversion() < '5') echo 'disabled '; } ?>></td>
         	      </tr>
         	      <?php
     	          }

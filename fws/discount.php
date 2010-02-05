@@ -44,7 +44,7 @@ if (LoggedIn() == True) {
 		echo '<table width="100%" class="datatable">
 				<caption>'.$txt['shipping4'].'</caption>
 				<tr><td>'.$txt['shipping5'].'
-					<form method="post" action="index.php?page=checkout">
+					<form method="post" action="?page=checkout">
 						<input type="hidden" name="shippingid" value="'.$shippingid.'">
 						<input type="hidden" name="weightid" value="'.$weightid.'">
 						<input type="hidden" name="paymentid" value="'.$paymentid.'">

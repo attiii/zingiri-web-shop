@@ -52,7 +52,7 @@ if (LoggedIn() == true) {
 	<table width="100%" class="datatable">
     <caption><?php echo $txt['shipping1']; ?></caption>
     <tr><td>
-        <form method="post" action="<?php zurl('index.php?page=shipping');?>">
+        <form method="post" action="<?php zurl('index.php?page=shipping',true);?>">
          <input type="hidden" name="step" value="2">
           <?php echo $txt['shipping2'] ?><br />
           <SELECT NAME="shipping">
@@ -87,7 +87,7 @@ if (LoggedIn() == true) {
 	<table width="100%" class="datatable">
     <caption><?php echo $txt['shipping1']; ?></caption>
     <tr><td>
-        <form method="post" action="<?php zurl('index.php?page=discount');?>">
+        <form method="post" action="<?php zurl('index.php?page=discount',true);?>">
          <input type="hidden" name="shippingid" value="<?php echo $shippingid; ?>">
          <input type="hidden" name="weightid" value="<?php echo $weightid; ?>">
          <?php echo $txt['shipping10'] ?><br />

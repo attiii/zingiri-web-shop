@@ -78,7 +78,7 @@ else {
     <div align="center">
 	    <table border="0">
 		 <tr><td align="left">
-             <form method="POST" action="index.php?page=customeradmin">		 
+             <form method="POST" action="?page=customeradmin">		 
 		       <strong><?php echo $txt['customeradmin1']; ?></strong><br />
 		       <input type="text" name="lastname" value="<?php echo $lastname; ?>" size="15">
 			   <input type="hidden" name="action" value="<?php echo $action; ?>">
