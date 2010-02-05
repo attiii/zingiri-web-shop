@@ -26,11 +26,20 @@
  Plugin URI: http://www.zingiri.com/WebShop
  Description: This plugin integrates the fabulous Free Web Shop e-commerce solution with Wordpress.
  Author: Erik Bogaerts
- Version: 1.2.4
+ Version: 1.2.5
  Author URI: http://www.zingiri.com/
  */
-define("ZING_VERSION","1.2.4");
+define("ZING_VERSION","1.2.5");
 require(dirname(__FILE__)."/zing.inc.php");
+
+if (file_exists(dirname(__FILE__).'/zap')) {
+	define("ZING_APPS",dirname(__FILE__)."/fws/fields/");
+	define("ZING_APPS_EMBED","zap/");
+	define("ZING_APPS_TRANSLATE",'z_');
+	define("ZING_APPS_CAPTCHA",ZING_DIR."addons/captcha/");
+	require(dirname(__FILE__)."/zap/embed.php");
+}
+
 register_activation_hook(__FILE__,'zing_activate');
 register_deactivation_hook(__FILE__,'zing_deactivate');
 ?>

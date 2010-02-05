@@ -32,7 +32,7 @@ else {
 	// you're not logged in, so you're a guest. let's see if you already have a session id
 	if (!isset($_COOKIE['fws_guest'])) {
 		$fws_guest = create_sessionid(8); // create a sessionid of 8 numbers, assuming a shop will never get 10.000.000 customers it's always a non existing customer id
-		setcookie ("fws_guest", $fws_guest, time()+3600);
+		setcookie ("fws_guest", $fws_guest, time()+3600, '/');
 		$customerid = $fws_guest;
 
 	}

@@ -206,8 +206,12 @@ a.info:hover span{ /*the span will display just on :hover state*/
 display:none;
 }
 
-input[type="submit"] {
-	
+#zfaces input, .zfaces input {
+	color:black;
 }
 
 #zing-sidebar h1 {display:none; }
+
+div.faces ul, div#zfaces ul, ul#zfaces, ul.zfaces {
+	list-style-type: none;
+}

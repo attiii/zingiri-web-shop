@@ -158,6 +158,8 @@ function zing_check() {
 function zing_activate() {
 	global $wpdb;
 
+	if (function_exists('zing_apps_player_activate')) zing_apps_player_activate();
+	
 	$zing_version=get_option("zing_webshop_version");
 	if (!$zing_version)
 	{
@@ -193,12 +195,12 @@ function zing_activate() {
 					$tsl = trim($sql_line);
 					if (($sql_line != "") && (substr($tsl, 0, 2) != "--") && (substr($tsl, 0, 1) != "#")) {
 						$sql_line = str_replace("CREATE TABLE `", "CREATE TABLE `".$prefix, $sql_line);
+						$sql_line = str_replace("CREATE TABLE IF NOT EXISTS `", "CREATE TABLE IF NOT EXISTS`".$prefix, $sql_line);
 						$sql_line = str_replace("INSERT INTO `", "INSERT INTO `".$prefix, $sql_line);
 						$sql_line = str_replace("ALTER TABLE `", "ALTER TABLE `".$prefix, $sql_line);
 						$sql_line = str_replace("UPDATE `", "UPDATE `".$prefix, $sql_line);
 						$sql_line = str_replace("TRUNCATE TABLE `", "TRUNCATE TABLE `".$prefix, $sql_line);
 						$query .= $sql_line;
-
 						if(preg_match("/;\s*$/", $sql_line)) {
 							$wpdb->query($query);
 							$query = "";
@@ -305,6 +307,7 @@ function zing_activate() {
  * @return void
  */
 function zing_deactivate() {
+	if (function_exists('zing_apps_player_deactivate')) zing_apps_player_deactivate();
 }
 
 /**
@@ -330,6 +333,8 @@ function zing_uninstall() {
 	delete_option("zing_webshop_version",ZING_VERSION);
 	delete_option("zing_webshop_pages",ZING_VERSION);
 	delete_option("zing_webshop_dig",ZING_VERSION);
+
+	if (function_exists('zing_apps_player_uninstall')) zing_apps_player_uninstall();
 }
 
 /**
@@ -472,7 +477,15 @@ function zing_main($process,$content="") {
 	switch ($process)
 	{
 		case "content":
-
+			//apps player integration
+			if (isset($_GET['zfaces']) || isset($_POST['zfaces'])) {
+				if (!$zing_loaded) {
+					require (ZING_LOC."./zing.startmodules.inc.php");
+					$zing_loaded=TRUE;
+				}
+				return $content;
+			}
+				
 			$cf=get_post_custom();
 
 			if (isset($_GET['page']))
@@ -506,6 +519,7 @@ function zing_main($process,$content="") {
 		case "init":
 			break;
 	}
+
 	if (!$zing_loaded)
 	{
 		require (ZING_LOC."./zing.startmodules.inc.php");
@@ -513,12 +527,18 @@ function zing_main($process,$content="") {
 	} else {
 		require (ZING_DIR."./includes/readvals.inc.php");        // get and post values
 	}
-	//	echo $scripts_dir."/".$to_include;
+
+	//echo $scripts_dir.$to_include.'/'.$_GET['page'];
 	if (!$conditions_page && $_GET['page']=="conditions" && $_GET['action']=="checkout") {
 		//$page=$_GET['page']="shipping";
 		//$action=$_GET['action']="";
 	}
-	if ($to_include) include($scripts_dir."/".$to_include);
+	if ($to_include=="loadmain.php" && ($page=='logout' || $page=='login'))
+	{
+		header('Location:'.ZING_HOME.'/index.php?page='.$page);
+		exit;
+	}
+	elseif ($to_include) include($scripts_dir.$to_include);
 }
 
 /**
@@ -684,7 +704,7 @@ function zing_init()
 		require(ZING_DIR."login.php");
 		exit;
 	}
-	if (!empty($_GET['page_id']) && ($_GET['page_id']==zing_page_id("logout")))
+	if ((!empty($_GET['page_id'])) && ($_GET['page_id']==zing_page_id("logout")) || (!empty($_GET['page']) && $_GET['page']=="logout"))
 	{
 		include (ZING_LOC."./zing.startmodules.inc.php");
 		require(ZING_DIR."logout.php");
