@@ -232,7 +232,8 @@
                    <td><?php 
                          echo $currency_symbol_pre;
                          $subtotaal = $productprice * $row[6];
-                         if ($no_vat == 0 && $db_prices_including_vat == 0) { $subtotaal = $subtotaal * $vat; }
+                         $tax=new wsTax($subtotaal);
+                         $subtotaal = $tax->in; 
                          $printprijs = myNumberFormat($subtotaal);
                          echo $printprijs;
                          echo $currency_symbol_post;

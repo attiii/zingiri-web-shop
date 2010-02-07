@@ -193,7 +193,14 @@ else {
 				<br />
 				</div>
 				</td>
-				<td>&nbsp;</td>
+				<td>
+				<div style="text-align: center;"><a class="plain"
+					href="?zfaces=list&form=taxes"><img
+					src="<?php echo $gfx_dir; ?>/taxes.png" alt="" height="36px" /><br />
+					<?php echo $txt['admin100']; ?></a><br />
+				<br />
+				</div>
+				</td>
 				<td>&nbsp;</td>
 			</tr>
 			<tr>

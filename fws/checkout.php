@@ -144,7 +144,10 @@ if (LoggedIn() == True) {
 						}
 					}
 
-					if ($no_vat == 0 && $db_prices_including_vat == 0) { $product_price = $product_price * $vat; }
+					if ($no_vat == 0 && $db_prices_including_vat == 0) {
+						$tax = new wsTax($product_price); 
+						$product_price = $tax->in; 
+					}
 
 					// make up the description to print according to the pricelist_format and max_description
 					if ($pricelist_format == 0) { $print_description = $row_details[1]; }

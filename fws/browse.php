@@ -232,23 +232,13 @@ else { $limit = ""; }
 		value="<?php echo $row[0] ?>"> <input type="hidden" name="prodprice"
 		value="<?php echo $row[4] ?>"> <?php
 		if (!$row[4] == 0) {
+			$tax=new wsTax($row[4]);
 			if ($no_vat == 1) {
-				$in_vat = myNumberFormat($row[4]);
-				echo "<big><strong>". $currency_symbol_pre.$in_vat.$currency_symbol_post."</strong></big>";
+				echo "<big><strong>". $currency_symbol_pre.$tax->inFtd.$currency_symbol_post."</strong></big>";
 			}
 			else {
-				if ($db_prices_including_vat == 1) {
-					$ex_vat = $row[4] / $vat;
-					$in_vat = myNumberFormat($row[4]);
-					$ex_vat = myNumberFormat($ex_vat);
-				}
-				else {
-					$in_vat = $row[4] * $vat;
-					$ex_vat = myNumberFormat($row[4]);
-					$in_vat = myNumberFormat($in_vat);
-				}
-				echo "<big><strong>".$currency_symbol_pre.$in_vat.$currency_symbol_post."</strong></big>";
-				echo "<br /><small>(".$currency_symbol_pre.$ex_vat.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>";
+				echo "<big><strong>".$currency_symbol_pre.$tax->inFtd.$currency_symbol_post."</strong></big>";
+				echo "<br /><small>(".$currency_symbol_pre.$tax->exFtd.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>";
 			}
 
 			// product features

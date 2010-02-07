@@ -47,9 +47,9 @@ else {
 		$query="SELECT * FROM `".$dbtablesprefix."basket` WHERE `ORDERID`=".quote_smart($orderid);
 		$sql_basket = mysql_query($query) or die(mysql_error());
 		while ($row_basket = mysql_fetch_array($sql_basket)) {
-			$query="SELECT * FROM `".$dbtablesprefix."product` WHERE `LINK` IS NOT NULL AND `ID`=".quote_smart($row_basket['PRODUCTID']);
-			$sql_prod = mysql_query($query) or die(mysql_error());
-			while ($row_prod = mysql_fetch_array($sql_prod)) {
+			$query_prod="SELECT * FROM `".$dbtablesprefix."product` WHERE `LINK` IS NOT NULL AND `ID`=".quote_smart($row_basket['PRODUCTID']);
+			$sql_prod = mysql_query($query_prod) or die(mysql_error());
+			if ($row_prod = mysql_fetch_array($sql_prod)) {
 				$linkhtml.='<a href="'.ZING_URL.'fws/download.php?basketid='.$row_basket['ID'].'&abspath='.ABSPATH.'">'.$row_prod['PRODUCTID'].'</a><br/>';
 			}
 		}

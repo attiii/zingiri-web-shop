@@ -669,4 +669,9 @@ $txt['uploadadmin104'] = 'Maximum file size in bytes <a href=# class=info>(?)<sp
 $txt['uploadadmin105'] = 'Use symlinks for digital products <a href=# class=info>(?)<span>Instead of copying digital products a symlink is created to the digital product.</span></a>';
 $txt['details100'] = 'Other products';
 
+//v1.2.7
+$txt['admin100'] = 'Taxes';
+$txt['Rate'] = 'Rate';
+$txt['Label'] = 'Label';
+$txt['Cascading'] = 'Cascading';
 ?>

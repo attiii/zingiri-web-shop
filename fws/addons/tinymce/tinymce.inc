@@ -1,7 +1,7 @@
 <?php 
  if ($use_wysiwyg == 1) {
 ?>	 
-	<script language="javascript" type="text/javascript" src="<?php if (defined("ZING_SUB")) echo ZING_SUB."/"?>addons/tinymce/jscripts/tiny_mce/tiny_mce_gzip.php"></script>
+	<script language="javascript" type="text/javascript" src="<?php if (defined("ZING_URL")) echo ZING_URL?>/fws/addons/tinymce/jscripts/tiny_mce/tiny_mce_gzip.php"></script>
 	<script language="javascript" type="text/javascript">
 tinyMCE.init({
    button_tile_map : "true",
@@ -65,7 +65,7 @@ function ajaxfilemanager(field_name, url, type, win) {
  }
  if ($use_wysiwyg == 2) {
 ?>	 	
-<script language="javascript" type="text/javascript" src="<?php if (defined("ZING_SUB")) echo ZING_SUB."/"?>addons/tinymce/jscripts/tiny_mce/tiny_mce_gzip.php"></script>
+<script language="javascript" type="text/javascript" src="<?php if (defined("ZING_URL")) echo ZING_URL?>/fws/addons/tinymce/jscripts/tiny_mce/tiny_mce_gzip.php"></script>
 <script language="javascript" type="text/javascript">
 	tinyMCE.init({
 		mode : "textareas",

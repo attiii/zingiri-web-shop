@@ -54,7 +54,7 @@
 		  	</tr>
 		  </table>
 		  <br />
-		  <div style="text-align:center;"><a href="index.php?page=customer&action=new"><?php echo $txt['checklogin5'] ?></a></div>
+		  <div style="text-align:center;"><a href="index.php?page=customer&action=new&pagetoload=<?php echo urlencode($pagetoload);?>"><?php echo $txt['checklogin5'] ?></a></div>
 		  <br />
 		  <br />
 		  <br />

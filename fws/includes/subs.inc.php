@@ -29,6 +29,8 @@ $index_refer = 1; // pages of the webshop cannot be opened if this value is unse
 //set_error_handler("user_error_handler");
 //ini_set('display_errors', '1');
 
+require(dirname(__FILE__).'/../classes/index.php');
+
 function CreateRandomCode($len) {
 	$chars = "abcdefghijkmnpqrstuvwxyz23456789";
 	srand((double)microtime()*1000000);
@@ -79,14 +81,14 @@ function user_error_handler($severity, $msg, $filename, $linenum) {
 
 function createthumb($name,$filename,$new_w,$new_h){
 	if (file_exists($filename)) { unlink($filename); }
-	$system=explode('.',$name);
-	if (preg_match('/jpg|jpeg/',$system[1])){
+	$ext = substr(strrchr($name, '.'), 1);
+	if ($ext == 'jpg' || $ext == 'jpeg'){
 		$src_img=imagecreatefromjpeg($name);
 	}
-	if (preg_match('/png/',$system[1])){
+	if ($ext == 'png'){
 		$src_img=imagecreatefrompng($name);
 	}
-	if (preg_match('/gif/',$system[1])){
+	if ($ext == 'gif'){
 		$src_img=imagecreatefromgif($name);
 	}
 	$old_x=imageSX($src_img);
@@ -105,13 +107,13 @@ function createthumb($name,$filename,$new_w,$new_h){
 	}
 	$dst_img=ImageCreateTrueColor($thumb_w,$thumb_h);
 	imagecopyresampled($dst_img,$src_img,0,0,0,0,$thumb_w,$thumb_h,$old_x,$old_y);
-	if (preg_match("/jpg|jpeg/",$system[1])) {
+	if ($ext == 'jpg' || $ext == 'jpeg'){
 		imagejpeg($dst_img,$filename);
 	}
-	if (preg_match("/png/",$system[1])) {
+	if ($ext == 'png'){
 		imagepng($dst_img,$filename);
 	}
-	if (preg_match("/gif/",$system[1])) {
+	if ($ext == 'gif'){
 		imagegif($dst_img,$filename);
 	}
 	imagedestroy($dst_img);
@@ -139,8 +141,8 @@ function directory($dir,$filters) {
 		$filters=explode(",",$filters);
 		while (($file = readdir($handle))!==false) {
 			for ($f=0;$f<sizeof($filters);$f++):
-			$system=explode(".",$file);
-			if ($system[1] == $filters[$f]){
+			$ext = substr(strrchr($file, '.'), 1);
+			if ($ext == $filters[$f]){
 				$files[] = $file;
 			}
 			endfor;
@@ -549,7 +551,7 @@ function IsBanned() {
 }
 function isvalid_email_address($email) {
 	// First, we check that there's one @ symbol, and that the lengths are right
-	if (!ereg("^[^@]{1,64}@[^@]{1,255}$", $email)) {
+	if (!preg_match("/^[^@]{1,64}@[^@]{1,255}$/", $email)) {
 		// Email invalid because wrong number of characters in one section, or wrong number of @ symbols.
 		return false;
 	}
@@ -558,11 +560,11 @@ function isvalid_email_address($email) {
 	$local_array = explode(".", $email_array[0]);
 
 	for ($i = 0; $i < sizeof($local_array); $i++) {
-		if (!ereg("^(([A-Za-z0-9!#$%&'*+/=?^_`{|}~-][A-Za-z0-9!#$%&'*+/=?^_`{|}~\.-]{0,63})|(\"[^(\\|\")]{0,62}\"))$", $local_array[$i])) {
+		if (!preg_match("/^(([A-Za-z0-9!#$%&'*+\/=?^_`{|}~-][A-Za-z0-9!#$%&'*+\/=?^_`{|}~\.-]{0,63})|(\"[^(\\|\")]{0,62}\"))$/", $local_array[$i])) {
 			return false;
 		}
 	}
-	if (!ereg("^\[?[0-9\.]+\]?$", $email_array[1])) {
+	if (!preg_match("/^\[?[0-9\.]+\]?$/", $email_array[1])) {
 		// Check if domain is IP. If not, it should be valid domain name
 		$domain_array = explode(".", $email_array[1]);
 		if (sizeof($domain_array) < 2) {
@@ -570,7 +572,7 @@ function isvalid_email_address($email) {
 			// Not enough parts to domain
 		}
 		for ($i = 0; $i < sizeof($domain_array); $i++) {
-			if (!ereg("^(([A-Za-z0-9][A-Za-z0-9-]{0,61}[A-Za-z0-9])|([A-Za-z0-9]+))$", $domain_array[$i])) {
+			if (!preg_match("/^(([A-Za-z0-9][A-Za-z0-9-]{0,61}[A-Za-z0-9])|([A-Za-z0-9]+))$/", $domain_array[$i])) {
 				return false;
 			}
 		}
@@ -918,4 +920,30 @@ function similarProducts($productid,$catid) {
 
 }
 
+function faces_group() {
+	Global $dbtablesprefix;
+
+	$loggedin=false;
+	$group="";
+	if (isset($_COOKIE['fws_cust'])) {
+		$fws_cust = explode(",", $_COOKIE['fws_cust']);
+		$customerid = $fws_cust[1];
+		$md5pass = $fws_cust[2];
+		if (!is_null($customerid)) {
+			$f_query = "SELECT * FROM ".$dbtablesprefix."customer WHERE ID = " . $customerid;
+			$f_sql = mysql_query($f_query) or die(mysql_error());
+			if ($f_row = mysql_fetch_array($f_sql)) {
+				if (md5($f_row['PASSWORD']) == $md5pass && $f_row['IP'] == GetUserIP())
+				{
+					$loggedin=true;
+					$group=$f_row['GROUP'];
+				}
+			}
+		}
+	}
+	if (!$loggedin) $group="GUEST";
+
+	return $group;
+
+}
 ?>

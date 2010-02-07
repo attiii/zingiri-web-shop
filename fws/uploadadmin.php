@@ -185,7 +185,7 @@ class parse_upload {
 			} else {
 				$row=mysql_fetch_array($sql);
 				$id=$row[0];
-				$query="UPDATE `".$this->prefix."product` SET ".implode(",",$this->pairs)." WHERE `productid`='".$this->productid."'";
+				$query="UPDATE `".$this->prefix."product` SET ".implode(",",$this->pairs)." WHERE `id`='".$id."'";
 				$sql = zing_query_db($query);
 			}
 			if ($this->image) {
