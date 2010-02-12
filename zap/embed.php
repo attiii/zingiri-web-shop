@@ -228,7 +228,6 @@ function zing_apps_player_header()
 		echo '<script type="text/javascript" src="' . ZING_APPS_BUILDER_URL . 'js/dragtable.js"></script>';
 	}
 	echo '<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/sorttable.js"></script>';
-	echo '<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/stack.js"></script>';
 }
 
 /**
