@@ -29,7 +29,7 @@ if (IsAdmin() == false) {
 }
 else {
 	// ok, let's do the updating/deleting/moving here
-	 
+
 	// add a shipping method
 	if ($action == "add_shipping") {
 		if (!empty($_POST['description'])) {
@@ -40,7 +40,7 @@ else {
 			$rate=$_POST['rate'];
 		}
 		$country = CheckBox($_POST['country']);
-		 
+			
 		if ($description != "") {
 			$query="INSERT INTO `".$dbtablesprefix."shipping` (`description`, `country`) VALUES ('".$description."', ".$country.")";
 			$sql = mysql_query($query) or die(mysql_error());
@@ -57,7 +57,7 @@ else {
 		PutWindow($gfx_dir, $txt['general13'], $txt['shippingadmin21'], "notify.gif", "50");
 		$action = "show_shipping";
 	}
-		
+
 	// edit a shipping method
 	if ($action == "update_shipping") {
 		if (!empty($_POST['sid'])) {
@@ -72,11 +72,11 @@ else {
 			// shipping data
 			$query="UPDATE `".$dbtablesprefix."shipping` SET `description`='".$description."', `country`=".$country." WHERE `id`=".$sid;
 			$sql = mysql_query($query) or die(mysql_error());
-			 
+
 			// payment data
 			$query="SELECT * FROM `".$dbtablesprefix."payment`";
 			$sql = mysql_query($query) or die(mysql_error());
-			 
+
 			if (mysql_num_rows($sql) <> 0) {
 				while ($row = mysql_fetch_row($sql)) {
 					$selected=CheckBox($_POST[$row[0]]);
@@ -96,7 +96,7 @@ else {
 					}
 				}
 			}
-				
+
 			// add the weights and costs of it was submitted
 			if ((!empty($_POST['from'])) || (!empty($_POST['to'])) || (!empty($_POST['price'])) || ($_POST['from']==0) || ($_POST['to']==0) || ($_POST['price']==0)) {
 				if (empty($_POST['from'])) { $from = 0; }
@@ -105,8 +105,12 @@ else {
 				else { $to = $_POST['to'];}
 				if (empty($_POST['price'])) { $price = 0; }
 				else { $price = $_POST['price'];}
-				$query_add = "INSERT INTO `".$dbtablesprefix."shipping_weight` (`SHIPPINGID`, `FROM`, `TO`, `PRICE`) VALUES ('".$sid."', '".$from."', '".$to."', '".$price."')";
-				$sql_add = mysql_query($query_add) or die(mysql_error());
+				$query = sprintf("SELECT `ID` FROM `".$dbtablesprefix."shipping_weight` WHERE `SHIPPINGID`='%s' AND `FROM`='%s' AND `TO`='%s' AND `PRICE`='%s'",$sid,$from,$to,$price);
+				$sql = mysql_query($query) or die(mysql_error());
+				if (mysql_num_rows($sql) == 0) {
+					$query_add = "INSERT INTO `".$dbtablesprefix."shipping_weight` (`SHIPPINGID`, `FROM`, `TO`, `PRICE`) VALUES ('".$sid."', '".$from."', '".$to."', '".$price."')";
+					$sql_add = mysql_query($query_add) or die(mysql_error());
+				}
 			}
 
 			PutWindow($gfx_dir, $txt['general13'], $txt['shippingadmin3'], "notify.gif", "50");
@@ -140,7 +144,7 @@ else {
 		}
 		$query="SELECT * FROM `".$dbtablesprefix."shipping` WHERE `id`=".$sid;
 		$sql = mysql_query($query) or die(mysql_error());
-		 
+			
 		while ($row = mysql_fetch_row($sql)) {
 			if ($row[3] == 1) { PutWindow($gfx_dir, $txt['general13'], $txt['shippingadmin15'], "warning.gif", "50"); }   // part of system!
 			echo "<table width=\"100%\" class=\"datatable\">";
@@ -175,7 +179,7 @@ else {
 			echo $txt['shippingadmin20']."(".$currency_symbol.") <input type=\"text\" name=\"price\" size=\"9\" maxlength=\"9\">";
 			echo "</td></tr>";
 			echo "<tr><td colspan=\"2\">";
-				
+
 			$query_weight = "SELECT * FROM `".$dbtablesprefix."shipping_weight` WHERE `SHIPPINGID`='".$row[0]."' ORDER BY `FROM`";
 			$sql_weight = mysql_query($query_weight) or die(mysql_error());
 
@@ -184,7 +188,7 @@ else {
 				echo $txt['shippingadmin19']."(".$weight_metric.") <input type=\"text\" size=\"9\" value=\"".$row_weight[3]."\" disabled> ";
 				echo $txt['shippingadmin20']."(".$currency_symbol.") <input type=\"text\" size=\"9\" value=\"".$row_weight[4]."\" disabled> [<a href=\"?page=shippingadmin&action=delete_weight&wid=".$row_weight[0]."&sid=".$row[0]."\">".$txt['shippingadmin9']."</a>]<br />";
 			}
-				
+
 			echo "</td></tr>";
 			echo "<tr class=\"altrow\"><td colspan=\"2\">";
 			echo "<h4><input type=\"submit\" value=\"".$txt['shippingadmin8']."\"></h4>";
@@ -194,7 +198,7 @@ else {
 			echo "<br /><br />";
 		}
 	}
-	 
+
 	echo "<table width=\"100%\" class=\"datatable\">";
 	echo "  <caption>".$txt['shippingadmin4']."</caption>";
 	echo "  <tr><th>".$txt['shippingadmin5']."</th><th>".$txt['shippingadmin7']."</th><th>".$txt['shippingadmin12']."</th></tr>";
@@ -206,10 +210,10 @@ else {
 	echo "    <td><input type=\"submit\" value=\"".$txt['shippingadmin10']."\"></td>";
 	echo "  </tr>";
 	echo "  </form>";
-	 
+
 	$query="SELECT * FROM `".$dbtablesprefix."shipping`";
 	$sql = mysql_query($query) or die(mysql_error());
-	 
+
 	while ($row = mysql_fetch_row($sql)) {
 		echo "  <tr>";
 		echo "    <td>".$row[1]."</td>";

@@ -63,7 +63,7 @@ else {
 	//read order details
 	$fp = fopen($orders_dir."/".$webid.".php", "rb") or die($txt['general6']);
 	$ordertext = fread($fp, filesize($orders_dir."/".$webid.".php"));
-	list($security, $order) = split("\?>", $ordertext);
+	list($security, $order) = preg_split("/\?>/", $ordertext);
 	fclose($fp);
 
 	// if there are linebreaks, then we have a new order. if not, then it's an old one that needs nl2br

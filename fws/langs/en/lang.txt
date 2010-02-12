@@ -47,7 +47,6 @@ $txt['general1'] = 'Access denied!';
 $txt['general2'] = 'Your IP address had been logged to prevent further abuse';
 $txt['general3'] = 'new';
 $txt['general4'] = 'Back to admin options';
-$txt['general5'] = 'VAT';
 $txt['general6'] = 'excl.';
 $txt['general7'] = 'incl.';
 $txt['general8'] = 'NOTE: The webshop is disabled! Customers can not browse or order products';
@@ -178,7 +177,6 @@ $txt['checkout21'] = "When the products are in stock, we will e-mail you for an 
 $txt['checkout22'] = "Use your PayPal account to transfer the money to us.";
 $txt['checkout23'] = "You have to pay the postal service when you recieve the package.";
 $txt['checkout24'] = "The total amount";
-$txt['checkout25'] = "including $show_vat ".$txt['general5'];
 $txt['checkout26'] = "Please transfer the entire invoice amount within $paymentdays days. When we recieve your payment, this order will processed further and will be shipped as soon as possible.";
 $txt['checkout27'] = "or download the order in PDF";
 
@@ -376,7 +374,6 @@ $txt['editsettings9'] = 'Currency symbol <a href=# class=info>(?)<span>In your c
 $txt['editsettings10'] = 'Pay within xx days <a href=# class=info>(?)<span>Within how many days should the order amount be on your account?</span></a>';
 $txt['editsettings11'] = 'Including VAT <a href=# class=info>(?)<span>If the VAT is 19% this number should read: 1.19</span></a>';
 $txt['editsettings12'] = 'VAT text <a href=# class=info>(?)<span>In case of 19% VAT this should read: 19%</span></a>';
-$txt['editsettings13'] = 'Prices in DB are incl. VAT';
 $txt['editsettings14'] = 'Email address sales department <a href=# class=info>(?)<span>On this address you will recieve the orders, for example: sales@yourdomain.com</span></a>';
 $txt['editsettings15'] = 'Store name';
 $txt['editsettings16'] = 'Webshop URL <a href=# class=info>(?)<span>URL starting with http://, but without trailing /, for example: http://www.yourdomain.com/shop</span></a>';
@@ -409,7 +406,6 @@ $txt['editsettings47'] = 'Store';
 $txt['editsettings48'] = 'Finance';
 $txt['editsettings49'] = 'Number format';
 $txt['editsettings50'] = 'Maximum description lenght <a href=# class=info>(?)<span>This is to shorten the descriptions in the price lists. <br /><strong>0 = do not shorten<br />1-99 = wordwrap on xx characters</strong></span></a>';
-$txt['editsettings51'] = 'No VAT <a href=# class=info>(?)<span>Enable this if you do not want to use VAT in your shop prices, for example when it is a webshop with personal products</span></a>';
 $txt['editsettings52'] = 'Name of bank';
 $txt['editsettings53'] = 'Pricelist format <a href=# class=info>(?)<span>This settings applies to the pricelists, shoppingcart and order confirmation email</span></a>';
 $txt['editsettings54'] = 'Product ID';
@@ -669,9 +665,22 @@ $txt['uploadadmin104'] = 'Maximum file size in bytes <a href=# class=info>(?)<sp
 $txt['uploadadmin105'] = 'Use symlinks for digital products <a href=# class=info>(?)<span>Instead of copying digital products a symlink is created to the digital product.</span></a>';
 $txt['details100'] = 'Other products';
 
-//v1.2.7
+//v1.2.7 - new
 $txt['admin100'] = 'Taxes';
 $txt['Rate'] = 'Rate';
 $txt['Label'] = 'Label';
 $txt['Cascading'] = 'Cascading';
+$txt['checkout25'] = "including taxes";
+$txt['checkout102'] = "Taxes";
+$txt['checkout103'] = "Please accept conditions before proceeding";
+$txt['checkout104'] = "You will now be redirected to the payment portal to complete your order";
+$txt['Activate fast checkout'] = 'Activate fast checkout';
+$txt['show'] = 'show';
+$txt['hide'] = 'hide';
+
+//v1.2.7 - modified
+$txt['general5'] = 'taxes';
+$txt['editsettings51'] = 'No taxes <a href=# class=info>(?)<span>Enable this if you do not want to use VAT in your shop prices, for example when it is a webshop with personal products</span></a>';
+$txt['editsettings13'] = 'Prices in DB are incl. taxes';
+
 ?>

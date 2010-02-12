@@ -242,7 +242,8 @@ else {
             <a href="index.php?page=editsettings&show=2"><?php echo $txt['editsettings47']; ?></a> |
             <a href="index.php?page=editsettings&show=3"><?php echo $txt['editsettings45']; ?></a> |
             <a href="index.php?page=editsettings&show=4"><?php echo $txt['editsettings46']; ?></a> |
-            <a href="index.php?page=editsettings&show=all"><?php echo $txt['editsettings86']; ?></a>
+            <a href="index.php?page=editsettings&show=all"><?php echo $txt['editsettings86']; ?></a> |
+            <a href="index.php?zfaces=form&form=settings&action=edit&id=1&redirect=<?php zurl(urlencode('?'.$_SERVER['QUERY_STRING']),true);?>"><?php echo $txt['editsettings93']; ?></a> 
             </h4>
             <br /><br />            
 	        <table width="80%" class="datatable">
@@ -270,12 +271,14 @@ else {
 	              <tr><td><?php echo $txt['editsettings51'] ?></td>
 	                  <td><input type="checkbox" name="no_vat" <?php if ($no_vat == 1) { echo "checked"; } ?>></td>
         	      </tr>
+        	      <!--
 	              <tr><td><?php echo $txt['editsettings11'] ?></td>
 	                  <td><input type="text" name="vat" size="5" maxlength="5" value="<?php echo $vat ?>"></td>
         	      </tr>
 	              <tr><td><?php echo $txt['editsettings12'] ?></td>
 	                  <td><input type="text" name="show_vat" size="10" maxlength="10" value="<?php echo $show_vat ?>"></td>
         	      </tr>
+        	       -->
 	              <tr><td><?php echo $txt['editsettings13'] ?></td>
 	                  <td><input type="checkbox" name="db_prices_including_vat" <?php if ($db_prices_including_vat == 1) { echo "checked"; } ?>></td>
         	      </tr>

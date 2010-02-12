@@ -135,10 +135,10 @@ else { $limit = ""; }
 		echo "<tr><td>".$txt['browse5']."</td><td>&nbsp;</td></tr></table>";
 	}
 	else {
-		 
+			
 		$optel = 0;
 
-		while ($row = mysql_fetch_row($sql)) {
+		while ($row = mysql_fetch_array($sql)) {
 			$optel++;
 			if ($optel == 3) { $optel = 1; }
 			if ($optel == 1) { $kleur = ""; }
@@ -227,67 +227,69 @@ else { $limit = ""; }
 			echo "<td><div style=\"text-align:right;\">";
 			if ($order_from_pricelist == 1) {
 				?>
-	<form method="POST" action="?page=cart&action=add">
-	<div style="text-align: right"><input type="hidden" name="prodid"
-		value="<?php echo $row[0] ?>"> <input type="hidden" name="prodprice"
-		value="<?php echo $row[4] ?>"> <?php
-		if (!$row[4] == 0) {
-			$tax=new wsTax($row[4]);
-			if ($no_vat == 1) {
-				echo "<big><strong>". $currency_symbol_pre.$tax->inFtd.$currency_symbol_post."</strong></big>";
-			}
-			else {
-				echo "<big><strong>".$currency_symbol_pre.$tax->inFtd.$currency_symbol_post."</strong></big>";
-				echo "<br /><small>(".$currency_symbol_pre.$tax->exFtd.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>";
-			}
+	<form id="order<?php echo $row[0];?>" method="POST" action="?page=cart&action=add">
+	<div style="text-align: right"><input type="hidden" id="prodid" name="prodid"
+		value="<?php echo $row[0] ?>"
+	> <input type="hidden" name="prodprice" value="<?php echo $row[4] ?>"> <?php
+	if (!$row[4] == 0) {
+		$tax=new wsTax($row[4]);
+		if ($no_vat == 1) {
+			echo "<big><strong>". $currency_symbol_pre.$tax->inFtd.$currency_symbol_post."</strong></big>";
+		}
+		else {
+			echo "<big><strong>".$currency_symbol_pre.$tax->inFtd.$currency_symbol_post."</strong></big>";
+			echo "<br /><small>(".$currency_symbol_pre.$tax->exFtd.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>";
+		}
 
-			// product features
-			$allfeatures = $row[8];
-			if (!empty($allfeatures)) {
-				$features = explode("|", $allfeatures);
-				$counter1 = 0;
-				echo "<br /><br />";
-				while (!$features[$counter1] == NULL){
-					if (strpos($features[$counter1],":")===FALSE){echo "<br />".$features[$counter1].":  <input type=\"text\" name=\"".$features[$counter1]."\"> ";$counter1 += 1;}
-					else {
-						$feature = explode(":", $features[$counter1]);
-						$counter1 += 1;
-						echo "<br />".$feature[0].": ";
-						echo "<select name=\"".$feature[0]."\">";
-						$value = explode(",", $feature[1]);
-						$counter2 = 0;
-						while (!$value[$counter2] == NULL){
+		// product features
+		$allfeatures = $row[8];
+		if (!empty($allfeatures)) {
+			$features = explode("|", $allfeatures);
+			$counter1 = 0;
+			echo "<br /><br />";
+			while (!$features[$counter1] == NULL){
+				if (strpos($features[$counter1],":")===FALSE){echo "<br />".$features[$counter1].":  <input type=\"text\" name=\"".$features[$counter1]."\"> ";$counter1 += 1;}
+				else {
+					$feature = explode(":", $features[$counter1]);
+					$counter1 += 1;
+					echo "<br />".$feature[0].": ";
+					echo "<select name=\"".$feature[0]."\">";
+					$value = explode(",", $feature[1]);
+					$counter2 = 0;
+					while (!$value[$counter2] == NULL){
 
-							// optionally you can specify the additional costs: color:red+1.50,green+2.00,blue+3.00 so lets deal with that
-							$extracosts = explode("+",$value[$counter2]);
-							if (!$extracosts[1] == NULL) {
-								// there are extra costs
-								$printvalue = $extracosts[0]." (+".$currency_symbol_pre.myNumberFormat($extracosts[1],$number_format).$currency_symbol_post.")";
-							}
-							else {
-								$printvalue = $value[$counter2];
-							}
-
-							// print the pulldown menu
-							$printvalue = str_replace("+".$currency_symbol_pre."-", "-".$currency_symbol_pre, $printvalue);
-							echo "<option value=\"".$value[$counter2]."\""; if ($counter2 == 0) { echo " SELECTED"; } echo ">".$printvalue;
-							$counter2 += 1;
+						// optionally you can specify the additional costs: color:red+1.50,green+2.00,blue+3.00 so lets deal with that
+						$extracosts = explode("+",$value[$counter2]);
+						if (!$extracosts[1] == NULL) {
+							// there are extra costs
+							$printvalue = $extracosts[0]." (+".$currency_symbol_pre.myNumberFormat($extracosts[1],$number_format).$currency_symbol_post.")";
 						}
-						echo "</select>";
+						else {
+							$printvalue = $value[$counter2];
+						}
+
+						// print the pulldown menu
+						$printvalue = str_replace("+".$currency_symbol_pre."-", "-".$currency_symbol_pre, $printvalue);
+						echo "<option value=\"".$value[$counter2]."\""; if ($counter2 == 0) { echo " SELECTED"; } echo ">".$printvalue;
+						$counter2 += 1;
 					}
+					echo "</select>";
 				}
 			}
+		}
 
-			?> <br />
+		?> <br />
 	<br />
 	<?php }
+	if (!$row['LINK']) {
 		echo $txt['details6'] ?>:<br />
-	<input type="text" size="4" name="numprod" value="1" maxlength="4">&nbsp;<input
-		type="submit" value="<?php echo $txt['details7'] ?>" name="sub"> <?php 
-		if ($row[4] == 0) {
-			if ($row[5] == 0 && $hide_outofstock == 0) { echo '<strong><big>'.$txt['browse12'].'</big></strong>'; }
-		}
-		?>
+	<input type="text" size="4" name="numprod" value="1" maxlength="4">&nbsp; <?php }?> <input
+		type="submit" id="addtocart" value="<?php echo $txt['details7'] ?>" name="sub"
+	> <?php
+	if ($row[4] == 0) {
+		if ($row[5] == 0 && $hide_outofstock == 0) { echo '<strong><big>'.$txt['browse12'].'</big></strong>'; }
+	}
+	?>
 	
 	</form>
 	<?php
@@ -297,19 +299,18 @@ else { $limit = ""; }
 			echo "</tr>";
 		} ?>
 </table>
-<div style="text-align: right;"><img
-	src="<?php echo $gfx_dir ?>/photo.gif" alt="" /> <em><small><?php echo $txt['browse6'] ?></small></em></div>
+<div style="text-align: right;"><img src="<?php echo $gfx_dir ?>/photo.gif" alt="" /> <em><small><?php echo $txt['browse6'] ?></small></em></div>
 
 		<?php
 		// page code
 		if ($products_per_page > 0 && $num_products > $products_per_page) {
-			 
+
 	  $page_counter = 0;
 	  $num_pages = 0;
 	  $rest_products = $num_products;
-	   
+
 	  echo "<br /><h4>".$txt['browse11'].": ";
-	   
+
 	  for($i = 0; $i < $num_products; $i++) {
 		  $page_counter++;
 		  if ($page_counter == $products_per_page) {
@@ -331,7 +332,7 @@ else { $limit = ""; }
 		  }
 		  else { echo "<a href=\"index.php?page=browse&action=$action&group=$group&cat=$cat&orderby=$orderby&searchmethod=$searchmethod&searchfor=$searchfor&num_page=$num_pages\">[$num_pages]</a>"; }
 	  }
-	   
+
 	  echo "</h4>";
 		}
 		?>
@@ -359,3 +360,9 @@ else { $limit = ""; }
 		}
 	}
 	?>
+<script type="text/javascript" language="javascript">
+//<![CDATA[
+	cart=new wsCart();
+	cart.order();
+//]]>
+</script>

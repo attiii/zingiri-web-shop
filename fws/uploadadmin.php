@@ -62,6 +62,7 @@ class parse_upload {
 	var $success=true;
 	var $messages=array();
 	var $line=1;
+	var $oldDigitalFile;
 
 	//function to parse Excel XML file
 	function parse_upload($url) {
@@ -173,10 +174,8 @@ class parse_upload {
 
 	function save_product() {
 		if (!$this->error) {
-			if ($this->digital) {
-				$this->upload_digital($this->digital);
-			}
-			$query="SELECT `ID` FROM `".$this->prefix."product` WHERE `productid` = '".$this->productid."' AND `catid` = '".$this->catid."'";
+			$this->oldDigitalFile="";
+			$query="SELECT `ID`,`LINK` FROM `".$this->prefix."product` WHERE `productid` = '".$this->productid."' AND `catid` = '".$this->catid."'";
 			$sql = mysql_query($query) or die(mysql_error());
 			if (mysql_num_rows($sql) == 0) {
 				$query="INSERT INTO `".$this->prefix."product` (".implode(",",$this->fields).") VALUES (".implode(",",$this->values).")";
@@ -185,8 +184,12 @@ class parse_upload {
 			} else {
 				$row=mysql_fetch_array($sql);
 				$id=$row[0];
+				$this->oldDigitalFile=$row['LINK'];
 				$query="UPDATE `".$this->prefix."product` SET ".implode(",",$this->pairs)." WHERE `id`='".$id."'";
 				$sql = zing_query_db($query);
+			}
+			if ($this->digital) {
+				$this->upload_digital($this->digital);
 			}
 			if ($this->image) {
 				$this->upload_image($id,$this->image,false);
@@ -220,6 +223,9 @@ class parse_upload {
 
 	function upload_digital($files) {
 		global $txt;
+		
+		if (!empty($this->oldDigitalFile)) unlink(ZING_DIG.$this->oldDigitalFile);
+		
 		list($file,$link) = $files;
 		$target_path = ZING_DIG.$link;
 			

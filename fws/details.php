@@ -112,7 +112,7 @@ else {
 		</table>
 		</div>
 		<br />
-		<form method="POST" action="?page=cart&action=add">
+		<form id="order" method="POST" action="?page=cart&action=add">
 		<div style="text-align: right"><input type="hidden" name="prodid"
 			value="<?php echo $row[0] ?>"> <input type="hidden" name="prodprice"
 			value="<?php echo $row[4] ?>"> <?php
@@ -165,9 +165,9 @@ else {
 			}
 			?> <br />
 		<br />
-		<?php echo $txt['details6'] ?>: <input type="text" size="4"
-			name="numprod" value="1" maxlength="4">&nbsp;<input type="submit"
-			value="<?php echo $txt['details7'] ?>" name="sub">
+		<?php if (!$row['LINK']) { echo $txt['details6'] ?>: <input type="text" size="4"
+			name="numprod" value="1" maxlength="4">&nbsp;<?php }?><input type="submit"
+			value="<?php echo $txt['details7'] ?>" id="addtocart" name="sub">
 		
 		</form>
 		</div>
@@ -193,3 +193,9 @@ else {
 	}
 }
 ?>
+<script type="text/javascript" language="javascript">
+//<![CDATA[
+          cart=new wsCart();
+          cart.order();
+//]]>
+</script>

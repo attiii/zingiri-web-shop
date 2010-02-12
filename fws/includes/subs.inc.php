@@ -746,6 +746,7 @@ Function ActiveDiscounts() {
 
 function CheckoutInit() {
 	global $shippingid,$weightid,$paymentid,$notes,$discount_code;
+	if (isset($_POST['shipping'])) { list($weightid, $shippingid) = explode(":", $_POST['shipping']); }
 	if (!empty($_POST['shippingid'])) { $shippingid=intval($_POST['shippingid']); }
 	elseif (!empty($_GET['shippingid'])) { $shippingid=intval($_GET['shippingid']); }
 	if (!empty($_POST['weightid'])) { $weightid=intval($_POST['weightid']); }
@@ -763,22 +764,26 @@ function CheckoutInit() {
 function CheckoutSteps() {
 	global $page,$action,$step,$dbtablesprefix,$customerid,$conditions_page,$shipping_page;
 
-	$steps=5;
-	if (!$conditions_page) $steps--;
-	if (!$shipping_page) {
-		$steps--;
-		$query="SELECT * FROM `".$dbtablesprefix."shipping` ORDER BY `id` LIMIT 1";
-		$sql = mysql_query($query) or die(mysql_error());
-		if ($row = mysql_fetch_row($sql)) {
-			$cart_weight = WeighCart($customerid);
-			$query="SELECT * FROM `".$dbtablesprefix."shipping_payment` WHERE `shippingid`='".$row[0]."' ORDER BY `paymentid`";
+	if (FASTCHECKOUT) {
+		$steps=2;
+	} else {
+		$steps=5;
+		if (!$conditions_page) $steps--;
+		if (!$shipping_page) {
+			$steps--;
+			$query="SELECT * FROM `".$dbtablesprefix."shipping` ORDER BY `id` LIMIT 1";
 			$sql = mysql_query($query) or die(mysql_error());
-			if (mysql_num_rows($sql) <= 1) {
-				$steps--;
+			if ($row = mysql_fetch_row($sql)) {
+				$cart_weight = WeighCart($customerid);
+				$query="SELECT * FROM `".$dbtablesprefix."shipping_payment` WHERE `shippingid`='".$row[0]."' ORDER BY `paymentid`";
+				$sql = mysql_query($query) or die(mysql_error());
+				if (mysql_num_rows($sql) <= 1) {
+					$steps--;
+				}
 			}
 		}
+		if (!ActiveDiscounts()) $steps--;
 	}
-	if (!ActiveDiscounts()) $steps--;
 	return $steps;
 
 }
@@ -786,25 +791,31 @@ function CheckoutSteps() {
 function CheckoutThisStep() {
 	global $page,$action,$step,$dbtablesprefix,$customerid,$conditions_page,$shipping_page;
 
-	if ($page=="conditions") $step=1;
+	if (FASTCHECKOUT) {
+		if ($page=="onecheckout") $step=1;
+		//elseif ($page=="checkout" && isset($_GET['status'])) $step=2;
+		elseif ($page=="checkout") $step=2;
+		$newstep=$step;
+	} else {
+		if ($page=="conditions") $step=1;
 
-	if ($page=="shipping" && !isset($_GET['step'])) {
-		$step=2;
+		if ($page=="shipping" && !isset($_GET['step'])) {
+			$step=2;
+		}
+
+		if ($page=="shipping" && ($_GET['step']==2 || $_POST['step']==2)) {
+			$step=3;
+		}
+
+		if ($page=="discount") $step=4;
+
+		if ($page=="checkout") $step=5;
+
+		$newstep=$step;
+		if ($step>1 && !$conditions_page) $newstep--;
+		if ($step>2 && !$shipping_page) $newstep--;
+		if ($step>3 && !ActiveDiscounts()) $newstep--;
 	}
-
-	if ($page=="shipping" && ($_GET['step']==2 || $_POST['step']==2)) {
-		$step=3;
-	}
-
-	if ($page=="discount") $step=4;
-
-	if ($page=="checkout") $step=5;
-
-	$newstep=$step;
-	if ($step>1 && !$conditions_page) $newstep--;
-	if ($step>2 && !$shipping_page) $newstep--;
-	if ($step>3 && !ActiveDiscounts()) $newstep--;
-
 	return $newstep;
 }
 
@@ -835,7 +846,10 @@ function CheckoutNextStep() {
 	CheckoutInit();
 
 	$redir="";
-	if ($page=="conditions" && !$conditions_page) {
+	if ($page=="conditions" && FASTCHECKOUT) {
+		$redir="?page=onecheckout";
+	}
+	elseif ($page=="conditions" && !$conditions_page) {
 		$redir="?page=shipping";
 	}
 	elseif ($page=="shipping" && $action=="" && !$shipping_page && !isset($_GET['step'])) {

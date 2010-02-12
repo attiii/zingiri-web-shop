@@ -26,13 +26,6 @@
 <?php
 global $shippingid,$weightid,$paymentid,$notes,$discount_code;
 CheckoutInit();
-/*
- if (!empty($_POST['shippingid'])) { $shippingid=intval($_POST['shippingid']); }
- if (!empty($_POST['weightid'])) { $weightid=intval($_POST['weightid']); }
- if (!empty($_POST['paymentid'])) { $paymentid=intval($_POST['paymentid']); }
- if (!empty($_POST['notes']))    { $notes=$_POST['notes']; } else { $notes = ""; }
- if (!empty($_POST['discount_code']))	{ $discount_code= stripslashes(htmlentities($_POST['discount_code'])); } else { $discount_code = ""; }
- */
 ?>
 <?php
 if (LoggedIn() == True) {
@@ -40,14 +33,20 @@ if (LoggedIn() == True) {
 
 	//return from payment gateway
 	if (isset($_GET['status'])) {
-		$paymentstatus=$_GET['status'];
+		$paymentstatus=intval($_GET['status']);
 		if ($paymentstatus == 1) {
+			$status=9; //completed
 			PutWindow($gfx_dir, $txt['general13'], $txt['checkout100'], "notify.gif", "50");
 		} else {
+			$status=8; //error or cancelled
 			PutWindow($gfx_dir, $txt['general12'], $txt['checkout101'], "warning.gif", "50");
 		}
 	} else {
+		$status=1; //first run
+	}
 
+	//first pass
+	if ($status==1) {
 		// if the cart is empty, then you shouldn't be here
 		if (CountCart($customerid) == 0) {
 			PutWindow($gfx_dir, $txt['general12'], $txt['checkout2'], "warning.gif", "50");
@@ -79,6 +78,11 @@ if (LoggedIn() == True) {
 					$discount_percentage = $discount_row[3];
 				}
 			}
+		}
+		//check conditions accepted
+		if (isset($_POST['onecheckout']) && $_POST['onecheckout']==true && $_POST['conditions']!="on") {
+			PutWindow($gfx_dir, $txt['general12'], $txt['checkout103'], "warning.gif", "50");
+			$error = 1;
 		}
 
 		if ($error == 0) {
@@ -114,6 +118,7 @@ if (LoggedIn() == True) {
 
 			include ($lang_file);
 			$message = $txt['checkout3'];
+			$paymentmessage = "";
 			// now go through all all products from basket with status 'basket'
 
 			$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE ( CUSTOMERID = ".$customerid." AND ORDERID = 0 )";
@@ -144,10 +149,10 @@ if (LoggedIn() == True) {
 						}
 					}
 
-					if ($no_vat == 0 && $db_prices_including_vat == 0) {
-						$tax = new wsTax($product_price); 
-						$product_price = $tax->in; 
-					}
+					//					if ($no_vat == 0 && $db_prices_including_vat == 0) {
+					$tax = new wsTax($product_price);
+					$product_price = $tax->in;
+					//					}
 
 					// make up the description to print according to the pricelist_format and max_description
 					if ($pricelist_format == 0) { $print_description = $row_details[1]; }
@@ -230,6 +235,14 @@ if (LoggedIn() == True) {
 			$print_sendcosts = myNumberFormat($sendcosts);
 			$total_nodecimals = number_format($total, 2,"","");
 			include ($lang_file);
+			$tax = new wsTax($total);
+			$taxheader=$txt['checkout102'];
+			if (count($tax->taxes)>0) {
+				foreach ($tax->taxes as $label => $data) {
+					$message .= '<tr><td>'.$taxheader.'</td><td>'.$label.' '.$data['RATE'].'%</td><td style="text-align: right">'.$currency_symbol_pre.myNumberFormat($data['TAX'],$number_format).$currency_symbol_post.'</td></tr>';
+					$taxheader="";
+				}
+			}
 			$message .= '<tr><td>'.$txt['checkout24'].'</td><td>'.$txt['checkout25'].'</td><td style="text-align: right"><big><strong>'.$currency_symbol_pre.myNumberFormat($total,$number_format).$currency_symbol_post.'</strong></big></td></tr>';
 			$message .= "</table><br /><br />";
 
@@ -253,6 +266,7 @@ if (LoggedIn() == True) {
 				$payment_descr = $row[1];
 				$payment_code = $row[2];
 				// there could be some variables in the code, like %total%, %webid% and %shopurl% so lets update them with the correct values
+				$payment_code = str_replace('name="autosubmit"','id="autosubmit" name="autosubmit"',$payment_code);
 				$payment_code = str_replace("%total_nodecimals%", $total_nodecimals, $payment_code);
 				$payment_code = str_replace("%total%", $total, $payment_code);
 				$payment_code = str_replace("%webid%", $webid, $payment_code);
@@ -273,29 +287,37 @@ if (LoggedIn() == True) {
 				$payment_code = str_replace("%paypal_email%", $sales_mail, $payment_code);
 				$payment_code = str_replace("%return%", $shopurl . '/index.php?page=checkout&status=1', $payment_code);
 				$payment_code = str_replace("%cancel%", $shopurl . '/index.php?page=checkout&status=9', $payment_code);
-
+				$payment_code = trim($payment_code);
 			}
 			$message .= $txt['checkout19'].$payment_descr; // Payment method:
 			$message .= $txt['checkout6']; // line break
 
 			// paypal and ideal use extra code to checkout. if there is extra code, then we paste it here
 			if ($payment_code <> "") {
-				$message .= $payment_code;
-				$message .= $txt['checkout6']; // line break
+				$paymentmessage .= $payment_code;
+				$paymentmessage .= $txt['checkout6']; // line break
 			}
 
 			// the two standard build in payment methods
 			if ($paymentid == "1") {
-				$message = $message . $txt['checkout20']; // bank info
-			}
-			if ($paymentid == "2") {
-				$message = $message . $txt['checkout21']; // cash payment
-			}
-
-			// if the payment method is 'pay at the store', you don't need to pay within 14 days
-			if ($paymentid <> "2") {
+				//bank payment
+				$message .= $txt['checkout20']; // bank info
 				$message .= $txt['checkout6'].$txt['checkout6']; // new line
 				$message .= $txt['checkout26'];  // pay within xx days
+			} elseif ($paymentid == "2") {
+				// if the payment method is 'pay at the store', you don't need to pay within 14 days
+				$message .= $txt['checkout21']; // cash payment
+			} else {
+				//other methods
+				$paymentmessage .= $txt['checkout6'].$txt['checkout6']; // new line
+				$paymentmessage .= $txt['checkout26'];  // pay within xx days
+				if ($autosubmit && $payment_code!='') {
+					//$message .= '<!--payment-->';
+					//$message=str_replace('<!--payment-->','<div id="paymentmessage" style="display:none">'.$paymentmessage.'</div>',$message);
+					$message .= $paymentmessage;
+				} else {
+					$message .= $paymentmessage;
+				}
 			}
 
 			$message .= $txt['checkout6']; // white line
@@ -308,11 +330,6 @@ if (LoggedIn() == True) {
 			//basket update
 			$query = sprintf("UPDATE `".$dbtablesprefix."basket` SET `ORDERID` = '".$lastid."' WHERE (`CUSTOMERID` = %s AND `ORDERID` = '0')", quote_smart($customerid));
 			$sql = mysql_query($query) or die(mysql_error());
-
-
-			// now lets show the customer some details
-			CheckoutShowProgress();
-			//echo "<h4><img src=\"".$gfx_dir."/1_.gif\" alt=\"1\">&nbsp;<img src=\"".$gfx_dir."/2_.gif\" alt=\"step 2\">&nbsp;<img src=\"".$gfx_dir."/3_.gif\" alt=\"3\">&nbsp;<img src=\"".$gfx_dir."/4_.gif\" alt=\"4\">&nbsp;<img src=\"".$gfx_dir."/arrow.gif\" alt=\"arrow\">&nbsp;<img src=\"".$gfx_dir."/5.gif\" alt=\"5\"></h4><br /><br />";
 
 			// make pdf
 			$pdf = "";
@@ -342,19 +359,8 @@ if (LoggedIn() == True) {
 				$sql = mysql_query($query) or die(mysql_error());
 			}
 
-			// email subject
-			$subject       = $txt['checkout10'];
-
-			if (mymail($sales_mail, $to, $subject, $message, $charset)) {
-				PutWindow($gfx_dir, $txt['general13'], $txt['checkout11'], "notify.gif", "50");
-			}
-			else { PutWindow($gfx_dir, $txt['general12'], $txt['checkout12'], "warning.gif", "50"); }
-
-			mymail($sales_mail, $sales_mail, $subject, $message, $charset); // no error checking here, because there is no use to report this to the customer
-
 			// save the order in order folder for administration
 			$security = "<?php if ($"."index_refer <> 1) { exit(); } ?>";
-			//		 $handle = fopen (dirname(__FILE__)."/".$orders_dir."/".strval($webid).".php", "w+");
 			$handle = fopen ($orders_dir."/".strval($webid).".php", "w+");
 			if (!fwrite($handle, $security.$message))
 			{
@@ -363,17 +369,44 @@ if (LoggedIn() == True) {
 			else {
 				fclose($handle);
 			}
+
+			// email confirmation in case no autosubmit
+			if (!$autosubmit  || ($autosubmit && $payment_code=='')) {
+				$subject = $txt['checkout10'];
+				if (mymail($sales_mail, $to, $subject, $message, $charset)) {
+					PutWindow($gfx_dir, $txt['general13'], $txt['checkout11'], "notify.gif", "50");
+				}
+				else { PutWindow($gfx_dir, $txt['general12'], $txt['checkout12'], "warning.gif", "50"); }
+			}
+			mymail($sales_mail, $sales_mail, $subject, $message, $charset); // no error checking here, because there is no use to report this to the customer
+				
+			// now lets show the customer some details
+			CheckoutShowProgress();
+
 			// now print the confirmation on the screen
-			echo '
+			if (!$autosubmit || ($autosubmit && $payment_code=='')) {
+				echo '
 		     <table width="100%" class="datatable">
 		       <caption>'.$txt['checkout13'].'</caption>
 		       <tr><td>'.$message.'
 		       </td></tr>
 		     </table>
 		     <h4><a href="?page=printorder&orderid='.$lastid.'">'.$txt['readorder1'].'</a>';
-			if ($create_pdf == 1) { echo "<br /><a href=\"".$orders_url."/".$pdf."\">".$txt['checkout27']."</a></h4>"; }
-
+				if ($create_pdf == 1) { echo "<br /><a href=\"".$orders_url."/".$pdf."\">".$txt['checkout27']."</a></h4>"; }
+			} else {
+				PutWindow($gfx_dir, $txt['general13'], $txt['checkout104'], "notify.gif", "50");
+				echo '<div style="display:none">'.$payment_code.'</div>';
+				?>
+<script type="text/javascript" language="javascript">
+//<![CDATA[
+           setTimeout("checkout=new wsSubmit()",2000);
+           //]]>
+</script>
+				<?php
+			}
+				
 		}
+		//end
 	}
 }
 ?>
