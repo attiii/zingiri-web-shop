@@ -32,7 +32,7 @@ class sqlidZfSubElement extends zfSubElement {
 		$e=$this->element;
 		$key=strtoupper($input['element_'.$e->id.'_2']);
 		$value=strtoupper($input['element_'.$e->id.'_3']);
-		$table=strtoupper($input['element_'.$e->id.'_4']);
+		$table=$input['element_'.$e->id.'_4'];
 
 		$query="select `".$key."`,`".$value."` FROM `##".$table."` ORDER BY `".$value."`";
 		$query=str_replace("##",DB_PREFIX,$query);
@@ -61,7 +61,7 @@ class sqlidZfSubElement extends zfSubElement {
 		$xmlf=$this->xmlf;
 		$key=strtoupper($e->populated_value['element_'.$e->id.'_2']);
 		$value=strtoupper($e->populated_value['element_'.$e->id.'_3']);
-		$table=strtoupper($e->populated_value['element_'.$e->id.'_4']);
+		$table=$e->populated_value['element_'.$e->id.'_4'];
 
 		$field_markup.="<select id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" {$e->readonly}>";
 		$option_markup="";

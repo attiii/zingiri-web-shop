@@ -194,13 +194,16 @@ function zing_activate() {
 				foreach($file_content as $sql_line) {
 					$tsl = trim($sql_line);
 					if (($sql_line != "") && (substr($tsl, 0, 2) != "--") && (substr($tsl, 0, 1) != "#")) {
-						$sql_line = str_replace("CREATE TABLE `", "CREATE TABLE `".$prefix, $sql_line);
-						$sql_line = str_replace("CREATE TABLE IF NOT EXISTS `", "CREATE TABLE IF NOT EXISTS`".$prefix, $sql_line);
-						$sql_line = str_replace("INSERT INTO `", "INSERT INTO `".$prefix, $sql_line);
-						$sql_line = str_replace("ALTER TABLE `", "ALTER TABLE `".$prefix, $sql_line);
-						$sql_line = str_replace("UPDATE `", "UPDATE `".$prefix, $sql_line);
-						$sql_line = str_replace("TRUNCATE TABLE `", "TRUNCATE TABLE `".$prefix, $sql_line);
-						$sql_line = str_replace("##", $prefix, $sql_line);
+						if (str_replace("##", $prefix, $sql_line) == $sql_line) {
+							$sql_line = str_replace("CREATE TABLE `", "CREATE TABLE `".$prefix, $sql_line);
+							$sql_line = str_replace("CREATE TABLE IF NOT EXISTS `", "CREATE TABLE IF NOT EXISTS`".$prefix, $sql_line);
+							$sql_line = str_replace("INSERT INTO `", "INSERT INTO `".$prefix, $sql_line);
+							$sql_line = str_replace("ALTER TABLE `", "ALTER TABLE `".$prefix, $sql_line);
+							$sql_line = str_replace("UPDATE `", "UPDATE `".$prefix, $sql_line);
+							$sql_line = str_replace("TRUNCATE TABLE `", "TRUNCATE TABLE `".$prefix, $sql_line);
+						} else {
+							$sql_line = str_replace("##", $prefix, $sql_line);
+						}
 						$query .= $sql_line;
 						if(preg_match("/;\s*$/", $sql_line)) {
 							$wpdb->query($query);
@@ -322,8 +325,10 @@ function zing_uninstall() {
 	$rows=$wpdb->get_results("show tables like '".$prefix."%'",ARRAY_N);
 	if (count($rows) > 0) {
 		foreach ($rows as $id => $row) {
-			$query="drop table ".$row[0];
-			$wpdb->query($query);
+			if (strpos($row[0],'_mybb_')===false && strstr($row[0],'_ost_')===false) {
+				$query="drop table ".$row[0];
+				$wpdb->query($query);
+			}
 		}
 	}
 	$ids=get_option("zing_webshop_pages");
@@ -335,7 +340,7 @@ function zing_uninstall() {
 	delete_option("zing_webshop_pages",ZING_VERSION);
 	delete_option("zing_webshop_dig",ZING_VERSION);
 
-	if (function_exists('zing_apps_player_uninstall')) zing_apps_player_uninstall();
+	if (function_exists('zing_apps_player_uninstall')) zing_apps_player_uninstall(false);
 }
 
 /**
@@ -671,7 +676,7 @@ function zing_init()
 
 	wp_enqueue_script('prototype');
 	wp_enqueue_script('scriptaculous');
-	
+
 	ob_start();
 
 	global $dbtablesprefix;

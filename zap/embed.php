@@ -129,7 +129,6 @@ function zing_apps_player_activate() {
 		}
 		closedir($handle);
 	}
-
 }
 
 /**
@@ -138,22 +137,24 @@ function zing_apps_player_activate() {
  */
 function zing_apps_player_deactivate() {
 	global $wpdb;
-//	zing_apps_player_uninstall();
+	//	zing_apps_player_uninstall();
 }
 
 /**
  * Uninstallation of web shop: removal of database tables
  * @return void
  */
-function zing_apps_player_uninstall() {
+function zing_apps_player_uninstall($drop=true) {
 	global $wpdb;
 	global $dbtablesprefix;
 
-	$rows=$wpdb->get_results("show tables like '".$dbtablesprefix."%'",ARRAY_N);
-	if (count($rows) > 0) {
-		foreach ($rows as $id => $row) {
-			$query="drop table ".$row[0];
-			$wpdb->query($query);
+	if ($drop) {
+		$rows=$wpdb->get_results("show tables like '".$dbtablesprefix."%'",ARRAY_N);
+		if (count($rows) > 0) {
+			foreach ($rows as $id => $row) {
+				$query="drop table ".$row[0];
+				$wpdb->query($query);
+			}
 		}
 	}
 	delete_option("zing_apps_player_version");
@@ -168,10 +169,10 @@ function zing_apps_player_content($content) {
 
 	global $post;
 	global $dbtablesprefix;
-	
+
 	error_reporting(E_ALL & ~E_NOTICE);
 	ini_set('display_errors', '1');
-	
+
 	if (defined("ZING_APPS_CUSTOM")) { require(ZING_APPS_CUSTOM."globals.php"); }
 
 	$cf=get_post_custom();
@@ -238,7 +239,7 @@ function zing_apps_player_init()
 {
 	wp_enqueue_script('prototype');
 	wp_enqueue_script('scriptaculous');
-	
+
 	ob_start();
 	if (isset($_GET['zfaces']))
 	{
@@ -249,7 +250,7 @@ function zing_apps_player_init()
 if (!function_exists("ZingAppsIsAdmin")) {
 	function ZingAppsIsAdmin() {
 		if (function_exists("IsAdmin")) { return IsAdmin(); }
-		return true;
+		return false;
 	}
 }
 

@@ -417,4 +417,22 @@ function zf_json_decode($json,$assoc=true) {
 	}
 	return $ret;
 }
+
+function zfDumpQuery($query,$table="") {
+	if (!defined("ZING_APPS_BUILDER")) return true;
+	$query=str_replace(DB_PREFIX,"##",$query);
+	if (defined("ZING_APPS_CUSTOM")) $dir=ZING_APPS_CUSTOM.'db/';
+	else $dir=ZING_APPS_PLAYER_DIR.'db/';
+	$file=$dir."apps.db.sql";
+	$handle = fopen($file, "a");
+	if (!fwrite($handle, $query.";\r\n"))
+	{
+		return false;
+	}
+	else {
+		fclose($handle);
+	}
+	chmod($file,0666);
+	return true;
+}
 ?>

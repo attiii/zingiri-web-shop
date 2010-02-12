@@ -32,3 +32,7 @@ INSERT INTO `##flink` (`DATE_CREATED`, `DATE_UPDATED`, `FORMIN`, `FORMOUT`, `ACT
 INSERT INTO `##flink` (`DATE_CREATED`, `DATE_UPDATED`, `FORMIN`, `FORMOUT`, `ACTION`, `ICON`, `DISPLAYIN`, `MAPPING`, `FORMOUTALT`, `REDIRECT`, `ACTIONIN`, `ACTIONOUT`, `DISPLAYOUT`) VALUES('0000-00-00 00:00:00', NULL, (select `id` from `##faces` where `name`='flink'), (select `id` from `##faces` where `name`='flink'), 'view', 'view.png', 'list', NULL, NULL, NULL, NULL, 'view', 'form');
 INSERT INTO `##flink` (`DATE_CREATED`, `DATE_UPDATED`, `FORMIN`, `FORMOUT`, `ACTION`, `ICON`, `DISPLAYIN`, `MAPPING`, `FORMOUTALT`, `REDIRECT`, `ACTIONIN`, `ACTIONOUT`, `DISPLAYOUT`) VALUES('0000-00-00 00:00:00', NULL, (select `id` from `##faces` where `name`='faccess'), (select `id` from `##faces` where `name`='faccess'), 'view', 'view.png', 'list', NULL, NULL, NULL, NULL, 'view', 'form');
 INSERT INTO `##flink` (`DATE_CREATED`, `DATE_UPDATED`, `FORMIN`, `FORMOUT`, `ACTION`, `ICON`, `DISPLAYIN`, `MAPPING`, `FORMOUTALT`, `REDIRECT`, `ACTIONIN`, `ACTIONOUT`, `DISPLAYOUT`) VALUES('0000-00-00 00:00:00', NULL, (select `id` from `##faces` where `name`='frole'), (select `id` from `##faces` where `name`='frole'), 'view', 'view.png', 'list', NULL, NULL, NULL, NULL, 'view', 'form');
+
+-- create default roles
+INSERT INTO `##frole` (`ID`, `DATE_CREATED`, `DATE_UPDATED`, `NAME`) VALUES(1, '2010-02-02 20:21:41', NULL, 'ADMIN');
+INSERT INTO `##frole` (`ID`, `DATE_CREATED`, `DATE_UPDATED`, `NAME`) VALUES(2, '2010-02-02 20:21:49', NULL, 'CUSTOMER');
