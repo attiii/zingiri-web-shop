@@ -409,7 +409,7 @@ function zf_json_decode($json,$assoc=true) {
 	$json=str_replace("\\",'',$json);
 	$json=str_replace("\'",'"',$json);
 	if (!extension_loaded('json')){
-		$j = new JSON;
+		$j = new Services_JSON;
 		$ret = $j->unserialize($json);
 	}
 	else{
