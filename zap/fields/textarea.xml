@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="module" version="1.5.0">
+	<name>Textarea</name>
+	<fields count="1">
+		<field1>
+			<name>textarea</name>
+			<maxlength></maxlength>
+			<default></default>
+			<width></width>
+			<type>textarea</type>
+			<format>mediumtext</format>
+		</field1>
+	</fields>
+</config>

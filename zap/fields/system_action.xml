@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="system" version="1.5.0">
+	<name>Action</name>
+	<fields count="2">
+		<field1>
+			<name>action</name>
+			<format>varchar(10)</format>
+			<type>select</type>
+			<values type="multi">
+				<option value="0">*</option>
+				<option value="view">View</option>
+				<option value="edit">Edit</option>
+				<option value="delete">Delete</option>
+				<option value="other">Other</option>
+			</values>
+		</field1>
+		<field2>
+			<name>other</name>
+			<format>varchar(25)</format>
+			<maxlength>25</maxlength>
+		</field2>
+	</fields>
+</config>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="module" version="1.5.0">
+	<name>Name (simple)</name>
+	<fields count="2">
+		<field1>
+			<name>first</name>
+			<label>First</label>
+			<size>20</size>
+			<maxlength>30</maxlength>
+			<format>varchar(30)</format>
+		</field1>
+		<field2>
+			<name>last</name>
+			<label>Last</label>
+			<size>40</size>
+			<maxlength>60</maxlength>
+			<format>varchar(60)</format>
+		</field2>
+	</fields>
+</config>

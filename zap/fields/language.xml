@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="module" version="1.5.0">
+	<name>Language</name>
+	<fields count="1">
+		<field1>
+			<name>lang</name>
+			<format>varchar(2)</format>
+			<default>en</default>
+			<type>select</type>
+			<values type="multi">
+				<option1 value="en">English</option1>
+				<option2 value="fr">French</option2>
+				<option3 value="nl">Dutch</option3>
+				<option4 value="de">German</option4>
+			</values>
+		</field1>
+	</fields>
+</config>

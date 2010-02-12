@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="module" version="1.5.0">
+	<name>Yes/No Radiobutton</name>
+	<fields count="1">
+		<field1>
+			<name>radio</name>
+			<type>radio</type>
+			<values>
+				<option1 value="1">Yes</option1>
+				<option2 value="0">No</option2>
+			</values>
+			<format>int(1)</format>
+		</field1>
+	</fields>
+</config>

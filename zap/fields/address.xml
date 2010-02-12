@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="module" version="1.5.0">
+	<name>Address</name>
+	<width>400</width>
+	<fields count="6">
+		<field1>
+			<name>street</name>
+			<label>Street</label>
+			<maxlength></maxlength>
+			<default></default>
+			<width>100%</width>
+			<format>varchar(50)</format>
+			<size>40</size>
+		</field1>
+		<field2>
+			<name>line2</name>
+			<label>Line 2</label>
+			<maxlength></maxlength>
+			<default></default>
+			<width>100%</width>
+			<format>varchar(50)</format>
+			<size>40</size>
+		</field2>
+		<field3>
+			<name>city</name>
+			<label>City</label>
+			<maxlength></maxlength>
+			<default></default>
+			<width>40%</width>
+			<format>varchar(50)</format>
+			<size>30</size>
+		</field3>
+		<field4>
+			<name>state</name>
+			<label>State</label>
+			<maxlength></maxlength>
+			<default></default>
+			<width>40%</width>
+			<format>varchar(50)</format>
+			<size>30</size>
+
+		</field4>
+		<field5>
+			<name>zip</name>
+			<label>Zip</label>
+			<maxlength></maxlength>
+			<default></default>
+			<width>40%</width>
+			<format>varchar(15)</format>
+			<size>12</size>
+		</field5>
+		<field6>
+			<name>country</name>
+			<label>Country</label>
+			<maxlength></maxlength>
+			<default></default>
+			<width>40%</width>
+			<format>varchar(50)</format>
+			<size>30</size>
+		</field6>
+	</fields>
+</config>

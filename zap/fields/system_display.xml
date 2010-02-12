@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="system" version="1.5.0">
+	<name>Display type</name>
+	<fields count="1">
+		<field1>
+			<name>display</name>
+			<format>varchar(4)</format>
+			<default>form</default>
+			<type>select</type>
+			<values type="multi">
+				<option1 value="form">Form</option1>
+				<option2 value="list">List</option2>
+			</values>
+		</field1>
+	</fields>
+</config>
