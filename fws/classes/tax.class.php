@@ -23,6 +23,7 @@ class wsTax {
 						$cascading=$tax['CASCADING'];
 						if (!$cascading) $tax=$price * $rate;
 						else $tax=$subtot * $rate;
+						$taxes[$label]['TAX']=$tax;
 						$subtot+=$tax;
 						$taxtot+=$tax;
 					}
@@ -32,6 +33,16 @@ class wsTax {
 						$cascading=$tax['CASCADING'];
 						if (!cascading) $totrate+=$rate;
 						else $totrate+=(1+$totrate) * $rate;
+					}
+					$reprice=$price/(1+$totrate);
+					foreach ($taxes as $label => $tax) {
+						$rate=$tax['RATE']/100;
+						$cascading=$tax['CASCADING'];
+						if (!$cascading) $tax=$reprice * $rate;
+						else $tax=$subtot * $rate;
+						$taxes[$label]['TAX']=$tax;
+						$subtot+=$tax;
+						$taxtot+=$tax;
 					}
 				}
 			}
@@ -48,6 +59,7 @@ class wsTax {
 		$this->ex=$ex_vat;
 		$this->in=$in_vat;
 		$this->tax=$taxtot;
+		$this->taxes=$taxes;
 		$this->inFtd=myNumberFormat($in_vat);
 		$this->exFtd=myNumberFormat($ex_vat);
 	}
