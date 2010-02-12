@@ -14,15 +14,15 @@ Zingiri Web Shop is a Wordpress plugin that turns a great content management sys
 
 The main feaures are:
 
-* Simple installation
-* Easy configuration
+* Simple installation & easy configuration
 * Sell digital and physical products
 * Many useful features that simplify your work
 * Complete order and customer management module
-* Free support and updates
+* Ajax powered shopping cart & one page checkout
 * Support for payment portals like Paypal, Worldpay, Google Checkout and iDEAL and possibility to add your own
 * Multilingual support: English, Dutch, French, German, Spanish, ... 
 * Easily migrate your current web shop by uploading your products via an XML file
+* Free support and updates
 
 == Installation ==
 
@@ -35,7 +35,7 @@ The main feaures are:
     * fws/countries.txt 666
 3. Make sure the directory wp-content/uploads exists and is writable
 4. Activate the plugin through the 'Plugins' menu in WordPress
-5. Activate the 3 sidebar widgets.
+5. Activate the 4 sidebar widgets.
 6. Go to the Wordpress Settings page and find the link to the Admininistration Panel of Zingiri Web Shop, login with the default user admin and password admin_1234.
 
 Please visit the [Zingiri](http://www.zingiri.com/web-shop "Zingiri") website for more information and a Demo.
@@ -59,6 +59,21 @@ Upgrades are handled automatically. Simply upload the latest version, go to sett
 Before upgrading, make sure you back up your database first!
 If you made changes to the style sheet (zing.css) or the language files, make sure you back them up before the upgrade and restore them after.
 == Changelog ==
+
+= 1.2.7 =
+* Automatically log in new user after registration and redirect to page he was coming from or to home page if none specified
+* Added new fast checkout possibility
+* Added automatic redirect to payment portal if autosubmit option activated
+* Ajaxified the shopping cart to provide a better customer experience
+* Added live search widget
+* Added possibility to create 0 weight items in shipping options (useful for setting up shipping options for digital products)
+* Fixed issue with product category being overwritten during product upload
+* Fixed issue when trying to upload an image that contains a dot in the name
+* Added support for multiple taxes (VAT, PST, GST, ...)
+* Corrected issue with permalinks for page discountadmin
+* Fixed issue in upload facility where digital files were being duplicated during upload
+* Corrected issues in style sheets
+* Removed quantity for digital products (defaults to 1)
 
 = 1.2.6 =
 * Corrected issue with registration form

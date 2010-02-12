@@ -159,7 +159,7 @@ function zing_activate() {
 	global $wpdb;
 
 	if (function_exists('zing_apps_player_activate')) zing_apps_player_activate();
-	
+
 	$zing_version=get_option("zing_webshop_version");
 	if (!$zing_version)
 	{
@@ -200,6 +200,7 @@ function zing_activate() {
 						$sql_line = str_replace("ALTER TABLE `", "ALTER TABLE `".$prefix, $sql_line);
 						$sql_line = str_replace("UPDATE `", "UPDATE `".$prefix, $sql_line);
 						$sql_line = str_replace("TRUNCATE TABLE `", "TRUNCATE TABLE `".$prefix, $sql_line);
+						$sql_line = str_replace("##", $prefix, $sql_line);
 						$query .= $sql_line;
 						if(preg_match("/;\s*$/", $sql_line)) {
 							$wpdb->query($query);
@@ -464,11 +465,12 @@ function zing_main($process,$content="") {
 	global $vat;
 	global $webmaster_mail;
 	global $weight_metric;
-	global $zing_loaded;
 	global $charset;
+	global $zing_loaded;
+
 	require (ZING_LOC."./zing.readcookie.inc.php");      // read the cookie
 
-	include (ZING_LOC."./zing.globals.inc.php");
+	//include (ZING_LOC."./zing.globals.inc.php");
 	//	error_reporting(E_ALL & ~E_NOTICE);
 	//	ini_set('display_errors', '1');
 
@@ -485,7 +487,7 @@ function zing_main($process,$content="") {
 				}
 				return $content;
 			}
-				
+
 			$cf=get_post_custom();
 
 			if (isset($_GET['page']))
@@ -557,10 +559,16 @@ function zing_content($content) {
  */
 function zing_header()
 {
+	echo '<script type="text/javascript" language="javascript">';
+	echo "var wsURL='".ZING_URL."fws/ajax/';";
+	echo '</script>';
+
 	echo '<link rel="stylesheet" href="' . ZING_URL . 'fws/addons/lightbox/lightbox.css" type="text/css" media="screen" />';
 	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/addons/lightbox/lightbox.js"></script>';
+	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/checkout.js"></script>';
+	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/cart.js"></script>';
+	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/search.js"></script>';
 	echo '<link rel="stylesheet" type="text/css" href="' . ZING_URL . 'zing.css" media="screen" />';
-
 }
 
 /**
@@ -577,7 +585,7 @@ function widget_sidebar_general($args) {
 	echo $before_title;
 	echo $txt['menu14'];
 	echo $after_title;
-	echo '<div id="zing-sidebar">';
+	echo '<div id="zing-sidebar-general">';
 	zing_main("sidebar","general");
 	echo '</div>';
 	echo $after_widget;
@@ -597,7 +605,7 @@ function widget_sidebar_products($args) {
 	echo $before_title;
 	echo $txt['menu15'];
 	echo $after_title;
-	echo '<div id="zing-sidebar">';
+	echo '<div id="zing-sidebar-products">';
 	zing_main("sidebar","products");
 	echo "</div>";
 	echo $after_widget;
@@ -616,11 +624,29 @@ function widget_sidebar_cart($args) {
 	echo $before_title;
 	echo $txt['menu2'];
 	echo $after_title;
-	echo '<div id="zing-sidebar">';
+	echo '<div id="zing-sidebar-cart">';
 	zing_main("sidebar","cart");
 	echo '</div>';
 	echo $after_widget;
+}
 
+/**
+ * Sidebar cart menu widget
+ * @param $args
+ * @return unknown_type
+ */
+function widget_sidebar_search($args) {
+	global $txt;
+	zing_main("init");
+	extract($args);
+	echo $before_widget;
+	echo $before_title;
+	echo $txt['menu4'];
+	echo $after_title;
+	echo '<div id="zing-sidebar-search">';
+	zing_main("sidebar","search");
+	echo '</div>';
+	echo $after_widget;
 }
 
 /**
@@ -632,6 +658,7 @@ function zing_sidebar_init()
 	register_sidebar_widget(__('Zingiri Web Shop Cart'), 'widget_sidebar_cart');
 	register_sidebar_widget(__('Zingiri Web Shop General'), 'widget_sidebar_general');
 	register_sidebar_widget(__('Zingiri Web Shop Products'), 'widget_sidebar_products');
+	register_sidebar_widget(__('Zingiri Web Shop Search'), 'widget_sidebar_search');
 }
 
 /**
@@ -640,6 +667,11 @@ function zing_sidebar_init()
  */
 function zing_init()
 {
+	session_start();
+
+	wp_enqueue_script('prototype');
+	wp_enqueue_script('scriptaculous');
+	
 	ob_start();
 
 	global $dbtablesprefix;
@@ -869,5 +901,4 @@ function zing_dberror($query,$loc) {
 	echo mysql_error();
 	die();
 }
-
 ?>
