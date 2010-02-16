@@ -55,7 +55,7 @@ class zfLink {
 					else $map[$to]=$from;
 					$url.="&".$to."=".$map[$to];
 				}
-				$json=json_encode($map);
+				$json=zf_json_encode($map);
 				$json=str_replace('"',"'",$json);
 				if ($this->escape_quote) $json=str_replace("'","\'",$json);
 			}

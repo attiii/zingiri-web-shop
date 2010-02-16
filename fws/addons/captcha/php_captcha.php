@@ -1,4 +1,6 @@
 <?php
+	if (isset($_GET['dir']) && !empty($_GET['dir'])) $dir=dirname(__FILE__).'/../../../../data/'.$_GET['dir'].'/captcha/';
+	else $dir='./';
 	// make random string and paste it onto the image
 	$RandomStr = md5(microtime());// md5 to generate the random string
 	$ResultStr = substr($RandomStr,0,5);//trim 5 digit 
@@ -10,17 +12,17 @@
 	imagestring($NewImage, 5, 20, 10, $ResultStr, $TextColor);// Draw a random string horizontally 
 
 	// now lets delete captcha files older than 15 minutes:
-    if ($handle = @opendir("./")) {
+    if ($handle = @opendir($dir)) {
       while (($filename = readdir($handle)) !== false) {
-        if(time() - filemtime("./" . $filename) > 15 * 60 && substr($filename, strlen($filename) - 4) == '.key') {
-          @unlink("./" . $filename);
+        if(time() - filemtime($dir . $filename) > 15 * 60 && substr($filename, strlen($filename) - 4) == '.key') {
+          @unlink($dir . $filename);
         } 
       }
       closedir($handle);
     }
     // now save captcha key as file
-    $handle = fopen ("./".$ResultStr.".key", "w+");
-	if (!fwrite($handle, "FreeWebshop.org"))
+    $handle = fopen ($dir.$ResultStr.".key", "w+");
+	if (!fwrite($handle, "captcha"))
 	   {
 	    $retVal = false;
 	}

@@ -410,10 +410,21 @@ function zf_json_decode($json,$assoc=true) {
 	$json=str_replace("\'",'"',$json);
 	if (!extension_loaded('json')){
 		$j = new Services_JSON;
-		$ret = $j->unserialize($json);
+		$ret = $j->decode($json);
 	}
 	else{
 		$ret = json_decode($json,$assoc);
+	}
+	return $ret;
+}
+
+function zf_json_encode($a) {
+	if (!extension_loaded('json')){
+		$j = new Services_JSON;
+		$ret = $j->encode($a);
+	}
+	else{
+		$ret = json_encode($a);
 	}
 	return $ret;
 }
