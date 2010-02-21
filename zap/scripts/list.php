@@ -26,6 +26,7 @@ $formid=$_GET['formid'];
 $zfp=intval($_GET['zfp']);
 $zft=$_GET['zft'];
 $pos=$_GET['pos'];
+$mapflat=$_GET['map'];
 $json=str_replace("\'",'"',$_GET['map']);
 $map=zf_json_decode($json,true);
 
@@ -48,7 +49,7 @@ while ($l=$linksin->next()) {
 }
 ?>
 <div id="<?php echo $formname;?>"><a
-	href="?zfaces=form&form=<?php echo $formname;?>&action=add&zft=list&zfp=<?php echo $formname;?>"><img
+	href="?zfaces=form&form=<?php echo $formname;?>&action=add&zft=list&zfp=<?php echo $formname;?>&map=<?php echo urlencode($mapflat);?>"><img
 	class="zfimg" src="<?php echo ZING_APPS_PLAYER_URL; ?>images/add.png"></a>
 <?php if (defined("ZING_APPS_BUILDER") && ZingAppsIsAdmin()) {?>
 <select id="zfheader">

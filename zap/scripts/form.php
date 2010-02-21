@@ -6,19 +6,13 @@ $step=$_GET['step'];
 $id=$_GET['id'];
 $zfp=intval($_GET['zfp']);
 $zft=$_GET['zft'];
-$json=str_replace("\'",'"',$_POST['map']);
-$map=zf_json_decode($json,true);
-
-/*
- $linksin=new zfDB();
- $linksin->select("select * from ##flink where (formin='*' or formin='".$formid."') and displayout='form' and formout='".$formid."' and mapping <> ''");
- while ($l=$linksin->next()) {
- $s=explode(",",$l['MAPPING']);
- foreach ($s as $m) {
- $f=explode(":",$m);
- $map[$f[0]]=$f[1];
- }
- }*/
+if (isset($_POST['map'])) {
+	$json=str_replace("\'",'"',$_POST['map']);
+	$map=zf_json_decode($json,true);
+} elseif (isset($_GET['map'])) {
+	$json=str_replace("\'",'"',$_GET['map']);
+	$map=zf_json_decode($json,true);
+}
 
 $zfform=new zfForm($form,$formid,$map);
 $form=$zfform->form;
@@ -32,9 +26,6 @@ $success=true;
 
 if (!empty($action) && !ZingAppsIsAdmin() && ($action != 'show')) {
 	$linksin=new zfDB();
-	//	if ($action == 'addsave') $actioncheck='add';
-	//	elseif ($action == 'editsave') $actioncheck='edit';
-	//	else $actioncheck=$action;
 	$allowed=$linksin->select("select * from ##flink where formout='".$formid."' and displayout='form' and actionout='".$action."'");
 
 	if (!$allowed) $action="not_allowed";
@@ -105,6 +96,7 @@ if ($action == "not_allowed") {
 if (!$success)  echo 'Record not found';
 
 if ($success && $showform == "edit") {
+	echo '<div class="zfaces-form">';
 	if (defined("ZING_APPS_BUILDER") && ZingAppsIsAdmin()) {
 		echo '<a href="?zfaces=edit&form='.$form.'" >'.z_('Edit form').'</a>';
 	}
@@ -142,11 +134,12 @@ if ($success && $showform == "edit") {
 	}
 
 	if (($action == 'add' or $action == 'edit') && (!$override_save)) {
-		echo '<input class="art-button" type="submit" name="save" value="Save">';
+		echo '<center><input class="art-button" type="submit" name="save" value="Save"></center>';
 	} elseif ($action == 'delete') {
 		echo '<input class="art-button" type="submit" name="delete" value="Delete">';
 	}
-	echo '</form>';
+	echo '</form><br />';
+	echo '</div>';
 	if ($stack->getPrevious()) echo '<a href="'.$stack->getPrevious().'">Back</a>';
 	
 } elseif ($showform == "saved" ) {

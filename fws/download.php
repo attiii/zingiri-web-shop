@@ -3,10 +3,20 @@ if (isset($_POST['abspath'])) $abspath=$_POST['abspath']; else $abspath=$_GET['a
 if (!is_dir($abspath)) die('Error downloading');
 if (isset($_POST['basketid'])) $basketid=$_POST['basketid']; else $basketid=$_GET['basketid'];
 if (!is_numeric($basketid)) die('Error downloading');
-
 require($abspath.'wp-blog-header.php');
+error_reporting(E_ALL ^ E_NOTICE); // ^ E_NOTICE
+set_error_handler("user_error_handler");
 
 require (ZING_LOC."./zing.readcookie.inc.php");      // read the cookie
+
+//die($abspath);
+
+
+//@apache_setenv('no-gzip', 1);
+@ini_set('output_buffering', 0);
+@ini_set('zlib.output_compression', 0);
+@ini_set('implicit_flush', 1);
+
 
 $query = "SELECT ORDERID,PRODUCTID FROM `".$dbtablesprefix."basket` WHERE `CUSTOMERID` = ".$customerid." AND `ID` = ".$basketid." ORDER BY ID DESC";
 $sql = mysql_query($query) or zfdbexit($query);
@@ -37,8 +47,8 @@ function send_file($path, $file){
 	//header("Content-type: application/octet-stream");
 	//header("Content-type: application/exe");
 
-	$file = @fopen($mainpath,"rb");
-	if ($file) {
+	$handle = @fopen($mainpath,"rb");
+	if ($handle) {
 		header("Pragma: public");
 		header("Expires: 0");
 		header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
@@ -49,15 +59,15 @@ function send_file($path, $file){
 		header("Content-Disposition: attachment; filename=\"".$file."\"");
 		header("Content-Type: application/force-download");
 		header("Content-length:".(string)($filesize2));
-		while(!feof($file)) {
-			print(fread($file, 1024*8));
+		while(!feof($handle)) {
+			print(fread($handle, 1024*8));
 			flush_now();
 			if (connection_status()!=0) {
-				@fclose($file);
+				@fclose($handle);
 				die();
 			}
 		}
-		@fclose($file);
+		@fclose($handle);
 	} else {
 		print "<p><center><font class=\"changed\">ERROR - Invalid Request (Downloadable file Missing or Unreadable)</font></center><br><br>";
 	}
@@ -65,10 +75,6 @@ function send_file($path, $file){
 }
 
 function flush_now() {
-	@apache_setenv('no-gzip', 1);
-	@ini_set('output_buffering', 0);
-	@ini_set('zlib.output_compression', 0);
-	@ini_set('implicit_flush', 1);
 	for ($i = 0; $i < ob_get_level(); $i++) { ob_end_flush(); }
 	ob_implicit_flush(1);
 	return true;

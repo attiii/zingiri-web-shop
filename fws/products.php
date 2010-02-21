@@ -116,7 +116,7 @@ else {
 			if ($row_details['LINK'] && ($row_order['STATUS']==5 || $row_order['STATUS']==6 || IsAdmin())) {
 				echo '<br /><br />';
 				?>
-				<form method="POST" action="<?php echo ZING_URL;?>/fws/download.php">
+				<form method="POST" action="<?php echo ZING_URL;?>fws/download.php">
                 <input type="hidden" name="basketid" value="<?php echo $row[0] ?>">
                 <input type="hidden" name="abspath" value="<?php echo ABSPATH;?>">
                 <input type="submit" value="<?php echo $txt['products1'] ?>" name="sub">

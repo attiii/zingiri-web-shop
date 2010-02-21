@@ -57,7 +57,6 @@
 		<html>
 		 <head>
 		  <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $charset ?>">
-		  <link rel="stylesheet" type="text/css" href="<?php //echo $template_dir."/".$template."/"; ?>stylesheet.css" />
 		  <title><?php echo $webid ?></title>
 		 </head>
 		 <body onLoad="javascript:window.print()"> 

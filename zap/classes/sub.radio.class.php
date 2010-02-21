@@ -23,7 +23,7 @@
 <?php
 class radioZfSubElement extends zfSubElement {
 	
-	function output($mode="edit")
+	function output($mode="edit",$input="")
 	{
 		foreach ($this->xmlf->values->children() as $key => $option) 
 		{

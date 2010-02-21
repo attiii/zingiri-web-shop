@@ -1,1 +1,0 @@
-Itt tudja bemutatni a látogatóknak cégét, üzletét (<strong>HTML kód</strong> engedélyezve). Kattintson a "szerkesztés" gombra, majd e szöveg helyére írja be, amit a fontosnak tart elmondani vállalkozásáról.

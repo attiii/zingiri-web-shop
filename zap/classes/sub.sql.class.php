@@ -23,7 +23,7 @@
 <?php
 class sqlZfSubElement extends zfSubElement {
 
-	function output()
+	function output($mode="edit",$input="")
 	{
 		$query=$this->xmlf->values->query;
 		$query=str_replace("##",DB_PREFIX,$query);

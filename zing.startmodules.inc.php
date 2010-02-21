@@ -47,16 +47,6 @@ $lang_dir = ZING_DIR.$lang_dir;
 //$gfx_dir = $template_dir."/".$template."/images";
 $gfx_dir = ZING_URL.'fws/'.$template_dir."/".$template."/images";
 $scripts_dir = ZING_DIR;
-
 	
-if (function_exists("qtrans_getLanguage")) {
-	$lang=qtrans_getLanguage();
-	if (!file_exists($lang_dir."/".$lang."/lang.txt")) { $lang = $default_lang;}
-	$lang_file = $lang_dir."/".$lang."/lang.txt";
-	$main_file = $lang_dir."/".$lang."/main.txt";
-} else {
-	include (ZING_DIR."./includes/initlang.inc.php");        // init the language
-}
-include ($lang_file);                         // read the language
-$charset=get_option("blog_charset");
+include (ZING_DIR."./includes/initlang.inc.php");        // init the language
 ?>

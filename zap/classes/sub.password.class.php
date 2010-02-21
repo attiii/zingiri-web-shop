@@ -23,7 +23,7 @@
 <?php
 class passwordZfSubElement extends zfSubElement {
 	
-	function output()
+	function output($mode="edit",$input="")
 	{
 		$this->ext="***************";
 		return $this->ext;

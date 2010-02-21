@@ -23,7 +23,7 @@
 <?php
 class selectZfSubElement extends zfSubElement {
 
-	function output()
+	function output($mode="edit",$input="")
 	{
 		foreach ($this->xmlf->values->children() as $child) {
 			$option=$child[0];

@@ -170,8 +170,8 @@ function zing_apps_player_content($content) {
 	global $post;
 	global $dbtablesprefix;
 
-	error_reporting(E_ALL & ~E_NOTICE);
-	ini_set('display_errors', '1');
+	//error_reporting(E_ALL & ~E_NOTICE);
+	//ini_set('display_errors', '1');
 
 	if (defined("ZING_APPS_CUSTOM")) { require(ZING_APPS_CUSTOM."globals.php"); }
 

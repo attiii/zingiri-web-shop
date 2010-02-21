@@ -43,7 +43,7 @@ class element {
 	var $input=array();
 	var $output=array();
 
-	function __construct($constraint) {
+	function element($constraint) {
 		$this->constraint=$constraint;
 		$xmlf=faces_get_xml($this->constraint);
 		$this->xmlf=$xmlf;

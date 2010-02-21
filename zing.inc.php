@@ -277,6 +277,10 @@ function zing_activate() {
 		}
 	}
 
+	//defaut Apps page
+	$ps=explode(",",get_option("zing_webshop_pages"));
+	update_option("zing_apps_player_page",$ps[0]);
+	
 	//Copy cats, product & order data to data subsdirectory to avoid overwritting with new releases
 	if (file_exists(WP_CONTENT_DIR.'/uploads')) {
 		$dir=WP_CONTENT_DIR.'/uploads/zingiri-web-shop';
@@ -336,9 +340,9 @@ function zing_uninstall() {
 	foreach ($ida as $id) {
 		wp_delete_post($id);
 	}
-	delete_option("zing_webshop_version",ZING_VERSION);
-	delete_option("zing_webshop_pages",ZING_VERSION);
-	delete_option("zing_webshop_dig",ZING_VERSION);
+	delete_option("zing_webshop_version");
+	delete_option("zing_webshop_pages");
+	delete_option("zing_webshop_dig");
 
 	if (function_exists('zing_apps_player_uninstall')) zing_apps_player_uninstall(false);
 }
@@ -473,6 +477,10 @@ function zing_main($process,$content="") {
 	global $charset;
 	global $zing_loaded;
 
+	//start logging
+	error_reporting(E_ALL ^ E_NOTICE); // ^ E_NOTICE
+	set_error_handler("user_error_handler");
+	
 	require (ZING_LOC."./zing.readcookie.inc.php");      // read the cookie
 
 	//include (ZING_LOC."./zing.globals.inc.php");
@@ -535,17 +543,18 @@ function zing_main($process,$content="") {
 		require (ZING_DIR."./includes/readvals.inc.php");        // get and post values
 	}
 
-	//echo $scripts_dir.$to_include.'/'.$_GET['page'];
-	if (!$conditions_page && $_GET['page']=="conditions" && $_GET['action']=="checkout") {
-		//$page=$_GET['page']="shipping";
-		//$action=$_GET['action']="";
-	}
 	if ($to_include=="loadmain.php" && ($page=='logout' || $page=='login'))
 	{
+		//stop logging
+		restore_error_handler();
 		header('Location:'.ZING_HOME.'/index.php?page='.$page);
 		exit;
 	}
-	elseif ($to_include) include($scripts_dir.$to_include);
+	elseif ($to_include) {
+		include($scripts_dir.$to_include);
+		//stop logging
+		restore_error_handler();
+	}
 }
 
 /**

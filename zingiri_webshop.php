@@ -37,7 +37,7 @@ if (file_exists(dirname(__FILE__).'/zap')) {
 	define("ZING_APPS_CUSTOM",dirname(__FILE__)."/fws/");
 	define("ZING_APPS_EMBED","zap/");
 	define("ZING_APPS_TRANSLATE",'z_');
-	define("ZING_APPS_CAPTCHA",ZING_DIR."addons/captcha/");
+	define("ZING_APPS_CAPTCHA",dirname(__FILE__)."/fws/addons/captcha/");
 	require(dirname(__FILE__)."/zap/embed.php");
 }
 

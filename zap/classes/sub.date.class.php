@@ -23,7 +23,7 @@
 <?php
 class dateZfSubElement extends zfSubElement {
 	
-	function output()
+	function output($mode="edit",$input="")
 	{
 		$this->ext=date("d-m-Y",strtotime($this->int));
 		return $this->ext;	

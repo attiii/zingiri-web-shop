@@ -39,7 +39,7 @@
 		              <input type="hidden" value="<?php echo $pagetoload; ?>" name="pagetoload">
 			          <table class="borderless" width="100%">
 			                 <tr><td class="borderless"><?php echo $txt['checklogin2'] ?></td>
-			                     <td class="borderless"><input type="text" name="name" size="20"></td>
+			                     <td class="borderless"><input type="text" name="loginname" size="20"></td>
 			                 </tr>
 			                 <tr><td class="borderless"><?php echo $txt['checklogin3'] ?></td>
 			                     <td class="borderless"><input type="password" name="pass" size="20"></td>

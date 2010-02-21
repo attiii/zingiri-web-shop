@@ -32,7 +32,7 @@ class zfSubElement {
 	var $populated_column=array();
 
 
-	function __construct($int,$ext="",$xmlf="",$element="",$subid="") {
+	function zfSubElement($int,$ext="",$xmlf="",$element="",$subid="") {
 		$this->int=$int;
 		$this->xmlf=$xmlf;
 		$this->elementid=$element->id;

@@ -26,7 +26,7 @@ class zfDB {
 	var $sql="";
 	var $row=array();
 	
-	function __construct() {
+	function zfDB() {
 	}
 	
 	function select($query) {

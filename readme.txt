@@ -74,6 +74,7 @@ If you made changes to the style sheet (zing.css) or the language files, make su
 * Fixed issue in upload facility where digital files were being duplicated during upload
 * Corrected issues in style sheets
 * Removed quantity for digital products (defaults to 1)
+* Fixed issue with download link
 
 = 1.2.6 =
 * Corrected issue with registration form

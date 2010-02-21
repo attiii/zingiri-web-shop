@@ -43,7 +43,7 @@ class zfForm {
 	var $rowsCount;
 	var $label;
 
-	function __construct($form,$id=0,$post=null) {
+	function zfForm($form,$id=0,$post=null) {
 		$this->form=$form;
 		$table=new zfDB();
 		if ($form) $query="select * from `".DB_PREFIX."faces` WHERE `NAME`=".zfqs($form);
@@ -83,8 +83,6 @@ class zfForm {
 			$this->headersCount=count($this->headers);
 			$this->allheaders=$this->Headers(true);
 
-			//$this->fields=$this->Fields();
-			//$this->allfields=$this->Fields(true);
 			$this->id=$row['ID'];
 			$this->post=$post;
 		}
@@ -96,7 +94,7 @@ class zfForm {
 
 	}
 
-	private function Headers($all=false)
+	function Headers($all=false)
 	{
 		$h=array(); //unsorted headers
 		$c=array(); //map element to field name
@@ -281,7 +279,7 @@ class zfForm {
 		return $success;
 	}
 
-	private function alert($message)
+	function alert($message)
 	{
 		echo '<div class="zfalert">'.$message.'</div>';
 	}
@@ -294,7 +292,7 @@ class zfForm {
 		return $success;
 	}
 
-	private function DeleteDB($id)
+	function DeleteDB($id)
 	{
 		$keys=array();
 		$keys['ID']=$id;
@@ -310,7 +308,7 @@ class zfForm {
 		return $success;
 	}
 
-	private function SaveDB($id=0)
+	function SaveDB($id=0)
 	{
 		foreach ($this->json as $key => $value)
 		{
@@ -455,7 +453,6 @@ class zfForm {
 
 		$input=array();
 		if (!$id) {
-			
 			foreach ($this->allfields as $key => $column)
 			{
 				zfKeys($key,$key1,$key2);

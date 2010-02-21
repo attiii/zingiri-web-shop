@@ -23,7 +23,7 @@
 <?php
 class htmlareaZfSubElement extends zfSubElement {
 
-	function output()
+	function output($mode="edit",$input="")
 	{
 		return substr($this->ext,0,250)."...";
 			

@@ -29,15 +29,25 @@ if ($use_prodgfx == 1) {
 		$picture = $f_row[0];
 	}
 	else { $picture = $f_row[1]; }
-	 
+
 	$thumb = "";
-	 
+
 	if (thumb_exists($product_dir ."/". $picture . ".jpg")) { $thumb = $product_url ."/". $picture . ".jpg"; }
 	if (thumb_exists($product_dir ."/". $picture . ".gif")) { $thumb = $product_url ."/". $picture . ".gif"; }
 	if (thumb_exists($product_dir ."/". $picture . ".png")) { $thumb = $product_url ."/". $picture . ".png"; }
 
-	if ($thumb == "") { $thumb = $gfx_dir."/nothumb.jpg"; }
-	$screenshot = "<img src=\"".$thumb."\" width=\"100\" height=\"100\" />";
+	if ($thumb == "") {
+		$thumb = $gfx_dir."/nothumb.jpg";
+		$screenshot = "<img src=\"".$thumb."\" width=\"100\" height=\"100\" />";
+	} else {
+		$size = getimagesize(str_replace($product_url,$product_dir,$thumb));
+		$max_height = 100;
+		$max_width = 100;
+		$percent = min($max_height / $size[1], $max_width / $size[0]);
+		$height = intval($size[1] * $percent);
+		$width = intval($size[0] * $percent);
+		$screenshot = "<img src=\"".$thumb."\" width=\"".$width."\" height=\"".$height."\" />";
+	}
 }
 if ($row_count == 1) { echo "<tr>"; }
 echo '<td width="33%">

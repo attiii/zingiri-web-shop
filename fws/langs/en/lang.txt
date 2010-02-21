@@ -677,6 +677,7 @@ $txt['checkout104'] = "You will now be redirected to the payment portal to compl
 $txt['Activate fast checkout'] = 'Activate fast checkout';
 $txt['show'] = 'show';
 $txt['hide'] = 'hide';
+$txt['Date of birth on registration form'] = 'Date of birth on registration form';
 
 //v1.2.7 - modified
 $txt['general5'] = 'taxes';

@@ -35,13 +35,10 @@ if ($email == "") { $email = "--"; }
 
 if ($lostlogin == 0) {
 
-	if ($_POST['name'] == NULL) {
+	if ($_POST['loginname'] == NULL) {
 		?>
 <html>
 <head>
-<link
-	href="<?php echo $template_dir."/".$template."/stylesheet.css"; ?>"
-	rel="stylesheet" type="text/css" />
 <META HTTP-EQUIV="Refresh" CONTENT="5; URL=index.php?page=my">
 </head>
 <body>
@@ -58,7 +55,7 @@ if ($lostlogin == 0) {
 		<?php
 		exit;
 	}
-	$post_name = $_POST['name'];
+	$post_name = $_POST['loginname'];
 	$post_pass = $_POST['pass'];
 	if ((empty($post_pass)) || ($post_pass == "")) { $post_pass = "no_password_is_never_valid!"; }
 
@@ -96,7 +93,7 @@ if ($lostlogin == 0) {
 		$query = "UPDATE `".$dbtablesprefix."customer` SET `IP` = '".GetUserIP()."' WHERE `ID`=".$id;
 		$sql = mysql_query($query) or die(mysql_error());
 		// make acccesslog entry
-		$query = sprintf("INSERT INTO ".$dbtablesprefix."accesslog (login, time, succeeded) VALUES(%s, '".date("F j, Y, g:i a")."', '1')", quote_smart($_POST['name']));
+		$query = sprintf("INSERT INTO ".$dbtablesprefix."accesslog (login, time, succeeded) VALUES(%s, '".date("F j, Y, g:i a")."', '1')", quote_smart($_POST['loginname']));
 		$sql = mysql_query($query) or die(mysql_error());
 		 
 
@@ -115,9 +112,6 @@ if ($lostlogin == 0) {
 			?>
 <html>
 <head>
-<link
-	href="<?php echo $template_dir."/".$template."/stylesheet.css"; ?>"
-	rel="stylesheet" type="text/css" />
 <META HTTP-EQUIV="Refresh"
 	CONTENT="0; URL=index.php?<?php echo $pagetoload."&version=".$version; ?>">
 </head>
@@ -138,14 +132,11 @@ if ($lostlogin == 0) {
 	}
 	else
 	{
-		$query = sprintf("INSERT INTO ".$dbtablesprefix."accesslog (login, time, succeeded) VALUES(%s, '".date("F j, Y, g:i a")."', '0')", quote_smart($_POST['name']));
+		$query = sprintf("INSERT INTO ".$dbtablesprefix."accesslog (login, time, succeeded) VALUES(%s, '".date("F j, Y, g:i a")."', '0')", quote_smart($_POST['loginname']));
 		$sql = mysql_query($query) or die(mysql_error());
 		?>
 <html>
 <head>
-<link
-	href="<?php echo $template_dir."/".$template."/stylesheet.css"; ?>"
-	rel="stylesheet" type="text/css" />
 <META HTTP-EQUIV="Refresh" CONTENT="5; URL=index.php?page=my">
 </head>
 <body>

@@ -1,3 +1,2 @@
 <?php
-global $patient;
 ?>

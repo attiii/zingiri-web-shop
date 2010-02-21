@@ -26,7 +26,7 @@ class zfLink {
 	var $links=array();
 	var $escape_quote;
 
-	function __construct($id,$escape_quote=false,$type='form') {
+	function zfLink($id,$escape_quote=false,$type='form') {
 		$this->escape_quote=$escape_quote;
 		$a=array();
 		$links=new zfDB();

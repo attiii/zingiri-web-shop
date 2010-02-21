@@ -1,3 +1,7 @@
+.zfaces-form {
+	border: 1px solid black;
+}
+
 /**** Errors ****/
 #error_message {
 	background: #fff;
@@ -504,6 +508,7 @@ div.calendar {
 
 .zfelement { /*align:center;*/ /*FIXME*/
 	background: white;
+	margin-bottom:4px;
 	/*margin:3px auto;*/ /*padding:5px;*/
 }
 
@@ -515,7 +520,7 @@ div.calendar {
 
 .zfelabel {
 	width: 24%;
-	font-weight: bold;
+	/*font-weight: bold;*/
 	text-align: left;
 	clear: both;
 	/*border:1px solid blue;*/
