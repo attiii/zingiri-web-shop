@@ -87,8 +87,7 @@ function zing_apps_player_echo($stringData) {
  */
 function zing_apps_player_activate() {
 	global $wpdb;
-	global $dbtablesprefix;
-
+	
 	$zing_version=get_option("zing_apps_player_version");
 	if (!$zing_version)
 	{
@@ -100,7 +99,7 @@ function zing_apps_player_activate() {
 	}
 
 	$wpdb->show_errors();
-	$prefix=$dbtablesprefix;
+	$prefix=$wpdb->prefix."zing_";;
 
 	if ($handle = opendir(dirname(__FILE__).'/db')) {
 		while (false !== ($file = readdir($handle))) {
