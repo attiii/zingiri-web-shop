@@ -26,7 +26,7 @@
  Plugin URI: http://www.zingiri.com/WebShop
  Description: This plugin integrates the fabulous Free Web Shop e-commerce solution with Wordpress.
  Author: Erik Bogaerts
- Version: 1.2.7RA
+ Version: 1.2.7
  Author URI: http://www.zingiri.com/
  */
 define("ZING_VERSION","1.2.7");
