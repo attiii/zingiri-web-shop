@@ -25,11 +25,11 @@
  Plugin Name: Zingiri Web Shop
  Plugin URI: http://www.zingiri.com/WebShop
  Description: This plugin integrates the fabulous Free Web Shop e-commerce solution with Wordpress.
- Author: Erik Bogaerts
- Version: 1.2.7
+ Author: EBO
+ Version: 1.2.8
  Author URI: http://www.zingiri.com/
  */
-define("ZING_VERSION","1.2.7");
+define("ZING_VERSION","1.2.8");
 
 if (file_exists(dirname(__FILE__).'/zap')) {
 	define("ZING_APPS_PLAYER_VERSION","0.7");

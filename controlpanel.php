@@ -43,7 +43,9 @@ function zing_set_options() {
 }
 function zing_ws_add_admin() {
 
-	global $zing_ws_name, $zing_ws_shortname, $zing_ws_options;
+	global $zing_ws_name, $zing_ws_shortname, $zing_ws_options, $menus, $txt, $wpdb, $zing_version;
+	
+	if ($zing_version) require(dirname(__FILE__).'/zing.startmodules.inc.php');
 
 	zing_set_options();
 	
@@ -76,7 +78,37 @@ function zing_ws_add_admin() {
 		}
 	}
 
+	//add_menu_page(page_title, menu_title, capability, handle, [function], [icon_url]);
+	//add_submenu_page(parent, page_title, menu_title, capability required, file/handle, [function]);
+	
 	add_options_page($zing_ws_name." Options", "$zing_ws_name", 8, basename(__FILE__), 'zing_ws_admin');
+/*
+	add_menu_page($zing_ws_name.'page-title', $zing_ws_name.'menu-title', 'administrator', 'zingiri-web-shop','zing_ws_admin');
+	add_submenu_page('zingiri-web-shop', 'Integration', 'Integration', 'administrator', 'zingiri-web-shop', 'zing_ws_admin');
+		if ($zing_version) {
+		foreach ($menus as $page => $menu) {
+			add_submenu_page('zingiri-web-shop', $txt[$menu['label']], $txt[$menu['label']], 'administrator', $page, 'zing_ws_settings');
+		}
+	}
+	*/
+}
+
+function zing_ws_settings() {
+	global $menus;
+	$page=$_GET['page'];
+	echo $page.'-'.$menus[$page]['href'];
+	$params=array();
+	$pairs=explode('&',$menus[$page]['href']);
+	foreach ($pairs as $pair) {
+		list($n,$v)=explode('=',$pair);
+		if ($n!='page') {
+			if (!isset($_GET[$n])) $_GET[$n]=$v;
+			$params[$n]=$v;
+		}
+	}
+	echo '<link rel="stylesheet" type="text/css" href="'.ZING_URL.'zing.css" />';
+	zing_main('content');
+
 }
 
 function zing_ws_admin() {

@@ -1,16 +1,14 @@
 <?php
 if (isset($_POST['abspath'])) $abspath=$_POST['abspath']; else $abspath=$_GET['abspath'];
 if (!is_dir($abspath)) die('Error downloading');
-if (isset($_POST['basketid'])) $basketid=$_POST['basketid']; else $basketid=$_GET['basketid'];
-if (!is_numeric($basketid)) die('Error downloading');
 require($abspath.'wp-blog-header.php');
 error_reporting(E_ALL ^ E_NOTICE); // ^ E_NOTICE
 set_error_handler("user_error_handler");
 
+if (isset($_POST['basketid'])) $basketid=$_POST['basketid']; else $basketid=$_GET['basketid'];
+if (!is_numeric($basketid)) die('Error downloading');
+
 require (ZING_LOC."./zing.readcookie.inc.php");      // read the cookie
-
-//die($abspath);
-
 
 //@apache_setenv('no-gzip', 1);
 @ini_set('output_buffering', 0);

@@ -112,6 +112,7 @@ else {
 		</table>
 		</div>
 		<br />
+		<?php if ($ordering_enabled) {?>
 		<form id="order" method="POST" action="?page=cart&action=add">
 		<div style="text-align: right"><input type="hidden" name="prodid"
 			value="<?php echo $row[0] ?>"> <input type="hidden" name="prodprice"
@@ -170,6 +171,7 @@ else {
 			value="<?php echo $txt['details7'] ?>" id="addtocart" name="sub">
 		
 		</form>
+		<?php }?>
 		</div>
 		</td>
 	</tr>

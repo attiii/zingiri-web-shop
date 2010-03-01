@@ -94,216 +94,33 @@ else {
 			PutWindow($gfx_dir, $txt['general13'], $txt['admin33'].$num_below_stock.$txt['admin34']."<br /><br />".$txt['editsettings100'].": ".$stock_warning_level, "warning.gif", "90");
 		}
 
-		?>
-<table width="80%" class="datatable">
-	<caption><?php echo $txt['admin1']; ?></caption>
-	<tr>
-		<td>
+		$menuItemsPerLine=3;
+		echo '<table width="80%" class="datatable">';
+		echo '<caption>'.$txt['admin1'].'</caption>';
+		echo '<tr><td><table class="borderless" width="100%">';
+		$menugroup="";
+		$i=0;
+		foreach ($menus as $menu) {
+			if ($menu['group'] != $menugroup) {
+				echo '<tr><td colspan="'.$menuItemsPerLine.'"><h6>'.$txt[$menu['group']].'</h6></td></tr>';
+				$menugroup=$menu['group'];
+				$i=0;
+			}
+			$i++;
+			if ($i > $menuItemsPerLine) {
+				echo '</tr><tr>';
+				$i=1;
+			}
+			echo '<td><div style="text-align: center;"><a class="plain" href="?'.$menu['href'].'"><img src="'.$gfx_dir.'/'.$menu['img'].'" alt="" /><br />'.$txt[$menu['label']];
+			if (isset($menu['func'])) {
+				$func=$menu['func'];
+				echo " (".$func($menu['param']).")";
+			}
+			echo '</a><br /><br /></div></td>';
+		}
 
-		<table class="borderless" width="100%">
-			<tr>
-				<td colspan="3">
-				<h6><?php echo $txt['admin23']; ?></h6>
-				</td>
-			</tr>
-			<tr>
-				<td>
-				<div style="text-align: center;"><a class="plain"
-					href="?page=orderadmin"><img
-					src="<?php echo $gfx_dir; ?>/orders.gif" alt="" /><br />
-					<?php echo $txt['admin2']." (".CountAllOrders().")"; ?></a><br />
-				<br />
-				</div>
-				</td>
-				<td>
-				<div style="text-align: center;"><a class="plain"
-					href="?page=customeradmin&action=showcustomers"><img
-					src="<?php echo $gfx_dir; ?>/customers.gif" alt="" /><br />
-					<?php echo $txt['admin3']." (".CountCustomers('CUSTOMER').")"; ?></a><br />
-				<br />
-				</div>
-				</td>
-				<td>
-				<div style="text-align: center;"><a class="plain"
-					href="?page=customeradmin&action=showadmins"><img
-					src="<?php echo $gfx_dir; ?>/admins.gif" alt="" /><br />
-					<?php echo $txt['admin29']." (".CountCustomers('ADMIN').")"; ?></a><br />
-				<br />
-				</div>
-				</td>
-			</tr>
-			<tr>
-				<td>
-				<div style="text-align: center;"><a class="plain"
-					href="?page=productadmin&action=add_product"><img
-					src="<?php echo $gfx_dir; ?>/products.gif" alt="" /><br />
-					<?php echo $txt['admin5']." (".CountProducts().")"; ?></a><br />
-				<br />
-				</div>
-				</td>
-				<td>
-				<div style="text-align: center;"><a class="plain"
-					href="?page=groupadmin"><img
-					src="<?php echo $gfx_dir; ?>/groups.gif" alt="" /><br />
-					<?php echo $txt['admin6']; ?></a><br />
-				<br />
-				</div>
-				</td>
-				<td>
-				<div style="text-align: center;"><a class="plain"
-					href="?page=paymentadmin"><img
-					src="<?php echo $gfx_dir; ?>/paymentadmin.gif" alt="" /><br />
-					<?php echo $txt['admin21']; ?></a><br />
-				<br />
-				</div>
-				</td>
-			</tr>
-			<tr>
-				<td>
-				<div style="text-align: center;"><a class="plain"
-					href="?page=shippingadmin"><img
-					src="<?php echo $gfx_dir; ?>/shippingadmin.gif" alt="" /><br />
-					<?php echo $txt['admin18']; ?></a><br />
-				<br />
-				</div>
-				</td>
-				<td>
-				<div style="text-align: center;"><a class="plain"
-					href="?page=uploadadmin"><img
-					src="<?php echo $gfx_dir; ?>/uploadlist.gif" alt="" /><br />
-					<?php echo $txt['admin9']; ?></a><br />
-				<br />
-				</div>
-				</td>
-				<td>
-				<div style="text-align: center;"><a class="plain"
-					href="?page=editsettings"><img
-					src="<?php echo $gfx_dir; ?>/settings.gif" alt="" /><br />
-					<?php echo $txt['admin8']; ?></a><br />
-				<br />
-				</div>
-				</td>
-			</tr>
-			<tr>
-				<td>
-				<div style="text-align: center;"><a class="plain"
-					href="?page=discountadmin"><img
-					src="<?php echo $gfx_dir; ?>/discount.gif" alt="" /><br />
-					<?php echo $txt['admin38']; ?></a><br />
-				<br />
-				</div>
-				</td>
-				<td>
-				<div style="text-align: center;"><a class="plain"
-					href="?zfaces=list&form=taxes"><img
-					src="<?php echo $gfx_dir; ?>/taxes.png" alt="" height="36px" /><br />
-					<?php echo $txt['admin100']; ?></a><br />
-				<br />
-				</div>
-				</td>
-				<td>&nbsp;</td>
-			</tr>
-			<tr>
-				<td colspan="3">
-				<h6><?php echo $txt['admin24']; ?></h6>
-				</td>
-			</tr>
-			<tr>
-				<td>
-				<div style="text-align: center;"><a class="plain"
-					href="?page=adminedit&filename=conditions.txt&root=0&wysiwyg=0"><img
-					src="<?php echo $gfx_dir; ?>/conditionsadmin.gif" alt="" /><br />
-					<?php echo $txt['admin15']; ?></a><br />
-				<br />
-				</div>
-				</td>
-				<td>
-				<div style="text-align: center;"><a class="plain"
-					href="?page=adminedit&filename=banned.txt&root=1&wysiwyg=0"><img
-					src="<?php echo $gfx_dir; ?>/banned.gif" alt="" /><br />
-					<?php echo $txt['admin19']; ?></a><br />
-				<br />
-				</div>
-				</td>
-				<td>
-				<div style="text-align: center;"><a class="plain"
-					href="?page=adminedit&filename=main.txt&root=0"><img
-					src="<?php echo $gfx_dir; ?>/mainadmin.gif" alt="" /><br />
-					<?php echo $txt['admin22']; ?></a><br />
-				<br />
-				</div>
-				</td>
-			</tr>
-			<tr>
-				<td>
-				<div style="text-align: center;"><a class="plain"
-					href="?page=adminedit&filename=countries.txt&root=1&wysiwyg=0"><img
-					src="<?php echo $gfx_dir; ?>/countries.gif" alt="" /><br />
-					<?php echo $txt['admin37']; ?></a><br />
-				<br />
-				</div>
-				</td>
-				<td>&nbsp;</td>
-			</tr>
-			<tr>
-				<td colspan="3">
-				<h6><?php echo $txt['admin25']; ?></h6>
-				</td>
-			</tr>
-			<tr>
-				<td>
-				<div style="text-align: center;"><a class="plain"
-					href="?page=errorlogadmin"><img
-					src="<?php echo $gfx_dir; ?>/errorlog.gif" alt="" /><br />
-					<?php echo $txt['admin26']; ?></a><br />
-				<br />
-				</div>
-				</td>
-				<td>
-				<div style="text-align: center;"><a class="plain"
-					href="?page=accesslogadmin"><img
-					src="<?php echo $gfx_dir; ?>/accesslog.gif" alt="" /><br />
-					<?php echo $txt['admin31']; ?></a><br />
-				<br />
-				</div>
-				</td>
-				<td>
-				<div style="text-align: center;"><a class="plain"
-					href="?page=stockadmin"><img
-					src="<?php echo $gfx_dir; ?>/stockadmin.gif" alt="" /><br />
-					<?php echo $txt['admin32']; ?></a><br />
-				<br />
-				</div>
-				</td>
-			</tr>
-			<tr>
-				<td>
-				<div style="text-align: center;"><a class="plain"
-					href="?page=admin&adminaction=optimize_tables"><img
-					src="<?php echo $gfx_dir; ?>/optimize.gif" alt="" /><br />
-					<?php echo $txt['admin7']; ?></a><br />
-				<br />
-				</div>
-				</td>
-				<td>
-				<div style="text-align: center;"><a class="plain"
-					href="?page=mailinglist"><img
-					src="<?php echo $gfx_dir; ?>/mailinglist.gif" alt="" /><br />
-					<?php echo $txt['admin35']; ?></a><br />
-				<br />
-				</div>
-				</td>
-				<td>&nbsp;</td>
-			</tr>
-		</table>
-	
-	</tr>
-</table>
-<br />
-<br />
+		echo '</tr></table></td></tr></table>';
 
-					<?php
-					// show the live news feed
 	}
 }
 ?>

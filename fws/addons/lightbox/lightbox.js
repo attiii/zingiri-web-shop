@@ -285,7 +285,7 @@ function hideLightbox()
 //
 function initLightbox()
 {
-	
+
 	if (!document.getElementsByTagName){ return; }
 	var anchors = document.getElementsByTagName("a");
 
@@ -294,6 +294,7 @@ function initLightbox()
 		var anchor = anchors[i];
 
 		if (anchor.getAttribute("href") && (anchor.getAttribute("rel") == "lightbox")){
+			
 			anchor.onclick = function () {showLightbox(this); return false;}
 		}
 	}
@@ -435,7 +436,6 @@ function addLoadEvent(func)
 	}
 
 }
-
 
 
 addLoadEvent(initLightbox);	// run initLightbox onLoad

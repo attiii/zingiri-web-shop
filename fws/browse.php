@@ -80,6 +80,7 @@ else { $limit = ""; }
 		echo "<br />";
 		if ($action == "list") { echo "<a href=\"index.php?page=browse&action=list&group=$group&cat=$cat&orderby=1\"><small>".$txt['browse4']."</small></a>";  }
 		?></th>
+		<?php if ($ordering_enabled) {?>
 		<th><?php 
 		echo "<div style=\"text-align:right;\">";
 		echo $txt['browse3'];
@@ -89,6 +90,7 @@ else { $limit = ""; }
 		if ($action == "list") { echo "<a href=\"index.php?page=browse&action=list&group=$group&cat=$cat&orderby=2\"><small>".$txt['browse4']."</small></a>";  }
 		echo "</div>";
 		?></th>
+		<?php }?>
 	</tr>
 	<?php
 
@@ -224,8 +226,9 @@ else { $limit = ""; }
 			}
 
 			echo "<td>".$stockpic."<a class=\"plain\" href=\"index.php?page=details&prod=".$row[0]."&cat=".$row[2]."&group=".$group."\">".$thumb.$print_description."</a> ".$picturelink." ".$new." ".$stocktext.$admin_edit."</td>";
-			echo "<td><div style=\"text-align:right;\">";
-			if ($order_from_pricelist == 1) {
+			if ($ordering_enabled) {
+				echo "<td><div style=\"text-align:right;\">";
+			if ($order_from_pricelist) {
 				?>
 	<form id="order<?php echo $row[0];?>" method="POST" action="?page=cart&action=add">
 	<div style="text-align: right"><input type="hidden" id="prodid" name="prodid"
@@ -296,6 +299,7 @@ else { $limit = ""; }
 			}
 			else { echo "<big><strong>".$currency_symbol."&nbsp;".$printprijs."</strong></big>"; }
 			echo "</div></td>";
+		}
 			echo "</tr>";
 		} ?>
 </table>

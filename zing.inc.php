@@ -21,6 +21,7 @@
  */
 ?>
 <?php
+
 // Pre-2.6 compatibility for wp-content folder location
 if (!defined("WP_CONTENT_URL")) {
 	define("WP_CONTENT_URL", get_option("siteurl") . "/wp-content");
@@ -80,6 +81,8 @@ $dbpass = DB_PASSWORD;
 
 $zing_version=get_option("zing_webshop_version");
 
+error_reporting(E_ALL & ~E_NOTICE);
+ini_set('display_errors', '1');
 
 require (ZING_LOC."./zing.startfunctions.inc.php");
 if ($zing_version) {
@@ -96,6 +99,7 @@ if (!defined("ZING_DIG") && get_option('zing_webshop_dig')!="") {
 }
 
 require_once(dirname(__FILE__) . '/controlpanel.php');
+
 /**
  * Output activation messages to log
  * @param $stringData
@@ -476,7 +480,8 @@ function zing_main($process,$content="") {
 	global $weight_metric;
 	global $charset;
 	global $zing_loaded;
-
+	global $menus;
+	
 	//start logging
 	error_reporting(E_ALL ^ E_NOTICE); // ^ E_NOTICE
 	set_error_handler("user_error_handler");
@@ -577,12 +582,12 @@ function zing_header()
 	echo "var wsURL='".ZING_URL."fws/ajax/';";
 	echo '</script>';
 
-	echo '<link rel="stylesheet" href="' . ZING_URL . 'fws/addons/lightbox/lightbox.css" type="text/css" media="screen" />';
-	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/addons/lightbox/lightbox.js"></script>';
 	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/checkout.js"></script>';
 	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/cart.js"></script>';
 	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/search.js"></script>';
 	echo '<link rel="stylesheet" type="text/css" href="' . ZING_URL . 'zing.css" media="screen" />';
+	echo '<link rel="stylesheet" href="' . ZING_URL . 'fws/addons/lightbox/lightbox.css" type="text/css" media="screen" />';
+	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/addons/lightbox/lightbox.js"></script>';
 }
 
 /**

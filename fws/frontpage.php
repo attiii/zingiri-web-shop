@@ -58,7 +58,7 @@ echo '<td width="33%">
                        <input type="hidden" name="cat" value="'.$f_row[2].'">
 					   <input type="hidden" name="page" value="details">';
 if (!$f_row[4] == 0) {
-	$tax=new wsTax($f_row[0]);
+	$tax=new wsTax($f_row[4]);
 	if ($no_vat == 1) {
 		echo "<normal\>" . $txt['details5'] . ": ". $currency_symbol_pre.$tax->inFtd.$currency_symbol_post."</normal>";
 	}

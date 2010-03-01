@@ -364,7 +364,17 @@ if (/WebKit/i.test(navigator.userAgent)) { // sniff
 }
 
 /* for other browsers */
-window.onload = sorttable.init;
+//window.onload = sorttable.init;
+var oldonload = window.onload;
+if (typeof window.onload != 'function'){
+	window.onload = sorttable.init;
+} else {
+	window.onload = function(){
+	oldonload();
+	sorttable.init;
+	}
+}
+
 
 // written by Dean Edwards, 2005
 // with input from Tino Zijdel, Matthias Miller, Diego Perini

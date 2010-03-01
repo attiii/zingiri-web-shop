@@ -60,6 +60,15 @@ Before upgrading, make sure you back up your database first!
 If you made changes to the style sheet (zing.css) or the language files, make sure you back them up before the upgrade and restore them after.
 == Changelog ==
 
+= 1.2.8 =
+* Converted Russian language files to UTF-8
+* Added option to completely disable the ordering module allowing to use the plugin as a product browsing catalogue
+* Fixed issue with JSON library for PHP versions below 5.2
+* Fixed issue with price not displaying correctly on shop front page
+* Fixed issue when trying to delete a line item in the cart
+* Fixed issue with download not working under some configurations
+* Fixed issue with lightbox images not showing after upgrade to 1.2.7
+
 = 1.2.7 =
 * Automatically log in new user after registration and redirect to page he was coming from or to home page if none specified
 * Added new fast checkout possibility

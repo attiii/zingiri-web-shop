@@ -28,7 +28,6 @@ $index_refer = 1; // pages of the webshop cannot be opened if this value is unse
 //error_reporting(E_ALL ^ E_NOTICE); // ^ E_NOTICE
 //set_error_handler("user_error_handler");
 //ini_set('display_errors', '1');
-
 require(dirname(__FILE__).'/../classes/index.php');
 
 function CreateRandomCode($len) {
@@ -254,17 +253,18 @@ Function IsAdmin() {
 	$md5pass = $fws_cust[2];
 	if (is_null($customerid)) { return false; }
 	$f_query = "SELECT * FROM ".$dbtablesprefix."customer WHERE ID = " . $customerid;
-	$f_sql = mysql_query($f_query) or zing_dberror($f_query,"IsAdmin");
-	while ($f_row = mysql_fetch_row($f_sql)) {
-		if ($f_row[13] == "ADMIN" && md5($f_row[2]) == $md5pass)
-		{
-			if ($f_row[6] == GetUserIP()) {
-				return true; }
-				else {
-					return false; }
-		} else
-		{
-			return false;
+	if ($f_sql = mysql_query($f_query)) {
+		while ($f_row = mysql_fetch_row($f_sql)) {
+			if ($f_row[13] == "ADMIN" && md5($f_row[2]) == $md5pass)
+			{
+				if ($f_row[6] == GetUserIP()) {
+					return true; }
+					else {
+						return false; }
+			} else
+			{
+				return false;
+			}
 		}
 	}
 	return false;
@@ -890,7 +890,8 @@ function CheckoutNextStep() {
 
 }
 function zurl($url,$printurl=false) {
-	$url=str_replace('index.php',ZING_HOME.'/index.php',$url);
+	if (is_admin()) $url=str_replace('index.php','admin.php',$url);
+	else $url=str_replace('index.php',ZING_HOME.'/index.php',$url);
 	if ($printurl) echo $url;
 	else return $url;
 }

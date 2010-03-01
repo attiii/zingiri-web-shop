@@ -125,26 +125,29 @@ class parse_upload {
 		$firstrow=true;
 		if ($this->xml) {
 			foreach ($this->xml->Worksheet->Table->children() as $row) {
-				$this->values=array();
-				$this->fields=array();
-				$this->pairs=array();
-				$this->error=false;
-				if ($firstrow) $this->parse_header_excel($row);
-				else {
-					$this->line++;
-					$this->parse_data_excel($row);
+				if (count($row->children()) > 0) {
+					$this->values=array();
+					$this->fields=array();
+					$this->pairs=array();
+					$this->error=false;
+					if ($firstrow) $this->parse_header_excel($row);
+					else {
+						$this->line++;
+						$this->parse_data_excel($row);
+					}
+					if (!$firstrow) {
+						$this->save_product();
+					} else {
+						$firstrow=false;
+					}
+					if ($this->error) $this->success=false;
 				}
-				if (!$firstrow) {
-					$this->save_product();
-				} else {
-					$firstrow=false;
-				}
-				if ($this->error) $this->success=false;
 			}
 		} else {
 			return false;
 		}
 	}
+
 
 	function parse_header_excel($row) {
 		$i=0;
@@ -223,9 +226,9 @@ class parse_upload {
 
 	function upload_digital($files) {
 		global $txt;
-		
+
 		if (!empty($this->oldDigitalFile)) unlink(ZING_DIG.$this->oldDigitalFile);
-		
+
 		list($file,$link) = $files;
 		$target_path = ZING_DIG.$link;
 			
@@ -386,17 +389,15 @@ else {
 	<caption><?php echo $txt['uploadadmin4']; ?></caption>
 	<tr>
 		<td>
-		<form enctype="multipart/form-data"
-			action="<?php zurl('index.php?page=uploadadmin',true);?>" method="POST"><input
-			type="hidden" name="action" value="upload_pricelist"> <input
-			type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max;?>"> <input
-			name="uploadedfile" type="file" size="50" maxlength="256"><br />
-			<?php echo $txt['uploadadmin105']?><input type="checkbox"
-			name="symlink"> <br />
-		<div style="text-align: center;"><input type="submit"
-			value="<?php echo $txt['uploadadmin6']; ?>"></div>
+		<form enctype="multipart/form-data" action="<?php zurl('index.php?page=uploadadmin',true);?>"
+			method="POST"
+		><input type="hidden" name="action" value="upload_pricelist"> <input type="hidden"
+			name="MAX_FILE_SIZE" value="<?php echo $max;?>"
+		> <input name="uploadedfile" type="file" size="50" maxlength="256"><br />
+		<?php echo $txt['uploadadmin105']?><input type="checkbox" name="symlink"> <br />
+		<div style="text-align: center;"><input type="submit" value="<?php echo $txt['uploadadmin6']; ?>"></div>
 		</form>
 		<?php echo $txt['uploadadmin104'].' '.$max;?></td>
 	</tr>
 </table>
-<?php } ?>
+		<?php } ?>

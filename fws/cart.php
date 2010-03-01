@@ -24,10 +24,10 @@
 <?php if ($index_refer <> 1) { exit(); } ?>
 
 <?php
-if (!empty($_POST['numprod'])) {
+if (isset($_POST['numprod'])) {
 	$numprod=intval($_POST['numprod']);
 }
-elseif (!empty($_GET['numprod'])) {
+elseif (isset($_GET['numprod'])) {
 	$numprod=intval($_GET['numprod']);
 }
 else { $numprod=1; }
