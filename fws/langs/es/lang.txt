@@ -5,6 +5,9 @@
 //// --- file if this lines are kept.          --- ////
 //// NOTE: my comments start with FOUR slashes ;)  ////
 
+// The character set we should use for this language. If you are unsure, use ISO-8859-1
+$charset = "UTF-8";
+
 // first some values that can also be used further along in this lang file
 // database values for orders
 $txt['db_shipping1'] = 'Retira los productos en nuestro local.';

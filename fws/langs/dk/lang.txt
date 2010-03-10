@@ -1,16 +1,16 @@
 <?php
 // The character set we should use for this language. If you are unsure, use ISO-8859-1
-$charset = "ISO-8859-1";
+$charset = "UTF-8";
 
 // first some values that can also be used further along in this lang file
 // database values for orders
-$txt['frontpage1'] = 'Læs mere';
+$txt['frontpage1'] = 'LÃ¦s mere';
 
 $txt['db_shipping1'] = 'Pick up the products yourself on appointment, no shipping rate';
 
 // database values for payments
 $txt['db_payment1'] = 'Betal via bank (Netbank)';
-$txt['db_payment2'] = 'Betal kontant ved afhentning (Gælder kun ved afhentning)';
+$txt['db_payment2'] = 'Betal kontant ved afhentning (GÃ¦lder kun ved afhentning)';
 $txt['db_payment3'] = 'Betal via PayPal';
 $txt['db_payment4'] = 'Betal ved modtagelse (efterkrav)';
 
@@ -19,58 +19,58 @@ $txt['db_status1'] = 'Ordre modtaget fra kunde';
 $txt['db_status2'] = 'Afventer betaling';
 $txt['db_status3'] = 'Afventer aftale';
 $txt['db_status4'] = 'Ordre under behandling';
-$txt['db_status5'] = 'Afsendt til kunde (gennemført)';
-$txt['db_status6'] = 'Afhentet af kunde (gennemført)';
+$txt['db_status5'] = 'Afsendt til kunde (gennemfÃ¸rt)';
+$txt['db_status6'] = 'Afhentet af kunde (gennemfÃ¸rt)';
 $txt['db_status7'] = 'Annulleret';
 
-$txt['db_status10'] = 'Forklaring på status';
-$txt['db_status11'] = 'Din ordre er modtaget, men endnu ikke bekræftet af os';
-$txt['db_status12'] = 'Din ordre er bekræftet af os. Du skal nu overføre beløbet til vores bankkonto';
+$txt['db_status10'] = 'Forklaring pÃ¥ status';
+$txt['db_status11'] = 'Din ordre er modtaget, men endnu ikke bekrÃ¦ftet af os';
+$txt['db_status12'] = 'Din ordre er bekrÃ¦ftet af os. Du skal nu overfÃ¸re belÃ¸bet til vores bankkonto';
 $txt['db_status13'] = 'Din betaling er modtaget. Vi har sendt dig en e-mail om at din ordre er klar til afhentning. Du skal ringe til os og lave en aftale om dette';
 $txt['db_status14'] = 'Din betaling er modtaget. Din ordre behandles. Dette betyder at vi enten er ved at modtage varen, eller vi er igang med pakning og afsendelse';
-$txt['db_status15'] = 'Ordren er sendt med post. Handlen er gennemført';
-$txt['db_status16'] = 'Ordren er afhentet af dig. Handlen er gennemført';
+$txt['db_status15'] = 'Ordren er sendt med post. Handlen er gennemfÃ¸rt';
+$txt['db_status16'] = 'Ordren er afhentet af dig. Handlen er gennemfÃ¸rt';
 $txt['db_status17'] = 'Ordren er annulleret af dig eller os';
 
 // database values for stock
-$txt['db_stock1'] = 'På lager';
-$txt['db_stock2'] = 'Ikke på lager';
+$txt['db_stock1'] = 'PÃ¥ lager';
+$txt['db_stock2'] = 'Ikke pÃ¥ lager';
 $txt['db_stock3'] = 'I restordre';
 
 $txt['db_stock10'] = 'Lagerstatus';
-$txt['db_stock11'] = 'Produktet er på lager og kan bestilles';
+$txt['db_stock11'] = 'Produktet er pÃ¥ lager og kan bestilles';
 $txt['db_stock12'] = 'Produktet er udsolgt';
-$txt['db_stock13'] = 'Produktet er udsolgt, men forventes på lager igen senere';
+$txt['db_stock13'] = 'Produktet er udsolgt, men forventes pÃ¥ lager igen senere';
 
 // general values
-$txt['general1'] = 'Adgang nægtet!';
+$txt['general1'] = 'Adgang nÃ¦gtet!';
 $txt['general2'] = 'Din IP adresse er logget for at forhindre yderligere misbrug';
 $txt['general3'] = 'Ny';
 $txt['general4'] = 'Tilbage til admin muligheder';
 $txt['general5'] = 'Moms';
 $txt['general6'] = 'eksl.';
 $txt['general7'] = 'inkl.';
-$txt['general8'] = 'OBS: Fejl i butikken! Besøgende kan ikke browse eller bestille produkter';
+$txt['general8'] = 'OBS: Fejl i butikken! BesÃ¸gende kan ikke browse eller bestille produkter';
 $txt['general9'] = '404 error. Side ikke fundet!';
-$txt['general10'] = 'Du er blevet spærret adgang til butikken';
+$txt['general10'] = 'Du er blevet spÃ¦rret adgang til butikken';
 $txt['general11'] = 'Firmaprofil';
 $txt['general12'] = 'Fejl';
 $txt['general13'] = 'Meddelelse';
 $txt['general14'] = 'Tilbage';
 $txt['general15'] = 'Tast denne kode';
-$txt['general16'] = 'Koden var forkert! Prøv igen';
+$txt['general16'] = 'Koden var forkert! PrÃ¸v igen';
 
 // header.php
 $txt['header1'] = 'Sikkerheds risiko';
 $txt['header2'] = 'Velkommen';
-$txt['header3'] = 'gæst';
-$txt['header4'] = '<font color=red><strong>install.php</strong></font> eksisterer! Du er nødt til at slette/omdøbe filen, før du kan fortsætte!';
+$txt['header3'] = 'gÃ¦st';
+$txt['header4'] = '<font color=red><strong>install.php</strong></font> eksisterer! Du er nÃ¸dt til at slette/omdÃ¸be filen, fÃ¸r du kan fortsÃ¦tte!';
 
 // menu.php
 $txt['menu1'] = 'Til forsiden';
-$txt['menu2'] = 'Indkøbskurv';
+$txt['menu2'] = 'IndkÃ¸bskurv';
 $txt['menu3'] = 'Til kassen';
-$txt['menu4'] = 'Søg';
+$txt['menu4'] = 'SÃ¸g';
 $txt['menu5'] = 'Betingelser';
 $txt['menu6'] = 'Forsendelse';
 $txt['menu7'] = 'Garanti';
@@ -91,33 +91,33 @@ $txt['menu19'] = 'Ekstra';
 $txt['send1'] = 'Forsendelse';
 
 // cart.php
-$txt['cart1'] = 'Indkøbskurv';
-$txt['cart2'] = 'Din indkøbskurv er tom.<br /><br />';
+$txt['cart1'] = 'IndkÃ¸bskurv';
+$txt['cart2'] = 'Din indkÃ¸bskurv er tom.<br /><br />';
 $txt['cart3'] = 'Beskrivelse';
 $txt['cart4'] = 'Pris';
 $txt['cart5'] = 'Antal';
 $txt['cart6'] = 'Slet';
 $txt['cart7'] = 'Total';
-$txt['cart8'] = 'Tøm';
+$txt['cart8'] = 'TÃ¸m';
 $txt['cart9'] = 'Til kassen';
-$txt['cart10'] = 'Opdatér';
+$txt['cart10'] = 'OpdatÃ©r';
 $txt['cart11'] = 'Hvad er i kurven';
-$txt['cart12'] = 'Fortsæt med at handle';
+$txt['cart12'] = 'FortsÃ¦t med at handle';
 
 // browse.php
-$txt['browse1'] = 'Søgeresultat';
+$txt['browse1'] = 'SÃ¸geresultat';
 $txt['browse2'] = 'Vare beskrivelse';
 $txt['browse3'] = 'Pris';
-$txt['browse4'] = 'Sortér';
+$txt['browse4'] = 'SortÃ©r';
 $txt['browse5'] = 'Ingen varer fundet';
-$txt['browse6'] = 'OBS: Ingen rettigheder kan gøres gældende, på grundlag af billederne. Der tages forbehold for taste-fejl i priser';
+$txt['browse6'] = 'OBS: Ingen rettigheder kan gÃ¸res gÃ¦ldende, pÃ¥ grundlag af billederne. Der tages forbehold for taste-fejl i priser';
 $txt['browse7'] = 'ret';
 $txt['browse8'] = 'slet';
 $txt['browse9'] = 'Vare liste';
-$txt['browse10'] = 'ændre billede';
+$txt['browse10'] = 'Ã¦ndre billede';
 $txt['browse11'] = 'Sider';
 $txt['browse12'] = 'Udsolgt';
-$txt['browse13'] = 'På lager';
+$txt['browse13'] = 'PÃ¥ lager';
 
 // submenu.php
 $txt['submenu1'] = 'Kategorierne i denne gruppe';
@@ -133,77 +133,77 @@ $txt['details2'] = 'Vare ID';
 $txt['details4'] = 'Beskrivelse';
 $txt['details5'] = 'Pris/stk.';
 $txt['details6'] = 'Antal';
-$txt['details7'] = 'Køb';
+$txt['details7'] = 'KÃ¸b';
 $txt['details8'] = 'Tilbage til listen';
-$txt['details9'] = 'Klik for fuld størrelse';
+$txt['details9'] = 'Klik for fuld stÃ¸rrelse';
 
 // conditions.php
 $txt['conditions1'] = 'Jeg accepterer de almindelige betingelser';
-$txt['conditions2'] = 'Jeg acceptérer IKKE de almindelige betingelser';
+$txt['conditions2'] = 'Jeg acceptÃ©rer IKKE de almindelige betingelser';
 $txt['conditions3'] = 'Inaktiveret';
 $txt['conditions4'] = 'Det er pt. ikke muligt at bestille';
 $txt['conditions5'] = 'Betingelser';
 
 // shipping.php
 $txt['shipping1'] = 'Forsendelse & betaling';
-$txt['shipping2'] = 'Vælg en forsendelses metode';
-$txt['shipping3'] = 'Yderligere kommentarer/spørgsmål';
+$txt['shipping2'] = 'VÃ¦lg en forsendelses metode';
+$txt['shipping3'] = 'Yderligere kommentarer/spÃ¸rgsmÃ¥l';
 $txt['shipping4'] = 'Rabat kode';
 $txt['shipping5'] = 'Hvis du har en rabatkode, kan du indtaste den her';
-$txt['shipping9'] = 'Gennemfør bestilling';
-$txt['shipping10'] = 'Vælg en betalingsmåde';
+$txt['shipping9'] = 'GennemfÃ¸r bestilling';
+$txt['shipping10'] = 'VÃ¦lg en betalingsmÃ¥de';
 
 // checkout.php
-$txt['checkout1'] = 'Ikke gyldig rabatkode. Hvis du maner dette er en fejl, så kontakt os før bestilling';
-$txt['checkout2'] = 'Siden er forældet. Gå tilbage til din indkøbskurv og klik igen på <Til Kassen> knappen';
-$txt['checkout3'] = "Kære Hr./Fr./Frk. $lastname,<br /><br /><br />Faktura/bekræftelse på din bestilling hos <strong>$shopname</strong><br /><br />Dit ordre id: $webid<br />Dit kunde id: $customerid<br /><br />Du har bestilt følgende varer:<br />";
+$txt['checkout1'] = 'Ikke gyldig rabatkode. Hvis du maner dette er en fejl, sÃ¥ kontakt os fÃ¸r bestilling';
+$txt['checkout2'] = 'Siden er forÃ¦ldet. GÃ¥ tilbage til din indkÃ¸bskurv og klik igen pÃ¥ <Til Kassen> knappen';
+$txt['checkout3'] = "KÃ¦re Hr./Fr./Frk. $lastname,<br /><br /><br />Faktura/bekrÃ¦ftelse pÃ¥ din bestilling hos <strong>$shopname</strong><br /><br />Dit ordre id: $webid<br />Dit kunde id: $customerid<br /><br />Du har bestilt fÃ¸lgende varer:<br />";
 $txt['checkout4'] = ' x produkt ';
 $txt['checkout5'] = ' a stk.';
 $txt['checkout6'] = "<br />";
-$txt['checkout7'] = 'Du forsøgte at bestille:';
-$txt['checkout8'] = 'Antal på lager:';
-$txt['checkout9'] = "<br /><br />Du kan, til enhver tid, se status på din ordre, ved at klikke <a href=$shopurl/index.php?page=orders&id=$customerid>  her</a><br /><br />Mange tak for din ordre.<br />Hvis du har spørgsmål, kontakt os venligst (kontakt information er på vores website)";
-$txt['checkout10'] = 'Faktura/Bekræftelse af din bestilling hos '.$shopname;
-$txt['checkout11'] = 'Din ordre er gennemført. En e-mail med bekræftelse, sendes til dig.';
-$txt['checkout12'] = 'E-mail med ordrebekræftigelse, kunne ikke sendes. Udprint derfor nedenstående bekræftelse.';
-$txt['checkout13'] = 'Nedenfor er en kopi af ordrebekræftelses mailen:';
+$txt['checkout7'] = 'Du forsÃ¸gte at bestille:';
+$txt['checkout8'] = 'Antal pÃ¥ lager:';
+$txt['checkout9'] = "<br /><br />Du kan, til enhver tid, se status pÃ¥ din ordre, ved at klikke <a href=$shopurl/index.php?page=orders&id=$customerid>  her</a><br /><br />Mange tak for din ordre.<br />Hvis du har spÃ¸rgsmÃ¥l, kontakt os venligst (kontakt information er pÃ¥ vores website)";
+$txt['checkout10'] = 'Faktura/BekrÃ¦ftelse af din bestilling hos '.$shopname;
+$txt['checkout11'] = 'Din ordre er gennemfÃ¸rt. En e-mail med bekrÃ¦ftelse, sendes til dig.';
+$txt['checkout12'] = 'E-mail med ordrebekrÃ¦ftigelse, kunne ikke sendes. Udprint derfor nedenstÃ¥ende bekrÃ¦ftelse.';
+$txt['checkout13'] = 'Nedenfor er en kopi af ordrebekrÃ¦ftelses mailen:';
 $txt['checkout14'] = 'Rabat';
-$txt['checkout15'] = 'Der er desværre ikke nok varer på lager af det produkt du forsøgte at bestille:';
+$txt['checkout15'] = 'Der er desvÃ¦rre ikke nok varer pÃ¥ lager af det produkt du forsÃ¸gte at bestille:';
 $txt['checkout16'] = "Forsendelses metode: ";
 $txt['checkout17'] = "Leverings adresse:<br />$company<br />$address<br />$zipcode $city<br />$country";
 $txt['checkout18'] = 'Rabatkode';
 $txt['checkout19'] = "Betalings metode: ";
 $txt['checkout20'] = "Bank info:<br />Konto nummer: $bankaccount<br />Kontohaver: $bankaccountowner<br />By: $bankcity<br />Land: $bankcountry<br />Bank navn: $bankname<br />IBAN: $bankiban<br />BIC: $bankbic<br />Emne/reference: $webid";
-$txt['checkout21'] = "Når varen er på lager, vil vil vi sende dig en e-mail for at aftale nærmere.";
-$txt['checkout22'] = "Brug din PayPal konto til at overføre penge til os.";
-$txt['checkout23'] = "Du skal betale postbudet ved levering (postopkrævning).";
-$txt['checkout24'] = "Samlet beløb af faktura: $currency_symbol $totalprint (Inkl. $currency_symbol $print_sendcosts til fragt)";
+$txt['checkout21'] = "NÃ¥r varen er pÃ¥ lager, vil vil vi sende dig en e-mail for at aftale nÃ¦rmere.";
+$txt['checkout22'] = "Brug din PayPal konto til at overfÃ¸re penge til os.";
+$txt['checkout23'] = "Du skal betale postbudet ved levering (postopkrÃ¦vning).";
+$txt['checkout24'] = "Samlet belÃ¸b af faktura: $currency_symbol $totalprint (Inkl. $currency_symbol $print_sendcosts til fragt)";
 $txt['checkout25'] = "inkl. $show_vat ".$txt['general5'];
-$txt['checkout26'] = "Overfør venligst det samlede faktura beløb indenfor $paymentdays dage. Når vi har modtaget din betaling, vil vi ekspedere og afsende din ordre, så hurtigt som muligt. Bestillinger, der ikke er betalt inden betalingsfristens udløb, vil blive slettet";
+$txt['checkout26'] = "OverfÃ¸r venligst det samlede faktura belÃ¸b indenfor $paymentdays dage. NÃ¥r vi har modtaget din betaling, vil vi ekspedere og afsende din ordre, sÃ¥ hurtigt som muligt. Bestillinger, der ikke er betalt inden betalingsfristens udlÃ¸b, vil blive slettet";
 $txt['checkout27'] = "eller hent orderen som PDF";
 
 // search.php
 $txt['search1'] = 'Find en vare';
-$txt['search2'] = 'Søg efter';
-$txt['search3'] = 'Søge metode';
+$txt['search2'] = 'SÃ¸g efter';
+$txt['search3'] = 'SÃ¸ge metode';
 $txt['search4'] = 'Match alle ord';
 $txt['search5'] = 'Match enkelt ord';
-$txt['search6'] = 'Søg';
+$txt['search6'] = 'SÃ¸g';
 
 // guarantee.php
 $txt['guarantee1'] = 'Garanti';
 
 // contact.php
-$txt['contact1'] = 'Spørgsmål via formular '. $shopurl;
+$txt['contact1'] = 'SpÃ¸rgsmÃ¥l via formular '. $shopurl;
 $txt['contact2'] = 'Besked er afsendt';
-$txt['contact3'] = 'Din besked er sendt. Om nødvendigt vil vi svare, så hurtigt som muligt';
-$txt['contact5'] = 'Du skal udfylde alle felterne i formularen.<br /><a href="javascript:history.go(-1)"><strong>Klik her</strong></a> for at gå tilbage.';
+$txt['contact3'] = 'Din besked er sendt. Om nÃ¸dvendigt vil vi svare, sÃ¥ hurtigt som muligt';
+$txt['contact5'] = 'Du skal udfylde alle felterne i formularen.<br /><a href="javascript:history.go(-1)"><strong>Klik her</strong></a> for at gÃ¥ tilbage.';
 $txt['contact6'] = 'Kontakt';
 $txt['contact7'] = 'Hvordan du kommer i kontakt med ';
 $txt['contact8'] = 'E-mail';
 $txt['contact9'] = 'Telefon';
 $txt['contact10'] = 'Fax';
-$txt['contact11'] = 'For at kontakte os via vores website, benyt nedenstående formular:';
+$txt['contact11'] = 'For at kontakte os via vores website, benyt nedenstÃ¥ende formular:';
 $txt['contact12'] = 'Send til';
 $txt['contact13'] = 'Dit navn';
 $txt['contact14'] = 'Din e-mail addresse';
@@ -216,15 +216,15 @@ $txt['checklogin3'] = 'Password';
 $txt['checklogin4'] = 'Log ind';
 $txt['checklogin5'] = 'Hvis de ikke har et kunde ID endnu, klik her';
 $txt['checklogin6'] = 'Hvorfor overhovedet registrere sig?';
-$txt['checklogin7'] = 'For at bestille varer, er du nødt til at registrére dig. Ved registréringen skal vi bruge dit navn, en leverings adresse, en e-mail addresse, etc. Vi behøver disse informationer for at kunne håndtere dit køb. <br /><br /><strong>Dine data vil KUN  blive brugt af os til dette formål.</strong><br /><br /><br />Når du er registréret, kan du senere: <ul><li>Logge ind  til webshoppen fra enhver PC <li>Bestille varer<li>Se status på ordrer<li>Håndtere din indkøbskurv</ul>';
+$txt['checklogin7'] = 'For at bestille varer, er du nÃ¸dt til at registrÃ©re dig. Ved registrÃ©ringen skal vi bruge dit navn, en leverings adresse, en e-mail addresse, etc. Vi behÃ¸ver disse informationer for at kunne hÃ¥ndtere dit kÃ¸b. <br /><br /><strong>Dine data vil KUN  blive brugt af os til dette formÃ¥l.</strong><br /><br /><br />NÃ¥r du er registrÃ©ret, kan du senere: <ul><li>Logge ind  til webshoppen fra enhver PC <li>Bestille varer<li>Se status pÃ¥ ordrer<li>HÃ¥ndtere din indkÃ¸bskurv</ul>';
 $txt['checklogin8'] = 'Glemt login data';
-$txt['checklogin9'] = 'Udfyld e-mailen med den registrérede e-mail adresse. Deres login data vil blive sendt til denne adresse.';
+$txt['checklogin9'] = 'Udfyld e-mailen med den registrÃ©rede e-mail adresse. Deres login data vil blive sendt til denne adresse.';
 $txt['checklogin10'] = 'Send e-mail';
 $txt['checklogin11'] = 'Glemt dine login data? Klik her!';
 $txt['checklogin12'] = 'Dine login data er sendt til';
 $txt['checklogin13'] = 'Glemt login data '. $shopurl;
 $txt['checklogin14'] = 'Denne e-mail er sendt til dig, fordi du har anmodet om login data til vores webshop (<a href="$shopurl">$shopurl</a>)';
-$txt['checklogin15'] = 'Der er ikke registréret nogen kunde, med din angivne e-mail adresse';
+$txt['checklogin15'] = 'Der er ikke registrÃ©ret nogen kunde, med din angivne e-mail adresse';
 $txt['checklogin18'] = 'Tilbage';
 
 // login.php
@@ -236,13 +236,13 @@ $txt['login3'] = 'Du er logget ind.. Vent venligst';
 $txt['logout1'] = 'Du er logget ud..';
 
 // my.php
-$txt['my3'] = 'Angående din personlige side';
-$txt['my4'] = 'Dette er din personlige side. Du har kun adgang til denne, hvis du er korrekt logget ind, med login navn og password.<br /><br />På denne side kan du se dine personlige data, ordrer og indkøbskurv. Alt tilgængeligt på en side.';
+$txt['my3'] = 'AngÃ¥ende din personlige side';
+$txt['my4'] = 'Dette er din personlige side. Du har kun adgang til denne, hvis du er korrekt logget ind, med login navn og password.<br /><br />PÃ¥ denne side kan du se dine personlige data, ordrer og indkÃ¸bskurv. Alt tilgÃ¦ngeligt pÃ¥ en side.';
 $txt['my5'] = 'Personlig sides muligheder';
 $txt['my6'] = 'Dit kunde ID';
-$txt['my7'] = 'Ændre data';
+$txt['my7'] = 'Ã†ndre data';
 $txt['my8'] = 'Vis ordrer';
-$txt['my9'] = 'Vis indkøbskurv';
+$txt['my9'] = 'Vis indkÃ¸bskurv';
 
 // admin.php
 $txt['admin1'] = 'Shop Administration';
@@ -251,28 +251,28 @@ $txt['admin3'] = 'Kunder';
 $txt['admin4'] = 'Butik';
 $txt['admin5'] = 'Produkter';
 $txt['admin6'] = 'Grupper &<br />Katagorier';
-$txt['admin7'] = 'Optimér database';
+$txt['admin7'] = 'OptimÃ©r database';
 $txt['admin8'] = 'Indstillinger';
 $txt['admin9'] = 'Upload prisliste';
-$txt['admin10'] = 'Optimérer alle database tabeller..';
-$txt['admin11'] = 'Optimérer';
-$txt['admin12'] = 'Optiméring fuldført!';
+$txt['admin10'] = 'OptimÃ©rer alle database tabeller..';
+$txt['admin11'] = 'OptimÃ©rer';
+$txt['admin12'] = 'OptimÃ©ring fuldfÃ¸rt!';
 $txt['admin13'] = 'Info og support';
-$txt['admin14'] = 'Check for opdatéringer';
+$txt['admin14'] = 'Check for opdatÃ©ringer';
 $txt['admin15'] = 'Ret generelle betingelser';
 $txt['admin16'] = 'Ret fragtside';
 $txt['admin17'] = 'Ret garantiside';
 $txt['admin18'] = 'Fragt muligheder';
-$txt['admin19'] = 'Spærre liste';
+$txt['admin19'] = 'SpÃ¦rre liste';
 $txt['admin20'] = 'Firmaprofil';
 $txt['admin21'] = 'Betalings muligheder';
 $txt['admin22'] = 'Startside';
-$txt['admin23'] = 'Ændre indstillinger';
+$txt['admin23'] = 'Ã†ndre indstillinger';
 $txt['admin24'] = 'Redigere filer';
 $txt['admin25'] = 'Information';
 $txt['admin26'] = 'Error log';
 $txt['admin27'] = 'Backup af databasen';
-$txt['admin28'] = 'Backup fuldført. Hent backup på linket nedenfor';
+$txt['admin28'] = 'Backup fuldfÃ¸rt. Hent backup pÃ¥ linket nedenfor';
 $txt['admin29'] = 'Admins';
 $txt['admin30'] = 'Ekstra sider';
 $txt['admin31'] = 'Access log';
@@ -280,13 +280,13 @@ $txt['admin32'] = 'Lagerstyring';
 $txt['admin33'] = 'Antal produkter (';
 $txt['admin34'] = ') er under minimum antal stk!';
 $txt['admin35'] = 'Mailing liste';
-$txt['admin36'] = '<strong><font color="red">Der er nyheder fra FreeWebshop.org</font></strong><br /><br />Det kan være sikkerheds fix, eller anden vigtig information. Læs nedenstående eller besøg <a href="http://www.freewebshop.org">FreeWebshop.org</a>!<br /><br />(Du får kun denne besked, når der er noget nyt)';
+$txt['admin36'] = '<strong><font color="red">Der er nyheder fra FreeWebshop.org</font></strong><br /><br />Det kan vÃ¦re sikkerheds fix, eller anden vigtig information. LÃ¦s nedenstÃ¥ende eller besÃ¸g <a href="http://www.freewebshop.org">FreeWebshop.org</a>!<br /><br />(Du fÃ¥r kun denne besked, nÃ¥r der er noget nyt)';
 $txt['admin37'] = 'Forsendelse lande';
 $txt['admin38'] = 'Rabat';
 
 // customeradmin.php
 $txt['customeradmin1'] = 'Dit Navn';
-$txt['customeradmin2'] = 'Registrérings dato';
+$txt['customeradmin2'] = 'RegistrÃ©rings dato';
 $txt['customeradmin3'] = 'E-mail';
 $txt['customeradmin4'] = 'Telefon';
 $txt['customeradmin5'] = 'Muligheder';
@@ -294,48 +294,48 @@ $txt['customeradmin6'] = 'Kunde administration';
 $txt['customeradmin7'] = 'Denne person er nu medlem af gruppen Admin';
 $txt['customeradmin8'] = 'Denne person er nu medlem af gruppen Kunder';
 $txt['customeradmin9'] = 'Ingen kunder fundet!';
-$txt['customeradmin10'] = 'Søg';
+$txt['customeradmin10'] = 'SÃ¸g';
 
 // orderadmin.php
 $txt['orderadmin1'] = 'Din ordrestatus';
-$txt['orderadmin2'] = ' er ændret';
-$txt['orderadmin3'] = 'Din ordrestatus er ændret';
-$txt['orderadmin4'] = "<br /><br />Besøg <a href=\"$shopurl/index.php?page=orders&id=";
-$txt['orderadmin5'] = '"> for nuværende status';
+$txt['orderadmin2'] = ' er Ã¦ndret';
+$txt['orderadmin3'] = 'Din ordrestatus er Ã¦ndret';
+$txt['orderadmin4'] = "<br /><br />BesÃ¸g <a href=\"$shopurl/index.php?page=orders&id=";
+$txt['orderadmin5'] = '"> for nuvÃ¦rende status';
 $txt['orderadmin6'] = 'E-mail sendt til ';
 $txt['orderadmin7'] = 'e-mail kunde? ';
-$txt['orderadmin8'] = 'Opdatér';
+$txt['orderadmin8'] = 'OpdatÃ©r';
 $txt['orderadmin9'] = 'alle ordrer';
 $txt['orderadmin10'] = 'Der er ingen ordre med den angivne status';
 $txt['orderadmin11'] = 'Vis';
-$txt['orderadmin12'] = 'OBS: Kunden har tilføjet en ekstra besked!';
+$txt['orderadmin12'] = 'OBS: Kunden har tilfÃ¸jet en ekstra besked!';
 $txt['orderadmin13'] = 'Ordre administration';
-$txt['orderadmin14'] = 'Ændre status';
-$txt['orderadmin15'] = 'Din ordrestatus er ændret';
+$txt['orderadmin14'] = 'Ã†ndre status';
+$txt['orderadmin15'] = 'Din ordrestatus er Ã¦ndret';
 
 // orders.php
-$txt['orders3'] = 'Du har bestilt følgende <a href=# class=info>(?)<span>Nedenfor er en liste over dine ordrer og deres nuværende status<br />Klik på et ordre ID for at se information</span></a>';
+$txt['orders3'] = 'Du har bestilt fÃ¸lgende <a href=# class=info>(?)<span>Nedenfor er en liste over dine ordrer og deres nuvÃ¦rende status<br />Klik pÃ¥ et ordre ID for at se information</span></a>';
 $txt['orders4'] = 'Ordre ID';
 $txt['orders5'] = 'Fragt & Betaling';
-$txt['orders6'] = 'Faktura beløb';
+$txt['orders6'] = 'Faktura belÃ¸b';
 $txt['orders7'] = 'Ordre dato';
 $txt['orders8'] = 'Status';
-$txt['orders9'] = 'Du har endnu ikke lagt en ordre på vores webshop';
+$txt['orders9'] = 'Du har endnu ikke lagt en ordre pÃ¥ vores webshop';
 
 // customer.php
-$txt['customer1'] = 'Fødselsdato';
+$txt['customer1'] = 'FÃ¸dselsdato';
 $txt['customer2'] = 'Kunde fjernet';
-$txt['customer3'] = 'Gå tilbage';
-$txt['customer5'] = 'Du skal løse problemet for at kunne gå videre';
+$txt['customer3'] = 'GÃ¥ tilbage';
+$txt['customer5'] = 'Du skal lÃ¸se problemet for at kunne gÃ¥ videre';
 $txt['customer6'] = 'Alle felter markeret med (*) skal udfyldes';
 $txt['customer7'] = 'Mellemrum er ikke tilladt i dit log-in navn';
 $txt['customer8'] = 'De to indtastede passwords er ikke ens';
-$txt['customer9'] = 'Dit password skal være på mindst 5 tegn';
+$txt['customer9'] = 'Dit password skal vÃ¦re pÃ¥ mindst 5 tegn';
 $txt['customer10'] = 'Du har tastet en ugyldig e-mail adresse';
 $txt['customer11'] = 'Velkommen til '.$shopname;
-$txt['customer12'] = "Kære Hr./Fr./Frk. $name,<br /><br />Tak for at du registrérede dig i vores Webshop $shopname <br /><br />Du kan nu logge ind i vores webshop og bestille varer \eller se status på tidligere ordrer.<br /><br />Her er dine login data:<br />Login navn:  $login<br />Password: $pass1<br /><br />Gem disse data på et sikkert sted!<br /><br />På snarligt gensyn i <a href=\"$shopurl\"</a> $shopname<br /><br />Med venlig hilsen,<br /><br /><br />Shop 1 - Alarmsystemer & Sikringsudstyr";
+$txt['customer12'] = "KÃ¦re Hr./Fr./Frk. $name,<br /><br />Tak for at du registrÃ©rede dig i vores Webshop $shopname <br /><br />Du kan nu logge ind i vores webshop og bestille varer \eller se status pÃ¥ tidligere ordrer.<br /><br />Her er dine login data:<br />Login navn:  $login<br />Password: $pass1<br /><br />Gem disse data pÃ¥ et sikkert sted!<br /><br />PÃ¥ snarligt gensyn i <a href=\"$shopurl\"</a> $shopname<br /><br />Med venlig hilsen,<br /><br /><br />Shop 1 - Alarmsystemer & Sikringsudstyr";
 $txt['customer13'] = 'Dine informationer er korrekt gemt.';
-$txt['customer14'] = 'Oplys venligst så mange informationer som  muligt';
+$txt['customer14'] = 'Oplys venligst sÃ¥ mange informationer som  muligt';
 $txt['customer15'] = 'Login navn';
 $txt['customer16'] = 'Password';
 $txt['customer17'] = 'Gentag Password';
@@ -352,7 +352,7 @@ $txt['customer27'] = '* = skal udfyldes';
 $txt['customer28'] = 'Gem data';
 $txt['customer29'] = 'Det valgte login navn er allerede i brug';
 $txt['customer30'] = 'Firma';
-$txt['customer32'] = 'Du forsøgte at slette administrator kontoen. Det ville forhindre dig i at kunne logge ind i webshoppen. Din handling er derfor afvist.';
+$txt['customer32'] = 'Du forsÃ¸gte at slette administrator kontoen. Det ville forhindre dig i at kunne logge ind i webshoppen. Din handling er derfor afvist.';
 $txt['customer33'] = '(mellem 5 and 10 tegn)';
 $txt['customer34'] = 'Den indtastede e-mail er allerede i brug';
 $txt['customer35'] = 'Login her';
@@ -362,32 +362,32 @@ $txt['customer38'] = 'Nyhedsbrev?';
 
 // readorder.php
 $txt['readorder1'] = 'Udskriv denne ordre';
-$txt['readorder2'] = 'Gå tilbage til din ordreoversigt';
+$txt['readorder2'] = 'GÃ¥ tilbage til din ordreoversigt';
 
 // editsettings.php
-$txt['editsettings1'] = 'Ændre indstillinger';
+$txt['editsettings1'] = 'Ã†ndre indstillinger';
 $txt['editsettings2'] = 'Gem indstillinger';
 $txt['editsettings3'] = 'Vis ikke Produkter i restordre';
 $txt['editsettings4'] = 'Standard fragt land <a href=# class=info>(?)<span>Dette er normalt landet, hvor dit firma har hjemsted </span></a>';
 $txt['editsettings5'] = 'Vis antal i lagerbeholdningen';
-$txt['editsettings7'] = 'Yderligere omkostninger for postopkrævning <a href=# class=info>(?)<span>Udover normale fragt omkostninger, koster denne forsendelses type ekstra. Format: 12.34</span></a>';
-$txt['editsettings8'] = 'Møntfod';
-$txt['editsettings9'] = 'Møntfods symbol <a href=# class=info>(?)<span>I dit tilfælde sikkert: dkr.</span></a>';
-$txt['editsettings10'] = 'Betal inden xx dage <a href=# class=info>(?)<span>Frist for hvor mange dage, inden pengene skal være på din konto?</span></a>';
-$txt['editsettings11'] = 'Inkl. Moms <a href=# class=info>(?)<span>Hvis moms er 25%, skal tallet være: 1.25</span></a>';
-$txt['editsettings12'] = 'Moms tekst <a href=# class=info>(?)<span>Hvis moms er 25%, skal tallet være: 25%</span></a>';
+$txt['editsettings7'] = 'Yderligere omkostninger for postopkrÃ¦vning <a href=# class=info>(?)<span>Udover normale fragt omkostninger, koster denne forsendelses type ekstra. Format: 12.34</span></a>';
+$txt['editsettings8'] = 'MÃ¸ntfod';
+$txt['editsettings9'] = 'MÃ¸ntfods symbol <a href=# class=info>(?)<span>I dit tilfÃ¦lde sikkert: dkr.</span></a>';
+$txt['editsettings10'] = 'Betal inden xx dage <a href=# class=info>(?)<span>Frist for hvor mange dage, inden pengene skal vÃ¦re pÃ¥ din konto?</span></a>';
+$txt['editsettings11'] = 'Inkl. Moms <a href=# class=info>(?)<span>Hvis moms er 25%, skal tallet vÃ¦re: 1.25</span></a>';
+$txt['editsettings12'] = 'Moms tekst <a href=# class=info>(?)<span>Hvis moms er 25%, skal tallet vÃ¦re: 25%</span></a>';
 $txt['editsettings13'] = 'Priser i DataBasen er incl. Moms';
-$txt['editsettings14'] = 'Email adresse til  salgs afd. <a href=# class=info>(?)<span>På denne adresse vil du modtage bestillingerne, for eksempel: sales@yourdomain.com</span></a>';
+$txt['editsettings14'] = 'Email adresse til  salgs afd. <a href=# class=info>(?)<span>PÃ¥ denne adresse vil du modtage bestillingerne, for eksempel: sales@yourdomain.com</span></a>';
 $txt['editsettings15'] = 'Butiks navn';
 $txt['editsettings16'] = 'Webshop URL <a href=# class=info>(?)<span>URL startende med http://, men uden den afsluttende /, for eksempel: http://www.yourdomain.com/shop</span></a>';
 $txt['editsettings17'] = 'Standard sprog';
 $txt['editsettings18'] = 'Ordre prefix (valgfrit) <a href=# class=info>(?)<span>Alle ordre id starter med dette prefix, for eksempel: WEB-</span></a>';
-$txt['editsettings19'] = 'Ordre suffix (valgfrit) <a href=# class=info>(?)<span>alle ordrer slutter med dette suffix, for eksempel nuværende år: -06</span></a>';
-$txt['editsettings20'] = 'Brug lager antal <a href=# class=info>(?)<span><strong>enabled:</strong> du bruger lager antal<br /><br /><strong>disabled:</strong> du bruger lagerstatus (på lager/i restordre/ikke på lager)</span></a>';
-$txt['editsettings21'] = 'Aktivér ordre-modul';
-$txt['editsettings22'] = 'Deaktivér webshop';
-$txt['editsettings23'] = 'Deaktivéret webshop titel';
-$txt['editsettings24'] = 'Deaktivéret webshop meddelse';
+$txt['editsettings19'] = 'Ordre suffix (valgfrit) <a href=# class=info>(?)<span>alle ordrer slutter med dette suffix, for eksempel nuvÃ¦rende Ã¥r: -06</span></a>';
+$txt['editsettings20'] = 'Brug lager antal <a href=# class=info>(?)<span><strong>enabled:</strong> du bruger lager antal<br /><br /><strong>disabled:</strong> du bruger lagerstatus (pÃ¥ lager/i restordre/ikke pÃ¥ lager)</span></a>';
+$txt['editsettings21'] = 'AktivÃ©r ordre-modul';
+$txt['editsettings22'] = 'DeaktivÃ©r webshop';
+$txt['editsettings23'] = 'DeaktivÃ©ret webshop titel';
+$txt['editsettings24'] = 'DeaktivÃ©ret webshop meddelse';
 $txt['editsettings25'] = 'Webmasters e-mail adresse';
 $txt['editsettings26'] = 'Telefonnummer (valgfrit)';
 $txt['editsettings27'] = 'Fax nummer (valgfrit)';
@@ -397,56 +397,56 @@ $txt['editsettings30'] = 'Bank by';
 $txt['editsettings31'] = 'Bank land';
 $txt['editsettings32'] = 'Bank IBAN';
 $txt['editsettings33'] = 'Bank BIC';
-$txt['editsettings34'] = 'Start år <a href=# class=info>(?)<span>Året du startede dette firma</span></a>';
+$txt['editsettings34'] = 'Start Ã¥r <a href=# class=info>(?)<span>Ã…ret du startede dette firma</span></a>';
 $txt['editsettings35'] = 'Logo <a href=# class=info>(?)<span>Dit logo-billede. Dette skal ligge i folderen <strong>'.$gfx_dir.'</strong></span></a>';
 $txt['editsettings37'] = 'Firma slogan (Valgfrit) <a href=# class=info>(?)<span>Sloganet benyttes under logoet</span></a>';
-$txt['editsettings38'] = 'Side titel <a href=# class=info>(?)<span>Titlen som browseren angiver, når siden vises</span></a>';
+$txt['editsettings38'] = 'Side titel <a href=# class=info>(?)<span>Titlen som browseren angiver, nÃ¥r siden vises</span></a>';
 $txt['editsettings39'] = 'Sidefod';
 $txt['editsettings44'] = 'Indstillingerne er gemt i databasen';
 $txt['editsettings45'] = 'Bank information';
 $txt['editsettings46'] = 'Tema indstillinger';
 $txt['editsettings47'] = 'Butik indstillinger';
-$txt['editsettings48'] = 'Økonomi & ordrer';
+$txt['editsettings48'] = 'Ã˜konomi & ordrer';
 $txt['editsettings49'] = 'Tal format';
-$txt['editsettings50'] = 'Beskrivelse max. længde <a href=# class=info>(?)<span>Dette er for at begrænse beskrivelsen i prislisten. <br /><strong>0 = afkort ikke<br />1-99 = wordwrap på xx tegn</strong></span></a>';
-$txt['editsettings51'] = 'Ingen Moms <a href=# class=info>(?)<span>Aktivér dette hvis du ikke ønsker moms på dine priser i shoppen, for eksempel hvis webshoppen er med private varer.</span></a>';
+$txt['editsettings50'] = 'Beskrivelse max. lÃ¦ngde <a href=# class=info>(?)<span>Dette er for at begrÃ¦nse beskrivelsen i prislisten. <br /><strong>0 = afkort ikke<br />1-99 = wordwrap pÃ¥ xx tegn</strong></span></a>';
+$txt['editsettings51'] = 'Ingen Moms <a href=# class=info>(?)<span>AktivÃ©r dette hvis du ikke Ã¸nsker moms pÃ¥ dine priser i shoppen, for eksempel hvis webshoppen er med private varer.</span></a>';
 $txt['editsettings52'] = 'Bank navn';
-$txt['editsettings53'] = 'Prisliste format <a href=# class=info>(?)<span>Disse indstillinger er gældende for prislister, indkøbskurv og ordrebekræftelses email</span></a>';
+$txt['editsettings53'] = 'Prisliste format <a href=# class=info>(?)<span>Disse indstillinger er gÃ¦ldende for prislister, indkÃ¸bskurv og ordrebekrÃ¦ftelses email</span></a>';
 $txt['editsettings54'] = 'Produkt ID';
 $txt['editsettings55'] = 'Beskrivelse';
 $txt['editsettings56'] = 'Produkt ID og beskrivelse';
 $txt['editsettings57'] = 'Dato format <a href=# class=info>(?)<span><strong>d-m-Y @ G:i</strong> for dd-mm-jjjj @ 23:59<br /><strong>m-d-Y @ G:i</strong> for mm-dd-jjjj @ 23:59<br></span></a>';
-$txt['editsettings58'] = 'Søg grafik i prislister <a href=# class=info>(?)<span> Søg efter billeder af de forskellige produkter ved indlæsning af prislister. Hvis et billede findes, vil et ikon vises efter produktet, så den besøgende ved, at der findes et billede. <br /><br />For at forkorte indlæsnings-tid, eller hvis du har billederne på en fjern-host, bør du deaktivére denne mulighed</span></a>';
-$txt['editsettings59'] = 'Brug billeder <a href=# class=info>(?)<span>Hvis du ikke har billeder af dine produkter, er det bedst at du deaktivérer denne mulighed.</span></a>';
+$txt['editsettings58'] = 'SÃ¸g grafik i prislister <a href=# class=info>(?)<span> SÃ¸g efter billeder af de forskellige produkter ved indlÃ¦sning af prislister. Hvis et billede findes, vil et ikon vises efter produktet, sÃ¥ den besÃ¸gende ved, at der findes et billede. <br /><br />For at forkorte indlÃ¦snings-tid, eller hvis du har billederne pÃ¥ en fjern-host, bÃ¸r du deaktivÃ©re denne mulighed</span></a>';
+$txt['editsettings59'] = 'Brug billeder <a href=# class=info>(?)<span>Hvis du ikke har billeder af dine produkter, er det bedst at du deaktivÃ©rer denne mulighed.</span></a>';
 $txt['editsettings69'] = 'Brug thumbnails i prislisten <a href=# class=info>(?)<span>Viser (hvis fundet) et lille preview af produktet foran beskrivelsen</span></a>';
-$txt['editsettings70'] = 'Keywords (Komma separeret) <a href=# class=info>(?)<span>De ord som de gerne vil findes på af søgemaskiner</span></a>';
-$txt['editsettings71'] = 'Anvendt karaktérsæt <a href=# class=info>(?)<span>Nogle sporg har brug for for forskellige karaktérsæt. For dem er det sikkert ISO-8859-1</span></a>';
+$txt['editsettings70'] = 'Keywords (Komma separeret) <a href=# class=info>(?)<span>De ord som de gerne vil findes pÃ¥ af sÃ¸gemaskiner</span></a>';
+$txt['editsettings71'] = 'Anvendt karaktÃ©rsÃ¦t <a href=# class=info>(?)<span>Nogle sporg har brug for for forskellige karaktÃ©rsÃ¦t. For dem er det sikkert ISO-8859-1</span></a>';
 $txt['editsettings72'] = 'Vis Generelle betingelser link';
 $txt['editsettings73'] = 'Vis Garanti link';
 $txt['editsettings74'] = 'Vis Fragt link';
-$txt['editsettings75'] = 'Billed filnavn <a href=# class=info>(?)<span>Nogle sprog har bogstaver som ikke er tilladt i filnavne. Det er bedst at benytte ID i databasen, som billed ID i de fleste tilfælde</span></a>';
+$txt['editsettings75'] = 'Billed filnavn <a href=# class=info>(?)<span>Nogle sprog har bogstaver som ikke er tilladt i filnavne. Det er bedst at benytte ID i databasen, som billed ID i de fleste tilfÃ¦lde</span></a>';
 $txt['editsettings76'] = 'Database ID (anbefalet)';
 $txt['editsettings77'] = 'Product ID';
 $txt['editsettings78'] = 'Vis firmaprofil link';
 $txt['editsettings79'] = 'Aktiver Live News <a href=# class=info>(?)<span>Dette aktiverer Live News forbindelsen fra FreeWebshop.org, som informerer dig om opdateringer og andre relevante nyheder. Dekativer kun denne facilitet, hvis du har problemer med funktionen.</span></a>';
 $txt['editsettings80'] = 'Prisliste thumb bredde <a href=# class=info>(?)<span>Bredden i pixels.<br />default=50<br/>0=deaktiver breddetilpasning</span></a>';
-$txt['editsettings81'] = 'Prisliste thumb højde <a href=# class=info>(?)<span>Højden i pixels.<br />default=50<br />0=deaktiver højdetilpasning</span></a>';
+$txt['editsettings81'] = 'Prisliste thumb hÃ¸jde <a href=# class=info>(?)<span>HÃ¸jden i pixels.<br />default=50<br />0=deaktiver hÃ¸jdetilpasning</span></a>';
 $txt['editsettings82'] = 'Kategori thumb bredde <a href=# class=info>(?)<span>Bredden i pixels.<br />default=50<br />0=deaktiver breddetilpasning</span></a>';
-$txt['editsettings83'] = 'Kategori thumb højde <a href=# class=info>(?)<span>Højden i pixels.<br />default=50<br />0=deaktiver højdetilpasning</span></a>';
+$txt['editsettings83'] = 'Kategori thumb hÃ¸jde <a href=# class=info>(?)<span>HÃ¸jden i pixels.<br />default=50<br />0=deaktiver hÃ¸jdetilpasning</span></a>';
 $txt['editsettings84'] = 'Produkt billede maks. bredde <a href=# class=info>(?)<span>Maksimum bredde i pixels.<br />default=450<br />9999=deaktiver maks</span></a>';
-$txt['editsettings85'] = 'Produkt billede maks. højde <a href=# class=info>(?)<span>Maksimum højde i pixels.<br />default=350<br />9999=deaktiver maks</span></a>';
+$txt['editsettings85'] = 'Produkt billede maks. hÃ¸jde <a href=# class=info>(?)<span>Maksimum hÃ¸jde i pixels.<br />default=350<br />9999=deaktiver maks</span></a>';
 $txt['editsettings86'] = 'Alle';
 $txt['editsettings87'] = 'Vis Nye produkter link';
 $txt['editsettings88'] = 'Brug WYSIWYG editor';
-$txt['editsettings89'] = 'Auto generer thumbnails <a href=# class=info>(?)<span>Automatisk dannelse af thumbnail, når et product billede oploades.<br />Afhængig af at <strong>GD extension</strong> er i drift</span></a>';
-$txt['editsettings90'] = 'Butiks beskrivelse <a href=# class=info>(?)<span>Beskrivelsen som benyttes af søgemaskiner til at indeksere din butik</span></a>';
-$txt['editsettings91'] = 'Varer pr. side <a href=# class=info>(?)<span>Antallet af varer pr. sidevisning.<br />0 = ingen begrænsning</span></a>';
+$txt['editsettings89'] = 'Auto generer thumbnails <a href=# class=info>(?)<span>Automatisk dannelse af thumbnail, nÃ¥r et product billede oploades.<br />AfhÃ¦ngig af at <strong>GD extension</strong> er i drift</span></a>';
+$txt['editsettings90'] = 'Butiks beskrivelse <a href=# class=info>(?)<span>Beskrivelsen som benyttes af sÃ¸gemaskiner til at indeksere din butik</span></a>';
+$txt['editsettings91'] = 'Varer pr. side <a href=# class=info>(?)<span>Antallet af varer pr. sidevisning.<br />0 = ingen begrÃ¦nsning</span></a>';
 $txt['editsettings92'] = 'Fravalgt';
 $txt['editsettings93'] = 'Advanceret';
 $txt['editsettings94'] = 'Simpel';
 $txt['editsettings95'] = 'Benyt Captcha <a href=# class=info>(?)<span>Benyt Captcha (anti-spambot) ved kontaktformular og kunde registrering </span></a>';
-$txt['editsettings96'] = 'Benyt billed popup <a href=# class=info>(?)<span>Benyt billed popup med bedre udseende<br />Javascript er nødvendig</span></a>';
-$txt['editsettings97'] = 'Position af møntsymbol';
+$txt['editsettings96'] = 'Benyt billed popup <a href=# class=info>(?)<span>Benyt billed popup med bedre udseende<br />Javascript er nÃ¸dvendig</span></a>';
+$txt['editsettings97'] = 'Position af mÃ¸ntsymbol';
 $txt['editsettings98'] = 'Brug denne template';
 $txt['editsettings99'] = 'Use stock level warning';
 $txt['editsettings100'] = 'Minimum antal';
@@ -457,32 +457,32 @@ $txt['editsettings104'] = 'Prisliste sortering';
 $txt['editsettings105'] = 'Beskrivelse';
 $txt['editsettings106'] = 'Pris';
 $txt['editsettings107'] = 'Activer Autosend <a href=# class=info>(?)<span>If turned on AND the payment method supports it, the customer will be automaticly be redirected to the payment portal of the select payment method</span></a>';
-$txt['editsettings108'] = 'opret PDF\'s <a href=# class=info>(?)<span>Hvis deaktiveret, når en kunde placere en ordre, ordrebekræftelsen vil blive konverteret til PDF og sendt som vedhæftet fil via mail</span></a>';
+$txt['editsettings108'] = 'opret PDF\'s <a href=# class=info>(?)<span>Hvis deaktiveret, nÃ¥r en kunde placere en ordre, ordrebekrÃ¦ftelsen vil blive konverteret til PDF og sendt som vedhÃ¦ftet fil via mail</span></a>';
 $txt['editsettings109'] = 'Benyt PHP Mail() <a href=# class=info>(?)<span>Use PHP Mail() to send mails</span></a>';
 
 // productadmin.php
 $txt['productadmin1'] = ' er blevet uploaded til ';
-$txt['productadmin2'] = 'Der var en fejl ved uploading af filen, prøv igen!';
+$txt['productadmin2'] = 'Der var en fejl ved uploading af filen, prÃ¸v igen!';
 $txt['productadmin3'] = 'Upload KUN .JPG, .png eller .GIF filer';
-$txt['productadmin4'] = 'Tilføj endnu et produkt';
+$txt['productadmin4'] = 'TilfÃ¸j endnu et produkt';
 $txt['productadmin5'] = 'Tilbage til produktlisten';
-$txt['productadmin6'] = 'Tilføj et produkt';
-$txt['productadmin7'] = 'Updatér et produkt';
-$txt['productadmin8'] = 'Tilføj nogle vare-grupper først';
+$txt['productadmin6'] = 'TilfÃ¸j et produkt';
+$txt['productadmin7'] = 'UpdatÃ©r et produkt';
+$txt['productadmin8'] = 'TilfÃ¸j nogle vare-grupper fÃ¸rst';
 $txt['productadmin9'] = 'ID';
 $txt['productadmin10'] = 'Beskrivelse <a href=# class=info>(?)<span>HTML code er tilladt</span></a>';
 $txt['productadmin11'] = 'Pris <a href=# class=info>(?)<span>format: 123456.78</span></a>';
 $txt['productadmin12'] = 'Lagerbeholdning';
-$txt['productadmin13'] = 'Lager (0|1|2) <a href=# class=info>(?)<span>0=ikke på lager<br>1=På lager<br>2=I restordre</span></a>';
-$txt['productadmin14'] = 'Skal varen placeres på forsiden?';
+$txt['productadmin13'] = 'Lager (0|1|2) <a href=# class=info>(?)<span>0=ikke pÃ¥ lager<br>1=PÃ¥ lager<br>2=I restordre</span></a>';
+$txt['productadmin14'] = 'Skal varen placeres pÃ¥ forsiden?';
 $txt['productadmin15'] = 'Ny vare';
-$txt['productadmin16'] = 'Tilføj produkt';
-$txt['productadmin17'] = 'Opdatér produkt';
+$txt['productadmin16'] = 'TilfÃ¸j produkt';
+$txt['productadmin17'] = 'OpdatÃ©r produkt';
 $txt['productadmin18'] = 'Gruppe/kategori';
-$txt['productadmin19'] = 'Vælg en JPG, PNG eller GIF fil';
+$txt['productadmin19'] = 'VÃ¦lg en JPG, PNG eller GIF fil';
 $txt['productadmin20'] = 'Upload';
 $txt['productadmin21'] = 'Upload et billede';
-$txt['productadmin22'] = 'Tilføj nogle kategorier først';
+$txt['productadmin22'] = 'TilfÃ¸j nogle kategorier fÃ¸rst';
 $txt['productadmin23'] = 'Du kan ikke uploade et billede, da dit produkt ikke har et ID';
 $txt['productadmin24'] = 'Slet billed';
 $txt['productadmin25'] = 'Billedet er slettet';
@@ -490,101 +490,101 @@ $txt['productadmin26'] = 'Produktet er fjernet';
 $txt['productadmin27'] = 'Ekstra options';
 $txt['productadmin28'] = 'Udarbejd thumbnails for alle billeder (Kan tage tid)';
 $txt['productadmin29'] = 'Alle thumbnails er dannet (hvor de manglede)..';
-$txt['productadmin30'] = 'Muligheder <a href=# class=info>(?)<span>Mulighed1:Rød,Hvis,Blå|Mulighed2:S,M,L<br />Ingen mellemrum!</span></a>';
-$txt['productadmin31'] = 'Vægt <a href=# class=info>(?)<span>Vægt bruges til udregning af fragt ved den totale vægt i en samlet ordre</span></a>';
+$txt['productadmin30'] = 'Muligheder <a href=# class=info>(?)<span>Mulighed1:RÃ¸d,Hvis,BlÃ¥|Mulighed2:S,M,L<br />Ingen mellemrum!</span></a>';
+$txt['productadmin31'] = 'VÃ¦gt <a href=# class=info>(?)<span>VÃ¦gt bruges til udregning af fragt ved den totale vÃ¦gt i en samlet ordre</span></a>';
 
 
 // groupadmin.php
 $txt['groupadmin1'] = ' er uploaded til ';
-$txt['groupadmin2'] = 'Der opstod en fejl ved upload af filen, prøv igen!';
+$txt['groupadmin2'] = 'Der opstod en fejl ved upload af filen, prÃ¸v igen!';
 $txt['groupadmin3'] = 'Upload KUN .jpg, .png eller .gif filer';
-$txt['groupadmin4'] = 'Gruppe tilføjet..';
+$txt['groupadmin4'] = 'Gruppe tilfÃ¸jet..';
 $txt['groupadmin5'] = 'Gruppe opdateret..';
 $txt['groupadmin6'] = 'Gruppe (og underliggende kategorier og produkter) slettet..';
-$txt['groupadmin7'] = 'Kategori tilføjet..';
+$txt['groupadmin7'] = 'Kategori tilfÃ¸jet..';
 $txt['groupadmin8'] = 'Kategori opdateret..';
 $txt['groupadmin9'] = 'Kategori flyttet..';
 $txt['groupadmin10'] = 'Kategori (og underliggende produkter) slettet..';
 $txt['groupadmin11'] = 'Gruppe navn';
-$txt['groupadmin12'] = 'Tilføj gruppe';
+$txt['groupadmin12'] = 'TilfÃ¸j gruppe';
 $txt['groupadmin13'] = 'Der er ingen grupper endnu';
 $txt['groupadmin14'] = 'Gruppe';
 $txt['groupadmin15'] = 'Nyt grupppe navn';
-$txt['groupadmin16'] = 'Opdatér gruppe';
+$txt['groupadmin16'] = 'OpdatÃ©r gruppe';
 $txt['groupadmin17'] = 'Slet gruppe';
 $txt['groupadmin18'] = 'Gruppe muligheder';
 $txt['groupadmin19'] = 'Kategori muligheder';
 $txt['groupadmin20'] = 'Kategori navn';
-$txt['groupadmin21'] = 'Tilføj kategori';
+$txt['groupadmin21'] = 'TilfÃ¸j kategori';
 $txt['groupadmin22'] = 'Kategori';
 $txt['groupadmin23'] = 'Nyt kategori navn';
-$txt['groupadmin24'] = 'Opdatér kategori';
+$txt['groupadmin24'] = 'OpdatÃ©r kategori';
 $txt['groupadmin25'] = 'Flyt kategori';
 $txt['groupadmin26'] = 'Slet kategori';
-$txt['groupadmin27'] = 'Vælg en .jpg, .png eller .gif billed-fil';
+$txt['groupadmin27'] = 'VÃ¦lg en .jpg, .png eller .gif billed-fil';
 $txt['groupadmin28'] = 'Upload';
 $txt['groupadmin29'] = 'Upload et billede';
 $txt['groupadmin30'] = 'Generelle muligheder';
 $txt['groupadmin31'] = 'Slet tomme kategorier og grupper';
 $txt['groupadmin32'] = 'antal kategorier slettet';
 $txt['groupadmin33'] = 'antal grupper slettet';
-$txt['groupadmin34'] = 'En gruppe med navnet  '.$gname.' findes allerede! Vælg et andet navn';
+$txt['groupadmin34'] = 'En gruppe med navnet  '.$gname.' findes allerede! VÃ¦lg et andet navn';
 $txt['groupadmin35'] = 'Gruppenavnet mangler';
 $txt['groupadmin36'] = 'Du har ikke indtastet et nyt gruppe navn';
-$txt['groupadmin37'] = 'En kategori med navnet  '.$cname.' findes allerede! Vælg et andet navn';
+$txt['groupadmin37'] = 'En kategori med navnet  '.$cname.' findes allerede! VÃ¦lg et andet navn';
 $txt['groupadmin38'] = 'Du har ikke indtastet et nyt kategori navn';
 $txt['groupadmin39'] = 'Kategorinavnet mangler';
 
 // uploadadmin.php
 $txt['uploadadmin1'] = ' er uploaded til ';
-$txt['uploadadmin2'] = 'Der opstod en fejl i upload af filen, prøv igen!';
+$txt['uploadadmin2'] = 'Der opstod en fejl i upload af filen, prÃ¸v igen!';
 $txt['uploadadmin3'] = 'Opload KUN  .sql filer';
 $txt['uploadadmin4'] = 'Upload en prisliste (.SQL)';
-$txt['uploadadmin5'] = 'Vælg en SQL fil';
+$txt['uploadadmin5'] = 'VÃ¦lg en SQL fil';
 $txt['uploadadmin6'] = 'Upload SQL';
 $txt['uploadadmin7'] = 'SQL filen er indsat i databasen';
 
 // adminedit.php
-$txt['adminedit1'] = 'Gem ændringer';
-$txt['adminedit2'] = 'Ændringerne er gemt...';
-$txt['adminedit3'] = 'Editéres for øjeblikket ';
+$txt['adminedit1'] = 'Gem Ã¦ndringer';
+$txt['adminedit2'] = 'Ã†ndringerne er gemt...';
+$txt['adminedit3'] = 'EditÃ©res for Ã¸jeblikket ';
 
 // shippingadmin.php
-$txt['shippingadmin1'] = 'Fragt metode tilføjet';
+$txt['shippingadmin1'] = 'Fragt metode tilfÃ¸jet';
 $txt['shippingadmin2'] = 'Fragt metode slettet';
-$txt['shippingadmin3'] = 'Fragt metode ændret';
+$txt['shippingadmin3'] = 'Fragt metode Ã¦ndret';
 $txt['shippingadmin4'] = 'Mulige fragt metoder';
 $txt['shippingadmin5'] = 'Beskrivelse';
 $txt['shippingadmin6'] = 'Pris';
 $txt['shippingadmin7'] = "Kun i $send_default_country?";
 $txt['shippingadmin8'] = 'Rediger';
 $txt['shippingadmin9'] = 'Slet';
-$txt['shippingadmin10'] = 'Tilføj';
+$txt['shippingadmin10'] = 'TilfÃ¸j';
 $txt['shippingadmin11'] = 'Redigere forsendelses lande';
 $txt['shippingadmin12'] = 'Muligheder';
 $txt['shippingadmin13'] = 'Betalings muligheder';
 $txt['shippingadmin14'] = 'Redigere fragt metode';
-$txt['shippingadmin15'] = 'OBS: Du er ved at ændre en system-forsendelses metode. Denne metode berører andre dele af webshoppen! Ret kun referencen til dit link, IKKE indholdet i metoden.';
+$txt['shippingadmin15'] = 'OBS: Du er ved at Ã¦ndre en system-forsendelses metode. Denne metode berÃ¸rer andre dele af webshoppen! Ret kun referencen til dit link, IKKE indholdet i metoden.';
 $txt['shippingadmin16'] = 'Redigere standard fragt land';
 $txt['shippingadmin17'] = 'Andre muligheder';
 $txt['shippingadmin18'] = 'Fra';
 $txt['shippingadmin19'] = 'Til';
 $txt['shippingadmin20'] = 'Pris';
-$txt['shippingadmin21'] = 'Fragtomkostning/vægtberegning fjernet';
+$txt['shippingadmin21'] = 'Fragtomkostning/vÃ¦gtberegning fjernet';
 
 // paymentadmin.php
-$txt['paymentadmin1'] = 'Betalingsmetode tilføjet';
+$txt['paymentadmin1'] = 'Betalingsmetode tilfÃ¸jet';
 $txt['paymentadmin2'] = 'Betalingsmetode slettet';
-$txt['paymentadmin3'] = 'Betalingsmetode ændret';
-$txt['paymentadmin4'] = 'Understøttede betalingsmetoder';
+$txt['paymentadmin3'] = 'Betalingsmetode Ã¦ndret';
+$txt['paymentadmin4'] = 'UnderstÃ¸ttede betalingsmetoder';
 $txt['paymentadmin5'] = 'Beskrivelse';
-$txt['paymentadmin6'] = 'Ændre betalingsmetode';
+$txt['paymentadmin6'] = 'Ã†ndre betalingsmetode';
 $txt['paymentadmin7'] = 'Betaling HTML kode';
 $txt['paymentadmin8'] = 'Redigere';
 $txt['paymentadmin9'] = 'Slet';
-$txt['paymentadmin10'] = 'Tilføj';
+$txt['paymentadmin10'] = 'TilfÃ¸j';
 $txt['paymentadmin11'] = 'Muligheder';
-$txt['paymentadmin12'] = 'OBS: Du er ved at ændre en system-betalings metode. Denne metode berører andre dele af webshoppen! Ret kun referencen til dit link, IKKE indholdet i metoden.';
+$txt['paymentadmin12'] = 'OBS: Du er ved at Ã¦ndre en system-betalings metode. Denne metode berÃ¸rer andre dele af webshoppen! Ret kun referencen til dit link, IKKE indholdet i metoden.';
 
 // errorlogadmin.php
 $txt['errorlogadmin1'] = 'Error log';
@@ -601,13 +601,13 @@ $txt['errorlogadmin9'] = 'The error log was cleared succesfully';
 $txt['pagesadmin1'] = 'Ekstra sider';
 $txt['pagesadmin2'] = 'Sidens navn';
 $txt['pagesadmin3'] = 'Options';
-$txt['pagesadmin4'] = 'Omdøb';
-$txt['pagesadmin5'] = 'Tilføj normal side';
-$txt['pagesadmin6'] = 'Siden er omdøbt';
+$txt['pagesadmin4'] = 'OmdÃ¸b';
+$txt['pagesadmin5'] = 'TilfÃ¸j normal side';
+$txt['pagesadmin6'] = 'Siden er omdÃ¸bt';
 $txt['pagesadmin7'] = 'Siden er slettet';
 $txt['pagesadmin8'] = 'Fejl!';
-$txt['pagesadmin9'] = 'Siden er tilføjet';
-$txt['pagesadmin10'] = 'Tilføj privat side';
+$txt['pagesadmin9'] = 'Siden er tilfÃ¸jet';
+$txt['pagesadmin10'] = 'TilfÃ¸j privat side';
 $txt['pagesadmin11'] = 'Skjult';
 
 // accessadmin.php
@@ -626,12 +626,12 @@ $txt['stockadmin2'] = 'Vis';
 $txt['stockadmin3'] = 'Lagerstyring';
 
 // mailinglist.php
-$txt['mailinglist1'] = 'Kopier/sæt ind i dit favourit mail program software';
+$txt['mailinglist1'] = 'Kopier/sÃ¦t ind i dit favourit mail program software';
 
 // discountadmin.php
 $txt['discountadmin2'] = 'Antal koder';
 $txt['discountadmin3'] = 'Rabat';
-$txt['discountadmin4'] = 'i Procenter? <a href=# class=info>(?)<span>hvis du vil give f.eks 10 % rabat skriv 10 i feltet, og markere "i Procenter", eller give et fast rabatbeløb, markeres så ikke</span></a>';
+$txt['discountadmin4'] = 'i Procenter? <a href=# class=info>(?)<span>hvis du vil give f.eks 10 % rabat skriv 10 i feltet, og markere "i Procenter", eller give et fast rabatbelÃ¸b, markeres sÃ¥ ikke</span></a>';
 $txt['discountadmin5'] = 'Opret koder';
 $txt['discountadmin6'] = 'Alle ubrugte koder';
 $txt['discountadmin7'] = 'Rabat kode';

@@ -1,6 +1,6 @@
 <?php
 // The character set we should use for this language. If you are unsure, use ISO-8859-1
-$charset = "ISO-8859-1";
+$charset = "UTF-8";
 
 // first some values that can also be used further along in this lang file
 // database values for shipping
@@ -120,8 +120,8 @@ $txt['browse12'] = 'Uitverkocht';
 $txt['browse13'] = 'In voorraad';
 
 // submenu.php
-$txt['submenu1'] = 'De categorieën in deze groep';
-$txt['submenu2'] = 'Geen categorieën gevonden in deze groep';
+$txt['submenu1'] = 'De categorieÃ«n in deze groep';
+$txt['submenu2'] = 'Geen categorieÃ«n gevonden in deze groep';
 
 // main.php
 $txt['main1'] = 'Welkom';
@@ -248,7 +248,7 @@ $txt['admin2'] = 'Orders';
 $txt['admin3'] = 'Klanten';
 $txt['admin4'] = 'Winkel';
 $txt['admin5'] = 'Producten';
-$txt['admin6'] = 'Groepen&<br />Categorieën';
+$txt['admin6'] = 'Groepen&<br />CategorieÃ«n';
 $txt['admin7'] = 'Optimaliseer database';
 $txt['admin8'] = 'Instellingen';
 $txt['admin9'] = 'SQL uploaden';
@@ -369,7 +369,7 @@ $txt['editsettings4'] = 'Standaard verzendland <a href=# class=info>(?)<span>Dit
 $txt['editsettings5'] = 'Toon voorraad niveau';
 $txt['editsettings7'] = 'Bijkomende kosten rembours <a href=# class=info>(?)<span>De extra kosten bovenop de normale verzendkosten als een klant kiest voor rembours. Format: 12.34</span></a>';
 $txt['editsettings8'] = 'Valuta';
-$txt['editsettings9'] = 'Valuta symbool <a href=# class=info>(?)<span>In uw geval waarschijnlijk: €</span></a>';
+$txt['editsettings9'] = 'Valuta symbool <a href=# class=info>(?)<span>In uw geval waarschijnlijk: Â€</span></a>';
 $txt['editsettings10'] = 'Betalingstermijn <a href=# class=info>(?)<span>Binnen hoeveel dagen moet het verschuldigde bedrag op uw rekening staan?</span></a>';
 $txt['editsettings11'] = 'Inclusief BTW <a href=# class=info>(?)<span>In uw geval waarschijnlijk: 1.19</span></a>';
 $txt['editsettings12'] = 'BTW tekst <a href=# class=info>(?)<span>In uw geval waarschijnlijk: 19%</span></a>';
@@ -403,10 +403,10 @@ $txt['editsettings44'] = 'De waarden zijn succesvol opgeslagen in de database';
 $txt['editsettings45'] = 'Bankgegevens';
 $txt['editsettings46'] = 'Opmaak';
 $txt['editsettings47'] = 'Winkel';
-$txt['editsettings48'] = 'Financiën';
+$txt['editsettings48'] = 'FinanciÃ«n';
 $txt['editsettings49'] = 'Nummer format';
 $txt['editsettings50'] = 'Maximale omschrijvingslengte <a href=# class=info>(?)<span>Dit is om de lengte van de omschrijvingen in de prijslijst in te korten. <br /><strong>0 = niet afkorten<br />1-99 = Afbreken op xx karakters</strong></span></a>';
-$txt['editsettings51'] = 'Geen BTW <a href=# class=info>(?)<span>Vink dit aan als u niet met BTW werkt, bijvoorbeeld omdat het een webwinkel met privé artikelen is</span></a>';
+$txt['editsettings51'] = 'Geen BTW <a href=# class=info>(?)<span>Vink dit aan als u niet met BTW werkt, bijvoorbeeld omdat het een webwinkel met privÃ© artikelen is</span></a>';
 $txt['editsettings52'] = 'Bank naam';
 $txt['editsettings53'] = 'Prijslijst format <a href=# class=info>(?)<span>Deze setting geldt voor de prijslijst, winkelwagen en orderbevestigings-email</span></a>';
 $txt['editsettings54'] = 'Product ID';
@@ -479,7 +479,7 @@ $txt['productadmin18'] = 'Groep/Categorie';
 $txt['productadmin19'] = 'Selecteer een jpg, png of gif bestand';
 $txt['productadmin20'] = 'Upload';
 $txt['productadmin21'] = 'Upload een afbeelding';
-$txt['productadmin22'] = 'Voeg eerst wat categorieën toe';
+$txt['productadmin22'] = 'Voeg eerst wat categorieÃ«n toe';
 $txt['productadmin23'] = 'Je kunt geen screenshot uploaden, omdat je product geen ID heeft';
 $txt['productadmin24'] = 'Verwijder deze afbeelding';
 $txt['productadmin25'] = 'Afbeelding succesvol verwijderd';
@@ -498,7 +498,7 @@ $txt['groupadmin2'] = 'Er is een fout opgetreden tijdens het uploaden. Probeer h
 $txt['groupadmin3'] = 'Upload aub alleen .jpg, .png of .gif bestanden';
 $txt['groupadmin4'] = 'Groep toegevoegd..';
 $txt['groupadmin5'] = 'Groep bijgewerkt..';
-$txt['groupadmin6'] = 'Groep (en onderliggende categorieën en producten) verwijderd..';
+$txt['groupadmin6'] = 'Groep (en onderliggende categorieÃ«n en producten) verwijderd..';
 $txt['groupadmin7'] = 'Categorie toegevoegd..';
 $txt['groupadmin8'] = 'Categorie bijgewerkt..';
 $txt['groupadmin9'] = 'Categorie verplaatst..';
@@ -523,8 +523,8 @@ $txt['groupadmin27'] = 'Selecteer een jpg, png of gif bestand';
 $txt['groupadmin28'] = 'Upload';
 $txt['groupadmin29'] = 'Upload een afbeelding';
 $txt['groupadmin30'] = 'Algemene opties';
-$txt['groupadmin31'] = 'Verwijder lege categorieën en groepen';
-$txt['groupadmin32'] = 'aantal categorieën verwijderd';
+$txt['groupadmin31'] = 'Verwijder lege categorieÃ«n en groepen';
+$txt['groupadmin32'] = 'aantal categorieÃ«n verwijderd';
 $txt['groupadmin33'] = 'aantal groepen verwijderd';
 $txt['groupadmin34'] = 'Er bestaat al een groep met de naam '.$gname.'. Kies een andere naam';
 $txt['groupadmin35'] = 'De groepnaam is leeg';
@@ -606,7 +606,7 @@ $txt['pagesadmin6'] = 'Pagina hernoemt';
 $txt['pagesadmin7'] = 'Pagina verwijderd';
 $txt['pagesadmin8'] = 'Mislukt';
 $txt['pagesadmin9'] = 'Pagina toegevoegd';
-$txt['pagesadmin10'] = 'Voeg privé pagina toe';
+$txt['pagesadmin10'] = 'Voeg privÃ© pagina toe';
 $txt['pagesadmin11'] = 'Verborgen';
 
 // accessadmin.php

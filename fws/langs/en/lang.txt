@@ -667,21 +667,20 @@ $txt['details100'] = 'Other products';
 
 //v1.2.7 - new
 $txt['admin100'] = 'Taxes';
-$txt['Rate'] = 'Rate';
-$txt['Label'] = 'Label';
-$txt['Cascading'] = 'Cascading';
+$txt['general100'] = 'Rate';
+$txt['general101'] = 'Label';
+$txt['taxes1'] = 'Cascading';
 $txt['checkout25'] = "including taxes";
 $txt['checkout102'] = "Taxes";
 $txt['checkout103'] = "Please accept conditions before proceeding";
 $txt['checkout104'] = "You will now be redirected to the payment portal to complete your order";
-$txt['Activate fast checkout'] = 'Activate fast checkout';
-$txt['show'] = 'show';
-$txt['hide'] = 'hide';
-$txt['Date of birth on registration form'] = 'Date of birth on registration form';
+$txt['editsettings110'] = 'Activate fast checkout';
+$txt['cart100'] = 'show';
+$txt['cart101'] = 'hide';
+$txt['editsettings111'] = 'Date of birth on registration form';
 
 //v1.2.7 - modified
 $txt['general5'] = 'taxes';
 $txt['editsettings51'] = 'No taxes <a href=# class=info>(?)<span>Enable this if you do not want to use VAT in your shop prices, for example when it is a webshop with personal products</span></a>';
 $txt['editsettings13'] = 'Prices in DB are incl. taxes';
-
 ?>

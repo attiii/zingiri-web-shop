@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 // The character set we should use for this language. If you are unsure, use ISO-8859-1
-$charset = "ISO-8859-1";
+$charset = "UTF-8";
 
 // first some values that can also be used further along in this lang file
 // database values for orders
@@ -510,7 +510,7 @@ $txt['productadmin27'] = 'Extra Optionen';
 $txt['productadmin28'] = 'Erstelle Vorschau f&uuml;r alle Bilder (kann etwas dauern)';
 $txt['productadmin29'] = 'Alle Vorschauen wurden erstellt..';
 $txt['productadmin30'] = 'Features <a href=# class=info>(?)<span>Feature1:Rot,Weiss,Blau|Feature2:Small,Medium,Large<br />No spaces!</span></a>';
-$txt['productadmin31'] = 'Gewicht <a href=# class=info>(?)<span>Das Gewicht wird f&uuml;r die Berechnung der Shipping Rate ben&ouml;tigt – es z&auml;hlt dann das Gesamtgewicht aller Positionen</span></a>';
+$txt['productadmin31'] = 'Gewicht <a href=# class=info>(?)<span>Das Gewicht wird f&uuml;r die Berechnung der Shipping Rate ben&ouml;tigt â es z&auml;hlt dann das Gesamtgewicht aller Positionen</span></a>';
 
 // groupadmin.php
 $txt['groupadmin1'] = ' wurde hochgeladen nach ';

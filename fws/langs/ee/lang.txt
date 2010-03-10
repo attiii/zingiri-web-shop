@@ -1,34 +1,34 @@
 <?php
 // The character set we should use for this language. If you are unsure, use ISO-8859-1
-$charset = "ISO-8859-1";
+$charset = "UTF-8";
 
 // first some values that can also be used further along in this lang file
 // database values for orders
-$txt['db_shipping1'] = 'Ostja tuleb ostule j‰rele olles aja kokku leppinud, k‰ttetoimetamise tasu puudub';
+$txt['db_shipping1'] = 'Ostja tuleb ostule j√§rele olles aja kokku leppinud, k√§ttetoimetamise tasu puudub';
 
 // database values for payments
 $txt['db_payment1'] = 'Maksmine panga kaudu';
-$txt['db_payment2'] = 'Maksmine poes (kehtib ainult kui ostja tuleb kaubale j‰rele)';
+$txt['db_payment2'] = 'Maksmine poes (kehtib ainult kui ostja tuleb kaubale j√§rele)';
 $txt['db_payment3'] = 'Maksmine PayPali kaudu';
-$txt['db_payment4'] = 'Maksmine k‰ttetoimetamisel';
+$txt['db_payment4'] = 'Maksmine k√§ttetoimetamisel';
 
 // order status
-$txt['db_status1'] = 'Tellimus on vastu vıetud';
+$txt['db_status1'] = 'Tellimus on vastu v√µetud';
 $txt['db_status2'] = 'Tellimus ootab maksmist';
 $txt['db_status3'] = 'Tellimus ootab aja kokkuleppimist';
 $txt['db_status4'] = 'Tellimus on menetlusel';
-$txt['db_status5'] = 'Tellimus on saadetud ostjale (t‰idetud)';
-$txt['db_status6'] = 'Tellimusel on ostja j‰rel k‰inud (t‰idetud)';
-$txt['db_status7'] = 'Tellimus t¸histatud';
+$txt['db_status5'] = 'Tellimus on saadetud ostjale (t√§idetud)';
+$txt['db_status6'] = 'Tellimusel on ostja j√§rel k√§inud (t√§idetud)';
+$txt['db_status7'] = 'Tellimus t√ºhistatud';
 
 $txt['db_status10'] = 'Staatuse selgitus';
-$txt['db_status11'] = 'Teie tellimus on vastu vıetud, kuid poe poolt veel kinnitamata';
-$txt['db_status12'] = 'Teie tellimus on kinnitatud. Teil tuleb tellimuse maksumus ¸le kanda meie pangakontole';
-$txt['db_status13'] = 'Teie tellimus on vastu vıetud. Me oleme saatnud Teile emaili teatega, et Te vıite oma ostule j‰rele tulla. Palun helistage meile ja leppige selleks kokku aeg.';
-$txt['db_status14'] = 'Teie makse on laekunud ja tellimus on vormistamisel. See t‰hendab, et me kas ootame toote saabumist vıi valmistume teda v‰lja saatma.';
-$txt['db_status15'] = 'Tellimus on saadetud posti teel. Tellimus on t‰idetud.';
-$txt['db_status16'] = 'Tellimusel on Teie poolt j‰rel k‰idud. Tellimus on t‰idetud.';
-$txt['db_status17'] = 'tellimus on t¸histatud kas Teie vıi meie korraldusel';
+$txt['db_status11'] = 'Teie tellimus on vastu v√µetud, kuid poe poolt veel kinnitamata';
+$txt['db_status12'] = 'Teie tellimus on kinnitatud. Teil tuleb tellimuse maksumus √ºle kanda meie pangakontole';
+$txt['db_status13'] = 'Teie tellimus on vastu v√µetud. Me oleme saatnud Teile emaili teatega, et Te v√µite oma ostule j√§rele tulla. Palun helistage meile ja leppige selleks kokku aeg.';
+$txt['db_status14'] = 'Teie makse on laekunud ja tellimus on vormistamisel. See t√§hendab, et me kas ootame toote saabumist v√µi valmistume teda v√§lja saatma.';
+$txt['db_status15'] = 'Tellimus on saadetud posti teel. Tellimus on t√§idetud.';
+$txt['db_status16'] = 'Tellimusel on Teie poolt j√§rel k√§idud. Tellimus on t√§idetud.';
+$txt['db_status17'] = 'tellimus on t√ºhistatud kas Teie v√µi meie korraldusel';
 
 // database values for stock
 $txt['db_stock1'] = 'Laos olemas';
@@ -36,46 +36,46 @@ $txt['db_stock2'] = 'Puudub laost';
 $txt['db_stock3'] = 'Tellimisel';
 
 $txt['db_stock10'] = 'Toote laoseisu selgitus';
-$txt['db_stock11'] = 'Toode on laos olemas. Kui Te tellite praegu, siis jıuab toode Teieni kiiresti.';
+$txt['db_stock11'] = 'Toode on laos olemas. Kui Te tellite praegu, siis j√µuab toode Teieni kiiresti.';
 $txt['db_stock12'] = 'Toode puudub hetkel laost';
 $txt['db_stock13'] = 'Toode on tellimisel seega saabub varsti lattu';
 
 // general values
-$txt['general1'] = 'Juurdep‰‰s keelatud!';
+$txt['general1'] = 'Juurdep√§√§s keelatud!';
 $txt['general2'] = 'Teie IP aadress on salvestatud et ennetada edasist valekasutust';
 $txt['general3'] = 'uus';
 $txt['general4'] = 'Tagasi admini valikute juurde';
 $txt['general5'] = 'KM';
 $txt['general6'] = 'v.a.';
 $txt['general7'] = 'k.a.';
-$txt['general8'] = 'TƒHELEPANU: Veebipood on suletud! Klientidel pole vıimalik ringi liikuda ja tooteid tellida';
-$txt['general9'] = '404 error. Lehek¸lge ei leitud!';
-$txt['general10'] = 'Teid on kırvaldatud selle veebipoe kasutajate hulgast';
+$txt['general8'] = 'T√ÑHELEPANU: Veebipood on suletud! Klientidel pole v√µimalik ringi liikuda ja tooteid tellida';
+$txt['general9'] = '404 error. Lehek√ºlge ei leitud!';
+$txt['general10'] = 'Teid on k√µrvaldatud selle veebipoe kasutajate hulgast';
 $txt['general11'] = 'Meist';
 $txt['general12'] = 'Error';
 $txt['general13'] = 'Teavitus';
 $txt['general14'] = 'Tagasi';
-$txt['general15'] = 'Tr¸kkige see kood';
+$txt['general15'] = 'Tr√ºkkige see kood';
 $txt['general16'] = 'Kood oli vale. Palun proovige uuesti';
 
 // header.php
 $txt['header1'] = 'Turvarisk';
 $txt['header2'] = 'Tere tulemast';
-$txt['header3'] = 'k¸laline';
-$txt['header4'] = '<font color=red><strong>install.php</strong></font> leitud. Te peate kas kustutama/ringinimetama selle faili enne kui saate j‰tkata!';
+$txt['header3'] = 'k√ºlaline';
+$txt['header4'] = '<font color=red><strong>install.php</strong></font> leitud. Te peate kas kustutama/ringinimetama selle faili enne kui saate j√§tkata!';
 
 // menu.php
 $txt['menu1'] = 'Kodu';
 $txt['menu2'] = 'Ostukorv';
 $txt['menu3'] = 'Maksmisele';
 $txt['menu4'] = 'Otsing';
-$txt['menu5'] = '‹ldised tingimused';
-$txt['menu6'] = 'K‰ttetoimetus';
+$txt['menu5'] = '√úldised tingimused';
+$txt['menu6'] = 'K√§ttetoimetus';
 $txt['menu7'] = 'Garantii';
 $txt['menu8'] = 'Kontakt';
 $txt['menu9'] = 'Administratsioon';
 $txt['menu10'] = 'Isiklik leht';
-$txt['menu11'] = 'Logi v‰lja';
+$txt['menu11'] = 'Logi v√§lja';
 $txt['menu12'] = 'Logi sisse';
 $txt['menu13'] = 'Registreeru';
 $txt['menu14'] = 'Informatsioon';
@@ -86,38 +86,38 @@ $txt['menu18'] = 'Meist';
 $txt['menu19'] = 'Extra';
 
 // sendprocedure.php
-$txt['send1'] = 'K‰ttetoimetusmeetod';
+$txt['send1'] = 'K√§ttetoimetusmeetod';
 
 // cart.php
 $txt['cart1'] = 'Ostukorv';
-$txt['cart2'] = 'Teie ostukorv on t¸hi.<br /><br />';
+$txt['cart2'] = 'Teie ostukorv on t√ºhi.<br /><br />';
 $txt['cart3'] = 'Kirjeldus';
 $txt['cart4'] = 'Hind';
 $txt['cart5'] = 'Kogus';
 $txt['cart6'] = 'Kustuta';
 $txt['cart7'] = 'Kokku';
-$txt['cart8'] = 'T¸hjenda';
+$txt['cart8'] = 'T√ºhjenda';
 $txt['cart9'] = 'Maksmisele';
 $txt['cart10'] = 'Uuenda';
 $txt['cart11'] = 'Mis on Teie ostukorvis';
-$txt['cart12'] = 'J‰tkan ostmist';
+$txt['cart12'] = 'J√§tkan ostmist';
 
 // browse.php
 $txt['browse1'] = 'Otsingu tulemused';
 $txt['browse2'] = 'Toote kirjeldus';
 $txt['browse3'] = 'Hind';
 $txt['browse4'] = 'Sorteeri';
-$txt['browse5'] = '‹htki toodet ei leitud';
-$txt['browse6'] = 'TƒHELEPANU: Mingeid ıigusi ei tulene kujutiste v‰ljan‰gemisest. Hinnad on esitatud reservatsioonidega';
+$txt['browse5'] = '√úhtki toodet ei leitud';
+$txt['browse6'] = 'T√ÑHELEPANU: Mingeid √µigusi ei tulene kujutiste v√§ljan√§gemisest. Hinnad on esitatud reservatsioonidega';
 $txt['browse7'] = 'muuda';
 $txt['browse8'] = 'kustuta';
 $txt['browse9'] = 'Tooteloetelu';
 $txt['browse10'] = 'muuda kujutist';
-$txt['browse11'] = 'Lehek¸ljed';
+$txt['browse11'] = 'Lehek√ºljed';
 
 // submenu.php
 $txt['submenu1'] = 'Kategooriad selles grupis';
-$txt['submenu2'] = '‹htegi kategooriat ei leitud selles grupis';
+$txt['submenu2'] = '√úhtegi kategooriat ei leitud selles grupis';
 
 // main.php
 $txt['main1'] = 'Tere tulemast';
@@ -134,66 +134,66 @@ $txt['details8'] = 'Tagasi loetelu juurde';
 $txt['details9'] = 'Kliki suurenduseks';
 
 // conditions.php
-$txt['conditions1'] = 'Nıustun ¸ldiste tingimustega';
-$txt['conditions2'] = 'Ei nıustu ¸ldiste tingimustega';
+$txt['conditions1'] = 'N√µustun √ºldiste tingimustega';
+$txt['conditions2'] = 'Ei n√µustu √ºldiste tingimustega';
 $txt['conditions3'] = 'Peatatud';
-$txt['conditions4'] = 'Tellimine pole hetkel vıimalik';
+$txt['conditions4'] = 'Tellimine pole hetkel v√µimalik';
 
 // shipping.php
-$txt['shipping1'] = 'K‰ttetoimetamine ja maksmine';
-$txt['shipping2'] = 'Valige k‰ttetoimetamise meetod';
-$txt['shipping3'] = 'T‰iendavad kommentaarid/k¸simused';
+$txt['shipping1'] = 'K√§ttetoimetamine ja maksmine';
+$txt['shipping2'] = 'Valige k√§ttetoimetamise meetod';
+$txt['shipping3'] = 'T√§iendavad kommentaarid/k√ºsimused';
 $txt['shipping9'] = 'Vormista tellimus';
 $txt['shipping10'] = 'Vali maksmise meetod';
 
 // checkout.php
-$txt['checkout2'] = 'See lehek¸lg on aegunud. Minge tagasi ostukorvi juurde ja klikkige Maksmisele nuppu';
-$txt['checkout3'] = "Lugupeetud h‰rra/proua/preili $lastname,<br /><br /><br />See teade on Teie tellimuse kinnituseks poest <a href=$shopurl>$shopname</a><br /><br />Teie tellimuse ID on: $webid<br />Teie kliendi ID on: $customerid<br /><br />Te olete tellinud alltoodud tooted:<br />";
+$txt['checkout2'] = 'See lehek√ºlg on aegunud. Minge tagasi ostukorvi juurde ja klikkige Maksmisele nuppu';
+$txt['checkout3'] = "Lugupeetud h√§rra/proua/preili $lastname,<br /><br /><br />See teade on Teie tellimuse kinnituseks poest <a href=$shopurl>$shopname</a><br /><br />Teie tellimuse ID on: $webid<br />Teie kliendi ID on: $customerid<br /><br />Te olete tellinud alltoodud tooted:<br />";
 $txt['checkout4'] = ' x toode ';
 $txt['checkout5'] = ' a tk';
 $txt['checkout6'] = "<br />";
-$txt['checkout7'] = 'Te p¸¸dsite tellida:';
+$txt['checkout7'] = 'Te p√º√ºdsite tellida:';
 $txt['checkout8'] = 'Hetke laoseis:';
-$txt['checkout9'] = "<br /><br />Teil on vıimalus vaadata oma tellimuse staatust igal ajal klikkides <a href=$shopurl/index.php?page=orders&id=$customerid>siia</a><br /><br />T‰name Teid ostu eest.<br />Kui Teil on k¸simusi, siis palun vıtke meiega ¸hendust (kontaktandmed leiate meie veebilehelt)";
+$txt['checkout9'] = "<br /><br />Teil on v√µimalus vaadata oma tellimuse staatust igal ajal klikkides <a href=$shopurl/index.php?page=orders&id=$customerid>siia</a><br /><br />T√§name Teid ostu eest.<br />Kui Teil on k√ºsimusi, siis palun v√µtke meiega √ºhendust (kontaktandmed leiate meie veebilehelt)";
 $txt['checkout10'] = 'Tellimuse kinnitus poest '.$shopname;
-$txt['checkout11'] = 'Teie tellimus on valmis. Kinnitusega e-mail on Teile v‰lja saadetud.';
-$txt['checkout12'] = 'Kinnitusega e-maili polnud vıimalik saata. Palun tr¸kkige v‰lja alltoodud kinnitus.';
+$txt['checkout11'] = 'Teie tellimus on valmis. Kinnitusega e-mail on Teile v√§lja saadetud.';
+$txt['checkout12'] = 'Kinnitusega e-maili polnud v√µimalik saata. Palun tr√ºkkige v√§lja alltoodud kinnitus.';
 $txt['checkout13'] = 'All on kinnitusega e-maili koopia:';
 $txt['checkout15'] = 'Teie tellitud toote hetke laoseis ei ole piisav.';
-$txt['checkout16'] = "K‰ttetoimetamise meetod: ";
-$txt['checkout17'] = "K‰ttetoimetamise aadress:<br />$company<br />$address<br />$zipcode  $city<br />$state<br />$country";
+$txt['checkout16'] = "K√§ttetoimetamise meetod: ";
+$txt['checkout17'] = "K√§ttetoimetamise aadress:<br />$company<br />$address<br />$zipcode  $city<br />$state<br />$country";
 $txt['checkout19'] = "Maksmise meetod: ";
 $txt['checkout20'] = "Panga rekvisiidid:<br />Konto number: $bankaccount<br />Konto omanik: $bankaccountowner<br />Linn: $bankcity<br />Riik: $bankcountry<br />Panga nimi: $bankname<br />IBAN: $bankiban<br />BIC: $bankbic<br />Teema/Viide: $webid";
 $txt['checkout21'] = "Toote lattu saabumisel saadame Teile e-maili, et aeg kokku leppida.";
 $txt['checkout22'] = "Kasutage meile maksmiseks oma PayPal arvet.";
-$txt['checkout23'] = "Tellimuse k‰ttetoimetamisel on Teie tasuda postikulud.";
+$txt['checkout23'] = "Tellimuse k√§ttetoimetamisel on Teie tasuda postikulud.";
 $txt['checkout24'] = "Kogu tasumisele kuuluv summa on: $currency_symbol_pre $totalprint $currency_symbol_post (kaasa arvatud $currency_symbol $print_sendcosts postitus)";
 $txt['checkout25'] = "sisaldades $show_vat ".$txt['general5'];
-$txt['checkout26'] = "Palun kandke kogu summa ¸le $paymentdays p‰eva jooksul. Peale Teie makse laekumist l‰heb tellimus edasisele menetlemisele ja vıimalikult kiirele k‰ttetoimetamisele.";
+$txt['checkout26'] = "Palun kandke kogu summa √ºle $paymentdays p√§eva jooksul. Peale Teie makse laekumist l√§heb tellimus edasisele menetlemisele ja v√µimalikult kiirele k√§ttetoimetamisele.";
 $txt['checkout27'] = 'PayPal makse';
 
 // search.php
 $txt['search1'] = 'Leidke toode';
 $txt['search2'] = 'Otsige toodet';
 $txt['search3'] = 'Otsingu meetod';
-$txt['search4'] = 'Valige kıik sınad';
-$txt['search5'] = 'Valige ¸kskıik milline sına';
+$txt['search4'] = 'Valige k√µik s√µnad';
+$txt['search5'] = 'Valige √ºksk√µik milline s√µna';
 $txt['search6'] = 'Otsi';
 
 // guarantee.php
 $txt['guarantee1'] = 'Garantii';
 
 // contact.php
-$txt['contact1'] = 'Esitage k¸simus vormil '. $shopurl;
+$txt['contact1'] = 'Esitage k√ºsimus vormil '. $shopurl;
 $txt['contact2'] = 'Teade saadetud';
-$txt['contact3'] = 'Teie teade on saadetud. Vajadusel p¸¸ame Teie teatele vastata vıimalikult kiiresti';
-$txt['contact5'] = 'Teil on vaja t‰ita kıik vormi v‰ljad.<br /><a href="javascript:history.go(-1)"><strong>Klikkige siia</strong></a> tagasi minekuks.';
+$txt['contact3'] = 'Teie teade on saadetud. Vajadusel p√º√ºame Teie teatele vastata v√µimalikult kiiresti';
+$txt['contact5'] = 'Teil on vaja t√§ita k√µik vormi v√§ljad.<br /><a href="javascript:history.go(-1)"><strong>Klikkige siia</strong></a> tagasi minekuks.';
 $txt['contact6'] = 'Kontakt';
-$txt['contact7'] = 'Kuidas ¸hendust saada';
+$txt['contact7'] = 'Kuidas √ºhendust saada';
 $txt['contact8'] = 'E-mail';
 $txt['contact9'] = 'Telephone';
 $txt['contact10'] = 'Fax';
-$txt['contact11'] = 'Meiega veebilehe kaudu ¸henduse vıtmiseks kasutage palun alltoodud vormi:';
+$txt['contact11'] = 'Meiega veebilehe kaudu √ºhenduse v√µtmiseks kasutage palun alltoodud vormi:';
 $txt['contact12'] = 'Saata kellele';
 $txt['contact13'] = 'Teie nimi';
 $txt['contact14'] = 'Teie e-maili aadress';
@@ -202,11 +202,11 @@ $txt['contact15'] = 'Teie teade';
 // checklogin.php
 $txt['checklogin1'] = 'Sisse logimiseks kasutage oma isiklikku koodi';
 $txt['checklogin2'] = 'Login nimi';
-$txt['checklogin3'] = 'Salasına';
+$txt['checklogin3'] = 'Salas√µna';
 $txt['checklogin4'] = 'Logige sisse';
 $txt['checklogin5'] = 'Kui Teil pole veel kliendi IDd, siis klikkige siia';
 $txt['checklogin6'] = 'Miks astuda liikmeks?';
-$txt['checklogin7'] = 'Selleks et osta tooteid sellelt veebilehelt peate astuma veebilehe liikmeks. Registreerimise k‰igus on meil vaja Teie nime, k‰ttetoimetamiseaadressi, e-maili, jne. Seda informatsiooni on meil tarvis selleks, et Teie tellimusi korrektselt menetleda.<br /><br /><strong>Teie andmeid kasutatakse ainult meie veebilehe siseselt.</strong><br /><br /><br />Peale registreerimist saate Te lisaks muudele toimingutele teha÷:<ul><li>Sisse logida veebipoodi ¸kskıik milliselt PC arvutilt<li>Tellida tooteid<li>J‰lgida juba sooritatud tellimuste kulgu<li>Hallata oma ostukorvi</ul>';
+$txt['checklogin7'] = 'Selleks et osta tooteid sellelt veebilehelt peate astuma veebilehe liikmeks. Registreerimise k√§igus on meil vaja Teie nime, k√§ttetoimetamiseaadressi, e-maili, jne. Seda informatsiooni on meil tarvis selleks, et Teie tellimusi korrektselt menetleda.<br /><br /><strong>Teie andmeid kasutatakse ainult meie veebilehe siseselt.</strong><br /><br /><br />Peale registreerimist saate Te lisaks muudele toimingutele teha√ñ:<ul><li>Sisse logida veebipoodi √ºksk√µik milliselt PC arvutilt<li>Tellida tooteid<li>J√§lgida juba sooritatud tellimuste kulgu<li>Hallata oma ostukorvi</ul>';
 $txt['checklogin8'] = 'Unustatud sisselogimise andmed';
 $txt['checklogin9'] = 'Palun sisestage emaili aadress mida Te kasutasite registreerimisel. Teie sisselogimisandmed saadetakse sellele emaili aadressile.';
 $txt['checklogin10'] = 'Saatke mail';
@@ -219,20 +219,20 @@ $txt['checklogin18'] = 'Tagasi';
 
 // login.php
 $txt['login1'] = 'Viga sisselogimisel.. palun oodake';
-$txt['login2'] = 'vıi klikkige siia';
+$txt['login2'] = 'v√µi klikkige siia';
 $txt['login3'] = 'Olete sisselogitud.. palun oodake';
 
 // logout.php
-$txt['logout1'] = 'Olete v‰ljalogitud..';
+$txt['logout1'] = 'Olete v√§ljalogitud..';
 
 // my.php
-$txt['my3'] = 'Teie isiklikust lehek¸ljest';
-$txt['my4'] = 'See on Teie isiklik lehek¸lg. Ainult Teil on juurdep‰‰s sellele lehele olles korralikult veebipoodi sisse loginud kasutades sisselogimisnime ja salasına.<br /><br />Selles vaates saate n‰ha oma isiklikke andmeid, tellimusi ja ostukorvi sisu. Kıiki neid tegevusi saate teostada ¸hest vaatest.';
+$txt['my3'] = 'Teie isiklikust lehek√ºljest';
+$txt['my4'] = 'See on Teie isiklik lehek√ºlg. Ainult Teil on juurdep√§√§s sellele lehele olles korralikult veebipoodi sisse loginud kasutades sisselogimisnime ja salas√µna.<br /><br />Selles vaates saate n√§ha oma isiklikke andmeid, tellimusi ja ostukorvi sisu. K√µiki neid tegevusi saate teostada √ºhest vaatest.';
 $txt['my5'] = 'Isikliku lehe valikud';
 $txt['my6'] = 'Teie kliendi ID';
 $txt['my7'] = 'Muuta andmeid';
-$txt['my8'] = 'N‰idata tellimusi';
-$txt['my9'] = 'N‰idata ostukorvi';
+$txt['my8'] = 'N√§idata tellimusi';
+$txt['my9'] = 'N√§idata ostukorvi';
 
 // admin.php
 $txt['admin1'] = 'Poe Administreerimine';
@@ -243,19 +243,19 @@ $txt['admin5'] = 'Tooted';
 $txt['admin6'] = 'Gruppid&<br />Kategooriad';
 $txt['admin7'] = 'Optimeeri andmebaasi';
 $txt['admin8'] = 'Seaded';
-$txt['admin9'] = 'Laadi ¸les hinnakiri';
-$txt['admin10'] = 'Kıikide andmebaasi tabelite optimeerimine..';
+$txt['admin9'] = 'Laadi √ºles hinnakiri';
+$txt['admin10'] = 'K√µikide andmebaasi tabelite optimeerimine..';
 $txt['admin11'] = 'Optimeerimine';
 $txt['admin12'] = 'Optimeerimine tehtud!';
 $txt['admin13'] = 'Info ja tugi';
 $txt['admin14'] = 'Kontrolli uuendusi';
-$txt['admin15'] = '‹ldised tingimused';
-$txt['admin16'] = 'K‰ttetoimetuse lehek¸lg';
-$txt['admin17'] = 'Garantii lehek¸lg';
-$txt['admin18'] = 'K‰ttetoimetamise valikud';
-$txt['admin19'] = 'Kırvaldatute nimekiri';
+$txt['admin15'] = '√úldised tingimused';
+$txt['admin16'] = 'K√§ttetoimetuse lehek√ºlg';
+$txt['admin17'] = 'Garantii lehek√ºlg';
+$txt['admin18'] = 'K√§ttetoimetamise valikud';
+$txt['admin19'] = 'K√µrvaldatute nimekiri';
 $txt['admin20'] = 'Meist';
-$txt['admin21'] = 'Maksevıimalused';
+$txt['admin21'] = 'Maksev√µimalused';
 $txt['admin22'] = 'Esileht';
 $txt['admin23'] = 'Muuta seadeid';
 $txt['admin24'] = 'Muuta faile';
@@ -264,32 +264,32 @@ $txt['admin26'] = 'Error log';
 $txt['admin27'] = 'Varukoopia Andmebaasist';
 $txt['admin28'] = 'Varukoopia valmis. Varukoopia allalaadimiseks klikkige allolevat linki';
 $txt['admin29'] = 'Adminnid';
-$txt['admin30'] = 'Extra lehek¸ljed';
+$txt['admin30'] = 'Extra lehek√ºljed';
 
 // customeradmin.php
 $txt['customeradmin1'] = 'Perekonnanimi';
-$txt['customeradmin2'] = 'Liitumise kuup‰ev';
+$txt['customeradmin2'] = 'Liitumise kuup√§ev';
 $txt['customeradmin3'] = 'E-mail';
 $txt['customeradmin4'] = 'Telephone';
 $txt['customeradmin5'] = 'Valikud';
 $txt['customeradmin6'] = 'Liikmete administreerimine';
-$txt['customeradmin7'] = 'See isik on n¸¸d Administraatorite grupi liige';
-$txt['customeradmin8'] = 'See isik on n¸¸d Klientide grupi liige';
-$txt['customeradmin9'] = '‹htki klienti ei leitud';
+$txt['customeradmin7'] = 'See isik on n√º√ºd Administraatorite grupi liige';
+$txt['customeradmin8'] = 'See isik on n√º√ºd Klientide grupi liige';
+$txt['customeradmin9'] = '√úhtki klienti ei leitud';
 
 // orderadmin.php
 $txt['orderadmin1'] = 'Teie tellimuse staatus ';
 $txt['orderadmin2'] = ' on muutunud';
-$txt['orderadmin3'] = 'Tellimus on kırvaldatud';
+$txt['orderadmin3'] = 'Tellimus on k√µrvaldatud';
 $txt['orderadmin4'] = "<br /><br /><a href=\"$shopurl/index.php?page=orders&id=";
 $txt['orderadmin5'] = '">Klikkige siia</a> tellimuse hetkeseisu vaatamiseks';
 $txt['orderadmin6'] = 'E-mail saadetud';
 $txt['orderadmin7'] = 'e-mail kliendile?';
 $txt['orderadmin8'] = 'Uuenda';
-$txt['orderadmin9'] = 'kıik tellimused';
-$txt['orderadmin10'] = 'Teie poolt n‰idatud staatusega tellimusi ei leitud';
-$txt['orderadmin11'] = 'N‰idata';
-$txt['orderadmin12'] = 'TƒHELEPANU: Klient on lisanud extra m‰rkmeid!';
+$txt['orderadmin9'] = 'k√µik tellimused';
+$txt['orderadmin10'] = 'Teie poolt n√§idatud staatusega tellimusi ei leitud';
+$txt['orderadmin11'] = 'N√§idata';
+$txt['orderadmin12'] = 'T√ÑHELEPANU: Klient on lisanud extra m√§rkmeid!';
 $txt['orderadmin13'] = 'Tellimuste administreerimine';
 $txt['orderadmin14'] = 'Muuta staatus';
 $txt['orderadmin15'] = 'Tellimuse staatus muudetud';
@@ -297,29 +297,29 @@ $txt['orderadmin15'] = 'Tellimuse staatus muudetud';
 // orders.php
 $txt['orders3'] = 'Teie tellimused <a href=# class=info>(?)<span>Allpool on toodud Teie tellimuste loetelu ja nende hetke staatus<br />Tellimuse detailide vaatamiseks klikkige tellimuse IDle</span></a>';
 $txt['orders4'] = 'Tellimuse ID';
-$txt['orders5'] = 'K‰ttetoimetamine&Maksmine';
+$txt['orders5'] = 'K√§ttetoimetamine&Maksmine';
 $txt['orders6'] = 'Arve summa';
-$txt['orders7'] = 'Tellimuse kuup‰ev';
+$txt['orders7'] = 'Tellimuse kuup√§ev';
 $txt['orders8'] = 'Staatus';
-$txt['orders9'] = 'Te pole meie veebipoes veel ¸htegi tellimust esitanud';
+$txt['orders9'] = 'Te pole meie veebipoes veel √ºhtegi tellimust esitanud';
 
 // customer.php
 $txt['customer1'] = 'State';
 $txt['customer2'] = 'Klient eemaldatud';
 $txt['customer3'] = 'Tagasi';
-$txt['customer5'] = 'Te peate enne j‰tkamist vead kırvaldama';
-$txt['customer6'] = 'Kıik (*) m‰rgitud v‰ljad tuleb t‰ita';
-$txt['customer7'] = 'T¸hikud pole Logintunnuses lubatud';
-$txt['customer8'] = 'Salasınade vahel on erinevus';
-$txt['customer9'] = 'Teie salasına peab olema v‰hemalt 5 t‰he pikkune';
+$txt['customer5'] = 'Te peate enne j√§tkamist vead k√µrvaldama';
+$txt['customer6'] = 'K√µik (*) m√§rgitud v√§ljad tuleb t√§ita';
+$txt['customer7'] = 'T√ºhikud pole Logintunnuses lubatud';
+$txt['customer8'] = 'Salas√µnade vahel on erinevus';
+$txt['customer9'] = 'Teie salas√µna peab olema v√§hemalt 5 t√§he pikkune';
 $txt['customer10'] = 'Olete sisestanud mitteloetava emaili aadressi';
 $txt['customer11'] = "Tere tulemast $shopname";
-$txt['customer12'] = "Austatud hr,pr  $tussenvoegsels $naam,<br /><br />T‰name Teid liitumise eest $shopname veebipoega (<a href=\"$shopurl\">$shopurl</a>).<br /><br />N¸¸dsest on Teil vıimalus meie veebipoodi sisse logida ja tellida tooteid<br />vıi vaadata oma esitatud tellimuste staatust.<br /><br />Teie sisselogimisandmed on:<br />Login nimi:  $login<br />Salasına: $pass1<br /><br />Palun hoidke neid andmeid turvaliselt!<br /><br />Peatse kohtumiseni meie poes <a href=\"$shopurl\">$shopurl</a><br /><br />Parimate soovidega,<br /><br /><br />Veebihaldur";
+$txt['customer12'] = "Austatud hr,pr  $tussenvoegsels $naam,<br /><br />T√§name Teid liitumise eest $shopname veebipoega (<a href=\"$shopurl\">$shopurl</a>).<br /><br />N√º√ºdsest on Teil v√µimalus meie veebipoodi sisse logida ja tellida tooteid<br />v√µi vaadata oma esitatud tellimuste staatust.<br /><br />Teie sisselogimisandmed on:<br />Login nimi:  $login<br />Salas√µna: $pass1<br /><br />Palun hoidke neid andmeid turvaliselt!<br /><br />Peatse kohtumiseni meie poes <a href=\"$shopurl\">$shopurl</a><br /><br />Parimate soovidega,<br /><br /><br />Veebihaldur";
 $txt['customer13'] = 'Teie informatsioon on edukalt salvestatud.';
-$txt['customer14'] = 'Palun esitage nii palju informatsiooni kui vıimalik';
+$txt['customer14'] = 'Palun esitage nii palju informatsiooni kui v√µimalik';
 $txt['customer15'] = 'Kasutajatunnus';
-$txt['customer16'] = 'Salasına';
-$txt['customer17'] = 'Salasına veelkord';
+$txt['customer16'] = 'Salas√µna';
+$txt['customer17'] = 'Salas√µna veelkord';
 $txt['customer18'] = 'Perekonnanimi';
 $txt['customer19'] = 'Prefix';
 $txt['customer20'] = 'Initsiaalid';
@@ -329,43 +329,43 @@ $txt['customer23'] = 'Linn';
 $txt['customer24'] = 'Riik';
 $txt['customer25'] = 'Telephone';
 $txt['customer26'] = 'E-mail';
-$txt['customer27'] = '* = kohustuslikud v‰ljad';
+$txt['customer27'] = '* = kohustuslikud v√§ljad';
 $txt['customer28'] = 'Salvestada andmed';
 $txt['customer29'] = 'Teie valitud kasutajanimi on juba kasutusel teise liikme poolt';
-$txt['customer30'] = 'Ettevıte';
-$txt['customer32'] = 'Te proovisite kustutada administraatori kontot. See muudaks vıimatuks Teie juurdep‰‰su veebipoele. Teie k‰skluse t‰itmisest on keeldutud.';
-$txt['customer33'] = '(5 ja 10 t‰hem‰rgi vahel)';
+$txt['customer30'] = 'Ettev√µte';
+$txt['customer32'] = 'Te proovisite kustutada administraatori kontot. See muudaks v√µimatuks Teie juurdep√§√§su veebipoele. Teie k√§skluse t√§itmisest on keeldutud.';
+$txt['customer33'] = '(5 ja 10 t√§hem√§rgi vahel)';
 $txt['customer34'] = 'Teie valitud emaili aadress on juba kasutusel teise liikme poolt';
 $txt['customer35'] = 'Sisselogimiseks klikkige siia';
 $txt['customer36'] = 'Uus klient';
 $txt['customer37'] = 'Uus klient on registreerinud ennast veebipoodi. Temale saadetud emaili koopia leiate alltoodult:';
 
 // readorder.php
-$txt['readorder1'] = 'Tr¸kkida tellimus';
+$txt['readorder1'] = 'Tr√ºkkida tellimus';
 $txt['readorder2'] = 'Tagasi oma tellimuste juurde';
 
 // editsettings.php
 $txt['editsettings1'] = 'Muuta seadeid';
 $txt['editsettings2'] = 'Salvestada seaded';
-$txt['editsettings4'] = 'Postituse riik <a href=# class=info>(?)<span>Harilikult on see riik kus Teie ettevıte asub</span></a>';
-$txt['editsettings7'] = 'Postituse k‰ttetoimetamisel makstav lisatasu <a href=# class=info>(?)<span>Lisaks harilikele postituskuludele on sellel k‰ttetoimetamise viisil lisatasu. Formaat: 12.34</span></a>';
+$txt['editsettings4'] = 'Postituse riik <a href=# class=info>(?)<span>Harilikult on see riik kus Teie ettev√µte asub</span></a>';
+$txt['editsettings7'] = 'Postituse k√§ttetoimetamisel makstav lisatasu <a href=# class=info>(?)<span>Lisaks harilikele postituskuludele on sellel k√§ttetoimetamise viisil lisatasu. Formaat: 12.34</span></a>';
 $txt['editsettings8'] = 'Valuuta';
-$txt['editsettings9'] = 'Valuuta s¸mbol <a href=# class=info>(?)<span>Teie puhul arvatavasti: $</span></a>';
-$txt['editsettings10'] = 'Maksta xx p‰eva jooksul <a href=# class=info>(?)<span>Mitme p‰eva jooksul peab summa olema laekunud Teie kontole?</span></a>';
+$txt['editsettings9'] = 'Valuuta s√ºmbol <a href=# class=info>(?)<span>Teie puhul arvatavasti: $</span></a>';
+$txt['editsettings10'] = 'Maksta xx p√§eva jooksul <a href=# class=info>(?)<span>Mitme p√§eva jooksul peab summa olema laekunud Teie kontole?</span></a>';
 $txt['editsettings11'] = 'Sisaldab KM <a href=# class=info>(?)<span>Kui KM on 18% siis peab see number olema: 1.18</span></a>';
-$txt['editsettings12'] = 'KM text <a href=# class=info>(?)<span>Kui KM on 18% siis peab number n‰itama: 18%</span></a>';
+$txt['editsettings12'] = 'KM text <a href=# class=info>(?)<span>Kui KM on 18% siis peab number n√§itama: 18%</span></a>';
 $txt['editsettings13'] = 'Hinnad andmebaasis sisaldavad KM';
-$txt['editsettings14'] = 'M¸¸giosakoonna email <a href=# class=info>(?)<span>Sellele aadressile saabuvad Teile tellimused. N‰iteks: myyk@teiedomeen.ee</span></a>';
+$txt['editsettings14'] = 'M√º√ºgiosakoonna email <a href=# class=info>(?)<span>Sellele aadressile saabuvad Teile tellimused. N√§iteks: myyk@teiedomeen.ee</span></a>';
 $txt['editsettings15'] = 'Veebipoe nimi';
-$txt['editsettings16'] = 'Veebipoe URL <a href=# class=info>(?)<span>URL algab http://, kuid ei sisalda viimast /, n‰iteks: http://www.teiedomeen.ee/pood</span></a>';
+$txt['editsettings16'] = 'Veebipoe URL <a href=# class=info>(?)<span>URL algab http://, kuid ei sisalda viimast /, n√§iteks: http://www.teiedomeen.ee/pood</span></a>';
 $txt['editsettings17'] = 'Standard keel';
-$txt['editsettings18'] = 'Tellimuse prefix (soovi korral) <a href=# class=info>(?)<span>Iga tellimuse ID algab prefixiga, n‰iteks: WEB-</span></a>';
-$txt['editsettings19'] = 'Tellimuse suffix (soovi korral) <a href=# class=info>(?)<span>Iga tellimus lıpeb suffixiga, n‰iteks aasta arvugar: -07</span></a>';
+$txt['editsettings18'] = 'Tellimuse prefix (soovi korral) <a href=# class=info>(?)<span>Iga tellimuse ID algab prefixiga, n√§iteks: WEB-</span></a>';
+$txt['editsettings19'] = 'Tellimuse suffix (soovi korral) <a href=# class=info>(?)<span>Iga tellimus l√µpeb suffixiga, n√§iteks aasta arvugar: -07</span></a>';
 $txt['editsettings20'] = 'Kasutada laoseisu <a href=# class=info>(?)<span><strong>aktiivne:</strong> Te kasutate laoseisu<br /><br /><strong>mitteaktiivne:</strong> Te kasutate lao hetkeseisu (laos olemas/tellimisel/puudub laost)</span></a>';
 $txt['editsettings21'] = 'Aktiveeri Tellimis-moodul';
 $txt['editsettings22'] = 'Deaktiveeri veebipood';
 $txt['editsettings23'] = 'Deaktiveeri veebipoe pealkiri';
-$txt['editsettings24'] = 'Deaktiveeri veebipooe sınum';
+$txt['editsettings24'] = 'Deaktiveeri veebipooe s√µnum';
 $txt['editsettings25'] = 'Veebihalduri email';
 $txt['editsettings26'] = 'Telefoni number (soovi korral)';
 $txt['editsettings27'] = 'Faxi number (soovi korral)';
@@ -375,9 +375,9 @@ $txt['editsettings30'] = 'Panga linn';
 $txt['editsettings31'] = 'Panga riik';
 $txt['editsettings32'] = 'Panga IBAN';
 $txt['editsettings33'] = 'Panga BIC';
-$txt['editsettings34'] = 'Asutamisaasta <a href=# class=info>(?)<span>Sisestage aasta millal Te asutasite oma ettevıtte</span></a>';
+$txt['editsettings34'] = 'Asutamisaasta <a href=# class=info>(?)<span>Sisestage aasta millal Te asutasite oma ettev√µtte</span></a>';
 $txt['editsettings35'] = 'Logo <a href=# class=info>(?)<span>Kujutis Teie logoga. See fail peab asuma kaustas <strong>'.$gfx_dir.'</strong></span></a>';
-$txt['editsettings37'] = 'Ettevıtte loosung (soovi korral) <a href=# class=info>(?)<span>Loosung asub ettevıtte logo all</span></a>';
+$txt['editsettings37'] = 'Ettev√µtte loosung (soovi korral) <a href=# class=info>(?)<span>Loosung asub ettev√µtte logo all</span></a>';
 $txt['editsettings38'] = 'Lehe pealkiri <a href=# class=info>(?)<span>Pealkiri kuvatakse brauseri aknas milles Teie veebipood ilmub</span></a>';
 $txt['editsettings39'] = 'Jalus';
 $txt['editsettings44'] = 'Seaded on salvetatud andmebaasi';
@@ -386,56 +386,56 @@ $txt['editsettings46'] = 'Kujundus';
 $txt['editsettings47'] = 'Pood';
 $txt['editsettings48'] = 'Finantsid';
 $txt['editsettings49'] = 'Numbrite formaat';
-$txt['editsettings50'] = 'Maksimaalne kirjelduse pikkus <a href=# class=info>(?)<span>Seda kasutatakse selleks et l¸hendada kirjelduste pikkust hinnakirja loendites. <br /><strong>0 = mitte l¸hendada<br />1-99 = piirata kuni xx t‰hem‰rgiga</strong></span></a>';
+$txt['editsettings50'] = 'Maksimaalne kirjelduse pikkus <a href=# class=info>(?)<span>Seda kasutatakse selleks et l√ºhendada kirjelduste pikkust hinnakirja loendites. <br /><strong>0 = mitte l√ºhendada<br />1-99 = piirata kuni xx t√§hem√§rgiga</strong></span></a>';
 $txt['editsettings51'] = 'KM Vaba <a href=# class=info>(?)<span>Aktiveerige see valik kui Te ei soovi oma toodetele juurde arvestada KM</span></a>';
 $txt['editsettings52'] = 'Panga nimi';
-$txt['editsettings53'] = 'Hinnaloendi formaat <a href=# class=info>(?)<span>See valik mıjutab hinnaloendeid, ostukorve ja tellimuse kinnituseks saadetavaid emaile</span></a>';
+$txt['editsettings53'] = 'Hinnaloendi formaat <a href=# class=info>(?)<span>See valik m√µjutab hinnaloendeid, ostukorve ja tellimuse kinnituseks saadetavaid emaile</span></a>';
 $txt['editsettings54'] = 'Toote ID';
 $txt['editsettings55'] = 'Kirjeldus';
 $txt['editsettings56'] = 'Toote ID ja kirjeldus';
-$txt['editsettings57'] = 'Kuup‰eva formaat <a href=# class=info>(?)<span><strong>d-m-Y @ G:i</strong> for dd-mm-jjjj @ 23:59<br /><strong>m-d-Y @ G:i</strong> for mm-dd-jjjj @ 23:59<br /></span></a>';
-$txt['editsettings58'] = 'Otsi gfx hinnaloenditest <a href=# class=info>(?)<span>Programm otsib erinevate toodete kujutusi hinnakirjade laadimisel brauserisse. Kui kujutis leitakse, siis ilmub toote taha ikoon, et k¸lastaja teaks tootega seotud kujutise olemasolust. <br /><br />Selleks et kiirendada lehek¸lgede laadimist vıi kui Teie toodete kujutised asuvad teise veebihalduri juures (remote host), siis on parem kui Te selle valiku deaktiveerite</span></a>';
+$txt['editsettings57'] = 'Kuup√§eva formaat <a href=# class=info>(?)<span><strong>d-m-Y @ G:i</strong> for dd-mm-jjjj @ 23:59<br /><strong>m-d-Y @ G:i</strong> for mm-dd-jjjj @ 23:59<br /></span></a>';
+$txt['editsettings58'] = 'Otsi gfx hinnaloenditest <a href=# class=info>(?)<span>Programm otsib erinevate toodete kujutusi hinnakirjade laadimisel brauserisse. Kui kujutis leitakse, siis ilmub toote taha ikoon, et k√ºlastaja teaks tootega seotud kujutise olemasolust. <br /><br />Selleks et kiirendada lehek√ºlgede laadimist v√µi kui Teie toodete kujutised asuvad teise veebihalduri juures (remote host), siis on parem kui Te selle valiku deaktiveerite</span></a>';
 $txt['editsettings59'] = 'Kasutada kujutisi <a href=# class=info>(?)<span>Kui Teil pole toodete kujutisi on parem see valik deaktiveerida</span></a>';
-$txt['editsettings69'] = 'Kasutada eelvaateid hinnaloendites <a href=# class=info>(?)<span>Programm n‰itab (kui leitud) kujutise eelvaadet toote nimetuse ees hinnaloendites</span></a>';
-$txt['editsettings70'] = 'Keywords (komaga eraldatud) <a href=# class=info>(?)<span>Vıtmesınad millede j‰rgi Te soovite, et otsingumootorid teid leiaksid</span></a>';
-$txt['editsettings71'] = 'Used charset <a href=# class=info>(?)<span>Mıned keeled vajavad teistsugust t‰hem‰rkide veebikodeeringut. Teie jaoks sobib arvatavasti ISO-8859-1</span></a>';
-$txt['editsettings72'] = 'N‰idata ‹ldiste tingimuste linki';
-$txt['editsettings73'] = 'N‰idata Garantii linki';
-$txt['editsettings74'] = 'N‰idata K‰ttetoimetamise linki';
-$txt['editsettings75'] = 'Kujutiste failinimed <a href=# class=info>(?)<span>Mınedes keeltes on t‰hem‰rke mis pole lubatud failinimedes. Parim lahendus siinsel (ja ka enamikel teistel juhtudel) on kasutada andmebaasi IDd kujutise IDna</span></a>';
+$txt['editsettings69'] = 'Kasutada eelvaateid hinnaloendites <a href=# class=info>(?)<span>Programm n√§itab (kui leitud) kujutise eelvaadet toote nimetuse ees hinnaloendites</span></a>';
+$txt['editsettings70'] = 'Keywords (komaga eraldatud) <a href=# class=info>(?)<span>V√µtmes√µnad millede j√§rgi Te soovite, et otsingumootorid teid leiaksid</span></a>';
+$txt['editsettings71'] = 'Used charset <a href=# class=info>(?)<span>M√µned keeled vajavad teistsugust t√§hem√§rkide veebikodeeringut. Teie jaoks sobib arvatavasti ISO-8859-1</span></a>';
+$txt['editsettings72'] = 'N√§idata √úldiste tingimuste linki';
+$txt['editsettings73'] = 'N√§idata Garantii linki';
+$txt['editsettings74'] = 'N√§idata K√§ttetoimetamise linki';
+$txt['editsettings75'] = 'Kujutiste failinimed <a href=# class=info>(?)<span>M√µnedes keeltes on t√§hem√§rke mis pole lubatud failinimedes. Parim lahendus siinsel (ja ka enamikel teistel juhtudel) on kasutada andmebaasi IDd kujutise IDna</span></a>';
 $txt['editsettings76'] = 'Andmebaasi ID (soovitav)';
 $txt['editsettings77'] = 'Toote ID';
-$txt['editsettings78'] = 'N‰idata Meist linki';
-$txt['editsettings79'] = 'Aktiveeri Live News <a href=# class=info>(?)<span>Sellega aktiveerite live news feed FreeWebshop.org, mis informeerivad Teid uutest versioonidest jm seotud uudistest. Deaktiveerige see valik ainult juhul kui Teil on raskusi selle vıimaluse kasutamisel</span></a>';
+$txt['editsettings78'] = 'N√§idata Meist linki';
+$txt['editsettings79'] = 'Aktiveeri Live News <a href=# class=info>(?)<span>Sellega aktiveerite live news feed FreeWebshop.org, mis informeerivad Teid uutest versioonidest jm seotud uudistest. Deaktiveerige see valik ainult juhul kui Teil on raskusi selle v√µimaluse kasutamisel</span></a>';
 $txt['editsettings80'] = 'Hinnaloendi eelvaate laius <a href=# class=info>(?)<span>Laius pixelites.<br />vaikimisi=50<br/>0=deaktiveeri resize</span></a>';
-$txt['editsettings81'] = 'Hinnaloendi eelvaate kırgus <a href=# class=info>(?)<span>Kırgus pixelites.<br />vaikimisi=50<br />0=deaktiveeri resize</span></a>';
+$txt['editsettings81'] = 'Hinnaloendi eelvaate k√µrgus <a href=# class=info>(?)<span>K√µrgus pixelites.<br />vaikimisi=50<br />0=deaktiveeri resize</span></a>';
 $txt['editsettings82'] = 'Kategooria eelvaate laius <a href=# class=info>(?)<span>Laius pixelites.<br />vaikimisi=50<br />0=deaktiveeri resize</span></a>';
-$txt['editsettings83'] = 'Kategooria eelvaate kırgus <a href=# class=info>(?)<span>Kırgus pixelites.<br />vaikimisi=50<br />0=deaktiveeri resize</span></a>';
+$txt['editsettings83'] = 'Kategooria eelvaate k√µrgus <a href=# class=info>(?)<span>K√µrgus pixelites.<br />vaikimisi=50<br />0=deaktiveeri resize</span></a>';
 $txt['editsettings84'] = 'Toote kujutise maksimum laius <a href=# class=info>(?)<span>Maksimum laius pixelites.<br />vaikimisi=450<br />9999=deaktiveeri max</span></a>';
-$txt['editsettings85'] = 'Toote kujutise maksimum kırgus <a href=# class=info>(?)<span>Maksimum kırgus pixelites.<br />vaikimisi=350<br />9999=deaktiveeri max</span></a>';
-$txt['editsettings86'] = 'Kıik';
-$txt['editsettings87'] = 'N‰idata Uued Tooted linki';
+$txt['editsettings85'] = 'Toote kujutise maksimum k√µrgus <a href=# class=info>(?)<span>Maksimum k√µrgus pixelites.<br />vaikimisi=350<br />9999=deaktiveeri max</span></a>';
+$txt['editsettings86'] = 'K√µik';
+$txt['editsettings87'] = 'N√§idata Uued Tooted linki';
 $txt['editsettings88'] = 'Kasuta WYSIWYG editori';
-$txt['editsettings89'] = 'Loo eelvaated automaatselt <a href=# class=info>(?)<span>Loob toodete kujutiste ¸leslaadimisel eelvaated automaatselt.<br />Nıutav tˆˆtav<strong>GD extension</strong></span></a>';
+$txt['editsettings89'] = 'Loo eelvaated automaatselt <a href=# class=info>(?)<span>Loob toodete kujutiste √ºleslaadimisel eelvaated automaatselt.<br />N√µutav t√∂√∂tav<strong>GD extension</strong></span></a>';
 $txt['editsettings90'] = 'Poe kirjeldus <a href=# class=info>(?)<span>Kirjeldus mida otsingumootorid kasutavad Teie poe indekseerimisel</span></a>';
-$txt['editsettings91'] = 'Tooteid lehek¸ljel <a href=# class=info>(?)<span>Kuvatavate toodete arv lehek¸ljel.<br />0 = piiramatu</span></a>';
+$txt['editsettings91'] = 'Tooteid lehek√ºljel <a href=# class=info>(?)<span>Kuvatavate toodete arv lehek√ºljel.<br />0 = piiramatu</span></a>';
 $txt['editsettings92'] = 'Deaktiveeritud';
 $txt['editsettings93'] = 'Keerulisem';
 $txt['editsettings94'] = 'Lihtsam';
 $txt['editsettings95'] = 'Kasuta Captchat <a href=# class=info>(?)<span>Kasuta Captcha (anti-spambotti) koos kontakt ja registreerimise vormidega</span></a>';
-$txt['editsettings96'] = 'Kasuta kujutise popupi <a href=# class=info>(?)<span>Kasuta parema kvaliteediga kujutise popup vıimalust<br />Javascript nıutud</span></a>';
-$txt['editsettings97'] = 'Valuuta s¸mboli asukoht';
+$txt['editsettings96'] = 'Kasuta kujutise popupi <a href=# class=info>(?)<span>Kasuta parema kvaliteediga kujutise popup v√µimalust<br />Javascript n√µutud</span></a>';
+$txt['editsettings97'] = 'Valuuta s√ºmboli asukoht';
 $txt['editsettings98'] = 'Kasuta seda kujundust';
 
 // productadmin.php
-$txt['productadmin1'] = ' on ¸les laetud asukohta ';
-$txt['productadmin2'] = 'Faili ¸leslaadimisel ilmnes viga, palun proovige uuesti!';
-$txt['productadmin3'] = 'Palun laadige ¸les ainult .jpg, .png or .gif faile';
-$txt['productadmin4'] = 'Lisada veel ¸ks toode';
+$txt['productadmin1'] = ' on √ºles laetud asukohta ';
+$txt['productadmin2'] = 'Faili √ºleslaadimisel ilmnes viga, palun proovige uuesti!';
+$txt['productadmin3'] = 'Palun laadige √ºles ainult .jpg, .png or .gif faile';
+$txt['productadmin4'] = 'Lisada veel √ºks toode';
 $txt['productadmin5'] = 'Tagasi toodete nimekirja juurde';
 $txt['productadmin6'] = 'Lisada toode';
 $txt['productadmin7'] = 'Uuendada toodet';
-$txt['productadmin8'] = 'Palun lisage enne mıned grupid';
+$txt['productadmin8'] = 'Palun lisage enne m√µned grupid';
 $txt['productadmin9'] = 'ID';
 $txt['productadmin10'] = 'Kirjeldus <a href=# class=info>(?)<span>HTML kood on lubatud</span></a>';
 $txt['productadmin11'] = 'Hind <a href=# class=info>(?)<span>formaat: 123456.78</span></a>';
@@ -446,24 +446,24 @@ $txt['productadmin15'] = 'Uus';
 $txt['productadmin16'] = 'Lisada toode';
 $txt['productadmin17'] = 'Uuendada toodet';
 $txt['productadmin18'] = 'Grupp/Kategooria';
-$txt['productadmin19'] = 'Valige jpg, png vıi gif fail';
-$txt['productadmin20'] = '‹les laadida';
-$txt['productadmin21'] = '‹les laadida kujutis';
-$txt['productadmin22'] = 'Palun lisage eelnevalt mıned kategooriad';
-$txt['productadmin23'] = 'Te ei saa kujutist ¸leslaadida sest Teie tootel puudub ID';
+$txt['productadmin19'] = 'Valige jpg, png v√µi gif fail';
+$txt['productadmin20'] = '√úles laadida';
+$txt['productadmin21'] = '√úles laadida kujutis';
+$txt['productadmin22'] = 'Palun lisage eelnevalt m√µned kategooriad';
+$txt['productadmin23'] = 'Te ei saa kujutist √ºleslaadida sest Teie tootel puudub ID';
 $txt['productadmin24'] = 'Kustutada see kujutis';
 $txt['productadmin25'] = 'Kujutis edukalt eemaldatud';
 $txt['productadmin26'] = 'Toode edukalt eemaldatud';
 $txt['productadmin27'] = 'Extra valikud';
-$txt['productadmin28'] = 'Luua eelvaade kıikidest kujutistest (vıib nıuda aega)';
-$txt['productadmin29'] = 'Kıik eelvaated on loodud (kus vajalik)..';
-$txt['productadmin30'] = 'Toote features <a href=# class=info>(?)<span>Feature1:Red,White,Blue|Feature2:Small,Medium,Large<br />Ilma t¸hikuteta!</span></a>';
+$txt['productadmin28'] = 'Luua eelvaade k√µikidest kujutistest (v√µib n√µuda aega)';
+$txt['productadmin29'] = 'K√µik eelvaated on loodud (kus vajalik)..';
+$txt['productadmin30'] = 'Toote features <a href=# class=info>(?)<span>Feature1:Red,White,Blue|Feature2:Small,Medium,Large<br />Ilma t√ºhikuteta!</span></a>';
 
 
 // groupadmin.php
-$txt['groupadmin1'] = ' on ¸les laetud asukohta ';
-$txt['groupadmin2'] = 'Faili ¸leslaadimisel ilmnes viga, palun proovige uuesti!';
-$txt['groupadmin3'] = 'Palun laadige ¸les ainult .jpg, png or .gif files';
+$txt['groupadmin1'] = ' on √ºles laetud asukohta ';
+$txt['groupadmin2'] = 'Faili √ºleslaadimisel ilmnes viga, palun proovige uuesti!';
+$txt['groupadmin3'] = 'Palun laadige √ºles ainult .jpg, png or .gif files';
 $txt['groupadmin4'] = 'Grupp lisatud..';
 $txt['groupadmin5'] = 'Grupp uuendatud..';
 $txt['groupadmin6'] = 'Grupp (koos sisalduvate kategooriatega ja toodetega) kustutatud..';
@@ -473,7 +473,7 @@ $txt['groupadmin9'] = 'Kategooria ringipaigutatud..';
 $txt['groupadmin10'] = 'Kategooria (koos sisalduvate toodetega) kustutatud..';
 $txt['groupadmin11'] = 'Grupi nimi';
 $txt['groupadmin12'] = 'Lisada grupp';
-$txt['groupadmin13'] = 'Veel pole defineeritud ¸htegi gruppi';
+$txt['groupadmin13'] = 'Veel pole defineeritud √ºhtegi gruppi';
 $txt['groupadmin14'] = 'Grupp';
 $txt['groupadmin15'] = 'Grupi uus nimi';
 $txt['groupadmin16'] = 'Uuendada gruppi';
@@ -487,51 +487,51 @@ $txt['groupadmin23'] = 'Kategooria uus nimi';
 $txt['groupadmin24'] = 'Uuendada kategooriat';
 $txt['groupadmin25'] = 'Ringipaigutada kategooria';
 $txt['groupadmin26'] = 'Kustutada kategooria';
-$txt['groupadmin27'] = 'Palun valige jpg, png vıi gif fail';
-$txt['groupadmin28'] = '‹les laadida';
-$txt['groupadmin29'] = '‹les laadida kujutis';
-$txt['groupadmin30'] = '‹ldised valikud';
-$txt['groupadmin31'] = 'Kustutada t¸hjad kategooriad ja grupid';
+$txt['groupadmin27'] = 'Palun valige jpg, png v√µi gif fail';
+$txt['groupadmin28'] = '√úles laadida';
+$txt['groupadmin29'] = '√úles laadida kujutis';
+$txt['groupadmin30'] = '√úldised valikud';
+$txt['groupadmin31'] = 'Kustutada t√ºhjad kategooriad ja grupid';
 $txt['groupadmin32'] = 'kustutatud kategooriate arv';
 $txt['groupadmin33'] = 'kustutatud gruppide arv';
 $txt['groupadmin34'] = 'Grupp nimega '.$gname.' on juba olemas. Palun valige muu nimi';
-$txt['groupadmin35'] = 'Grupi nimi on t¸hi';
+$txt['groupadmin35'] = 'Grupi nimi on t√ºhi';
 $txt['groupadmin36'] = 'Te pole sisestanud grupi uut nime';
 $txt['groupadmin37'] = 'Kategooria nimega '.$cname.' on juba olemas. Palun valige muu nimi';
 $txt['groupadmin38'] = 'Te pole sisestanud kategooria uut nime';
-$txt['groupadmin39'] = 'Kategooria nimi on t¸hi';
+$txt['groupadmin39'] = 'Kategooria nimi on t√ºhi';
 
 // uploadadmin.php
-$txt['uploadadmin1'] = ' on ¸les laaditud asukohaga ';
-$txt['uploadadmin2'] = 'Faili ¸leslaadimisel ilmnes viga, palun proovige uuesti!';
-$txt['uploadadmin3'] = 'Palun laadige ¸les ainult .sql faile';
-$txt['uploadadmin4'] = '‹les laadida hinnakiri (.SQL)';
+$txt['uploadadmin1'] = ' on √ºles laaditud asukohaga ';
+$txt['uploadadmin2'] = 'Faili √ºleslaadimisel ilmnes viga, palun proovige uuesti!';
+$txt['uploadadmin3'] = 'Palun laadige √ºles ainult .sql faile';
+$txt['uploadadmin4'] = '√úles laadida hinnakiri (.SQL)';
 $txt['uploadadmin5'] = 'Valida SQL fail';
-$txt['uploadadmin6'] = '‹les laadida SQL';
+$txt['uploadadmin6'] = '√úles laadida SQL';
 $txt['uploadadmin7'] = 'SQL fail on sisestatud andmebaasi';
 
 // adminedit.php
 $txt['adminedit1'] = 'Salvestada muudatused';
 $txt['adminedit2'] = 'Muudatused on salvestatud...';
-$txt['adminedit3'] = 'Hetkel tˆˆtlemisel ';
+$txt['adminedit3'] = 'Hetkel t√∂√∂tlemisel ';
 
 // shippingadmin.php
-$txt['shippingadmin1'] = 'K‰ttetoimetamise meetod lisatud';
-$txt['shippingadmin2'] = 'K‰ttetoimetamise meetod eemaldatud';
-$txt['shippingadmin3'] = 'K‰ttetoimetamise meetod muudetud';
-$txt['shippingadmin4'] = 'Toetatud k‰ttetoimetamise meetodid';
+$txt['shippingadmin1'] = 'K√§ttetoimetamise meetod lisatud';
+$txt['shippingadmin2'] = 'K√§ttetoimetamise meetod eemaldatud';
+$txt['shippingadmin3'] = 'K√§ttetoimetamise meetod muudetud';
+$txt['shippingadmin4'] = 'Toetatud k√§ttetoimetamise meetodid';
 $txt['shippingadmin5'] = 'Kirjeldus';
 $txt['shippingadmin6'] = 'Hind';
 $txt['shippingadmin7'] = "Ainult selles riigis $send_default_country?";
-$txt['shippingadmin8'] = 'Tˆˆdelda';
+$txt['shippingadmin8'] = 'T√∂√∂delda';
 $txt['shippingadmin9'] = 'Eemaldada';
 $txt['shippingadmin10'] = 'Lisada';
-$txt['shippingadmin11'] = 'Muuta k‰ttetoimetamise riike';
+$txt['shippingadmin11'] = 'Muuta k√§ttetoimetamise riike';
 $txt['shippingadmin12'] = 'Valikud';
 $txt['shippingadmin13'] = 'Maksmise valikud';
-$txt['shippingadmin14'] = 'Muuta k‰ttetoimetamise meetodit';
-$txt['shippingadmin15'] = 'TƒHELEPANU: Olete muutmas s¸steemset k‰ttetoimetamise meetodit. Seda meetodit kasutatakse teiste protsesside k‰ivitamiseks veebipoe teistes osades. Muutke ainult meetodi kirjeldust vastavalt oma vajadusele, aga mitte meetodi enda olemust';
-$txt['shippingadmin16'] = 'Muuta k‰ttetoimetamise vaikimisi algus riiki';
+$txt['shippingadmin14'] = 'Muuta k√§ttetoimetamise meetodit';
+$txt['shippingadmin15'] = 'T√ÑHELEPANU: Olete muutmas s√ºsteemset k√§ttetoimetamise meetodit. Seda meetodit kasutatakse teiste protsesside k√§ivitamiseks veebipoe teistes osades. Muutke ainult meetodi kirjeldust vastavalt oma vajadusele, aga mitte meetodi enda olemust';
+$txt['shippingadmin16'] = 'Muuta k√§ttetoimetamise vaikimisi algus riiki';
 $txt['shippingadmin17'] = 'Muud valikud';
 
 // paymentadmin.php
@@ -546,15 +546,15 @@ $txt['paymentadmin8'] = 'Muuta';
 $txt['paymentadmin9'] = 'Eemaldada';
 $txt['paymentadmin10'] = 'Lisada';
 $txt['paymentadmin11'] = 'Valikud';
-$txt['paymentadmin12'] = 'TƒHELEPANU: Olete muutmas s¸steemset maksmise meetodit. Seda meetodit kasutatakse teiste protsesside k‰ivitamiseks veebipoe teistes osades. Muutke ainult meetodi kirjeldust vastavalt oma vajadusele, aga mitte meetodi enda olemust';
+$txt['paymentadmin12'] = 'T√ÑHELEPANU: Olete muutmas s√ºsteemset maksmise meetodit. Seda meetodit kasutatakse teiste protsesside k√§ivitamiseks veebipoe teistes osades. Muutke ainult meetodi kirjeldust vastavalt oma vajadusele, aga mitte meetodi enda olemust';
 
 // errorlogadmin.php
 $txt['errorlogadmin1'] = 'Vigade log';
-$txt['errorlogadmin2'] = 'Tısidus';
+$txt['errorlogadmin2'] = 'T√µsidus';
 $txt['errorlogadmin3'] = 'Viga';
 $txt['errorlogadmin4'] = 'Fail';
 $txt['errorlogadmin5'] = 'Rida';
-$txt['errorlogadmin6'] = 'Kuup‰ev';
+$txt['errorlogadmin6'] = 'Kuup√§ev';
 $txt['errorlogadmin7'] = 'Logitud vigu pole leitud';
 $txt['errorlogadmin8'] = 'Puhasta logi';
 $txt['errorlogadmin9'] = 'Vigade logi on edukalt puhastatud';
@@ -567,6 +567,6 @@ $txt['pagesadmin4'] = 'Muuta nime';
 $txt['pagesadmin5'] = 'Lisada';
 $txt['pagesadmin6'] = 'Lehe nimi muudetud';
 $txt['pagesadmin7'] = 'Leht kustutatud';
-$txt['pagesadmin8'] = 'Ebaınnestumine';
+$txt['pagesadmin8'] = 'Eba√µnnestumine';
 $txt['pagesadmin9'] = 'Leht lisatud';
 ?>
