@@ -30,7 +30,8 @@ class zfStack {
 			}
 		}
 		if (!empty($previous)) {
-			return get_option("home").'/index.php?'.$previous;
+			if (is_admin()) return '?'.$previous;
+			else return get_option("home").'/index.php?'.$previous;
 		}
 		else return false;
 	}

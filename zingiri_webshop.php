@@ -23,7 +23,7 @@
 <?php
 /*
  Plugin Name: Zingiri Web Shop
- Plugin URI: http://www.zingiri.com/WebShop
+ Plugin URI: http://www.zingiri.com/web-shop
  Description: This plugin integrates the fabulous Free Web Shop e-commerce solution with Wordpress.
  Author: EBO
  Version: 1.2.9
@@ -31,15 +31,21 @@
  */
 define("ZING_VERSION","1.2.9");
 
-if (file_exists(dirname(__FILE__).'/zap')) {
-	define("ZING_APPS_PLAYER_VERSION","0.8");
-	define("ZING_APPS",dirname(__FILE__)."/fws/fields/");
-	define("ZING_APPS_CUSTOM",dirname(__FILE__)."/fws/");
-	define("ZING_APPS_EMBED","zap/");
-	define("ZING_APPS_TRANSLATE",'z_');
-	define("ZING_APPS_CAPTCHA",dirname(__FILE__)."/fws/addons/captcha/");
-	require(dirname(__FILE__)."/zap/embed.php");
+require(dirname(__FILE__)."/load.php");
+define("ZING_APPS_PLAYER_VERSION","0.9.0");
+define("ZING_APPS",dirname(__FILE__)."/fws/fields/");
+define("ZING_APPS_CUSTOM",dirname(__FILE__)."/fws/");
+define("ZING_APPS_EMBED","zap/");
+define("ZING_APPS_TRANSLATE",'z_');
+define("ZING_APPS_CAPTCHA",dirname(__FILE__)."/fws/addons/captcha/");
+
+if (get_option('zing_ws_effects')=="Prototype") {
+	define("ZING_PROTOTYPE",true);
+} else {
+	define("ZING_PROTOTYPE",false);
 }
+
+require(dirname(__FILE__)."/zap/embed.php");
 
 require(dirname(__FILE__)."/zing.inc.php");
 

@@ -96,10 +96,13 @@ else { $limit = ""; }
 
 
 	if ($action == "list") {
+		$query = "SELECT * FROM `".$dbtablesprefix."product` "; 
 		if ($stock_enabled == 1 && $hide_outofstock == 1 && IsAdmin() == false) { // filter out products with stock lower than 1
 			$query = sprintf("SELECT * FROM `".$dbtablesprefix."product` where `STOCK` > 0 AND `CATID`=%s ORDER BY `$orderby_field` ASC", quote_smart($cat));
 		}
-		else { $query = sprintf("SELECT * FROM `".$dbtablesprefix."product` WHERE CATID=%s ORDER BY `$orderby_field` ASC", quote_smart($cat)); }
+		else { 
+			$query = sprintf("SELECT * FROM `".$dbtablesprefix."product` WHERE CATID=%s ORDER BY `$orderby_field` ASC", quote_smart($cat)); 
+		}
 	}
 	elseif ($action == "shownew") {
 		if ($stock_enabled == 1 && IsAdmin() == false) { // filter out products with stock lower than 1
@@ -363,6 +366,7 @@ else { $limit = ""; }
 			<?php
 		}
 	}
+if (ZING_PROTOTYPE) {
 	?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
@@ -370,3 +374,4 @@ else { $limit = ""; }
 	cart.order();
 //]]>
 </script>
+<?php }?>

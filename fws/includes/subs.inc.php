@@ -246,7 +246,10 @@ Function myNumberFormat ($aNumber) {
 }
 // is the id of an admin?
 Function IsAdmin() {
-	Global $dbtablesprefix;
+	Global $dbtablesprefix,$integrator;
+
+	if ($integrator->isAdmin()) return true;
+
 	if (!isset($_COOKIE['fws_cust'])) { return false; }
 	$fws_cust = explode("-", $_COOKIE['fws_cust']);
 	$customerid = $fws_cust[1];
@@ -290,7 +293,10 @@ Function ShowFlags($lang_dir,$gfx_dir) {
 
 // is the visitor logged in?
 Function LoggedIn() {
-	Global $dbtablesprefix;
+	Global $dbtablesprefix,$integrator;
+
+	if ($integrator->loggedIn()) return true;
+
 	if (!isset($_COOKIE['fws_cust'])) { return false; }
 	$fws_cust = explode("-", $_COOKIE['fws_cust']);
 	$customerid = $fws_cust[1];
@@ -453,7 +459,7 @@ Function IsCustomerFromDefaultSendCountry($f_send_default_country) {
 	$customerid = $fws_cust[1];
 
 	$f_query="SELECT * FROM `".$dbtablesprefix."customer` WHERE `ID` = " . $customerid;
-	$f_sql = mysql_query($f_query) or die(mysql_error());
+	$f_sql = mysql_query($f_query) or zfdbexit($f_query);
 	while ($f_row = mysql_fetch_row($f_sql)) {
 		$country = $f_row[14];
 	}
@@ -936,29 +942,31 @@ function similarProducts($productid,$catid) {
 }
 
 function faces_group() {
-	Global $dbtablesprefix;
+	global $dbtablesprefix;
+	global $customerid;
 
-	$loggedin=false;
 	$group="";
-	if (isset($_COOKIE['fws_cust'])) {
-		$fws_cust = explode(",", $_COOKIE['fws_cust']);
-		$customerid = $fws_cust[1];
-		$md5pass = $fws_cust[2];
-		if (!is_null($customerid)) {
-			$f_query = "SELECT * FROM ".$dbtablesprefix."customer WHERE ID = " . $customerid;
-			$f_sql = mysql_query($f_query) or die(mysql_error());
-			if ($f_row = mysql_fetch_array($f_sql)) {
-				if (md5($f_row['PASSWORD']) == $md5pass && $f_row['IP'] == GetUserIP())
-				{
-					$loggedin=true;
-					$group=$f_row['GROUP'];
-				}
-			}
+	if (LoggedIn() && $customerid) {
+		$f_query = "SELECT * FROM ".$dbtablesprefix."customer WHERE ID = " . qs($customerid);
+		$f_sql = mysql_query($f_query) or die(mysql_error());
+		if ($f_row = mysql_fetch_array($f_sql)) {
+			$group=$f_row['GROUP'];
 		}
-	}
-	if (!$loggedin) $group="GUEST";
+	} else $group="GUEST";
 
 	return $group;
+}
 
+function qs($value) {
+	return quote_smart($value);
+}
+
+function getCustomerByLogin($login) {
+	global $dbtablesprefix;
+	$query = "SELECT ID FROM ".$dbtablesprefix."customer WHERE LOGINNAME = " . qs($login);
+	if ($sql = mysql_query($query)) {
+		if ($row = mysql_fetch_array($sql)) return $row['ID'];
+	}
+	return false;
 }
 ?>

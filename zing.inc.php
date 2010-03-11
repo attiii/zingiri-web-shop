@@ -21,7 +21,6 @@
  */
 ?>
 <?php
-
 // Pre-2.6 compatibility for wp-content folder location
 if (!defined("WP_CONTENT_URL")) {
 	define("WP_CONTENT_URL", get_option("siteurl") . "/wp-content");
@@ -81,10 +80,13 @@ $dbpass = DB_PASSWORD;
 
 $zing_version=get_option("zing_webshop_version");
 
-error_reporting(E_ALL & ~E_NOTICE);
-ini_set('display_errors', '1');
+//error_reporting(E_ALL & ~E_NOTICE);
+//ini_set('display_errors', '1');
+
 
 require (ZING_LOC."./zing.startfunctions.inc.php");
+require_once(dirname(__FILE__) . '/zing.integrator.class.php');
+
 if ($zing_version) {
 	add_action("init","zing_init");
 	add_filter('wp_footer','zing_footer');
@@ -92,6 +94,19 @@ if ($zing_version) {
 	add_action("plugins_loaded", "zing_sidebar_init");
 	add_filter('the_content', 'zing_content', 10, 3);
 	add_action('wp_head','zing_header');
+	if ($integrator->wpCustomer) {
+		add_action('wp_login','zing_login');
+		add_action('wp_logout','zing_logout');
+		add_filter('check_password','zing_check_password',10,4);
+		//add_action('personal_options_update','zing_profile_pre'); //before wp error check and update
+		//add_action('edit_user_profile_update','zing_profile_pre'); //before wp error check and update
+		add_action('user_profile_update_errors','zing_profile_check_errors',10,3); //check errors after wp checks done
+		add_action('profile_update','zing_profile'); //post wp update
+		add_action('user_register','zing_profile'); //post wp update
+		add_action('show_user_profile','zing_profile_show');
+		add_action('edit_user_profile','zing_profile_edit');
+		add_action('delete_user','zing_delete_user');
+	}
 }
 
 if (!defined("ZING_DIG") && get_option('zing_webshop_dig')!="") {
@@ -284,7 +299,7 @@ function zing_activate() {
 	//defaut Apps page
 	$ps=explode(",",get_option("zing_webshop_pages"));
 	update_option("zing_apps_player_page",$ps[0]);
-	
+
 	//Copy cats, product & order data to data subsdirectory to avoid overwritting with new releases
 	if (file_exists(WP_CONTENT_DIR.'/uploads')) {
 		$dir=WP_CONTENT_DIR.'/uploads/zingiri-web-shop';
@@ -347,6 +362,7 @@ function zing_uninstall() {
 	delete_option("zing_webshop_version");
 	delete_option("zing_webshop_pages");
 	delete_option("zing_webshop_dig");
+	delete_option('zing_ws_widget_options');
 
 	if (function_exists('zing_apps_player_uninstall')) zing_apps_player_uninstall(false);
 }
@@ -481,11 +497,13 @@ function zing_main($process,$content="") {
 	global $charset;
 	global $zing_loaded;
 	global $menus;
-	
+	global $integrator;
+	global $zing;
+
 	//start logging
 	error_reporting(E_ALL ^ E_NOTICE); // ^ E_NOTICE
 	set_error_handler("user_error_handler");
-	
+
 	require (ZING_LOC."./zing.readcookie.inc.php");      // read the cookie
 
 	//include (ZING_LOC."./zing.globals.inc.php");
@@ -548,7 +566,7 @@ function zing_main($process,$content="") {
 		require (ZING_DIR."./includes/readvals.inc.php");        // get and post values
 	}
 
-	if ($to_include=="loadmain.php" && ($page=='logout' || $page=='login'))
+	if ($to_include=="loadmain.php" && ($page=='logout' || ($page=='login' && !$_GET['lostlogin'])))
 	{
 		//stop logging
 		restore_error_handler();
@@ -582,9 +600,11 @@ function zing_header()
 	echo "var wsURL='".ZING_URL."fws/ajax/';";
 	echo '</script>';
 
-	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/checkout.js"></script>';
-	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/cart.js"></script>';
-	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/search.js"></script>';
+	if (ZING_PROTOTYPE) {
+		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/checkout.js"></script>';
+		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/cart.js"></script>';
+		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/search.js"></script>';
+	}
 	echo '<link rel="stylesheet" type="text/css" href="' . ZING_URL . 'zing.css" media="screen" />';
 	echo '<link rel="stylesheet" href="' . ZING_URL . 'fws/addons/lightbox/lightbox.css" type="text/css" media="screen" />';
 	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/addons/lightbox/lightbox.js"></script>';
@@ -677,7 +697,17 @@ function zing_sidebar_init()
 	register_sidebar_widget(__('Zingiri Web Shop Cart'), 'widget_sidebar_cart');
 	register_sidebar_widget(__('Zingiri Web Shop General'), 'widget_sidebar_general');
 	register_sidebar_widget(__('Zingiri Web Shop Products'), 'widget_sidebar_products');
-	register_sidebar_widget(__('Zingiri Web Shop Search'), 'widget_sidebar_search');
+	if (ZING_PROTOTYPE) register_sidebar_widget(__('Zingiri Web Shop Search'), 'widget_sidebar_search');
+	register_widget_control(__('Zingiri Web Shop Search'), 'widget_control_search');
+}
+
+function widget_control_search() {
+	$data = get_option('zing_ws_widget_options');
+	echo '<p><label>Size of search input field<input name="ws_zing_search_size" type="text" value="'.$data['search_size'].'" /></label></p>';
+	if (isset($_POST['ws_zing_search_size'])){
+		$data['search_size'] = attribute_escape($_POST['ws_zing_search_size']);
+		update_option('zing_ws_widget_options', $data);
+	}
 }
 
 /**
@@ -688,8 +718,11 @@ function zing_init()
 {
 	session_start();
 
-	wp_enqueue_script('prototype');
-	wp_enqueue_script('scriptaculous');
+	if (!defined("ZING_PROTOTYPE") || ZING_PROTOTYPE) {
+		wp_enqueue_script('prototype');
+		wp_enqueue_script('scriptaculous');
+	}
+	wp_enqueue_script('jquery');
 
 	ob_start();
 
@@ -709,6 +742,7 @@ function zing_init()
 	global $index_refer;
 	global $name;
 	global $customerid;
+	global $integrator;
 
 	$bail_out = ( ( defined( 'WP_ADMIN' ) && WP_ADMIN == true ) || ( strpos( $_SERVER[ 'PHP_SELF' ], 'wp-admin' ) !== false ) );
 	if ( $bail_out ) { return $pages; }
@@ -919,5 +953,149 @@ function zing_dberror($query,$loc) {
 	echo $loc."<br />";
 	echo mysql_error();
 	die();
+}
+
+function zing_login($loginname) {
+	global $dbtablesprefix;
+
+	$query = sprintf("SELECT * FROM `".$dbtablesprefix."customer` WHERE `LOGINNAME`=%s", quote_smart($loginname));
+	$sql = mysql_query($query) or die(mysql_error());
+	if ($row = mysql_fetch_row($sql)) {
+		$id = $row[0];
+		$name = $row[1];
+		$pass = $row[2];
+		$group = $row[13];
+		if (isset($_COOKIE['fws_guest'])) {
+			$fws_cust = $_COOKIE['fws_guest'];
+			$sessionid = $fws_cust; // read the sessionid
+
+			// now check if this guest has products in his basket
+			$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (CUSTOMERID = ".$sessionid." AND ORDERID = 0) ORDER BY ID";
+			$sql = mysql_query($query) or die(mysql_error());
+			while ($row = mysql_fetch_row($sql)) {
+				$update_query = "UPDATE `".$dbtablesprefix."basket` SET `CUSTOMERID` = ".$id." WHERE ID = '".$row[0]."'";
+				$update_sql = mysql_query($update_query) or die(mysql_error());
+			}
+			// now kill the cookie
+			setcookie ("fws_guest", "", time() - 3600, '/');
+		}
+
+		$cookie_data = $name.'-'.$id.'-'.md5($pass); //name userid and encrypted password
+			
+		// store IP
+		$query = "UPDATE `".$dbtablesprefix."customer` SET `IP` = '".GetUserIP()."' WHERE `ID`=".$id;
+		$sql = mysql_query($query) or die(mysql_error());
+		// make acccesslog entry
+		$query = sprintf("INSERT INTO ".$dbtablesprefix."accesslog (login, time, succeeded) VALUES(%s, '".date("F j, Y, g:i a")."', '1')", quote_smart($_POST['loginname']));
+		$sql = mysql_query($query) or die(mysql_error());
+
+		setcookie ("fws_cust",$cookie_data, 0, '/'); //time()+3600
+	}
+}
+
+function zing_logout() {
+	setcookie ("fws_cust","", time() - 3600, '/');
+}
+
+function zing_check_password($check,$password,$hash,$user_id) {
+	global $dbtablesprefix;
+
+	if (!$check) { //the user could be using his old password, pre Web Shop to Wordpress migration
+		$user =  new WP_User($user_id);
+		$query = sprintf("SELECT * FROM `".$dbtablesprefix."customer` WHERE `LOGINNAME`=%s AND `PASSWORD`=%s", quote_smart($user->data->user_login), quote_smart(md5($password)));
+		$sql = mysql_query($query) or die(mysql_error());
+		if ($row = mysql_fetch_row($sql)) return true;
+		else return false;
+	} else return $check;
+}
+
+function zing_profile($user_id) {
+	$user_data=get_userdata($user_id);
+	$db=new db();
+
+	$row['LASTNAME']=$user_data->user_lastname;
+	$row['INITIALS']=$user_data->user_firstname;
+	$row['EMAIL']=$user_data->user_email;
+	$row['DATE_UPDATED']=date('Y-m-d');
+	$pass=$_POST['pass1'];
+	if ($pass != '') $row['PASSWORD']=md5($pass);
+
+	if ($user_data->wp_user_level>=5) $row['GROUP']='ADMIN';
+	else $row['GROUP']='CUSTOMER';
+
+	//	print_r($user_data);
+	//	print_r($_POST);
+	if ($db->readRecord('customer',array('LOGINNAME' => $user_data->user_login))) {
+		$db->updateRecord('customer',array('LOGINNAME' => $user_data->user_login), $row);
+		$_GET['page']='apps';
+		$_GET['zfaces']='form';
+		$_GET['form']='profile1';
+		$_GET['action']='edit';
+		$_GET['step']='save';
+		unset($_GET['showform']);
+		$_GET['no_redirect']=1;
+		$user=get_userdata($user_id);
+		$_GET['id']=getCustomerByLogin($user->user_login);
+		echo 'user='.$user->user_login.'-'.$_GET['id'];
+		zing_main('content');
+		zing_apps_player_content('content');
+		$_SESSION['zing']['ProfileNextStep']="";
+	} else {
+		$row['LOGINNAME']=$user_data->user_login;
+		$row['DATE_CREATED']=date('Y-m-d');
+		$db->insertRecord('customer',"",$row);
+	}
+}
+function zing_profile_show($user_id) {
+	zing_profile_edit($user_id);
+}
+
+function zing_profile_edit($user_id) {
+	echo '<link rel="stylesheet" type="text/css" href="'.ZING_APPS_PLAYER_URL.'css/apps_wp_admin.css" />';
+
+	if (isset($_GET['user_id'])) { $id=(int) $_GET['user_id']; 	$user=get_userdata($id); }
+	elseif (isset($_POST['user_id'])) { $id=(int) $_POST['user_id']; $user=get_userdata($id); }
+	else $user=$user_id;
+	$_GET['page']='apps';
+	$_GET['zfaces']='form';
+	$_GET['form']='profile1';
+	$_GET['action']='edit';
+	$_GET['step']=$_SESSION['zing']['ProfileNextStep'];
+	$_GET['showform']='edit';
+	$_GET['no_form']=1;
+	$_GET['id']=getCustomerByLogin($user->user_login);
+	zing_main('content');
+	zing_apps_player_content('content');
+	$_SESSION['zing']['ProfileNextStep']="";
+}
+
+/*
+ * Check errors before committing user data
+ */
+function zing_profile_check_errors(&$errors, $update, &$user) {
+	global $zfform,$zfSuccess;
+
+	$_GET['page']='apps';
+	$_GET['zfaces']='form';
+	$_GET['form']='profile1';
+	$_GET['action']='edit';
+	if ($_POST['action']=='update') $_GET['step']='check';
+	else $_GET['step']="";
+	$_GET['showform']=false;
+	$_GET['id']=getCustomerByLogin($user->user_login);
+	zing_main('content');
+	zing_apps_player_content('content');
+	if (!$zfSuccess) $errors->errors['invalid']=array('Errors');
+	$_SESSION['zing']['ProfileNextStep']="check";
+}
+
+function zing_profile_pre($user_id) {
+}
+
+function zing_delete_user($id) {
+	$user=get_userdata($id);
+	$db=new db();
+	$db->deleteRecord('customer',array('LOGINNAME' => $user->user_login));
+
 }
 ?>

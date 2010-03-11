@@ -1,11 +1,15 @@
 <?php
-$form=$_GET['form'];
-$formid=$_GET['formid'];
-$action=$_GET['action'];
-$step=$_GET['step'];
-$id=$_GET['id'];
-$zfp=intval($_GET['zfp']);
-$zft=$_GET['zft'];
+global $zfform,$zfSuccess;
+
+if (isset($_GET['form'])) $form=$_GET['form'];
+if (isset($_GET['formid'])) $formid=$_GET['formid'];
+if (isset($_GET['action'])) $action=$_GET['action'];
+if (isset($_GET['step'])) $step=$_GET['step'];
+if (isset($_GET['id'])) $id=$_GET['id'];
+if (isset($_GET['zfp'])) $zfp=intval($_GET['zfp']);
+if (isset($_GET['zft'])) $zft=$_GET['zft'];
+if (isset($_GET['no_redirect'])) $noRedirect=true; else $noRedirect=false;
+if (isset($_GET['no_form'])) $noForm=true; else $noForm=false;
 if (isset($_POST['map'])) {
 	$json=str_replace("\'",'"',$_POST['map']);
 	$map=zf_json_decode($json,true);
@@ -18,7 +22,6 @@ $zfform=new zfForm($form,$formid,$map);
 $form=$zfform->form;
 $formid=$zfform->id;
 $stack=new zfStack('form',$form);
-echo '<p class="zfaces-form-label">'.$zfform->label.'</p>';
 if (!AllowAccess('form',$formid,$action)) return false;
 
 $allowed=true;
@@ -30,10 +33,11 @@ if (!empty($action) && !ZingAppsIsAdmin() && ($action != 'show')) {
 
 	if (!$allowed) $action="not_allowed";
 }
-if ($allowed) $showform="edit";
+if (isset($_GET['showform'])) $showform=$_GET['showform']; else $showform="edit";
 
 if ($action == "not_allowed") {
 	echo "Action not allowed";
+	$success=false;
 
 } elseif ($action == "add" && $step == "") {
 	$success=$zfform->Prepare();
@@ -53,6 +57,9 @@ if ($action == "not_allowed") {
 	}
 } elseif ($action == "edit" && $step == "") {
 	$success=$zfform->Prepare($id);
+	$newstep="save";
+} elseif ($action == "edit" && $step == "check") {
+	$zfSuccess=$zfform->Verify($_POST);
 	$newstep="save";
 } elseif ($action == "edit" && $step == "save") {
 	$newstep="save";
@@ -96,14 +103,17 @@ if ($action == "not_allowed") {
 if (!$success)  echo 'Record not found';
 
 if ($success && $showform == "edit") {
+	echo '<p class="zfaces-form-label">'.$zfform->label.'</p>';
 	echo '<div class="zfaces-form">';
 	if (defined("ZING_APPS_BUILDER") && ZingAppsIsAdmin()) {
-		echo '<a href="?zfaces=edit&form='.$form.'" >'.z_('Edit form').'</a>';
+		echo '<a href="'.get_option('home').'/index.php?page=appsbuilder&zfaces=edit&form='.$form.'" >'.z_('Edit form').'</a>';
 	}
-	echo '<form name="faces" method="POST" action="?zfaces=form&form='.$form.'&action='.$action;
-	if (!empty($newstep)) echo '&step='.$newstep;
-	if (!empty($id)) echo '&id='.$id;
-	echo '&zft=form&zfp='.$formid.'">';
+	if (!$noForm) {
+		echo '<form name="faces" method="POST" action="?zfaces=form&form='.$form.'&action='.$action;
+		if (!empty($newstep)) echo '&step='.$newstep;
+		if (!empty($id)) echo '&id='.$id;
+		echo '&zft=form&zfp='.$formid.'">';
+	}
 	echo '<ul id="zfaces" class="zfaces">';
 	$zfform->Render($action);
 	echo '</ul>';
@@ -133,17 +143,19 @@ if ($success && $showform == "edit") {
 		}
 	}
 
-	if (($action == 'add' or $action == 'edit') && (!$override_save)) {
-		echo '<center><input class="art-button" type="submit" name="save" value="Save"></center>';
-	} elseif ($action == 'delete') {
-		echo '<input class="art-button" type="submit" name="delete" value="Delete">';
+	if (!$noForm) {
+		if (($action == 'add' or $action == 'edit') && (!$override_save)) {
+			echo '<center><input class="art-button" type="submit" name="save" value="Save"></center>';
+		} elseif ($action == 'delete') {
+			echo '<input class="art-button" type="submit" name="delete" value="Delete">';
+		}
+		echo '</form><br />';
 	}
-	echo '</form><br />';
 	echo '</div>';
 	if ($stack->getPrevious()) echo '<a href="'.$stack->getPrevious().'">Back</a>';
-	
-} elseif ($showform == "saved" ) {
-	$redirect2='?zfaces=list&form='.$form.'&zft='.$zft.'&zfp='.$zfp;
+
+} elseif ($showform == "saved" && !$noRedirect) {
+	$redirect2='?page='.$page.'&zfaces=list&form='.$form.'&zft='.$zft.'&zfp='.$zfp;
 	echo '<a href="'.$redirect2.'" class="button">Back</a>';
 	if (!$redirect && (!defined("ZING_SAAS") || !ZING_SAAS)) header('refresh:0; url='.$redirect2);
 }

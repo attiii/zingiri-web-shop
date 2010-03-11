@@ -23,9 +23,10 @@
 ?>
 <?php if ($index_refer <> 1) { exit(); } ?>
 <?php
+$widget_data = get_option('zing_ws_widget_options');
 echo '<ul>';
 echo '<li>';
-echo '<input id="searchbar" name="searchbar" /><br />';
+echo '<input id="searchbar" name="searchbar" size="'.$widget_data['search_size'].'"/><br />';
 echo '<div id="searchresults"></div>';
 echo '</li>';
 echo '</ul>';

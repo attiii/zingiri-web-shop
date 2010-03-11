@@ -26,6 +26,33 @@
 	//Check if cookie is set
 	if (LoggedIn() == false) {
 		$pagetoload = $_SERVER['QUERY_STRING'];
+		if ($integrator->wpCustomer) { ?>
+		  <table width="60%" class="datatable">
+		    <caption><?php echo $txt['checklogin1'] ?></caption>
+		    <tr><td>
+<form name="loginform" id="loginform" action="<?php echo get_option('siteurl');?>/wp-login.php" method="post">
+<table class="borderless" width="100%">
+	<tr>
+		<td><?php echo $txt['checklogin2'] ?></td>
+		<td><input type="text" name="log" id="user_login" class="input" value="" size="20" tabindex="10" /></td>
+	</tr>
+	<tr>
+		<td><?php echo $txt['checklogin3'] ?></td>
+		<td><input type="password" name="pwd" id="user_pass" class="input" value="" size="20" tabindex="20" /></td>
+	</tr>
+	</table>
+	<!--<p class="forgetmenot"><label><input name="rememberme" type="checkbox" id="rememberme" value="forever" tabindex="90" /> Remember Me</label></p> -->
+	<p class="submit">
+		<div style="text-align:center;"><input type="submit" name="wp-submit" id="wp-submit" class="button-primary" value="<?php echo $txt['checklogin4'] ?>" tabindex="100" /></div>
+		<input type="hidden" name="redirect_to" value="<?php echo get_option('home').'/index.php?'.$pagetoload;?>" />
+		<input type="hidden" name="testcookie" value="1" />
+	</p>
+<br />	
+</form>
+</td></tr></table>		
+		  <div style="position:relative;float:left;width:50%;text-align:left;"><a href="index.php?page=customer&action=new&pagetoload=<?php echo urlencode($pagetoload);?>"><?php echo $txt['checklogin5'] ?></a></div>
+          <div style="position:relative;float:left;width:50%;text-align:right;"><a href="<?php echo get_option('siteurl');?>/wp-login.php?action=lostpassword"><?php echo $txt['checklogin11'] ?></a></div>
+		<?php } else {
         ?>
 		  <table width="60%" class="datatable">
 		    <caption><?php echo $txt['checklogin1'] ?></caption>
@@ -55,10 +82,9 @@
 		  </table>
 		  <br />
 		  <div style="text-align:center;"><a href="index.php?page=customer&action=new&pagetoload=<?php echo urlencode($pagetoload);?>"><?php echo $txt['checklogin5'] ?></a></div>
-		  <br />
-		  <br />
-		  <br />
 	 <?php
-	      PutWindow($gfx_dir, $txt['checklogin6'], $txt['checklogin7'], "personal.jpg", "90");
+		}
+		echo '<br /><br /><br />';
+		PutWindow($gfx_dir, $txt['checklogin6'], $txt['checklogin7'], "personal.jpg", "90");
 	}
 ?>

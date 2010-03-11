@@ -51,12 +51,10 @@ if ($use_prodgfx == 1) {
 }
 if ($row_count == 1) { echo "<tr>"; }
 echo '<td width="33%">
-			       <h5>'.$f_row[1].'</h5>'.$screenshot.'<br />
+			       <h5>'.$f_row[1].'</h5>'."<a class=\"plain\" href=\"index.php?page=details&prod=".$f_row[0]."&cat=".$f_row[2]."\">".$screenshot.'</a><br />
 				   <br />
-                  <form method="get" action="index.php">
-                       <input type="hidden" name="prod" value="'.$f_row[0].'">
-                       <input type="hidden" name="cat" value="'.$f_row[2].'">
-					   <input type="hidden" name="page" value="details">';
+                  <form id="order'.$f_row[0].'" method="get" action="?page=cart&action=add">
+                       <input type="hidden" name="prodid" value="'.$f_row[0].'">';
 if (!$f_row[4] == 0) {
 	$tax=new wsTax($f_row[4]);
 	if ($no_vat == 1) {
@@ -68,7 +66,13 @@ if (!$f_row[4] == 0) {
 	}
 }
 
-echo '<br /><input name="sub" type="submit" class="button" value="'.$txt['frontpage1'].'" />
+echo '<br /><input name="sub" type="submit" id="addtocart" class="button" value="'.$txt['details7'].'" />
                    </form></td>';
 if ($row_count == $prods_per_row) { echo "</tr>"; }
 ?>
+<script type="text/javascript" language="javascript">
+//<![CDATA[
+	cart=new wsCart();
+	cart.order();
+//]]>
+</script>

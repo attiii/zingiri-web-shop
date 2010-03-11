@@ -64,7 +64,6 @@ if (isset($_POST['discount_code'])) {
 		}
 	}
 }
-
 // current date
 $today = getdate();
 $error = 0; // no errors found
@@ -99,30 +98,35 @@ CheckoutShowProgress();
 	<caption><?php echo $txt['cart9']; ?></caption>
 	<tr>
 		<td><?php echo $txt['shipping2'] ?><br />
+		<?php if (ZING_PROTOTYPE) {?>
 		<SELECT NAME="shipping" id="shipping">
+		<?php } else {?>
+		<SELECT NAME="shipping" id="shipping" onChange="this.form.action='?page=onecheckout';this.form.submit();">
+		<?php }?>
 		<?php
 		// find out the shipping methods
 		$query="SELECT * FROM `".$dbtablesprefix."shipping` ORDER BY `id`";
-		$sql = mysql_query($query) or die('1-'.mysql_error());
+		$sql = mysql_query($query) or zfdbexit($query);
 		while ($row = mysql_fetch_row($sql)) {
 			// there must be at least 1 payment option available, so lets check that
 			$pay_query="SELECT * FROM `".$dbtablesprefix."shipping_payment` WHERE `shippingid`=".$row[0];
-			$pay_sql = mysql_query($pay_query) or die('2-'.mysql_error());
+			$pay_sql = mysql_query($pay_query) or zfdbexit($pay_query);
 			if (mysql_num_rows($pay_sql) <> 0) {
 				if ($row[2] == 0 || ($row[2] == 1 && IsCustomerFromDefaultSendCountry($send_default_country) == 1)) {
 					// now check the weight and the costs
 					if (!$shippingid) $shippingid=$row[0];
 					$cart_weight = WeighCart($customerid);
 					$weight_query = "SELECT * FROM `".$dbtablesprefix."shipping_weight` WHERE '".$cart_weight."' >= `FROM` AND '".$cart_weight."' <= `TO` AND `SHIPPINGID` = '".$row[0]."'";
-					$weight_sql = mysql_query($weight_query) or die('3-'.mysql_error());
+					$weight_sql = mysql_query($weight_query) or zfdbexit($weight_query);
 					while ($weight_row = mysql_fetch_row($weight_sql)) {
-						if (!weightid) $weightid=$weight_row[0];
+						if (!$weightid) $weightid=$weight_row[0];
 						if ($shippingid==$row[0] && $weightid==$weight_row[0]) $selected='selected="SELECTED"'; else $selected="";
 						echo "<OPTION VALUE=\"".$weight_row[0].":".$row[0]."\" ".$selected." >".$row[1]."&nbsp;(".$currency_symbol_pre.myNumberFormat($weight_row[4],$number_format).$currency_symbol_post.")</OPTION>";
 					}
 				}
 			}
 		}
+		
 		?>
 		</SELECT><br />
 		<?php echo $txt['shipping10'] ?><br />
@@ -148,7 +152,10 @@ CheckoutShowProgress();
 	<tr>
 		<td><?php echo $txt['shipping5']?> <input type="text"
 			id="discount_code" name="discount_code"
-			value="<?php echo $discount_code?>"><br />
+			value="<?php echo $discount_code?>">
+			<?php if (!ZING_PROTOTYPE)?>
+			<input type="submit" name="discount" value="<? echo $txt['cart10'];?>" onclick="this.form.action='?page=onecheckout';this.form.submit();"/>
+			<?php ?>
 		</td>
 	</tr>
 </table>
@@ -353,13 +360,14 @@ CheckoutShowProgress();
 <input type="hidden" name="onecheckout" value="1" />
 <input type="checkbox" name="conditions"
 <?php if ($conditions) echo 'checked="yes"'?> /> <a
-	href="<?php zurl('index.php?page=conditions',true)?>"><?php echo $txt['conditions1'];?></a><br />
+	href="<?php zurl('index.php?page=conditions&action=show',true)?>"><?php echo $txt['conditions1'];?></a><br />
 <div style="text-align: center;"><input type=submit name=pay
 	value="<?php echo $txt['shipping9'] ?> >>"></div>
 </form>
 
 <?php
 		}
+if (ZING_PROTOTYPE) {
 		?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
@@ -367,3 +375,4 @@ CheckoutShowProgress();
            $checkout.checkout();
 //]]>
 </script>
+<?php }?>

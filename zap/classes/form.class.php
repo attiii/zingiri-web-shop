@@ -42,6 +42,7 @@ class zfForm {
 	var $format=array();
 	var $rowsCount;
 	var $label;
+	var $search;
 
 	function zfForm($form,$id=0,$post=null) {
 		$this->form=$form;
@@ -205,7 +206,7 @@ class zfForm {
 				$element->rules=$this->elements['rules'][$key];
 
 				$c=$this->countSubelements($value['subelements'],$key);
-				
+
 				foreach ($value['subelements'] as $key2 => $sub)
 				{
 					if (isset($this->elements['cat'][$key][$key2]) && $this->elements['cat'][$key][$key2]=='parameter') {
@@ -256,7 +257,7 @@ class zfForm {
 			$element->hidden=$value['hidden'];
 			$element->unique=$value['unique'];
 			$element->rules=$this->elements['rules'][$key];
-				
+
 			$c=$this->countSubelements($value['subelements'],$key);
 			foreach ($value['subelements'] as $key2 => $sub)
 			{
@@ -369,8 +370,31 @@ class zfForm {
 		return $input_array;
 	}
 
+	function setSearch($search,&$map) {
+		if (!empty($search)) $this->search=$this->Sanitize($search);
+		else return;
+		$s="";
+		//$where=array();
+
+		foreach ($search as $id => $value) {
+			list($prefix,$key1,$key2)=explode('_',$id);
+			$key=100*$key1+$key2;
+			//echo '<br />';print_r($this->json[$key1]['mandatory']);
+			if ($value!="" && $prefix=='element') {
+				$field=str_replace('`','',$this->allfields[$key]);
+				$map[$field]=array('like', $value);
+				//$map[$id]=$value;
+				$s.='&'.$id.'='.urlencode($value);
+			}
+			//echo '<br />'.$id.'='.$value.'='.$this->allfields[$key];
+		}
+		//echo '<br />';print_r($map);echo '<br />';
+		return $s;
+	}
+
 	function SelectRows($where="",$pos=0)
 	{
+		//print_r($this->search);
 		if (empty($pos)) $pos=0;
 		if ($this->type=="DB") return $this->SelectRowsDB($where,$pos);
 	}
@@ -382,12 +406,17 @@ class zfForm {
 		if ($where) {
 			$qwhere="";
 			foreach ($where as $field => $value) {
-				if (function_exists($value)) $v=$value();
-				elseif (isset($_GET[$value])) $v=$_GET[$value];
-				elseif (isset($_POST[$value])) $v=$_POST[$value];
-				else $v=$value;
 				$qwhere.=empty($qwhere) ? " where " :  " and ";
-				$qwhere.="`".$field."`=".zfqs($v);
+				if (is_array($value)) {
+					if ($value[0]=='like') $qwhere.="`".$field."` LIKE '%".$value[1]."%'";
+					else $qwhere.="`".$field."`=".zfqs($value[1]);
+				} else {
+					if (function_exists($value)) $v=$value();
+					elseif (isset($_GET[$value])) $v=$_GET[$value];
+					elseif (isset($_POST[$value])) $v=$_POST[$value];
+					else $v=$value;
+					$qwhere.="`".$field."`=".zfqs($v);
+				}
 			}
 			$this->query.=$qwhere;
 		}
@@ -448,9 +477,17 @@ class zfForm {
 		return $output;
 	}
 
+	/*
+	 * Prepares form data before displaying it.
+	 * 
+	 * If the data record ID is not filled, a blank form is prefilled with values coming from:
+	 * 	$_POST/$_GET in the form of 'element_x' or 'element_x_y'
+	 *  
+	 * If the data record ID is filled, the data record with that ID will be retrieved. Any filters passed via $_POST are 
+	 * also verified.
+	 */
 	function Prepare($id=null)
 	{
-
 		$input=array();
 		if (!$id) {
 			foreach ($this->allfields as $key => $column)
@@ -466,6 +503,10 @@ class zfForm {
 					elseif (isset($_POST[$value])) $v=$_POST[$value];
 					else $v=$value;
 					$input['element_'.$key1."_".$key2]=$v;
+				} elseif ($_GET['element_'.$key1."_".$key2]) {
+					$input['element_'.$key1."_".$key2]=$_GET['element_'.$key1."_".$key2];
+				} elseif ($_GET['element_'.$key1]) {
+					$input['element_'.$key1]=$_GET['element_'.$key1];
 				}
 			}
 		} else {

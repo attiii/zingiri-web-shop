@@ -155,6 +155,9 @@ if ($action=="save") {
 
 	if ($error == 0) {
 		if (LoggedIn() == false) {
+			// set global variables if not set yet
+			foreach ($zingPrompts->vars as $var) { global $$var; }
+			
 			// new customer, so we need to check some stuff
 
 			// captcha, for prevention of robot-users (R2D2)
@@ -165,7 +168,6 @@ if ($action=="save") {
 					PutWindow($gfx_dir, $txt['general12'], $txt['general16'], "warning.gif", "50");
 					$error = 1;
 				}
-				else { unlink (dirname(__FILE__)."/addons/captcha/".$number.".key"); }
 			}
 			 
 			// if you would want to check for reserved usernames, THIS would be the place!!!
@@ -189,12 +191,18 @@ if ($action=="save") {
 			}
 			// everything ok? then lets put the new customer in the database
 			if ($error == 0) {
-				include ($lang_file);
+				$zingPrompts->load(true);
+				
 				$query = sprintf("INSERT INTO `".$dbtablesprefix."customer` ( `LOGINNAME`, `PASSWORD`, `LASTNAME`, `MIDDLENAME`, `INITIALS`, `IP`, `ADDRESS`, `ZIP`, `CITY`, `STATE`, `PHONE`, `EMAIL`, `GROUP`, `COUNTRY`,`COMPANY`,`DATE_CREATED`,`NEWSLETTER`) VALUES (%s, %s, %s, %s, %s, '".GetUserIP()."', %s, %s, %s, %s, %s, %s, 'CUSTOMER', %s, %s, '".Date($date_format)."', '".$newsletter."')", quote_smart($login), quote_smart(md5($pass1)), quote_smart($surname), quote_smart($middle), quote_smart($initials), quote_smart($address), quote_smart($zip), quote_smart($city), quote_smart($state), quote_smart($phone), quote_smart($email), quote_smart($country), quote_smart($company));
+				$sql = mysql_query($query) or die(mysql_error());
+				if ($integrator->wpCustomer) {
+					$integrator->createWpUser(array('LOGINNAME'=>$login,'INITIALS'=>$initials,'LASTNAME'=>$surname,'EMAIL'=>$email),'subscriber');
+					$integrator->loginWpUser($login,$pass1);
+				}
 				mymail($webmaster_mail, $webmaster_mail, $txt['customer36'], $txt['customer37']."<br /><br />".$txt['customer12'], $charset);
 				mymail($webmaster_mail, $email, $txt['customer11'], $txt['customer12'], $charset);
-				$sql = mysql_query($query) or die(mysql_error());
 				PutWindow($gfx_dir, $txt['general13'], $txt['customer13'], "notify.gif", "50"); // succesfully saved
+				if ($use_captcha == 1) { unlink (dirname(__FILE__)."/addons/captcha/".$number.".key"); }
 				//echo "<h4><a href=\"index.php?page=my\">".$txt['customer35']."</a></h4>";  // click here to login
 				setcookie ("fws_guest", "", time() - 3600, '/');
 				$cookie_data = $login.'-'.mysql_insert_id().'-'.md5(md5($pass1)); //name userid and encrypted password
@@ -209,10 +217,14 @@ if ($action=="save") {
 			// update existing customer
 			$query = sprintf("UPDATE `".$dbtablesprefix."customer` SET `LOGINNAME` =%s, `PASSWORD` = %s, `LASTNAME` = %s, `MIDDLENAME` = %s, `INITIALS` = %s, `IP` = '".GetUserIP()."', `ADDRESS` = %s, `ZIP` = %s, `CITY` = %s, `STATE` = %s, `PHONE` = %s, `EMAIL` = %s, `COUNTRY` = %s, `COMPANY` = %s, `NEWSLETTER` = '".$newsletter."' WHERE ID = %s", quote_smart($login), quote_smart(md5($pass1)), quote_smart($surname), quote_smart($middle), quote_smart($initials), quote_smart($address), quote_smart($zip), quote_smart($city), quote_smart($state), quote_smart($phone), quote_smart($email), quote_smart($country), quote_smart($company), quote_smart($customerid));
 			$sql = mysql_query($query) or die(mysql_error());
+			if ($integrator->wpCustomer) {
+				$integrator->updateWpUser(array('user_pass'=>$pass1,'user_login'=>$login,'first_name'=>$initials,'last_name'=>$surname,'user_email'=>$email),'subscriber');
+			}
 			PutWindow($gfx_dir, $txt['general13'], $txt['customer13'], "notify.gif", "50"); // succesfully saved
 			$action =  "show";
 		}
 	}
+	if ($error) $action="correct";
 }
 
 $country = $send_default_country; // if it's a new customer, let's suggest this country as the default one.

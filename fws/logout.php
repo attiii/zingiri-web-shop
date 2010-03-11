@@ -22,6 +22,12 @@
  */
 ?>
 <?php
+if ($integrator->wpCustomer) {
+	setcookie ("fws_cust","", time() - 3600, '/');
+	wp_logout();
+	header('Location:'.get_option('home'));
+	die();
+}
 if(setcookie ("fws_cust","", time() - 3600, '/')==TRUE)
 {
 	?>

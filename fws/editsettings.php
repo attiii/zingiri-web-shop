@@ -238,12 +238,12 @@ else {
      }
 ?>
             <h4> 
-            <a href="index.php?page=editsettings&show=1"><?php echo $txt['editsettings48']; ?></a> |
-            <a href="index.php?page=editsettings&show=2"><?php echo $txt['editsettings47']; ?></a> |
-            <a href="index.php?page=editsettings&show=3"><?php echo $txt['editsettings45']; ?></a> |
-            <a href="index.php?page=editsettings&show=4"><?php echo $txt['editsettings46']; ?></a> |
-            <a href="index.php?page=editsettings&show=all"><?php echo $txt['editsettings86']; ?></a> |
-            <a href="index.php?zfaces=form&form=settings&action=edit&id=1&redirect=<?php zurl(urlencode('?'.$_SERVER['QUERY_STRING']),true);?>"><?php echo $txt['editsettings93']; ?></a> 
+            <a href="?page=editsettings&show=1"><?php echo $txt['editsettings48']; ?></a> |
+            <a href="?page=editsettings&show=2"><?php echo $txt['editsettings47']; ?></a> |
+            <a href="?page=editsettings&show=3"><?php echo $txt['editsettings45']; ?></a> |
+            <a href="?page=editsettings&show=4"><?php echo $txt['editsettings46']; ?></a> |
+            <a href="?page=editsettings&show=all"><?php echo $txt['editsettings86']; ?></a> |
+            <a href="?page=advancedsettings&zfaces=form&form=settings&action=edit&id=1&redirect=<?php zurl(urlencode('?'.$_SERVER['QUERY_STRING']),true);?>"><?php echo $txt['editsettings93']; ?></a> 
             </h4>
             <br /><br />            
 	        <table width="80%" class="datatable">
@@ -350,18 +350,11 @@ else {
 	              <tr><td><?php echo $txt['editsettings17'] ?></td>
 	                  <td>
                         <SELECT NAME="default_lang">
-                          <OPTION VALUE="<?php echo $default_lang ?>" SELECTED><?php echo $default_lang ?>	                  
                            <?php 
-                             // detection of language files in the language dir. for each language it finds, it will add a flag :)
-           			         if ($dir = @opendir($lang_dir)) {
-                                while (($file = readdir($dir)) !== false) {
-                                      list($language, $filetype) = explode('[.]', $file);
-                                      if ($file != "." && $file != ".." && $file != "index.php") {
-	                                     echo "<OPTION VALUE=\"".$language."\">".$language;
-                                      }
-                                }           
-                                closedir($dir);
-                             }
+                           	foreach ($zingPrompts->langs as $language => $label) {
+	                       		if ($language==$default_lang) echo "<OPTION VALUE=\"".$language."\" SELECTED>".$label.'</OPTION>';
+	                       		else echo "<OPTION VALUE=\"".$language."\">".$label.'</OPTION>';
+                           	}
         	               ?>
         	            </SELECT>
         	          </td>

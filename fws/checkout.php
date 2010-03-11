@@ -86,7 +86,9 @@ if (LoggedIn() == True) {
 		}
 
 		if ($error == 0) {
-
+			// set global variables if not set yet
+			foreach ($zingPrompts->vars as $var) { global $$var; }
+			
 			// read the details
 			while ($row = mysql_fetch_array($sql)) {
 				$lastname = $row[3];
@@ -116,7 +118,8 @@ if (LoggedIn() == True) {
 			$query = "UPDATE `".$dbtablesprefix."order` SET `WEBID` = '".$webid."' WHERE `ID` = ".$lastid;
 			$sql = mysql_query($query) or die(mysql_error());
 
-			include ($lang_file);
+			$zingPrompts->load(true);
+			
 			$message = $txt['checkout3'];
 			$paymentmessage = "";
 			// now go through all all products from basket with status 'basket'
@@ -174,7 +177,7 @@ if (LoggedIn() == True) {
 					if ($stock_enabled == 1) {
 						if ($row[6] > $row_details[5] || $row_details[5] == 0) {
 							// the product stock is too low, so we have to cancel this order
-							include ($lang_file);
+							$zingPrompts->load(true);
 							PutWindow($gfx_dir, $txt['general12'], $txt['checkout15']." ".$print_description."<br />".$txt['checkout7']." ".$row[6]."<br />".$txt['checkout8']." ".$row_details[5], "warning.gif", "50");
 							$del_query = sprintf("DELETE FROM `".$dbtablesprefix."order` WHERE (`ID` = %s)", quote_smart($lastid));
 							$del_sql = mysql_query($del_query) or die(mysql_error());
@@ -227,14 +230,14 @@ if (LoggedIn() == True) {
 			while ($row = mysql_fetch_row($sql)) {
 				$sendcosts = $row[4];
 			}
-			include ($lang_file); // update sendcost in language file
+			$zingPrompts->load(true); // update sendcost in language file
 			$message .= '<tr><td>'.$txt['checkout16'].'</td><td>'.$shipping_descr.'</td><td style="text-align: right">'.$currency_symbol_pre.myNumberFormat($sendcosts,$number_format).$currency_symbol_post.'</td></tr>';
 
 			$total = $total + $sendcosts;
 			$totalprint = myNumberFormat($total);
 			$print_sendcosts = myNumberFormat($sendcosts);
 			$total_nodecimals = number_format($total, 2,"","");
-			include ($lang_file);
+			$zingPrompts->load(true);
 			$tax = new wsTax($total);
 			$taxheader=$txt['checkout102'];
 			if (count($tax->taxes)>0) {

@@ -37,9 +37,7 @@
     </caption>
     <tr><td>
      <?php
-      $fp = fopen($main_file, "rb") or die("Couldn't open ".$main_file.". Make sure it exists and is readable.");
-      $main = fread($fp, filesize($main_file));
-      fclose($fp);
+      $main=$zingPrompts->get('main');
       $main=str_replace("templates/default/images",$gfx_dir,$main);
       echo "<p>".nl2br($main)."</p>";
      ?>

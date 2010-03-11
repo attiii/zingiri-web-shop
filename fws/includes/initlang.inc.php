@@ -33,7 +33,8 @@ if (function_exists("qtrans_getLanguage")) {
 if (!file_exists($lang_dir."/".$lang."/lang.txt")) { $lang = $default_lang;}
 $lang_file = $lang_dir."/".$lang."/lang.txt";
 $main_file = $lang_dir."/".$lang."/main.txt";
-include ($lang_file); // read the language
+$zingPrompts=new zingPrompts($lang);
+$txt=$zingPrompts->load();
 $charset=get_option("blog_charset");
 
 ?>

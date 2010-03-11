@@ -60,6 +60,21 @@ Before upgrading, make sure you back up your database first!
 If you made changes to the style sheet (zing.css) or the language files, make sure you back them up before the upgrade and restore them after.
 == Changelog ==
 
+= 1.3.0 =
+* Added user integration with Wordpress
+* Made images on shop frontpage clickable and replaced 'more information' buttons with 'order' buttons
+* Converted all language files to UTF-8
+* Moved language sensitive elements like prompts and text from static files to database
+* Added option to search widget to control size of the field
+* Changed the way the live search bar operates, it will now present possible search terms and on clicking the term, the user will be taken to the search page and presented with a list of all matching products
+* Added option to disable effects, useful in case of conflicts with other plugins using jQuery
+* Fixed issue with captcha image being deleted in case of failure during registration
+* Fixed issue with 'forgot password' link causing redirect loop
+* (Re)fixed issue with loading of database initialisation files in apps not being processed in correct order on some installations
+* Fixed link 'I agree with the general terms'
+* Fixed issue with Web Shop activation disabling theme editor
+* Fixed issue with shipping costs not defaulting to correct value when entering one checkout page
+
 = 1.2.9 =
 * Fixed issue with loading of database initialisation files in apps not being processed in correct order on some installations
 

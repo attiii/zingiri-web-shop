@@ -382,7 +382,7 @@ function AllowAccess($zfaces,$formid="",$action="") {
 	if (ZingAppsIsAdmin()) $group="ADMIN";
 	elseif (function_exists('faces_group')) $group=faces_group();
 	else $group="GUEST";
-
+	
 	switch ($zfaces)
 	{
 		case "form":
@@ -430,7 +430,7 @@ function zf_json_encode($a) {
 }
 
 function zfDumpQuery($query,$table="") {
-	if (!defined("ZING_APPS_BUILDER")) return true;
+//	if (!defined("ZING_APPS_BUILDER")) return true;
 	$query=str_replace(DB_PREFIX,"##",$query);
 	if (defined("ZING_APPS_CUSTOM")) $dir=ZING_APPS_CUSTOM.'db/';
 	else $dir=ZING_APPS_PLAYER_DIR.'db/';

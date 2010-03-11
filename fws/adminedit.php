@@ -61,24 +61,21 @@ else {
   if ($root == 0) { 
 	  $fullfilename = $lang_dir."/".$lang."/".$filename;  // the file is not in the root of the shop, so it must be in the lang folder
   }
-  else { $fullfilename = ZING_SUB.$filename; } // the fullfilename just the filename
+  else { $fullfilename = ZING_DIR.$filename; } // the fullfilename just the filename
   
   // if action == write_changes, then do so
   if ($action == "write_changes") {
     if ($name[1] == "txt" || $name[1] == "fws") {
-	    $fp=fopen($fullfilename,"w") or die("FWS: Couldn't save ".$fullfilename.".. Make sure it exists and is writable (chmod 666 or 777).");
-        fwrite($fp,$text2edit);
-        fclose($fp);   
+        $zingPrompts->set($name[0],$text2edit);
         PutWindow($gfx_dir, $txt['general13'], $txt['adminedit2'], "notify.gif", "50");
 	}
   }
   
   if ($name[1] == "txt" || $name[1] == "fws") {
 	  // try to open
-	  $fp = fopen($fullfilename, "rb") or die("FWS: Couldn't open ".$fullfilename.".. Make sure it exists and is readable.");
-	  if (filesize($fullfilename) > 0) { $text2edit = fread($fp, filesize($fullfilename)); }
-	  fclose($fp);
-	  echo "<strong>".$txt['adminedit3']." ".$fullfilename."</strong>";
+      $text2edit=$zingPrompts->get($name[0]);
+	  
+	  echo "<strong>".$txt['adminedit3']." ".$name[0]."</strong>";
 ?>
 	 <form method="post" action="?page=adminedit&wysiwyg=<?php echo $wysiwyg; ?>">
 	   <textarea rows="30" cols="65" name="text2edit"><?php echo $text2edit ?></textarea><br />

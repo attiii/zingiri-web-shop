@@ -1,4 +1,4 @@
--- correction because in some cases the db files are not loaded in the correct order
+-- previous correction in 0.8 was not complete so we need to do it again
 TRUNCATE TABLE `##faccess`;
 TRUNCATE TABLE `##flink`;
 TRUNCATE TABLE `##frole`;

@@ -683,4 +683,7 @@ $txt['editsettings111'] = 'Date of birth on registration form';
 $txt['general5'] = 'taxes';
 $txt['editsettings51'] = 'No taxes <a href=# class=info>(?)<span>Enable this if you do not want to use VAT in your shop prices, for example when it is a webshop with personal products</span></a>';
 $txt['editsettings13'] = 'Prices in DB are incl. taxes';
+
+//v1.3.0 - added
+$txt['admin101'] = 'Prompts & labels';
 ?>

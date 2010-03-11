@@ -34,6 +34,7 @@ $zflist=new zfForm($formname,$formid);
 $formname=$zflist->form;
 $formid=$zflist->id;
 $stack=new zfStack('list',$formname);
+
 echo '<p class="zfaces-form-label">'.$zflist->label.'</p>';
 
 if (!AllowAccess('list',$formid,$action)) return false;
@@ -47,11 +48,22 @@ while ($l=$linksin->next()) {
 		$map[$f[0]]=$f[1];
 	}
 }
+
+	//search fields
+	echo '<form name="faces" method="POST" action="?page='.$page.'&zfaces=list&form='.$formname.'&action=search';
+	echo '&zft=form&zfp='.$formid.'">';
+	echo '<ul id="zfaces" class="zfaces">';
+	$zflist->Prepare();
+	$zflist->Render();
+	echo '</ul>';
+	echo '<center><input class="art-button" type="submit" name="search" value="'.z_('Search').'"></center>';
+	echo '</form>';
+
+
 ?>
 <div id="<?php echo $formname;?>"><a
-	href="?zfaces=form&form=<?php echo $formname;?>&action=add&zft=list&zfp=<?php echo $formname;?>&map=<?php echo urlencode($mapflat);?>"><img
-	class="zfimg" src="<?php echo ZING_APPS_PLAYER_URL; ?>images/add.png"></a>
-<?php if (defined("ZING_APPS_BUILDER") && ZingAppsIsAdmin()) {?>
+	href="?page=<?php echo $page;?>&zfaces=form&form=<?php echo $formname;?>&action=add&zft=list&zfp=<?php echo $formname;?>&map=<?php echo urlencode($mapflat);?>"
+><img class="zfimg" src="<?php echo ZING_APPS_PLAYER_URL; ?>images/add.png"></a> <?php if (defined("ZING_APPS_BUILDER") && ZingAppsIsAdmin()) {?>
 <select id="zfheader">
 	<option value="none" selected="selected">Add column</option>
 	<?php
@@ -64,6 +76,7 @@ while ($l=$linksin->next()) {
 
 if ($zflist)
 {
+
 	$links=new zfDB();
 	$links->select("select * from ##flink where formin='".$zflist->id."'");
 	while ($l=$links->next()) {
@@ -84,9 +97,12 @@ if ($zflist)
 	echo '</tr>';
 
 	$altrow="altrow";
+	if ($action=='search') {
+		$search=$zflist->setSearch($_POST,$map);
+	}
+
 	if ($zflist->SelectRows($map,$pos))
 	{
-
 		$rows=$zflist->NextRows();
 		$line=1;
 		$script="";
@@ -100,7 +116,7 @@ if ($zflist)
 				$span="";
 				foreach ($links as $i => $link) {
 					if ($span) $span.=" | ";
-					$span.='<a href="?zfaces='.$link['DISPLAYOUT'].'&action='.$link['ACTIONOUT'].'&formid='.$link['FORMOUT'].'&id='.$id.'&map='.$link['MAP'].'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION'].'">'.ucfirst($link['ACTION']).'</a>';
+					$span.='<a href="?page='.$page.'&zfaces='.$link['DISPLAYOUT'].'&action='.$link['ACTIONOUT'].'&formid='.$link['FORMOUT'].'&id='.$id.'&map='.$link['MAP'].'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION'].'">'.ucfirst($link['ACTION']).'</a>';
 				}
 
 			}
@@ -140,11 +156,12 @@ if ($zflist)
 	if ($stack->getPrevious()) echo '<a href="'.$stack->getPrevious().'">Back</a>';
 	if ($zflist->rowsCount > ZING_APPS_MAX_ROWS) {
 		for ($i=0;$i<=$zflist->rowsCount;$i=$i+ZING_APPS_MAX_ROWS) {
-			echo '<a href="?zfaces=list&form='.$formname.'&pos='.$i.'&zft=list&zfp='.$zfp.'">['.$i.']</a> ';
+			echo '<a href="?page='.$page.'&zfaces=list&form='.$formname.'&pos='.$i.'&zft=list&zfp='.$zfp.'&map='.urlencode(zf_json_encode($map)).$search.'">['.$i.']</a> ';
 		}
 	}
 
 
 }
+
 
 ?></div>
