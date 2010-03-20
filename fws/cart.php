@@ -212,15 +212,7 @@ else {
 			}
 
 			// make up the description to print according to the pricelist_format and max_description
-			if ($pricelist_format == 0) { $print_description = $row_details[1]; }
-			if ($pricelist_format == 1) { $print_description = $row_details[3]; }
-			if ($pricelist_format == 2) { $print_description = $row_details[1]." - ".$row_details[3]; }
-			if ($max_description != 0) {
-				$description = stringsplit($print_description, $max_description); // so lets only show the first xx characters
-				if (strlen($print_description) != strlen($description[0])) { $description[0] = $description[0] . ".."; }
-				$print_description = $description[0];
-			}
-			$print_description = strip_tags($print_description); //remove html because of danger of broken tags
+			$print_description=printDescription($row_details[1],$row_details[3]);
 			?>
 	<tr <?php echo $kleur; ?>>
 		<td><a

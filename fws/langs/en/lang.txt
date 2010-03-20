@@ -686,4 +686,9 @@ $txt['editsettings13'] = 'Prices in DB are incl. taxes';
 
 //v1.3.0 - added
 $txt['admin101'] = 'Prompts & labels';
+$txt['editsettings112'] = 'Product ID & full description';
+$txt['prompt1'] = 'Language';
+$txt['prompt2'] = 'Standard text';
+$txt['prompt3'] = 'Custom text';
+
 ?>

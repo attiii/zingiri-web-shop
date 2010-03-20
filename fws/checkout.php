@@ -158,16 +158,7 @@ if (LoggedIn() == True) {
 					//					}
 
 					// make up the description to print according to the pricelist_format and max_description
-					if ($pricelist_format == 0) { $print_description = $row_details[1]; }
-					if ($pricelist_format == 1) { $print_description = $row_details[3]; }
-					if ($pricelist_format == 2) { $print_description = $row_details[1]." - ".$row_details[3]; }
-					if ($max_description != 0) {
-						$description = stringsplit($print_description, $max_description); // so lets only show the first xx characters
-						if (strlen($print_description) != strlen($description[0])) { $description[0] = $description[0] . ".."; }
-						$print_description = $description[0];
-						$print_description = strip_tags($print_description); // strip html because half html can mess up the layout
-					}
-					$print_description = strip_tags($print_description); //remove html because of danger of broken tags
+					$print_description=printDescription($row_details[1],$row_details[3]);
 					if (!empty($row[7])) { $print_description .= "<br />".$printvalue; } // product features
 					$total_add = $product_price * $row[6];
 					$message .= "<tr><td>".$row[6].$txt['checkout4']."</td><td>".$print_description."<br />".$currency_symbol_pre.myNumberFormat($product_price,$number_format).$currency_symbol_post.$txt['checkout5']."</td><td style=\"text-align: right\">".$currency_symbol_pre.myNumberFormat($total_add,$number_format).$currency_symbol_post."</tr>";
@@ -394,7 +385,7 @@ if (LoggedIn() == True) {
 		       <tr><td>'.$message.'
 		       </td></tr>
 		     </table>
-		     <h4><a href="?page=printorder&orderid='.$lastid.'">'.$txt['readorder1'].'</a>';
+		     <h4><a href="'.ZING_URL.'fws/printorder.php?orderid='.$lastid.'" target="_blank">'.$txt['readorder1'].'</a>';
 				if ($create_pdf == 1) { echo "<br /><a href=\"".$orders_url."/".$pdf."\">".$txt['checkout27']."</a></h4>"; }
 			} else {
 				PutWindow($gfx_dir, $txt['general13'], $txt['checkout104'], "notify.gif", "50");

@@ -41,7 +41,7 @@ else {
 		$sql_cat = mysql_query($query_cat) or die(mysql_error());
 		$ahref = "";
 
-		// if there is only 1 category in the group, then jump to the browse list instandly
+		// if there is only 1 category in the group, then jump to the browse list instantly
 		if (mysql_num_rows($sql_cat) == 1) {
 			$row_cat = mysql_fetch_row($sql_cat);
 			$ahref = "\"index.php?page=browse&action=list&orderby=DESCRIPTION&group=".$row[0]."&cat=".$row_cat[0]."\"";
@@ -55,16 +55,32 @@ else {
 		}
 		// if there are more categories in the group, then show the category list
 		if (mysql_num_rows($sql_cat) > 1) {
-			$ahref = "\"index.php?page=browse&action=list&orderby=DESCRIPTION&group=".$row[0]."\"";
-			echo "<li>".$row[1];
-			echo '<ul>';
-			while ($row_cat = mysql_fetch_row($sql_cat)) {
-				if ($cat==$row_cat[0]) $active='id="active"'; else $active="";
-				$ahref = "\"index.php?page=browse&action=list&orderby=DESCRIPTION&group=".$row[0]."&cat=".$row_cat[0]."\"";
-				echo "<li ".$active."><a href=".$ahref.">" . $row_cat[1] . "</a>";
+			if (SHOWCAT) {
+				$ahref = "\"index.php?page=browse&action=list&orderby=DESCRIPTION&group=".$row[0]."\"";
+				echo "<li>".$row[1];
+				echo '<ul>';
+				while ($row_cat = mysql_fetch_row($sql_cat)) {
+					if ($cat==$row_cat[0]) $active='id="active"'; else $active="";
+					$ahref = "\"index.php?page=browse&action=list&orderby=DESCRIPTION&group=".$row[0]."&cat=".$row_cat[0]."\"";
+					echo "<li ".$active."><a href=".$ahref.">" . $row_cat[1] . "</a>";
+				}
+				echo '</ul>';
+				echo '</li>';
+			} else {
+				if ($row_cat = mysql_fetch_row($sql_cat)) {
+					$ahref = "\"index.php?page=categories&group=".$row[0]."\"";
+				}
+				// now show the menu link, if ahref is not empty
+				if ($ahref != "") {
+					if ($group != $row[0]) {
+						echo "<li><a href=".$ahref.">" . $row[1] . "</a></li>\n";
+					}
+					else {
+						//select/highlight
+						echo "<li id=\"active\"><a id=\"current\" href=".$ahref.">" . $row[1] . "</a></li>\n";
+					}
+				}
 			}
-			echo '</ul>';
-			echo '</li>';
 		}
 	}
 	echo "</ul>\n";

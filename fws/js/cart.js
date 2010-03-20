@@ -51,11 +51,38 @@ var wsCart = Class.create( {
 		var image = e.up('tr').down('img');
 		//alert(image.src);
 		form=e.up('form').id;
-		$(form).request();
+		//$(form).request();
+//alert($(form).serialize(true));
+		new Ajax.Request($(form).action, {
+			method : "post",
+			parameters : $(form).serialize(true),
+			onComplete : function(request) {
+				this.getCart();
+				//alert('ok');
+			}.bind(this)
+		});
+		
 		Effect.Shake(image, {duration:1.0});
-		this.getCart();
+		//this.getCart();
 	},
 	
+	sendToCart : function() {
+		var tag = $('zing-sidebar-cart');
+		new Ajax.Request(wsURL + "getCartContents.php", {
+			method : "post",
+			parameters : {
+				'dummy' : '123'
+			},
+			onComplete : function(request) {
+			tag.innerHTML = request.responseText;
+			Effect.BlindDown('shoppingcart', {duration:1.0});
+			Effect.BlindUp('shoppingcart', {delay:3.0, duration:1.0});
+			this.contents();
+
+		}.bind(this)
+		});
+	},
+
 	getCart : function() {
 		var tag = $('zing-sidebar-cart');
 		new Ajax.Request(wsURL + "getCartContents.php", {
@@ -71,6 +98,6 @@ var wsCart = Class.create( {
 
 		}.bind(this)
 		});
-}
+	}
 
 });

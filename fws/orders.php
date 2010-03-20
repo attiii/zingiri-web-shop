@@ -57,8 +57,8 @@ else {
 	       if (file_exists($orders_dir ."/". $row[7] . ".php")) {
 	          echo "<tr><td nowrap><a href=\"index.php?page=readorder&orderid=".$row[0]."\">".$row[7]."</a><br />";
 	           // if a pdf was created, lets show it here
-	           if ($row[10] != "" && !is_null($row[10]) && file_exists($orders_url ."/". $row[10])) { 
-		           echo "<a href=\"".$orders_dir ."/". $row[10]."\"><img src=\"".$gfx_dir."/pdf.gif\" alt=\"PDF\"></a> "; 
+	           if ($row[10] != "" && !is_null($row[10]) && file_exists($orders_dir ."/". $row[10])) { 
+		           echo "<a href=\"".$orders_url ."/". $row[10]."\"><img src=\"".$gfx_dir."/pdf.gif\" alt=\"PDF\"></a> "; 
 		       }
 			  echo "</td>";
 	          echo "<td>";

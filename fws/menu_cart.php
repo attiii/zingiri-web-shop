@@ -44,11 +44,18 @@ while ($row = mysql_fetch_array($sql)) {
 		$cart.='</a></li>';
 	}
 }
+echo '</ul>';
 if (!empty($cart)) {
 	echo '<div id="shoppingcart"><ul>';
 	echo $cart;
 	echo '</ul></div>';
 }
+if ($countCart > 0) {
+	echo '<ul>';
+	echo '<li><a href="?page=conditions&action=checkout">'.$txt['menu3'].'</a></li>';
+	echo '</ul>';
+}
+
 if (ZING_PROTOTYPE) {
 ?>
 <script type="text/javascript" language="javascript">

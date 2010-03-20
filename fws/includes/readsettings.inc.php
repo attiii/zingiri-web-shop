@@ -25,7 +25,7 @@
 // ------------------------------------------------------
 // read the settings from the database
 // ------------------------------------------------------
-$query = "SELECT * FROM `".$dbtablesprefix."settings`";
+$query = "SELECT * FROM `".$dbtablesprefix."settings` where `ID`=1";
 $sql = mysql_query($query) or die(mysql_error());
 while ($row = mysql_fetch_array($sql)) {
 
@@ -134,6 +134,7 @@ while ($row = mysql_fetch_array($sql)) {
 	$show_stock = $row[53];
 
 	if (!defined("FASTCHECKOUT")) { define("FASTCHECKOUT",$row['FASTCHECKOUT']); }
+	if (!defined("SHOWCAT")) { define("SHOWCAT",$row['SHOWCAT']); }
 }
  
 // currency symbol position

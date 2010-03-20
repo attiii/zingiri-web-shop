@@ -76,6 +76,6 @@ else {
 		<td><?php echo $order; ?></td>
 	</tr>
 </table>
-<h4><a href="?page=printorder&orderid=<?php echo $orderid ?>"><?php echo $txt['readorder1'] ?></a><br />
+<h4><a href="<?php echo ZING_URL;?>fws/printorder.php?orderid=<?php echo $orderid ?>" target="_blank"><?php echo $txt['readorder1'] ?></a><br />
 <a href="javascript:history.go(-1)"><?php echo $txt['readorder2'] ?></a></h4>
 	<?php } ?>

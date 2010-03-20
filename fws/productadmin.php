@@ -254,7 +254,7 @@ else {
 					$height = round($size[1] / $percent);
 				}
 				echo "<h4><img src=\"".$product_url."/".$thumb."\" class=\"borderimg\" height=".$height." width=".$width."><br />";
-				echo "<a href=\"index.php?page=productadmin&action=del_image&picid=".$picid."\">".$txt['productadmin24']."</a></h4>";
+				echo "<a href=\"".zurl("index.php?page=productadmin&action=del_image&picid=".$picid)."\">".$txt['productadmin24']."</a></h4>";
 			}
 			echo "<br /><br />";
 			echo "<table width=\"80%\" class=\"datatable\">";

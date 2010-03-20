@@ -296,6 +296,9 @@ else {
                           <OPTION VALUE="1,234.56">1,234.56
                           <OPTION VALUE="1234,56">1234,56
                           <OPTION VALUE="1.234,56">1.234,56
+                          <OPTION VALUE="1.234">1.234
+                          <OPTION VALUE="1,234">1,234
+                          <OPTION VALUE="1234">1234
                         </SELECT>  
 	                  </td>
         	      </tr>
@@ -514,6 +517,7 @@ else {
                           <OPTION VALUE="0"><?php echo $txt['editsettings54'] ?>
                           <OPTION VALUE="1"><?php echo $txt['editsettings55'] ?>
                           <OPTION VALUE="2"><?php echo $txt['editsettings56'] ?>
+                          <OPTION VALUE="3"><?php echo $txt['editsettings112'] ?>
                         </SELECT>  
 	                  </td>
         	      </tr>
@@ -531,7 +535,7 @@ else {
 	                  </td>
 				  </tr>
 	              <tr><td><?php echo $txt['editsettings50'] ?></td>
-	                  <td><input type="text" name="max_description" size="2" maxlength="2" value="<?php echo $max_description ?>"></td>
+	                  <td><input type="text" name="max_description" size="3" maxlength="3" value="<?php echo $max_description ?>"></td>
         	      </tr>
 	              <tr><td><?php echo $txt['editsettings102'] ?></td>
 	                  <td><input type="checkbox" name="order_from_pricelist" <?php if ($order_from_pricelist == 1) { echo "checked"; } ?>></td>

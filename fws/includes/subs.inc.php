@@ -242,6 +242,15 @@ Function myNumberFormat ($aNumber) {
 	if ($number_format == "1,234.56") {
 		$aNumber = number_format($aNumber, 2, '.', ',');
 	}
+	if ($number_format == "1,234") {
+		$aNumber = number_format($aNumber, 0, '.', ',');
+	}
+	if ($number_format == "1.234") {
+		$aNumber = number_format($aNumber, 0, ',', '.');
+	}
+	if ($number_format == "1234") {
+		$aNumber = number_format($aNumber, 0, '.', '');
+	}
 	return $aNumber;
 }
 // is the id of an admin?
@@ -968,5 +977,22 @@ function getCustomerByLogin($login) {
 		if ($row = mysql_fetch_array($sql)) return $row['ID'];
 	}
 	return false;
+}
+
+function printDescription($productid,$description) {
+	global $max_description,$pricelist_format;
+	
+	if ($pricelist_format == 0) { $print_description = $productid; }
+	if ($pricelist_format == 1) { $print_description = $description; }
+	if ($pricelist_format == 2) { $print_description = $productid." - ".$description; }
+	if ($pricelist_format == 3) { $print_description = $productid."<br />".$description; }
+	if ($max_description != 0 && ($pricelist_format <= 2)) {
+		$description = stringsplit($print_description, $max_description); // so lets only show the first xx characters
+		if (strlen($print_description) != strlen($description[0])) { $description[0] = $description[0] . ".."; }
+		$print_description = $description[0];
+	}
+	return $print_description;
+	$print_description = strip_tags($print_description); //remove html because of danger of broken tags
+
 }
 ?>

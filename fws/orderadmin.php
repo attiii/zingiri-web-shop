@@ -233,7 +233,7 @@ else {
 			   $order_status = $row[2];
 			   $status_color = $colors[$order_status];
 			   $status_text = $txt["db_status$order_status"];		       
-	           echo "<img src=\"".$gfx_dir."/bullit_".$status_color.".gif\" alt=\"".$status_text."\" />&nbsp;<a href=\"index.php?page=orderadmin&action=showstatus&orderid=".$row[0]."&oldstatus=".$row[2]."\">".$status_text."</a><br />";
+	           echo "<img src=\"".$gfx_dir."/bullit_".$status_color.".gif\" alt=\"".$status_text."\" />&nbsp;<a href=\"".zurl("index.php?page=orderadmin&action=showstatus&orderid=".$row[0]."&oldstatus=".$row[2])."\">".$status_text."</a><br />";
                echo "</td></tr>";
            }
        }    
