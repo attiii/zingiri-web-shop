@@ -21,12 +21,6 @@
  */
 ?>
 <?php
-$dbtablesprefix = $wpdb->prefix."zing_";
-$dblocation = DB_HOST;
-$dbname = DB_NAME;
-$dbuser = DB_USER;
-$dbpass = DB_PASSWORD;
-
 //correction for parameter 'cat' used by Wordpress for categories
 if (isset($_GET['kat'])) { $_GET['cat']=$_GET['kat']; }
 

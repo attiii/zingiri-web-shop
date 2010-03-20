@@ -167,6 +167,21 @@ function zing_check() {
 
 	if (phpversion() < '5')	$warnings[]="You are running PHP version ".phpversion().". If you wish to use the PDF invoice generation functionality, you will need to upgrade to version 5.x.x";
 	if (ini_get("zend.ze1_compatibility_mode")) $warnings[]="You are running PHP in PHP 4 compatibility mode. The PDF invoice functionality requires this mode to be turned off.";
+	
+	$c=new filesHash();
+	//$files=$c->makeFilesHash();
+	//echo count($files).'<br />';
+	//print_r($files);
+	//$c->saveFilesHash($files);
+	$checksumErrors=$c->compare();
+	if (count($checksumErrors) > 0) {
+		foreach ($checksumErrors as $file => $error) {
+			if ($error == 1) $errors[]="File ".$file." is missing";
+			if ($error == 2) $errors[]="File ".$file." is not the correct version";
+			
+		}
+	}
+	
 	return array('errors'=> $errors, 'warnings' => $warnings);
 
 }
@@ -499,6 +514,7 @@ function zing_main($process,$content="") {
 	global $menus;
 	global $integrator;
 	global $zing;
+	global $zingPrompts;
 
 	//start logging
 	error_reporting(E_ALL ^ E_NOTICE); // ^ E_NOTICE
@@ -722,8 +738,7 @@ function zing_init()
 		wp_enqueue_script('prototype');
 		wp_enqueue_script('scriptaculous');
 	}
-	wp_enqueue_script('jquery');
-
+	
 	ob_start();
 
 	global $dbtablesprefix;
@@ -872,7 +887,7 @@ function zing_exclude_pages( $pages )
 	Global $lang2;
 	Global $lang3;
 
-	require (ZING_DIR."./includes/settings.inc.php");        // database settings
+	//require (ZING_DIR."./includes/settings.inc.php");        // database settings
 
 	$loggedin=LoggedIn();
 	if ($loggedin) $isadmin=IsAdmin();
