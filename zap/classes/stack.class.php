@@ -2,10 +2,10 @@
 class zfStack {
 	var $key;
 
-	function zfStack($type,$form) {
+	function zfStack($type,$form,$extra='') {
 		$zfp=intval($_GET['zfp']);
 		if (!$zfp) unset($_SESSION['stack']);
-		$q=$_SERVER['QUERY_STRING'];
+		//$q=$_SERVER['QUERY_STRING'];
 		$this->key=$type.'-'.$form;
 		if (isset($_SESSION['stack'])) $c=count($_SESSION['stack']); else $c=0;
 		if (isset($_SESSION['stack'][$this->key])) {
@@ -14,11 +14,18 @@ class zfStack {
 				if ($delete) unset($_SESSION['stack'][$i]);
 				if ($i == $this->key) $delete=true;
 			}
-		}else {
-			$_SESSION['stack'][$this->key]=$q;
 		}
+		//else {
+			$q="";
+			foreach ($_GET as $i => $v) {
+				if ($q) $q.="&";
+				$q.=$i.'='.urlencode(stripslashes($v));
+			}
+			$_SESSION['stack'][$this->key]=$q.$extra;
+		//}
 		$c=count($_SESSION['stack']);
 		if ($c > 1) $this->previous=$_SESSION['stack'][$c-2];
+		//print_r($_SESSION['stack']);
 	}
 
 	function getPrevious() {

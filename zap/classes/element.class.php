@@ -124,7 +124,7 @@ class element {
 	}
 	
 
-	function Format($input,&$output,$mode="edit") {
+	function output($input,&$output,$mode="edit") {
 		$success=true;
 		$this->is_error=false;
 
@@ -147,7 +147,7 @@ class element {
 
 	}
 
-	function Prepare() {
+	function prepare() {
 		$success=true;
 		for ($i=1; $i<=$this->fields; $i++) {
 

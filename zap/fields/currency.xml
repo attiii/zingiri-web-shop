@@ -5,7 +5,7 @@
 		<field1>
 			<name>currency</name>
 			<format>varchar(3)</format>
-			<default>usd</default>
+			<default>USD</default>
 			<type>select</type>
 			<values type="multi">
 				<option1 value="USD">USD</option1>

@@ -8,6 +8,7 @@ if (isset($_GET['step'])) $step=$_GET['step'];
 if (isset($_GET['id'])) $id=$_GET['id'];
 if (isset($_GET['zfp'])) $zfp=intval($_GET['zfp']);
 if (isset($_GET['zft'])) $zft=$_GET['zft'];
+if (isset($_GET['search']) && is_array($_GET['search'])) $search=$_GET['search'];
 if (isset($_GET['no_redirect'])) $noRedirect=true; else $noRedirect=false;
 if (isset($_GET['no_form'])) $noForm=true; else $noForm=false;
 if (isset($_POST['map'])) {
@@ -109,9 +110,18 @@ if ($success && $showform == "edit") {
 		echo '<a href="'.get_option('home').'/index.php?page=appsbuilder&zfaces=edit&form='.$form.'" >'.z_('Edit form').'</a>';
 	}
 	if (!$noForm) {
-		echo '<form name="faces" method="POST" action="?zfaces=form&form='.$form.'&action='.$action;
+
+		echo '<form name="faces" method="POST" action="?page='.$page.'&zfaces=form&form='.$form.'&action='.$action;
 		if (!empty($newstep)) echo '&step='.$newstep;
 		if (!empty($id)) echo '&id='.$id;
+
+		if (!empty($search)) {
+
+			foreach ($search as $i => $v) {
+				echo '&search['.$i.']='.urlencode($v);
+			}
+
+		}
 		echo '&zft=form&zfp='.$formid.'">';
 	}
 	echo '<ul id="zfaces" class="zfaces">';
@@ -154,8 +164,16 @@ if ($success && $showform == "edit") {
 	echo '</div>';
 	if ($stack->getPrevious()) echo '<a href="'.$stack->getPrevious().'">Back</a>';
 
-} elseif ($showform == "saved" && !$noRedirect) {
-	$redirect2='?page='.$page.'&zfaces=list&form='.$form.'&zft='.$zft.'&zfp='.$zfp;
-	echo '<a href="'.$redirect2.'" class="button">Back</a>';
-	if (!$redirect && (!defined("ZING_SAAS") || !ZING_SAAS)) header('refresh:0; url='.$redirect2);
+} elseif ($showform == "saved") {
+	if ($stack->getPrevious()) {
+		$redirect2=$stack->getPrevious();
+	} else {
+		$redirect2='?page='.$page.'&zfaces=form&form='.$form.'&zft='.$zft.'&zfp='.$zfp.'&action='.$action.'&id='.$id;
+	}
+	if (!$noRedirect && !$redirect && (!defined("ZING_SAAS") || !ZING_SAAS)) {
+		header('refresh:0; url='.$redirect2);
+		exit;
+	} else {
+		echo '<a href="'.$redirect2.'" class="button">Back</a>';
+	}
 }

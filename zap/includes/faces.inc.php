@@ -39,7 +39,7 @@ function get_form_dbtable($form_id)
 
 
 function faces_get_xml($type,$dir="") {
-
+	global $zing;
 
 	if (!empty($dir)) {
 		$url_details=$dir.$type.".xml";
@@ -53,9 +53,13 @@ function faces_get_xml($type,$dir="") {
 		if ($xmlf=simplexml_load_file($url_details)) return $xmlf;
 	}
 
-	$url_details=ZING_APPS_CUSTOM.'fields/'.$type.".xml";
-	if (file_exists($url_details)) {
-		if ($xmlf=simplexml_load_file($url_details)) return $xmlf;
+	if ($zing) {
+		foreach ($zing->paths as $path) {
+			$url_details=$path.'apps/fields/'.$type.".xml";
+			if (file_exists($url_details)) {
+				if ($xmlf=simplexml_load_file($url_details)) return $xmlf;
+			}
+		}
 	}
 
 	die("no file loaded");
@@ -382,7 +386,7 @@ function AllowAccess($zfaces,$formid="",$action="") {
 	if (ZingAppsIsAdmin()) $group="ADMIN";
 	elseif (function_exists('faces_group')) $group=faces_group();
 	else $group="GUEST";
-	
+
 	switch ($zfaces)
 	{
 		case "form":
@@ -397,7 +401,6 @@ function AllowAccess($zfaces,$formid="",$action="") {
 			if (ZingAppsIsAdmin()) return true;
 			break;
 	}
-
 	echo "You don't have access to this form";
 	return false;
 
@@ -430,7 +433,9 @@ function zf_json_encode($a) {
 }
 
 function zfDumpQuery($query,$table="") {
-//	if (!defined("ZING_APPS_BUILDER")) return true;
+	$exclude=array("basket");
+	if (!defined("ZING_APPS_BUILDER")) return true;
+	if (!empty($table) && in_array($table,$exclude)) return true;
 	$query=str_replace(DB_PREFIX,"##",$query);
 	if (defined("ZING_APPS_CUSTOM")) $dir=ZING_APPS_CUSTOM.'db/';
 	else $dir=ZING_APPS_PLAYER_DIR.'db/';
@@ -446,4 +451,17 @@ function zfDumpQuery($query,$table="") {
 	chmod($file,0666);
 	return true;
 }
+
+function showForm() {
+	global $line;
+	$notitle=true;
+	require(dirname(__FILE__).'/../scripts/form.php');
+}
+
+function showList() {
+	global $line;
+	$notitle=true;
+	require(dirname(__FILE__).'/../scripts/list.php');
+}
+
 ?>

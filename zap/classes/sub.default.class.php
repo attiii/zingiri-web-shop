@@ -41,22 +41,9 @@ class zfSubElement {
 		$this->ext=trim($ext);
 		$this->error_message="";
 		$this->is_error=false;
-		//$this->prepare();
 	}
 
 	function prepare() {
-		/*
-	}
-		$e=$this->element;
-		$i=$this->subid;
-		$xmlf=$this->xmlf;
-		foreach ($this->element->populated_value as $l => $value) {
-			$a=explode("_",$l);
-			$f=$this->element->column[$a[1]];
-			$this->populated_column[$f]=$value;
-		}
-		return $xmlf->fields->{'field'.$i}->default;
-		*/
 	}
 
 	function output($mode="edit",$input="")
@@ -67,7 +54,7 @@ class zfSubElement {
 
 	function verifyall()
 	{
-		if ($this->element->is_required && empty($this->ext))
+		if ($this->element->is_required && trim($this->ext)=="")
 		{
 			return $this->error("Field is mandatory!");
 		}

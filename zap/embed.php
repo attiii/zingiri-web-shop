@@ -1,5 +1,5 @@
 <?php
-/*  zingiri_apps_player.php
+/*  embed.php
  Copyright 2008,2009 Erik Bogaerts
  Support site: http://www.zingiri.com
 
@@ -204,7 +204,10 @@ function zing_apps_player_content($content) {
 		return $content;
 	}
 
-	require_once(dirname(__FILE__)."/includes/all.inc.php");
+	require(dirname(__FILE__)."/includes/all.inc.php");
+	foreach ($zing->paths as $path) {
+		require($path."apps/classes/index.php");
+	}
 	switch ($zfaces)
 	{
 		case "form":
@@ -212,6 +215,9 @@ function zing_apps_player_content($content) {
 			break;
 		case "list":
 			require(dirname(__FILE__)."/scripts/list.php");
+			break;
+		case "mform":
+			require(dirname(__FILE__)."/scripts/mform.php");
 			break;
 	}
 	restore_error_handler();
@@ -257,6 +263,8 @@ function zing_apps_player_init()
 	}
 
 	ob_start();
+	session_start();
+	
 	if (isset($_GET['zfaces']))
 	{
 		$_GET['page_id']=get_option("zing_apps_player_page");
@@ -265,6 +273,7 @@ function zing_apps_player_init()
 
 if (!function_exists("ZingAppsIsAdmin")) {
 	function ZingAppsIsAdmin() {
+		if (function_exists('current_user_can') && current_user_can('manage_options')) return true;
 		if (function_exists("IsAdmin")) { return IsAdmin(); }
 		return false;
 	}

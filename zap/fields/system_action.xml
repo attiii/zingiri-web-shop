@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config type="system" version="1.5.0">
 	<name>Action</name>
-	<fields count="2">
+	<fields count="1">
 		<field1>
 			<name>action</name>
 			<format>varchar(10)</format>
@@ -14,10 +14,5 @@
 				<option value="other">Other</option>
 			</values>
 		</field1>
-		<field2>
-			<name>other</name>
-			<format>varchar(25)</format>
-			<maxlength>25</maxlength>
-		</field2>
 	</fields>
 </config>

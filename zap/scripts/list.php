@@ -1,5 +1,5 @@
 <?php
-/*  zingiri_apps_builder.php
+/*  list.php
  Copyright 2008,2009 Erik Bogaerts
  Support site: http://www.zingiri.com
 
@@ -27,13 +27,18 @@ $zfp=intval($_GET['zfp']);
 $zft=$_GET['zft'];
 $pos=$_GET['pos'];
 $mapflat=$_GET['map'];
-$json=str_replace("\'",'"',$_GET['map']);
+//$json=str_replace("\'",'"',$_GET['map']);
+$json=stripslashes($_GET['map']);
 $map=zf_json_decode($json,true);
 
 $zflist=new zfForm($formname,$formid);
 $formname=$zflist->form;
 $formid=$zflist->id;
-$stack=new zfStack('list',$formname);
+if ($action=='search') {
+	$search=$zflist->setSearch($_POST,$map);
+}
+
+$stack=new zfStack('list',$formname,$search);
 
 echo '<p class="zfaces-form-label">'.$zflist->label.'</p>';
 
@@ -97,18 +102,16 @@ if ($zflist)
 	echo '</tr>';
 
 	$altrow="altrow";
-	if ($action=='search') {
-		$search=$zflist->setSearch($_POST,$map);
-	}
 
 	if ($zflist->SelectRows($map,$pos))
 	{
 		$rows=$zflist->NextRows();
 		$line=1;
 		$script="";
-		$script.="var tableX=Element.cumulativeOffset($('".$formname."')).left;";
-		$script.="var mouseX=tableX;";
-		$script.="$('".$formname."').observe('mousemove', function(e) { mouseX=Event.pointerX(e)-tableX; });";
+		//$script.="var tableX=Element.cumulativeOffset($('".$formname."')).left;";
+		//$script.="var tableX=$('".$formname."').left;";
+		//$script.="var mouseX=tableX;";
+		//$script.="$('".$formname."').observe('mousemove', function(e) { mouseX=Event.pointerX(e)-tableX; });";
 		foreach ($rows as $id => $row)
 		{
 			$links=$alink->getLinks($id);
@@ -116,7 +119,7 @@ if ($zflist)
 				$span="";
 				foreach ($links as $i => $link) {
 					if ($span) $span.=" | ";
-					$span.='<a href="?page='.$page.'&zfaces='.$link['DISPLAYOUT'].'&action='.$link['ACTIONOUT'].'&formid='.$link['FORMOUT'].'&id='.$id.'&map='.$link['MAP'].'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION'].'">'.ucfirst($link['ACTION']).'</a>';
+					$span.='<a href="?page='.$page.'&zfaces='.$link['DISPLAYOUT'].'&action='.$link['ACTIONOUT'].'&formid='.$link['FORMOUT'].'&id='.$id.'&map='.$link['MAP'].$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION'].'">'.ucfirst($link['ACTION']).'</a>';
 				}
 
 			}
@@ -137,10 +140,12 @@ if ($zflist)
 			}
 			echo '</td>';
 			$script.="var zelt = $('foo".$line."');";
-			$script.="var actelt = null;";
-			$script.="var acttable = $('".$formname."');";
+			//$script.="var actelt = null;";
+			//$script.="var acttable = $('".$formname."');";
 
-			$script.="zelt.observe('mouseover', function() { if (actelt != null) { $(actelt).setStyle({ display : 'none' }); }; actelt='fox'+".$line."; $('fox".$line."').setStyle({ display : 'block', backgroundColor : '#ccdd4f', leftna : mouseX + 'px' }); });";
+			//$script.="zelt.observe('mouseover', function() { if (actelt != null) { $(actelt).setStyle({ display : 'none' }); }; actelt='fox'+".$line."; $('fox".$line."').setStyle({ display : 'block', backgroundColor : '#ccdd4f', leftna : 0 + 'px' }); });";
+			$script.="zelt.observe('mouseover', function() { $('fox".$line."').setStyle({ display : 'block', backgroundColor : '#ccdd4f'}); });";
+			$script.="zelt.observe('mouseout', function() { $('fox".$line."').setStyle({ display : 'none'});});";
 			$line++;
 		}
 

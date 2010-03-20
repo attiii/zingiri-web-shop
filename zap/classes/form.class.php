@@ -182,7 +182,7 @@ class zfForm {
 		return $count;
 	}
 
-	function Render($mode="edit")
+	function Render($mode="edit",$prefix="")
 	{
 		$populated_value=array();
 		$populated_column=array();
@@ -206,7 +206,7 @@ class zfForm {
 				$element->rules=$this->elements['rules'][$key];
 
 				$c=$this->countSubelements($value['subelements'],$key);
-
+				
 				foreach ($value['subelements'] as $key2 => $sub)
 				{
 					if (isset($this->elements['cat'][$key][$key2]) && $this->elements['cat'][$key][$key2]=='parameter') {
@@ -232,8 +232,9 @@ class zfForm {
 				$ret.='<li class="zfli" style="background-image:none;">';
 				//$ret.=display_bddress($element);
 				$element->column=$this->column;
-				$element->Prepare();
-				$ret.=$element->display($mode);
+				$element->prepare();
+				if ($prefix) $ret.=str_replace('element_',$prefix.'_element_',$element->display($mode));
+				else $ret.=$element->display($mode);
 				$ret.='</li>';
 
 				$this->elements[$key]=$element->name;
@@ -247,7 +248,7 @@ class zfForm {
 	function Verify($input)
 	{
 		$success=true;
-		$this->input=$this->Sanitize($input);
+		$this->input=$this->sanitize($input);
 		foreach ($this->json as $key => $value)
 		{
 			$element=new element($value['type']);
@@ -257,7 +258,7 @@ class zfForm {
 			$element->hidden=$value['hidden'];
 			$element->unique=$value['unique'];
 			$element->rules=$this->elements['rules'][$key];
-
+				
 			$c=$this->countSubelements($value['subelements'],$key);
 			foreach ($value['subelements'] as $key2 => $sub)
 			{
@@ -337,7 +338,7 @@ class zfForm {
 		}
 	}
 
-	function Sanitize($input,$escape_mysql=false,$sanitize_html=false,$sanitize_special_chars=false,$allowable_tags=''){
+	function sanitize($input,$escape_mysql=false,$sanitize_html=false,$sanitize_special_chars=false,$allowable_tags=''){
 		//FIXME: check this
 		//	unset($input['submit']); //we use 'submit' variable for all of our form
 
@@ -371,12 +372,20 @@ class zfForm {
 	}
 
 	function setSearch($search,&$map) {
+		if (isset($_GET['search']) && is_array($_GET['search'])) $search=array_merge($_GET['search'],$search);
+		
 		if (!empty($search)) $this->search=$this->Sanitize($search);
 		else return;
 		$s="";
 		//$where=array();
 
-		foreach ($search as $id => $value) {
+		if (isset($_GET['search']) && is_array($_GET['search'])) {
+			foreach ($this->Sanitize($_GET['search']) as $i => $v) {
+				if (!isset($_GET[$i])) $_GET[$i]=$v;
+			}
+		}
+		
+		foreach ($this->search as $id => $value) {
 			list($prefix,$key1,$key2)=explode('_',$id);
 			$key=100*$key1+$key2;
 			//echo '<br />';print_r($this->json[$key1]['mandatory']);
@@ -384,7 +393,7 @@ class zfForm {
 				$field=str_replace('`','',$this->allfields[$key]);
 				$map[$field]=array('like', $value);
 				//$map[$id]=$value;
-				$s.='&'.$id.'='.urlencode($value);
+				$s.='&search['.$id.']='.urlencode($value);
 			}
 			//echo '<br />'.$id.'='.$value.'='.$this->allfields[$key];
 		}
@@ -394,7 +403,6 @@ class zfForm {
 
 	function SelectRows($where="",$pos=0)
 	{
-		//print_r($this->search);
 		if (empty($pos)) $pos=0;
 		if ($this->type=="DB") return $this->SelectRowsDB($where,$pos);
 	}
@@ -432,6 +440,7 @@ class zfForm {
 
 	function CountRowsDB() {
 	}
+	
 	function NextRows()
 	{
 		$rows=array();
@@ -450,7 +459,7 @@ class zfForm {
 					if (!isset($input['element_'.$key1."_".$key2])) $input['element_'.$key1."_".$key2]=$data['populate'];
 				}
 			}
-			$output=$this->Output($input,"list");
+			$output=$this->output($input,"list");
 			$o=array();
 			foreach ($this->fields as $key => $column)
 			{
@@ -462,8 +471,11 @@ class zfForm {
 		}
 		return $rows;
 	}
-
-	function Output($input,$mode="edit")
+	
+	/*
+ 	* Converts input format to output
+ 	*/
+	function output($input,$mode="edit")
 	{
 
 		$output=array();
@@ -471,7 +483,7 @@ class zfForm {
 		{
 			$element=new element($value['type']);
 			$element->id=$value['id'];
-			$success=$element->Format($input,$output,$mode);
+			$success=$element->output($input,$output,$mode);
 		}
 
 		return $output;
@@ -531,8 +543,8 @@ class zfForm {
 				}
 			} else { return false; }
 		}
-		$this->input=$this->Sanitize($input);
-		$this->output=$this->Output($input);
+		$this->input=$this->sanitize($input);
+		$this->output=$this->output($this->input);
 		return true;
 	}
 

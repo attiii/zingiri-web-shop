@@ -148,6 +148,9 @@ function DeleteRecord($table,$keys,$action="")
 
 	//	echo $query."<br />";
 	$sql = mysql_query($query) or die(dbError(1,$query,"",$action));
+	
+	if (function_exists('zfDumpQuery')) zfDumpQuery($query,$table);
+	
 }
 
 function txbegin()

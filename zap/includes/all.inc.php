@@ -27,13 +27,16 @@ if (!defined("FACES_DIR")) {
 if ( !defined('ABSPATH') )
 define('ABSPATH', dirname(__FILE__) . '/');
 
-if (!defined("ZING_SAAS") || !ZING_SAAS) require(dirname(__FILE__)."/../../../../../wp-config.php");
-$dbtablesprefix = $table_prefix."zing_";
-define("DB_PREFIX",$dbtablesprefix);
-$dblocation = DB_HOST;
-$dbname = DB_NAME;
-$dbuser = DB_USER;
-$dbpass = DB_PASSWORD;
+if (!defined("ZING_SAAS") || !ZING_SAAS)
+{
+	global $table_prefix;
+	$dbtablesprefix = $table_prefix."zing_";
+	define("DB_PREFIX",$dbtablesprefix);
+	$dblocation = DB_HOST;
+	$dbname = DB_NAME;
+	$dbuser = DB_USER;
+	$dbpass = DB_PASSWORD;
+}
 
 if (!extension_loaded('json')) require(dirname(__FILE__).'/JSON.php');
 
