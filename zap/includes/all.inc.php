@@ -46,16 +46,16 @@ require(dirname(__FILE__)."/../includes/db.inc.php");
 
 require(dirname(__FILE__)."/../classes/index.php");
 
-if (defined("ZING_APPS_CUSTOM")) {
-	if ($handle = opendir(ZING_APPS_CUSTOM.'classes')) {
-		while (false !== ($file = readdir($handle))) {
-			if (strstr($file,"class.php")) {
-				require_once(ZING_APPS_CUSTOM."classes/".$file);
-			}
-		}
-		closedir($handle);
-	}
-}
+//if (defined("ZING_APPS_CUSTOM")) {
+//	if ($handle = opendir(ZING_APPS_CUSTOM.'classes')) {
+//		while (false !== ($file = readdir($handle))) {
+//			if (strstr($file,"class.php")) {
+//				require_once(ZING_APPS_CUSTOM."classes/".$file);
+//			}
+//		}
+//		closedir($handle);
+//	}
+//}
 
 if (!defined("ZING_APPS_MAX_ROWS"))
 define ("ZING_APPS_MAX_ROWS",15);

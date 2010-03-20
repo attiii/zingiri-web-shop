@@ -183,6 +183,7 @@ function zing_apps_player_content($content) {
 
 	global $post;
 	global $dbtablesprefix,$page;
+	global $zing;
 
 	$page=$_GET['page'];
 	error_reporting(E_ALL & ~E_NOTICE);
