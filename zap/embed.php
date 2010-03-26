@@ -53,6 +53,7 @@ if (!defined("FACES_DIR")) {
 }
 
 $dbtablesprefix = $wpdb->prefix."zing_";
+if (!defined("DB_PREFIX")) define("DB_PREFIX",$dbtablesprefix);
 $dblocation = DB_HOST;
 $dbname = DB_NAME;
 $dbuser = DB_USER;
@@ -63,6 +64,8 @@ if (get_option("zing_apps_player_version")) {
 	add_filter('the_content', 'zing_apps_player_content', 11, 3);
 	add_action('wp_head','zing_apps_player_header',100);
 }
+
+require_once(dirname(__FILE__) . '/apps.cp.php');
 
 function zing_apps_player_error_handler($severity, $msg, $filename, $linenum) {
 	echo $severity."-".$msg."-".$filename."-".$linenum;
@@ -205,7 +208,7 @@ function zing_apps_player_content($content) {
 		return $content;
 	}
 
-	require(dirname(__FILE__)."/includes/all.inc.php");
+	require_once(dirname(__FILE__)."/includes/all.inc.php");
 	foreach ($zing->paths as $path) {
 		require($path."apps/classes/index.php");
 	}

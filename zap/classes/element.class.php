@@ -42,6 +42,7 @@ class element {
 	var $linksin=array();
 	var $input=array();
 	var $output=array();
+	var $is_searchable;
 
 	function element($constraint) {
 		$this->constraint=$constraint;
@@ -177,6 +178,8 @@ class element {
 
 		Global $facesdefaultvalues;
 
+		if ($mode=="search" && !$this->is_searchable) return;
+		
 		$this->preRules();
 		
 		if ($this->disabled) return "";
@@ -209,7 +212,7 @@ class element {
 		}
 
 		if ($this->readonly) $this->readonly="READONLY";
-		if ($mode!="edit" && $mode!="add") $this->readonly="READONLY";
+		if ($mode!="edit" && $mode!="add" && $mode!="search") $this->readonly="READONLY";
 
 		if (is_numeric($xmlf->width)) { $width=$xmlf->width; } else { $width="100%"; }
 		$width="width:".$width.";";

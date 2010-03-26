@@ -63,6 +63,15 @@ class zingPrompts {
 		}
 		return $txt;
 	}
+
+	function installAllLanguages() {
+		$db=new db();
+		if (!$db->select("select * from ##prompt")) {
+			$this->convertAllLanguages();
+			$this->checkAllLanguages();
+		} 
+		
+	}
 	
 	function convertAllLanguages() {
 		if ($handle = opendir(ZING_DIR.'langs')) {
@@ -79,6 +88,7 @@ class zingPrompts {
 		$db=new db();
 
 		$db->update("delete from ##prompt where lang=".qs($lang));
+		echo 'delete '.$lang.'<br />';
 		foreach ($this->vars as $var) {
 			$$var='$'.$var;
 		}

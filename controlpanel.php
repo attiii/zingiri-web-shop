@@ -33,16 +33,16 @@ function zing_set_options() {
 		$zing_ws_options[]=	array(	"name" => "User management",
 			"desc" => "Select whether you want to use full integration<br />with Wordpress user management or<br />Zingiri's stand alone user management.",
 			"id" => $zing_ws_shortname."_login",
-			"std" => "WP",
+			"std" => "Zingiri",
 			"type" => "select",
-			"options" => array("WP","Zingiri"));
+			"options" => array("Zingiri","WP"));
 
 		$zing_ws_options[]=	array(	"name" => "Use effects",
 			"desc" => "Select whether you want to activate effects. Our plugin uses Prototype and Scriptaculous effects. <br />In some cases this might conflict with other plugins or themes using other effects, e.g. jQuery.",
 			"id" => $zing_ws_shortname."_effects",
 			"std" => "Prototype",
 			"type" => "select",
-			"options" => array("Off","Prototype"));
+			"options" => array("Prototype","Off"));
 
 		$ida=explode(",",$ids);
 		foreach ($ida as $i) {
@@ -145,6 +145,8 @@ function zing_ws_settings() {
 		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/controlpanel.js"></script>';
 	}
 
+	//main window
+	echo '<div style="width:80%;float:left;position:relative">';
 	$page=$_GET['page'];
 	//echo $page.'-'.$menus[$page]['href'];
 	$params=array();
@@ -166,6 +168,23 @@ function zing_ws_settings() {
 		echo '<link rel="stylesheet" type="text/css" href="'.ZING_APPS_PLAYER_URL.'css/integrated_view.css" />';
 		zing_apps_player_content('content');
 	}
+	echo '</div>';
+	
+	//news
+	echo '<div class="updated" style="width:16%;float:right;position:relative">';
+	global $current_user;
+	get_currentuserinfo();
+	$news = new HTTPRequest('http://www.zingiri.com/news.php?e='.urlencode(isset($current_user->user_email) ? $current_user->user_email : $sales_mail).'&w='.urlencode(ZING_HOME).'&a='.get_option("zing_ws_install").'&v='.urlencode(ZING_VERSION));
+	if ($news->live() && !$_SESSION['zing']['news']) {
+		update_option('zing_ws_news',$news->DownloadToString());
+		//echo $news->DownloadToString();
+		$_SESSION['zing']['news']=true;
+	}
+	echo '<h3>Latest news</h3>';
+	echo get_option('zing_ws_news');
+	
+	echo '</div>';
+	
 
 }
 
@@ -286,24 +305,25 @@ are given the Web Shop administrator rights.
 /></p>
 
 </form>
-<?php } ?> <?php if ($zing_version == ZING_VERSION && !$zing_errors && !$integrator->wpAdmin) { ?>
+<?php } ?> <?php if ($zing_version == ZING_VERSION && !$integrator->wpAdmin) { ?>
 <hr />
-<p>Please note that the user administration in the Zingiri Webshop is separate from <br />
-the Wordpress user administration (mainly for security purposes).<br />
+<p>Please note that you have selected to use the user administration in the Zingiri Webshop.<br />
+If you wish you can use the Wordpress user administration instead by selecting the appropriate option above.<br />
 <br />
 If it's your first time logging in, you can use user <strong>admin</strong> with password <strong>admin_1234</strong>.</p>
 <form method="post" action="<?php echo get_option("home");?>/index.php?page=admin">
 <p class="submit"><input name="admin" type="submit" value="Admin" /></p>
 </form>
+<?php } if ($zing_version) {?>
 <hr />
 <form method="post">
 <p class="submit"><input name="uninstall" type="submit" value="Uninstall" /> <input type="hidden"
 	name="action" value="uninstall"
 /></p>
 </form>
-<?php } ?>
+<?php }?>
 <hr />
-<p>For more info and support, contact us at <a href="http://www.zingiri.com/webshop/">Zingiri</a> or
+<p>For more info and support, contact us at <a href="http://www.zingiri.com/web-shop/">Zingiri</a> or
 check out our <a href="http://forums.zingiri.com/">support forums</a>.</p>
 <?php
 }

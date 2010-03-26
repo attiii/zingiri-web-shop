@@ -81,6 +81,9 @@ If you made changes to the style sheet (zing.css) or the language files, make su
 * Fixed issue with shipping costs not defaulting to correct value when entering one checkout page
 * Fixed issue with printing of order from order detail and checkout pages
 * Fixed issue with PDF icon not showing in orders summary
+* Corrected link to Zingiri web site in control panel
+* Fixed issue with shopping cart widget not updating in a timely manner
+* Updated Norwegian language file (thanks to Henrik)
 
 = 1.2.9 =
 * Fixed issue with loading of database initialisation files in apps not being processed in correct order on some installations

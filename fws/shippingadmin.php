@@ -155,7 +155,8 @@ else {
 			echo $txt['shippingadmin5']."<br />";
 			echo "<input name=\"description\" type=\"text\" value=\"".$row[1]."\" size=\"30\" maxlength=\"150\"><br /><br />";
 			echo "<input name=\"country\" type=\"checkbox\" "; if ($row[2] == 1) echo "checked"; echo "> ";
-			echo $txt['shippingadmin7']."<br />";
+			
+			echo $zingPrompts->parse($txt['shippingadmin7'])."<br />";
 			echo "</td><td>";
 			echo $txt['shippingadmin13']."<br />";
 			// for every payment method we add a checkbox
@@ -201,7 +202,7 @@ else {
 
 	echo "<table width=\"100%\" class=\"datatable\">";
 	echo "  <caption>".$txt['shippingadmin4']."</caption>";
-	echo "  <tr><th>".$txt['shippingadmin5']."</th><th>".$txt['shippingadmin7']."</th><th>".$txt['shippingadmin12']."</th></tr>";
+	echo "  <tr><th>".$txt['shippingadmin5']."</th><th>".$zingPrompts->parse($txt['shippingadmin7'])."</th><th>".$txt['shippingadmin12']."</th></tr>";
 	// add a shipping method
 	echo "  <form method=\"POST\" action=\"".zurl("index.php?page=shippingadmin&action=add_shipping")."\">";
 	echo "  <tr class=\"altrow\">";

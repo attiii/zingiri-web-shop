@@ -30,7 +30,7 @@ $success=true;
 
 if (!empty($action) && !ZingAppsIsAdmin() && ($action != 'show')) {
 	$linksin=new zfDB();
-	$allowed=$linksin->select("select * from ##flink where formout='".$formid."' and displayout='form' and actionout='".$action."'");
+	$allowed=$linksin->select("select * from ##flink where formout='".$formid."' and displayout='form' and actionin='".$action."'");
 
 	if (!$allowed) $action="not_allowed";
 }

@@ -270,7 +270,8 @@ $txt['admin33'] = 'Et antall produkter (';
 $txt['admin34'] = ') er under minimum lagerbeholdning!';
 $txt['admin35'] = 'Epost-liste';
 $txt['admin36'] = '<strong><font color="red">Det er nyheter fra FreeWebshop.org</font></strong><br /><br />Det kan være en sikkerhetsoppdatering, en ny versjon eller andre viktige nyheter! Sjekk det ut nedenfor eller besøk <a href="http://www.freewebshop.org">FreeWebshop.org</a>!<br /><br />(du får disse beskjedene kun en gang hver gang det er nyheter)';
-
+$txt['admin37'] = 'Frakt Land';
+$txt['admin38'] = 'Rabatt';
 
 // customeradmin.php
 $txt['customeradmin1'] = 'Etternavn';
@@ -355,6 +356,8 @@ $txt['readorder2'] = 'Gå tilbake til dine ordre';
 // editsettings.php
 $txt['editsettings1'] = 'Endre innstillinger';
 $txt['editsettings2'] = 'Lagre innstillinger';
+$txt['editsettings3'] = 'Gjøm ikke på lager produkter';
+$txt['editsettings5'] = 'Vis Lager Beløp';
 $txt['editsettings4'] = 'Standard fraktland <a href=# class=info>(?)<span>Dette er vanligvis landet foretaket ditt kommer fra</span></a>';
 $txt['editsettings7'] = 'Ekstrakostnad for postoppkrav <a href=# class=info>(?)<span>Kommer i tillegg til vanlig fraktkostnad (koster for øyeblikket 60 kroner ekstra hos Posten). Format: 12.34</span></a>';
 $txt['editsettings8'] = 'Valuta';
@@ -610,4 +613,77 @@ $txt['stockadmin3'] = 'Lagerbehandling';
 
 // mailinglist.php
 $txt['mailinglist1'] = 'Kopier/lim inn dette i ditt favorittprogram for masseutsendelse av epost';
+
+// discountadmin.php
+$txt['discountadmin2'] = 'Antall Koder';
+$txt['discountadmin3'] = 'Rabatt beløp';
+$txt['discountadmin4'] = 'Prosenter? <a href=# class=info>(?)<span>vis du foreksempel vil gi 25% rabatt fyller du inn 25 i beløp feltet og krysser av boksen. Vis du vil gi en fast rabatt ikke kryss av her.</span></a>';
+$txt['discountadmin5'] = 'Lag Kode';
+$txt['discountadmin6'] = 'Alle ubrukte koder';
+$txt['discountadmin7'] = 'Rabatt kode';
+$txt['discountadmin8'] = 'Ingen ubrukte koder';
+$txt['discountadmin9'] = 'Opprettet';
+
+//v1.1.0 - new
+$txt['groupadmin100'] = 'Kategori type';
+$txt['groupadmin101'] = 'Fysisk';
+$txt['groupadmin102'] = 'Digital';
+$txt['groupadmin103'] = 'Ny kategori type';
+$txt['productadmin100'] = 'Fil Opplasting <a href=# class=info>(?)<span>Vis dette er et digital produkt (musikk, videoer o.l) kan du laste opp filen her</span></a>';
+$txt['readorder100'] = 'Dine Nedlastinger';
+$txt['products1'] = 'Last ned';
+
+//v1.2.0 - modified
+$txt['editsettings72'] = 'Vis Generelle vilkår side';
+$txt['editsettings74'] = 'Vis Frakt side';
+
+//v1.2.2 - added
+$txt['generic1'] = 'Slett';
+
+//v1.2.4 - added
+$txt['checkout100'] = "Betalingen ble godkjent";
+$txt['checkout101'] = "Betalingen kunne ikke behandles";
+
+//v1.2.4 - modified
+$txt['uploadadmin3'] = 'Last kun opp .xml eller .sql filer';
+$txt['uploadadmin4'] = 'Importer data (produkt, prisliste, etc)';
+$txt['uploadadmin5'] = 'Velg en XML-eller SQL-fil';
+$txt['uploadadmin6'] = 'Importer fil';
+$txt['uploadadmin7'] = 'Data inn i databasen';
+$txt['uploadadmin100'] = "Kunne ikke laste opp fil:";
+$txt['uploadadmin101'] = "Felt mangler:";
+$txt['uploadadmin102'] = "På Linje";
+$txt['uploadadmin103'] = "Advarsel: hopper over ugjenkjennelig feltet ";
+$txt['admin9'] = 'Last opp produkter';
+
+//v1.2.5
+$txt['uploadadmin104'] = 'Maks fil størrelse i bytes <a href=# class=info>(?)<span>Dette er maks fil størrelse som er satt i systemet ditt. Vis du ønsker å øke den må du endre det i php.ini filen.</span></a>';
+$txt['uploadadmin105'] = 'Bruk linker for digitale produkter <a href=# class=info>(?)<span>istede for å kopiere digitale produkter, en link blir opprettet for det digitale produktet.</span></a>';
+$txt['details100'] = 'Andre produkter';
+
+//v1.2.7 - new
+$txt['admin100'] = 'Skatt';
+$txt['general100'] = 'Sats';
+$txt['general101'] = 'Etikett';
+$txt['taxes1'] = 'Fremheving';
+$txt['checkout25'] = "inkludert skatter";
+$txt['checkout102'] = "Skatt";
+$txt['checkout103'] = "Vennligst godta vilkårene før du fortsetter";
+$txt['checkout104'] = "Du vil nå bli omdirigert til den betalingen portalen for å fullføre bestillingen din";
+$txt['editsettings110'] = 'Aktiver enkel betaling';
+$txt['cart100'] = 'vis';
+$txt['cart101'] = 'gjøm';
+$txt['editsettings111'] = 'Fødselsdato på registrering skjema';
+
+//v1.2.7 - modified
+$txt['general5'] = 'skatt';
+$txt['editsettings51'] = 'Ingen skatt <a href=# class=info> (?) <span> Aktiver dette hvis du ikke vil bruke moms i butikkpriser, for eksempel når det er en nettbutikk med personlig produkter</span></a>';
+$txt['editsettings13'] = 'Prisene i databasen er inkl. mva.';
+
+//v1.3.0 - added
+$txt['admin101'] = 'Prompts & labels';
+$txt['editsettings112'] = 'Produkt ID & full beskrivelse';
+$txt['prompt1'] = 'Språk';
+$txt['prompt2'] = 'Standard tekst';
+$txt['prompt3'] = 'Tilpasset tekst';
 ?>

@@ -60,6 +60,9 @@ if (!defined("ZING_LOC")) {
 if (!defined("ZING_URL")) {
 	define("ZING_URL", WP_CONTENT_URL . "/plugins/".ZING_PLUGIN."/");
 }
+
+define("ZING_APPS_CUSTOM_URL",ZING_URL."fws/");
+
 if (!defined("ZING_HOME")) {
 	define("ZING_HOME", get_option("home"));
 }
@@ -167,7 +170,7 @@ function zing_check() {
 
 	if (phpversion() < '5')	$warnings[]="You are running PHP version ".phpversion().". If you wish to use the PDF invoice generation functionality, you will need to upgrade to version 5.x.x";
 	if (ini_get("zend.ze1_compatibility_mode")) $warnings[]="You are running PHP in PHP 4 compatibility mode. The PDF invoice functionality requires this mode to be turned off.";
-	
+
 	$c=new filesHash();
 	//$files=$c->makeFilesHash();
 	//echo count($files).'<br />';
@@ -178,10 +181,10 @@ function zing_check() {
 		foreach ($checksumErrors as $file => $error) {
 			if ($error == 1) $errors[]="File ".$file." is missing";
 			if ($error == 2) $errors[]="File ".$file." is not the correct version";
-			
+				
 		}
 	}
-	
+
 	return array('errors'=> $errors, 'warnings' => $warnings);
 
 }
@@ -190,8 +193,11 @@ function zing_check() {
  * @return unknown_type
  */
 function zing_activate() {
-	global $wpdb;
+	global $wpdb,$zingPrompts;
 
+	error_reporting(E_ALL & ~E_NOTICE);
+	ini_set('display_errors', '1');
+	
 	if (function_exists('zing_apps_player_activate')) zing_apps_player_activate();
 
 	$zing_version=get_option("zing_webshop_version");
@@ -223,6 +229,7 @@ function zing_activate() {
 		asort($files);
 		if (count($files) > 0) {
 			foreach ($files as $file) {
+				//echo $file.'<br />';
 				$file_content = file($file);
 				$query = "";
 				foreach($file_content as $sql_line) {
@@ -249,6 +256,10 @@ function zing_activate() {
 		}
 
 	}
+
+	//Load language files
+	if (!isset($zingPrompts)) $zingPrompts=new zingPrompts();
+	$zingPrompts->installAllLanguages();
 
 	//Create default pages
 	if ($zing_version < '0.9.15') {
@@ -378,7 +389,8 @@ function zing_uninstall() {
 	delete_option("zing_webshop_pages");
 	delete_option("zing_webshop_dig");
 	delete_option('zing_ws_widget_options');
-
+	delete_option('zing_ws_news');
+	
 	if (function_exists('zing_apps_player_uninstall')) zing_apps_player_uninstall(false);
 }
 
@@ -738,7 +750,7 @@ function zing_init()
 		wp_enqueue_script('prototype');
 		wp_enqueue_script('scriptaculous');
 	}
-	
+
 	ob_start();
 
 	global $dbtablesprefix;

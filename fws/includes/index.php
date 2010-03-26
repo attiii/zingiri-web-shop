@@ -1,4 +1,12 @@
 <?php 
-include (dirname(__FILE__)."/menus.inc.php");
-include (dirname(__FILE__)."/subs.inc.php");         // general functions
+$files_to_exclude=array('checklogin.inc.php','connectdb.inc.php','httpclass.inc.php','initloc.inc.php','initlang.inc.php','readsettings.inc.php','readvals.inc.php','setfolders.inc.php','settings.inc.php','wp-settings.php');
+
+if ($handlex = opendir(dirname(__FILE__))) {
+	while (false !== ($filex = readdir($handlex))) {
+		if (strstr($filex,"inc.php") && !in_array($filex,$files_to_exclude)) {
+			require_once(dirname(__FILE__)."/".$filex);
+		}
+	}
+	closedir($handlex);
+}
 ?>

@@ -199,6 +199,7 @@ class zfForm {
 				$element->is_error=$this->elements['is_error'][$key];
 				$element->error_message=$this->elements['error_message'][$key];
 				$element->is_required=$value['mandatory'];
+				$element->is_searchable=$value['searchable'];
 				$element->readonly=$value['readonly'];
 				$element->hidden=$value['hidden'];
 				$element->unique=$value['unique'];
@@ -254,6 +255,7 @@ class zfForm {
 			$element=new element($value['type']);
 			$element->id=$key;
 			$element->is_required=$value['mandatory'];
+			$element->is_searchable=$value['searchable'];
 			$element->readonly=$value['readonly'];
 			$element->hidden=$value['hidden'];
 			$element->unique=$value['unique'];

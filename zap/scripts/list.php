@@ -59,7 +59,7 @@ while ($l=$linksin->next()) {
 	echo '&zft=form&zfp='.$formid.'">';
 	echo '<ul id="zfaces" class="zfaces">';
 	$zflist->Prepare();
-	$zflist->Render();
+	$zflist->Render("search");
 	echo '</ul>';
 	echo '<center><input class="art-button" type="submit" name="search" value="'.z_('Search').'"></center>';
 	echo '</form>';

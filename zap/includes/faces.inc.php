@@ -437,7 +437,7 @@ function zfDumpQuery($query,$table="") {
 	if (!defined("ZING_APPS_BUILDER")) return true;
 	if (!empty($table) && in_array($table,$exclude)) return true;
 	$query=str_replace(DB_PREFIX,"##",$query);
-	if (defined("ZING_APPS_CUSTOM")) $dir=ZING_APPS_CUSTOM.'tmp/db/';
+	if (defined("ZING_APPS_CUSTOM")) $dir=ZING_APPS_CUSTOM.'../tmp/';
 	else $dir=ZING_APPS_PLAYER_DIR.'db/';
 	$file=$dir."apps.db.sql";
 	$handle = fopen($file, "a");
@@ -448,7 +448,7 @@ function zfDumpQuery($query,$table="") {
 	else {
 		fclose($handle);
 	}
-	chmod($file,0666);
+	//chmod($file,0666);
 	return true;
 }
 
