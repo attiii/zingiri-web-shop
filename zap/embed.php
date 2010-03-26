@@ -65,7 +65,7 @@ if (get_option("zing_apps_player_version")) {
 	add_action('wp_head','zing_apps_player_header',100);
 }
 
-require_once(dirname(__FILE__) . '/apps.cp.php');
+//require_once(dirname(__FILE__) . '/apps.cp.php');
 
 function zing_apps_player_error_handler($severity, $msg, $filename, $linenum) {
 	echo $severity."-".$msg."-".$filename."-".$linenum;
