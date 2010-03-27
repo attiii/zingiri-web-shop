@@ -21,7 +21,7 @@ function zfCreateColumns($entity,$data)
 	$newtable=new zfDB();
 	if (is_new_field($entity,'ID')) {
 		$query="ALTER TABLE `".DB_PREFIX.$entity."`";
-		$query.="ADD COLUMN `ID` int(11) NOT NULL auto_increment";
+		$query.="ADD COLUMN `ID` int(11) NOT NULL auto_increment PRIMARY KEY";
 		if ($newtable->update($query)) zfDumpQuery($query);
 	}
 	if (is_new_field($entity,'DATE_CREATED')) {
@@ -126,8 +126,9 @@ function is_new_field($form_dbtable,$fieldname)
 	}
 }
 
-function zfCreate($name,$elementcount,$entity,$type,$data,$label) {
+function zfCreate($name,$elementcount,$entity,$type,$data,$label,$id=false) {
 	$keysread['NAME']=$name;
+	$keys="";
 	if ($r=zfReadRecord("faces",$keysread))
 	{
 		$id=$r['ID'];
@@ -150,7 +151,8 @@ function zfCreate($name,$elementcount,$entity,$type,$data,$label) {
 	}
 	else
 	{
-		$keys['ID']=true;
+		if ($id) $row['ID']=$id;
+		else $keys['ID']=true;
 		$row['NAME']=$name;
 		$row['ELEMENTCOUNT']=$elementcount;
 		$row['ENTITY']=$entity;
