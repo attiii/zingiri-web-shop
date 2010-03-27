@@ -174,6 +174,7 @@ function zing_ws_settings() {
 	echo '<div class="updated" style="width:16%;float:right;position:relative">';
 	global $current_user;
 	get_currentuserinfo();
+	require(dirname(__FILE__).'/fws/includes/httpclass.inc.php');
 	$news = new HTTPRequest('http://www.zingiri.com/news.php?e='.urlencode(isset($current_user->user_email) ? $current_user->user_email : $sales_mail).'&w='.urlencode(ZING_HOME).'&a='.get_option("zing_ws_install").'&v='.urlencode(ZING_VERSION));
 	if ($news->live() && !$_SESSION['zing']['news']) {
 		update_option('zing_ws_news',$news->DownloadToString());

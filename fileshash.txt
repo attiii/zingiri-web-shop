@@ -1,4 +1,4 @@
-plugins/zingiri-web-shop/controlpanel.php,92c562d7b2feb42cce5242b5bb2ecc5e
+plugins/zingiri-web-shop/controlpanel.php,0c0cd36a54badd2ba1168019ce64249c
 plugins/zingiri-web-shop/fws/about.php,bacccce5056a313523db3898de0f2087
 plugins/zingiri-web-shop/fws/accesslogadmin.php,65dbad3e237b05197e867d985d48c8b9
 plugins/zingiri-web-shop/fws/addons/captcha/img.jpg,db1390feff98f8805b58283a79a38b89
@@ -738,7 +738,6 @@ plugins/zingiri-web-shop/fws/banned.txt,d41d8cd98f00b204e9800998ecf8427e
 plugins/zingiri-web-shop/fws/browse.php,935f00c8b13d355505d71f2f21894bca
 plugins/zingiri-web-shop/fws/cart.php,1d0a4f7bbb7d06c2ba2ab3f73ce484d3
 plugins/zingiri-web-shop/fws/categories.php,766600de561745c1268feb1e052e3c56
-plugins/zingiri-web-shop/fws/cats/.jpg,8120c03b17e14714ad2de4ec8650daea
 plugins/zingiri-web-shop/fws/cats/index.php,d41d8cd98f00b204e9800998ecf8427e
 plugins/zingiri-web-shop/fws/checkout.php,3b82a2562eaca1308be46bad9bde8c98
 plugins/zingiri-web-shop/fws/classes/customer.class.php,f81cc4a3f16a858ba0de892944607c9c
@@ -781,7 +780,7 @@ plugins/zingiri-web-shop/fws/includes/checkout.inc.php,c0f0c45eddd8ca9f980f82bf0
 plugins/zingiri-web-shop/fws/includes/connectdb.inc.php,612c4e07a331deffa5edfb1285be4ade
 plugins/zingiri-web-shop/fws/includes/httpclass.inc.php,0aecf32a40f36bd8c07497fdab5fc35a
 plugins/zingiri-web-shop/fws/includes/index.php,7b3973bc072309417e5ae74a6c780f23
-plugins/zingiri-web-shop/fws/includes/initlang.inc.php,0e57023abf765557a8b59985df52a21a
+plugins/zingiri-web-shop/fws/includes/initlang.inc.php,eef569caf152ab8d05d7d596914c2d93
 plugins/zingiri-web-shop/fws/includes/menus.inc.php,59258d52da2b9cf36903a63b23708548
 plugins/zingiri-web-shop/fws/includes/readsettings.inc.php,2da4075edb924e15297dc2e5c611f40b
 plugins/zingiri-web-shop/fws/includes/readvals.inc.php,89a7c441c68776f12fd55a99536c8baf
@@ -844,7 +843,6 @@ plugins/zingiri-web-shop/fws/langs/fr/conditions.txt,263a21ee3716806c1004b55878b
 plugins/zingiri-web-shop/fws/langs/fr/index.php,d41d8cd98f00b204e9800998ecf8427e
 plugins/zingiri-web-shop/fws/langs/fr/lang.iso88591.txt,0cee041d3a1ce78c94128c8e57ff3cd4
 plugins/zingiri-web-shop/fws/langs/fr/lang.txt,486367a40b0c7931fd8b1a04c54d59e0
-plugins/zingiri-web-shop/fws/langs/fr/lang.utf8.txt,d29720285788e91be4daff57df8e26e0
 plugins/zingiri-web-shop/fws/langs/fr/main.txt,b751543c24641d3da0f465a2d644829d
 plugins/zingiri-web-shop/fws/langs/gr/conditions.txt,9046da5e6a55d0bd27b0939791759a90
 plugins/zingiri-web-shop/fws/langs/gr/conditions.windows-1253.txt,9046da5e6a55d0bd27b0939791759a90
@@ -907,11 +905,9 @@ plugins/zingiri-web-shop/fws/langs/ru/main.cp1251.txt,9a9d9cc36d2c1559f893c114eb
 plugins/zingiri-web-shop/fws/langs/ru/main.txt,9a9d9cc36d2c1559f893c114ebfdd167
 plugins/zingiri-web-shop/fws/langs/se/conditions.iso88591.txt,7104e8854b2d8aa98c1cf24853ad84ed
 plugins/zingiri-web-shop/fws/langs/se/conditions.txt,9fee5b4ced11cbae48103504171e44cf
-plugins/zingiri-web-shop/fws/langs/se/conditions.utf8.txt,9fee5b4ced11cbae48103504171e44cf
 plugins/zingiri-web-shop/fws/langs/se/index.php,d41d8cd98f00b204e9800998ecf8427e
 plugins/zingiri-web-shop/fws/langs/se/lang.iso88591.txt,93e96d677c493cd118ba2a64fea5fa5c
 plugins/zingiri-web-shop/fws/langs/se/lang.txt,138e063d823d1730033c1f06c3f4329e
-plugins/zingiri-web-shop/fws/langs/se/lang.utf8.txt,f257ed35a5f9a04e855f747daae2391b
 plugins/zingiri-web-shop/fws/langs/se/main.txt,242e991cd194254ceb5e629c0954df2c
 plugins/zingiri-web-shop/fws/langs/th/conditions.txt,f36b79d67666903c1d652fd333bf7340
 plugins/zingiri-web-shop/fws/langs/th/conditions.windows-874.txt,f36b79d67666903c1d652fd333bf7340
