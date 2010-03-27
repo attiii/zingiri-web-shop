@@ -90,7 +90,7 @@ function zing_apps_player_echo($stringData) {
  */
 function zing_apps_player_activate() {
 	global $wpdb;
-	
+
 	$zing_version=get_option("zing_apps_player_version");
 	if (!$zing_version)
 	{
@@ -100,10 +100,10 @@ function zing_apps_player_activate() {
 	{
 		update_option("zing_apps_player_version",ZING_APPS_PLAYER_VERSION);
 	}
-	
+
 	$wpdb->show_errors();
 	$prefix=$wpdb->prefix."zing_";
-	
+
 	if ($handle = opendir(dirname(__FILE__).'/db')) {
 		$files=array();
 		while (false !== ($file = readdir($handle))) {
@@ -146,6 +146,9 @@ function zing_apps_player_activate() {
 		}
 
 	}
+	//load forms
+	zing_apps_player_load(ZING_APPS_PLAYER_DIR.'zap/forms/');
+	zing_apps_player_load(ZING_APPS_CUSTOM.'apps/forms/');
 }
 
 /**
@@ -225,7 +228,7 @@ function zing_apps_player_content($content) {
 			break;
 	}
 	restore_error_handler();
-	
+
 	return "";
 
 }
@@ -268,7 +271,7 @@ function zing_apps_player_init()
 
 	ob_start();
 	session_start();
-	
+
 	if (isset($_GET['zfaces']))
 	{
 		$_GET['page_id']=get_option("zing_apps_player_page");
@@ -283,4 +286,26 @@ if (!function_exists("ZingAppsIsAdmin")) {
 	}
 }
 
+function zing_apps_player_load($dir) {
+	global $wpdb;
+
+	error_reporting(E_ALL & ~E_NOTICE);
+	ini_set('display_errors', '1');
+
+	$wpdb->show_errors();
+	$prefix=$wpdb->prefix."zing_";
+
+	if ($handle = opendir($dir)) {
+		$files=array();
+		while (false !== ($file = readdir($handle))) {
+			if (strstr($file,".json")) {
+				$file_content = file_get_contents($dir.$file);
+				$a=json_decode($file_content,true);
+				//				echo '<br />'.$file.'=';
+				//				print_r($a);
+				zfCreate($a['NAME'],$a['ELEMENTCOUNT'],$a['ENTITY'],$a['TYPE'],$a['DATA'],$a['LABEL']);
+			}
+		}
+	}
+}
 ?>

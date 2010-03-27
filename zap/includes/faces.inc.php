@@ -433,9 +433,9 @@ function zf_json_encode($a) {
 }
 
 function zfDumpQuery($query,$table="") {
-	$exclude=array("basket");
+	$include=array("frole","faccess","flink","settings");
 	if (!defined("ZING_APPS_BUILDER")) return true;
-	if (!empty($table) && in_array($table,$exclude)) return true;
+	if (!empty($table) && !in_array($table,$include)) return true;
 	$query=str_replace(DB_PREFIX,"##",$query);
 	if (defined("ZING_APPS_CUSTOM")) $dir=ZING_APPS_CUSTOM.'../tmp/';
 	else $dir=ZING_APPS_PLAYER_DIR.'db/';
