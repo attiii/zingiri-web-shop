@@ -21,7 +21,8 @@ class filesHash {
 					if (is_dir($dir.$file)) {
 						$files=$this->makeFilesHash($dir.$file,$files);
 					} else {
-						$files[$dir.$file]=md5_file($dir.$file);
+						$sdir=str_replace(WP_CONTENT_DIR.'/','',$dir);
+						$files[$sdir.$file]=md5_file($dir.$file);
 					}
 				}
 			}
@@ -30,6 +31,7 @@ class filesHash {
 		return $files;
 	}
 
+	
 	function saveFilesHash($files) {
 		if ($handle = fopen (ZING_LOC."fileshash.txt", "w")) {
 			foreach ($files as $file => $checksum) {

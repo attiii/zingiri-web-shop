@@ -388,12 +388,12 @@ if (LoggedIn() == True) {
 		     <h4><a href="'.ZING_URL.'fws/printorder.php?orderid='.$lastid.'" target="_blank">'.$txt['readorder1'].'</a>';
 				if ($create_pdf == 1) { echo "<br /><a href=\"".$orders_url."/".$pdf."\">".$txt['checkout27']."</a></h4>"; }
 			} else {
-				PutWindow($gfx_dir, $txt['general13'], $txt['checkout104'], "notify.gif", "50");
+				PutWindow($gfx_dir, $txt['general13'], $txt['checkout104'], "loader.gif", "50");
 				echo '<div style="display:none">'.$payment_code.'</div>';
 				?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
-           setTimeout("checkout=new wsSubmit()",2000);
+           setTimeout("checkout=new wsSubmit()",100);
            //]]>
 </script>
 				<?php
