@@ -84,6 +84,8 @@ If you made changes to the style sheet (zing.css) or the language files, make su
 * Corrected link to Zingiri web site in control panel
 * Fixed issue with shopping cart widget not updating in a timely manner
 * Updated Norwegian language file (thanks to Henrik)
+* Reduced loading time of Paypal redirect
+* Added spinning wheel animation during Paypal redirect
 
 = 1.2.9 =
 * Fixed issue with loading of database initialisation files in apps not being processed in correct order on some installations

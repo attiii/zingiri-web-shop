@@ -86,7 +86,6 @@ $zing_version=get_option("zing_webshop_version");
 //error_reporting(E_ALL & ~E_NOTICE);
 //ini_set('display_errors', '1');
 
-
 require (ZING_LOC."./zing.startfunctions.inc.php");
 require_once(dirname(__FILE__) . '/zing.integrator.class.php');
 
