@@ -170,11 +170,8 @@ function zing_check() {
 	if (phpversion() < '5')	$warnings[]="You are running PHP version ".phpversion().". If you wish to use the PDF invoice generation functionality, you will need to upgrade to version 5.x.x";
 	if (ini_get("zend.ze1_compatibility_mode")) $warnings[]="You are running PHP in PHP 4 compatibility mode. The PDF invoice functionality requires this mode to be turned off.";
 
+	//check files hash
 	$c=new filesHash();
-	//$files=$c->makeFilesHash();
-	//echo count($files).'<br />';
-	//print_r($files);
-	//$c->saveFilesHash($files);
 	$checksumErrors=$c->compare();
 	if (count($checksumErrors) > 0) {
 		foreach ($checksumErrors as $file => $error) {
@@ -258,7 +255,6 @@ function zing_activate() {
 				}
 			}
 		}
-
 	}
 	
 	//Load language files
