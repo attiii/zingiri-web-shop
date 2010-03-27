@@ -91,6 +91,10 @@ function zing_apps_player_echo($stringData) {
 function zing_apps_player_activate() {
 	global $wpdb;
 
+	require(dirname(__FILE__).'/includes/create.inc.php');
+	require(dirname(__FILE__).'/includes/db.inc.php');
+	require(dirname(__FILE__).'/includes/faces.inc.php');
+	require(dirname(__FILE__).'/classes/db.class.php');
 	$zing_version=get_option("zing_apps_player_version");
 	if (!$zing_version)
 	{
@@ -120,6 +124,7 @@ function zing_apps_player_activate() {
 		asort($files);
 		if (count($files) > 0) {
 			foreach ($files as $file) {
+				echo $file.'<br />';
 				$file_content = file($file);
 				$query = "";
 				foreach($file_content as $sql_line) {
@@ -144,11 +149,11 @@ function zing_apps_player_activate() {
 				}
 			}
 		}
-
 	}
 	//load forms
-	zing_apps_player_load(ZING_APPS_PLAYER_DIR.'zap/forms/');
+	zing_apps_player_load(ZING_APPS_PLAYER_DIR.'forms/');
 	zing_apps_player_load(ZING_APPS_CUSTOM.'apps/forms/');
+	
 }
 
 /**
@@ -301,9 +306,9 @@ function zing_apps_player_load($dir) {
 			if (strstr($file,".json")) {
 				$file_content = file_get_contents($dir.$file);
 				$a=json_decode($file_content,true);
-				//				echo '<br />'.$file.'=';
+								echo '<br />'.$file.'<br />';
 				//				print_r($a);
-				zfCreate($a['NAME'],$a['ELEMENTCOUNT'],$a['ENTITY'],$a['TYPE'],$a['DATA'],$a['LABEL']);
+				zfCreate($a['NAME'],$a['ELEMENTCOUNT'],$a['ENTITY'],$a['TYPE'],$a['DATA'],$a['LABEL'],$a['ID']);
 			}
 		}
 	}

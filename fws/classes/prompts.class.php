@@ -88,7 +88,6 @@ class zingPrompts {
 		$db=new db();
 
 		$db->update("delete from ##prompt where lang=".qs($lang));
-		echo 'delete '.$lang.'<br />';
 		foreach ($this->vars as $var) {
 			$$var='$'.$var;
 		}

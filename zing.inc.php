@@ -194,10 +194,10 @@ function zing_check() {
 function zing_activate() {
 	global $wpdb,$zingPrompts;
 
+	$player=false;
+	
 	error_reporting(E_ALL & ~E_NOTICE);
 	ini_set('display_errors', '1');
-	
-	if (function_exists('zing_apps_player_activate')) zing_apps_player_activate();
 
 	$zing_version=get_option("zing_webshop_version");
 	if (!$zing_version)
@@ -220,15 +220,20 @@ function zing_activate() {
 
 				$v=str_replace(".sql","",$f[1]);
 				if ($zing_version < $v) {
-					$files[]=dirname(__FILE__).'/fws/db/'.$file;
+					$files[]=array(dirname(__FILE__).'/fws/db/'.$file,$v);
 				}
 			}
 		}
 		closedir($handle);
 		asort($files);
 		if (count($files) > 0) {
-			foreach ($files as $file) {
-				//echo $file.'<br />';
+			foreach ($files as $afile) {
+				list($file,$v)=$afile;
+				echo $file.'-'.$v.'<br />';
+				if ($v>='1.2.7' && !$player) {
+					zing_apps_player_activate();
+					$player=true;
+				}
 				$file_content = file($file);
 				$query = "";
 				foreach($file_content as $sql_line) {
@@ -255,7 +260,7 @@ function zing_activate() {
 		}
 
 	}
-
+	
 	//Load language files
 	if (!isset($zingPrompts)) $zingPrompts=new zingPrompts();
 	$zingPrompts->installAllLanguages();
@@ -351,7 +356,6 @@ function zing_activate() {
 			}
 		}
 	}
-
 }
 
 /**

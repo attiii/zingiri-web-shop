@@ -43,6 +43,7 @@ class zfForm {
 	var $rowsCount;
 	var $label;
 	var $search;
+	var $searchable=false; //whether form contains searcheable fields
 
 	function zfForm($form,$id=0,$post=null) {
 		$this->form=$form;
@@ -200,6 +201,7 @@ class zfForm {
 				$element->error_message=$this->elements['error_message'][$key];
 				$element->is_required=$value['mandatory'];
 				$element->is_searchable=$value['searchable'];
+				if ($value['searchable']) $this->searchable=true;
 				$element->readonly=$value['readonly'];
 				$element->hidden=$value['hidden'];
 				$element->unique=$value['unique'];
