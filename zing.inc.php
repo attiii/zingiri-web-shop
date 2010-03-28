@@ -527,6 +527,8 @@ function zing_main($process,$content="") {
 	global $zing;
 	global $zingPrompts;
 
+	$matches=array();
+	
 	//start logging
 	error_reporting(E_ALL ^ E_NOTICE); // ^ E_NOTICE
 	set_error_handler("user_error_handler");
@@ -565,6 +567,10 @@ function zing_main($process,$content="") {
 					$_GET['action']=$cf['zing_action'][0];
 				}
 			}
+			elseif (preg_match('/\[zing-ws:(.*)\]/',$content,$matches)==1) { //[zing-ws:page]
+				list($prefix,$postfix)=preg_split('/\[zing-ws:(.*)\]/',$content);
+				$_GET['page']=$matches[1];
+			}
 			else
 			{
 				return $content;
@@ -601,7 +607,9 @@ function zing_main($process,$content="") {
 		exit;
 	}
 	elseif ($to_include) {
+		echo $prefix;
 		include($scripts_dir.$to_include);
+		echo $postfix;
 		//stop logging
 		restore_error_handler();
 	}

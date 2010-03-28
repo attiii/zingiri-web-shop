@@ -1344,7 +1344,7 @@ plugins/zingiri-web-shop/zap/scripts/list.php,3fbfef22c525523a6240291aea1a3196
 plugins/zingiri-web-shop/zap/scripts/mform.php,7d6534870746537a7b2af88c9dbd768d
 plugins/zingiri-web-shop/zing.css,4b18f9fb7f02feecb3ec5da7ce8dea15
 plugins/zingiri-web-shop/zing.globals.inc.php,ed0384ad29e60110b310a02e95287ee6
-plugins/zingiri-web-shop/zing.inc.php,302355809485308cb9aa4aa7fa107be9
+plugins/zingiri-web-shop/zing.inc.php,9b9bb65bc463411e7c316f4dc9efd7f8
 plugins/zingiri-web-shop/zing.integrator.class.php,0d701d902290dbde108b68274f60ffd9
 plugins/zingiri-web-shop/zing.readcookie.inc.php,0db07715bc72c72827e4fec6d5b12b35
 plugins/zingiri-web-shop/zing.startfunctions.inc.php,0342011d96d6ca3a8449c96cc0ac768d
