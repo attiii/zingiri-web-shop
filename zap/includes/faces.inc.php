@@ -376,7 +376,7 @@ function zfqs($value)
 }
 
 function do_query($query) {
-	$result=mysql_query($query) or die($query);
+	$result=mysql_query($query) or zing_ws_error_handler(1,$query);
 	return $result;
 }
 

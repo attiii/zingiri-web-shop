@@ -60,6 +60,9 @@ Before upgrading, make sure you back up your database first!
 If you made changes to the style sheet (zing.css) or the language files, make sure you back them up before the upgrade and restore them after.
 == Changelog ==
 
+= 1.3.0.1 =
+* Corrected issue with new installs causing fatal errors
+
 = 1.3.0 =
 * Added user integration with Wordpress
 * Made images on shop frontpage clickable and replaced 'more information' buttons with 'order' buttons

@@ -53,7 +53,7 @@ if (!defined("FACES_DIR")) {
 }
 
 $dbtablesprefix = $wpdb->prefix."zing_";
-if (!defined("DB_PREFIX")) define("DB_PREFIX",$dbtablesprefix);
+if (!defined("DB_PREFIX") && $wpdb->prefix) define("DB_PREFIX",$dbtablesprefix);
 $dblocation = DB_HOST;
 $dbname = DB_NAME;
 $dbuser = DB_USER;
@@ -125,6 +125,7 @@ function zing_apps_player_activate() {
 		if (count($files) > 0) {
 			foreach ($files as $file) {
 				echo $file.'<br />';
+				zing_ws_error_handler(0,$file);
 				$file_content = file($file);
 				$query = "";
 				foreach($file_content as $sql_line) {
@@ -142,7 +143,10 @@ function zing_apps_player_activate() {
 						}
 						$query .= $sql_line;
 						if(preg_match("/;\s*$/", $sql_line)) {
-							$wpdb->query($query);
+							zing_ws_error_handler(0,$query);
+							mysql_query($query) or zing_ws_error_handler(1,mysql_error().'-'.$query);
+							
+							//$wpdb->query($query);
 							$query = "";
 						}
 					}
@@ -294,8 +298,8 @@ if (!function_exists("ZingAppsIsAdmin")) {
 function zing_apps_player_load($dir) {
 	global $wpdb;
 
-	error_reporting(E_ALL & ~E_NOTICE);
-	ini_set('display_errors', '1');
+	//error_reporting(E_ALL & ~E_NOTICE);
+	//ini_set('display_errors', '1');
 
 	$wpdb->show_errors();
 	$prefix=$wpdb->prefix."zing_";
@@ -306,7 +310,7 @@ function zing_apps_player_load($dir) {
 			if (strstr($file,".json")) {
 				$file_content = file_get_contents($dir.$file);
 				$a=json_decode($file_content,true);
-								echo '<br />'.$file.'<br />';
+				zing_ws_error_handler(0,$file);
 				//				print_r($a);
 				zfCreate($a['NAME'],$a['ELEMENTCOUNT'],$a['ENTITY'],$a['TYPE'],$a['DATA'],$a['LABEL'],$a['ID']);
 			}

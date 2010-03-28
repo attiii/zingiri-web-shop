@@ -88,7 +88,6 @@ $zing_version=get_option("zing_webshop_version");
 
 require (ZING_LOC."./zing.startfunctions.inc.php");
 require_once(dirname(__FILE__) . '/zing.integrator.class.php');
-
 if ($zing_version) {
 	add_action("init","zing_init");
 	add_filter('wp_footer','zing_footer');
@@ -184,18 +183,32 @@ function zing_check() {
 	return array('errors'=> $errors, 'warnings' => $warnings);
 
 }
+
+function zing_ws_error_handler($severity, $msg, $filename="", $linenum=0) {
+	if (is_array($msg)) $msg=print_r($msg,true);
+	$myFile = dirname(__FILE__)."/log.txt";
+	$fh = fopen($myFile, 'a') or die("can't open file");
+	fwrite($fh, $msg.' ('.$filename.'-'.$linenum.')'."\r\n");
+	fclose($fh);
+	
+}
 /**
  * Activation of web shop: creation of database tables & set up of pages
  * @return unknown_type
  */
 function zing_activate() {
-	global $wpdb,$zingPrompts;
+	global $wpdb,$zingPrompts,$dbtablesprefix;
 
 	$player=false;
 	
+	set_error_handler("zing_ws_error_handler");
 	error_reporting(E_ALL & ~E_NOTICE);
-	ini_set('display_errors', '1');
-
+	
+	$wpdb->show_errors();
+	$prefix=$wpdb->prefix."zing_";
+	$dbtablesprefix=$prefix;
+	define("DB_PREFIX",$prefix);
+	
 	$zing_version=get_option("zing_webshop_version");
 	if (!$zing_version)
 	{
@@ -206,8 +219,6 @@ function zing_activate() {
 		update_option("zing_webshop_version",ZING_VERSION);
 	}
 
-	$wpdb->show_errors();
-	$prefix=$wpdb->prefix."zing_";
 
 	if ($handle = opendir(dirname(__FILE__).'/fws/db')) {
 		$files=array();
@@ -227,9 +238,11 @@ function zing_activate() {
 			foreach ($files as $afile) {
 				list($file,$v)=$afile;
 				echo $file.'-'.$v.'<br />';
+				zing_ws_error_handler(0,$file);
 				if ($v>='1.2.7' && !$player) {
 					zing_apps_player_activate();
 					$player=true;
+					zing_ws_error_handler(0,'continue with:'.$file);
 				}
 				$file_content = file($file);
 				$query = "";
@@ -248,7 +261,9 @@ function zing_activate() {
 						}
 						$query .= $sql_line;
 						if(preg_match("/;\s*$/", $sql_line)) {
-							$wpdb->query($query);
+							zing_ws_error_handler(0,$query);
+							mysql_query($query) or zing_ws_error_handler(1,mysql_error().'-'.$query);
+							//$wpdb->query($query);
 							$query = "";
 						}
 					}
@@ -352,6 +367,9 @@ function zing_activate() {
 			}
 		}
 	}
+	
+	restore_error_handler();
+	
 }
 
 /**

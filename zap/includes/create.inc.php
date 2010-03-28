@@ -127,6 +127,7 @@ function is_new_field($form_dbtable,$fieldname)
 }
 
 function zfCreate($name,$elementcount,$entity,$type,$data,$label,$id=false) {
+	
 	$keysread['NAME']=$name;
 	$keys="";
 	if ($r=zfReadRecord("faces",$keysread))
@@ -143,7 +144,7 @@ function zfCreate($name,$elementcount,$entity,$type,$data,$label,$id=false) {
 			if ($r[$k] != $v) $same=false;
 		}
 		if (!$same) {
-			UpdateRecord("faces",$keys,$row,$action);
+			UpdateRecord("faces",$keys,$row);
 			$msg="Form updated succesfully";
 		} else {
 			$msg="No changes detected";
@@ -160,7 +161,7 @@ function zfCreate($name,$elementcount,$entity,$type,$data,$label,$id=false) {
 		$row['DATA']=$data;
 		$row['LABEL']=$label;
 
-		$id=InsertRecord("faces",$keys,$row,$action);
+		$id=InsertRecord("faces",$keys,$row);
 		$msg="Form saved succesfully";
 		
 	}

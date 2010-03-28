@@ -61,7 +61,7 @@ function zing_ws_add_admin() {
 	global $zing_ws_name, $zing_ws_shortname, $zing_ws_options, $menus, $txt, $wpdb, $zing_version, $integrator;
 	global $dbtablesprefix;
 	if ($zing_version) require(dirname(__FILE__).'/zing.startmodules.inc.php');
-
+	
 	zing_set_options();
 
 	if ( $_GET['page'] == "zingiri-web-shop" ) {
@@ -107,7 +107,6 @@ function zing_ws_add_admin() {
 
 	//add_options_page($zing_ws_name." Options", "$zing_ws_name", 8, basename(__FILE__), 'zing_ws_admin');
 
-
 	add_menu_page($zing_ws_name, $zing_ws_name, 'administrator', 'zingiri-web-shop','zing_ws_admin');
 	add_submenu_page('zingiri-web-shop', $zing_ws_name.'- Integration', 'Integration', 'administrator', 'zingiri-web-shop', 'zing_ws_admin');
 	if ($zing_version && $integrator->wpAdmin) {
@@ -121,7 +120,6 @@ function zing_ws_add_admin() {
 			add_submenu_page('zingiri-web-shop', $txt[$menu['label']], $txt[$menu['label']], 'administrator', $_GET['page'], 'zing_ws_settings');
 		}
 	}
-
 
 }
 

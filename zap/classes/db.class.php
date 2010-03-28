@@ -58,7 +58,7 @@ class zfDB {
 	}
 
 	function update($query) {
-		$this->sql = mysql_query($query) or die(dbError(1,$query,"",$action));
+		$this->sql = mysql_query($query) or zing_ws_error_handler(1,$query);
 		return $this->sql;		
 	} 
 	

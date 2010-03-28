@@ -1,15 +1,13 @@
 <?php
-
-define("DBTABLESPREFIX",$dbtablesprefix);
-
 class db {
 	var $numrows;
 	var $sql="";
 	var $row;
 
 	function select($query) {
+		global $dbtablesprefix;
 		$action="";
-		$query=str_replace("##",DBTABLESPREFIX,$query);
+		$query=str_replace("##",$dbtablesprefix,$query);
 		$this->sql = mysql_query($query) or die($this->error($query));
 		$this->numrows=mysql_num_rows($this->sql);
 		if ($this->numrows == 0) return false; else return $this->numrows;
@@ -23,7 +21,8 @@ class db {
 	}
 
 	function update($query) {
-		$query=str_replace("##",DBTABLESPREFIX,$query);
+		global $dbtablesprefix;
+		$query=str_replace("##",$dbtablesprefix,$query);
 		$sql = mysql_query($query) or die($this->dbError(1,$query,"",$action));
 		return $sql;
 	}
@@ -104,7 +103,7 @@ class db {
 
 	function insertRecord($table,$keys="",$row,$action="")
 	{
-		$dbtablesprefix=DBTABLESPREFIX;
+		global $dbtablesprefix;
 		
 		$query="INSERT INTO `".$dbtablesprefix.$table."` ";
 		$first=TRUE;
