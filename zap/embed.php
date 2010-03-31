@@ -124,7 +124,6 @@ function zing_apps_player_activate() {
 		asort($files);
 		if (count($files) > 0) {
 			foreach ($files as $file) {
-				echo $file.'<br />';
 				zing_ws_error_handler(0,$file);
 				$file_content = file($file);
 				$query = "";

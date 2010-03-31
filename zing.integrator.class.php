@@ -72,6 +72,9 @@ class integrator {
 				$wpdb->query($query2);
 			}
 		}
+		global $current_user;
+		get_currentuserinfo();
+		zing_login($current_user->user_login);
 	}
 
 	function createWpUser($user,$role) {

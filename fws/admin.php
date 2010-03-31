@@ -112,7 +112,7 @@ else {
 				echo '</tr><tr>';
 				$i=1;
 			}
-			echo '<td><div style="text-align: center;"><a class="plain" href="?'.$menu['href'].'"><img src="'.$gfx_dir.'/'.$menu['img'].'" alt="" /><br />'.$txt[$menu['label']];
+			echo '<td><div style="text-align: center;"><a class="plain" href="?'.$menu['href'].'"><img src="'.$gfx_dir.'/'.$menu['img'].'" width="32px" height="32px" alt="" /><br />'.$txt[$menu['label']];
 			if (isset($menu['func'])) {
 				$func=$menu['func'];
 				echo " (".$func($menu['param']).")";

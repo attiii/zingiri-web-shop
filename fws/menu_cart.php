@@ -29,8 +29,8 @@ echo "<li"; if ($page == "cart") { echo " id=\"active\""; }; echo "><a href=\"?p
 echo $txt['cart7'].": ".$currency_symbol_pre.myNumberFormat(CalculateCart($customerid), $number_format).$currency_symbol_post."</a></li>";
 if ($countCart > 0 && ZING_PROTOTYPE)
 {
-	echo '<li id="showcart"><a href="#">&#x25BE; ('.z_('show').')</a></li>';
-	echo '<li id="hidecart"><a href="#">&#x25B4; ('.z_('hide').')</a></li>';
+	echo '<li id="showcart"><a href="javascript:void(0);">&#x25BE; ('.z_('show').')</a></li>';
+	echo '<li id="hidecart"><a href="javascript:void(0);">&#x25B4; ('.z_('hide').')</a></li>';
 }
 $cart="";
 $query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (`CUSTOMERID` = ".$customerid." AND `ORDERID` = 0) ORDER BY ID";

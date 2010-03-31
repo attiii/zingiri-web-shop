@@ -144,7 +144,7 @@ $txt['conditions3'] = 'No disponible';
 $txt['conditions4'] = 'No se permite comprar en este momento.';
 
 // shipping.php
-$txt['shipping1'] = 'Envío y Pago';
+$txt['shipping1'] = 'EnvÃ­o y Pago';
 $txt['shipping2'] = 'Elige un modo de env&iacute;o';
 $txt['shipping3'] = '&iquest;Comentarios? &iquest;Preguntas?';
 $txt['shipping9'] = 'Completar Pedido';
@@ -393,7 +393,7 @@ $txt['editsettings56'] = 'ID de Producto y Descripci&oacute;n';
 $txt['editsettings57'] = 'Formato de Fecha <a href=# class=info>(?)<span><strong>d-m-Y @ G:i</strong> for dd-mm-aaaa @ 23:59<br /><strong>m-d-Y @ G:i</strong> for mm-dd-aaaa @ 23:59<br /></span></a>';
 $txt['editsettings58'] = 'Buscar gr&aacute;ficos en la lista de Precios <a href=# class=info>(?)<span>Indicar si el art&iacute;culo posee im&aacute;genes. Desactiva esto si las fotos est&aacute;n en un servidor remoto, o para reducir los tiempos de carga.</span></a>';
 $txt['editsettings59'] = 'Usar im&aacute;genes <a href=# class=info>(?)<span>Si no tienes im&aacute;genes para los productos, desactiva esto.</span></a>';
-$txt['editsettings69'] = 'Usar thumbnails <a href=# class=info>(?)<span>Muestra (si existe) una pequeña vista previa de las im&aacute;genes.</span></a>';
+$txt['editsettings69'] = 'Usar thumbnails <a href=# class=info>(?)<span>Muestra (si existe) una pequeÃ±a vista previa de las im&aacute;genes.</span></a>';
 $txt['editsettings70'] = 'Keywords (separadas por coma) <a href=# class=info>(?)<span>Palabras clave para los buscadores.</span></a>';
 $txt['editsettings71'] = 'Chareset <a href=# class=info>(?)<span>Para compatibilidad con m&ultiples idiomas. Si no sabes que poner, deja ISO-8859-1</span></a>';
 $txt['editsettings72'] = 'Mostrar el v&iacute;nculo Condiciones';

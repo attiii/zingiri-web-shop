@@ -60,6 +60,24 @@ Before upgrading, make sure you back up your database first!
 If you made changes to the style sheet (zing.css) or the language files, make sure you back them up before the upgrade and restore them after.
 == Changelog ==
 
+= 1.3.1 =
+* Fixed issue with short tags used in checkout page not displaying "add discount" button properly in some configurations
+* Fixed issue with main page and conditions page edit link not working properly in certain cases
+* Removed bullet formatting from shopping cart
+* Corrected UTF-8 issue with Spanish language file
+* Force login current Wordpress user when syncing users
+* Resized orders image in admin page
+* Changed orders icon in personal page (same as admin page now)
+* Removed debug displays causing errors during upgrade
+* Added alert message in case files not uploaded in binary mode
+* Fixed issue with product list default order by not working (was forced to order by price in all cases)
+* Defaulted autosubmit to 'on' for new installations
+* Changed "Next step" label in one checkout page to "Checkout"
+* Added edit links to prompts & labels list
+* Fixed issue with access log not recording user id when using Wordpress user integration mode
+* Fixed issue with hide/show in shopping cart jumping to the top of the page
+* Fixed issue with install failing when log.txt not writable
+
 = 1.3.0.1 =
 * Corrected issue with new installs causing fatal errors
 

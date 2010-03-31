@@ -154,7 +154,7 @@ CheckoutShowProgress();
 			id="discount_code" name="discount_code"
 			value="<?php echo $discount_code?>">
 			<?php if (!ZING_PROTOTYPE)?>
-			<input type="submit" name="discount" value="<? echo $txt['cart10'];?>" onclick="this.form.action='?page=onecheckout';this.form.submit();"/>
+			<input type="submit" name="discount" value="<?php echo $txt['cart10'];?>" onclick="this.form.action='?page=onecheckout';this.form.submit();"/>
 			<?php ?>
 		</td>
 	</tr>
@@ -354,7 +354,7 @@ CheckoutShowProgress();
 <?php if ($conditions) echo 'checked="yes"'?> /> <a
 	href="<?php zurl('index.php?page=conditions&action=show',true)?>"><?php echo $txt['conditions1'];?></a><br />
 <div style="text-align: center;"><input type=submit name=pay
-	value="<?php echo $txt['shipping9'] ?> >>"></div>
+	value="<?php echo $txt['cart9'] ?>"></div>
 </form>
 
 <?php

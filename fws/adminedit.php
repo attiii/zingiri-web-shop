@@ -66,7 +66,7 @@ else {
 	// if action == write_changes, then do so
 	if ($action == "write_changes") {
 		if ($name[1] == "txt" || $name[1] == "sql") {
-			if ($name[1] == "txt") {
+			if ($name[1] == "txt" && $name[0] != "conditions" && $name[0] != "main") {
 				$fp=fopen($fullfilename,"w") or die("Couldn't save ".$fullfilename.".. Make sure it exists and is writable (chmod 666 or 777).");
 				fwrite($fp,$text2edit);
 				fclose($fp);
@@ -78,10 +78,10 @@ else {
 	}
 
 	if ($name[1] == "txt" || $name[1] == "sql") {
-		if ($name[1] == "txt") {
+		if ($name[1] == "txt" && $name[0] != "conditions" && $name[0] != "main") {
 			$fp = fopen($fullfilename, "rb") or die("FWS: Couldn't open ".$fullfilename.".. Make sure it exists and is readable.");
-	  if (filesize($fullfilename) > 0) { $text2edit = fread($fp, filesize($fullfilename)); }
-	  fclose($fp);
+			if (filesize($fullfilename) > 0) { $text2edit = fread($fp, filesize($fullfilename)); }
+	  		fclose($fp);
 		} else {
 			$text2edit=$zingPrompts->get($name[0]);
 		}

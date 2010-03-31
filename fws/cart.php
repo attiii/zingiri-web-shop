@@ -299,7 +299,7 @@ else {
 			while ($row = mysql_fetch_row($sql)) {
 				$jump2cat = $row[0];
 			}
-			echo "<form method=\"post\" action=\"".zurl("index.php?page=browse&action=list&cat=".$jump2cat."&orderby=DESCRIPTION")."\">";
+			echo "<form method=\"post\" action=\"".zurl("index.php?page=browse&action=list&cat=".$jump2cat)."\">";
 			echo "<input type=\"submit\" value=\"".$txt['cart12']."\">";
 			echo "</form>";
 			echo "</td>";

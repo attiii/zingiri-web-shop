@@ -223,3 +223,10 @@ p.zfaces-form-label {
 	margin-left: auto;
 	margin-right: auto;
 }
+
+#zing-sidebar-cart ul {
+	list-style-type: none;
+}
+#zing-sidebar-cart ul li {
+	background-image: none;
+}

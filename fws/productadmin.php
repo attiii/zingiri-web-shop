@@ -223,7 +223,7 @@ else {
 		if ($link) $query.=",`LINK`='".$link."'";
 		$query.=" WHERE ID=".$prodid;
 		$sql = mysql_query($query) or die(mysql_error());
-		echo "<h4><a href=\"?page=browse&action=list&group=".$pgroup."&cat=".$pcat."&orderby=DESCRIPTION\">".$txt['productadmin5']."</a></h4>";
+		echo "<h4><a href=\"?page=browse&action=list&group=".$pgroup."&cat=".$pcat."\">".$txt['productadmin5']."</a></h4>";
 		$action = "picture_upload_form";
 	}
 	// optionally upload a screenshot

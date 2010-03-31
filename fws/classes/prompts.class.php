@@ -27,7 +27,7 @@ class zingPrompts {
 				"th" => "Thai",
 				"tr" => "Turkish",
 				"yu" => "Serbian");
-	
+
 	var $lang;
 
 	function zingPrompts($lang='en') {
@@ -36,7 +36,7 @@ class zingPrompts {
 
 	function checkAllLanguages() {
 		$ref=$this->loadLang('en');
-		$db=new db();		
+		$db=new db();
 		if ($handle = opendir(ZING_DIR.'langs')) {
 			while (false !== ($filex = readdir($handle))) {
 				if (!strstr($filex,"en") && !strstr($filex,".") && !strstr($filex,"..") && !strstr($filex,"index.php")) {
@@ -47,14 +47,14 @@ class zingPrompts {
 							//echo $filex.': Label '.$label.' missing<br />';
 							$db->insertRecord('prompt',"",array('lang' => $filex,'standard' => $text,'label' => $label));
 						}
-//						elseif ($txt[$label] == $ref[$label]) echo $filex.': Label '.$label.' not translated<br />';
+						//						elseif ($txt[$label] == $ref[$label]) echo $filex.': Label '.$label.' not translated<br />';
 					}
 				}
 			}
 			closedir($handle);
 		}
 	}
-	
+
 	function loadLang($lang='en') {
 		$db=new db();
 		$db->select("select * from ##prompt where lang=".qs($lang));
@@ -66,13 +66,13 @@ class zingPrompts {
 
 	function installAllLanguages() {
 		$db=new db();
-		if (!$db->select("select * from ##prompt")) {
-			$this->convertAllLanguages();
-			$this->checkAllLanguages();
-		} 
-		
+		//		if (!$db->select("select * from ##prompt")) {
+		$this->convertAllLanguages();
+		$this->checkAllLanguages();
+		//		}
+
 	}
-	
+
 	function convertAllLanguages() {
 		if ($handle = opendir(ZING_DIR.'langs')) {
 			while (false !== ($filex = readdir($handle))) {
@@ -83,23 +83,35 @@ class zingPrompts {
 			closedir($handle);
 		}
 	}
-	
+
 	function convertLangFile($lang) {
 		$db=new db();
 
-		$db->update("delete from ##prompt where lang=".qs($lang));
+		//$db->update("delete from ##prompt where lang=".qs($lang));
 		foreach ($this->vars as $var) {
 			$$var='$'.$var;
 		}
 		require(ZING_DIR.'langs/'.$lang.'/lang.txt');
 		foreach ($txt as $label => $text) {
-			$db->insertRecord('prompt',"",array('lang' => $lang,'standard' => $text,'label' => $label));
+			if ($row=$db->readRecord('prompt',array('lang' => $lang,'label' => $label))) {
+				if ($row['STANDARD'] != $text) {
+					$db->updateRecord('prompt',array('lang' => $lang,'label' => $label),array('standard' => $text));
+				}
+			} else {
+				$db->insertRecord('prompt',"",array('lang' => $lang,'standard' => $text,'label' => $label));
+			}
 		}
 		foreach (array('main','conditions') as $file) {
 			$handle=fopen(ZING_DIR.'langs/'.$lang.'/'.$file.'.txt','r');
 			$size=filesize(ZING_DIR.'langs/'.$lang.'/'.$file.'.txt');
 			$text=fread($handle, $size);
-			$db->insertRecord('prompt',"",array('lang' => $lang,'standard' => $text,'label' => $file));
+			if ($row=$db->readRecord('prompt',array('lang' => $lang,'label' => $file))) {
+				if ($row['STANDARD'] != $text) {
+					$db->updateRecord('prompt',array('lang' => $lang,'label' => $file),array('standard' => $text));
+				}
+			} else {
+				$db->insertRecord('prompt',"",array('lang' => $lang,'standard' => $text,'label' => $file));
+			}
 			fclose($handle);
 		}
 	}
@@ -134,14 +146,14 @@ class zingPrompts {
 			if ($db->get('custom') != "") $txt[$db->get('label')]=$db->get('custom');
 			else $txt[$db->get('label')]=$db->get('standard');
 		}
-		
+
 		if ($parse) {
 			foreach ($this->vars as $var) {
 				global $$var;
 				$txt=str_replace('$'.$var,$$var,$txt);
 			}
 		}
-		
+
 		return $txt;
 	}
 

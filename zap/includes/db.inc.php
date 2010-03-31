@@ -81,7 +81,7 @@ function UpdateRecord($table,$keys,$row,$action="")
 	$sql_update = mysql_query($query) or die(dbError(1,$query,"substax.inc.php",$action));
 }
 
-function InsertRecord($table,$keys,$row,$action)
+function InsertRecord($table,$keys,$row,$action="")
 {
 	Global $dbtablesprefix;
 

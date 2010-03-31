@@ -172,11 +172,12 @@ function zing_check() {
 	//check files hash
 	$c=new filesHash();
 	$checksumErrors=$c->compare();
-	if (count($checksumErrors) > 0) {
+	if (count($checksumErrors) > 25) {
+		$errors[]="Can't verify integrity of the installation, make sure you have uploaded your files using ftp binary mode";
+	} elseif (count($checksumErrors) > 0) {
 		foreach ($checksumErrors as $file => $error) {
 			if ($error == 1) $errors[]="File ".$file." is missing";
 			if ($error == 2) $errors[]="File ".$file." is not the correct version";
-				
 		}
 	}
 
@@ -187,10 +188,10 @@ function zing_check() {
 function zing_ws_error_handler($severity, $msg, $filename="", $linenum=0) {
 	if (is_array($msg)) $msg=print_r($msg,true);
 	$myFile = dirname(__FILE__)."/log.txt";
-	$fh = fopen($myFile, 'a') or die("can't open file");
-	fwrite($fh, $msg.' ('.$filename.'-'.$linenum.')'."\r\n");
-	fclose($fh);
-	
+	if ($fh = fopen($myFile, 'a')) {
+		fwrite($fh, $msg.' ('.$filename.'-'.$linenum.')'."\r\n");
+		fclose($fh);
+	}
 }
 /**
  * Activation of web shop: creation of database tables & set up of pages
@@ -200,15 +201,15 @@ function zing_activate() {
 	global $wpdb,$zingPrompts,$dbtablesprefix;
 
 	$player=false;
-	
+
 	set_error_handler("zing_ws_error_handler");
 	error_reporting(E_ALL & ~E_NOTICE);
-	
+
 	$wpdb->show_errors();
 	$prefix=$wpdb->prefix."zing_";
 	$dbtablesprefix=$prefix;
 	define("DB_PREFIX",$prefix);
-	
+
 	$zing_version=get_option("zing_webshop_version");
 	if (!$zing_version)
 	{
@@ -237,7 +238,6 @@ function zing_activate() {
 		if (count($files) > 0) {
 			foreach ($files as $afile) {
 				list($file,$v)=$afile;
-				echo $file.'-'.$v.'<br />';
 				zing_ws_error_handler(0,$file);
 				if ($v>='1.2.7' && !$player) {
 					zing_apps_player_activate();
@@ -271,7 +271,7 @@ function zing_activate() {
 			}
 		}
 	}
-	
+
 	//Load language files
 	if (!isset($zingPrompts)) $zingPrompts=new zingPrompts();
 	$zingPrompts->installAllLanguages();
@@ -367,9 +367,9 @@ function zing_activate() {
 			}
 		}
 	}
-	
+
 	restore_error_handler();
-	
+
 }
 
 /**
@@ -407,7 +407,7 @@ function zing_uninstall() {
 	delete_option("zing_webshop_dig");
 	delete_option('zing_ws_widget_options');
 	delete_option('zing_ws_news');
-	
+
 	if (function_exists('zing_apps_player_uninstall')) zing_apps_player_uninstall(false);
 }
 
@@ -546,7 +546,7 @@ function zing_main($process,$content="") {
 	global $zingPrompts;
 
 	$matches=array();
-	
+
 	//start logging
 	error_reporting(E_ALL ^ E_NOTICE); // ^ E_NOTICE
 	set_error_handler("user_error_handler");
@@ -991,7 +991,7 @@ function zing_footer($footer="")
 	$bail_out = ( ( defined( 'WP_ADMIN' ) && WP_ADMIN == true ) || ( strpos( $_SERVER[ 'PHP_SELF' ], 'wp-admin' ) !== false ) );
 	if ( $bail_out ) return $footer;
 	//Please contact us if you wish to remove the Zingiri logo in the footer
-	echo '<center style="font-size:smaller;margin-top:5px">Powered by <a href="http://www.zingiri.com" alt="Zingiri Web Shop">Zingiri Web Shop</a></center>';
+	echo '<center style="position:relative;clear:both;font-size:smaller;margin-top:5px">Powered by <a href="http://www.zingiri.com" alt="Zingiri Web Shop">Zingiri Web Shop</a></center>';
 }
 
 /**
@@ -1038,7 +1038,7 @@ function zing_login($loginname) {
 		$query = "UPDATE `".$dbtablesprefix."customer` SET `IP` = '".GetUserIP()."' WHERE `ID`=".$id;
 		$sql = mysql_query($query) or die(mysql_error());
 		// make acccesslog entry
-		$query = sprintf("INSERT INTO ".$dbtablesprefix."accesslog (login, time, succeeded) VALUES(%s, '".date("F j, Y, g:i a")."', '1')", quote_smart($_POST['loginname']));
+		$query = sprintf("INSERT INTO ".$dbtablesprefix."accesslog (login, time, succeeded) VALUES(%s, '".date("F j, Y, g:i a")."', '1')", quote_smart($loginname));
 		$sql = mysql_query($query) or die(mysql_error());
 
 		setcookie ("fws_cust",$cookie_data, 0, '/'); //time()+3600
