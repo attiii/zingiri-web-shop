@@ -77,6 +77,8 @@ If you made changes to the style sheet (zing.css) or the language files, make su
 * Fixed issue with access log not recording user id when using Wordpress user integration mode
 * Fixed issue with hide/show in shopping cart jumping to the top of the page
 * Fixed issue with install failing when log.txt not writable
+* Fixedi issue with installations on PHP 4 causing errors due to JSON library not loaded
+* Removed log.txt file from hash comparison
 
 = 1.3.0.1 =
 * Corrected issue with new installs causing fatal errors
