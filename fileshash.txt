@@ -1,4 +1,4 @@
-plugins/zingiri-web-shop/controlpanel.php,0c0cd36a54badd2ba1168019ce64249c
+plugins/zingiri-web-shop/controlpanel.php,a515df1e051fc7fcae281c67c4ffc2f5
 plugins/zingiri-web-shop/fws/about.php,bacccce5056a313523db3898de0f2087
 plugins/zingiri-web-shop/fws/accesslogadmin.php,65dbad3e237b05197e867d985d48c8b9
 plugins/zingiri-web-shop/fws/addons/captcha/img.jpg,db1390feff98f8805b58283a79a38b89
@@ -741,7 +741,7 @@ plugins/zingiri-web-shop/fws/categories.php,766600de561745c1268feb1e052e3c56
 plugins/zingiri-web-shop/fws/cats/index.php,d41d8cd98f00b204e9800998ecf8427e
 plugins/zingiri-web-shop/fws/checkout.php,3b82a2562eaca1308be46bad9bde8c98
 plugins/zingiri-web-shop/fws/classes/customer.class.php,f81cc4a3f16a858ba0de892944607c9c
-plugins/zingiri-web-shop/fws/classes/db.class.php,aa684e7782a8f41328ae9abe38e3327f
+plugins/zingiri-web-shop/fws/classes/db.class.php,54ccff2a5634fc6e4b38defad01c432d
 plugins/zingiri-web-shop/fws/classes/files_hash.class.php,b1805e34555c2ba5dae819b405ee7860
 plugins/zingiri-web-shop/fws/classes/index.php,ca3b5dc320de8f97e53e684d7c120e2c
 plugins/zingiri-web-shop/fws/classes/invoice.class.php,f743ed53733e1d64927895a0ab0dc55e
@@ -1232,8 +1232,8 @@ plugins/zingiri-web-shop/index.php,d41d8cd98f00b204e9800998ecf8427e
 plugins/zingiri-web-shop/license.txt,4d1f767863b6a3985f43e9401b0739f6
 plugins/zingiri-web-shop/load.php,a6f8d9189453eafa40f46db9eb22f4a5
 plugins/zingiri-web-shop/log.txt,d41d8cd98f00b204e9800998ecf8427e
-plugins/zingiri-web-shop/readme.txt,9a8b11fd4c293216690f0b9d66d76815
-plugins/zingiri-web-shop/zap/classes/db.class.php,a7c9b6c340cd0cdb6eb4dcdf7069a871
+plugins/zingiri-web-shop/readme.txt,5f90712e713b71d2f8c95ba6c60f4db0
+plugins/zingiri-web-shop/zap/classes/db.class.php,206286aa46be0adfb53211f9660a71b3
 plugins/zingiri-web-shop/zap/classes/element.class.php,1bab9450af5828ef020cf3c7f7c2156e
 plugins/zingiri-web-shop/zap/classes/form.class.php,7b204b565dd4e305f98c1a7d94112344
 plugins/zingiri-web-shop/zap/classes/index.php,5b0e43f6330949d4ae58c270857b5134
@@ -1270,7 +1270,7 @@ plugins/zingiri-web-shop/zap/db/apps-0.7.sql,a20d5b1052926f4bc61e9dfad3d74a5a
 plugins/zingiri-web-shop/zap/db/apps-0.8.sql,c88cb7199d5fff6778a1966a71a57fd5
 plugins/zingiri-web-shop/zap/db/apps-0.9.0.sql,fc5e1170341bd4932e15cd7b5ad20b8a
 plugins/zingiri-web-shop/zap/db/index.php,d41d8cd98f00b204e9800998ecf8427e
-plugins/zingiri-web-shop/zap/embed.php,1189bcdc27c703c8351d8daeed424faa
+plugins/zingiri-web-shop/zap/embed.php,6fcaa3fe65407a950a97c74f23c2753b
 plugins/zingiri-web-shop/zap/fields/address.xml,349a8eb64c22d3ff0e48e7cac57de978
 plugins/zingiri-web-shop/zap/fields/amount.xml,b5987569020e4e127bd9d95694113ce1
 plugins/zingiri-web-shop/zap/fields/captcha/img.jpg,db1390feff98f8805b58283a79a38b89
@@ -1330,9 +1330,9 @@ plugins/zingiri-web-shop/zap/images/remove.png,429e1690bb33cc0fefd0f2e56e7ad7ab
 plugins/zingiri-web-shop/zap/images/view.png,afbcb746e8bf74717623054324e0c3b9
 plugins/zingiri-web-shop/zap/includes/all.inc.php,4c1222c343075c54204a34dd7b5b9572
 plugins/zingiri-web-shop/zap/includes/connectdb.inc.php,151c7b272077d418452041092a07b3bb
-plugins/zingiri-web-shop/zap/includes/create.inc.php,b0f6344c5b03d5409c0fbc7d54f3bb36
-plugins/zingiri-web-shop/zap/includes/db.inc.php,fb5b74338a18ab0b68eeeb3dc70ebd73
-plugins/zingiri-web-shop/zap/includes/faces.inc.php,ad6ed6954f3f16cdfad4907f56a561c1
+plugins/zingiri-web-shop/zap/includes/create.inc.php,d66b538955cebfa5d7bcc2f99b147cd1
+plugins/zingiri-web-shop/zap/includes/db.inc.php,f5cc98d881c8dff42cba0414dc985b9f
+plugins/zingiri-web-shop/zap/includes/faces.inc.php,dbc8da1c0a635728dd5cbf795def0935
 plugins/zingiri-web-shop/zap/includes/JSON.php,13c254265bb582c52f96d64971ab24df
 plugins/zingiri-web-shop/zap/includes/wp-settings.php,f99ddc79ec74018d3f4442e7aaf1bf25
 plugins/zingiri-web-shop/zap/index.php,d41d8cd98f00b204e9800998ecf8427e
@@ -1344,11 +1344,11 @@ plugins/zingiri-web-shop/zap/scripts/list.php,3fbfef22c525523a6240291aea1a3196
 plugins/zingiri-web-shop/zap/scripts/mform.php,7d6534870746537a7b2af88c9dbd768d
 plugins/zingiri-web-shop/zing.css,4b18f9fb7f02feecb3ec5da7ce8dea15
 plugins/zingiri-web-shop/zing.globals.inc.php,ed0384ad29e60110b310a02e95287ee6
-plugins/zingiri-web-shop/zing.inc.php,9b9bb65bc463411e7c316f4dc9efd7f8
+plugins/zingiri-web-shop/zing.inc.php,d3b33469ae8221fd1c9001d9ac19ac6b
 plugins/zingiri-web-shop/zing.integrator.class.php,0d701d902290dbde108b68274f60ffd9
 plugins/zingiri-web-shop/zing.readcookie.inc.php,0db07715bc72c72827e4fec6d5b12b35
 plugins/zingiri-web-shop/zing.startfunctions.inc.php,0342011d96d6ca3a8449c96cc0ac768d
 plugins/zingiri-web-shop/zing.startmodules.inc.php,6b16282acb9c0935fd86f292481ab2c6
 plugins/zingiri-web-shop/zing.subs.readcookie.inc.php,dfe692a6cc7309ee25174825938c3ea3
 plugins/zingiri-web-shop/zingiri-logo.png,2f62c2cac37bdfcecd74a986eb40fbb7
-plugins/zingiri-web-shop/zingiri_webshop.php,c61d3e3a951869bc261a1448b54743e5
+plugins/zingiri-web-shop/zingiri_webshop.php,4a461ecc7123662746f7f1279e808739
