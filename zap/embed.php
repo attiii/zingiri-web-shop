@@ -94,6 +94,7 @@ function zing_apps_player_activate() {
 	require(dirname(__FILE__).'/includes/create.inc.php');
 	require(dirname(__FILE__).'/includes/db.inc.php');
 	require(dirname(__FILE__).'/includes/faces.inc.php');
+	require(dirname(__FILE__).'/includes/JSON.php');
 	require(dirname(__FILE__).'/classes/db.class.php');
 	$zing_version=get_option("zing_apps_player_version");
 	if (!$zing_version)
@@ -308,7 +309,7 @@ function zing_apps_player_load($dir) {
 		while (false !== ($file = readdir($handle))) {
 			if (strstr($file,".json")) {
 				$file_content = file_get_contents($dir.$file);
-				$a=json_decode($file_content,true);
+				$a=zf_json_decode($file_content,true);
 				zing_ws_error_handler(0,$file);
 				//				print_r($a);
 				zfCreate($a['NAME'],$a['ELEMENTCOUNT'],$a['ENTITY'],$a['TYPE'],$a['DATA'],$a['LABEL'],$a['ID']);
