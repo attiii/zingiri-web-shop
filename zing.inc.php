@@ -187,7 +187,7 @@ function zing_check() {
 function zing_ws_error_handler($severity, $msg, $filename="", $linenum=0) {
 	if (is_array($msg)) $msg=print_r($msg,true);
 	$myFile = dirname(__FILE__)."/log.txt";
-	$fh = fopen($myFile, 'a') or die("can't open file");
+	$fh = fopen($myFile, 'a');
 	fwrite($fh, $msg.' ('.$filename.'-'.$linenum.')'."\r\n");
 	fclose($fh);
 	
