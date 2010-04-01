@@ -67,6 +67,7 @@ if (get_option("zing_apps_player_version")) {
 
 //require_once(dirname(__FILE__) . '/apps.cp.php');
 
+
 function zing_apps_player_error_handler($severity, $msg, $filename, $linenum) {
 	echo $severity."-".$msg."-".$filename."-".$linenum;
 }
@@ -91,11 +92,11 @@ function zing_apps_player_echo($stringData) {
 function zing_apps_player_activate() {
 	global $wpdb;
 
-	require(dirname(__FILE__).'/includes/create.inc.php');
-	require(dirname(__FILE__).'/includes/db.inc.php');
-	require(dirname(__FILE__).'/includes/faces.inc.php');
-	require(dirname(__FILE__).'/includes/JSON.php');
-	require(dirname(__FILE__).'/classes/db.class.php');
+	if (!function_exists('zfCreate')) require(dirname(__FILE__).'/includes/create.inc.php');
+	if (!function_exists('zfReadRecord')) require(dirname(__FILE__).'/includes/db.inc.php');
+	if (!function_exists('zf_json_decode')) require(dirname(__FILE__).'/includes/faces.inc.php');
+	if (!class_exists('zfDB')) require(dirname(__FILE__).'/classes/db.class.php');
+	
 	$zing_version=get_option("zing_apps_player_version");
 	if (!$zing_version)
 	{
@@ -309,9 +310,10 @@ function zing_apps_player_load($dir) {
 		while (false !== ($file = readdir($handle))) {
 			if (strstr($file,".json")) {
 				$file_content = file_get_contents($dir.$file);
-				$a=zf_json_decode($file_content,true);
+				$a=zf_json_decode($file_content,true,false);
 				zing_ws_error_handler(0,$file);
-				//				print_r($a);
+				zing_ws_error_handler(0,$file_content);
+				zing_ws_error_handler(0,$a);
 				zfCreate($a['NAME'],$a['ELEMENTCOUNT'],$a['ENTITY'],$a['TYPE'],$a['DATA'],$a['LABEL'],$a['ID']);
 			}
 		}

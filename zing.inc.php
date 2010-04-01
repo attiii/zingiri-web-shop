@@ -109,6 +109,7 @@ if ($zing_version) {
 		add_action('delete_user','zing_delete_user');
 	}
 }
+add_action("init","zing_init_uninstall");
 
 if (!defined("ZING_DIG") && get_option('zing_webshop_dig')!="") {
 	define("ZING_DIG",WP_CONTENT_DIR.'/uploads/zingiri-web-shop/digital-'.get_option('zing_webshop_dig').'/');
@@ -116,6 +117,13 @@ if (!defined("ZING_DIG") && get_option('zing_webshop_dig')!="") {
 
 require_once(dirname(__FILE__) . '/controlpanel.php');
 
+function zing_init_uninstall() {
+	if (current_user_can('edit_plugins') && $_GET['zingiri']=='uninstall') {
+		zing_uninstall();
+		zing_apps_player_uninstall();
+		header("Location: options-general.php?page=zingiri-web-shop&uninstalled=true");
+	}
+}
 /**
  * Output activation messages to log
  * @param $stringData
@@ -208,8 +216,10 @@ function zing_activate() {
 	$wpdb->show_errors();
 	$prefix=$wpdb->prefix."zing_";
 	$dbtablesprefix=$prefix;
-	define("DB_PREFIX",$prefix);
+	if (!defined("DB_PREFIX")) define("DB_PREFIX",$prefix);
 
+	zing_ws_error_handler(0,'DB_PREFIX:'.DB_PREFIX);
+	
 	$zing_version=get_option("zing_webshop_version");
 	if (!$zing_version)
 	{

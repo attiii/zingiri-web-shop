@@ -39,7 +39,7 @@ define('ABSPATH', dirname(__FILE__) . '/');
 	$dbpass = DB_PASSWORD;
 //}
 
-if (!extension_loaded('json')) require(dirname(__FILE__).'/JSON.php');
+if (!function_exists('json_decode')) require(dirname(__FILE__).'/JSON.php');
 
 require(dirname(__FILE__)."/../includes/faces.inc.php");
 require(dirname(__FILE__)."/../includes/connectdb.inc.php");

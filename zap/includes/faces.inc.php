@@ -407,11 +407,16 @@ function AllowAccess($zfaces,$formid="",$action="") {
 }
 
 
-function zf_json_decode($json,$assoc=true) {
-	$json=str_replace('\"','"',$json);
-	$json=str_replace("\\",'',$json);
-	$json=str_replace("\'",'"',$json);
-	if (!extension_loaded('json')){
+function zf_json_decode($json,$assoc=true,$strip=true) {
+	if ($strip) {
+		$json=str_replace('\"','"',$json);
+		$json=str_replace("\\",'',$json);
+		$json=str_replace("\'",'"',$json);
+	}
+	zing_ws_error_handler(0,'stripped:'.$json);
+	
+	if (!function_exists('json_decode')){
+		require_once(dirname(__FILE__).'/includes/JSON.php');
 		$j = new Services_JSON(16);
 		$ret = $j->decode($json);
 	}

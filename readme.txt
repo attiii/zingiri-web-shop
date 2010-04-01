@@ -60,6 +60,10 @@ Before upgrading, make sure you back up your database first!
 If you made changes to the style sheet (zing.css) or the language files, make sure you back them up before the upgrade and restore them after.
 == Changelog ==
 
+= 1.3.2 =
+* Fixed installation issue related to some tables not being created
+* Added force uninstall option
+
 = 1.3.1 =
 * Fixed issue with short tags used in checkout page not displaying "add discount" button properly in some configurations
 * Fixed issue with main page and conditions page edit link not working properly in certain cases

@@ -6,7 +6,7 @@ class filesHash {
 
 	function makeFilesHash($dir=ZING_LOC,$files="") {
 		if (substr($dir,-1)!='/') $dir.='/';
-		$exclude=array('log.txt'.'builder.php','apps.db.sql','.svn','.DS_Store','.buildpath','.project','.settings','.jsdtscope','org.eclipse','.key','fileshash.txt');
+		$exclude=array('log.txt','builder.php','apps.db.sql','.svn','.DS_Store','.buildpath','.project','.settings','.jsdtscope','org.eclipse','.key','fileshash.txt');
 		if (empty($files)) $files=array();
 		//echo '<br />'.$dir;
 		if ($handle = opendir($dir)) {
