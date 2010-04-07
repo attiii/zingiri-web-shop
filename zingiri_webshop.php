@@ -26,10 +26,10 @@
  Plugin URI: http://www.zingiri.com/web-shop
  Description: This plugin integrates the fabulous Free Web Shop e-commerce solution with Wordpress.
  Author: EBO
- Version: 1.3.2
+ Version: 1.3.3
  Author URI: http://www.zingiri.com/
  */
-define("ZING_VERSION","1.3.2");
+define("ZING_VERSION","1.3.3");
 
 require(dirname(__FILE__)."/load.php");
 define("ZING_APPS_PLAYER_VERSION","0.9.0");

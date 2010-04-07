@@ -23,12 +23,15 @@
 ?>
 <?php if ($index_refer <> 1) { exit(); } ?>
 <?php
+
 if ($action == "new") {
 	if (!empty($_GET['pagetoload'])) {
 		$pagetoload=$_GET['pagetoload'];
 	}
 }
 if ($action == "save") {
+	// set global variables if not set yet
+	foreach ($zingPrompts->vars as $var) { global $$var; }
 	if (!empty($_POST['pagetoload'])) {
 		$pagetoload=$_POST['pagetoload'];
 	}
@@ -49,7 +52,7 @@ if ($action == "show" || $action == "save") {
 	}
 	else { $error =1 ; }
 	if (!empty($_POST['surname'])) {
-		$surname=$_POST['surname'];
+		$naam=$surname=$_POST['surname'];
 	}
 	else { $error =1 ; }
 	if (!empty($_POST['initials'])) {
@@ -91,7 +94,7 @@ if ($action == "show" || $action == "save") {
 	}
 	else { $phone = ""; }
 	if (!empty($_POST['middle'])) {
-		$middle=$_POST['middle'];
+		$tussenvoegsels=$middle=$_POST['middle'];
 	}
 	else { $middle = ""; }
 	$newsletter = CheckBox($_POST['newsletter']);
@@ -155,8 +158,6 @@ if ($action=="save") {
 
 	if ($error == 0) {
 		if (LoggedIn() == false) {
-			// set global variables if not set yet
-			foreach ($zingPrompts->vars as $var) { global $$var; }
 			
 			// new customer, so we need to check some stuff
 
@@ -191,8 +192,9 @@ if ($action=="save") {
 			}
 			// everything ok? then lets put the new customer in the database
 			if ($error == 0) {
-				$zingPrompts->load(true);
 				
+				$zingPrompts->load(true);
+
 				$query = sprintf("INSERT INTO `".$dbtablesprefix."customer` ( `LOGINNAME`, `PASSWORD`, `LASTNAME`, `MIDDLENAME`, `INITIALS`, `IP`, `ADDRESS`, `ZIP`, `CITY`, `STATE`, `PHONE`, `EMAIL`, `GROUP`, `COUNTRY`,`COMPANY`,`DATE_CREATED`,`NEWSLETTER`) VALUES (%s, %s, %s, %s, %s, '".GetUserIP()."', %s, %s, %s, %s, %s, %s, 'CUSTOMER', %s, %s, '".Date($date_format)."', '".$newsletter."')", quote_smart($login), quote_smart(md5($pass1)), quote_smart($surname), quote_smart($middle), quote_smart($initials), quote_smart($address), quote_smart($zip), quote_smart($city), quote_smart($state), quote_smart($phone), quote_smart($email), quote_smart($country), quote_smart($company));
 				$sql = mysql_query($query) or die(mysql_error());
 				if ($integrator->wpCustomer) {

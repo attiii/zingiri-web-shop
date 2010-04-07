@@ -36,36 +36,47 @@ require(dirname(__FILE__).'/../../zing.startmodules.inc.php');
 /** Run search results */
 $results="";
 if ($searchfor) {
+	$searchmethod="AND";
 	$searchitems = explode (" ", $searchfor);
 	if ($stock_enabled == 1) { $searchquery = "WHERE `STOCK` > 0 AND ("; }
 	else $searchquery = "WHERE (";
 
+	$firstItem=true;
 	foreach ($searchitems as $searchitem){
+		if (!$firstItem) $searchquery .= " ".$searchmethod." ";
 		$searchquery .= "((`DESCRIPTION` LIKE '%" . $searchitem . "%') OR (`PRODUCTID` LIKE '%" . $searchitem . "%'))";
+		$firstItem=false;
 	}
 	$searchquery .= ")";
-	$query = "SELECT `ID`,`PRODUCTID`,`DESCRIPTION` FROM `".$dbtablesprefix."product` $searchquery ORDER BY `PRODUCTID` ASC LIMIT 10";
+	$words=array();
+	$query = "SELECT `ID`,`PRODUCTID`,`DESCRIPTION` FROM `".$dbtablesprefix."product` $searchquery ORDER BY `PRODUCTID` ASC LIMIT 50";
 	$sql = mysql_query($query) or die(mysql_error());
 	while ($row = mysql_fetch_array($sql)) {
 		foreach (array('PRODUCTID','DESCRIPTION') as $field) {
-			$data=$row[$field];
+			$data=strip_tags($row[$field]);
 			foreach ($searchitems as $searchitem) {
 				if (($pos=stripos($data,$searchitem)) !== false) {
 					$start=0;
 					$end=strlen($data);
 					for ($i=$pos; $i >= 0; $i--) {
-						if ($data[$i]==" ") { $start=$i; break; }
+						if ($data[$i]==" " || !ctype_alpha($data[$i])) { $start=$i; break; }
 					}
 					for ($i=$pos; $i <= strlen($data); $i++) {
-						if ($data[$i]==" ") { $end=$i; break; }
+						if ($data[$i]==" " || !ctype_alpha($data[$i])) { $end=$i; break; }
 					}
 					$word=trim(substr($data,$start,$end-$start));
+					$words[]=$word;
 					//$results.='<li>'.substr($data,$start,$end-$start).'-'.$pos.'-'.$start.'-'.$end.'</li>';
-					$results.='<li><a href="'.zurl('index.php?page=browse&searchfor='.$word).'">'.$word.'</a></li>';
+					//					$results.='<li><a href="'.zurl('index.php?page=browse&searchfor='.$word).'">'.$word.'</a></li>';
 				}
 			}
 		}
-		//		$results.='<li><a href="'.zurl('index.php?page=details&prod='.$row['ID']).'">'.substr($row['PRODUCTID'],0,20).'</a></li>';
+	}
+	$words=array_unique($words);
+	if (count($words) > 0) {
+		foreach ($words as $word) {
+			$results.='<li><a href="'.zurl('index.php?page=browse&searchfor='.$word).'">'.$word.'</a></li>';
+		}
 	}
 }
 
