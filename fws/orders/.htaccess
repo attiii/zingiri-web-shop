@@ -1,4 +1,0 @@
-<Files ~ "\.(htm)$">
-  order allow,deny
-  deny from all
-</Files>
