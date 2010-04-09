@@ -1241,7 +1241,6 @@ zingiri-web-shop/index.php,d41d8cd98f00b204e9800998ecf8427e
 zingiri-web-shop/license.txt,4d1f767863b6a3985f43e9401b0739f6
 zingiri-web-shop/load.php,a6f8d9189453eafa40f46db9eb22f4a5
 zingiri-web-shop/readme.txt,0752cb8b985c18579f5c0d2f1a3bbcea
-zingiri-web-shop/test.php,ffee9c3c1e4f9c6a019c51f13ad91b20
 zingiri-web-shop/zap/classes/db.class.php,206286aa46be0adfb53211f9660a71b3
 zingiri-web-shop/zap/classes/element.class.php,1bab9450af5828ef020cf3c7f7c2156e
 zingiri-web-shop/zap/classes/form.class.php,7b204b565dd4e305f98c1a7d94112344
