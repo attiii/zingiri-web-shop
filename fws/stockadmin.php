@@ -34,15 +34,20 @@ else {
 	    <table border="0">
 		 <tr><td align="left">
 	         <form method="POST" action="?page=stockadmin">
-               <strong><?php echo $txt['productadmin12']; ?> <</strong><br />
+               <strong><?php echo $txt['productadmin12']; ?> <</strong>
 		       <input type="text" name="minimal_stock" value="<?php echo $stock_warning_level; ?>" size="5">
-			   <input type="submit" value="<?php echo $txt['stockadmin2']; ?>">
+			   <input type="submit" name="filterstock" value="<?php echo $txt['stockadmin2']; ?>">
+			   <input type="submit" name="showall" value="<?php echo $txt['editsettings86']; ?>">
 		     </form>
 		 </td></tr>
 		</table>
 	</div>	
 <?php		
-    $query ="SELECT * FROM ".$dbtablesprefix."product WHERE STOCK < ". $stock_warning_level . " ORDER BY STOCK ASC"; 
+	if (!empty($_POST['showall'])) { 
+	    $query ="SELECT * FROM ".$dbtablesprefix."product ORDER BY STOCK ASC";
+	} else {
+	    $query ="SELECT * FROM ".$dbtablesprefix."product WHERE STOCK < ". $stock_warning_level . " ORDER BY STOCK ASC";
+	} 
     $sql = mysql_query($query) or die(mysql_error());
 ?>
     <table width="100%" class="datatable">

@@ -209,7 +209,7 @@ if ($action=="save") {
 				setcookie ("fws_guest", "", time() - 3600, '/');
 				$cookie_data = $login.'-'.mysql_insert_id().'-'.md5(md5($pass1)); //name userid and encrypted password
 				setcookie ("fws_cust",$cookie_data, 0, '/')==TRUE;
-				$update_query = "UPDATE `".$dbtablesprefix."basket` SET `CUSTOMERID` = ".mysql_insert_id()." WHERE ORDERID = 0 AND CUSTOMERID = '".$customerid."'";
+				$update_query = "UPDATE `".$dbtablesprefix."basket` SET `CUSTOMERID` = ".mysql_insert_id()." WHERE STATUS = 0 AND CUSTOMERID = '".$customerid."'";
 				$update_sql = mysql_query($update_query) or die(mysql_error());
 				if (!$pagetoload) $pagetoload='page=my';
 				header('Location: '.ZING_HOME.'/index.php?'.$pagetoload);

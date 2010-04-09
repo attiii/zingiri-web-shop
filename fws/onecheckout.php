@@ -68,7 +68,7 @@ if (isset($_POST['discount_code'])) {
 $today = getdate();
 $error = 0; // no errors found
 if ($action=="delete"){
-	$query = "DELETE FROM `".$dbtablesprefix."basket` WHERE `CUSTOMERID` = '". $customerid."' AND `ORDERID` = '0' AND  `PRODUCTID` = '". $prodid."'";
+	$query = "DELETE FROM `".$dbtablesprefix."basket` WHERE `CUSTOMERID` = '". $customerid."' AND `STATUS` = '0' AND  `PRODUCTID` = '". $prodid."'";
 	$sql = mysql_query($query) or die(mysql_error());
 } elseif ($action=="update"){
 	// if we work with stock amounts, then lets check if there is enough in stock
@@ -83,7 +83,7 @@ if ($action=="delete"){
 		}
 	}
 	if ($error == 0) {
-		$query = "UPDATE `".$dbtablesprefix."basket` SET `QTY` = ".$numprod." WHERE `CUSTOMERID` = '". $customerid."' AND `ORDERID` = '0' AND  `PRODUCTID` = '". $prodid."'";
+		$query = "UPDATE `".$dbtablesprefix."basket` SET `QTY` = ".$numprod." WHERE `CUSTOMERID` = '". $customerid."' AND `STATUS` = '0' AND  `PRODUCTID` = '". $prodid."'";
 		$sql = mysql_query($query) or die(mysql_error());
 	}
 }
@@ -92,86 +92,123 @@ CheckoutShowProgress();
 
 //shipping start
 ?>
-<form id="checkout" method="post"
-	action="<?php zurl('index.php?page=checkout',true);?>">
+<form id="checkout" method="post" action="<?php zurl('index.php?page=checkout',true);?>">
 <table width="100%" class="datatable">
 	<caption><?php echo $txt['cart9']; ?></caption>
 	<tr>
-		<td><?php echo $txt['shipping2'] ?><br />
-		<?php if (ZING_PROTOTYPE) {?>
-		<SELECT NAME="shipping" id="shipping">
+		<td colspan="4"><?php echo $txt['shipping2'] ?><br />
+		<?php if (ZING_PROTOTYPE) {?> <SELECT NAME="shipping" id="shipping">
 		<?php } else {?>
-		<SELECT NAME="shipping" id="shipping" onChange="this.form.action='?page=onecheckout';this.form.submit();">
-		<?php }?>
-		<?php
-		// find out the shipping methods
-		$query="SELECT * FROM `".$dbtablesprefix."shipping` ORDER BY `id`";
-		$sql = mysql_query($query) or zfdbexit($query);
-		while ($row = mysql_fetch_row($sql)) {
-			// there must be at least 1 payment option available, so lets check that
-			$pay_query="SELECT * FROM `".$dbtablesprefix."shipping_payment` WHERE `shippingid`=".$row[0];
-			$pay_sql = mysql_query($pay_query) or zfdbexit($pay_query);
-			if (mysql_num_rows($pay_sql) <> 0) {
-				if ($row[2] == 0 || ($row[2] == 1 && IsCustomerFromDefaultSendCountry($send_default_country) == 1)) {
-					// now check the weight and the costs
-					if (!$shippingid) $shippingid=$row[0];
-					$cart_weight = WeighCart($customerid);
-					$weight_query = "SELECT * FROM `".$dbtablesprefix."shipping_weight` WHERE '".$cart_weight."' >= `FROM` AND '".$cart_weight."' <= `TO` AND `SHIPPINGID` = '".$row[0]."'";
-					$weight_sql = mysql_query($weight_query) or zfdbexit($weight_query);
-					while ($weight_row = mysql_fetch_row($weight_sql)) {
-						if (!$weightid) $weightid=$weight_row[0];
-						if ($shippingid==$row[0] && $weightid==$weight_row[0]) $selected='selected="SELECTED"'; else $selected="";
-						echo "<OPTION VALUE=\"".$weight_row[0].":".$row[0]."\" ".$selected." >".$row[1]."&nbsp;(".$currency_symbol_pre.myNumberFormat($weight_row[4],$number_format).$currency_symbol_post.")</OPTION>";
+			<SELECT NAME="shipping" id="shipping"
+				onChange="this.form.action='?page=onecheckout';this.form.submit();"
+			>
+			<?php }?>
+			<?php
+			// find out the shipping methods
+			$query="SELECT * FROM `".$dbtablesprefix."shipping` ORDER BY `id`";
+			$sql = mysql_query($query) or zfdbexit($query);
+			while ($row = mysql_fetch_row($sql)) {
+				// there must be at least 1 payment option available, so lets check that
+				$pay_query="SELECT * FROM `".$dbtablesprefix."shipping_payment` WHERE `shippingid`=".$row[0];
+				$pay_sql = mysql_query($pay_query) or zfdbexit($pay_query);
+				if (mysql_num_rows($pay_sql) <> 0) {
+					if ($row[2] == 0 || ($row[2] == 1 && IsCustomerFromDefaultSendCountry($send_default_country) == 1)) {
+						// now check the weight and the costs
+						if (!$shippingid) $shippingid=$row[0];
+						$cart_weight = WeighCart($customerid);
+						$weight_query = "SELECT * FROM `".$dbtablesprefix."shipping_weight` WHERE '".$cart_weight."' >= `FROM` AND '".$cart_weight."' <= `TO` AND `SHIPPINGID` = '".$row[0]."'";
+						$weight_sql = mysql_query($weight_query) or zfdbexit($weight_query);
+						while ($weight_row = mysql_fetch_row($weight_sql)) {
+							if (!$weightid) $weightid=$weight_row[0];
+							if ($shippingid==$row[0] && $weightid==$weight_row[0]) $selected='selected="SELECTED"'; else $selected="";
+							echo "<OPTION VALUE=\"".$weight_row[0].":".$row[0]."\" ".$selected." >".$row[1]."&nbsp;(".$currency_symbol_pre.myNumberFormat($weight_row[4],$number_format).$currency_symbol_post.")</OPTION>";
+						}
 					}
 				}
 			}
-		}
-		
-		?>
-		</SELECT><br />
-		<?php echo $txt['shipping10'] ?><br />
-		<SELECT NAME="paymentid" id="paymentid">
-		<?php
-		// find out the payment methods
-		$query="SELECT * FROM `".$dbtablesprefix."shipping_payment` WHERE `shippingid`='".$shippingid."' ORDER BY `paymentid`";
-		$sql = mysql_query($query) or die(mysql_error());
-			
-		while ($row = mysql_fetch_row($sql)) {
-			$query_pay="SELECT * FROM `".$dbtablesprefix."payment` WHERE `id`='".$row[1]."'";
-			$sql_pay = mysql_query($query_pay) or die(mysql_error());
 
-			while ($row_pay = mysql_fetch_row($sql_pay)) {
-				if (!$paymentid) $paymentid=$row_pay[0];
-				if ($paymentid==$row_pay[0]) $selected='selected="SELECTED"'; else $selected="";
-				echo "<OPTION VALUE=\"".$row_pay[0]."\" ".$selected.">".$row_pay[1];
+			?>
+			</SELECT>
+			<br />
+			<?php echo $txt['shipping10'] ?>
+			<br />
+			<SELECT NAME="paymentid" id="paymentid">
+			<?php
+			// find out the payment methods
+			$query="SELECT * FROM `".$dbtablesprefix."shipping_payment` WHERE `shippingid`='".$shippingid."' ORDER BY `paymentid`";
+			$sql = mysql_query($query) or die(mysql_error());
+
+			while ($row = mysql_fetch_row($sql)) {
+				$query_pay="SELECT * FROM `".$dbtablesprefix."payment` WHERE `id`='".$row[1]."'";
+				$sql_pay = mysql_query($query_pay) or die(mysql_error());
+
+				while ($row_pay = mysql_fetch_row($sql_pay)) {
+					if (!$paymentid) $paymentid=$row_pay[0];
+					if ($paymentid==$row_pay[0]) $selected='selected="SELECTED"'; else $selected="";
+					echo "<OPTION VALUE=\"".$row_pay[0]."\" ".$selected.">".$row_pay[1];
+				}
 			}
-		}
-		?>
-		</SELECT></td>
+			?>
+			</SELECT></td>
 	</tr>
 	<tr>
-		<td><?php echo $txt['shipping5']?> <input type="text"
-			id="discount_code" name="discount_code"
-			value="<?php echo $discount_code?>">
-			<?php if (!ZING_PROTOTYPE)?>
-			<input type="submit" name="discount" value="<?php echo $txt['cart10'];?>" onclick="this.form.action='?page=onecheckout';this.form.submit();"/>
-			<?php ?>
-		</td>
+	<?php
+	if (WeighCart($customerid) == 0) {
+		echo '<td colspan="4">'.$txt['customer21'].'</td></tr><tr>';
+		$address=new wsAddress($customerid);
+		$addresses=$address->getAddresses();
+		$i=0;
+		$first=true;
+		foreach ($addresses as $adrid => $adr) {
+			$i++;
+			if ($i > 4) {
+				echo '</tr><tr>';
+				$i=1;
+			}
+			echo '<td width="25%">';
+			echo '<strong>'.$adr['NAME'].'</strong><br />';
+			echo $adr['ADDRESS'].'<br />';
+			echo $adr['CITY'].','.$adr['ZIP'].'<br />';
+			if ($adr['STATE']) echo $adr['STATE'].'<br />';
+			echo $adr['COUNTRY'].'<br />';
+			if ($_POST['address'] == $adrid || ($_POST['address']=='' && $first)) $selected = 'CHECKED'; else $selected="";
+			echo '<input type="radio" name="address" value="'.$adrid.'" '.$selected.'/>';
+			echo '<a href="index.php?zfaces=form&action=edit&form=address&id='.$adrid.'&redirect='.urlencode('index.php?page=onecheckout').'" class="button">'.$txt['browse7'].'</a>';
+			echo ' ';
+			echo '<a href="index.php?zfaces=form&action=delete&form=address&id='.$adrid.'&redirect='.urlencode('index.php?page=onecheckout').'" class="button">'.$txt['browse8'].'</a>';
+			echo '</td>';
+			$first=false;
+		}
+		echo '<tr><td colspan="4">';
+		echo '<a href="index.php?zfaces=form&action=add&form=address&redirect='.urlencode('index.php?page=onecheckout').'" class="button">'.$txt['shippingadmin10'].'</a>';
+		echo '</td></tr>';
+	}
+	?>
 	</tr>
 </table>
-		<?php //}
-			
-		//shipping end
-		// read basket
-		$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (`CUSTOMERID` = ".$customerid." AND `ORDERID` = 0) ORDER BY ID";
-		$sql = mysql_query($query) or zfdbexit($query);
-		$count = mysql_num_rows($sql);
+<table>
+	<tr>
+		<td><?php echo $txt['shipping5']?> <input type="text" id="discount_code" name="discount_code"
+			value="<?php echo $discount_code?>"
+		> <?php if (!ZING_PROTOTYPE)?> <input type="submit" name="discount"
+			value="<?php echo $txt['cart10'];?>"
+			onclick="this.form.action='?page=onecheckout';this.form.submit();"
+		/> <?php ?></td>
+	</tr>
+</table>
+	<?php //}
 
-		if ($count == 0) {
-			PutWindow($gfx_dir, $txt['cart1'], $txt['cart2'], "carticon.gif", "50");
-		}
-		else {
-			?> <br />
+	//shipping end
+	// read basket
+	$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (`CUSTOMERID` = ".$customerid." AND `STATUS` = 0) ORDER BY ID";
+	$sql = mysql_query($query) or zfdbexit($query);
+	$count = mysql_num_rows($sql);
+
+	if ($count == 0) {
+		PutWindow($gfx_dir, $txt['cart1'], $txt['cart2'], "carticon.gif", "50");
+	}
+	else {
+		?> <br />
 <table width="100%" class="datatable">
 	<tr>
 		<th colspan="2"><?php echo $txt['cart3']; ?></th>
@@ -229,13 +266,12 @@ CheckoutShowProgress();
 			$print_description=printDescription($row_details[1],$row_details[3]);
 			?>
 	<tr <?php echo $kleur; ?>>
-		<td colspan="2"><a
-			href="index.php?page=details&prod=<?php echo $row_details[0]; ?>"><?php echo $thumb.$print_description.$picturelink; ?></a>
-			<?php
-			$productprice = $row[3]; // the price of a product
-			$printvalue = $row[7];   // features
-			if (!$printvalue == "") { echo "<br />(".$printvalue.")"; }
-			?></td>
+		<td colspan="2"><a href="index.php?page=details&prod=<?php echo $row_details[0]; ?>"><?php echo $thumb.$print_description.$picturelink; ?></a>
+		<?php
+		$productprice = $row[3]; // the price of a product
+		$printvalue = $row[7];   // features
+		if (!$printvalue == "") { echo "<br />(".$printvalue.")"; }
+		?></td>
 		<td style="text-align: right"><?php 
 		echo $currency_symbol_pre;
 		$subtotaal = $productprice * $row[6];
@@ -246,14 +282,15 @@ CheckoutShowProgress();
 		echo $currency_symbol_post;
 		?></td>
 		<td style="text-align: right;"><input type="text" size="4"
-			name="numprod[<?php echo $row_details[0];?>]"
-			value="<?php echo $row[6] ?>">&nbsp; <input type="submit"
-			value="<?php echo $txt['cart10'] ?>"
+			name="numprod[<?php echo $row_details[0];?>]" value="<?php echo $row[6] ?>"
+		>&nbsp; <input type="submit" value="<?php echo $txt['cart10'] ?>"
 			onclick="form.action='?page=onecheckout&action=update&prodid=<?php echo $row_details[0] ?>';"
-			name="sub"> <br />
+			name="sub"
+		> <br />
 		<input type="submit" value="<?php echo $txt['cart6']; ?>"
 			onclick="form.action='?page=onecheckout&action=delete&prodid=<?php echo $row_details[0] ?>';"
-			name="sub"></td>
+			name="sub"
+		></td>
 	</tr>
 	<?php
 
@@ -349,17 +386,15 @@ CheckoutShowProgress();
 <br />
 <br />
 <br />
-<input type="hidden" name="onecheckout" value="1" />
-<input type="checkbox" name="conditions"
-<?php if ($conditions) echo 'checked="yes"'?> /> <a
-	href="<?php zurl('index.php?page=conditions&action=show',true)?>"><?php echo $txt['conditions1'];?></a><br />
-<div style="text-align: center;"><input type=submit name=pay
-	value="<?php echo $txt['cart9'] ?>"></div>
+<input type="hidden" name="onecheckout" value="1" /> <input type="checkbox" name="conditions"
+<?php if ($conditions) echo 'checked="yes"'?>
+/> <a href="<?php zurl('index.php?page=conditions&action=show',true)?>"><?php echo $txt['conditions1'];?></a><br />
+<div style="text-align: center;"><input type=submit name=pay value="<?php echo $txt['cart9'] ?>"></div>
 </form>
 
 <?php
-		}
-if (ZING_PROTOTYPE) {
+	}
+	if (ZING_PROTOTYPE) {
 		?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[

@@ -40,7 +40,7 @@ if ($action=='search') {
 
 $stack=new zfStack('list',$formname,$search);
 
-echo '<p class="zfaces-form-label">'.$zflist->label.'</p>';
+echo '<p class="zfaces-form-label">'.z_($zflist->label).'</p>';
 
 if (!AllowAccess('list',$formid,$action)) return false;
 
@@ -69,7 +69,7 @@ while ($l=$linksin->next()) {
 
 ?>
 <div id="<?php echo $formname;?>"><a
-	href="?page=<?php echo $page;?>&zfaces=form&form=<?php echo $formname;?>&action=add&zft=list&zfp=<?php echo $formname;?>&map=<?php echo urlencode($mapflat);?>"
+	href="?page=<?php echo $page;?>&zfaces=form&form=<?php echo $formname;?>&action=add&zft=list&zfp=<?php echo $formid;?>&map=<?php echo urlencode($mapflat);?>"
 ><img class="zfimg" src="<?php echo ZING_APPS_PLAYER_URL; ?>images/add.png"></a> <?php if (defined("ZING_APPS_BUILDER") && ZingAppsIsAdmin()) {?>
 <select id="zfheader">
 	<option value="none" selected="selected">Add column</option>

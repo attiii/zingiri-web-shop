@@ -18,7 +18,4 @@ ALTER TABLE `##customer` CHANGE `MIDDLENAME` `MIDDLENAME` VARCHAR( 20 ) CHARACTE
 CHANGE `INITIALS` `INITIALS` VARCHAR( 20 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '';
 
 -- new setting to display categories underneath groups in products sidebar
-ALTER TABLE `##settings` ADD COLUMN `SHOWCAT` int(6) NULL;
 UPDATE `##settings` SET `FASTCHECKOUT`=1,`REGISTERDOB`='',`SHOWCAT`=1,`DATE_UPDATED`='2010-03-14 17:26:01' WHERE `ID`=1;
-
--- load prompt data

@@ -89,139 +89,6 @@ function faces_simple_element($element_name,$element_info,$table_data,$element_d
 	return $table_data;
 }
 
-function faces_data_element($element_name,$element_info,$user_input,$table_data){
-
-	global $facesforcedvalues;
-
-	$fieldnameset=$element_info['dbfield'];
-	$fieldnames = array();
-	$fieldnames = explode(',',$fieldnameset);
-
-	$prefix="";
-	if (substr($fieldnames[0],0,1) == "#")
-	{
-		$prefix=substr($fieldnames[0],1-strlen($fieldnames[0]));
-	}
-
-	if ($element_info['type'] == 'bddress') {
-		$multiformat=$element_info['constraint'];
-	} else {
-		$multiformat=$element_info['type'];
-	}
-
-	$xmlf=faces_get_xml($multiformat);
-	$fields=$xmlf->fields->attributes()->count;
-	for ($i=1; $i <= $fields; $i++) {
-		if (empty($prefix) && empty($fieldnames[$i-1])) {
-			$fieldname=$xmlf->fields->{'field'.$i}->name;
-		} elseif (!empty($prefix)) {
-			$fieldname=$prefix.'_'.$xmlf->fields->{'field'.$i}->name;
-		} else {
-			$fieldname=$fieldnames[$i-1];
-		}
-		$format=$xmlf->fields->{'field'.$i}->format;
-		if ($format != "none") {
-			$el_name = substr($element_name,0,-1).$i;
-			if ($xmlf->fields->{'field'.$i}->type == "password") {
-				$table_data["{$fieldname}"] = md5($user_input[$el_name]);
-			} elseif (isset($facesforcedvalues["{$fieldname}"])) {
-				$table_data["{$fieldname}"] = $facesforcedvalues["{$fieldname}"];
-			} elseif (($xmlf->fields->{'field'.$i}->format == "double") && (empty($user_input[$el_name]))) {
-				$table_data["{$fieldname}"] = NULL;
-			} else {
-				$table_data["{$fieldname}"] = $user_input[$el_name];
-			}
-		}
-	}
-
-	return $table_data;
-
-}
-
-function faces_lookup_headers($fieldnameset,$multiformat,$type,&$column_name_lookup,&$column_type_lookup,$element_title,&$column_enrich_lookup = null) {
-
-	if ($type == 'section') { return ""; }
-
-	$fieldnames = array();
-	$fieldnames = explode(',',$fieldnameset);
-
-	$prefix="";
-	if (substr($fieldnames[0],0,1) == "#")
-	{
-		$prefix=substr($fieldnames[0],1-strlen($fieldnames[0]));
-	}
-
-	$xmlf=faces_get_xml($multiformat);
-	$fields=$xmlf->fields->attributes()->count;
-	for ($i=1; $i <= $fields; $i++) {
-		if (empty($prefix) && empty($fieldnames[$i-1])) {
-			$fieldname=$xmlf->fields->{'field'.$i}->name;
-		} elseif (!empty($prefix)) {
-			$fieldname=$prefix.'_'.$xmlf->fields->{'field'.$i}->name;
-		} else {
-			$fieldname=$fieldnames[$i-1];
-		}
-		$format=$xmlf->fields->{'field'.$i}->format;
-		$el_name = substr($element_name,0,-1).$i;
-		if ($format != 'none') {
-			if ($fields == 1) {
-				$column_name_lookup["{$fieldname}"] = $element_title;
-				if (isset($xmlf->fields->{'field'.$i}->enrich)) {
-					$column_enrich_lookup["{$fieldname}"]['type'] = (string) $xmlf->fields->{'field'.$i}->enrich->attributes()->type;
-				}
-				$column_enrich_lookup["{$fieldname}"]['rule'] = (string) $xmlf->fields->field1->enrich->query;
-				$column_type_lookup["{$fieldname}"] = $type;
-			} else {
-				$column_name_lookup["{$fieldname}"] = (string) $element_title." ".$xmlf->fields->{'field'.$i}->label;
-				//ebo				$column_name_lookup["{$fieldname}"] = $xmlf->fields->{'field'.$i}->label;
-				if (isset($xmlf->fields->{'field'.$i}->enrich)) {
-					$column_enrich_lookup["{$fieldname}"]['type'] = (string) $xmlf->fields->{'field'.$i}->enrich->attributes()->type;
-				}
-				$column_enrich_lookup["{$fieldname}"]['rule'] = (string) $xmlf->fields->{'field'.$i}->enrich->query;
-				$column_type_lookup["{$fieldname}"] = $type;
-			}
-		}
-	}
-}
-
-function faces_entry_fields($element_id,$fieldnameset,$multiformat,&$form_values,$entry_data) {
-
-	if ($multiformat == 'section') { return ""; }
-
-	$fieldnames = array();
-	$fieldnames = explode(',',$fieldnameset);
-
-	$xmlf=faces_get_xml($multiformat);
-	$fields=$xmlf->fields->attributes()->count;
-
-	$prefix="";
-	if (substr($fieldnames[0],0,1) == "#")
-	{
-		$prefix=substr($fieldnames[0],1-strlen($fieldnames[0]));
-	}
-
-	for ($i=1; $i <= $fields; $i++) {
-		if (empty($prefix) && empty($fieldnames[$i-1])) {
-			$fieldname=$xmlf->fields->{'field'.$i}->name;
-		} elseif (!empty($prefix)) {
-			$fieldname=$prefix.'_'.$xmlf->fields->{'field'.$i}->name;
-		} else {
-			$fieldname=$fieldnames[$i-1];
-		}
-		$format=$xmlf->fields->{'field'.$i}->format;
-		if ($format != "none") {
-			if ($values=$xmlf->fields->{'field'.$i}->type != "password") {
-				if ($fields == 1) {
-					$form_values['element_'.$element_id]['default_value'] = $entry_data["{$fieldname}"];
-				} else {
-					$form_values['element_'.$element_id.'_'.$i]['default_value'] = $entry_data["{$fieldname}"];
-				}
-			}
-		}
-	}
-
-}
-
 function faces_simple_entry($fieldname,$multiformat,$entry_data) {
 
 	if (empty($fieldname)) {
@@ -267,12 +134,6 @@ function faces_directory($dir,$filters) {
 	}
 	closedir($handle);
 	return $files;
-}
-
-function faces_count($face) {
-	$xmlf=faces_get_xml($face);
-	$fields=$xmlf->fields->attributes()->count;
-	return $fields;
 }
 
 function txdie($msg)
@@ -414,7 +275,7 @@ function zf_json_decode($json,$assoc=true,$strip=true) {
 		$json=str_replace("\'",'"',$json);
 	}
 	zing_ws_error_handler(0,'stripped:'.$json);
-	
+
 	if (!function_exists('json_decode')){
 		require_once(dirname(__FILE__).'/includes/JSON.php');
 		$j = new Services_JSON(16);

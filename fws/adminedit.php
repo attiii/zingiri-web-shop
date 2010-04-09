@@ -42,7 +42,7 @@ else {
 		$filename=$_POST['filename'];
 	}
 	// but will be send in the url if opened from other parts of the webshop
-	if (!empty($_GET['filename'])) {
+	elseif (!empty($_GET['filename'])) {
 		$filename=$_GET['filename'];
 	}
 	$root = 0;

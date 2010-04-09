@@ -28,13 +28,19 @@ if (!defined("WP_CONTENT_URL")) {
 if (!defined("WP_CONTENT_DIR")) {
 	define("WP_CONTENT_DIR", ABSPATH . "wp-content");
 }
+if (!defined("WP_PLUGIN_URL")) {
+	define("WP_PLUGIN_URL", get_option("siteurl") . "/wp-content/plugins");
+}
+if (!defined("WP_PLUGIN_DIR")) {
+	define("WP_PLUGIN_DIR", ABSPATH . "wp-content/plugins");
+}
 
 if (!defined("ZING_APPS_EMBED")) {
 	define("ZING_APPS_EMBED","");
 }
 
 if (!defined("ZING_APPS_PLAYER_PLUGIN")) {
-	$zing_apps_player_plugin=str_replace(WP_CONTENT_DIR."/plugins/","",dirname(__FILE__));;
+	$zing_apps_player_plugin=str_replace(WP_PLUGIN_DIR."/","",dirname(__FILE__));;
 	define("ZING_APPS_PLAYER_PLUGIN", $zing_apps_player_plugin);
 }
 
@@ -43,10 +49,10 @@ if (!defined("ZING_APPS_PLAYER")) {
 }
 
 if (!defined("ZING_APPS_PLAYER_URL")) {
-	define("ZING_APPS_PLAYER_URL", WP_CONTENT_URL . "/plugins/".ZING_APPS_PLAYER_PLUGIN."/");
+	define("ZING_APPS_PLAYER_URL", WP_PLUGIN_URL . "/".ZING_APPS_PLAYER_PLUGIN."/");
 }
 if (!defined("ZING_APPS_PLAYER_DIR")) {
-	define("ZING_APPS_PLAYER_DIR", WP_CONTENT_DIR . "/plugins/".ZING_APPS_PLAYER_PLUGIN."/");
+	define("ZING_APPS_PLAYER_DIR", WP_PLUGIN_DIR . "/".ZING_APPS_PLAYER_PLUGIN."/");
 }
 if (!defined("FACES_DIR")) {
 	define("FACES_DIR", WP_CONTENT_URL . "/plugins/".ZING_APPS_PLAYER_PLUGIN."/fields/");
@@ -200,19 +206,21 @@ function zing_apps_player_content($content) {
 	global $post;
 	global $dbtablesprefix,$page;
 	global $zing;
-
+	
 	$page=$_GET['page'];
-	error_reporting(E_ALL & ~E_NOTICE);
-	ini_set('display_errors', '1');
-
+	error_reporting(E_ALL ^ E_NOTICE); // ^ E_NOTICE
+	set_error_handler("user_error_handler");
+	
 	if (defined("ZING_APPS_CUSTOM")) { require(ZING_APPS_CUSTOM."globals.php"); }
 
 	$cf=get_post_custom();
 
-
-	if (!isset($_GET['zfaces']) && ($post->ID == get_option("zing_apps_player_page"))) {
-		$zfaces="summary";
-	} elseif (isset($_GET['zfaces'])) {
+	
+	//if (!isset($_GET['zfaces']) && ($post->ID == get_option("zing_apps_player_page"))) {
+	//	$zfaces="summary";
+	//	echo 'case 1<br />';
+	//} else
+	if (isset($_GET['zfaces'])) {
 		$zfaces=$_GET['zfaces'];
 	} elseif (isset($cf['zfaces'])) {
 		$zfaces=$cf['zfaces'][0];

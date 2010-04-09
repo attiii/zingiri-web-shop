@@ -28,9 +28,17 @@ if (!defined("WP_CONTENT_URL")) {
 if (!defined("WP_CONTENT_DIR")) {
 	define("WP_CONTENT_DIR", ABSPATH . "wp-content");
 }
+if (!defined("WP_PLUGIN_URL")) {
+	define("WP_PLUGIN_URL", get_option("siteurl") . "/wp-content/plugins");
+}
+if (!defined("WP_PLUGIN_DIR")) {
+	define("WP_PLUGIN_DIR", ABSPATH . "wp-content/plugins");
+}
+
 if (!defined("ZING_PLUGINSDIR")) {
 	define("ZING_PLUGINSDIR",realpath(dirname(__FILE__).'/..').'/');
 }
+
 if (!defined("ZING_PLUGIN")) {
 	$zing_plugin=str_replace(realpath(dirname(__FILE__).'/..'),"",dirname(__FILE__));
 	$zing_plugin=substr($zing_plugin,1);
@@ -50,15 +58,13 @@ if (!defined("ZING_SUB")) {
 }
 
 if (!defined("ZING_DIR")) {
-	//	define("ZING_DIR", WP_CONTENT_DIR . "/plugins/".ZING_PLUGIN."/fws/");
 	define("ZING_DIR", dirname(__FILE__)."/fws/");
 }
 if (!defined("ZING_LOC")) {
-	//define("ZING_LOC", WP_CONTENT_DIR . "/plugins/".ZING_PLUGIN."/");
 	define("ZING_LOC",dirname(__FILE__)."/");
 }
 if (!defined("ZING_URL")) {
-	define("ZING_URL", WP_CONTENT_URL . "/plugins/".ZING_PLUGIN."/");
+	define("ZING_URL", WP_PLUGIN_URL . "/".ZING_PLUGIN."/");
 }
 
 define("ZING_APPS_CUSTOM_URL",ZING_URL."fws/");
@@ -671,6 +677,7 @@ function zing_header()
 	echo '<link rel="stylesheet" type="text/css" href="' . ZING_URL . 'zing.css" media="screen" />';
 	echo '<link rel="stylesheet" href="' . ZING_URL . 'fws/addons/lightbox/lightbox.css" type="text/css" media="screen" />';
 	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/addons/lightbox/lightbox.js"></script>';
+	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/cookie.js"></script>';
 }
 
 /**
@@ -1032,7 +1039,7 @@ function zing_login($loginname) {
 			$sessionid = $fws_cust; // read the sessionid
 
 			// now check if this guest has products in his basket
-			$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (CUSTOMERID = ".$sessionid." AND ORDERID = 0) ORDER BY ID";
+			$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (CUSTOMERID = ".$sessionid." AND STATUS = 0) ORDER BY ID";
 			$sql = mysql_query($query) or die(mysql_error());
 			while ($row = mysql_fetch_row($sql)) {
 				$update_query = "UPDATE `".$dbtablesprefix."basket` SET `CUSTOMERID` = ".$id." WHERE ID = '".$row[0]."'";

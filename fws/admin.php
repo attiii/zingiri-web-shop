@@ -102,22 +102,24 @@ else {
 		$menugroup="";
 		$i=0;
 		foreach ($menus as $menu) {
-			if ($menu['group'] != $menugroup) {
-				echo '<tr><td colspan="'.$menuItemsPerLine.'"><h6>'.$txt[$menu['group']].'</h6></td></tr>';
-				$menugroup=$menu['group'];
-				$i=0;
+			if (!isset($menu['hide']) || !$menu['hide']) {
+				if ($menu['group'] != $menugroup) {
+					echo '<tr><td colspan="'.$menuItemsPerLine.'"><h6>'.$txt[$menu['group']].'</h6></td></tr>';
+					$menugroup=$menu['group'];
+					$i=0;
+				}
+				$i++;
+				if ($i > $menuItemsPerLine) {
+					echo '</tr><tr>';
+					$i=1;
+				}
+				echo '<td><div style="text-align: center;"><a class="plain" href="?'.$menu['href'].'"><img src="'.$gfx_dir.'/'.$menu['img'].'" width="32px" height="32px" alt="" /><br />'.$txt[$menu['label']];
+				if (isset($menu['func'])) {
+					$func=$menu['func'];
+					echo " (".$func($menu['param']).")";
+				}
+				echo '</a><br /><br /></div></td>';
 			}
-			$i++;
-			if ($i > $menuItemsPerLine) {
-				echo '</tr><tr>';
-				$i=1;
-			}
-			echo '<td><div style="text-align: center;"><a class="plain" href="?'.$menu['href'].'"><img src="'.$gfx_dir.'/'.$menu['img'].'" width="32px" height="32px" alt="" /><br />'.$txt[$menu['label']];
-			if (isset($menu['func'])) {
-				$func=$menu['func'];
-				echo " (".$func($menu['param']).")";
-			}
-			echo '</a><br /><br /></div></td>';
 		}
 
 		echo '</tr></table></td></tr></table>';

@@ -33,14 +33,15 @@ if ($countCart > 0 && ZING_PROTOTYPE)
 	echo '<li id="hidecart"><a href="javascript:void(0);">&#x25B4; ('.z_('hide').')</a></li>';
 }
 $cart="";
-$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (`CUSTOMERID` = ".$customerid." AND `ORDERID` = 0) ORDER BY ID";
+$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (`CUSTOMERID` = ".$customerid." AND `STATUS` = 0) ORDER BY ID";
 $sql = mysql_query($query) or zfdbexit($query);
 while ($row = mysql_fetch_array($sql)) {
 	$query = "SELECT * FROM `".$dbtablesprefix."product` where `ID`='" . $row[2] . "'";
 	$sql_details = mysql_query($query) or die(mysql_error());
 	if ($row_details = mysql_fetch_array($sql_details)) {
+		$price=$row['PRICE']+calcFeaturesPrice($row['FEATURES']);
 		$cart.='<li><a href="?page=details&prod='.$row[2].'">';
-		$cart.=substr($row_details['PRODUCTID'],0,20).' (x'.$row['QTY'].')';
+		$cart.=substr($row_details['PRODUCTID'],0,20).' (x'.$row['QTY'].') '.$currency_symbol_pre.myNumberFormat($price).$currency_symbol_post;
 		$cart.='</a></li>';
 	}
 }

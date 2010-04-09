@@ -77,7 +77,7 @@ if ($lostlogin == 0) {
 			$sessionid = $fws_cust; // read the sessionid
 
 			// now check if this guest has products in his basket
-			$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (CUSTOMERID = ".$sessionid." AND ORDERID = 0) ORDER BY ID";
+			$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (CUSTOMERID = ".$sessionid." AND STATUS = 0) ORDER BY ID";
 			$sql = mysql_query($query) or die(mysql_error());
 			while ($row = mysql_fetch_row($sql)) {
 				$update_query = "UPDATE `".$dbtablesprefix."basket` SET `CUSTOMERID` = ".$id." WHERE ID = '".$row[0]."'";

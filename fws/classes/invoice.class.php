@@ -27,7 +27,7 @@ class invoice {
 		}
 	}
 
-	private function getCustomer() {
+	function getCustomer() {
 		$this->customer=new db();
 		$this->customer->select("select * from ##customer where id=".$this->customerid);
 		$this->customer->next();
@@ -108,7 +108,7 @@ class invoice {
 		$this->paynow=$this->paymentCode();
 	}
 
-	private function prepareMessage($type='invoice') {
+	function prepareMessage($type='invoice') {
 		global $txt;
 		global $page_footer;
 		
@@ -167,7 +167,7 @@ class invoice {
 		$sql->updateRecord('invoice',$k,$d);
 	}
 
-	private function paymentCode() {
+	function paymentCode() {
 		global $dbtablesprefix;
 		global $shopurl,$lang,$sales_mail;
 		$query = sprintf("SELECT * FROM `".$dbtablesprefix."payment` WHERE `id` = %s", quote_smart($this->paymentid));
@@ -202,7 +202,7 @@ class invoice {
 		return $payment_code;
 	}
 
-	private function makePDF() {
+	function makePDF() {
 		global $create_pdf,$dbtablesprefix,$orders_dir;
 		// make pdf
 		$pdf = "";

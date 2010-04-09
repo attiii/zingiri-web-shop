@@ -253,6 +253,10 @@ else
 							"ipn.php", 0));
 				}
 
+				//update basket status
+				$query=sprintf("update ".$dbtablesprefix."basket set STATUS=1 where CUSTOMERID=%s and ORDERID=%s",$row['CUSTOMERID'],$row['ID']);
+				$sql=mysql_query($query) or die(user_error_handler("1","Error updating basket:<br>" . mysql_error() . "<br>" . mysql_errno(),"ipn.php", 0));
+				
 				// send an email in any case
 				//				echo "Verified";
 				//				mail($notify_email, "VERIFIED IPN", "$res\n $req\n $strQuery\n $struery\n  $strQuery2");

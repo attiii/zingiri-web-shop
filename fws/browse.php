@@ -23,6 +23,11 @@
 ?>
 <?php if ($index_refer <> 1) { exit(); } ?>
 <?php
+if ($_GET['includesearch']) $includesearch=$_GET['includesearch'];
+elseif ($_POST['includesearch']) $includesearch=$_POST['includesearch'];
+if ($includesearch) {
+	require(dirname(__FILE__).'/search.php');
+}
 $searchmethod = " AND "; //default
 
 if (!empty($_POST['searchmethod'])) {
@@ -100,7 +105,7 @@ else { $limit = ""; }
 		if ($stock_enabled == 1 && $hide_outofstock == 1 && IsAdmin() == false) { // filter out products with stock lower than 1
 			$query = sprintf("SELECT * FROM `".$dbtablesprefix."product` where `STOCK` > 0 AND `CATID`=%s ORDER BY `$orderby_field` ASC", quote_smart($cat));
 		}
-		else { 
+		elseif (!empty($cat)) { 
 			$query = sprintf("SELECT * FROM `".$dbtablesprefix."product` WHERE CATID=%s ORDER BY `$orderby_field` ASC", quote_smart($cat)); 
 		}
 	}
@@ -126,7 +131,10 @@ else { $limit = ""; }
 			}
 			$searchquery .= ")";
 		}
-		else { $searchquery = "WHERE (DESCRIPTION = 'never_find_me')"; } // just to cause that the searchresult is empty
+		else { 
+			//$searchquery = "WHERE (DESCRIPTION = 'never_find_me')";
+			$searchquery = " "; 
+		} // just to cause that the searchresult is empty
 		$query = "SELECT * FROM `".$dbtablesprefix."product` $searchquery ORDER BY `$orderby_field` ASC";
 	}
 
@@ -279,11 +287,13 @@ else { $limit = ""; }
 		?> <br />
 	<br />
 	<?php }
+	if (!$includesearch) {
 	if (!$row['LINK']) {
 		echo $txt['details6'] ?>:<br />
 	<input type="text" size="4" name="numprod" value="1" maxlength="4">&nbsp; <?php }?> <input
 		type="submit" id="addtocart" value="<?php echo $txt['details7'] ?>" name="sub"
 	> <?php
+	}
 	if ($row[4] == 0) {
 		if ($row[5] == 0 && $hide_outofstock == 0) { echo '<strong><big>'.$txt['browse12'].'</big></strong>'; }
 	}
@@ -298,9 +308,10 @@ else { $limit = ""; }
 			echo "</tr>";
 		} ?>
 </table>
+<?php if (!$includesearch) {?>
 <div style="text-align: right;"><img src="<?php echo $gfx_dir ?>/photo.gif" alt="" /> <em><small><?php echo $txt['browse6'] ?></small></em></div>
-
 		<?php
+}
 		// page code
 		if ($products_per_page > 0 && $num_products > $products_per_page) {
 
@@ -319,7 +330,7 @@ else { $limit = ""; }
 			  if ($num_pages == $num_page) {
 				  echo "<b>[$num_pages]</b>";
 			  }
-			  else { echo "<a href=\"index.php?page=browse&action=$action&group=$group&cat=$cat&orderby=$orderby&searchmethod=$searchmethod&searchfor=$searchfor&num_page=$num_pages\">[$num_pages]</a>"; }
+			  else { echo "<a href=\"index.php?page=browse&action=$action&group=$group&cat=$cat&orderby=$orderby&searchmethod=$searchmethod&searchfor=$searchfor&num_page=$num_pages&includesearch=$includesearch\">[$num_pages]</a>"; }
 			  echo " ";
 		  }
 	  }
@@ -329,7 +340,7 @@ else { $limit = ""; }
 		  if ($num_pages == $num_page) {
 			  echo "<b>[$num_pages]</b>";
 		  }
-		  else { echo "<a href=\"index.php?page=browse&action=$action&group=$group&cat=$cat&orderby=$orderby&searchmethod=$searchmethod&searchfor=$searchfor&num_page=$num_pages\">[$num_pages]</a>"; }
+		  else { echo "<a href=\"index.php?page=browse&action=$action&group=$group&cat=$cat&orderby=$orderby&searchmethod=$searchmethod&searchfor=$searchfor&num_page=$num_pages&includesearch=$includesearch\">[$num_pages]</a>"; }
 	  }
 
 	  echo "</h4>";

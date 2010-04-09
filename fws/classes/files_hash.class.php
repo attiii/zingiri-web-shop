@@ -21,7 +21,7 @@ class filesHash {
 					if (is_dir($dir.$file)) {
 						$files=$this->makeFilesHash($dir.$file,$files);
 					} else {
-						$sdir=str_replace(WP_CONTENT_DIR.'/','',$dir);
+						$sdir=str_replace(WP_PLUGIN_DIR.'/','',$dir);
 						$files[$sdir.$file]=md5_file($dir.$file);
 					}
 				}
@@ -38,7 +38,8 @@ class filesHash {
 				fwrite($handle, $file.','.$checksum."\r\n");
 			}
 			fclose($handle);
-		}
+			return true;
+		} else { return false; }
 	}
 	
 	function readFilesHash() {

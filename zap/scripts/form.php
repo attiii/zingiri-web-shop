@@ -79,6 +79,9 @@ if ($action == "not_allowed") {
 	$newstep="save";
 	$zfform->Delete($id);
 	$showform="saved";
+	if (isset($_POST['redirect'])) $redirect=$_POST['redirect'];
+	elseif (isset($_GET['redirect'])) $redirect=$_GET['redirect'];
+	if ($redirect && (!defined("ZING_SAAS") || !ZING_SAAS)) header('refresh:0; url='.$redirect);
 } elseif ($action == "view" && $step == "") {
 	$success=$zfform->Prepare($id);
 } else {

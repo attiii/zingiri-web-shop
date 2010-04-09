@@ -57,7 +57,7 @@ if ($action=="add" && $numprod != 0) {
 	// if we work with stock amounts, then lets check if there is enough in stock
 	if ($stock_enabled == 1) {
 		// if you have 2 of product x in basket and stock is 2, you get an error if you try to add 1 more
-		$query = "SELECT `QTY` FROM `".$dbtablesprefix."basket` WHERE `CUSTOMERID` = '".$customerid."' AND `PRODUCTID` = '".$prodid."' AND ORDERID = 0";
+		$query = "SELECT `QTY` FROM `".$dbtablesprefix."basket` WHERE `CUSTOMERID` = '".$customerid."' AND `PRODUCTID` = '".$prodid."' AND STATUS = 0";
 		$sql = mysql_query($query) or die(mysql_error());
 		if (mysql_num_rows($sql) != 0) {
 			$row = mysql_fetch_row($sql);
@@ -106,13 +106,13 @@ if ($action=="add" && $numprod != 0) {
 		}
 
 		// now lets check if the product we add is new, or we need to update an existing record
-		$query = "SELECT `ID` FROM `".$dbtablesprefix."basket` WHERE `CUSTOMERID` = '".$customerid."' AND `PRODUCTID` = '".$prodid."' AND `FEATURES` = '". $productfeatures . "' AND ORDERID = 0";
+		$query = "SELECT `ID` FROM `".$dbtablesprefix."basket` WHERE `CUSTOMERID` = '".$customerid."' AND `PRODUCTID` = '".$prodid."' AND `FEATURES` = '". $productfeatures . "' AND STATUS = 0";
 		$sql = mysql_query($query) or die(mysql_error());
 		if (mysql_num_rows($sql) == 0) {
 			$query = "INSERT INTO `".$dbtablesprefix."basket` ( `CUSTOMERID` , `PRODUCTID` , `PRICE` , `ORDERID` , `LINEADDDATE` , `QTY` , `FEATURES`) VALUES ('".$customerid."', '".$prodid."', '".$prodprice."', '0', '".Date("d-m-Y @ G:i")."', '".$numprod."', '".$productfeatures."')";
 		}
 		else {
-			$query = "UPDATE `".$dbtablesprefix."basket` SET `QTY` = `QTY` + ".$numprod." WHERE `PRODUCTID` = '".$prodid."' AND `CUSTOMERID` = '".$customerid."' AND ORDERID = 0";
+			$query = "UPDATE `".$dbtablesprefix."basket` SET `QTY` = `QTY` + ".$numprod." WHERE `PRODUCTID` = '".$prodid."' AND `CUSTOMERID` = '".$customerid."' AND STATUS = 0";
 		}
 		$sql = mysql_query($query) or die(mysql_error());
 	}
@@ -120,7 +120,7 @@ if ($action=="add" && $numprod != 0) {
 
 if ($action=="update"){
 	if ($numprod == 0) {
-		$query = "DELETE FROM `".$dbtablesprefix."basket` WHERE `ID` = '". $basketid."' AND `ORDERID` = '0'";
+		$query = "DELETE FROM `".$dbtablesprefix."basket` WHERE `ID` = '". $basketid."' AND `STATUS` = '0'";
 		$sql = mysql_query($query) or die(mysql_error());
 	}
 	else {
@@ -148,7 +148,7 @@ if ($action=="empty"){
 }
 
 // read basket
-$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (`CUSTOMERID` = ".$customerid." AND `ORDERID` = 0) ORDER BY ID";
+$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (`CUSTOMERID` = ".$customerid." AND `STATUS` = 0) ORDER BY ID";
 $sql = mysql_query($query) or zfdbexit($query);
 $count = mysql_num_rows($sql);
 

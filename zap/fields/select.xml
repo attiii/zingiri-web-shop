@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config type="module" version="1.5.0">
 	<name>Select</name>
-	<fields count="1">
+	<fields count="3">
 		<field1>
-			<name>select</name>
-			<label>Select</label>
-			<maxlength></maxlength>
-			<default></default>
-			<width></width>
-			<format>int(6)</format>
+			<format>varchar(256)</format>
+			<type>dynamic_select</type>
 		</field1>
+		<field2>
+			<label>Key pairs</label>
+			<size>256</size>
+			<maxlength>64</maxlength>
+			<type>textarea</type>
+			<default>id</default>
+			<format>none</format>
+			<cat>parameter</cat>
+		</field2>	
+		<field3>
+			<label>Size</label>
+			<size>3</size>
+			<maxlength>3</maxlength>
+			<format>none</format>
+			<cat>parameter</cat>
+		</field3>	
 	</fields>
 </config>

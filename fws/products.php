@@ -14,7 +14,7 @@ if (IsAdmin() == true) {
 }
 
 // read basket
-$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (`CUSTOMERID` = ".$customerid." AND `ORDERID` != 0) ORDER BY ID DESC";
+$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (`CUSTOMERID` = ".$customerid." AND `STATUS` != 0) ORDER BY ID DESC";
 $sql = mysql_query($query) or zfdbexit($query);
 $count = mysql_num_rows($sql);
 

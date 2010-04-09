@@ -141,6 +141,7 @@ $txt['conditions5'] = 'Generelle betingelser';
 $txt['shipping1'] = 'Frakt og betaling';
 $txt['shipping2'] = 'velg fraktmetode';
 $txt['shipping3'] = 'Kommentarer/spørsmål';
+$txt['shipping5'] = 'Vis du har en rabatt kode kan du skrive den her';
 $txt['shipping9'] = 'Fullfør bestilling';
 $txt['shipping10'] = 'Velg betalingsmåte';
 

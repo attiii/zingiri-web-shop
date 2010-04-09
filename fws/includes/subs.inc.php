@@ -354,7 +354,7 @@ Function TheGroup($TheCat) {
 Function CountCart($customerid) {
 	Global $dbtablesprefix;
 	$num_prod=0;
-	$query = "SELECT * FROM `".$dbtablesprefix."basket` WHERE (CUSTOMERID=".$customerid." AND ORDERID=0)";
+	$query = "SELECT * FROM `".$dbtablesprefix."basket` WHERE (CUSTOMERID=".$customerid." AND STATUS=0)";
 	$sql = mysql_query($query) or die(mysql_error());
 	while ($row = mysql_fetch_row($sql)) {
 		$num_prod = $num_prod + $row[6];
@@ -409,7 +409,7 @@ Function CalculateCart($customerid) {
 	// customer id from cookie
 	Global $dbtablesprefix;
 	$total=0;
-	$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (CUSTOMERID=".$customerid." AND ORDERID=0)";
+	$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (CUSTOMERID=".$customerid." AND STATUS=0)";
 	$sql = mysql_query($query) or die(mysql_error());
 	while ($row = mysql_fetch_row($sql)) {
 		$productprice = $row[3]; // the price of a product
@@ -434,7 +434,7 @@ Function WeighCart($customerid) {
 	// customer id from cookie
 	Global $dbtablesprefix;
 	$total=0;
-	$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (CUSTOMERID=".$customerid." AND ORDERID=0)";
+	$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (CUSTOMERID=".$customerid." AND STATUS=0)";
 	$sql = mysql_query($query) or die(mysql_error());
 	while ($row = mysql_fetch_row($sql)) {
 		$query = "SELECT * FROM `".$dbtablesprefix."product` where `ID`='" . $row[2] . "'";
@@ -782,7 +782,8 @@ function z_($label) {
 		$key=$txt2[$label];
 		if (isset($txt[$key])) return $txt[$key];
 	}
-	return '<strong style="color:red">'.$label.'</strong>';
+	return $label;
+	//return '<strong style="color:red">'.$label.'</strong>';
 }
 
 function reorder_txt() {
@@ -838,7 +839,7 @@ function getCustomerByLogin($login) {
 
 function printDescription($productid,$description) {
 	global $max_description,$pricelist_format;
-	
+
 	if ($pricelist_format == 0) { $print_description = $productid; }
 	if ($pricelist_format == 1) { $print_description = $description; }
 	if ($pricelist_format == 2) { $print_description = $productid." - ".$description; }
@@ -850,6 +851,28 @@ function printDescription($productid,$description) {
 	}
 	return $print_description;
 	$print_description = strip_tags($print_description); //remove html because of danger of broken tags
+}
 
+function calcFeaturesPrice($allfeatures) {
+	$prodprice=0;
+
+	if (!empty($allfeatures)) {
+		$features = explode("|", $allfeatures);
+		$counter1 = 0;
+		while (!$features[$counter1] == NULL){
+			$feature = explode(":", $features[$counter1]);
+			$counter1 += 1;
+			if (!empty($_POST["$feature[0]"])) {
+				$detail = explode("+", $_POST["$feature[0]"]);
+				$prodprice += $detail[1];
+			}
+		}
+	}
+	return $prodprice;
+}
+
+function customerId() {
+	global $customerid;
+	return $customerid;
 }
 ?>

@@ -36,6 +36,10 @@ if (LoggedIn() == True) {
 		$paymentstatus=intval($_GET['status']);
 		if ($paymentstatus == 1) {
 			$status=9; //completed
+			//update basket status
+			$query = sprintf("UPDATE `".$dbtablesprefix."basket` SET `STATUS` = 1 WHERE `CUSTOMERID` = %s AND `STATUS` = 0", quote_smart($customerid));
+			$sql = mysql_query($query) or die(mysql_error());
+			
 			PutWindow($gfx_dir, $txt['general13'], $txt['checkout100'], "notify.gif", "50");
 		} else {
 			$status=8; //error or cancelled
@@ -88,28 +92,43 @@ if (LoggedIn() == True) {
 		if ($error == 0) {
 			// set global variables if not set yet
 			foreach ($zingPrompts->vars as $var) { global $$var; }
-			
+
 			// read the details
-			while ($row = mysql_fetch_array($sql)) {
-				$lastname = $row[3];
-				$middlename = $row[4];
-				$initials = $row[5];
-				$address = $row[7];
-				$zipcode = $row[8];
-				$city = $row[9];
-				$stat = $row[10];
+			if ($row = mysql_fetch_array($sql)) {
+				$address=new wsAddress($customerid);
+				$adrid=$_POST['address'];
+				$adr=$address->getAddress($adrid);
+				$initials=$adr['NAME'];
+				//$lastname = $row[3];
+				//$middlename = $row[4];
+				//$initials = $row[5];
+				$address=$adr['ADDRESS'];
+				//$address = $row[7];
+				$zipcode=$adr['ZIP'];
+				//$zipcode = $row[8];
+				$city=$adr['CITY'];
+				//$city = $row[9];
+				$state=$adr['STATE'];
+				//$stat = $row[10];
 				$to = $row[12];
-				$country = $row[14];
+				$country=$adr['COUNTRY'];
+				//$country = $row[14];
 				$phone = $row[11];
 				$customer_row = $row;
 			}
 
 			// process the order. NOTE: the price is calculated and added later on in this process!!! so $total is still empty at this point
-			$query = sprintf("INSERT INTO `".$dbtablesprefix."order` (`DATE`,`STATUS`,`SHIPPING`,`PAYMENT`,`CUSTOMERID`,`TOPAY`,`WEBID`,`NOTES`,`WEIGHT`) VALUES ('".Date($date_format)."','1',%s,%s,%s,'1','n/a',%s,%s)", quote_smart($shippingid), quote_smart($paymentid), quote_smart($customerid), quote_smart($notes), quote_smart($weightid));
+			// let's see if an aborted order already exists in which case we'll reuse it
+			$query = sprintf("SELECT `ORDERID` FROM `".$dbtablesprefix."basket` WHERE `STATUS`=0 AND `CUSTOMERID`=%s AND `ORDERID` <> 0", quote_smart($customerid));
 			$sql = mysql_query($query) or die(mysql_error());
-
-			// get the last id
-			$lastid = mysql_insert_id();
+			if ($row = mysql_fetch_array($sql)) {
+				$lastid=$row['ORDERID'];
+			} else {
+				$query = sprintf("INSERT INTO `".$dbtablesprefix."order` (`DATE`,`STATUS`,`SHIPPING`,`PAYMENT`,`CUSTOMERID`,`TOPAY`,`WEBID`,`NOTES`,`WEIGHT`) VALUES ('".Date($date_format)."','1',%s,%s,%s,'1','n/a',%s,%s)", quote_smart($shippingid), quote_smart($paymentid), quote_smart($customerid), quote_smart($notes), quote_smart($weightid));
+				$sql = mysql_query($query) or die(mysql_error());
+				// get the last id
+				$lastid = mysql_insert_id();
+			}
 
 			// make webID
 			$date_array = GetDate();
@@ -119,12 +138,12 @@ if (LoggedIn() == True) {
 			$sql = mysql_query($query) or die(mysql_error());
 
 			$zingPrompts->load(true);
-			
+
 			$message = $txt['checkout3'];
 			$paymentmessage = "";
 			// now go through all all products from basket with status 'basket'
 
-			$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE ( CUSTOMERID = ".$customerid." AND ORDERID = 0 )";
+			$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE ( CUSTOMERID = ".$customerid." AND STATUS = 0 )";
 			$sql = mysql_query($query) or die(mysql_error());
 			$total = 0;
 
@@ -252,37 +271,9 @@ if (LoggedIn() == True) {
 			// now lets calculate the invoice total now we know the final addition, the shipping costs
 
 			// now the payment
-			$query = sprintf("SELECT * FROM `".$dbtablesprefix."payment` WHERE `id` = %s", quote_smart($paymentid));
-			$sql = mysql_query($query) or die(mysql_error());
+			$payment=new paymentCode();
+			$payment_code=$payment->getCode($paymentid,$customer_row,$total,$webid);
 
-			// read the payment method
-			while ($row = mysql_fetch_row($sql)) {
-				$payment_descr = $row[1];
-				$payment_code = $row[2];
-				// there could be some variables in the code, like %total%, %webid% and %shopurl% so lets update them with the correct values
-				$payment_code = str_replace('name="autosubmit"','id="autosubmit" name="autosubmit"',$payment_code);
-				$payment_code = str_replace("%total_nodecimals%", $total_nodecimals, $payment_code);
-				$payment_code = str_replace("%total%", $total, $payment_code);
-				$payment_code = str_replace("%webid%", $webid, $payment_code);
-				$payment_code = str_replace("%shopurl%", $shopurl, $payment_code);
-				$payment_code = str_replace("%currency%", $currency, $payment_code);
-				$payment_code = str_replace("%lang%", $lang, $payment_code);
-				$payment_code = str_replace("%customer%", $customer_row['ID'], $payment_code);
-				$payment_code = str_replace("%firstname%", $customer_row['INITIALS'], $payment_code);
-				$payment_code = str_replace("%lastname%", $customer_row['LASTNAME'], $payment_code);
-				$payment_code = str_replace("%address%", $customer_row['ADDRESS'], $payment_code);
-				$payment_code = str_replace("%city%", $customer_row['CITY'], $payment_code);
-				$payment_code = str_replace("%state%", $customer_row['STATE'], $payment_code);
-				$payment_code = str_replace("%zip%", $customer_row['ZIP'], $payment_code);
-				$payment_code = str_replace("%country%", $customer_row['COUNTRY'], $payment_code);
-				$payment_code = str_replace("%email%", $customer_row['EMAIL'], $payment_code);
-				$payment_code = str_replace("%phone%", $customer_row['PHONE'], $payment_code);
-				$payment_code = str_replace("%ipn%", ZING_URL.'fws/ipn.php', $payment_code);
-				$payment_code = str_replace("%paypal_email%", $sales_mail, $payment_code);
-				$payment_code = str_replace("%return%", $shopurl . '/index.php?page=checkout&status=1', $payment_code);
-				$payment_code = str_replace("%cancel%", $shopurl . '/index.php?page=checkout&status=9', $payment_code);
-				$payment_code = trim($payment_code);
-			}
 			$message .= $txt['checkout19'].$payment_descr; // Payment method:
 			$message .= $txt['checkout6']; // line break
 
@@ -322,7 +313,9 @@ if (LoggedIn() == True) {
 			$sql = mysql_query($query) or die(mysql_error());
 
 			//basket update
-			$query = sprintf("UPDATE `".$dbtablesprefix."basket` SET `ORDERID` = '".$lastid."' WHERE (`CUSTOMERID` = %s AND `ORDERID` = '0')", quote_smart($customerid));
+			if ($autosubmit && $payment_code!="") $basket_status=0;
+			else $basket_status=1;
+			$query = sprintf("UPDATE `".$dbtablesprefix."basket` SET `ORDERID` = '".$lastid."',`STATUS`=%s WHERE (`CUSTOMERID` = %s AND `STATUS` = '0')", qs($basket_status), quote_smart($customerid));
 			$sql = mysql_query($query) or die(mysql_error());
 
 			// make pdf
@@ -373,7 +366,7 @@ if (LoggedIn() == True) {
 				else { PutWindow($gfx_dir, $txt['general12'], $txt['checkout12'], "warning.gif", "50"); }
 			}
 			mymail($sales_mail, $sales_mail, $subject, $message, $charset); // no error checking here, because there is no use to report this to the customer
-				
+
 			// now lets show the customer some details
 			CheckoutShowProgress();
 
@@ -390,15 +383,15 @@ if (LoggedIn() == True) {
 			} else {
 				PutWindow($gfx_dir, $txt['general13'], $txt['checkout104'], "loader.gif", "50");
 				echo '<div style="display:none">'.$payment_code.'</div>';
-				?>
+					?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
            setTimeout("checkout=new wsSubmit()",100);
            //]]>
 </script>
-				<?php
+					<?php
 			}
-				
+
 		}
 		//end
 	}

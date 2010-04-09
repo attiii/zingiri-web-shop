@@ -189,7 +189,7 @@ class db {
 		$txglobal=FALSE;
 	}
 
-	private function txrollback()
+	function txrollback()
 	{
 		Global $txglobal;
 
@@ -201,7 +201,7 @@ class db {
 		$txglobal=FALSE;
 	}
 
-	private function dbError($severity, $query, $page, $action)
+	function dbError($severity, $query, $page, $action)
 	{
 		Global $gfx_dir;
 		Global $txt;

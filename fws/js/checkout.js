@@ -17,6 +17,7 @@ var wsCheckout = Class.create( {
 var wsSubmit = Class.create( {
 
 	initialize : function() {
+		//force load in same page, by default it will open a new page
 		var autosubmit=$('autosubmit');
 		if (autosubmit) {
 			autosubmit.target='';

@@ -31,6 +31,7 @@
 	       <?php echo $txt['search2'] ?>
 	       <input type="text" name="searchfor" size="40">
 	       <input type="hidden" name="action" value="search">
+	       <input type="hidden" name="includesearch" value="<?php echo $includesearch;?>">
 	       <br />
 	       <?php echo $txt['search3'] ?><br />
 	                <SELECT NAME="searchmethod">

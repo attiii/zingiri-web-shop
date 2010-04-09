@@ -60,6 +60,24 @@ Before upgrading, make sure you back up your database first!
 If you made changes to the style sheet (zing.css) or the language files, make sure you back them up before the upgrade and restore them after.
 == Changelog ==
 
+= 1.3.4 =
+* New feature: added possibility to define multiple shipping addresses and to select, edit, add or delete delete them during the checkout process
+* New feature: shipping addresses are not shown if the shipment only contains digital items (total weight = zero)
+* New feature: in case of checkout with Paypal (or other online method), if the customer doesn't proceed with the payment or returns to the site before completing the payment, the shopping cart will remain open so that they can continue with their shopping.
+* New feature: price of item is displayed in shopping cart widget
+* New feature: status of shopping cart widget (show or hide) is remembered during navigation
+* New feature: added product management from back office with possibility to search products, edit products, ...
+* Change: label for add product icon made clearer
+* Change: Removed personal icons from bottom of Admin page, those appear already on the Personal page
+* Change: Rearranged admin menu (products, prompts icons)
+* Change: If search query is empty all products are displayed (previously no products were displayed)
+* Change: removed .htaccess files from fws/orders and fws/includes directory (not used)
+* Fix: issue when editing main file saving contents in conditions file
+* Fix: PHP4 compatibility issues
+* Fix: replaced WP_CONTENT_URL and WP_CONTENT_DIR with WP_PLUGIN_URL and WP_PLUGIN_DIR where relevant
+* Fix: title of taxes and advanced settings form now gets translated as per the chosen language
+* Fix: converted Norwegian shop welcome page to UTF-8
+
 = 1.3.3 =
 * Fixed issue with registration email missing user login, password and other information
 * Fixed issue with live search widget when searching on multiple terms
