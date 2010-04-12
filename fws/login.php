@@ -189,6 +189,10 @@ if ($lostlogin == 2) {
 		$query = sprintf("UPDATE `".$dbtablesprefix."customer` SET `PASSWORD` = %s WHERE `LOGINNAME` = %s", quote_smart(md5($pass)), quote_smart($login));
 		$sql = mysql_query($query) or die(mysql_error());
 	}
+	// set global variables if not set yet
+	foreach ($zingPrompts->vars as $var) { global $$var; }
+	$zingPrompts->load(true);
+	
 	mymail($webmaster_mail, $email, $txt['checklogin13'], $txt['checklogin14']."<br /><br />".$txt['checklogin2'].": ".$login."<br />".$txt['checklogin3'].": ".$pass, $charset);
 	PutWindow($gfx_dir, $txt['checklogin13'], $txt['checklogin12']. " " . $email, "notify.gif", "50");
 }

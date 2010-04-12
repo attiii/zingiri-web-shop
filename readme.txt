@@ -61,6 +61,11 @@ If you made changes to the style sheet (zing.css) or the language files, make su
 == Changelog ==
 
 = 1.3.5 =
+* Fix: added email message subject on email order confirmations
+* Fix: lost password email now displays the shop URL properly
+* Fix: removed link to modify principal address from checkout page
+* Fix: email subject UTF-8 encoding now fixed
+* Fix: corrected issue with Suffusion theme incompatiblity, related to the way the Web Shop plugin was excluding pages
 * Change: force delete of web shop pages in case of uninstall
 * Fix: delete meta post data for web shop pages in case of uninstall
 * Fix: removed access to web shop customer admin pages when in WP integration mode, user admininstration needs to happen via the WP users menu

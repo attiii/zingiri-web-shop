@@ -35,6 +35,14 @@ if (!defined("WP_PLUGIN_DIR")) {
 	define("WP_PLUGIN_DIR", ABSPATH . "wp-content/plugins");
 }
 
+if (!defined("BLOGUPLOADDIR")) {
+	define("BLOGUPLOADDIR",WP_CONTENT_DIR.'/uploads/');
+}
+if (!defined("BLOGUPLOADURL")) {
+	define("BLOGUPLOADURL",str_replace(ABSPATH,get_option('siteurl').'/',BLOGUPLOADDIR));
+}
+//echo 'uploads='.BLOGUPLOADURL.'-'.BLOGUPLOADDIR;
+
 if (!defined("ZING_PLUGINSDIR")) {
 	define("ZING_PLUGINSDIR",realpath(dirname(__FILE__).'/..').'/');
 }
@@ -167,11 +175,11 @@ function zing_check() {
 		elseif (!is_writable($file)) $warnings[]='File '.$file.' is not writable, please chmod to 666';
 	}
 
-	$dirs[]=WP_CONTENT_DIR.'/uploads/zingiri-web-shop';
-	$dirs[]=WP_CONTENT_DIR.'/uploads/zingiri-web-shop/prodgfx';
-	$dirs[]=WP_CONTENT_DIR.'/uploads/zingiri-web-shop/cats';
-	$dirs[]=WP_CONTENT_DIR.'/uploads/zingiri-web-shop/orders';
-	$dirs[]=WP_CONTENT_DIR.'/uploads/zingiri-web-shop/digital-'.get_option('zing_webshop_dig');
+	$dirs[]=BLOGUPLOADDIR.'zingiri-web-shop';
+	$dirs[]=BLOGUPLOADDIR.'zingiri-web-shop/prodgfx';
+	$dirs[]=BLOGUPLOADDIR.'zingiri-web-shop/cats';
+	$dirs[]=BLOGUPLOADDIR.'zingiri-web-shop/orders';
+	$dirs[]=BLOGUPLOADDIR.'zingiri-web-shop/digital-'.get_option('zing_webshop_dig');
 	$dirs[]=ZING_DIR.'addons/captcha';
 	$dirs[]=ZING_DIR.'addons/tinymce/jscripts/up';
 
@@ -345,7 +353,7 @@ function zing_activate() {
 	if (!get_option('zing_webshop_dig')) {
 		update_option('zing_webshop_dig',CreateRandomCode(15));
 	}
-	$dig=WP_CONTENT_DIR.'/uploads/zingiri-web-shop/digital-'.get_option('zing_webshop_dig').'/';
+	$dig=BLOGUPLOADDIR.'zingiri-web-shop/digital-'.get_option('zing_webshop_dig').'/';
 	if (!is_dir($dig)) {
 		if (mkdir($dig)) {
 			$tmp = fopen($dig.'index.php', 'w');
@@ -358,14 +366,14 @@ function zing_activate() {
 	update_option("zing_apps_player_page",$ps[0]);
 
 	//Copy cats, product & order data to data subsdirectory to avoid overwritting with new releases
-	if (file_exists(WP_CONTENT_DIR.'/uploads')) {
-		$dir=WP_CONTENT_DIR.'/uploads/zingiri-web-shop';
+	if (file_exists(BLOGUPLOADDIR)) {
+		$dir=BLOGUPLOADDIR.'zingiri-web-shop';
 		if (!file_exists($dir)) {
 			mkdir($dir);
 			chmod($dir,0777);
 		}
 		foreach (array('cats' => 'cats','prodgfx' => 'prodgfx','orders' => 'orders','prodgfx/'.get_option('zing_webshop_dig') => 'digital-'.get_option('zing_webshop_dig')) as $subori => $subdir) {
-			$dir=WP_CONTENT_DIR.'/uploads/zingiri-web-shop/'.$subdir.'/';
+			$dir=BLOGUPLOADDIR.'zingiri-web-shop/'.$subdir.'/';
 			$ori=ZING_DIR.$subori.'/';
 			if (!file_exists($dir)) {
 				mkdir($dir);
@@ -994,6 +1002,9 @@ function zing_exclude_pages( $pages )
 		}
 	}
 
+	return $pages;
+	
+	/*
 	$l=count($pages);
 	for ( $i=0; $i<$l; $i++ ) {
 		$page = & $pages[$i];
@@ -1005,6 +1016,7 @@ function zing_exclude_pages( $pages )
 	}
 
 	return $pages;
+	*/
 }
 
 /**

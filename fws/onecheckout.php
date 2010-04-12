@@ -173,9 +173,11 @@ CheckoutShowProgress();
 			echo $adr['COUNTRY'].'<br />';
 			if ($_POST['address'] == $adrid || ($_POST['address']=='' && $first)) $selected = 'CHECKED'; else $selected="";
 			echo '<input type="radio" name="address" value="'.$adrid.'" '.$selected.'/>';
-			echo '<a href="index.php?zfaces=form&action=edit&form=address&id='.$adrid.'&redirect='.urlencode('index.php?page=onecheckout').'" class="button">'.$txt['browse7'].'</a>';
-			echo ' ';
-			echo '<a href="index.php?zfaces=form&action=delete&form=address&id='.$adrid.'&redirect='.urlencode('index.php?page=onecheckout').'" class="button">'.$txt['browse8'].'</a>';
+			if ($adrid > 0) {
+				echo '<a href="index.php?zfaces=form&action=edit&form=address&id='.$adrid.'&redirect='.urlencode('index.php?page=onecheckout').'" class="button">'.$txt['browse7'].'</a>';
+				echo ' ';
+				echo '<a href="index.php?zfaces=form&action=delete&form=address&id='.$adrid.'&redirect='.urlencode('index.php?page=onecheckout').'" class="button">'.$txt['browse8'].'</a>';
+			}
 			echo '</td>';
 			$first=false;
 		}

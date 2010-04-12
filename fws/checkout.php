@@ -39,7 +39,7 @@ if (LoggedIn() == True) {
 			//update basket status
 			$query = sprintf("UPDATE `".$dbtablesprefix."basket` SET `STATUS` = 1 WHERE `CUSTOMERID` = %s AND `STATUS` = 0", quote_smart($customerid));
 			$sql = mysql_query($query) or die(mysql_error());
-			
+				
 			PutWindow($gfx_dir, $txt['general13'], $txt['checkout100'], "notify.gif", "50");
 		} else {
 			$status=8; //error or cancelled
@@ -357,6 +357,9 @@ if (LoggedIn() == True) {
 				fclose($handle);
 			}
 
+			// email subject
+			$subject  = $txt['checkout10'].":".$webid;
+		 	
 			// email confirmation in case no autosubmit
 			if (!$autosubmit  || ($autosubmit && $payment_code=='')) {
 				$subject = $txt['checkout10'];
@@ -383,13 +386,13 @@ if (LoggedIn() == True) {
 			} else {
 				PutWindow($gfx_dir, $txt['general13'], $txt['checkout104'], "loader.gif", "50");
 				echo '<div style="display:none">'.$payment_code.'</div>';
-					?>
+				?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
            setTimeout("checkout=new wsSubmit()",100);
            //]]>
 </script>
-					<?php
+				<?php
 			}
 
 		}

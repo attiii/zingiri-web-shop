@@ -28,13 +28,13 @@ include (ZING_DIR."./includes/readvals.inc.php");        // get and post values
 include (ZING_DIR."./includes/readsettings.inc.php");    // read shop settigns
 include( ZING_DIR."./includes/setfolders.inc.php");      // set appropriate folders
 
-$product_url = WP_CONTENT_URL.'/uploads/zingiri-web-shop/'.$product_dir;
-$brands_url = WP_CONTENT_URL.'/uploads/zingiri-web-shop/'.$brands_dir;
-$orders_url = WP_CONTENT_URL.'/uploads/zingiri-web-shop/'.$orders_dir;
+$product_url = BLOGUPLOADURL.'zingiri-web-shop/'.$product_dir;
+$brands_url = BLOGUPLOADURL.'zingiri-web-shop/'.$brands_dir;
+$orders_url = BLOGUPLOADURL.'zingiri-web-shop/'.$orders_dir;
 
-$product_dir = WP_CONTENT_DIR.'/uploads/zingiri-web-shop/'.$product_dir;
-$brands_dir = WP_CONTENT_DIR.'/uploads/zingiri-web-shop/'.$brands_dir;
-$orders_dir = WP_CONTENT_DIR.'/uploads/zingiri-web-shop/'.$orders_dir;
+$product_dir = BLOGUPLOADDIR.'zingiri-web-shop/'.$product_dir;
+$brands_dir = BLOGUPLOADDIR.'zingiri-web-shop/'.$brands_dir;
+$orders_dir = BLOGUPLOADDIR.'zingiri-web-shop/'.$orders_dir;
 $lang_dir = ZING_DIR.$lang_dir;
 
 //$template_dir = ZING_SUB.$template_dir;
