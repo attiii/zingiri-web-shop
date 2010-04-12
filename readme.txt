@@ -60,6 +60,11 @@ Before upgrading, make sure you back up your database first!
 If you made changes to the style sheet (zing.css) or the language files, make sure you back them up before the upgrade and restore them after.
 == Changelog ==
 
+= 1.3.5 =
+* Change: force delete of web shop pages in case of uninstall
+* Fix: delete meta post data for web shop pages in case of uninstall
+* Fix: removed access to web shop customer admin pages when in WP integration mode, user admininstration needs to happen via the WP users menu
+
 = 1.3.4 =
 * New feature: added possibility to define multiple shipping addresses and to select, edit, add or delete delete them during the checkout process
 * New feature: shipping addresses are not shown if the shipment only contains digital items (total weight = zero)

@@ -1,11 +1,11 @@
 <?php
 $menus=array();
 $menus['orderadmin']=array('group' => 'menu9', 'label' => 'admin2','href' => 'page=orderadmin', 'img' => 'orders.jpg', 'func' => 'CountAllOrders');
-$menus['showcustomers']=array('page' => 'customeradmin', 'group' => 'menu9', 'label' => 'admin3','href' => 'page=customeradmin&action=showcustomers', 'img' => 'customers.gif', 'func' => 'CountCustomers','param' => 'CUSTOMER');
+$menus['showcustomers']=array('hide' => true,'page' => 'customeradmin', 'group' => 'menu9', 'label' => 'admin3','href' => 'page=customeradmin&action=showcustomers', 'img' => 'customers.gif', 'func' => 'CountCustomers','param' => 'CUSTOMER');
 $menus['productadmin']=array('group' => 'menu9', 'label' => 'productadmin6','href' => 'page=productadmin&action=add_product', 'img' => 'products.gif');
 $menus['browse']=array('group' => 'menu9', 'label' => 'menu15','href' => 'page=browse&includesearch=1', 'img' => 'productswh.png', 'func' => 'CountProducts');
 $menus['stockadmin']=array('group' => 'menu9', 'label' => 'admin32','href' => 'page=stockadmin', 'img' => 'stockadmin.gif');
-$menus['showadmins']=array('page' => 'customeradmin', 'group' => 'admin23', 'label' => 'admin29','href' => 'page=customeradmin&action=showadmins', 'img' => 'admins.gif', 'func' => 'CountCustomers','param' => 'ADMIN');
+$menus['showadmins']=array('hide' => true,'page' => 'customeradmin', 'group' => 'admin23', 'label' => 'admin29','href' => 'page=customeradmin&action=showadmins', 'img' => 'admins.gif', 'func' => 'CountCustomers','param' => 'ADMIN');
 $menus['groupadmin']=array('group' => 'admin23', 'label' => 'admin6','href' => 'page=groupadmin', 'img' => 'groups.gif');
 $menus['paymentadmin']=array('group' => 'admin23', 'label' => 'admin21','href' => 'page=paymentadmin', 'img' => 'paymentadmin.gif');
 $menus['shippingadmin']=array('group' => 'admin23', 'label' => 'admin18','href' => 'page=shippingadmin', 'img' => 'shippingadmin.gif');

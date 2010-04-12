@@ -225,7 +225,7 @@ function zing_activate() {
 	if (!defined("DB_PREFIX")) define("DB_PREFIX",$prefix);
 
 	zing_ws_error_handler(0,'DB_PREFIX:'.DB_PREFIX);
-	
+
 	$zing_version=get_option("zing_webshop_version");
 	if (!$zing_version)
 	{
@@ -403,6 +403,11 @@ function zing_deactivate() {
 function zing_uninstall() {
 	global $wpdb;
 
+	set_error_handler("zing_ws_error_handler");
+	error_reporting(E_ALL & ~E_NOTICE);
+
+	$wpdb->show_errors();
+
 	$prefix=$wpdb->prefix."zing_";
 	$rows=$wpdb->get_results("show tables like '".$prefix."%'",ARRAY_N);
 	if (count($rows) > 0) {
@@ -416,7 +421,12 @@ function zing_uninstall() {
 	$ids=get_option("zing_webshop_pages");
 	$ida=explode(",",$ids);
 	foreach ($ida as $id) {
-		wp_delete_post($id);
+		if (!empty($id)) {
+			wp_delete_post($id,true);
+			$query="delete from ".$wpdb->prefix."postmeta where meta_key in ('zing_page','zing_action','zing_security')";
+			echo $query.'<br />';
+			$wpdb->query($query);
+		}
 	}
 	delete_option("zing_webshop_version");
 	delete_option("zing_webshop_pages");
@@ -1079,7 +1089,9 @@ function zing_check_password($check,$password,$hash,$user_id) {
 }
 
 function zing_profile($user_id) {
-	$user_data=get_userdata($user_id);
+	//$user_data=get_userdata($user_id);
+	$user=new WP_User($user_id);
+	$user_data=$user->data;
 	$db=new db();
 
 	$row['LASTNAME']=$user_data->user_lastname;
@@ -1089,7 +1101,7 @@ function zing_profile($user_id) {
 	$pass=$_POST['pass1'];
 	if ($pass != '') $row['PASSWORD']=md5($pass);
 
-	if ($user_data->wp_user_level>=5) $row['GROUP']='ADMIN';
+	if ($user->has_cap('level_5')) $row['GROUP']='ADMIN';
 	else $row['GROUP']='CUSTOMER';
 
 	//	print_r($user_data);
