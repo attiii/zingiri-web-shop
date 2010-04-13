@@ -95,7 +95,7 @@ if ($lostlogin == 0) {
 		// make acccesslog entry
 		$query = sprintf("INSERT INTO ".$dbtablesprefix."accesslog (login, time, succeeded) VALUES(%s, '".date("F j, Y, g:i a")."', '1')", quote_smart($_POST['loginname']));
 		$sql = mysql_query($query) or die(mysql_error());
-		 
+			
 
 		if(setcookie ("fws_cust",$cookie_data, 0, '/')==TRUE) //time()+3600
 		{
@@ -108,26 +108,8 @@ if ($lostlogin == 0) {
 			if ($group == "ADMIN" && $pagetoload = "page=my") {
 				$pagetoload = "page=admin";
 			}
-
-			?>
-<html>
-<head>
-<META HTTP-EQUIV="Refresh"
-	CONTENT="0; URL=index.php?<?php echo $pagetoload."&version=".$version; ?>">
-</head>
-<body>
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<h4><?php echo $txt['login3'] ?></h4>
-</body>
-</html>
-			<?php
-
+			header('Location:index.php?'.$pagetoload);
+			die();
 		}
 	}
 	else
@@ -162,9 +144,9 @@ if ($lostlogin == 1) {
 		<td><?php echo $txt['checklogin9'] ?><br />
 		<br />
 		<form method="POST" action="?page=login&lostlogin=2">
-		<div style="text-align: center;"><input type="text" name="email"
-			size="30"> <input type="submit"
-			value="<?php echo $txt['checklogin10'] ?>" name="sub"></div>
+		<div style="text-align: center;"><input type="text" name="email" size="30"> <input type="submit"
+			value="<?php echo $txt['checklogin10'] ?>" name="sub"
+		></div>
 		</form>
 	
 	</tr>
@@ -174,7 +156,7 @@ if ($lostlogin == 1) {
 if ($lostlogin == 2) {
 	// lets find the correct data in the database
 	$query = sprintf("SELECT * FROM `".$dbtablesprefix."customer` WHERE `EMAIL` = %s", quote_smart($email));
-	
+
 	$sql = mysql_query($query) or die(mysql_error());
 	if (mysql_num_rows($sql) == 0) {
 		PutWindow($gfx_dir, $txt['general12'], $txt['checklogin15'], "warning.gif", "50");
@@ -192,7 +174,7 @@ if ($lostlogin == 2) {
 	// set global variables if not set yet
 	foreach ($zingPrompts->vars as $var) { global $$var; }
 	$zingPrompts->load(true);
-	
+
 	mymail($webmaster_mail, $email, $txt['checklogin13'], $txt['checklogin14']."<br /><br />".$txt['checklogin2'].": ".$login."<br />".$txt['checklogin3'].": ".$pass, $charset);
 	PutWindow($gfx_dir, $txt['checklogin13'], $txt['checklogin12']. " " . $email, "notify.gif", "50");
 }

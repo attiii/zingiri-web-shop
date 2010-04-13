@@ -29,30 +29,32 @@ class zingPrompts {
 				"yu" => "Serbian");
 
 	var $lang;
+	var $activeLanguages=array();
 
 	function zingPrompts($lang='en') {
 		$this->lang=$lang;
+		$this->setActiveLanguages();
 	}
 
 	function checkAllLanguages() {
-		$ref=$this->loadLang('en');
-		$db=new db();
-		if ($handle = opendir(ZING_DIR.'langs')) {
-			while (false !== ($filex = readdir($handle))) {
-				if (!strstr($filex,"en") && !strstr($filex,".") && !strstr($filex,"..") && !strstr($filex,"index.php")) {
-					$txt=array();
-					$txt=$this->loadLang($filex);
-					foreach ($ref as $label => $text) {
-						if (!isset($txt[$label])) {
-							//echo $filex.': Label '.$label.' missing<br />';
-							$db->insertRecord('prompt',"",array('lang' => $filex,'standard' => $text,'label' => $label));
-						}
-						//						elseif ($txt[$label] == $ref[$label]) echo $filex.': Label '.$label.' not translated<br />';
-					}
-				}
+		foreach($this->activeLanguages as $filex) {
+			if (!strstr($filex,"en") && !strstr($filex,".") && !strstr($filex,"..") && !strstr($filex,"index.php")) {
+				$this->checkLanguage($filex);
 			}
-			closedir($handle);
 		}
+	}
+
+	function checkLanguage($lang) {
+		$db=new db();
+		$ref=$this->loadLang('en');
+		$txt=array();
+		$txt=$this->loadLang($lang);
+		foreach ($ref as $label => $text) {
+			if (!isset($txt[$label])) {
+				$db->insertRecord('prompt',"",array('lang' => $lang,'standard' => $text,'label' => $label));
+			}
+		}
+
 	}
 
 	function loadLang($lang='en') {
@@ -66,28 +68,21 @@ class zingPrompts {
 
 	function installAllLanguages() {
 		$db=new db();
-		//		if (!$db->select("select * from ##prompt")) {
 		$this->convertAllLanguages();
 		$this->checkAllLanguages();
-		//		}
-
 	}
 
 	function convertAllLanguages() {
-		if ($handle = opendir(ZING_DIR.'langs')) {
-			while (false !== ($filex = readdir($handle))) {
-				if (!strstr($filex,".") && !strstr($filex,"..") && !strstr($filex,"index.php")) {
-					$this->convertLangFile($filex);
-				}
+		foreach($this->activeLanguages as $filex) {
+			if (!strstr($filex,".") && !strstr($filex,"..") && !strstr($filex,"index.php")) {
+				$this->convertLangFile($filex);
 			}
-			closedir($handle);
 		}
 	}
 
 	function convertLangFile($lang) {
 		$db=new db();
 
-		//$db->update("delete from ##prompt where lang=".qs($lang));
 		foreach ($this->vars as $var) {
 			$$var='$'.$var;
 		}
@@ -132,6 +127,12 @@ class zingPrompts {
 	function load($parse=false) {
 		global $txt;
 
+		//check if this language has been loaded in DB already, otherwise do it now
+		if (!$this->isLanguageActive($this->lang)) {
+			$this->convertLangFile($this->lang);
+			$this->checkLanguage($this->lang);
+		}
+
 		$old=$this->loadOldLangFile();
 
 		$db=new db();
@@ -173,6 +174,32 @@ class zingPrompts {
 			$prompt=str_replace('$'.$var,$$var,$prompt);
 		}
 		return $prompt;
+	}
+
+	function isLanguageActive($lang) {
+		if (in_array($lang,$activeLanguages)) return true;
+		else return false;
+	}
+
+	function setActiveLanguages() {
+		$langs=array();
+		$db=new db();
+		$db->select("select distinct(lang) from ##prompt");
+		while ($db->next()) {
+			$langs[]=$db->get('lang');
+		}
+		$deflang=$this->currentLanguage();
+		if (!in_array($deflang,$langs)) $langs[]=$deflang;
+		if (!in_array('en',$langs)) $langs[]='en';
+		$this->activeLanguages=$langs;
+	}
+
+	function currentLanguage() {
+		$db=new db();
+		$db->select("select default_lang from ##settings where ID=1");
+		if ($db->next()) $lang=$db->get('default_lang');
+		else $lang='en';
+		return $lang;
 	}
 
 }

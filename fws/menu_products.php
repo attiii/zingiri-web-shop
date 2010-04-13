@@ -23,7 +23,7 @@
 ?>
 <?php if ($index_refer <> 1) { exit(); } ?>
 <?php
-echo "<h1>".$txt['menu15']."</h1>\n";
+//echo "<h1>".$txt['menu15']."</h1>\n";
 // if the category is send, then use that to find out the group
 if ($cat != 0 && $group == 0) { $group = TheGroup($cat); }
 

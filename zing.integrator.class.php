@@ -31,8 +31,6 @@ class integrator {
 			$query2=sprintf("SELECT `ID` FROM `".$wpdb->prefix."users` WHERE `user_login`='%s'",$row['LOGINNAME']);
 			$sql2 = mysql_query($query2) or die(mysql_error());
 			if (mysql_num_rows($sql2) == 0) {
-//$query2="INSERT INTO `".$wpdb->prefix."users` (`user_login`, `user_nicename`, `user_email`, `user_pass`, `user_registered`, `user_status`, `display_name`) VALUES";
-//$query2.="('".$row['LOGINNAME']."', '".$row['INITIALS'].' '.$row['LASTNAME']."', '".$row['EMAIL']."', '".''."', '".$row['DATE_CREATED']."', '0', '".$row['INITIALS']." 	".$row['LASTNAME']."')";
 				$data=array();
 				$data['user_login']=$row['LOGINNAME'];
 				$data['user_nicename']=$row['INITIALS'].' '.$row['LASTNAME'];
@@ -46,7 +44,6 @@ class integrator {
 			}
 		}
 		//sync Wordpress to Web Shop - Wordpress is master so we're updating roles in Web Shop
-		//$query="select * from `##users`,`##usermeta` where `##users`.`ID`=`##usermeta`.`user_id` and `##usermeta`.`meta_key`='wp_user_level'";
 		$query="select * from `##users`";
 		$query=str_replace("##",$wpdb->prefix,$query);
 		$sql = mysql_query($query) or die(mysql_error());
@@ -81,15 +78,7 @@ class integrator {
 		require_once(ABSPATH.'wp-includes/registration.php');
 		global $wpdb;
 		$user['role']=$role;
-		//if (!isset($row['DATE_CREATED'])) $row['DATE_CREATED']=date('Y-m-d');
 		$id=wp_insert_user($user);
-		/*
-		$query2="INSERT INTO `".$wpdb->prefix."users` (`user_login`, `user_nicename`, `user_email`, `user_pass`, `user_registered`, `user_status`, `display_name`) VALUES";
-		$query2.="('".$row['LOGINNAME']."', '".$row['INITIALS'].' '.$row['LASTNAME']."', '".$row['EMAIL']."', '".''."', '".$row['DATE_CREATED']."', '0', '".$row['INITIALS']." 	".$row['LASTNAME']."')";
-		echo $query2;
-		$sql2 = mysql_query($query2) or die(mysql_error());
-		$id=mysql_insert_id();
-		*/
 	}
 
 	function updateWpUser($user,$role) {
@@ -120,10 +109,6 @@ class integrator {
 			echo '</td></tr>';
 		}
 		echo '</table>';
-	}
-
-	function wpToWs($row) {
-
 	}
 
 	function loggedIn() {

@@ -107,22 +107,22 @@ table.borderless td h5 {
 	padding: 4px;
 	text-align: left;
 	vertical-align: top;
-	background-color: #FFFFFF;
+	/*remove-background-color: #FFFFFF;*/
 }
 
 .datatable th {
 	font-weight: bold;
-	color: black;
+	/*remove-color: black;*/
 	text-align: left;
 	padding: 4px;
 	border: 1px solid #808080; /*darkgrey*/
-	background-color: #C2C2C6; /*lightgrey*/ /*	display: none;*/
+	/*remove-background-color: #C2C2C6;*/ /*lightgrey*/ /*	display: none;*/
 }
 
 .datatable caption {
 	font-size: 24px;
 	font-weight: bold;
-	color: #302F34; /*charcoal*/
+	/*remove-color: #302F34;*/ /*charcoal*/
 	text-align: left;
 	padding-top: 3px;
 	padding-bottom: 8px;
@@ -140,16 +140,16 @@ table.borderless td h5 {
 }
 
 .datatable tr:hover,.datatable tr.hilite {
-	background-color: red; /*lightblue*/
-	color: black;
+	/*remove-background-color: red;*/ /*lightblue*/
+	/*remove-color: black;*/
 }
 
 /* (?) popup properties */
 a.info {
 	position: relative; /*this is the key*/
 	z-index: 24;
-	background-color: white;
-	color: black;
+	/*remove-background-color: white;
+	color: black;*/
 	text-decoration: none;
 	font-size: 11px;
 	font-weight: normal;
@@ -157,8 +157,8 @@ a.info {
 
 a.info:hover {
 	z-index: 90;
-	background-color: #004c93; /* darkblue */
-	color: white;
+	/*remove-background-color: #004c93;*/ /* darkblue */
+	/*remove-color: white;*/
 }
 
 a.info span {
@@ -203,10 +203,6 @@ a.info:hover span { /*the span will display just on :hover state*/
 
 #zfaces input,.zfaces input {
 	color: black;
-}
-
-#zing-sidebar-cart h1, #zing-sidebar-products h1, #zing-sidebar-general h1 {
-	display: none;
 }
 
 div.faces ul,div#zfaces ul,ul#zfaces,ul.zfaces {

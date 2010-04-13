@@ -318,9 +318,15 @@ else { $limit = ""; }
 	  $page_counter = 0;
 	  $num_pages = 0;
 	  $rest_products = $num_products;
+	  $page_range=3;
 
 	  echo "<br /><h4>".$txt['browse11'].": ";
 
+	  if ($num_page > $page_range) {
+			echo "<a href=\"index.php?page=browse&action=$action&group=$group&cat=$cat&orderby=$orderby&searchmethod=$searchmethod&searchfor=$searchfor&num_page=1&includesearch=$includesearch\">[1]</a>";	  
+	  }
+	  if ($num_page > $page_range + 1) echo ' ...';
+	  
 	  for($i = 0; $i < $num_products; $i++) {
 		  $page_counter++;
 		  if ($page_counter == $products_per_page) {
@@ -330,10 +336,11 @@ else { $limit = ""; }
 			  if ($num_pages == $num_page) {
 				  echo "<b>[$num_pages]</b>";
 			  }
-			  else { echo "<a href=\"index.php?page=browse&action=$action&group=$group&cat=$cat&orderby=$orderby&searchmethod=$searchmethod&searchfor=$searchfor&num_page=$num_pages&includesearch=$includesearch\">[$num_pages]</a>"; }
+			  elseif (($num_pages-$num_page <= $page_range) && ($num_pages-$num_page >= -$page_range)) { echo "<a href=\"index.php?page=browse&action=$action&group=$group&cat=$cat&orderby=$orderby&searchmethod=$searchmethod&searchfor=$searchfor&num_page=$num_pages&includesearch=$includesearch\">[$num_pages]</a>"; }
 			  echo " ";
 		  }
 	  }
+	  if ($num_pages - $num_page > $page_range) echo '... ';
 	  // the rest (if any)
 	  if ($rest_products > 0) {
 		  $num_pages++;

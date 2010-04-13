@@ -61,14 +61,23 @@ If you made changes to the style sheet (zing.css) or the language files, make su
 == Changelog ==
 
 = 1.3.5 =
+* New feature: title tag is now displayed as product category + product label when viewing a product
+* Change: force delete of web shop pages in case of uninstall
+* Change: removed color styling from zing.css and integrated_view.css to improve inheritage from WP themes
+* Change: removed h1 tags coding in sidebar menus and adapted zing.css consequently (removed related markup)
+* Change: only active languages are loaded instead of all available languages
+* Change: adapted format of bottom page links when browsing through products (too many links were displayed)
+* Change: log.txt file is now cleared before upgrade/install so that it contains only debug information related to current install 
+* Change: removed splash of white when succesfully logging in and out (when using the Web Shop stand alone user management)
+* Change: show checkout page link also to guests (currently only shown when logged in)
 * Fix: added email message subject on email order confirmations
 * Fix: lost password email now displays the shop URL properly
 * Fix: removed link to modify principal address from checkout page
 * Fix: email subject UTF-8 encoding now fixed
 * Fix: corrected issue with Suffusion theme incompatiblity, related to the way the Web Shop plugin was excluding pages
-* Change: force delete of web shop pages in case of uninstall
 * Fix: delete meta post data for web shop pages in case of uninstall
 * Fix: removed access to web shop customer admin pages when in WP integration mode, user admininstration needs to happen via the WP users menu
+* Fix: corrected issue with registration of new users when working in WP user integration mode
 
 = 1.3.4 =
 * New feature: added possibility to define multiple shipping addresses and to select, edit, add or delete delete them during the checkout process

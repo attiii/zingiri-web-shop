@@ -507,7 +507,7 @@ div.calendar {
 }
 
 .zfelement { /*align:center;*/ /*FIXME*/
-	background: white;
+	/*remove-background: white;*/
 	margin-bottom:4px;
 	/*margin:3px auto;*/ /*padding:5px;*/
 }

@@ -198,7 +198,7 @@ if ($action=="save") {
 				$query = sprintf("INSERT INTO `".$dbtablesprefix."customer` ( `LOGINNAME`, `PASSWORD`, `LASTNAME`, `MIDDLENAME`, `INITIALS`, `IP`, `ADDRESS`, `ZIP`, `CITY`, `STATE`, `PHONE`, `EMAIL`, `GROUP`, `COUNTRY`,`COMPANY`,`DATE_CREATED`,`NEWSLETTER`) VALUES (%s, %s, %s, %s, %s, '".GetUserIP()."', %s, %s, %s, %s, %s, %s, 'CUSTOMER', %s, %s, '".Date($date_format)."', '".$newsletter."')", quote_smart($login), quote_smart(md5($pass1)), quote_smart($surname), quote_smart($middle), quote_smart($initials), quote_smart($address), quote_smart($zip), quote_smart($city), quote_smart($state), quote_smart($phone), quote_smart($email), quote_smart($country), quote_smart($company));
 				$sql = mysql_query($query) or die(mysql_error());
 				if ($integrator->wpCustomer) {
-					$integrator->createWpUser(array('LOGINNAME'=>$login,'INITIALS'=>$initials,'LASTNAME'=>$surname,'EMAIL'=>$email),'subscriber');
+					$integrator->createWpUser(array('user_login'=>$login,'firstname'=>$initials,'lastname'=>$surname,'user_email'=>$email),'subscriber');
 					$integrator->loginWpUser($login,$pass1);
 				}
 				mymail($webmaster_mail, $webmaster_mail, $txt['customer36'], $txt['customer37']."<br /><br />".$txt['customer12'], $charset);

@@ -30,22 +30,7 @@ if ($integrator->wpCustomer) {
 }
 if(setcookie ("fws_cust","", time() - 3600, '/')==TRUE)
 {
-	?>
-<html>
-<head>
-<META HTTP-EQUIV="Refresh" CONTENT="1; URL=<?php echo ZING_HOME;?>/index.php">
-</head>
-<body>
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<h4><?php echo $txt['logout1'] ?></h4>
-</body>
-</html>
-	<?php
+	header('Location:'.get_option('home'));
+	die();
 }
 ?>
