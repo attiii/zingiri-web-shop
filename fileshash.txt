@@ -1,5 +1,4 @@
 zingiri-web-shop/controlpanel.php,a515df1e051fc7fcae281c67c4ffc2f5
-zingiri-web-shop/Copy of zing.css,66ca2002b20cfcc6b07792ca85a9b34c
 zingiri-web-shop/fws/about.php,bacccce5056a313523db3898de0f2087
 zingiri-web-shop/fws/accesslogadmin.php,65dbad3e237b05197e867d985d48c8b9
 zingiri-web-shop/fws/addons/captcha/img.jpg,db1390feff98f8805b58283a79a38b89
