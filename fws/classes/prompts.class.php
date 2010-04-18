@@ -177,7 +177,7 @@ class zingPrompts {
 	}
 
 	function isLanguageActive($lang) {
-		if (in_array($lang,$activeLanguages)) return true;
+		if (in_array($lang,$this->activeLanguages)) return true;
 		else return false;
 	}
 

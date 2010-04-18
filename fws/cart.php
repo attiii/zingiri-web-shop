@@ -119,6 +119,8 @@ if ($action=="add" && $numprod != 0) {
 }
 
 if ($action=="update"){
+	echo 'action='.$action.'-'.$numprod;
+	
 	if ($numprod == 0) {
 		$query = "DELETE FROM `".$dbtablesprefix."basket` WHERE `ID` = '". $basketid."' AND `STATUS` = '0'";
 		$sql = mysql_query($query) or die(mysql_error());

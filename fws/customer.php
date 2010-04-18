@@ -197,6 +197,7 @@ if ($action=="save") {
 
 				$query = sprintf("INSERT INTO `".$dbtablesprefix."customer` ( `LOGINNAME`, `PASSWORD`, `LASTNAME`, `MIDDLENAME`, `INITIALS`, `IP`, `ADDRESS`, `ZIP`, `CITY`, `STATE`, `PHONE`, `EMAIL`, `GROUP`, `COUNTRY`,`COMPANY`,`DATE_CREATED`,`NEWSLETTER`) VALUES (%s, %s, %s, %s, %s, '".GetUserIP()."', %s, %s, %s, %s, %s, %s, 'CUSTOMER', %s, %s, '".Date($date_format)."', '".$newsletter."')", quote_smart($login), quote_smart(md5($pass1)), quote_smart($surname), quote_smart($middle), quote_smart($initials), quote_smart($address), quote_smart($zip), quote_smart($city), quote_smart($state), quote_smart($phone), quote_smart($email), quote_smart($country), quote_smart($company));
 				$sql = mysql_query($query) or die(mysql_error());
+				$newcustomerid=mysql_insert_id();
 				if ($integrator->wpCustomer) {
 					$integrator->createWpUser(array('user_login'=>$login,'firstname'=>$initials,'lastname'=>$surname,'user_email'=>$email),'subscriber');
 					$integrator->loginWpUser($login,$pass1);
@@ -207,9 +208,9 @@ if ($action=="save") {
 				if ($use_captcha == 1) { unlink (dirname(__FILE__)."/addons/captcha/".$number.".key"); }
 				//echo "<h4><a href=\"index.php?page=my\">".$txt['customer35']."</a></h4>";  // click here to login
 				setcookie ("fws_guest", "", time() - 3600, '/');
-				$cookie_data = $login.'-'.mysql_insert_id().'-'.md5(md5($pass1)); //name userid and encrypted password
+				$cookie_data = $login.'-'.$newcustomerid.'-'.md5(md5($pass1)); //name userid and encrypted password
 				setcookie ("fws_cust",$cookie_data, 0, '/')==TRUE;
-				$update_query = "UPDATE `".$dbtablesprefix."basket` SET `CUSTOMERID` = ".mysql_insert_id()." WHERE STATUS = 0 AND CUSTOMERID = '".$customerid."'";
+				$update_query = "UPDATE `".$dbtablesprefix."basket` SET `CUSTOMERID` = ".$newcustomerid." WHERE STATUS = 0 AND CUSTOMERID = '".$customerid."'";
 				$update_sql = mysql_query($update_query) or die(mysql_error());
 				if (!$pagetoload) $pagetoload='page=my';
 				header('Location: '.ZING_HOME.'/index.php?'.$pagetoload);

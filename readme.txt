@@ -4,7 +4,7 @@ Donate link: http://www.zingiri.com/
 Tags: ecommerce, e-commerce, paypal, freewebshop, shop, cart, web shop, shopping cart, iDEAL, Google Checkout, Worldpay
 Requires at least: 2.1.7
 Tested up to: 2.9.1
-Stable tag: 1.3.3
+Stable tag: 1.3.5
 
 Zingiri Web Shop is a Wordpress plugin that brings together a great content management system with the fantastic FreeWebShop ecommerce solution.
 
@@ -62,6 +62,9 @@ If you made changes to the style sheet (zing.css) or the language files, make su
 
 = 1.3.5 =
 * New feature: title tag is now displayed as product category + product label when viewing a product
+* New feature: added "zing_ws_page" class and "zing_ws_[page]" id to every page, this allows for customisation of individual pages via style sheets
+* New feature: added loading of a custom style sheet from uploads/zingiri-web-shop/custom.css, this one loads after the other web shop style sheets, allowing for customisation
+* New feature: added increase, decrease and delete buttons to shopping cart widget
 * Change: force delete of web shop pages in case of uninstall
 * Change: removed color styling from zing.css and integrated_view.css to improve inheritage from WP themes
 * Change: removed h1 tags coding in sidebar menus and adapted zing.css consequently (removed related markup)
@@ -78,6 +81,9 @@ If you made changes to the style sheet (zing.css) or the language files, make su
 * Fix: delete meta post data for web shop pages in case of uninstall
 * Fix: removed access to web shop customer admin pages when in WP integration mode, user admininstration needs to happen via the WP users menu
 * Fix: corrected issue with registration of new users when working in WP user integration mode
+* Fix: fixed issue with dynamic select field type not displaying properly in address list
+* Fix: corrected issue with onecheckout page being displayed when user is not logged in
+* Fix: fixed issue with missing html div tag in rendering address page
 
 = 1.3.4 =
 * New feature: added possibility to define multiple shipping addresses and to select, edit, add or delete delete them during the checkout process

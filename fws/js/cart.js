@@ -24,9 +24,9 @@ var wsCart = Class.create( {
 	},
 
 	showCartWithoutEffects : function() {
-		$('shoppingcart').show();
-		$('showcart').hide();
-		$('hidecart').show();
+		if ($('shoppingcart')!=null) $('shoppingcart').show();
+		if ($('showcart')!=null) $('showcart').hide();
+		if ($('hidecart')!=null) $('hidecart').show();
 		Cookie.setData('showcart', true);
 	},
 
@@ -118,6 +118,32 @@ var wsCart = Class.create( {
 
 			}.bind(this)
 		});
-	}
+	},
+	
+	removeFromCart : function(id) {
+		var form=$('cart_remove'+id);
 
+		new Ajax.Request($(form).action, {
+			method : "post",
+			parameters : $(form).serialize(true),
+			onComplete : function(request) {
+				//alert(request.responseText.substr(14300,1000));
+				this.getCart();
+			}.bind(this)
+		});
+	},
+
+	updateCart : function(id,delta) {
+		var form=$('cart_update'+id);
+		var q=form.down('#numprod');
+		q.value=q.value*1+delta;
+		new Ajax.Request($(form).action, {
+			method : "post",
+			parameters : $(form).serialize(true),
+			onComplete : function(request) {
+				this.getCart();
+			}.bind(this)
+		});
+	}
+	
 });

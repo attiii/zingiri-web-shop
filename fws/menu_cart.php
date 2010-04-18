@@ -40,9 +40,31 @@ while ($row = mysql_fetch_array($sql)) {
 	$sql_details = mysql_query($query) or die(mysql_error());
 	if ($row_details = mysql_fetch_array($sql_details)) {
 		$price=$row['PRICE']+calcFeaturesPrice($row['FEATURES']);
-		$cart.='<li><a href="?page=details&prod='.$row[2].'">';
-		$cart.=substr($row_details['PRODUCTID'],0,20).' (x'.$row['QTY'].') '.$currency_symbol_pre.myNumberFormat($price).$currency_symbol_post;
-		$cart.='</a></li>';
+		$cart.='<li>';
+		$cart.='<a style="display:inline" href="?page=details&prod='.$row[2].'">';
+		$cart.=substr($row_details['PRODUCTID'],0,20).' ';
+		$cart.='</a>';
+		$cart.='<form style="display:inline" id="cart_update'.$row['ID'].'" method="POST" action="?page=cart&action=update">';
+		$cart.='<input type="hidden" name="prodid" value="'.$row_details[0].'"/>';
+		$cart.='<input type="hidden" name="basketid" value="'.$row[0].'"/>';
+		$cart.='<input type="input" size="2" id="numprod" name="numprod" value="'.$row['QTY'].'" READONLY/> ';
+		$cart.='<a style="display:inline" href="javascript:void(0);" onClick="sidebarcart.updateCart('.$row['ID'].',1);">';
+		$cart.='&#x25B4;';
+		$cart.='</a>';
+		$cart.='<a style="display:inline" href="javascript:void(0);" onClick="sidebarcart.updateCart('.$row['ID'].',-1);">';
+		$cart.='&#x25BE;';
+		$cart.='</a>';
+		$cart.='</form>';
+		$cart.=' '.$currency_symbol_pre.myNumberFormat($price).$currency_symbol_post.' ';
+		$cart.='<form style="display:inline" id="cart_remove'.$row['ID'].'" method="POST" action="?page=cart&action=update">';
+		$cart.='<input type="hidden" name="prodid" value="'.$row_details[0].'"/>';
+		$cart.='<input type="hidden" name="basketid" value="'.$row[0].'"/>';
+		$cart.='<input type="hidden" name="numprod" value="0" />';
+		$cart.='<a style="display:inline" href="javascript:void(0);" onClick="sidebarcart.removeFromCart('.$row['ID'].');">';
+		$cart.='<img align="absmiddle" src="'.ZING_URL.'fws/templates/default/images/warning.gif" height="16px" />';
+		$cart.='</a>';
+		$cart.='</form>';
+		$cart.='</li>';
 	}
 }
 echo '</ul>';
@@ -58,11 +80,11 @@ if ($countCart > 0) {
 }
 
 if (ZING_PROTOTYPE) {
-?>
+	?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
           sidebarcart=new wsCart();
           sidebarcart.contents();
 //]]>
 </script>
-<?php }?>
+	<?php }?>

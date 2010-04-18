@@ -341,7 +341,7 @@ EOT;
 			}
 		}
 		$element_markup.='<div class="zfclear"></div>';
-		$element_markup.='</div>'.$error_message.'<div class="zfclear">';
+		$element_markup.='</div>'.$error_message.'<div class="zfclear"></div>';
 
 		$element_markup.= <<<EOT
 	&nbsp;{$guidelines} 

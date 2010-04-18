@@ -24,7 +24,7 @@
 /*
  Plugin Name: Zingiri Web Shop
  Plugin URI: http://www.zingiri.com/web-shop
- Description: This plugin integrates the fabulous Free Web Shop e-commerce solution with Wordpress.
+ Description: Zingiri Web Shop is a full featured software package that allows you to set up your own online webshop within minutes.
  Author: EBO
  Version: 1.3.5
  Author URI: http://www.zingiri.com/

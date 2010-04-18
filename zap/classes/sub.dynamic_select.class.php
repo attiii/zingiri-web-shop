@@ -25,11 +25,18 @@ class dynamic_selectZfSubElement extends zfSubElement {
 
 	function output($mode="edit",$input="")
 	{
-		foreach ($this->xmlf->values->children() as $child) {
-			$option=$child[0];
-			if (isset($child->attributes()->value)) $value=$child->attributes()->value;
-			else $value=$option;
-			if ($value==$this->int) $this->ext=$option;
+		$e=$this->element;
+		$i=$this->subid;
+		
+		$keypairs=explode(",",trim($input['element_'.$e->id.'_2']));
+		echo $key.$input[$key];
+		if (count($keypairs) > 0) {
+			foreach ($keypairs as $keypair) {
+				list($value,$option)=explode("=",$keypair);
+				if(trim($this->int) == trim($value)) {
+					$this->ext=$option;
+				}
+			}
 		}
 		return $this->ext;
 	}
@@ -66,5 +73,5 @@ class dynamic_selectZfSubElement extends zfSubElement {
 		$field_markup.="</select>";
 		$subscript_markup.="<label for=\"element_{$e->id}_{$i}\">{$xmlf->fields->{'field'.$i}->label}</label>";
 
-	}
-}
+		}
+		}

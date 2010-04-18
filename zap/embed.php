@@ -152,8 +152,6 @@ function zing_apps_player_activate() {
 						if(preg_match("/;\s*$/", $sql_line)) {
 							zing_ws_error_handler(0,$query);
 							mysql_query($query) or zing_ws_error_handler(1,mysql_error().'-'.$query);
-							
-							//$wpdb->query($query);
 							$query = "";
 						}
 					}
@@ -233,6 +231,8 @@ function zing_apps_player_content($content) {
 	foreach ($zing->paths as $path) {
 		require($path."apps/classes/index.php");
 	}
+	
+	echo '<div class="zing_ws_page" id="zing_ws_'.$_GET['form'].'">';
 	switch ($zfaces)
 	{
 		case "form":
@@ -245,6 +245,7 @@ function zing_apps_player_content($content) {
 			require(dirname(__FILE__)."/scripts/mform.php");
 			break;
 	}
+	echo '</div>';
 	restore_error_handler();
 
 	return "";

@@ -24,74 +24,75 @@
 <?php include (dirname(__FILE__)."/includes/checklogin.inc.php"); ?>
 
 <?php
-if (!empty($_POST['numprod'])) {
-	$numprod=intval($_POST['numprod']);
-}
-if (!empty($_POST['paymentid'])) {
-	$paymentid=intval($_POST['paymentid']);
-}
-if (!empty($_POST['basketid'])) {
-	$basketid=intval($_POST['basketid']);
-}
-if (!empty($_POST['conditions']) && $_POST['conditions']=="on") {
-	$conditions=true;
-}
-if (!empty($_POST['notes'])) {
-	$notes=$_POST['notes'];
-}
-if (!empty($_GET['prodid'])) {
-	$prodid=intval($_GET['prodid']);
-	if (!empty($_POST['numprod'][$prodid])) $numprod=$_POST['numprod'][$prodid];
-	echo '/'.$prodid.'/'.$numprod.'<br />';
-}
-if (isset($_POST['shipping'])) { list($weightid, $shippingid) = explode(":", $_POST['shipping']); }
+if (loggedin()) {
+	if (!empty($_POST['numprod'])) {
+		$numprod=intval($_POST['numprod']);
+	}
+	if (!empty($_POST['paymentid'])) {
+		$paymentid=intval($_POST['paymentid']);
+	}
+	if (!empty($_POST['basketid'])) {
+		$basketid=intval($_POST['basketid']);
+	}
+	if (!empty($_POST['conditions']) && $_POST['conditions']=="on") {
+		$conditions=true;
+	}
+	if (!empty($_POST['notes'])) {
+		$notes=$_POST['notes'];
+	}
+	if (!empty($_GET['prodid'])) {
+		$prodid=intval($_GET['prodid']);
+		if (!empty($_POST['numprod'][$prodid])) $numprod=$_POST['numprod'][$prodid];
+		echo '/'.$prodid.'/'.$numprod.'<br />';
+	}
+	if (isset($_POST['shipping'])) { list($weightid, $shippingid) = explode(":", $_POST['shipping']); }
 
-if (isset($_POST['discount_code'])) {
-	$discount_code=$_POST['discount_code'];
-	if ($discount_code <> "") {
-		$discount_query="SELECT * FROM `".$dbtablesprefix."discount` WHERE `code` = '".$discount_code."' AND `orderid` = '0'";
-		$discount_sql = mysql_query($discount_query) or die(mysql_error());
-		if (mysql_num_rows($discount_sql) == 0) {
-			PutWindow($gfx_dir, $txt['general12'], $txt['checkout1'], "warning.gif", "50");
-			$error = 1;
-		}
-		else {
-			// let's read the discount
-			while ($discount_row = mysql_fetch_row($discount_sql)) {
-				$discount_amount = $discount_row[2];
-				$discount_percentage = $discount_row[3];
+	if (isset($_POST['discount_code'])) {
+		$discount_code=$_POST['discount_code'];
+		if ($discount_code <> "") {
+			$discount_query="SELECT * FROM `".$dbtablesprefix."discount` WHERE `code` = '".$discount_code."' AND `orderid` = '0'";
+			$discount_sql = mysql_query($discount_query) or die(mysql_error());
+			if (mysql_num_rows($discount_sql) == 0) {
+				PutWindow($gfx_dir, $txt['general12'], $txt['checkout1'], "warning.gif", "50");
+				$error = 1;
+			}
+			else {
+				// let's read the discount
+				while ($discount_row = mysql_fetch_row($discount_sql)) {
+					$discount_amount = $discount_row[2];
+					$discount_percentage = $discount_row[3];
+				}
 			}
 		}
 	}
-}
-// current date
-$today = getdate();
-$error = 0; // no errors found
-if ($action=="delete"){
-	$query = "DELETE FROM `".$dbtablesprefix."basket` WHERE `CUSTOMERID` = '". $customerid."' AND `STATUS` = '0' AND  `PRODUCTID` = '". $prodid."'";
-	$sql = mysql_query($query) or die(mysql_error());
-} elseif ($action=="update"){
-	// if we work with stock amounts, then lets check if there is enough in stock
-	if ($stock_enabled == 1) {
-		$query = "SELECT `STOCK` FROM `".$dbtablesprefix."product` WHERE `ID` = '".$prodid."'";
+	// current date
+	$today = getdate();
+	$error = 0; // no errors found
+	if ($action=="delete"){
+		$query = "DELETE FROM `".$dbtablesprefix."basket` WHERE `CUSTOMERID` = '". $customerid."' AND `STATUS` = '0' AND  `PRODUCTID` = '". $prodid."'";
 		$sql = mysql_query($query) or die(mysql_error());
-		$row = mysql_fetch_row($sql);
+	} elseif ($action=="update"){
+		// if we work with stock amounts, then lets check if there is enough in stock
+		if ($stock_enabled == 1) {
+			$query = "SELECT `STOCK` FROM `".$dbtablesprefix."product` WHERE `ID` = '".$prodid."'";
+			$sql = mysql_query($query) or die(mysql_error());
+			$row = mysql_fetch_row($sql);
 
-		if ($numprod > $row[0] || $row[0] == 0) {
-			PutWindow($gfx_dir, $txt['general12'], $txt['checkout15']."<br />".$txt['checkout7']." ".$numprod."<br />".$txt['checkout8']." ".$row[0], "warning.gif", "50");
-			$error = 1;
+			if ($numprod > $row[0] || $row[0] == 0) {
+				PutWindow($gfx_dir, $txt['general12'], $txt['checkout15']."<br />".$txt['checkout7']." ".$numprod."<br />".$txt['checkout8']." ".$row[0], "warning.gif", "50");
+				$error = 1;
+			}
+		}
+		if ($error == 0) {
+			$query = "UPDATE `".$dbtablesprefix."basket` SET `QTY` = ".$numprod." WHERE `CUSTOMERID` = '". $customerid."' AND `STATUS` = '0' AND  `PRODUCTID` = '". $prodid."'";
+			$sql = mysql_query($query) or die(mysql_error());
 		}
 	}
-	if ($error == 0) {
-		$query = "UPDATE `".$dbtablesprefix."basket` SET `QTY` = ".$numprod." WHERE `CUSTOMERID` = '". $customerid."' AND `STATUS` = '0' AND  `PRODUCTID` = '". $prodid."'";
-		$sql = mysql_query($query) or die(mysql_error());
-	}
-}
 
-CheckoutShowProgress();
+	CheckoutShowProgress();
 
-//shipping start
-?>
+	//shipping start
+	?>
 <form id="checkout" method="post" action="<?php zurl('index.php?page=checkout',true);?>">
 <table width="100%" class="datatable">
 	<caption><?php echo $txt['cart9']; ?></caption>
@@ -153,7 +154,7 @@ CheckoutShowProgress();
 	</tr>
 	<tr>
 	<?php
-	if (WeighCart($customerid) == 0) {
+	if (WeighCart($customerid) > 0) {
 		echo '<td colspan="4">'.$txt['customer21'].'</td></tr><tr>';
 		$address=new wsAddress($customerid);
 		$addresses=$address->getAddresses();
@@ -404,4 +405,6 @@ CheckoutShowProgress();
            $checkout.checkout();
 //]]>
 </script>
-<?php }?>
+<?php 
+	}
+}?>

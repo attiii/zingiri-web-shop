@@ -81,7 +81,7 @@ if (!defined("ZING_HOME")) {
 	define("ZING_HOME", get_option("home"));
 }
 if (!defined("ZING_UPLOADS_URL")) {
-	define("ZING_UPLOADS_URL", get_option("siteurl") . "/wp-content/uploads/zingiri-web-shop/");
+	define("ZING_UPLOADS_URL", BLOGUPLOADURL . "zingiri-web-shop/");
 }
 
 if (function_exists("qtrans_getLanguage")) {
@@ -109,6 +109,7 @@ if ($zing_version) {
 	add_action("plugins_loaded", "zing_sidebar_init");
 	add_filter('the_content', 'zing_content', 10, 3);
 	add_action('wp_head','zing_header');
+	add_action('wp_head','zing_ws_header_custom',100);
 	add_filter('wp_title','zing_ws_title');
 	add_filter('the_title','zing_ws_page_title');
 	if ($integrator->wpCustomer) {
@@ -458,7 +459,12 @@ function zing_uninstall() {
 	delete_option('zing_ws_widget_options');
 	delete_option('zing_ws_news');
 
+	//remove uploads sub-directory
+	rmdir(BLOGUPLOADDIR.'zingiri-web-shop');
+	
 	if (function_exists('zing_apps_player_uninstall')) zing_apps_player_uninstall(false);
+	
+	restore_error_handler();
 }
 
 /**
@@ -676,7 +682,9 @@ function zing_main($process,$content="") {
 	}
 	elseif ($to_include) {
 		echo $prefix;
+		if ($process=='content') echo '<div class="zing_ws_page" id="zing_ws_'.$_GET['page'].'">';
 		include($scripts_dir.$to_include);
+		if ($process=='content') echo '</div>';
 		echo $postfix;
 		//stop logging
 		restore_error_handler();
@@ -709,9 +717,15 @@ function zing_header()
 		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/search.js"></script>';
 	}
 	echo '<link rel="stylesheet" type="text/css" href="' . ZING_URL . 'zing.css" media="screen" />';
+	
 	echo '<link rel="stylesheet" href="' . ZING_URL . 'fws/addons/lightbox/lightbox.css" type="text/css" media="screen" />';
 	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/addons/lightbox/lightbox.js"></script>';
 	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/cookie.js"></script>';
+}
+
+function zing_ws_header_custom()
+{
+	echo '<link rel="stylesheet" type="text/css" href="' . BLOGUPLOADDIR . 'zingiri-web-shop/custom.css" media="screen" />';
 }
 
 /**
