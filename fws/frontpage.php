@@ -70,9 +70,3 @@ echo '<br /><input name="sub" type="submit" id="addtocart" class="button" value=
                    </form></td>';
 if ($row_count == $prods_per_row) { echo "</tr>"; }
 ?>
-<script type="text/javascript" language="javascript">
-//<![CDATA[
-	cart=new wsCart();
-	cart.order();
-//]]>
-</script>

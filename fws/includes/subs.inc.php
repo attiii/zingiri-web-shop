@@ -203,6 +203,10 @@ function mymail($from,$to,$subject,$message,$charset)
 		mail($to, '=?UTF-8?B?'.base64_encode($subject).'?=', $message, $headers);		
 		return true;
 	}
+	elseif ($use_phpmail == 2) {
+		wp_mail($to,$subject,$message);
+		return true;
+	}
 	else {
 		require_once(dirname(__FILE__).'/../addons/email/email.php');
 		$email = new Email();
@@ -849,9 +853,9 @@ function printDescription($productid,$description) {
 		$description = stringsplit($print_description, $max_description); // so lets only show the first xx characters
 		if (strlen($print_description) != strlen($description[0])) { $description[0] = $description[0] . ".."; }
 		$print_description = $description[0];
+		$print_description = strip_tags($print_description); //remove html because of danger of broken tags
 	}
 	return $print_description;
-	$print_description = strip_tags($print_description); //remove html because of danger of broken tags
 }
 
 function calcFeaturesPrice($allfeatures) {

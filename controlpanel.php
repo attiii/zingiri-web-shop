@@ -324,6 +324,9 @@ If it's your first time logging in, you can use user <strong>admin</strong> with
 <hr />
 <p>For more info and support, contact us at <a href="http://www.zingiri.com/web-shop/">Zingiri</a> or
 check out our <a href="http://forums.zingiri.com/">support forums</a>.</p>
+<hr />
 <?php
+$index_refer=1;
+require(dirname(__FILE__).'/fws/about.php');
 }
 add_action('admin_menu', 'zing_ws_add_admin'); ?>

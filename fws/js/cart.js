@@ -1,5 +1,5 @@
 var wsCart = Class.create( {
-
+	
 	initialize : function() {
 		Cookie.init( {
 			name : 'zing_ws',
@@ -59,7 +59,8 @@ var wsCart = Class.create( {
 
 	addToCart : function(v) {
 		var e = Event.element(v);
-		var image = e.up('tr').down('img');
+		if (wsFrontPage) var image = e.up('td').down('img');
+		else var image = e.up('tr').down('img');
 		form = e.up('form').id;
 		new Ajax.Request($(form).action, {
 			method : "post",

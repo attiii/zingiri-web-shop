@@ -133,7 +133,7 @@ else {
 	    $create_pdf = CheckBox($_POST['create_pdf']);
 		
 		// new in 2.2.9
-	    $use_phpmail = CheckBox($_POST['use_phpmail']);
+	    $use_phpmail = intval($_POST['use_phpmail']);
 	    $hide_outofstock = CheckBox($_POST['hide_outofstock']);
 	    $show_stock = CheckBox($_POST['show_stock']);
 		
@@ -436,7 +436,13 @@ else {
 	                  <td><input type="checkbox" name="use_datefix" <?php if ($use_datefix == 1) { echo "checked"; } ?>></td>
         	      </tr>
 	              <tr><td><?php echo $txt['editsettings109'] ?></td>
-	                  <td><input type="checkbox" name="use_phpmail" <?php if ($use_phpmail == 1) { echo "checked"; } ?>></td>
+	                  <td>
+	                  	<select name="use_phpmail">
+	                  		<option value="1" <?php if ($use_phpmail==1) echo "SELECTED"?>>PHP mail</option>
+	                  		<option value="2" <?php if ($use_phpmail==2) echo "SELECTED"?>>Wordpress mail</option>
+	                  		<option value="0" <?php if ($use_phpmail==0) echo "SELECTED"?>>Email 2.0.1</option>
+	                  	</select>
+	                  </td>
         	      </tr>
         	      
         	      <?php

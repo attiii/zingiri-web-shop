@@ -34,8 +34,8 @@ class integrator {
 				$data=array();
 				$data['user_login']=$row['LOGINNAME'];
 				$data['user_nicename']=$row['INITIALS'].' '.$row['LASTNAME'];
-				$data['user_firstname']=$row['INITIALS'];
-				$data['user_lastname']=$row['LASTNAME'];
+				$data['first_name']=$row['INITIALS'];
+				$data['last_name']=$row['LASTNAME'];
 				$data['user_email']=$row['EMAIL'];
 				$data['user_pass']='';
 

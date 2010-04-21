@@ -1,7 +1,7 @@
 <?php
 class zingPrompts {
 	var $vars=array('lastname','shopname','webid','customerid','shopurl','company','initials','middlename','address',
-				'zipcode','city','state','country','phone','bankaccount','bankaccountowner','bankcity','bankcountry',
+				'zipcode','city','state','country','phone','bankaccountowner','bankaccount','bankcity','bankcountry',
 				'bankname','bankiban','bankbic','paymentdays','tussenvoegsels','naam','login','pass1','gfx_dir',
 				'gname','cname','send_default_country');
 

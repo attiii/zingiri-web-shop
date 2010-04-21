@@ -36,11 +36,26 @@ if (LoggedIn() == True) {
 		$paymentstatus=intval($_GET['status']);
 		if ($paymentstatus == 1) {
 			$status=9; //completed
+			
+			//get order id
+			$webid=$_GET['webid'];
+			$db=new db();
+			$query = sprintf("SELECT `ID` FROM `##order` WHERE `WEBID` = %s", quote_smart($webid));
+			if ($db->select($query)) {
+				$db->next();
+				$orderid=$db->get('id');
+			}
+
+			//check if digital order
+			$query = sprintf("SELECT `##basket`.`ID` FROM `##basket`,`##product` WHERE `##product`.`ID`=`##basket`.`PRODUCTID` AND `##product`.`LINK` IS NOT NULL AND `##basket`.`ORDERID` = %s", quote_smart($orderid));
+			if ($db->select($query)) $dig='<br />'.$txt['readorder100'].': <a href="'.get_option('home').'/?page=products">'.$txt['menu15'].'</a>';
+			else $dig="";
+
 			//update basket status
 			$query = sprintf("UPDATE `".$dbtablesprefix."basket` SET `STATUS` = 1 WHERE `CUSTOMERID` = %s AND `STATUS` = 0", quote_smart($customerid));
 			$sql = mysql_query($query) or die(mysql_error());
 				
-			PutWindow($gfx_dir, $txt['general13'], $txt['checkout100'], "notify.gif", "50");
+			PutWindow($gfx_dir, $txt['general13'], $txt['checkout100'].$dig, "notify.gif", "50");
 		} else {
 			$status=8; //error or cancelled
 			PutWindow($gfx_dir, $txt['general12'], $txt['checkout101'], "warning.gif", "50");

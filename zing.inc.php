@@ -129,7 +129,7 @@ if ($zing_version) {
 add_action("init","zing_init_uninstall");
 
 if (!defined("ZING_DIG") && get_option('zing_webshop_dig')!="") {
-	define("ZING_DIG",WP_CONTENT_DIR.'/uploads/zingiri-web-shop/digital-'.get_option('zing_webshop_dig').'/');
+	define("ZING_DIG",BLOGUPLOADDIR.'/zingiri-web-shop/digital-'.get_option('zing_webshop_dig').'/');
 }
 
 require_once(dirname(__FILE__) . '/controlpanel.php');
@@ -331,7 +331,7 @@ function zing_activate() {
 		{
 			$my_post = array();
 			$my_post['post_title'] = $p['0'];
-			$my_post['post_content'] = '';
+			$my_post['post_content'] = 'Do not delete this page unless you know what you are doing';
 			$my_post['post_status'] = 'publish';
 			$my_post['post_author'] = 1;
 			$my_post['post_type'] = 'page';
@@ -1059,8 +1059,12 @@ function zing_footer($footer="")
 {
 	$bail_out = ( ( defined( 'WP_ADMIN' ) && WP_ADMIN == true ) || ( strpos( $_SERVER[ 'PHP_SELF' ], 'wp-admin' ) !== false ) );
 	if ( $bail_out ) return $footer;
-	//Please contact us if you wish to remove the Zingiri logo in the footer
-	echo '<center style="position:relative;clear:both;font-size:smaller;margin-top:5px">Powered by <a href="http://www.zingiri.com" alt="Zingiri Web Shop">Zingiri Web Shop</a></center>';
+	//Please contact us if you wish to remove the Zingiri and FWS logos from the footer
+	echo '<center style="position:relative;clear:both;font-size:smaller;margin-top:5px">';
+	echo '<a href="http://www.zingiri.com" alt="Zingiri Web Shop">';
+	echo '<img src="'.ZING_URL.'/zingiri-logo.png" height="35"/>';
+	echo '</a>';
+	echo '</center>';
 }
 
 /**
@@ -1159,7 +1163,7 @@ function zing_profile($user_id) {
 		$_GET['no_redirect']=1;
 		$user=get_userdata($user_id);
 		$_GET['id']=getCustomerByLogin($user->user_login);
-		echo 'user='.$user->user_login.'-'.$_GET['id'];
+		//echo 'user='.$user->user_login.'-'.$_GET['id'];
 		zing_main('content');
 		zing_apps_player_content('content');
 		$_SESSION['zing']['ProfileNextStep']="";

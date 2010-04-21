@@ -452,7 +452,7 @@ $txt['editsettings105'] = 'Description';
 $txt['editsettings106'] = 'Price';
 $txt['editsettings107'] = 'Activate Autosubmit <a href=# class=info>(?)<span>If turned on AND the payment method supports it, the customer will be automaticly be redirected to the payment portal of the select payment method</span></a>';
 $txt['editsettings108'] = 'Create PDF\'s <a href=# class=info>(?)<span>If enabled, when a customer places an order, the order confirmation will be converted to PDF and emailed as attachment</span></a>';
-$txt['editsettings109'] = 'Use PHP Mail() <a href=# class=info>(?)<span>Use PHP Mail() to send mails</span></a>';
+$txt['editsettings109'] = 'Mail method <a href=# class=info>(?)<span>Use PHP Mail() to send mails or choose one of the other options</span></a>';
 
 // productadmin.php
 $txt['productadmin1'] = ' has been uploaded to ';

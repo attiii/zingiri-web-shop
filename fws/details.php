@@ -197,6 +197,7 @@ else {
 ?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
+          wsFrontPage=false;
           cart=new wsCart();
           cart.order();
 //]]>

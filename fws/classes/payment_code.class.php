@@ -33,8 +33,8 @@ class paymentCode {
 			$payment_code = str_replace("%phone%", $customer['PHONE'], $payment_code);
 			$payment_code = str_replace("%ipn%", ZING_URL.'fws/ipn.php', $payment_code);
 			$payment_code = str_replace("%paypal_email%", $sales_mail, $payment_code);
-			$payment_code = str_replace("%return%", $shopurl . '/index.php?page=checkout&status=1', $payment_code);
-			$payment_code = str_replace("%cancel%", $shopurl . '/index.php?page=checkout&status=9', $payment_code);
+			$payment_code = str_replace("%return%", $shopurl . '/index.php?page=checkout&status=1&webid='.urlencode($webid), $payment_code);
+			$payment_code = str_replace("%cancel%", $shopurl . '/index.php?page=checkout&status=9&webid='.urlencode($webid), $payment_code);
 			$payment_code = trim($payment_code);
 			$this->payment_code=$payment_code;
 			return $payment_code;

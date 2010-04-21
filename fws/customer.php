@@ -199,7 +199,7 @@ if ($action=="save") {
 				$sql = mysql_query($query) or die(mysql_error());
 				$newcustomerid=mysql_insert_id();
 				if ($integrator->wpCustomer) {
-					$integrator->createWpUser(array('user_login'=>$login,'firstname'=>$initials,'lastname'=>$surname,'user_email'=>$email),'subscriber');
+					$integrator->createWpUser(array('user_login'=>$login,'first_name'=>$initials,'last_name'=>$surname,'user_email'=>$email),'subscriber');
 					$integrator->loginWpUser($login,$pass1);
 				}
 				mymail($webmaster_mail, $webmaster_mail, $txt['customer36'], $txt['customer37']."<br /><br />".$txt['customer12'], $charset);

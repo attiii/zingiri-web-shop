@@ -28,12 +28,14 @@ if (!AllowAccess('form',$formid,$action)) return false;
 $allowed=true;
 $success=true;
 
+/*
 if (!empty($action) && !ZingAppsIsAdmin() && ($action != 'show')) {
 	$linksin=new zfDB();
 	$allowed=$linksin->select("select * from ##flink where formout='".$formid."' and displayout='form' and actionin='".$action."'");
 
 	if (!$allowed) $action="not_allowed";
 }
+*/
 if (isset($_GET['showform'])) $showform=$_GET['showform']; else $showform="edit";
 
 if ($action == "not_allowed") {
