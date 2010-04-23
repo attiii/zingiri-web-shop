@@ -34,23 +34,14 @@ class sqlidZfSubElement extends zfSubElement {
 		$value=strtoupper($input['element_'.$e->id.'_3']);
 		$table=$input['element_'.$e->id.'_4'];
 
-		$query="select `".$key."`,`".$value."` FROM `##".$table."` ORDER BY `".$value."`";
+		$query="select `".$key."`,`".$value."` FROM `##".$table."`"; //` ORDER BY `".$value."`";
+		$query.=" where `".$key."`=".qs($this->int);
 		$query=str_replace("##",DB_PREFIX,$query);
-
-		if (!empty($this->xmlf->values->where)) {
-			//FIXME: check this
-			$wherefields=explode(",",$this->xmlf->values->where);
-			foreach ($wherefields as $wherefield) {
-				$query=str_replace("$".$wherefield,0,$query);
-			}
-		}
 		$result = do_query($query);
-		while($row = mysql_fetch_array($result)){
-			$key=$row[0];
-			$option=$row[1];
-			//FIXME: check this
-			if ($key==$this->int) $this->ext=$option;
-			//if ($key==$this->int) $this->ext=$key;
+		if ($row = mysql_fetch_array($result)){
+			$this->ext=$row[1];
+		} else {
+			$this->ext="";
 		}
 		return $this->ext;
 	}
@@ -65,6 +56,7 @@ class sqlidZfSubElement extends zfSubElement {
 
 		$field_markup.="<select id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" {$e->readonly}>";
 		$option_markup="";
+		$option_markup='<option value="0"></option>';
 		if (!empty($key) && !empty($value)) {
 			$query="select `".$key."`,`".$value."` FROM `##".$table."` ORDER BY `".$value."`";
 			$query=str_replace("##",DB_PREFIX,$query);

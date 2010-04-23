@@ -61,18 +61,25 @@ If you made changes to the style sheet (zing.css) or the language files, make su
 == Changelog ==
 
 = 1.3.7 =
+* New: added new discounts functionality allowing creation of multi-use discount codes limited by category, product, time and use
 * New: added support for using wp_mail as main mailing engine
 * New: added order id to Paypal return links
 * New: added display link to downloads when customer returns from Paypal payment portal and payment was successful
 * New: added "do not delete this page" message on default pages (only applies to new installs) 
+* New: added partial support for themes using jQuery
+* New: added collapsible list option for product sidebar widget
 * Change: updated Zingiri logo in footer
+* Change: don't display shipping address if no shipping is required
+* Change: removed shop customer profile fields from Wordpress profile
 * Fix: fixed issue with first and last name not being registered in Wordpress upon new registration
 * Fix: closed possible security issue with profile form
 * Fix: corrected issue with products being recorded multiple times in basket when clicking from front page
 * Fix: fixed issue with wrong image being 'shaken' when ordering from front page
+* Fix: corrected custom.css URL
 * Fix: fixed issue with bankaccountowner not being parsed properly in checkout
 * Fix: strip tags from description in product browser if only showing partial description
 * Fix: corrected issue with shopurl not being parsed properly when sending an email from order administration page
+* Fix: corrected German translation on checkout page
 
 = 1.3.6 =
 * Fix: added missing database update file resolving issue with SQL error in cart

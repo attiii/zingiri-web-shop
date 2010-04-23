@@ -50,18 +50,10 @@ if (loggedin()) {
 	if (isset($_POST['discount_code'])) {
 		$discount_code=$_POST['discount_code'];
 		if ($discount_code <> "") {
-			$discount_query="SELECT * FROM `".$dbtablesprefix."discount` WHERE `code` = '".$discount_code."' AND `orderid` = '0'";
-			$discount_sql = mysql_query($discount_query) or die(mysql_error());
-			if (mysql_num_rows($discount_sql) == 0) {
+			$discount=new wsDiscount($discount_code);
+			if (!$discount->exists()) {
 				PutWindow($gfx_dir, $txt['general12'], $txt['checkout1'], "warning.gif", "50");
 				$error = 1;
-			}
-			else {
-				// let's read the discount
-				while ($discount_row = mysql_fetch_row($discount_sql)) {
-					$discount_amount = $discount_row[2];
-					$discount_percentage = $discount_row[3];
-				}
 			}
 		}
 	}
@@ -133,7 +125,7 @@ if (loggedin()) {
 			<br />
 			<?php echo $txt['shipping10'] ?>
 			<br />
-			<SELECT NAME="paymentid" id="paymentid">
+			<SELECT NAME="paymentid" id="paymentid" onChange="this.form.action='?page=onecheckout';this.form.submit();">
 			<?php
 			// find out the payment methods
 			$query="SELECT * FROM `".$dbtablesprefix."shipping_payment` WHERE `shippingid`='".$shippingid."' ORDER BY `paymentid`";
@@ -304,18 +296,17 @@ if (loggedin()) {
 
 	//manage discount
 	if ($discount_code <> "") {
+		$discount->calculate();
 		echo '<tr><td colspan="2" style="text-align: right">'.$txt['checkout14'];
-		if ($discount_percentage == 1) {
+		if ($discount->percentage>0) {
 			// percentage
-			$discount_percentage = $discount_amount;
-			$discount_amount = ($totaal / 100) * $discount_amount;
-			echo $discount_percentage.'%</td><td style="text-align: right">-'.$currency_symbol_pre.myNumberFormat($discount_amount,$number_format).$currency_symbol_post.'</td></tr>';
+			echo ' '.$discount->percentage.'%</td><td style="text-align: right">-'.$currency_symbol_pre.myNumberFormat($discount->discount,$number_format).$currency_symbol_post.'</td></tr>';
 		}
 		else {
 			//fixed amount
-			echo '</td><td style="text-align: right">-'.$currency_symbol_pre.myNumberFormat($discount_amount,$number_format).$currency_symbol_post.'</td></tr>';
+			echo '</td><td style="text-align: right">-'.$currency_symbol_pre.myNumberFormat($discount->discount,$number_format).$currency_symbol_post.'</td></tr>';
 		}
-		$totaal -= $discount_amount;
+		$totaal -= $discount->discount;
 
 	}
 

@@ -3,7 +3,7 @@ class paymentCode {
 	var $payment_code;
 
 	function getCode($paymentid,$customer,$total,$webid) {
-		global $dbtablesprefix,$shopurl,$lang,$sales_mail,$currency;
+		global $dbtablesprefix,$shopurl,$lang,$sales_mail,$currency,$autosubmit;
 
 		$total_nodecimals = number_format($total, 2,"","");
 
@@ -14,6 +14,7 @@ class paymentCode {
 			$payment_descr = $row[1];
 			$payment_code = $row[2];
 			// there could be some variables in the code, like %total%, %webid% and %shopurl% so lets update them with the correct values
+			if ($autosubmit) $payment_code=str_replace('target="_new"','',$payment_code);
 			$payment_code = str_replace('name="autosubmit"','id="autosubmit" name="autosubmit"',$payment_code);
 			$payment_code = str_replace("%total_nodecimals%", $total_nodecimals, $payment_code);
 			$payment_code = str_replace("%total%", $total, $payment_code);

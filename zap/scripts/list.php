@@ -30,7 +30,6 @@ $mapflat=$_GET['map'];
 //$json=str_replace("\'",'"',$_GET['map']);
 $json=stripslashes($_GET['map']);
 $map=zf_json_decode($json,true);
-
 $zflist=new zfForm($formname,$formid);
 $formname=$zflist->form;
 $formid=$zflist->id;
@@ -43,6 +42,8 @@ $stack=new zfStack('list',$formname,$search);
 echo '<p class="zfaces-form-label">'.z_($zflist->label).'</p>';
 
 if (!AllowAccess('list',$formid,$action)) return false;
+
+if (file_exists(ZING_APPS_CUSTOM.'apps.'.$formname.'.php')) require(ZING_APPS_CUSTOM.'apps.'.$formname.'.php');
 
 $linksin=new zfDB();
 $linksin->select("select * from ##flink where formin='*' and displayout='list' and formout='".$zflist->id."' and mapping <> ''");

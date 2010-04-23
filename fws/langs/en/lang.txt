@@ -621,7 +621,7 @@ $txt['mailinglist1'] = 'Copy/paste this to your favourite Mass mailer software';
 // discountadmin.php
 $txt['discountadmin2'] = 'Number of codes';
 $txt['discountadmin3'] = 'Discount amount';
-$txt['discountadmin4'] = 'Percentage? <a href=# class=info>(?)<span>If you want to give for example 25% discount fill in 25 in the Amount field and check this box. If you want to give a fixed discount, do not check this box</span></a>';
+$txt['discountadmin4'] = 'Discount percentage';
 $txt['discountadmin5'] = 'Make codes';
 $txt['discountadmin6'] = 'All unused codes';
 $txt['discountadmin7'] = 'Discount code';
@@ -690,5 +690,9 @@ $txt['editsettings112'] = 'Product ID & full description';
 $txt['prompt1'] = 'Language';
 $txt['prompt2'] = 'Standard text';
 $txt['prompt3'] = 'Custom text';
+
+//v1.3.7 - added
+$txt['discountadmin100'] = 'Expiry date';
+$txt['discountadmin101'] = 'Expiry quantity';
 
 ?>

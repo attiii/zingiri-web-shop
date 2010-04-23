@@ -178,7 +178,7 @@ $txt['checkout23'] = "Die Bestellung wird per Nachnahme versendet.";
 $txt['checkout24'] = "Die Endsumme betr&auml;gt: $currency_symbol $totalprint (inkl. $currency_symbol $print_sendcosts Versand)";
 $txt['checkout25'] = "inkl. $show_vat ".$txt['general5'];
 $txt['checkout26'] = "Bitte &Uuml;berweisen Sie die Summe innerhalb von $paymentdays Tagen. Bei Zahlungseingang wird Ihnen Ihre Bestellung zugesand.";
-$txt['checkout27'] = 'PayPal Transfer';
+$txt['checkout27'] = 'oder anzeigen der Bestellung als PDF';
 
 // search.php
 $txt['search1'] = 'Produktsuche';

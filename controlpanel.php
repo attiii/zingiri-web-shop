@@ -42,7 +42,7 @@ function zing_set_options() {
 			"id" => $zing_ws_shortname."_effects",
 			"std" => "Prototype",
 			"type" => "select",
-			"options" => array("Prototype","Off"));
+			"options" => array("Prototype","jQuery","Off"));
 
 		$ida=explode(",",$ids);
 		foreach ($ida as $i) {
@@ -81,8 +81,7 @@ function zing_ws_add_admin() {
 			foreach ($zing_ws_options as $value) {
 				if( isset( $_REQUEST[ $value['id'] ] ) ) {
 					update_option( $value['id'], $_REQUEST[ $value['id'] ]  );
-				} else { delete_option( $value['id'] );
-				}
+				} else { delete_option( $value['id'] ); }
 			}
 
 			$integrator->sync();
@@ -164,12 +163,13 @@ function zing_ws_settings() {
 	if (isset($menus[$page]['type']) && $menus[$page]['type']=="apps") {
 		//$_GET['no_redirect']=true;
 		echo '<link rel="stylesheet" type="text/css" href="'.ZING_APPS_PLAYER_URL.'css/integrated_view.css" />';
+		
 		zing_apps_player_content('content');
 	}
 	echo '</div>';
 	
 	//news
-	echo '<div class="updated" style="width:16%;float:right;position:relative">';
+	echo '<div class="updated" style="width:15%;float:right;position:relative">';
 	global $current_user;
 	get_currentuserinfo();
 	require(dirname(__FILE__).'/fws/includes/httpclass.inc.php');
@@ -326,7 +326,9 @@ If it's your first time logging in, you can use user <strong>admin</strong> with
 check out our <a href="http://forums.zingiri.com/">support forums</a>.</p>
 <hr />
 <?php
-$index_refer=1;
-require(dirname(__FILE__).'/fws/about.php');
+if ($zing_version) {
+	$index_refer=1;
+	require(dirname(__FILE__).'/fws/about.php');
+}
 }
 add_action('admin_menu', 'zing_ws_add_admin'); ?>

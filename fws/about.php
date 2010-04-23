@@ -24,7 +24,7 @@
 <?php if ($index_refer <> 1) { exit(); } ?>
 <?php //include ("includes/httpclass.inc.php"); ?>
 <?php 
-if (IsAdmin() == false) {
+if (!current_user_can('edit_plugins') && IsAdmin() == false) {
   PutWindow($gfx_dir, $txt['general12'], $txt['general2'], "warning.gif", "50");
 }
 else {    

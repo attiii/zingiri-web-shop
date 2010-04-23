@@ -118,11 +118,11 @@ if ($zing_version) {
 		add_filter('check_password','zing_check_password',10,4);
 		//add_action('personal_options_update','zing_profile_pre'); //before wp error check and update
 		//add_action('edit_user_profile_update','zing_profile_pre'); //before wp error check and update
-		add_action('user_profile_update_errors','zing_profile_check_errors',10,3); //check errors after wp checks done
+		//add_action('user_profile_update_errors','zing_profile_check_errors',10,3); //check errors after wp checks done
 		add_action('profile_update','zing_profile'); //post wp update
 		add_action('user_register','zing_profile'); //post wp update
-		add_action('show_user_profile','zing_profile_show');
-		add_action('edit_user_profile','zing_profile_edit');
+		//add_action('show_user_profile','zing_profile_show');
+		//add_action('edit_user_profile','zing_profile_edit');
 		add_action('delete_user','zing_delete_user');
 	}
 }
@@ -711,10 +711,13 @@ function zing_header()
 	echo "var wsURL='".ZING_URL."fws/ajax/';";
 	echo '</script>';
 
+	
 	if (ZING_PROTOTYPE) {
-		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/checkout.js"></script>';
+		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/checkout.proto.js"></script>';
 		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/cart.js"></script>';
 		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/search.js"></script>';
+	} elseif (ZING_JQUERY) {
+		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/checkout.jquery.js"></script>';
 	}
 	echo '<link rel="stylesheet" type="text/css" href="' . ZING_URL . 'zing.css" media="screen" />';
 	
@@ -725,7 +728,7 @@ function zing_header()
 
 function zing_ws_header_custom()
 {
-	echo '<link rel="stylesheet" type="text/css" href="' . BLOGUPLOADDIR . 'zingiri-web-shop/custom.css" media="screen" />';
+	echo '<link rel="stylesheet" type="text/css" href="' . BLOGUPLOADURL . 'zingiri-web-shop/custom.css" media="screen" />';
 }
 
 /**
@@ -836,9 +839,11 @@ function zing_init()
 {
 	session_start();
 
-	if (!defined("ZING_PROTOTYPE") || ZING_PROTOTYPE) {
+	if (is_admin() || !defined("ZING_PROTOTYPE") || ZING_PROTOTYPE) {
 		wp_enqueue_script('prototype');
 		wp_enqueue_script('scriptaculous');
+	} elseif (!defined("ZING_JQUERY") || ZING_JQUERY) {
+		wp_enqueue_script('jquery');
 	}
 
 	ob_start();
@@ -1135,7 +1140,6 @@ function zing_check_password($check,$password,$hash,$user_id) {
 }
 
 function zing_profile($user_id) {
-	//$user_data=get_userdata($user_id);
 	$user=new WP_User($user_id);
 	$user_data=$user->data;
 	$db=new db();
@@ -1150,10 +1154,9 @@ function zing_profile($user_id) {
 	if ($user->has_cap('level_5')) $row['GROUP']='ADMIN';
 	else $row['GROUP']='CUSTOMER';
 
-	//	print_r($user_data);
-	//	print_r($_POST);
 	if ($db->readRecord('customer',array('LOGINNAME' => $user_data->user_login))) {
 		$db->updateRecord('customer',array('LOGINNAME' => $user_data->user_login), $row);
+		/*
 		$_GET['page']='apps';
 		$_GET['zfaces']='form';
 		$_GET['form']='profile1';
@@ -1163,16 +1166,17 @@ function zing_profile($user_id) {
 		$_GET['no_redirect']=1;
 		$user=get_userdata($user_id);
 		$_GET['id']=getCustomerByLogin($user->user_login);
-		//echo 'user='.$user->user_login.'-'.$_GET['id'];
 		zing_main('content');
 		zing_apps_player_content('content');
 		$_SESSION['zing']['ProfileNextStep']="";
+		*/
 	} else {
 		$row['LOGINNAME']=$user_data->user_login;
 		$row['DATE_CREATED']=date('Y-m-d');
 		$db->insertRecord('customer',"",$row);
 	}
 }
+/*
 function zing_profile_show($user_id) {
 	zing_profile_edit($user_id);
 }
@@ -1195,10 +1199,12 @@ function zing_profile_edit($user_id) {
 	zing_apps_player_content('content');
 	$_SESSION['zing']['ProfileNextStep']="";
 }
+*/
 
 /*
  * Check errors before committing user data
  */
+/*
 function zing_profile_check_errors(&$errors, $update, &$user) {
 	global $zfform,$zfSuccess;
 
@@ -1215,6 +1221,7 @@ function zing_profile_check_errors(&$errors, $update, &$user) {
 	if (!$zfSuccess) $errors->errors['invalid']=array('Errors');
 	$_SESSION['zing']['ProfileNextStep']="check";
 }
+*/
 
 function zing_profile_pre($user_id) {
 }

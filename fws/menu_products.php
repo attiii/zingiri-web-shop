@@ -23,7 +23,7 @@
 ?>
 <?php if ($index_refer <> 1) { exit(); } ?>
 <?php
-//echo "<h1>".$txt['menu15']."</h1>\n";
+$wsCatCollapse=wsSetting('catcollapse');
 // if the category is send, then use that to find out the group
 if ($cat != 0 && $group == 0) { $group = TheGroup($cat); }
 
@@ -57,8 +57,21 @@ else {
 		if (mysql_num_rows($sql_cat) > 1) {
 			if (SHOWCAT) {
 				$ahref = "\"index.php?page=browse&action=list&orderby=DESCRIPTION&group=".$row[0]."\"";
-				echo "<li>".$row[1];
-				echo '<ul>';
+				if (!$wsCatCollapse) {
+					echo '<li>'.$row[1];
+					echo '<ul id="group'.$row[0].'">';
+				}
+				elseif ($wsCatCollapse && $row[0]==$group) {
+					echo '<li id="group'.$row[0].'"><a class="zing-product-group" href="javascript:wsGroupToggle('.$row[0].')">'.$row[1].'</a>';
+					echo '<ul id="group'.$row[0].'">';
+				}
+				elseif ($wsCatCollapse) {
+					echo '<li id="group'.$row[0].'"><a class="zing-product-group" href="javascript:wsGroupToggle('.$row[0].')">'.$row[1].'</a>';
+					echo '<ul style="display:none" id="group'.$row[0].'">';
+				} else {
+					echo "<li>".$row[1];
+					echo '<ul id="group'.$row[0].'">';
+				}
 				while ($row_cat = mysql_fetch_row($sql_cat)) {
 					if ($cat==$row_cat[0]) $active='id="active"'; else $active="";
 					$ahref = "\"index.php?page=browse&action=list&orderby=DESCRIPTION&group=".$row[0]."&cat=".$row_cat[0]."\"";
@@ -84,5 +97,8 @@ else {
 		}
 	}
 	echo "</ul>\n";
+}
+if (ZING_PROTOTYPE) {
+echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/productmenu.proto.js"></script>';
 }
 ?>

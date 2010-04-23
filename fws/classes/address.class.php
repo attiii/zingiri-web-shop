@@ -21,6 +21,7 @@ class wsAddress {
 	}
 	
 	function getAddress($id=0) {
+		if (empty($id)) $id=0;
 		$addresses=$this->getAddresses();
 		return $addresses[$id];
 	}

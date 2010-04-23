@@ -758,11 +758,8 @@ function zfdbexit($query="") {
 
 // Are there any active discounts? Otherwise skip discount screen
 Function ActiveDiscounts() {
-	Global $dbtablesprefix;
-	$num_prod=0;
-	$query = "SELECT * FROM `".$dbtablesprefix."discount` WHERE ORDERID=0";
-	$sql = mysql_query($query) or die(mysql_error());
-	return mysql_num_rows($sql);
+	$discount=new wsDiscount();
+	return $discount->countActive();
 }
 
 
@@ -879,5 +876,14 @@ function calcFeaturesPrice($allfeatures) {
 function customerId() {
 	global $customerid;
 	return $customerid;
+}
+
+function wsSetting($setting) {
+	$db=new db();
+	if ($db->select("select `".$setting."` from ##settings where `ID`=1")) {
+		$db->next();
+		return $db->get($setting);
+	} 
+	return false;
 }
 ?>

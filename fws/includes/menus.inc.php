@@ -12,7 +12,7 @@ $menus['shippingadmin']=array('group' => 'admin23', 'label' => 'admin18','href' 
 $menus['uploadadmin']=array('group' => 'admin23', 'label' => 'admin9','href' => 'page=uploadadmin', 'img' => 'uploadlist.gif');
 $menus['editsettings']=array('group' => 'admin23', 'label' => 'admin8','href' => 'page=editsettings', 'img' => 'settings.gif');
 $menus['advancedsettings']=array('type' => 'apps', 'group' => 'admin23', 'label' => 'editsettings93','href' => 'zfaces=form&form=settings&action=edit&no_redirect=1&id=1', 'img' => 'pc.gif');
-$menus['discountadmin']=array('group' => 'admin23', 'label' => 'admin38','href' => 'page=discountadmin', 'img' => 'discount.gif');
+$menus['discountadmin']=array('type' => 'apps', 'group' => 'admin23', 'label' => 'admin38','href' => 'zfaces=list&form=discount', 'img' => 'discount.gif');
 $menus['taxes']=array('type' => 'apps', 'group' => 'admin23', 'label' => 'admin100','href' => 'zfaces=list&form=taxes', 'img' => 'taxes.png');
 $menus['adminedit']=array('group' => 'admin24', 'label' => 'admin15','href' => 'page=adminedit&filename=conditions.sql&root=0&wysiwyg=0', 'img' => 'conditionsadmin.gif');
 $menus['admineditbanned']=array('page' => 'adminedit', 'group' => 'admin24', 'label' => 'admin19','href' => 'page=adminedit&filename=banned.txt&root=1&wysiwyg=0', 'img' => 'banned.gif');

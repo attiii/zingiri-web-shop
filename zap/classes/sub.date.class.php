@@ -25,14 +25,14 @@ class dateZfSubElement extends zfSubElement {
 	
 	function output($mode="edit",$input="")
 	{
-		$this->ext=date("d-m-Y",strtotime($this->int));
+		if ($this->ext!='') $this->ext=date("d-m-Y",strtotime($this->int));
 		return $this->ext;	
 	}
 	
 	function verify()
 	{
 		$success=true;
-		if (!strtotime($this->ext))
+		if ($this->ext!='' && !strtotime($this->ext))
 			{
 			$success=false;
 			$this->error_message="Wrong date format!";

@@ -540,6 +540,9 @@ class zfForm {
 			$this->db->select($this->query);
 			if ($r=$this->db->next())
 			{
+				foreach ($r as $field => $value) {
+					$r[strtoupper($field)]=$value;
+				}
 				foreach ($this->allfields as $key => $column)
 				{
 					zfKeys($key,$key1,$key2);

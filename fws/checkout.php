@@ -36,7 +36,7 @@ if (LoggedIn() == True) {
 		$paymentstatus=intval($_GET['status']);
 		if ($paymentstatus == 1) {
 			$status=9; //completed
-			
+
 			//get order id
 			$webid=$_GET['webid'];
 			$db=new db();
@@ -54,7 +54,7 @@ if (LoggedIn() == True) {
 			//update basket status
 			$query = sprintf("UPDATE `".$dbtablesprefix."basket` SET `STATUS` = 1 WHERE `CUSTOMERID` = %s AND `STATUS` = 0", quote_smart($customerid));
 			$sql = mysql_query($query) or die(mysql_error());
-				
+
 			PutWindow($gfx_dir, $txt['general13'], $txt['checkout100'].$dig, "notify.gif", "50");
 		} else {
 			$status=8; //error or cancelled
@@ -84,18 +84,10 @@ if (LoggedIn() == True) {
 
 		// if you gave a discount code, let's check if it's valid
 		if ($discount_code <> "") {
-			$discount_query="SELECT * FROM `".$dbtablesprefix."discount` WHERE `code` = '".$discount_code."' AND `orderid` = '0'";
-			$discount_sql = mysql_query($discount_query) or die(mysql_error());
-			if (mysql_num_rows($discount_sql) == 0) {
+			$discount=new wsDiscount($discount_code);
+			if (!$discount->exists()) {
 				PutWindow($gfx_dir, $txt['general12'], $txt['checkout1'], "warning.gif", "50");
 				$error = 1;
-			}
-			else {
-				// let's read the discount
-				while ($discount_row = mysql_fetch_row($discount_sql)) {
-					$discount_amount = $discount_row[2];
-					$discount_percentage = $discount_row[3];
-				}
 			}
 		}
 		//check conditions accepted
@@ -218,20 +210,17 @@ if (LoggedIn() == True) {
 			}
 			// there might be a discount code
 			if ($discount_code <> "") {
+				$discount->calculate();
 				$message.= '<tr><td>'.$txt['checkout14'].'</td><td>'.$txt['checkout18'].' '.$discount_code.'<br />';
-				if ($discount_percentage == 1) {
+				if ($discount->percentage>0) {
 					// percentage
-					$discount_percentage = $discount_amount;
-					$discount_amount = ($total / 100) * $discount_amount;
-					$message.= $txt['checkout14'].' '.$discount_percentage.'%</td><td style="text-align: right"><strong>-'.$currency_symbol_pre.myNumberFormat($discount_amount,$number_format).$currency_symbol_post.'</strong></td></tr>';
+					$message.= $txt['checkout14'].' '.$discount->percentage.'%</td><td style="text-align: right"><strong>-'.$currency_symbol_pre.myNumberFormat($discount->discount,$number_format).$currency_symbol_post.'</strong></td></tr>';
 				}
 				else {
-					$message.= $txt['checkout14'].' '.$currency_symbol_pre.myNumberFormat($discount_amount,$number_format).$currency_symbol_post.'</td><td style="text-align: right"><strong>-'.$currency_symbol_pre.myNumberFormat($discount_amount,$number_format).$currency_symbol_post.'</strong></td></tr>';
+					$message.= $txt['checkout14'].' '.$currency_symbol_pre.myNumberFormat($discount->discount,$number_format).$currency_symbol_post.'</td><td style="text-align: right"><strong>-'.$currency_symbol_pre.myNumberFormat($discount->discount,$number_format).$currency_symbol_post.'</strong></td></tr>';
 				}
-				$total -= $discount_amount;
-				// disable discount
-				$query="UPDATE `".$dbtablesprefix."discount` SET `orderid` = '".$lastid."' WHERE `code` = '".$discount_code."'";
-				$sql = mysql_query($query) or die(mysql_error());
+				$total -= $discount->discount;
+				$discount->consume();
 			}
 
 			// if the customer added additional notes/questions, we will display them too
@@ -278,7 +267,7 @@ if (LoggedIn() == True) {
 			if ($shippingid == "2") { // pickup from store
 				$message .= $txt['checkout18']; // appointment line
 			}
-			else {
+			elseif ($_POST['address']!='') {
 				$message .= $txt['checkout17']; // shipping address
 			}
 			$message = $message . $txt['checkout6'].$txt['checkout6']; // white line
@@ -312,8 +301,6 @@ if (LoggedIn() == True) {
 				$paymentmessage .= $txt['checkout6'].$txt['checkout6']; // new line
 				$paymentmessage .= $txt['checkout26'];  // pay within xx days
 				if ($autosubmit && $payment_code!='') {
-					//$message .= '<!--payment-->';
-					//$message=str_replace('<!--payment-->','<div id="paymentmessage" style="display:none">'.$paymentmessage.'</div>',$message);
 					$message .= $paymentmessage;
 				} else {
 					$message .= $paymentmessage;
@@ -324,7 +311,7 @@ if (LoggedIn() == True) {
 			$message .= $txt['checkout9']; // direct link to customer order for online status checking
 
 			// order update
-			$query = "UPDATE `".$dbtablesprefix."order` SET `TOPAY` = '".$total."' WHERE `ID` = ".$lastid;
+			$query = "UPDATE `".$dbtablesprefix."order` SET `TOPAY` = '".$total."',`DISCOUNTCODE`=".qs($discount_code)." WHERE `ID` = ".$lastid;
 			$sql = mysql_query($query) or die(mysql_error());
 
 			//basket update
@@ -374,7 +361,7 @@ if (LoggedIn() == True) {
 
 			// email subject
 			$subject  = $txt['checkout10'].":".$webid;
-		 	
+
 			// email confirmation in case no autosubmit
 			if (!$autosubmit  || ($autosubmit && $payment_code=='')) {
 				$subject = $txt['checkout10'];
@@ -404,7 +391,7 @@ if (LoggedIn() == True) {
 				?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
-           setTimeout("checkout=new wsSubmit()",100);
+           wsSubmit();
            //]]>
 </script>
 				<?php

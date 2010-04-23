@@ -24,26 +24,28 @@
 <?php if ($index_refer <> 1) { exit(); } ?>
 <?php
 // admin check
+//error_reporting(E_ALL & ~E_NOTICE);
+//ini_set('display_errors', '1');
 if (IsAdmin() == false) {
 	PutWindow($gfx_dir, $txt['general12'], $txt['general2'], "warning.gif", "50");
 }
 else {
-
 	if ($action == "add_discount") {
 		$number = $_POST['number'];
 		for ($i = 0; $i <= $number; $i++) {
 			$code = CreateRandomCode(15);
-			$percentage = CheckBox($_POST['percentage']);
-			$amount = $_POST['amount'];
+			if (CheckBox($_POST['percentage'])) $percentage = $_POST['amount'];
+			else $amount = $_POST['amount'];
 			$createdate = Date($date_format);
-			$discount_query="INSERT INTO `".$dbtablesprefix."discount` (`code`, `orderid`, `amount`, `percentage`, `createdate`) VALUES ('".$code."', '0', '".$amount."', '".$percentage."', '".$createdate."')";
+			$discount_query="INSERT INTO `".$dbtablesprefix."discount` (`code`, `orderid`, `amount`, `percentage`, `createdate`, `expiryqty`) VALUES ('".$code."', '0', '".$amount."', '".$percentage."', '".$createdate."',1)";
 			$discount_sql = mysql_query($discount_query) or die(mysql_error());
 
 		}
 	}
 	if ($action == "delete_all") {
-		$discount_query="DELETE FROM `".$dbtablesprefix."discount` WHERE `orderid` = 0";
-		$discount_sql = mysql_query($discount_query) or die(mysql_error());
+		$db=new db();
+		$discount_query="DELETE FROM `##discount` WHERE `orderid` = 0 AND `createdate` <> '' AND `code` NOT IN (select distinct(`discountcode`) from `##order` where `discountcode` is not null)";
+		$db->update($discount_query);
 	}
 	echo '<table width="100%" class="borderless">
 				<tr><td>
@@ -64,6 +66,7 @@ else {
 			</table>
 			<br /><br />';		
 
+	/*
 	echo '<table width="100%" class="datatable">
 				<caption>'.$txt['discountadmin6'].'</caption>
 				<tr><th>'.$txt['discountadmin7'].'</th><th>'.$txt['discountadmin3'].'</th><th>'.$txt['discountadmin9'].'</th></tr>';
@@ -83,5 +86,6 @@ else {
 		}
 	}
 	echo '</table>';
+	*/
 }
 ?>
