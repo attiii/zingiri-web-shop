@@ -1243,7 +1243,7 @@ zingiri-web-shop/fws/topmenu.php,050a308db10eace4721072fe1b91bb02
 zingiri-web-shop/fws/uploadadmin.php,07bf67c055a354e04c9a29289267db6a
 zingiri-web-shop/index.php,d41d8cd98f00b204e9800998ecf8427e
 zingiri-web-shop/load.php,a6f8d9189453eafa40f46db9eb22f4a5
-zingiri-web-shop/readme.txt,dff58a80536cdb42991d7e59fdc8ca90
+zingiri-web-shop/readme.txt,c4167c3c7063161ece146c3c158432a9
 zingiri-web-shop/zap/classes/db.class.php,206286aa46be0adfb53211f9660a71b3
 zingiri-web-shop/zap/classes/element.class.php,064e6558d8ea2f448874727c83239f93
 zingiri-web-shop/zap/classes/form.class.php,568af625c20256388004e6174a02d7b8
