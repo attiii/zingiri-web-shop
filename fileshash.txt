@@ -770,7 +770,7 @@ zingiri-web-shop/fws/db/FreeWebshop-1.3.0.sql,f2a697883c011e622651d3ad2798b24f
 zingiri-web-shop/fws/db/FreeWebshop-1.3.1.sql,e86088dbd689cb089ce200901810ec4c
 zingiri-web-shop/fws/db/FreeWebshop-1.3.4.sql,7023a399521044396528f5e92272956c
 zingiri-web-shop/fws/db/FreeWebshop-1.3.6.sql,e22881b9479d5f5e567d3b871f6e9edc
-zingiri-web-shop/fws/db/FreeWebshop-1.3.7.sql,c04c4628d0bae0f11df6ffb7a81d7de3
+zingiri-web-shop/fws/db/FreeWebshop-1.3.7.sql,332e9b96df12eb1773ec59e5b62f6f95
 zingiri-web-shop/fws/db/index.php,d41d8cd98f00b204e9800998ecf8427e
 zingiri-web-shop/fws/details.php,85755268b902625b828e027bfc3254bf
 zingiri-web-shop/fws/discount.php,819ade6a9d7db1ed189d3d14e030bc33

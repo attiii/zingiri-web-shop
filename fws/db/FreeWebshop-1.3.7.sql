@@ -1,7 +1,3 @@
--- remove this
-INSERT INTO `##faccess` (`FORMID`,`ROLEID`,`DATE_CREATED`) VALUES (52,2,'2010-04-19 16:28:32');
-INSERT INTO `##flink` (`DISPLAYIN`,`FORMIN`,`DISPLAYOUT`,`FORMOUT`,`FORMOUTALT`,`ACTIONOUT`,`MAPPING`,`ACTION`,`ICON`,`REDIRECT`,`DATE_CREATED`) VALUES ('list',0,'list',52,'','','id:customerId','','','','2010-04-19 16:48:18');
-
 -- discount codes
 INSERT INTO `##flink` (`FORMIN`,`FORMOUT`,`DISPLAYIN`,`DISPLAYOUT`,`ACTION`,`ACTIONOUT`,`ICON`) VALUES (59,59,'list','form','edit','edit','edit.png');
 INSERT INTO `##flink` (`FORMIN`,`FORMOUT`,`DISPLAYIN`,`DISPLAYOUT`,`ACTION`,`ACTIONOUT`,`ICON`) VALUES (59,59,'list','form','delete','delete','delete.png');
