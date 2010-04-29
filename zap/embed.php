@@ -40,7 +40,10 @@ if (!defined("ZING_APPS_EMBED")) {
 }
 
 if (!defined("ZING_APPS_PLAYER_PLUGIN")) {
-	$zing_apps_player_plugin=str_replace(WP_PLUGIN_DIR."/","",dirname(__FILE__));;
+	//$zing_apps_player_plugin=str_replace(WP_PLUGIN_DIR."/","",dirname(__FILE__));;
+	//define("ZING_APPS_PLAYER_PLUGIN", $zing_apps_player_plugin);
+	$zing_apps_player_plugin=str_replace(realpath(dirname(__FILE__).'/../..'),"",dirname(__FILE__));
+	$zing_apps_player_plugin=substr($zing_apps_player_plugin,1);
 	define("ZING_APPS_PLAYER_PLUGIN", $zing_apps_player_plugin);
 }
 
@@ -96,6 +99,10 @@ function zing_apps_player_echo($stringData) {
  * @return unknown_type
  */
 function zing_apps_player_activate() {
+	//nothing happening here
+}
+
+function zing_apps_player_install() {
 	global $wpdb;
 
 	if (!function_exists('zfCreate')) require(dirname(__FILE__).'/includes/create.inc.php');

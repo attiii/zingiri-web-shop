@@ -60,6 +60,24 @@ Before upgrading, make sure you back up your database first!
 If you made changes to the style sheet (zing.css) or the language files, make sure you back them up before the upgrade and restore them after.
 == Changelog ==
 
+= 1.4.0 =
+* New: dashboard page showing key indicators
+* New: added support for IDEAL Lite / Mollie.nl payment method
+* New: display "pay with" button on final checkout page (in case automated redirect doesn't work)
+* Change: combined product edit and product image edit in one page
+* Change: plugin is not automatically installed upon activation, the user is invited to do the installation, also the user is presented with error/warnings before installation
+* Change: display of error and warning messages made clearer
+* Change: added merchant id and secret key in payment methods and revamped payment method admin screens 
+* Fix: corrected checkout confirmation email text (Dutch version)
+* Fix: adjusted width of comments box on checkout page to fit to page
+* Fix: don't load javascript when browsing through products in backend
+* Fix: fixed issue with plugin not activating on WAMP installations ("unknown column ID in where clause" issue)
+* Fix: support installation on database configurations that don't have a password set
+* Fix: fixed issue with wp_mail emails being sent in plain text instead of HTML
+* Fix: fixed issue with redirect to payment portal not working properly in some cases
+* Fix: fixed issue with clicking on checkout taking customers to home page rather than to checkout page
+
+
 = 1.3.7 =
 * New: added new discounts functionality allowing creation of multi-use discount codes limited by category, product, time and use
 * New: added support for using wp_mail as main mailing engine

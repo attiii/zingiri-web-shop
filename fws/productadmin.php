@@ -110,51 +110,21 @@ else {
 		if (file_exists($product_dir."/tn_".$picid.".png")) 	{ unlink($product_dir."/tn_".$picid.".png"); }
 			
 		if ($action == "del_image") { PutWindow($gfx_dir, $txt['general13'] , $txt['productadmin25'], "notify.gif", "50"); }
-	}
-
-	// upload the screenshot to the correct folder
-	if ($action == "upload_screenshot") {
-		// on special request: remember the category of a new added product
-		if (!empty($_POST['pcat'])) {
-			$pcat=$_POST['pcat'];
-		}
-
-		$file = $_FILES['uploadedfile']['name'];
-		$ext = explode(".", $file);
-		$ext = strtolower(array_pop($ext));
-
-		if ($ext == "jpg" || $ext == "gif" || $ext == "png") {
-			$target_path = $product_dir."/".$picid.".".$ext;
-
-			if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path)) {
-				chmod($target_path,0644); // new uploaded file can sometimes have wrong permissions
-				// lets try to create a thumbnail of this new image shall we
-				if ($make_thumbs == 1) {
-					createthumb($target_path,$product_dir.'/tn_'.$picid.".".$ext,$pricelist_thumb_width,$pricelist_thumb_height);
-				}
-				PutWindow($gfx_dir, $txt['general13'], basename( $_FILES['uploadedfile']['name']).$txt['productadmin1'].$target_path, "notify.gif", "50");
-				echo "<h4><a href=\"?page=productadmin&action=add_product&pcat=".$pcat."\">".$txt['productadmin4']."</a></h4>";
-			}
-			else{
-				PutWindow($gfx_dir, $txt['general12'], $txt['productadmin2'], "warning.gif", "50");
-				echo "debug info:<br />";
-				print_r($_FILES);
-			}
-		}
-		else { PutWindow($gfx_dir, $txt['general12'], $txt['productadmin3'], "warning.gif", "50"); }
+		$nextlink="<h4><a href=\"?page=browse&action=list&group=".$pgroup."&cat=".$pcat."\">".$txt['productadmin5']."</a></h4>";
+		
 	}
 
 	// save new product in database
 	if ($action == "save_new_product") {
-		if ($file = $_FILES['uploadedfile']['name']) {
+		if ($file = $_FILES['digitalfile']['name']) {
 			$ext = explode(".", $file);
 			$ext = strtolower(array_pop($ext));
 			$random = CreateRandomCode(15);
 			$link=$random.'__'.$file;
 
 			$target_path = ZING_DIG.$link;
-			
-			if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path)) {
+
+			if(move_uploaded_file($_FILES['digitalfile']['tmp_name'], $target_path)) {
 				chmod($target_path,0644); // new uploaded file can sometimes have wrong permissions
 				// lets try to create a thumbnail of this new image shall we
 			}
@@ -164,7 +134,7 @@ else {
 				print_r($_FILES);
 			}
 		} else { $link=""; }
-		
+
 		$query="INSERT INTO `".$dbtablesprefix."product` (`LINK`,`PRODUCTID`,`CATID`,`DESCRIPTION`,`PRICE`,`STOCK`,`FRONTPAGE`,`NEW`,`FEATURES`,`WEIGHT`) VALUES ('".$link."','".$pid."','".$pcat."','".$pdescription."','".$pprice."','".$pstock."','".$pfrontpage."','".$pnew."','".$pfeatures."','".$pweight."')";
 		$sql = mysql_query($query) or die(mysql_error());
 
@@ -174,8 +144,9 @@ else {
 		}
 		else { $picid = mysql_insert_id(); }
 
-		echo "<h4><a href=\"?page=productadmin&action=add_product&pcat=".$pcat."\">".$txt['productadmin4']."</a></h4>";
-		$action = "picture_upload_form";
+		PutWindow($gfx_dir, $txt['general13'] , $txt['customer13'], "notify.gif", "50");
+		$nextlink="<h4><a href=\"?page=productadmin&action=add_product&pcat=".$pcat."\">".$txt['productadmin4']."</a></h4>";
+	//	$action = "picture_upload_form";
 	}
 
 	// update product with new values in database
@@ -196,9 +167,9 @@ else {
 			}
 			else { $picid = $row[1]; }    // pic id is product id
 		}
-		
+
 		//new digital file
-		if ($file = $_FILES['uploadedfile']['name']) {
+		if ($file = $_FILES['digitalfile']['name']) {
 			if ($row['LINK']) unlink(ZING_DIG.$row['LINK']);
 			$ext = explode(".", $file);
 			$ext = strtolower(array_pop($ext));
@@ -207,7 +178,7 @@ else {
 
 			$target_path = ZING_DIG.$link;
 
-			if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path)) {
+			if(move_uploaded_file($_FILES['digitalfile']['tmp_name'], $target_path)) {
 				chmod($target_path,0644); // new uploaded file can sometimes have wrong permissions
 				// lets try to create a thumbnail of this new image shall we
 			}
@@ -217,59 +188,16 @@ else {
 				print_r($_FILES);
 			}
 		} else { $link=""; }
-		
+
 		// now save new data
 		$query="UPDATE `".$dbtablesprefix."product` SET `PRODUCTID`='".$pid."',`CATID`='".$pcat."',`DESCRIPTION`='".$pdescription."',`PRICE`='".$pprice."',`STOCK`='".$pstock."',`FRONTPAGE`='".$pfrontpage."',`NEW`='".$pnew."',`FEATURES`='".$pfeatures."',`WEIGHT`='".$pweight."'";
 		if ($link) $query.=",`LINK`='".$link."'";
 		$query.=" WHERE ID=".$prodid;
 		$sql = mysql_query($query) or die(mysql_error());
-		echo "<h4><a href=\"?page=browse&action=list&group=".$pgroup."&cat=".$pcat."\">".$txt['productadmin5']."</a></h4>";
-		$action = "picture_upload_form";
-	}
-	// optionally upload a screenshot
-	if ($action == "picture_upload_form") {
-		echo "<br /><br />";
-		if (empty($picid)) {
-			PutWindow($gfx_dir, $txt['general12'], $txt['productadmin23'], "warning.gif", "50");
-		}
-		else {
-			$thumb = "";
-			if (file_exists($product_dir."/".$picid.".jpg")) { $thumb = $picid.".jpg"; }
-			if (file_exists($product_dir."/".$picid.".gif")) { $thumb = $picid.".gif"; }
-			if (file_exists($product_dir."/".$picid.".png")) { $thumb = $picid.".png"; }
-			if ($thumb != "") {
-				$size = getimagesize($product_dir."/".$thumb);
-				$height = $size[1];
-				$width = $size[0];
-				if ($height > 350)
-				{
-					$height = 350;
-					$percent = ($size[1] / $height);
-					$width = round($size[0] / $percent);
-				}
-				if ($width > 450)
-				{
-					$width = 450;
-					$percent = ($size[0] / $width);
-					$height = round($size[1] / $percent);
-				}
-				echo "<h4><img src=\"".$product_url."/".$thumb."\" class=\"borderimg\" height=".$height." width=".$width."><br />";
-				echo "<a href=\"".zurl("index.php?page=productadmin&action=del_image&picid=".$picid)."\">".$txt['productadmin24']."</a></h4>";
-			}
-			echo "<br /><br />";
-			echo "<table width=\"80%\" class=\"datatable\">";
-			echo "<caption>".$txt['productadmin21']."</caption>";
-			echo "<tr><td>";
-			echo "<form enctype=\"multipart/form-data\" action=\"".zurl('index.php?page=productadmin',false)."\" method=\"POST\">";
-			echo "<input type=\"hidden\" name=\"action\" value=\"upload_screenshot\">";
-			echo "<input type=\"hidden\" name=\"picid\" value=\"".$picid."\">";
-			echo "<input type=\"hidden\" name=\"pcat\" value=\"".$pcat."\">";
-			echo "<input type=\"hidden\" name=\"MAX_FILE_SIZE\" value=\"20000000\">";
-			echo $txt['productadmin19']." <input name=\"uploadedfile\" type=\"file\"><br />";
-			echo "<input type=\"submit\" value=\"".$txt['productadmin20']."\">";
-			echo "</form>";
-			echo "</td></tr></table>";
-		}
+		PutWindow($gfx_dir, $txt['general13'] , $txt['customer13'], "notify.gif", "50");
+		$nextlink="<h4><a href=\"?page=browse&action=list&group=".$pgroup."&cat=".$pcat."\">".$txt['productadmin5']."</a></h4>";
+		
+	//	$action = "picture_upload_form";
 	}
 
 	// delete product
@@ -285,6 +213,37 @@ else {
 		PutWindow($gfx_dir, $txt['general13'] , $txt['productadmin26'], "notify.gif", "50");
 	}
 
+	// upload the screenshot to the correct folder
+	if (isset($_FILES['uploadedfile']['name']) && ($action == "update_product" || $action == "save_new_product")) {
+
+		$file = $_FILES['uploadedfile']['name'];
+		$ext = explode(".", $file);
+		$ext = strtolower(array_pop($ext));
+
+		if ($ext == "jpg" || $ext == "gif" || $ext == "png") {
+			$target_path = $product_dir."/".$picid.".".$ext;
+
+			if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path)) {
+				chmod($target_path,0644); // new uploaded file can sometimes have wrong permissions
+				// lets try to create a thumbnail of this new image shall we
+				if ($make_thumbs == 1) {
+					createthumb($target_path,$product_dir.'/tn_'.$picid.".".$ext,$pricelist_thumb_width,$pricelist_thumb_height);
+				}
+				//PutWindow($gfx_dir, $txt['general13'], basename( $_FILES['uploadedfile']['name']).$txt['productadmin1'].$target_path, "notify.gif", "50");
+				//echo "<h4><a href=\"?page=productadmin&action=add_product&pcat=".$pcat."\">".$txt['productadmin4']."</a></h4>";
+			}
+			else{
+				PutWindow($gfx_dir, $txt['general12'], $txt['productadmin2'], "warning.gif", "50");
+				echo "debug info:<br />";
+				print_r($_FILES);
+			}
+		}
+		else { PutWindow($gfx_dir, $txt['general12'], $txt['productadmin3'], "warning.gif", "50"); }
+	}
+
+	//display next link if any
+	echo $nextlink;
+	
 	// read values to show in form
 	if ($action == "edit_product") {
 		$query = "SELECT * FROM `".$dbtablesprefix."product` WHERE ID=".$prodid;
@@ -301,7 +260,11 @@ else {
 			$pfeatures = $row[8];
 			$pweight = $row[9];
 			$link = explode('__',$row['LINK']);
-			
+			// determine how to name the picture
+			if ($pictureid == 1) {
+				$picid = $row[0];         // pic id is database id
+			}
+			else { $picid = $row[1]; }    // pic id is product id
 		}
 	}
 
@@ -361,7 +324,7 @@ else {
 			echo $txt['productadmin9']." <input type=\"text\" name=\"pid\" size=\"60\" maxlength=\"60\" value=\"".$pid."\"><br />";
 			echo $txt['productadmin10']."<br /><textarea name=\"text2edit\" rows=\"15\" cols=\"50\">".$pdescription."</textarea><br />";
 			echo "<input type=\"hidden\" name=\"MAX_FILE_SIZE\" value=\"50000000\">";
-			echo $txt['productadmin100']." <input name=\"uploadedfile\" size=\"35\" type=\"file\">  ".$link[1]."<br />";
+			echo $txt['productadmin100']." <input name=\"digitalfile\" size=\"35\" type=\"file\">  ".$link[1]."<br />";
 			echo $txt['productadmin30']." <input type=\"text\" name=\"pfeatures\" size=\"55\" value=\"".$pfeatures."\"><br />";
 			echo $txt['productadmin11'];
 			if ($no_vat == 0 && $db_prices_including_vat == 0) { echo " (".$txt['general6']." ".$txt['general5'].")"; }
@@ -378,6 +341,9 @@ else {
 			echo " <input type=\"text\" name=\"pstock\" size=\"4\" maxlength=\"10\" value=\"".$pstock."\"><br />";
 			echo $txt['productadmin14']." <input type=\"checkbox\" name=\"pfrontpage\" "; if ($pfrontpage == 1) { echo "checked"; } echo "><br />";
 			echo $txt['productadmin15']." <input type=\"checkbox\" name=\"pnew\" "; if ($pnew == 1) { echo "checked"; } echo "><br />";
+			echo $txt['productadmin21'].' '.wsComments($txt['productadmin19']).'<input name="uploadedfile" type="file" onChange="wsImageUpload(1);"><br />';
+			wsShowImage($picid);
+				
 			echo "<br /><div align=center>";
 
 			if ($action == "add_product") {
@@ -393,15 +359,96 @@ else {
 		else {
 			if ($catNum ==0) { echo "</select><br /><br />".$txt['productadmin22']; }
 		}
-
+			
 		echo "</div></form>";
 		echo "</td></tr></table>";
 			
+	}
+
+	/*
+	 // optionally upload a screenshot
+	 if ($action == "picture_upload_form" || $action == "edit_product") {
+		echo "<br /><br />";
+		//if (empty($picid)) {
+		if (1==0) {
+		PutWindow($gfx_dir, $txt['general12'], $txt['productadmin23'], "warning.gif", "50");
+		}
+		else {
+		$thumb = "";
+		if (file_exists($product_dir."/".$picid.".jpg")) { $thumb = $picid.".jpg"; }
+		if (file_exists($product_dir."/".$picid.".gif")) { $thumb = $picid.".gif"; }
+		if (file_exists($product_dir."/".$picid.".png")) { $thumb = $picid.".png"; }
+		if ($thumb != "") {
+		$size = getimagesize($product_dir."/".$thumb);
+		$height = $size[1];
+		$width = $size[0];
+		if ($height > 350)
+		{
+		$height = 350;
+		$percent = ($size[1] / $height);
+		$width = round($size[0] / $percent);
+		}
+		if ($width > 450)
+		{
+		$width = 450;
+		$percent = ($size[0] / $width);
+		$height = round($size[1] / $percent);
+		}
+		echo "<h4><img src=\"".$product_url."/".$thumb."\" class=\"borderimg\" height=".$height." width=".$width."><br />";
+		echo "<a href=\"".zurl("index.php?page=productadmin&action=del_image&picid=".$picid)."\">".$txt['productadmin24']."</a></h4>";
+		}
+		echo "<br /><br />";
+		echo "<table width=\"80%\" class=\"datatable\">";
+		echo "<caption>".$txt['productadmin21']."</caption>";
+		echo "<tr><td>";
+		echo "<form enctype=\"multipart/form-data\" action=\"".zurl('index.php?page=productadmin',false)."\" method=\"POST\">";
+		echo "<input type=\"hidden\" name=\"action\" value=\"upload_screenshot\">";
+		echo "<input type=\"hidden\" name=\"picid\" value=\"".$picid."\">";
+		echo "<input type=\"hidden\" name=\"pcat\" value=\"".$pcat."\">";
+		echo "<input type=\"hidden\" name=\"MAX_FILE_SIZE\" value=\"20000000\">";
+		echo $txt['productadmin19']." <input name=\"uploadedfile\" type=\"file\"><br />";
+		echo "<input type=\"submit\" value=\"".$txt['productadmin20']."\">";
+		echo "</form>";
+		echo "</td></tr></table>";
+		}
+		}
+		*/
+	//make thumbnail option
+	if ($action == "add_product" || $action == "edit_product") {
 		echo "<br /><br />";
 		echo "<h6>".$txt['productadmin27']."</h6>";
 		echo "<ul>";
 		echo "<li><a href=\"?page=productadmin&action=check_thumbs\">".$txt['productadmin28']."</a></li>";
 		echo "</ul>";
 	}
+}
+
+function wsShowImage($picid) {
+	global $product_dir,$product_url,$txt;
+	if (file_exists($product_dir."/".$picid.".jpg")) { $thumb = $picid.".jpg"; }
+	if (file_exists($product_dir."/".$picid.".gif")) { $thumb = $picid.".gif"; }
+	if (file_exists($product_dir."/".$picid.".png")) { $thumb = $picid.".png"; }
+	if ($thumb != "") {
+		$size = getimagesize($product_dir."/".$thumb);
+		$height = $size[1];
+		$width = $size[0];
+		if ($height > 200)
+		{
+			$height = 200;
+			$percent = ($size[1] / $height);
+			$width = round($size[0] / $percent);
+		}
+		if ($width > 200)
+		{
+			$width = 200;
+			$percent = ($size[0] / $width);
+			$height = round($size[1] / $percent);
+		}
+		echo "<h4><img src=\"".$product_url."/".$thumb."\" class=\"borderimg\" height=".$height." width=".$width."><br />";
+		echo "<a href=\"".zurl("index.php?page=productadmin&action=del_image&picid=".$picid)."\">".$txt['productadmin24']."</a></h4>";
+	}
+}
+if (ZING_PROTOTYPE) {
+	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/imageupload.proto.js"></script>';
 }
 ?>

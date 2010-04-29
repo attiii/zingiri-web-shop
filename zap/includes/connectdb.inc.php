@@ -21,7 +21,7 @@
  */
 ?>
 <?php
-if  ($dblocation == "" || $dbuser == "" || $dbpass == "") {
+if  ($dblocation == "" || $dbuser == "") {
 	echo "<h1>Please run <a href=\"install.php\">the installation</a> first</h1>";
 	exit;
 }

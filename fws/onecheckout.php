@@ -90,12 +90,9 @@ if (loggedin()) {
 	<caption><?php echo $txt['cart9']; ?></caption>
 	<tr>
 		<td colspan="4"><?php echo $txt['shipping2'] ?><br />
-		<?php if (ZING_PROTOTYPE) {?> <SELECT NAME="shipping" id="shipping">
-		<?php } else {?>
 			<SELECT NAME="shipping" id="shipping"
 				onChange="this.form.action='?page=onecheckout';this.form.submit();"
 			>
-			<?php }?>
 			<?php
 			// find out the shipping methods
 			$query="SELECT * FROM `".$dbtablesprefix."shipping` ORDER BY `id`";
@@ -376,7 +373,7 @@ if (loggedin()) {
 	<?php //notes
 	echo $txt['shipping3'];
 	?><br />
-<textarea name="notes" rows="5" cols="80"><?php echo $notes;?></textarea><br />
+<textarea name="notes" rows="5" style="width:100%"><?php echo $notes;?></textarea><br />
 <br />
 <br />
 <br />
@@ -392,8 +389,8 @@ if (loggedin()) {
 		?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
-           $checkout=new wsCheckout();
-           $checkout.checkout();
+           //$checkout=new wsCheckout();
+           //$checkout.checkout();
 //]]>
 </script>
 <?php 

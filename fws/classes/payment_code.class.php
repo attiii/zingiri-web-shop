@@ -10,13 +10,24 @@ class paymentCode {
 		// read the payment method
 		$query = sprintf("SELECT * FROM `".$dbtablesprefix."payment` WHERE `id` = %s", quote_smart($paymentid));
 		$sql = mysql_query($query) or die(mysql_error());
-		if ($row = mysql_fetch_row($sql)) {
+		if ($row = mysql_fetch_array($sql)) {
+			//IDEAL hash
+			$validity="2016-01-01T12:00:00:0000Z";
+			$shastring = $row['SECRET'] . $row['MERCHANTID'] . "0" . $total_nodecimals. $webid . "ideal" . $validity . "12345" . $webid . "1". $total_nodecimals;
+			$clean_shaString = HTML_entity_decode($shastring);
+			$not_allowed = array("\t", "\n", "\r", " "); 
+			$clean_shaString = str_replace($not_allowed, "",$clean_shaString);
+			$idealhash = sha1($clean_shaString);
+				
 			$payment_descr = $row[1];
 			$payment_code = $row[2];
 			// there could be some variables in the code, like %total%, %webid% and %shopurl% so lets update them with the correct values
 			if ($autosubmit) $payment_code=str_replace('target="_new"','',$payment_code);
-			$payment_code = str_replace('name="autosubmit"','id="autosubmit" name="autosubmit"',$payment_code);
+			$payment_code = str_replace('<form','<form id="autosubmit"',$payment_code);
 			$payment_code = str_replace("%total_nodecimals%", $total_nodecimals, $payment_code);
+			$payment_code = str_replace("%validity%", $validity, $payment_code);
+			$payment_code = str_replace("%idealhash%", $idealhash, $payment_code);
+			$payment_code = str_replace("%merchantid%", $row['MERCHANTID'], $payment_code);
 			$payment_code = str_replace("%total%", $total, $payment_code);
 			$payment_code = str_replace("%webid%", $webid, $payment_code);
 			$payment_code = str_replace("%shopurl%", $shopurl, $payment_code);

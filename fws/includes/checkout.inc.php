@@ -134,14 +134,18 @@ function CheckoutNextStep() {
 		$redir="?page=checkout";
 	}
 	if ($redir) {
+		//default Shop page
+		$ps=explode(",",get_option("zing_webshop_pages"));
+		$pid=$ps[2];
+
 		if ($shippingid) $redir.="&shippingid=".$shippingid;
 		if ($weightid) $redir.="&weightid=".$weightid;
 		if ($paymentid) $redir.="&paymentid=".$paymentid;
 		if ($notes) $redir.="&notes=".$notes;
 		if ($discount_code) $redir.="&discount_code=".$discount_code;
-		header("Location: ".ZING_HOME.$redir);
+		$redir=ZING_HOME.'/index.php'.$redir.'&page_id='.$pid;
+		header("Location: ".$redir);
 		exit;
 	}
-
 }
 ?>

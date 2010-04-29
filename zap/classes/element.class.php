@@ -294,7 +294,7 @@ EOT;
 							}
 							$subscript_markup.="<label for=\"element_{$this->id}_{$i}\">{$xmlf->fields->{'field'.$i}->label}</label>";
 
-
+/*
 			} elseif ($values=$xmlf->fields->{'field'.$i}->type == "textarea") {
 								//textarea
 								$size=$xmlf->fields->{'field'.$i}->size;
@@ -303,7 +303,7 @@ EOT;
 								if (!is_numeric($sizes[1])) $sizes[1]=3;
 								$field_markup.="<textarea id=\"element_{$this->id}_{$i}\" name=\"element_{$this->id}_{$i}\" class=\"element text\" cols=\"{$sizes[0]}\" rows=\"{$sizes[1]}\" {$this->readonly}>{$this->populated_value['element_'.$this->id.'_'.$i]}</textarea>";
 								$subscript_markup.="<label id=\"label_{$this->id}_{$i}\"for=\"element_{$this->id}_{$i}\">".$xmlf->fields->{'field'.$i}->label."</label>";
-
+*/
 			} elseif ($values=$xmlf->fields->{'field'.$i}->type == "submit") {
 								//submit
 								if($this->populated_value['element_'.$this->id.'_'.$i] == ""){

@@ -1,5 +1,5 @@
 <?php
-/*  zingiri_webshop.php
+/*  dashboard.php
  Copyright 2008,2009 Erik Bogaerts
  Support site: http://www.zingiri.com
 
@@ -21,13 +21,22 @@
  */
 ?>
 <?php
-/** Loads the WordPress Environment */
-require(dirname(__FILE__).'/../../../../../wp-blog-header.php');
 
-/** Load Zingiri Web Shop */
-require(dirname(__FILE__).'/../../zing.readcookie.inc.php');
-require(dirname(__FILE__).'/../../zing.startmodules.inc.php');
+$zing->addToDashboard('statistics');
 
-/** Display cart */
-require(dirname(__FILE__).'/../menu_cart.php');
+function statistics() {
+
+	global $txt;
+
+	//statistics
+	echo '<div id="dashboard_statistics" class="dashboard">';
+	$stats=new dashboardStats($txt['dashboard3']);
+	$stats->add($txt['admin3'],"select count(*) as `result` from ##customer",'#');
+	$stats->add($txt['admin2'],"select count(*) as `result` from ##order",'orderadmin');
+	$stats->add($txt['dashboard4'],"select sum(`topay`) as `result` from ##order where `status` > '0'",'#','amount');
+	$stats->add($txt['dashboard5'],"select avg(`topay`) as `result` from ##order where `status` > '0'",'#','amount');
+	$stats->display();
+	echo '</div>';
+
+}
 ?>

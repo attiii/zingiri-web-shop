@@ -97,9 +97,6 @@ $dbpass = DB_PASSWORD;
 
 $zing_version=get_option("zing_webshop_version");
 
-//error_reporting(E_ALL & ~E_NOTICE);
-//ini_set('display_errors', '1');
-
 require (ZING_LOC."./zing.startfunctions.inc.php");
 require_once(dirname(__FILE__) . '/zing.integrator.class.php');
 if ($zing_version) {
@@ -127,6 +124,7 @@ if ($zing_version) {
 	}
 }
 add_action("init","zing_init_uninstall");
+add_action('admin_notices','zing_admin_notices');
 
 if (!defined("ZING_DIG") && get_option('zing_webshop_dig')!="") {
 	define("ZING_DIG",BLOGUPLOADDIR.'/zingiri-web-shop/digital-'.get_option('zing_webshop_dig').'/');
@@ -134,23 +132,25 @@ if (!defined("ZING_DIG") && get_option('zing_webshop_dig')!="") {
 
 require_once(dirname(__FILE__) . '/controlpanel.php');
 
+function zing_admin_notices() {
+	$zing_version=get_option("zing_webshop_version");
+
+	if (!$zing_version) {
+		$message='Zingiri Web Shop is almost ready. You need to launch the <a href="admin.php?page=zingiri-web-shop">installation</a>.';
+	} elseif ($zing_version != ZING_VERSION) {
+		$message='You downloaded Zingiri Web Shop version '.ZING_VERSION.' and need to <a href="admin.php?page=zingiri-web-shop">upgrade</a> your database (currently at version '.$zing_version.').';
+	}
+	if ($message) echo "<div id='zing-warning' style='background-color:greenyellow' class='updated fade'><p><strong>".$message."</strong> "."</p></div>";
+
+
+}
+
 function zing_init_uninstall() {
 	if (current_user_can('edit_plugins') && $_GET['zingiri']=='uninstall') {
 		zing_uninstall();
 		zing_apps_player_uninstall();
 		header("Location: options-general.php?page=zingiri-web-shop&uninstalled=true");
 	}
-}
-/**
- * Output activation messages to log
- * @param $stringData
- * @return unknown_type
- */
-function zing_echo($stringData) {
-	$myFile = ZING_LOC."/log.txt";
-	$fh = fopen($myFile, 'a') or die("can't open file");
-	fwrite($fh, $stringData);
-	fclose($fh);
 }
 
 /**
@@ -165,30 +165,40 @@ function zing_check() {
 	$dirs=array();
 	$zing_version=get_option("zing_webshop_version");
 
-	if ($zing_version == "") { $errors[]='Please proceed with a clean install or deactivate your plugin'; 	return array('errors'=> $errors, 'warnings' => $warnings); }
-	elseif ($zing_version != ZING_VERSION) $errors[]='You downloaded version '.ZING_VERSION.' and need to upgrade your database (currently at version '.$zing_version.').';
+	//if ($zing_version == "") {
+	//$errors[]='Please proceed with a clean install or deactivate your plugin';
+	//return array('errors'=> $errors, 'warnings' => $warnings);
+	//}
+	//elseif ($zing_version != ZING_VERSION) $errors[]='You downloaded version '.ZING_VERSION.' and need to upgrade your database (currently at version '.$zing_version.').';
 
-	if ($zing_version < '1.2.0') return $errors;
+	//if ($zing_version < '1.2.0') return $errors;
 
 	$files[]=ZING_LOC.'log.txt';
 	$files[]=ZING_DIR.'banned.txt';
 
 	foreach ($files as $file) {
-		if (!file_exists($file)) $warnings[]='File '.$file. " doesn't exist";
-		elseif (!is_writable($file)) $warnings[]='File '.$file.' is not writable, please chmod to 666';
+		//		if (!file_exists($file)) $warnings[]='File '.$file. " doesn't exist";
+		if (!is_writable($file)) $warnings[]='File '.$file.' is not writable, please chmod to 666';
 	}
 
-	$dirs[]=BLOGUPLOADDIR.'zingiri-web-shop';
-	$dirs[]=BLOGUPLOADDIR.'zingiri-web-shop/prodgfx';
-	$dirs[]=BLOGUPLOADDIR.'zingiri-web-shop/cats';
-	$dirs[]=BLOGUPLOADDIR.'zingiri-web-shop/orders';
-	$dirs[]=BLOGUPLOADDIR.'zingiri-web-shop/digital-'.get_option('zing_webshop_dig');
 	$dirs[]=ZING_DIR.'addons/captcha';
 	$dirs[]=ZING_DIR.'addons/tinymce/jscripts/up';
-
 	foreach ($dirs as $file) {
-		if (!file_exists($file)) $warnings[]='Directory '.$file. " doesn't exist";
-		elseif (!is_writable($file)) $warnings[]='Directory '.$file.' is not writable, please chmod to 777';
+		if (!is_writable($file)) $warnings[]='Directory '.$file.' is not writable, please chmod to 777';
+	}
+	
+	if ($zing_version) {
+		$dirs=array();
+		$dirs[]=BLOGUPLOADDIR.'zingiri-web-shop';
+		$dirs[]=BLOGUPLOADDIR.'zingiri-web-shop/prodgfx';
+		$dirs[]=BLOGUPLOADDIR.'zingiri-web-shop/cats';
+		$dirs[]=BLOGUPLOADDIR.'zingiri-web-shop/orders';
+		$dirs[]=BLOGUPLOADDIR.'zingiri-web-shop/digital-'.get_option('zing_webshop_dig');
+
+		foreach ($dirs as $file) {
+			if (!file_exists($file)) $warnings[]='Directory '.$file. " doesn't exist";
+			elseif (!is_writable($file)) $warnings[]='Directory '.$file.' is not writable, please chmod to 777';
+		}
 	}
 
 	if (phpversion() < '5')	$warnings[]="You are running PHP version ".phpversion().". If you wish to use the PDF invoice generation functionality, you will need to upgrade to version 5.x.x";
@@ -202,7 +212,7 @@ function zing_check() {
 	} elseif (count($checksumErrors) > 0) {
 		foreach ($checksumErrors as $file => $error) {
 			if ($error == 1) $errors[]="File ".$file." is missing";
-			if ($error == 2) $errors[]="File ".$file." is not the correct version";
+			if ($error == 2) $warnings[]="File ".$file." is not the correct version";
 		}
 	}
 
@@ -229,6 +239,10 @@ function zing_ws_error_handler_truncate() {
  * @return unknown_type
  */
 function zing_activate() {
+	//nothing happening here
+}
+
+function zing_install() {
 	global $wpdb,$zingPrompts,$dbtablesprefix;
 
 	$player=false;
@@ -274,7 +288,7 @@ function zing_activate() {
 				list($file,$v)=$afile;
 				zing_ws_error_handler(0,$file);
 				if ($v>='1.2.7' && !$player) {
-					zing_apps_player_activate();
+					zing_apps_player_install();
 					$player=true;
 					zing_ws_error_handler(0,'continue with:'.$file);
 				}
@@ -375,7 +389,7 @@ function zing_activate() {
 		}
 	}
 
-	//defaut Apps page
+	//default Apps page
 	$ps=explode(",",get_option("zing_webshop_pages"));
 	update_option("zing_apps_player_page",$ps[0]);
 
@@ -461,9 +475,9 @@ function zing_uninstall() {
 
 	//remove uploads sub-directory
 	rmdir(BLOGUPLOADDIR.'zingiri-web-shop');
-	
+
 	if (function_exists('zing_apps_player_uninstall')) zing_apps_player_uninstall(false);
-	
+
 	restore_error_handler();
 }
 
@@ -711,7 +725,6 @@ function zing_header()
 	echo "var wsURL='".ZING_URL."fws/ajax/';";
 	echo '</script>';
 
-	
 	if (ZING_PROTOTYPE) {
 		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/checkout.proto.js"></script>';
 		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/cart.js"></script>';
@@ -720,7 +733,7 @@ function zing_header()
 		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/checkout.jquery.js"></script>';
 	}
 	echo '<link rel="stylesheet" type="text/css" href="' . ZING_URL . 'zing.css" media="screen" />';
-	
+
 	echo '<link rel="stylesheet" href="' . ZING_URL . 'fws/addons/lightbox/lightbox.css" type="text/css" media="screen" />';
 	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/addons/lightbox/lightbox.js"></script>';
 	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/cookie.js"></script>';
@@ -1157,19 +1170,19 @@ function zing_profile($user_id) {
 	if ($db->readRecord('customer',array('LOGINNAME' => $user_data->user_login))) {
 		$db->updateRecord('customer',array('LOGINNAME' => $user_data->user_login), $row);
 		/*
-		$_GET['page']='apps';
-		$_GET['zfaces']='form';
-		$_GET['form']='profile1';
-		$_GET['action']='edit';
-		$_GET['step']='save';
-		unset($_GET['showform']);
-		$_GET['no_redirect']=1;
-		$user=get_userdata($user_id);
-		$_GET['id']=getCustomerByLogin($user->user_login);
-		zing_main('content');
-		zing_apps_player_content('content');
-		$_SESSION['zing']['ProfileNextStep']="";
-		*/
+		 $_GET['page']='apps';
+		 $_GET['zfaces']='form';
+		 $_GET['form']='profile1';
+		 $_GET['action']='edit';
+		 $_GET['step']='save';
+		 unset($_GET['showform']);
+		 $_GET['no_redirect']=1;
+		 $user=get_userdata($user_id);
+		 $_GET['id']=getCustomerByLogin($user->user_login);
+		 zing_main('content');
+		 zing_apps_player_content('content');
+		 $_SESSION['zing']['ProfileNextStep']="";
+		 */
 	} else {
 		$row['LOGINNAME']=$user_data->user_login;
 		$row['DATE_CREATED']=date('Y-m-d');
@@ -1177,51 +1190,51 @@ function zing_profile($user_id) {
 	}
 }
 /*
-function zing_profile_show($user_id) {
-	zing_profile_edit($user_id);
-}
+ function zing_profile_show($user_id) {
+ zing_profile_edit($user_id);
+ }
 
-function zing_profile_edit($user_id) {
-	echo '<link rel="stylesheet" type="text/css" href="'.ZING_APPS_PLAYER_URL.'css/apps_wp_admin.css" />';
+ function zing_profile_edit($user_id) {
+ echo '<link rel="stylesheet" type="text/css" href="'.ZING_APPS_PLAYER_URL.'css/apps_wp_admin.css" />';
 
-	if (isset($_GET['user_id'])) { $id=(int) $_GET['user_id']; 	$user=get_userdata($id); }
-	elseif (isset($_POST['user_id'])) { $id=(int) $_POST['user_id']; $user=get_userdata($id); }
-	else $user=$user_id;
-	$_GET['page']='apps';
-	$_GET['zfaces']='form';
-	$_GET['form']='profile1';
-	$_GET['action']='edit';
-	$_GET['step']=$_SESSION['zing']['ProfileNextStep'];
-	$_GET['showform']='edit';
-	$_GET['no_form']=1;
-	$_GET['id']=getCustomerByLogin($user->user_login);
-	zing_main('content');
-	zing_apps_player_content('content');
-	$_SESSION['zing']['ProfileNextStep']="";
-}
-*/
+ if (isset($_GET['user_id'])) { $id=(int) $_GET['user_id']; 	$user=get_userdata($id); }
+ elseif (isset($_POST['user_id'])) { $id=(int) $_POST['user_id']; $user=get_userdata($id); }
+ else $user=$user_id;
+ $_GET['page']='apps';
+ $_GET['zfaces']='form';
+ $_GET['form']='profile1';
+ $_GET['action']='edit';
+ $_GET['step']=$_SESSION['zing']['ProfileNextStep'];
+ $_GET['showform']='edit';
+ $_GET['no_form']=1;
+ $_GET['id']=getCustomerByLogin($user->user_login);
+ zing_main('content');
+ zing_apps_player_content('content');
+ $_SESSION['zing']['ProfileNextStep']="";
+ }
+ */
 
 /*
  * Check errors before committing user data
  */
 /*
-function zing_profile_check_errors(&$errors, $update, &$user) {
-	global $zfform,$zfSuccess;
+ function zing_profile_check_errors(&$errors, $update, &$user) {
+ global $zfform,$zfSuccess;
 
-	$_GET['page']='apps';
-	$_GET['zfaces']='form';
-	$_GET['form']='profile1';
-	$_GET['action']='edit';
-	if ($_POST['action']=='update') $_GET['step']='check';
-	else $_GET['step']="";
-	$_GET['showform']=false;
-	$_GET['id']=getCustomerByLogin($user->user_login);
-	zing_main('content');
-	zing_apps_player_content('content');
-	if (!$zfSuccess) $errors->errors['invalid']=array('Errors');
-	$_SESSION['zing']['ProfileNextStep']="check";
-}
-*/
+ $_GET['page']='apps';
+ $_GET['zfaces']='form';
+ $_GET['form']='profile1';
+ $_GET['action']='edit';
+ if ($_POST['action']=='update') $_GET['step']='check';
+ else $_GET['step']="";
+ $_GET['showform']=false;
+ $_GET['id']=getCustomerByLogin($user->user_login);
+ zing_main('content');
+ zing_apps_player_content('content');
+ if (!$zfSuccess) $errors->errors['invalid']=array('Errors');
+ $_SESSION['zing']['ProfileNextStep']="check";
+ }
+ */
 
 function zing_profile_pre($user_id) {
 }
@@ -1236,7 +1249,7 @@ function zing_ws_title($title) {
 	if ($_GET['prod']) {
 		error_reporting(E_ALL & ~E_NOTICE);
 		ini_set('display_errors', '1');
-		
+
 		$prodid=$_GET['prod'];
 		$db=new db();
 		//echo 'select product from ##product,##category where ##product.catid=##category.id and ##product.id='.qs($prodid);

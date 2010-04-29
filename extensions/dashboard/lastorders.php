@@ -1,5 +1,5 @@
 <?php
-/*  zingiri_webshop.php
+/*  dashboard.php
  Copyright 2008,2009 Erik Bogaerts
  Support site: http://www.zingiri.com
 
@@ -21,13 +21,21 @@
  */
 ?>
 <?php
-/** Loads the WordPress Environment */
-require(dirname(__FILE__).'/../../../../../wp-blog-header.php');
 
-/** Load Zingiri Web Shop */
-require(dirname(__FILE__).'/../../zing.readcookie.inc.php');
-require(dirname(__FILE__).'/../../zing.startmodules.inc.php');
+$zing->addToDashboard('lastOrders');
 
-/** Display cart */
-require(dirname(__FILE__).'/../menu_cart.php');
+function lastOrders() {
+	global $txt;
+
+	//lastorders
+	echo '<div id="dashboard_lastOrders" class="dashboard">';
+	$sql="select ##order.date,##customer.lastname,##order.topay from ##order,##customer where ##order.customerid=##customer.id order by ##order.id desc limit 5";
+	$headers=array();
+	$headers[]=$txt['errorlogadmin6'];
+	$headers[]=$txt['customeradmin1'];
+	$headers[]=$txt['cart7'];
+	display_table($txt['dashboard6'],$headers,null,$sql);
+	echo '</div>';
+
+}
 ?>

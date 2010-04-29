@@ -177,7 +177,7 @@ $txt['checkout21'] = "When the products are in stock, we will e-mail you for an 
 $txt['checkout22'] = "Use your PayPal account to transfer the money to us.";
 $txt['checkout23'] = "You have to pay the postal service when you recieve the package.";
 $txt['checkout24'] = "The total amount";
-$txt['checkout26'] = "Please transfer the entire invoice amount within $paymentdays days. When we recieve your payment, this order will processed further and will be shipped as soon as possible.";
+$txt['checkout26'] = "Please transfer the entire invoice amount within $paymentdays days. When we receive your payment, this order will processed further and will be shipped as soon as possible.";
 $txt['checkout27'] = "or download the order in PDF";
 
 // search.php
@@ -694,5 +694,14 @@ $txt['prompt3'] = 'Custom text';
 //v1.3.7 - added
 $txt['discountadmin100'] = 'Expiry date';
 $txt['discountadmin101'] = 'Expiry quantity';
+
+//v1.4.0 - added
+$txt['admin102'] = 'Dashboard';
+$txt['dashboard1'] = 'Monthly Signups';
+$txt['dashboard2'] = 'Month';
+$txt['dashboard3'] = 'Statistics';
+$txt['dashboard4'] = 'Alltime sales';
+$txt['dashboard5'] = 'Average sale';
+$txt['dashboard6'] = 'Last 5 Orders';
 
 ?>

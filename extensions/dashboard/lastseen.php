@@ -1,5 +1,5 @@
 <?php
-/*  zingiri_webshop.php
+/*  dashboard.php
  Copyright 2008,2009 Erik Bogaerts
  Support site: http://www.zingiri.com
 
@@ -21,13 +21,20 @@
  */
 ?>
 <?php
-/** Loads the WordPress Environment */
-require(dirname(__FILE__).'/../../../../../wp-blog-header.php');
 
-/** Load Zingiri Web Shop */
-require(dirname(__FILE__).'/../../zing.readcookie.inc.php');
-require(dirname(__FILE__).'/../../zing.startmodules.inc.php');
 
-/** Display cart */
-require(dirname(__FILE__).'/../menu_cart.php');
+$zing->addToDashboard('lastSeen');
+
+function lastSeen() {
+	global $txt;
+
+	//lastseen
+	echo '<div id="dashboard_lastSeen" class="dashboard">';
+	$sql="select login,time from ##accesslog order by id desc limit 10";
+	$headers=array();
+	$headers[]=$txt['accesslogadmin2'];
+	$headers[]=$txt['accesslogadmin4'];
+	display_table($txt['accesslogadmin1'],$headers,null,$sql);
+	echo '</div>';
+}
 ?>

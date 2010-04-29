@@ -1,4 +1,12 @@
 <?php
+
+//error_reporting(E_ALL & ~E_NOTICE);
+//ini_set('display_errors', '1');
+if (get_option('zing_webshop_version')) {
+//	require(dirname(__FILE__).'/zing.dashboard.php');
+}
+
+
 function zing_set_options() {
 	global $wpdb,$zing_ws_options,$zing_ws_name,$zing_ws_shortname;
 
@@ -12,38 +20,27 @@ function zing_set_options() {
 	array(  "name" => "Zingiri Web Shop Settings",
             "type" => "heading",
 			"desc" => "This section customizes the Zingiri Web Shop area.",
-	),
-
-	array(	"name" => "Newsletter",
-			"desc" => "We regularly send out a newsletter containing information about new releases, security warnings, ... 
-			<br />If you don't wish to receive this newsletter, please select 'No'.
-			<br />If you choose to receive the newsletter, we will send it to <strong>".get_option('admin_email')."</strong>
-			<br />You can change this option at any time.",
-			"id" => $zing_ws_shortname."_install",
-			"std" => "Yes",
-			"type" => "select",
-			"options" => $install_type),
-
+	)
 	);
-	if ($ids=get_option("zing_webshop_pages")) {
-		$zing_ws_options[]=array(  "name" => "Zingiri Web Shop Integration",
-            "type" => "heading",
-			"desc" => "This section customizes the way Zingiri Web Shop integrates with Wordpress.",);
+//	$zing_ws_options[]=array(  "name" => "Zingiri Web Shop Integration",
+//            "type" => "heading",
+//			"desc" => "This section customizes the way Zingiri Web Shop integrates with Wordpress.",);
 
-		$zing_ws_options[]=	array(	"name" => "User management",
+	$zing_ws_options[]=	array(	"name" => "User management",
 			"desc" => "Select whether you want to use full integration<br />with Wordpress user management or<br />Zingiri's stand alone user management.",
 			"id" => $zing_ws_shortname."_login",
 			"std" => "Zingiri",
 			"type" => "select",
 			"options" => array("Zingiri","WP"));
 
-		$zing_ws_options[]=	array(	"name" => "Use effects",
-			"desc" => "Select whether you want to activate effects. Our plugin uses Prototype and Scriptaculous effects. <br />In some cases this might conflict with other plugins or themes using other effects, e.g. jQuery.",
+	$zing_ws_options[]=	array(	"name" => "Use effects",
+			"desc" => "Select whether you want to activate effects.<br />Our plugin fully supports Prototype and partially supports jQuery.<br />If your theme uses either of these it is best to select the same.<br />If your theme uses another one, you should deactivate the effects here.",
 			"id" => $zing_ws_shortname."_effects",
 			"std" => "Prototype",
 			"type" => "select",
 			"options" => array("Prototype","jQuery","Off"));
 
+	if ($ids=get_option("zing_webshop_pages")) {
 		$ida=explode(",",$ids);
 		foreach ($ida as $i) {
 			$p = $wpdb->get_results( "SELECT post_title FROM ".$wpdb->prefix."posts WHERE id='".$i."'" );
@@ -55,6 +52,15 @@ function zing_set_options() {
 			"options" => $zing_yn);
 		}
 	}
+	$zing_ws_options[]= array(	"name" => "Newsletter",
+			"desc" => "We regularly send out a newsletter containing information about new releases, security warnings, ... 
+			<br />If you don't wish to receive this newsletter, please select 'No'.
+			<br />If you choose to receive the newsletter, we will send it to <strong>".get_option('admin_email')."</strong>
+			<br />You can change this option at any time.",
+			"id" => $zing_ws_shortname."_install",
+			"std" => "Yes",
+			"type" => "select",
+			"options" => $install_type);
 }
 function zing_ws_add_admin() {
 
@@ -73,7 +79,7 @@ function zing_ws_add_admin() {
 		}
 
 		if ( 'install' == $_REQUEST['action'] ) {
-			zing_activate();
+			zing_install();
 			foreach ($zing_ws_options as $value) {
 				update_option( $value['id'], $_REQUEST[ $value['id'] ] );
 			}
@@ -203,20 +209,27 @@ function zing_ws_admin() {
 	?>
 <div class="wrap">
 <h2><?php echo $zing_ws_name; ?></h2>
-<div id="message" class="updated fade">
-<p><?php
+<?php
 $zing_eaw=zing_check();
 $zing_errors=$zing_eaw['errors'];
 $zing_warnings=$zing_eaw['warnings'];
 $zing_version=get_option("zing_webshop_version");
 
-if ($zing_errors) foreach ($zing_errors as $zing_error) echo $zing_error.'<br />';
-if ($zing_warnings) foreach ($zing_warnings as $zing_warning) echo $zing_warning.'<br />';
-elseif (!$zing_errors && !$zing_warnings)	echo 'Your version is up to date!';
+if ($zing_errors) {
+	echo '<div style="background-color:pink" id="message" class="updated fade"><p>';
+	echo '<strong>Errors - it is strongly recommended you resolve these errors before continuing:</strong><br /><br />';
+	foreach ($zing_errors as $zing_error) echo $zing_error.'<br />';
+	echo '</p></div>';
+}
+if ($zing_warnings) {
+	echo '<div style="background-color:peachpuff" id="message" class="updated fade"><p>';
+	echo '<strong>Warnings - you might want to have a look at these issues to avoid surprises or unexpected behaviour:</strong><br /><br />';
+	foreach ($zing_warnings as $zing_warning) echo $zing_warning.'<br />';
+	echo '</p></div>';
+}
+//elseif (!$zing_errors && !$zing_warnings)	echo 'Your version is up to date!';
 
-?></p>
-</div>
-<?php if (1==1) { ?>
+?>
 <form method="post">
 
 <table class="optiontable">
@@ -304,7 +317,7 @@ are given the Web Shop administrator rights.
 /></p>
 
 </form>
-<?php } ?> <?php if ($zing_version == ZING_VERSION && !$integrator->wpAdmin) { ?>
+<?php if ($zing_version == ZING_VERSION && !$integrator->wpAdmin) { ?>
 <hr />
 <p>Please note that you have selected to use the user administration in the Zingiri Webshop.<br />
 If you wish you can use the Wordpress user administration instead by selecting the appropriate option above.<br />

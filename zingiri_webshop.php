@@ -26,10 +26,10 @@
  Plugin URI: http://www.zingiri.com/web-shop
  Description: Zingiri Web Shop is a full featured software package that allows you to set up your own online webshop within minutes.
  Author: EBO
- Version: 1.3.7
+ Version: 1.4.0
  Author URI: http://www.zingiri.com/
  */
-define("ZING_VERSION","1.3.7");
+define("ZING_VERSION","1.4.0");
 
 require(dirname(__FILE__)."/load.php");
 define("ZING_APPS_PLAYER_VERSION","0.9.0");
@@ -53,6 +53,8 @@ if (get_option('zing_ws_effects')=="Prototype" || get_option('zing_ws_effects')=
 require(dirname(__FILE__)."/zap/embed.php");
 
 require(dirname(__FILE__)."/zing.inc.php");
+
+require(dirname(__FILE__)."/extensions/index.php");
 
 register_activation_hook(__FILE__,'zing_activate');
 register_deactivation_hook(__FILE__,'zing_deactivate');

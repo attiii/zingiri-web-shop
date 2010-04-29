@@ -387,14 +387,22 @@ if (LoggedIn() == True) {
 				if ($create_pdf == 1) { echo "<br /><a href=\"".$orders_url."/".$pdf."\">".$txt['checkout27']."</a></h4>"; }
 			} else {
 				PutWindow($gfx_dir, $txt['general13'], $txt['checkout104'], "loader.gif", "50");
-				echo '<div style="display:none">'.$payment_code.'</div>';
+				echo '<div>'.$payment_code.'</div>';
+				if (ZING_PROTOTYPE) {
 				?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
-           wsSubmit();
+					document.observe("dom:loaded", function() {
+           				wsSubmit();
+					});
            //]]>
 </script>
 				<?php
+				} elseif (ZING_JQUERY) {?>
+					jQuery(document).ready(function() {
+        		   		wsSubmit();
+					});
+				<?php }
 			}
 
 		}

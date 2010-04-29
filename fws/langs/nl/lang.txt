@@ -177,7 +177,7 @@ $txt['checkout20'] = "<strong>Bank informatie:</strong><br />Rekeningnummer: $ba
 $txt['checkout21'] = "Zodra de artikelen voorradig zijn, zullen we via email contact met u opnemen om een afhaalafspraak te maken.";
 $txt['checkout24'] = "Het totaalbedrag";
 $txt['checkout25'] = "inclusief $show_vat ".$txt['general5'];
-$txt['checkout26'] = "Maakt u aub het bedrag binnen $paymentdays naar ons over. Zodra wij uw betaling hebben ontvangen wordt de order verder verwerkt en zo snel mogelijk naar u opgestuurd.";
+$txt['checkout26'] = "Maakt u aub het bedrag binnen $paymentdays dag(en) naar ons over. Zodra wij uw betaling hebben ontvangen wordt de order verder verwerkt en zo snel mogelijk naar u opgestuurd.";
 $txt['checkout27'] = "of download de order in PDF";
 
 // search.php

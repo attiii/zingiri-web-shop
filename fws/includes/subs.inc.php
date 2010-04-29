@@ -195,16 +195,16 @@ function mymail($from,$to,$subject,$message,$charset)
 {
 	Global $use_phpmail;
 
+	$headers  = 'MIME-Version: 1.0' . "\r\n";
+	$headers .= 'Content-type: text/html; charset='.$charset."\r\n";
+	$headers .= 'From: '.$from.' <'.$from.'>' . "\r\n";
+	
 	if ($use_phpmail == 1) {
-		$headers  = 'MIME-Version: 1.0' . "\r\n";
-		$headers .= 'Content-type: text/html; charset='.$charset."\r\n";
-		$headers .= 'From: '.$from.' <'.$from.'>' . "\r\n";
-		//mail($to, $subject, $message, $headers);
 		mail($to, '=?UTF-8?B?'.base64_encode($subject).'?=', $message, $headers);		
 		return true;
 	}
 	elseif ($use_phpmail == 2) {
-		wp_mail($to,$subject,$message);
+		wp_mail($to,$subject,$message, $headers);
 		return true;
 	}
 	else {
@@ -885,5 +885,9 @@ function wsSetting($setting) {
 		return $db->get($setting);
 	} 
 	return false;
+}
+
+function wsComments($text) {
+	return '<a href=# class=info>(?)<span>'.$text.'</span></a>';
 }
 ?>

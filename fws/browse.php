@@ -207,7 +207,7 @@ else { $limit = ""; }
 				if ($stock_enabled == 1) { $admin_edit .= $txt['productadmin12'].": ".$row[5]."<br />"; }
 				$admin_edit .= "<a href=\"?page=productadmin&action=edit_product&pcat=".$cat."&prodid=".$row[0]."\">".$txt['browse7']."</a>";
 				$admin_edit .= " | <a href=\"?page=productadmin&action=delete_product&pcat=".$cat."&prodid=".$row[0]."\">".$txt['browse8']."</a>";
-				$admin_edit .= " | <a href=\"?page=productadmin&action=picture_upload_form&picid=".$picture."\">".$txt['browse10']."</a>";
+				//$admin_edit .= " | <a href=\"?page=productadmin&action=picture_upload_form&picid=".$picture."\">".$txt['browse10']."</a>";
 			}
 			// make up the description to print according to the pricelist_format and max_description
 			$print_description=printDescription($row[1],$row[3]);
@@ -376,7 +376,7 @@ else { $limit = ""; }
 			<?php
 		}
 	}
-if (ZING_PROTOTYPE) {
+if (ZING_PROTOTYPE && !is_admin()) {
 	?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[

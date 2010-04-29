@@ -1,5 +1,5 @@
 <?php
-/*  zingiri_webshop.php
+/*  dashboard.php
  Copyright 2008,2009 Erik Bogaerts
  Support site: http://www.zingiri.com
 
@@ -21,13 +21,20 @@
  */
 ?>
 <?php
-/** Loads the WordPress Environment */
-require(dirname(__FILE__).'/../../../../../wp-blog-header.php');
 
-/** Load Zingiri Web Shop */
-require(dirname(__FILE__).'/../../zing.readcookie.inc.php');
-require(dirname(__FILE__).'/../../zing.startmodules.inc.php');
+$zing->addToDashboard('errorLog');
 
-/** Display cart */
-require(dirname(__FILE__).'/../menu_cart.php');
+function errorLog() {
+	global $txt;
+
+	//log
+	echo '<div id="dashboard_errorLog" class="dashboard">';
+	$sql="select time,severity,message from ##errorlog order by id desc limit 10";
+	$headers=array();
+	$headers[]=$txt['errorlogadmin6'];
+	$headers[]=$txt['errorlogadmin2'];
+	$headers[]=$txt['errorlogadmin10'];
+	display_table($txt['errorlogadmin1'],$headers,null,$sql);
+	echo '</div>';
+}
 ?>
