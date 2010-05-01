@@ -214,7 +214,7 @@ else {
 	}
 
 	// upload the screenshot to the correct folder
-	if (isset($_FILES['uploadedfile']['name']) && ($action == "update_product" || $action == "save_new_product")) {
+	if ($_FILES['uploadedfile']['name']!='' && ($action == "update_product" || $action == "save_new_product")) {
 
 		$file = $_FILES['uploadedfile']['name'];
 		$ext = explode(".", $file);

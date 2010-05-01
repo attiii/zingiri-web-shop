@@ -4,7 +4,7 @@ Donate link: http://www.zingiri.com/
 Tags: ecommerce, e-commerce, paypal, freewebshop, shop, cart, web shop, shopping cart, iDEAL, Google Checkout, Worldpay
 Requires at least: 2.1.7
 Tested up to: 2.9.1
-Stable tag: 1.3.7
+Stable tag: 1.4.0
 
 Zingiri Web Shop is a Wordpress plugin that brings together a great content management system with the fantastic FreeWebShop ecommerce solution.
 
@@ -57,7 +57,7 @@ The Zingiri Web Shop plugin is based on FreeWebshop.org - FWS in short - release
 Upgrades are handled automatically. Simply upload the latest version, go to settings and select Update. 
 
 Before upgrading, make sure you back up your database first!
-If you made changes to the style sheet (zing.css) or the language files, make sure you back them up before the upgrade and restore them after.
+
 == Changelog ==
 
 = 1.4.0 =
@@ -76,7 +76,6 @@ If you made changes to the style sheet (zing.css) or the language files, make su
 * Fix: fixed issue with wp_mail emails being sent in plain text instead of HTML
 * Fix: fixed issue with redirect to payment portal not working properly in some cases
 * Fix: fixed issue with clicking on checkout taking customers to home page rather than to checkout page
-
 
 = 1.3.7 =
 * New: added new discounts functionality allowing creation of multi-use discount codes limited by category, product, time and use

@@ -189,10 +189,7 @@ zingiri-web-shop/fws/addons/lightbox/lightbox.js,5f1e93b72f10febb1106bf63ab886c3
 zingiri-web-shop/fws/addons/lightbox/loading.gif,c77ae44a51409e7c2183fff5dc25dffa
 zingiri-web-shop/fws/addons/lightbox/overlay.png,143d209e15051311fdae758b295036b5
 zingiri-web-shop/fws/addons/lightbox/Thumbs.db,5c280740d2b5240e431110c66b30c36d
-zingiri-web-shop/fws/addons/php_ajax_image_upload/_notes/dwsync.xml,95f5b19b9c2069429931980594c60bb8
-zingiri-web-shop/fws/addons/php_ajax_image_upload/css/_notes/dwsync.xml,3d726017e02e23920e05d004937dbd4e
 zingiri-web-shop/fws/addons/php_ajax_image_upload/css/styles.css,153349142ee0f548d1626ff3da8022b7
-zingiri-web-shop/fws/addons/php_ajax_image_upload/images/_notes/dwsync.xml,6814f8e0e4cbc724eb56983fa41e5cc3
 zingiri-web-shop/fws/addons/php_ajax_image_upload/images/bg.jpg,f17428e4ddd0b2ff435de4ec5ffe2230
 zingiri-web-shop/fws/addons/php_ajax_image_upload/images/browsers.jpg,668dc5bd101f7e3c53b9f4376438cdc6
 zingiri-web-shop/fws/addons/php_ajax_image_upload/images/donations.jpg,3e65f7fe8555f733b87fe13fdd02c941
@@ -203,13 +200,8 @@ zingiri-web-shop/fws/addons/php_ajax_image_upload/images/logo.gif,e9765720cb1989
 zingiri-web-shop/fws/addons/php_ajax_image_upload/images/success.gif,01ed3f5b8012ec3155dcee9a9848a8c9
 zingiri-web-shop/fws/addons/php_ajax_image_upload/images/webbadge.gif,ffd730056468414067ba38c0ed2a1d35
 zingiri-web-shop/fws/addons/php_ajax_image_upload/index.php,1a189713915ed459b9eac39b932d8bbb
-zingiri-web-shop/fws/addons/php_ajax_image_upload/scripts/_notes/dwsync.xml,e1978723a739ff3f5bce632eef393f1b
 zingiri-web-shop/fws/addons/php_ajax_image_upload/scripts/ajaxupload.js,907a58cb172d3c4d794ab1e784b9de7a
 zingiri-web-shop/fws/addons/php_ajax_image_upload/scripts/ajaxupload.php,405d54d186d3a7650f609e3b61280662
-zingiri-web-shop/fws/addons/php_ajax_image_upload/uploads/9_1272357130.png,9a96690dcda53611b24f04bd4384df62
-zingiri-web-shop/fws/addons/php_ajax_image_upload/uploads/9_luxe_ecommerc_1272357114.jpg,6423618ae9f3421e46f596914f99df3d
-zingiri-web-shop/fws/addons/php_ajax_image_upload/uploads/admin-header-fo_1272356276.png,a9ef10f947bb2af3e9ec16ee9f3fb494
-zingiri-web-shop/fws/addons/php_ajax_image_upload/uploads/ecommerce_1272357333.jpg,9564817ff14f23bd7f592a8968601133
 zingiri-web-shop/fws/addons/tinymce/index.php,d41d8cd98f00b204e9800998ecf8427e
 zingiri-web-shop/fws/addons/tinymce/jscripts/index.php,d41d8cd98f00b204e9800998ecf8427e
 zingiri-web-shop/fws/addons/tinymce/jscripts/tiny_mce/blank.htm,3478607047646d8c513a8a0d521d7b44
@@ -993,7 +985,7 @@ zingiri-web-shop/fws/printorder.php,05d27cc3b6ba30cae733a5a1bc37642d
 zingiri-web-shop/fws/prodgfx/1.jpg,a93ea691e05d7aa0c52a3495e0522a11
 zingiri-web-shop/fws/prodgfx/index.php,d41d8cd98f00b204e9800998ecf8427e
 zingiri-web-shop/fws/prodgfx/tn_1.jpg,9d70742cce411f07baf0c5919f597a63
-zingiri-web-shop/fws/productadmin.php,d382b0e517284907e0382edba0958833
+zingiri-web-shop/fws/productadmin.php,da8935c17e95ea7495607bd8ae11974c
 zingiri-web-shop/fws/products.php,4a51c69e0ca64ccadafb59999293a65d
 zingiri-web-shop/fws/readorder.php,f4137a56f3412d9d8525973e11f77e4c
 zingiri-web-shop/fws/robots.txt,2cc905061f7d41f6427da15b4b9eb58f
@@ -1278,7 +1270,7 @@ zingiri-web-shop/fws/topmenu.php,050a308db10eace4721072fe1b91bb02
 zingiri-web-shop/fws/uploadadmin.php,07bf67c055a354e04c9a29289267db6a
 zingiri-web-shop/index.php,d41d8cd98f00b204e9800998ecf8427e
 zingiri-web-shop/load.php,a6f8d9189453eafa40f46db9eb22f4a5
-zingiri-web-shop/readme.txt,0fd0d496b609b8bd8e1dee0aa95e3942
+zingiri-web-shop/readme.txt,31772a39f4fe43fc51973aaba724afc8
 zingiri-web-shop/zap/classes/db.class.php,206286aa46be0adfb53211f9660a71b3
 zingiri-web-shop/zap/classes/element.class.php,433445bab0885c86f8f04be0b01a73e8
 zingiri-web-shop/zap/classes/form.class.php,568af625c20256388004e6174a02d7b8
