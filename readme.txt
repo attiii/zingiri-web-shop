@@ -4,7 +4,7 @@ Donate link: http://www.zingiri.com/
 Tags: ecommerce, e-commerce, paypal, freewebshop, shop, cart, web shop, shopping cart, iDEAL, Google Checkout, Worldpay
 Requires at least: 2.1.7
 Tested up to: 2.9.1
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 
 Zingiri Web Shop is a Wordpress plugin that brings together a great content management system with the fantastic FreeWebShop ecommerce solution.
 
@@ -29,14 +29,13 @@ The main feaures are:
 1. Upload the `zingiri-web-shop` folder to the `/wp-content/plugins/` directory
 2. A few files need to be chmod'd:
     * log.txt 666
+    * fws/banned.txt 666
     * fws/addons/captcha 777
     * fws/addons/tinymce/jscripts/up 777
-    * fws/banned.txt 666
-    * fws/countries.txt 666
 3. Make sure the directory wp-content/uploads exists and is writable
 4. Activate the plugin through the 'Plugins' menu in WordPress
-5. Activate the 4 sidebar widgets.
-6. Go to the Wordpress Settings page and find the link to the Admininistration Panel of Zingiri Web Shop, login with the default user admin and password admin_1234.
+5. Perform the plugin installation
+6. Activate the 4 sidebar widgets.
 
 Please visit the [Zingiri](http://www.zingiri.com/web-shop "Zingiri") website for more information and a Demo.
 
@@ -59,6 +58,13 @@ Upgrades are handled automatically. Simply upload the latest version, go to sett
 Before upgrading, make sure you back up your database first!
 
 == Changelog ==
+
+= 1.4.1 = 
+* Change: replace POST variables by GET variables in product search queries
+* Fix: mass discount code generation always created one discount code too many
+* Fix: make codes and delete all unused codes now directing to correct page	
+* Fix: show admin and customer administration in web shop admin menus when using Zingiri user admin mode
+* Fix: fixed javascript loading issues (IE8)
 
 = 1.4.0 =
 * New: dashboard page showing key indicators

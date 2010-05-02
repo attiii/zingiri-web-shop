@@ -51,7 +51,7 @@ var wsCart = Class.create( {
 	order : function() {
 		var e = $$('#addtocart');
 		for (i = 0; i < e.length; i++) {
-			e[i].type = 'button';
+			//e[i].type = 'button';
 			e[i].observe('click', this.addToCart.bindAsEventListener(this));
 		}
 		;

@@ -27,8 +27,9 @@
       <caption><?php echo $txt['search1'] ?></caption>
 	  <tr>
 	    <td>
-	      <form method="post" action="?page=browse">
+	      <form method="get" action="?page=browse">
 	       <?php echo $txt['search2'] ?>
+	       <input type="hidden" name="page" value="browse">
 	       <input type="text" name="searchfor" size="40">
 	       <input type="hidden" name="action" value="search">
 	       <input type="hidden" name="includesearch" value="<?php echo $includesearch;?>">

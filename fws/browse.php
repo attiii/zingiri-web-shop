@@ -291,7 +291,7 @@ else { $limit = ""; }
 	if (!$row['LINK']) {
 		echo $txt['details6'] ?>:<br />
 	<input type="text" size="4" name="numprod" value="1" maxlength="4">&nbsp; <?php }?> <input
-		type="submit" id="addtocart" value="<?php echo $txt['details7'] ?>" name="sub"
+		type="<?php if (ZING_PROTOTYPE || ZING_JQUERY) echo 'button'; else echo 'submit';?>" id="addtocart" value="<?php echo $txt['details7'] ?>" name="sub"
 	> <?php
 	}
 	if ($row[4] == 0) {
@@ -380,9 +380,11 @@ if (ZING_PROTOTYPE && !is_admin()) {
 	?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
-    wsFrontPage=false;
-	cart=new wsCart();
-	cart.order();
+	document.observe("dom:loaded", function() {
+	    wsFrontPage=false;
+		cart=new wsCart();
+		cart.order();
+	});
 //]]>
 </script>
 <?php }?>

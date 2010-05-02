@@ -83,8 +83,10 @@ if (ZING_PROTOTYPE) {
 	?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
+	document.observe("dom:loaded", function() {
           sidebarcart=new wsCart();
           sidebarcart.contents();
+	});
 //]]>
 </script>
 	<?php }?>

@@ -64,11 +64,15 @@ if ($shop_disabled == 1 && IsAdmin() == true) {
 			}
 			echo "</table></div>";
 		}
+		if (ZING_PROTOTYPE) {
 		?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
+document.observe("dom:loaded", function() {
     wsFrontPage=true;
 	cart=new wsCart();
 	cart.order();
+});
 //]]>
 </script>
+<?php } ?>

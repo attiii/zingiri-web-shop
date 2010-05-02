@@ -32,7 +32,7 @@ if (IsAdmin() == false) {
 else {
 	if ($action == "add_discount") {
 		$number = $_POST['number'];
-		for ($i = 0; $i <= $number; $i++) {
+		for ($i = 1; $i <= $number; $i++) {
 			$code = CreateRandomCode(15);
 			if (CheckBox($_POST['percentage'])) $percentage = $_POST['amount'];
 			else $amount = $_POST['amount'];
@@ -49,7 +49,7 @@ else {
 	}
 	echo '<table width="100%" class="borderless">
 				<tr><td>
-					<form method="POST" action="'.zurl('index.php?page=discountadmin').'">
+					<form method="POST" action="'.zurl('index.php?zfaces=list&form=discount').'">
 						<input type="hidden" name="action" value="add_discount">
 						'.$txt['discountadmin2'].' <input type="text" name="number" value="10" size="4" maxlength="4"><br />
 						'.$txt['discountadmin3'].' <input type="text" name="amount" value="" size="7" maxlength="7"><br />
@@ -58,7 +58,7 @@ else {
 					</form>
 					</td>
 					<td>
-					<form method="POST" action="'.zurl('index.php?page=discountadmin').'">
+					<form method="POST" action="'.zurl('index.php?zfaces=list&form=discount').'">
 						<input type="hidden" name="action" value="delete_all">
 						<input type="submit" value="'.$txt['generic1'].' '.strtolower($txt['discountadmin6']).'">
 					</form>

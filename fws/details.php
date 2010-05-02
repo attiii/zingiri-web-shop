@@ -194,11 +194,15 @@ else {
 	}
 	}
 }
+if (ZING_PROTOTYPE) {
 ?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
+	document.observe("dom:loaded", function() {
           wsFrontPage=false;
           cart=new wsCart();
           cart.order();
+	});
 //]]>
 </script>
+<?php }?>

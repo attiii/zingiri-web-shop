@@ -704,4 +704,8 @@ $txt['dashboard4'] = 'Alltime sales';
 $txt['dashboard5'] = 'Average sale';
 $txt['dashboard6'] = 'Last 5 Orders';
 
+//v1.4.1 - added
+$txt['paymentadmin100'] = 'Merchant ID';
+$txt['paymentadmin101'] = 'Secret';
+
 ?>
