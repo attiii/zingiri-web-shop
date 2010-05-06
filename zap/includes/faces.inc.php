@@ -276,14 +276,15 @@ function zf_json_decode($json,$assoc=true,$strip=true) {
 	}
 	zing_ws_error_handler(0,'stripped:'.$json);
 
-	if (!function_exists('json_decode')){
-		require_once(dirname(__FILE__).'/includes/JSON.php');
+	if (!extension_loaded("json")){
+		require_once(dirname(__FILE__).'/JSON.php');
 		$j = new Services_JSON(16);
 		$ret = $j->decode($json);
 	}
 	else{
 		$ret = json_decode($json,$assoc);
 	}
+	$ret=(array)$ret;
 	return $ret;
 }
 
