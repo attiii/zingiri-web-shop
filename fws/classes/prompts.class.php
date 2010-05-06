@@ -189,8 +189,8 @@ class zingPrompts {
 			$langs[]=$db->get('lang');
 		}
 		$deflang=$this->currentLanguage();
-		if (!in_array($deflang,$langs)) $langs[]=$deflang;
-		if (!in_array('en',$langs)) $langs[]='en';
+		//if (!in_array($deflang,$langs)) $langs[]=$deflang;
+		//if (!in_array('en',$langs)) $langs[]='en';
 		$this->activeLanguages=$langs;
 	}
 
