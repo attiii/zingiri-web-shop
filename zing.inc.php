@@ -858,7 +858,7 @@ function zing_init()
 	} elseif (!defined("ZING_JQUERY") || ZING_JQUERY) {
 		wp_enqueue_script('jquery');
 	}
-
+	
 	ob_start();
 
 	global $dbtablesprefix;
