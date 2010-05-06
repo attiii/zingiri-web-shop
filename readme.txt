@@ -63,6 +63,7 @@ Before upgrading, make sure you back up your database first!
 * Fix: fixed issue with languages other than English not loading correctly
 * Fix: hide incomplete orders from my orders page
 * Fix: corrected issue with plugin not installing correctly on some PHP configurations, changed check on JSON library load
+* Fix: removed working files 'gc_counter.ajax.php' and 'gc_log.ajax.php' from file hash comparison to avoid unnecessary alerts
 
 = 1.4.1 = 
 * Change: replace POST variables by GET variables in product search queries
