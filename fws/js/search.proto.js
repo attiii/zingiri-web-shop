@@ -3,7 +3,6 @@ var wsSearch = Class.create( {
 	initialize : function() {
 		if ($('searchbar') != null) {
 			var e=$('searchbar');
-			//$('searchbar').observe('change', this.searchBar.bindAsEventListener(this));
 			new Form.Element.Observer(e, 0.8, this.searchBar);
 		}
 	},
