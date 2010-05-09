@@ -59,6 +59,16 @@ Before upgrading, make sure you back up your database first!
 
 == Changelog ==
 
+= 1.4.3 =
+* New: improved product search functionality, products are ordered on how well they match the search terms with the most relevant at the top
+* New: added possibility to upload multiple product images
+* Change: updated Google checkout payment code to use merchant ID from special field instead of having to edit the HTML code
+* Change: customers and admins can be edited using the web shop pages again but role is not updated to avoid regression of WP admin role
+* Fix: fixed issue with loading of lightbox supporting images
+* Fix: hide incomplete admin orders from my orders page
+* Fix: fixed issue with loading of lightbox scripts
+* Fix: fixed issue with order button from front page not working properly
+
 = 1.4.2 =
 * Fix: fixed issue with languages other than English not loading correctly
 * Fix: hide incomplete orders from my orders page

@@ -55,7 +55,7 @@ else {
 		}
 		// if there are more categories in the group, then show the category list
 		if (mysql_num_rows($sql_cat) > 1) {
-			if (SHOWCAT) {
+			if (SHOWCAT && (ZING_PROTOTYPE || ZING_JQUERY)) {
 				$ahref = "\"index.php?page=browse&action=list&orderby=DESCRIPTION&group=".$row[0]."\"";
 				if (!$wsCatCollapse) {
 					echo '<li>'.$row[1];
@@ -99,6 +99,8 @@ else {
 	echo "</ul>\n";
 }
 if (ZING_PROTOTYPE) {
-echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/productmenu.proto.js"></script>';
+	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/productmenu.proto.js"></script>';
+} elseif (ZING_JQUERY) {
+	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/productmenu.jquery.js"></script>';
 }
 ?>

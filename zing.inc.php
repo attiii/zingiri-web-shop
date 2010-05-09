@@ -727,16 +727,22 @@ function zing_header()
 
 	if (ZING_PROTOTYPE) {
 		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/checkout.proto.js"></script>';
-		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/cart.js"></script>';
-		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/search.js"></script>';
+		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/cart.proto.js"></script>';
+		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/search.proto.js"></script>';
+		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/cookie.proto.js"></script>';
 	} elseif (ZING_JQUERY) {
+		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/jquery-ui-1.7.3.custom.min.js"></script>';
+		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/lib.jquery.js"></script>';
+		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/Class-0.0.2.js"></script>';
+		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/cookie.jquery.js"></script>';
 		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/checkout.jquery.js"></script>';
+		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/cart.jquery.js"></script>';
+		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/search.jquery.js"></script>';
 	}
 	echo '<link rel="stylesheet" type="text/css" href="' . ZING_URL . 'zing.css" media="screen" />';
 
 	echo '<link rel="stylesheet" href="' . ZING_URL . 'fws/addons/lightbox/lightbox.css" type="text/css" media="screen" />';
 	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/addons/lightbox/lightbox.js"></script>';
-	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/cookie.js"></script>';
 }
 
 function zing_ws_header_custom()
@@ -831,7 +837,7 @@ function zing_sidebar_init()
 	register_sidebar_widget(__('Zingiri Web Shop Cart'), 'widget_sidebar_cart');
 	register_sidebar_widget(__('Zingiri Web Shop General'), 'widget_sidebar_general');
 	register_sidebar_widget(__('Zingiri Web Shop Products'), 'widget_sidebar_products');
-	if (ZING_PROTOTYPE) register_sidebar_widget(__('Zingiri Web Shop Search'), 'widget_sidebar_search');
+	if (ZING_PROTOTYPE || ZING_JQUERY) register_sidebar_widget(__('Zingiri Web Shop Search'), 'widget_sidebar_search');
 	register_widget_control(__('Zingiri Web Shop Search'), 'widget_control_search');
 }
 

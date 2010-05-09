@@ -31,10 +31,10 @@ if ($use_prodgfx == 1) {
 	else { $picture = $f_row[1]; }
 
 	$thumb = "";
-
-	if (thumb_exists($product_dir ."/". $picture . ".jpg")) { $thumb = $product_url ."/". $picture . ".jpg"; }
-	if (thumb_exists($product_dir ."/". $picture . ".gif")) { $thumb = $product_url ."/". $picture . ".gif"; }
-	if (thumb_exists($product_dir ."/". $picture . ".png")) { $thumb = $product_url ."/". $picture . ".png"; }
+	if (!empty($f_row['DEFAULTIMAGE']) && thumb_exists($product_dir ."/". $f_row['DEFAULTIMAGE'])) { $thumb = $product_url."/".$f_row['DEFAULTIMAGE']; }
+	elseif (thumb_exists($product_dir ."/". $picture . ".jpg")) { $thumb = $product_url ."/". $picture . ".jpg"; }
+	elseif (thumb_exists($product_dir ."/". $picture . ".gif")) { $thumb = $product_url ."/". $picture . ".gif"; }
+	elseif (thumb_exists($product_dir ."/". $picture . ".png")) { $thumb = $product_url ."/". $picture . ".png"; }
 
 	if ($thumb == "") {
 		$thumb = $gfx_dir."/nothumb.jpg";
@@ -53,7 +53,7 @@ if ($row_count == 1) { echo "<tr>"; }
 echo '<td width="33%">
 			       <h5>'.$f_row[1].'</h5>'."<a class=\"plain\" href=\"index.php?page=details&prod=".$f_row[0]."&cat=".$f_row[2]."\">".$screenshot.'</a><br />
 				   <br />
-                  <form id="order'.$f_row[0].'" method="get" action="?page=cart&action=add">
+                  <form id="order'.$f_row[0].'" method="post" action="?page=cart&action=add">
                        <input type="hidden" name="prodid" value="'.$f_row[0].'">';
 if (!$f_row[4] == 0) {
 	$tax=new wsTax($f_row[4]);
@@ -66,7 +66,10 @@ if (!$f_row[4] == 0) {
 	}
 }
 
-echo '<br /><input name="sub" type="submit" id="addtocart" class="button" value="'.$txt['details7'].'" />
+echo '<br /><input name="sub" ';
+if (ZING_PROTOTYPE || ZING_JQUERY) echo 'type="button"';
+else echo 'type="submit"';
+echo ' class="addtocart" id="addtocart" value="'.$txt['details7'].'" />
                    </form></td>';
 if ($row_count == $prods_per_row) { echo "</tr>"; }
 ?>

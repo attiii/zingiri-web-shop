@@ -30,6 +30,8 @@ if (IsAdmin() == false) {
 	PutWindow($gfx_dir, $txt['general12'], $txt['general2'], "warning.gif", "50");
 }
 else {
+	if (ZING_PROTOTYPE || ZING_JQUERY) echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/ajaxupload.js"></script>';
+
 	if ($action == "edit_product" || $action == "delete_product") {
 		if (!empty($_GET['prodid'])) {
 			$prodid=$_GET['prodid'];
@@ -75,6 +77,9 @@ else {
 		if (!empty($_POST['pfeatures'])) {
 			$pfeatures=$_POST['pfeatures'];
 		}
+		if (!empty($_POST['image_default'])) {
+			$defaultImage=$_POST['image_default'];
+		}
 		$pfrontpage=CheckBox($_POST['pfrontpage']);
 		$pnew=CheckBox($_POST['pnew']);
 	}
@@ -111,7 +116,7 @@ else {
 			
 		if ($action == "del_image") { PutWindow($gfx_dir, $txt['general13'] , $txt['productadmin25'], "notify.gif", "50"); }
 		$nextlink="<h4><a href=\"?page=browse&action=list&group=".$pgroup."&cat=".$pcat."\">".$txt['productadmin5']."</a></h4>";
-		
+
 	}
 
 	// save new product in database
@@ -143,10 +148,11 @@ else {
 			$picid = $pid;
 		}
 		else { $picid = mysql_insert_id(); }
+		$prodid=mysql_insert_id();
 
 		PutWindow($gfx_dir, $txt['general13'] , $txt['customer13'], "notify.gif", "50");
 		$nextlink="<h4><a href=\"?page=productadmin&action=add_product&pcat=".$pcat."\">".$txt['productadmin4']."</a></h4>";
-	//	$action = "picture_upload_form";
+		//	$action = "picture_upload_form";
 	}
 
 	// update product with new values in database
@@ -196,8 +202,8 @@ else {
 		$sql = mysql_query($query) or die(mysql_error());
 		PutWindow($gfx_dir, $txt['general13'] , $txt['customer13'], "notify.gif", "50");
 		$nextlink="<h4><a href=\"?page=browse&action=list&group=".$pgroup."&cat=".$pcat."\">".$txt['productadmin5']."</a></h4>";
-		
-	//	$action = "picture_upload_form";
+
+		//	$action = "picture_upload_form";
 	}
 
 	// delete product
@@ -213,7 +219,7 @@ else {
 		PutWindow($gfx_dir, $txt['general13'] , $txt['productadmin26'], "notify.gif", "50");
 	}
 
-	// upload the screenshot to the correct folder
+	// upload the single image to the correct folder
 	if ($_FILES['uploadedfile']['name']!='' && ($action == "update_product" || $action == "save_new_product")) {
 
 		$file = $_FILES['uploadedfile']['name'];
@@ -241,9 +247,48 @@ else {
 		else { PutWindow($gfx_dir, $txt['general12'], $txt['productadmin3'], "warning.gif", "50"); }
 	}
 
+	// move the multiple uploaded images to the correct folder
+	if ($_POST['upload_key']!='' && ($action == "update_product" || $action == "save_new_product")) {
+		$key=$_POST['upload_key'];
+		$handle=opendir($product_dir);
+		$imgs=array();
+		while (($img = readdir($handle))!==false) {
+			if (strstr($img,$key)) {
+				$ext = strtolower(substr(strrchr($img, '.'), 1));
+				if (strstr($img,'tn_'.$key)) $tn='tn_'; else $tn='';
+				$newimg=$tn.$picid.'.'.$ext;
+				$i=1;
+				while (file_exists($product_dir.'/'.$newimg)) {
+					$i++;
+					$newimg=$tn.$picid.'__'.sprintf('%03d',$i).'.'.$ext;
+				}
+				copy($product_dir.'/'.$img,$product_dir.'/'.$newimg);
+				unlink($product_dir.'/'.$img);
+				if (strstr($img,$defaultImage)) $defaultImage=$newimg;
+			}
+		}
+		closedir($handle);
+	}
+
+	//delete images if required
+	if (count($_POST['delimage'])>0 && ($action == "update_product" || $action == "save_new_product")) {
+		foreach ($_POST['delimage'] as $imageid) {
+			unlink($product_dir.'/'.$imageid);
+			unlink($product_dir.'/'.str_replace('tn_','',$imageid));
+		}
+	}
+	
+	//set default image
+	if (isset($_POST['image_default']) && ($action == "update_product" || $action == "save_new_product")) {
+		$img=$defaultImage;
+		$query="UPDATE `".$dbtablesprefix."product` SET `DEFAULTIMAGE`='".$defaultImage."'";
+		$query.=" WHERE ID=".$prodid;
+		$sql = mysql_query($query) or die(mysql_error());
+	}
+	
 	//display next link if any
 	echo $nextlink;
-	
+
 	// read values to show in form
 	if ($action == "edit_product") {
 		$query = "SELECT * FROM `".$dbtablesprefix."product` WHERE ID=".$prodid;
@@ -259,6 +304,7 @@ else {
 			$pnew = $row[7];
 			$pfeatures = $row[8];
 			$pweight = $row[9];
+			$defaultImage = $row['DEFAULTIMAGE'];
 			$link = explode('__',$row['LINK']);
 			// determine how to name the picture
 			if ($pictureid == 1) {
@@ -270,7 +316,7 @@ else {
 
 	// show form with or without values
 	if ($action == "add_product" || $action == "edit_product") {
-			
+
 		echo "<table width=\"90%\" class=\"datatable\">";
 		echo "<caption>";
 		if ($action == "add_product") {
@@ -281,18 +327,18 @@ else {
 		}
 		echo "</caption>";
 		echo "<tr><td>";
-		echo "<form enctype=\"multipart/form-data\" method=\"POST\" action=\"".zurl('index.php?page=productadmin',false)."\">";
+		echo "<form id=\"wsproduct\" enctype=\"multipart/form-data\" method=\"POST\" action=\"".zurl('index.php?page=productadmin',false)."\">";
 		echo $txt['productadmin18']." <select name=\"pcat\">";
 
 		$error = 0;
-			
+
 		// pull down menu with all groups and their categories
 		$query = "SELECT * FROM `".$dbtablesprefix."group` ORDER BY `NAME` ASC";
 		$sql = mysql_query($query) or die(mysql_error());
-			
+
 		$groupNum = 0;
 		$catNum = 0;
-			
+
 		if (mysql_num_rows($sql) == 0) {
 			echo "</select><br /><br />".$txt['productadmin8'];
 			$groupNum = 0;
@@ -300,7 +346,7 @@ else {
 		else {
 			$groupNum = $groupNum +1;
 			while ($row = mysql_fetch_row($sql)) {
-					
+
 				$query_cat = "SELECT * FROM `".$dbtablesprefix."category` WHERE `GROUPID` = " . $row[0] . " ORDER BY `DESC` ASC";
 				$sql_cat = mysql_query($query_cat) or die(mysql_error());
 
@@ -318,7 +364,7 @@ else {
 
 		mysql_free_result($sql);
 		echo "</select><br />";
-			
+
 		if ($groupNum > 0 && $catNum > 0) {
 
 			echo $txt['productadmin9']." <input type=\"text\" name=\"pid\" size=\"60\" maxlength=\"60\" value=\"".$pid."\"><br />";
@@ -341,9 +387,15 @@ else {
 			echo " <input type=\"text\" name=\"pstock\" size=\"4\" maxlength=\"10\" value=\"".$pstock."\"><br />";
 			echo $txt['productadmin14']." <input type=\"checkbox\" name=\"pfrontpage\" "; if ($pfrontpage == 1) { echo "checked"; } echo "><br />";
 			echo $txt['productadmin15']." <input type=\"checkbox\" name=\"pnew\" "; if ($pnew == 1) { echo "checked"; } echo "><br />";
-			echo $txt['productadmin21'].' '.wsComments($txt['productadmin19']).'<input name="uploadedfile" type="file" onChange="wsImageUpload(1);"><br />';
-			wsShowImage($picid);
-				
+			echo "<br />";
+			if (ZING_PROTOTYPE || ZING_JQUERY) {
+				echo '<input type="button" id="upload_button" value="'.$txt['productadmin21'].'" />';
+			} else {
+				echo $txt['productadmin21'].' '.wsComments($txt['productadmin19']).'<input name="uploadedfile" type="file"><br />';
+			}
+			echo "<br /><br />";
+			wsShowImage($picid,$defaultImage);
+
 			echo "<br /><div align=center>";
 
 			if ($action == "add_product") {
@@ -359,60 +411,14 @@ else {
 		else {
 			if ($catNum ==0) { echo "</select><br /><br />".$txt['productadmin22']; }
 		}
-			
+
+		echo '<input type="hidden" name="upload_key" id="upload_key" value="'.create_sessionid(16,1,36).'">';
 		echo "</div></form>";
+
 		echo "</td></tr></table>";
-			
+
 	}
 
-	/*
-	 // optionally upload a screenshot
-	 if ($action == "picture_upload_form" || $action == "edit_product") {
-		echo "<br /><br />";
-		//if (empty($picid)) {
-		if (1==0) {
-		PutWindow($gfx_dir, $txt['general12'], $txt['productadmin23'], "warning.gif", "50");
-		}
-		else {
-		$thumb = "";
-		if (file_exists($product_dir."/".$picid.".jpg")) { $thumb = $picid.".jpg"; }
-		if (file_exists($product_dir."/".$picid.".gif")) { $thumb = $picid.".gif"; }
-		if (file_exists($product_dir."/".$picid.".png")) { $thumb = $picid.".png"; }
-		if ($thumb != "") {
-		$size = getimagesize($product_dir."/".$thumb);
-		$height = $size[1];
-		$width = $size[0];
-		if ($height > 350)
-		{
-		$height = 350;
-		$percent = ($size[1] / $height);
-		$width = round($size[0] / $percent);
-		}
-		if ($width > 450)
-		{
-		$width = 450;
-		$percent = ($size[0] / $width);
-		$height = round($size[1] / $percent);
-		}
-		echo "<h4><img src=\"".$product_url."/".$thumb."\" class=\"borderimg\" height=".$height." width=".$width."><br />";
-		echo "<a href=\"".zurl("index.php?page=productadmin&action=del_image&picid=".$picid)."\">".$txt['productadmin24']."</a></h4>";
-		}
-		echo "<br /><br />";
-		echo "<table width=\"80%\" class=\"datatable\">";
-		echo "<caption>".$txt['productadmin21']."</caption>";
-		echo "<tr><td>";
-		echo "<form enctype=\"multipart/form-data\" action=\"".zurl('index.php?page=productadmin',false)."\" method=\"POST\">";
-		echo "<input type=\"hidden\" name=\"action\" value=\"upload_screenshot\">";
-		echo "<input type=\"hidden\" name=\"picid\" value=\"".$picid."\">";
-		echo "<input type=\"hidden\" name=\"pcat\" value=\"".$pcat."\">";
-		echo "<input type=\"hidden\" name=\"MAX_FILE_SIZE\" value=\"20000000\">";
-		echo $txt['productadmin19']." <input name=\"uploadedfile\" type=\"file\"><br />";
-		echo "<input type=\"submit\" value=\"".$txt['productadmin20']."\">";
-		echo "</form>";
-		echo "</td></tr></table>";
-		}
-		}
-		*/
 	//make thumbnail option
 	if ($action == "add_product" || $action == "edit_product") {
 		echo "<br /><br />";
@@ -423,32 +429,61 @@ else {
 	}
 }
 
-function wsShowImage($picid) {
-	global $product_dir,$product_url,$txt;
-	if (file_exists($product_dir."/".$picid.".jpg")) { $thumb = $picid.".jpg"; }
-	if (file_exists($product_dir."/".$picid.".gif")) { $thumb = $picid.".gif"; }
-	if (file_exists($product_dir."/".$picid.".png")) { $thumb = $picid.".png"; }
-	if ($thumb != "") {
-		$size = getimagesize($product_dir."/".$thumb);
-		$height = $size[1];
-		$width = $size[0];
-		if ($height > 200)
-		{
-			$height = 200;
-			$percent = ($size[1] / $height);
-			$width = round($size[0] / $percent);
+function wsShowImage($picid,$defaultImage) {
+	global $product_dir,$product_url,$txt,$pricelist_thumb_width,$pricelist_thumb_height;
+	echo '<div id="uploaded_images">';
+
+	$handle=opendir($product_dir);
+	while (($img = readdir($handle))!==false) {
+		if (strstr($img,'tn_'.$picid)) {
+			echo '<div id="'.$img.'" style="position:relative;float:left">';
+			echo "<img src=\"".$product_url."/".$img."\" class=\"borderimg\" /><br />";
+			if (ZING_PROTOTYPE || ZING_JQUERY) echo '<a href="javascript:wsDeleteImage(\''.$img.'\');">';
+			else echo "<a href=\"".zurl("index.php?page=productadmin&action=del_image&picid=".$picid)."\">";
+			echo '<img style="position:absolute;right:0px;top:0px;" src="'.ZING_URL.'fws/templates/default/images/delete.gif" height="16px" width="16px" />';
+			echo "</a>";
+			if ($img == $defaultImage) $checked='checked'; else $checked='';
+			echo '<input type="radio" name="image_default" value="'.$img.'" '.$checked.' />';
+			
+			echo '</div>';
 		}
-		if ($width > 200)
-		{
-			$width = 200;
-			$percent = ($size[0] / $width);
-			$height = round($size[1] / $percent);
-		}
-		echo "<h4><img src=\"".$product_url."/".$thumb."\" class=\"borderimg\" height=".$height." width=".$width."><br />";
-		echo "<a href=\"".zurl("index.php?page=productadmin&action=del_image&picid=".$picid)."\">".$txt['productadmin24']."</a></h4>";
 	}
+	closedir($handle);
+
+	/*
+	 if (file_exists($product_dir."/".$picid.".jpg")) { $thumb = $picid.".jpg"; }
+	 if (file_exists($product_dir."/".$picid.".gif")) { $thumb = $picid.".gif"; }
+	 if (file_exists($product_dir."/".$picid.".png")) { $thumb = $picid.".png"; }
+	 if ($thumb != "") {
+	 $size = getimagesize($product_dir."/".$thumb);
+	 $height = $size[1];
+	 $width = $size[0];
+	 //$ref=150;
+	 if ($height > $pricelist_thumb_height)
+	 {
+	 $height = $pricelist_thumb_height;
+	 $percent = ($size[1] / $height);
+	 $width = round($size[0] / $percent);
+	 }
+	 if ($width > $pricelist_thumb_width)
+	 {
+	 $width = $pricelist_thumb_width;
+	 $percent = ($size[0] / $width);
+	 $height = round($size[1] / $percent);
+	 }
+	 echo '<div style="position:relative;float:left">';
+	 echo "<img src=\"".$product_url."/".$thumb."\" class=\"borderimg\" height=".$height." width=".$width."><br />";
+	 echo "<a href=\"".zurl("index.php?page=productadmin&action=del_image&picid=".$picid)."\">";
+	 echo '<img style="position:absolute;right:0px;top:0px;" src="'.ZING_URL.'fws/templates/default/images/delete.gif" height="16px" width="16px" />';
+	 echo "</a>";
+	 echo '</div>';
+	 }
+	 */
+	echo '</div><div style="clear:both"></div>';
 }
 if (ZING_PROTOTYPE) {
 	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/imageupload.proto.js"></script>';
+} elseif (ZING_JQUERY) {
+	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/imageupload.jquery.js"></script>';
 }
 ?>

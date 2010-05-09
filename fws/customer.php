@@ -221,7 +221,7 @@ if ($action=="save") {
 			$query = sprintf("UPDATE `".$dbtablesprefix."customer` SET `LOGINNAME` =%s, `PASSWORD` = %s, `LASTNAME` = %s, `MIDDLENAME` = %s, `INITIALS` = %s, `IP` = '".GetUserIP()."', `ADDRESS` = %s, `ZIP` = %s, `CITY` = %s, `STATE` = %s, `PHONE` = %s, `EMAIL` = %s, `COUNTRY` = %s, `COMPANY` = %s, `NEWSLETTER` = '".$newsletter."' WHERE ID = %s", quote_smart($login), quote_smart(md5($pass1)), quote_smart($surname), quote_smart($middle), quote_smart($initials), quote_smart($address), quote_smart($zip), quote_smart($city), quote_smart($state), quote_smart($phone), quote_smart($email), quote_smart($country), quote_smart($company), quote_smart($customerid));
 			$sql = mysql_query($query) or die(mysql_error());
 			if ($integrator->wpCustomer) {
-				$integrator->updateWpUser(array('user_pass'=>$pass1,'user_login'=>$login,'first_name'=>$initials,'last_name'=>$surname,'user_email'=>$email),'subscriber');
+				$integrator->updateWpUser(array('user_pass'=>$pass1,'user_login'=>$login,'first_name'=>$initials,'last_name'=>$surname,'user_email'=>$email));
 			}
 			PutWindow($gfx_dir, $txt['general13'], $txt['customer13'], "notify.gif", "50"); // succesfully saved
 			$action =  "show";

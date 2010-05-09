@@ -27,7 +27,7 @@ var wsCart = Class.create( {
 		if ($('shoppingcart')!=null) $('shoppingcart').show();
 		if ($('showcart')!=null) $('showcart').hide();
 		if ($('hidecart')!=null) $('hidecart').show();
-		Cookie.setData('showcart', true);
+		//Cookie.setData('showcart', true);
 	},
 
 	showCart : function() {
@@ -75,28 +75,6 @@ var wsCart = Class.create( {
 		});
 	},
 
-	sendToCart : function() {
-		var tag = $('zing-sidebar-cart');
-		new Ajax.Request(wsURL + "getCartContents.php", {
-			method : "post",
-			parameters : {
-				'dummy' : '123'
-			},
-			onComplete : function(request) {
-				tag.innerHTML = request.responseText;
-				Effect.BlindDown('shoppingcart', {
-					duration : 1.0
-				});
-				Effect.BlindUp('shoppingcart', {
-					delay : 3.0,
-					duration : 1.0
-				});
-				this.contents();
-
-			}.bind(this)
-		});
-	},
-
 	getCart : function() {
 		var tag = $('zing-sidebar-cart');
 		new Ajax.Request(wsURL + "getCartContents.php", {
@@ -106,13 +84,24 @@ var wsCart = Class.create( {
 			},
 			onComplete : function(request) {
 				tag.innerHTML = request.responseText;
-				if (Cookie.getData('hidecart') == true) {
+				if (Cookie.getData('showcart') == false) {
 					Effect.BlindDown('shoppingcart', {
 						duration : 1.0
+					});
+					Effect.BlindUp('showcart', {
+						duration : 0.5
 					});
 					Effect.BlindUp('shoppingcart', {
 						delay : 3.0,
 						duration : 1.0
+					});
+					Effect.BlindUp('hidecart', {
+						delay : 4.0,
+						duration : 0.1
+					});
+					Effect.BlindDown('showcart', {
+						delay : 4.0,
+						duration : 0.1
 					});
 				}
 				this.contents();
@@ -128,7 +117,6 @@ var wsCart = Class.create( {
 			method : "post",
 			parameters : $(form).serialize(true),
 			onComplete : function(request) {
-				//alert(request.responseText.substr(14300,1000));
 				this.getCart();
 			}.bind(this)
 		});

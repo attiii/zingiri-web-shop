@@ -45,36 +45,23 @@ else {
 
 			$thumb = "";
 
-			if (thumb_exists($product_dir ."/". $picture . ".jpg")) { $thumb = $product_url ."/". $picture . ".jpg"; }
-			if (thumb_exists($product_dir ."/". $picture . ".gif")) { $thumb = $product_url ."/". $picture . ".gif"; }
-			if (thumb_exists($product_dir ."/". $picture . ".png")) { $thumb = $product_url ."/". $picture . ".png"; }
+			if (!empty($row['DEFAULTIMAGE']) && thumb_exists($product_dir ."/". str_replace('tn_','',$row['DEFAULTIMAGE']))) { $thumb = $product_url."/".str_replace('tn_','',$row['DEFAULTIMAGE']); }
+			elseif (thumb_exists($product_dir ."/". $picture . ".jpg")) { $thumb = $product_url ."/". $picture . ".jpg"; }
+			elseif (thumb_exists($product_dir ."/". $picture . ".gif")) { $thumb = $product_url ."/". $picture . ".gif"; }
+			elseif (thumb_exists($product_dir ."/". $picture . ".png")) { $thumb = $product_url ."/". $picture . ".png"; }
 
 			if ($thumb == "") { $thumb = $gfx_dir."/nothumb.jpg"; }
 
-			$size = getimagesize(str_replace($product_url,$product_dir,$thumb));
-			$height = $size[1];
-			$width = $size[0];
-			$resized = 0;
-			if ($height > $product_max_height)
-			{
-				$height = $product_max_height;
-				$percent = ($size[1] / $height);
-				$width = round(($size[0] / $percent));
-				$resized = 1;
-			}
-			if ($width > $product_max_width)
-			{
-				$width = $product_max_width;
-				$percent = ($size[0] / $width);
-				$height = round(($size[1] / $percent));
-				$resized = 1;
-			}
+			$size=wsResizeImage($thumb);
+			$resized=$size['resized'];
+			$height=$size['height'];
+			$width=$width['width'];
 			if ($resized == 0) { $screenshot = "<img class=\"borderimg\" src=\"".$thumb."\" height=".$height." width=".$width." alt=\"\" />"; }
 			else {
 				if ($use_imagepopup == 0) {
-					$screenshot = "<a href=\"".$thumb."\"><img class=\"borderimg\" src=\"".$thumb."\" height=".$height." width=".$width." alt=\"\"/><br />".$txt['details9']."</a>";
+					$screenshot = "<a id=\"highlight_ref\" href=\"".$thumb."\"><div style=\"height:".$product_max_height."px\"><img class=\"borderimg\" id=\"highlight_image\" src=\"".$thumb."\" height=".$height." width=".$width." alt=\"\"/></div>".$txt['details9']."</a>";
 				}
-				else {$screenshot = "<a href=\"".$thumb."\" rel=\"lightbox\" title=\"".$txt['details2'].": ".$row[1]."\"><img class=\"borderimg\" src=\"".$thumb."\" height=".$height." width=".$width." alt=\"\"/><br /><br/>".$txt['details9']."</a>"; }
+				else {$screenshot = "<a id=\"highlight_ref\" href=\"".$thumb."\" rel=\"lightbox\" title=\"".$txt['details2'].": ".$row[1]."\"><div style=\"height:".$product_max_height."px\"><img id=\"highlight_image\" class=\"borderimg\" src=\"".$thumb."\" height=".$height." width=".$width." alt=\"\"/></div>".$txt['details9']."</a>"; }
 			}
 
 		}
@@ -87,8 +74,25 @@ else {
 		<h5><?php echo $txt['details2'] ?>: <?php echo $row[1] ?></h5>
 		<br />
 		<br />
-		<div style="text-align: center;"><?php echo $screenshot; ?> <br />
+		<div style="text-align:center;"><?php echo $screenshot; ?><br /><br />
 		<?php
+		//other images
+
+		echo '<div id="uploaded_images">';
+		$picid=$row['ID'];
+		$handle=opendir($product_dir);
+		while (($img = readdir($handle))!==false) {
+			if (strstr($img,'tn_'.$picid)) {
+				echo '<div id="'.$img.'" style="position:relative;float:left">';
+				$size=wsResizeImage($product_dir.'/'.str_replace('tn_','',$img));
+				echo '<a href="javascript:void(0);" onMouseOver="wsHoverImage(\''.$product_url.'/'.str_replace('tn_','',$img).'\','.$size['height'].','.$size['width'].')"><img src="'.$product_url.'/'.$img.'" class="borderimg" />';
+				echo "</a>";
+				echo '</div>';
+			}
+		}
+		closedir($handle);
+		echo '</div><div style="clear:both"></div>';
+
 		// show extra admin options?
 		$admin_edit = "";
 		if (IsAdmin() == true) {
@@ -114,61 +118,63 @@ else {
 		<br />
 		<?php if ($ordering_enabled) {?>
 		<form id="order" method="POST" action="?page=cart&action=add">
-		<div style="text-align: right"><input type="hidden" name="prodid"
-			value="<?php echo $row[0] ?>"> <input type="hidden" name="prodprice"
-			value="<?php echo $row[4] ?>"> <?php
-			if (!$row[4] == 0) {
-				$tax=new wsTax($row[4]);
-				if ($no_vat == 1) {
-					echo "<big><strong>" . $txt['details5'] . ": ". $currency_symbol_pre.$tax->inFtd.$currency_symbol_post."</strong></big>";
-				}
-				else {
-					echo "<big><strong>" . $txt['details5'] . ": ".$currency_symbol_pre.$tax->inFtd.$currency_symbol_post."</strong></big>";
-					echo "<br /><small>(".$currency_symbol_pre.$tax->exFtd.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>";
-				}
+		<div style="text-align: right"><input type="hidden" name="prodid" value="<?php echo $row[0] ?>"> <input
+			type="hidden" name="prodprice" value="<?php echo $row[4] ?>"
+		> <?php
+		if (!$row[4] == 0) {
+			$tax=new wsTax($row[4]);
+			if ($no_vat == 1) {
+				echo "<big><strong>" . $txt['details5'] . ": ". $currency_symbol_pre.$tax->inFtd.$currency_symbol_post."</strong></big>";
+			}
+			else {
+				echo "<big><strong>" . $txt['details5'] . ": ".$currency_symbol_pre.$tax->inFtd.$currency_symbol_post."</strong></big>";
+				echo "<br /><small>(".$currency_symbol_pre.$tax->exFtd.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>";
+			}
 
-				// product features
-				$allfeatures = $row[8];
-				if (!empty($allfeatures)) {
-					$features = explode("|", $allfeatures);
-					$counter1 = 0;
-					echo "<br /><br />";
-					while (!$features[$counter1] == NULL){
-						if (strpos($features[$counter1],":")===FALSE){echo "<br />".$features[$counter1].":  <input type=\"text\" name=\"".$features[$counter1]."\"> ";$counter1 += 1;}
-						else {
-							$feature = explode(":", $features[$counter1]);
-							$counter1 += 1;
-							echo "<br />".$feature[0].": ";
-							echo "<select name=\"".$feature[0]."\">";
-							$value = explode(",", $feature[1]);
-							$counter2 = 0;
-							while (!$value[$counter2] == NULL){
+			// product features
+			$allfeatures = $row[8];
+			if (!empty($allfeatures)) {
+				$features = explode("|", $allfeatures);
+				$counter1 = 0;
+				echo "<br /><br />";
+				while (!$features[$counter1] == NULL){
+					if (strpos($features[$counter1],":")===FALSE){echo "<br />".$features[$counter1].":  <input type=\"text\" name=\"".$features[$counter1]."\"> ";$counter1 += 1;}
+					else {
+						$feature = explode(":", $features[$counter1]);
+						$counter1 += 1;
+						echo "<br />".$feature[0].": ";
+						echo "<select name=\"".$feature[0]."\">";
+						$value = explode(",", $feature[1]);
+						$counter2 = 0;
+						while (!$value[$counter2] == NULL){
 
-								// optionally you can specify the additional costs: color:red+1.50,green+2.00,blue+3.00 so lets deal with that
-								$extracosts = explode("+",$value[$counter2]);
-								if (!$extracosts[1] == NULL) {
-									// there are extra costs
-									$printvalue = $extracosts[0]." (+".$currency_symbol_pre.myNumberFormat($extracosts[1],$number_format).$currency_symbol_post.")";
-								}
-								else {
-									$printvalue = $value[$counter2];
-								}
-
-								// print the pulldown menu
-								$printvalue = str_replace("+".$currency_symbol_pre."-", "-".$currency_symbol_pre, $printvalue);
-								echo "<option value=\"".$value[$counter2]."\""; if ($counter2 == 0) { echo " SELECTED"; } echo ">".$printvalue;
-								$counter2 += 1;
+							// optionally you can specify the additional costs: color:red+1.50,green+2.00,blue+3.00 so lets deal with that
+							$extracosts = explode("+",$value[$counter2]);
+							if (!$extracosts[1] == NULL) {
+								// there are extra costs
+								$printvalue = $extracosts[0]." (+".$currency_symbol_pre.myNumberFormat($extracosts[1],$number_format).$currency_symbol_post.")";
 							}
-							echo "</select>";
+							else {
+								$printvalue = $value[$counter2];
+							}
+
+							// print the pulldown menu
+							$printvalue = str_replace("+".$currency_symbol_pre."-", "-".$currency_symbol_pre, $printvalue);
+							echo "<option value=\"".$value[$counter2]."\""; if ($counter2 == 0) { echo " SELECTED"; } echo ">".$printvalue;
+							$counter2 += 1;
 						}
+						echo "</select>";
 					}
 				}
 			}
-			?> <br />
+		}
+		?> <br />
 		<br />
-		<?php if (!$row['LINK']) { echo $txt['details6'] ?>: <input type="text" size="4"
-			name="numprod" value="1" maxlength="4">&nbsp;<?php }?><input type="submit"
-			value="<?php echo $txt['details7'] ?>" id="addtocart" name="sub">
+		<?php if (!$row['LINK']) { echo $txt['details6'] ?>: <input type="text" size="4" name="numprod"
+			value="1" maxlength="4"
+		>&nbsp;<?php }?><input type="submit" value="<?php echo $txt['details7'] ?>" id="addtocart"
+			name="sub"
+		>
 		
 		</form>
 		<?php }?>
@@ -195,7 +201,7 @@ else {
 	}
 }
 if (ZING_PROTOTYPE) {
-?>
+	?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
 	document.observe("dom:loaded", function() {
@@ -205,4 +211,11 @@ if (ZING_PROTOTYPE) {
 	});
 //]]>
 </script>
-<?php }?>
+	<?php
+}
+if (ZING_PROTOTYPE) {
+	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/imagedisplay.proto.js"></script>';
+} elseif (ZING_JQUERY) {
+	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/imagedisplay.jquery.js"></script>';
+}
+?>

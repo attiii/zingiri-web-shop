@@ -81,7 +81,7 @@ function user_error_handler($severity, $msg, $filename="", $linenum=0) {
 
 function createthumb($name,$filename,$new_w,$new_h){
 	if (file_exists($filename)) { unlink($filename); }
-	$ext = substr(strrchr($name, '.'), 1);
+	$ext = strtolower(substr(strrchr($name, '.'), 1));
 	if ($ext == 'jpg' || $ext == 'jpeg'){
 		$src_img=imagecreatefromjpeg($name);
 	}
@@ -198,9 +198,9 @@ function mymail($from,$to,$subject,$message,$charset)
 	$headers  = 'MIME-Version: 1.0' . "\r\n";
 	$headers .= 'Content-type: text/html; charset='.$charset."\r\n";
 	$headers .= 'From: '.$from.' <'.$from.'>' . "\r\n";
-	
+
 	if ($use_phpmail == 1) {
-		mail($to, '=?UTF-8?B?'.base64_encode($subject).'?=', $message, $headers);		
+		mail($to, '=?UTF-8?B?'.base64_encode($subject).'?=', $message, $headers);
 		return true;
 	}
 	elseif ($use_phpmail == 2) {
@@ -369,7 +369,7 @@ Function CountCart($customerid) {
 Function CountOrders($customerid) {
 	Global $dbtablesprefix;
 	$num_orders=0;
-	$query = "SELECT * FROM `".$dbtablesprefix."order` WHERE (CUSTOMERID=".$customerid.")";
+	$query = "SELECT * FROM `".$dbtablesprefix."order` WHERE `STATUS`>0 AND `CUSTOMERID`=".$customerid;
 	$sql = mysql_query($query) or die(mysql_error());
 	$num_orders = mysql_num_rows($sql);
 	return $num_orders;
@@ -377,10 +377,10 @@ Function CountOrders($customerid) {
 Function CountAllOrders() {
 	Global $dbtablesprefix;
 	$num_tot_orders=0;
-	$query = "SELECT * FROM `".$dbtablesprefix."order`";
+	$query = "SELECT * FROM `".$dbtablesprefix."order` WHERE `STATUS`>0";
 	$sql = mysql_query($query) or die(mysql_error());
 	$num_tot_orders = mysql_num_rows($sql);
-	$query = "SELECT * FROM `".$dbtablesprefix."order` WHERE (STATUS<5)"; // orders that need your attention
+	$query = "SELECT * FROM `".$dbtablesprefix."order` WHERE (`STATUS`<5 AND `STATUS`>0)"; // orders that need your attention
 	$sql = mysql_query($query) or die(mysql_error());
 	$num_att_orders = mysql_num_rows($sql);
 	return $num_att_orders."/".$num_tot_orders;
@@ -883,11 +883,35 @@ function wsSetting($setting) {
 	if ($db->select("select `".$setting."` from ##settings where `ID`=1")) {
 		$db->next();
 		return $db->get($setting);
-	} 
+	}
 	return false;
 }
 
 function wsComments($text) {
 	return '<a href=# class=info>(?)<span>'.$text.'</span></a>';
+}
+
+function wsResizeImage($thumb) {
+	global $product_url,$product_dir,$product_max_height,$product_max_width;
+	
+	$size = getimagesize(str_replace($product_url,$product_dir,$thumb));
+	$height = $size[1];
+	$width = $size[0];
+	$resized = 0;
+	if ($height > $product_max_height)
+	{
+		$height = $product_max_height;
+		$percent = ($size[1] / $height);
+		$width = round(($size[0] / $percent));
+		$resized = 1;
+	}
+	if ($width > $product_max_width)
+	{
+		$width = $product_max_width;
+		$percent = ($size[0] / $width);
+		$height = round(($size[1] / $percent));
+		$resized = 1;
+	}
+	return array('height' => $height,'width' => $width,'resized' => $resized);
 }
 ?>

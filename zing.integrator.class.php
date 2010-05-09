@@ -81,13 +81,11 @@ class integrator {
 		$id=wp_insert_user($user);
 	}
 
-	function updateWpUser($user,$role) {
+	function updateWpUser($user) {
 		require_once(ABSPATH.'wp-includes/registration.php');
 		global $wpdb;
 		$olduser=get_userdatabylogin($user['user_login']);
 		$id=$user['ID']=$olduser->ID;
-		$user['role']=$role;
-		//if (!isset($row['DATE_UPDATED'])) $row['DATE_UPDATED']=date('Y-m-d');
 		$user['user_pass']=wp_hash_password($user['user_pass']);
 		wp_insert_user($user);
 	}

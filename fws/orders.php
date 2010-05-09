@@ -32,8 +32,7 @@ else {
     if ($id != 0) { $customerid = $id; } //omdat een admin het via orders?id=xx kan aanroepen
 
     // door alle orders van deze klant lopen..
-    $query = sprintf("SELECT * FROM `##order` WHERE `CUSTOMERID` = %s", quote_smart($customerid));
-    $query.= sprintf(" AND `ID` NOT IN (SELECT `ORDERID` FROM `##basket` WHERE `CUSTOMERID` = %s AND STATUS=0)",quote_smart($customerid));
+    $query = sprintf("SELECT * FROM `##order` WHERE `STATUS`>0 AND `CUSTOMERID` = %s", quote_smart($customerid));
     $query.= " ORDER BY ID DESC";
     $query=str_replace('##',$dbtablesprefix,$query);
     $sql = mysql_query($query) or die(mysql_error());

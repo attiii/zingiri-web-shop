@@ -141,7 +141,7 @@ if (!function_exists('assign_rand_value')) {
 }
 
 if (!function_exists('create_sessionid')) {
-	function create_sessionid($length)
+	function create_sessionid($length,$low=27,$high=36)
 	{
 		if($length>0)
 		{
@@ -149,7 +149,7 @@ if (!function_exists('create_sessionid')) {
 			for($i=1; $i<=$length; $i++)
 			{
 				mt_srand((double)microtime() * 1000000);
-				$num = mt_rand(27,36);
+				$num = mt_rand($low,$high);
 				$rand_id .= assign_rand_value($num);
 			}
 		}

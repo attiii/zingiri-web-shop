@@ -57,7 +57,7 @@ if ($shop_disabled == 1 && IsAdmin() == true) {
 			echo "<br />";
 			echo '<table width="100%" class="borderless">';
 
-			while ($f_row = mysql_fetch_row($f_sql)) {
+			while ($f_row = mysql_fetch_array($f_sql)) {
 				$row_count++;
 				include ("frontpage.php");
 				if ($row_count == $prods_per_row) { $row_count = 0; }
@@ -75,4 +75,14 @@ document.observe("dom:loaded", function() {
 });
 //]]>
 </script>
-<?php } ?>
+<?php } elseif (ZING_JQUERY) {?>
+<script type="text/javascript" language="javascript">
+//<![CDATA[
+	jQuery(document).ready(function() {
+	    wsFrontPage=true;
+		cart=new wsCart();
+		cart.order();
+	});
+//]]>
+</script>
+<?php }?>

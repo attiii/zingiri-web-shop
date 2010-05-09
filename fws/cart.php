@@ -119,8 +119,6 @@ if ($action=="add" && $numprod != 0) {
 }
 
 if ($action=="update"){
-	echo 'action='.$action.'-'.$numprod;
-	
 	if ($numprod == 0) {
 		$query = "DELETE FROM `".$dbtablesprefix."basket` WHERE `ID` = '". $basketid."' AND `STATUS` = '0'";
 		$sql = mysql_query($query) or die(mysql_error());
@@ -171,7 +169,7 @@ else {
 	<?php
 	$optel = 0;
 
-	while ($row = mysql_fetch_row($sql)) {
+	while ($row = mysql_fetch_array($sql)) {
 		$query = "SELECT * FROM `".$dbtablesprefix."product` where `ID`='" . $row[2] . "'";
 		$sql_details = mysql_query($query) or die(mysql_error());
 		while ($row_details = mysql_fetch_array($sql_details)) {
@@ -198,12 +196,13 @@ else {
 				if (thumb_exists($product_dir ."/". $picture . ".jpg")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/".$picture.".jpg\"".$width.$height." alt=\"\" />"; }
 				if (thumb_exists($product_dir ."/". $picture . ".gif")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/".$picture.".gif\"".$width.$height." alt=\"\" />"; }
 				if (thumb_exists($product_dir ."/". $picture . ".png")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/".$picture.".png\"".$width.$height." alt=\"\" />"; }
-
+				
 				// if the script uses make_thumbs, then search for thumbs
 				if ($make_thumbs == 1) {
-					if (thumb_exists($product_dir ."/tn_". $picture . ".jpg")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/tn_".$picture.".jpg\" alt=\"\" />"; }
-					if (thumb_exists($product_dir ."/tn_". $picture . ".gif")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/tn_".$picture.".gif\" alt=\"\" />"; }
-					if (thumb_exists($product_dir ."/tn_". $picture . ".png")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/tn_".$picture.".png\" alt=\"\" />"; }
+					if (!empty($row_details['DEFAULTIMAGE']) && thumb_exists($product_dir ."/". $row_details['DEFAULTIMAGE'])) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/".$row_details['DEFAULTIMAGE']."\" alt=\"\" />"; }
+					elseif (thumb_exists($product_dir ."/tn_". $picture . ".jpg")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/tn_".$picture.".jpg\" alt=\"\" />"; }
+					elseif (thumb_exists($product_dir ."/tn_". $picture . ".gif")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/tn_".$picture.".gif\" alt=\"\" />"; }
+					elseif (thumb_exists($product_dir ."/tn_". $picture . ".png")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/tn_".$picture.".png\" alt=\"\" />"; }
 				}
 					
 				if ($thumb != "" && $thumbs_in_pricelist == 0) {

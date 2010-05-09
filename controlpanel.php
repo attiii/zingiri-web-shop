@@ -33,12 +33,12 @@ function zing_set_options() {
 			"type" => "select",
 			"options" => array("Zingiri","WP"));
 
-	$zing_ws_options[]=	array(	"name" => "Use effects",
-			"desc" => "Select whether you want to activate effects.<br />Our plugin fully supports Prototype and partially supports jQuery.<br />If your theme uses either of these it is best to select the same.<br />If your theme uses another one, you should deactivate the effects here.",
+	$zing_ws_options[]=	array(	"name" => "Javascript library",
+			"desc" => "Select the javascript library you want to activate.<br />Our plugin fully supports Prototype and jQuery. If your theme uses either of these it is best to select the same.<br />If your theme uses another one, you can try with the jQuery library and if it doesn't work you can deactivate javascript by selecting Off.",
 			"id" => $zing_ws_shortname."_effects",
-			"std" => "Prototype",
+			"std" => "jQuery",
 			"type" => "select",
-			"options" => array("Prototype","jQuery","Off"));
+			"options" => array("jQuery","Prototype","Off"));
 
 	if ($ids=get_option("zing_webshop_pages")) {
 		$ida=explode(",",$ids);
@@ -107,11 +107,6 @@ function zing_ws_add_admin() {
 
 	}
 
-	//add_menu_page(page_title, menu_title, capability, handle, [function], [icon_url]);
-	//add_submenu_page(parent, page_title, menu_title, capability required, file/handle, [function]);
-
-	//add_options_page($zing_ws_name." Options", "$zing_ws_name", 8, basename(__FILE__), 'zing_ws_admin');
-
 	add_menu_page($zing_ws_name, $zing_ws_name, 'administrator', 'zingiri-web-shop','zing_ws_admin');
 	add_submenu_page('zingiri-web-shop', $zing_ws_name.'- Integration', 'Integration', 'administrator', 'zingiri-web-shop', 'zing_ws_admin');
 	if ($zing_version && $integrator->wpAdmin) {
@@ -144,9 +139,7 @@ function zing_ws_settings() {
 	echo '<div style="display:none" id="icon_label"></div>';
 	echo '</div>';
 
-	if (ZING_PROTOTYPE) {
-		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/controlpanel.js"></script>';
-	}
+	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/controlpanel.js"></script>';
 
 	//main window
 	echo '<div style="width:80%;float:left;position:relative">';

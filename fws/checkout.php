@@ -310,13 +310,19 @@ if (LoggedIn() == True) {
 			$message .= $txt['checkout6']; // white line
 			$message .= $txt['checkout9']; // direct link to customer order for online status checking
 
+			//update order & basket
+			if ($autosubmit && $payment_code!="") {
+				$basket_status=0;
+				$order_status=0;
+			} else {
+				$basket_status=1;
+				$order_status=1;
+			}
 			// order update
-			$query = "UPDATE `".$dbtablesprefix."order` SET `TOPAY` = '".$total."',`DISCOUNTCODE`=".qs($discount_code)." WHERE `ID` = ".$lastid;
+			$query = "UPDATE `".$dbtablesprefix."order` SET `STATUS`=".qs($order_status).", `TOPAY` = '".$total."',`DISCOUNTCODE`=".qs($discount_code)." WHERE `ID` = ".$lastid;
 			$sql = mysql_query($query) or die(mysql_error());
-
+			
 			//basket update
-			if ($autosubmit && $payment_code!="") $basket_status=0;
-			else $basket_status=1;
 			$query = sprintf("UPDATE `".$dbtablesprefix."basket` SET `ORDERID` = '".$lastid."',`STATUS`=%s WHERE (`CUSTOMERID` = %s AND `STATUS` = '0')", qs($basket_status), quote_smart($customerid));
 			$sql = mysql_query($query) or die(mysql_error());
 
@@ -399,9 +405,13 @@ if (LoggedIn() == True) {
 </script>
 				<?php
 				} elseif (ZING_JQUERY) {?>
+<script type="text/javascript" language="javascript">
+//<![CDATA[
 					jQuery(document).ready(function() {
         		   		wsSubmit();
 					});
+			           //]]>
+					</script>
 				<?php }
 			}
 

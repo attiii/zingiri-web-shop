@@ -158,10 +158,10 @@ else {
 	else { $limit = ""; }
 
 	// cycle trough orders, if there are no search criterea, then show all
-	if ($status == "%") {  $where = ""; }
-	else { $where = "WHERE STATUS = '" . $status . "'"; }
+	if ($status == "%") {  $where.= ""; }
+	else { $where.= "AND STATUS = '" . $status . "'"; }
 
-	$query = "SELECT * FROM `".$dbtablesprefix."order` " . $where . " ORDER BY ID DESC";
+	$query = "SELECT * FROM `".$dbtablesprefix."order` WHERE `STATUS`>0 " . $where . " ORDER BY ID DESC";
 	$sql = mysql_query($query) or die(mysql_error());
 	$num_orders = mysql_num_rows($sql);
 	$sql = mysql_query($query.$limit) or die(mysql_error());

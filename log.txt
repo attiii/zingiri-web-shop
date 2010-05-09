@@ -1,0 +1,5 @@
+2010-05-09 09:54:05 DB_PREFIX:wp_zing_ (-0)
+2010-05-09 09:54:05 load language files (-0)
+2010-05-09 09:54:05 create default pages (-0)
+2010-05-09 09:54:05 create directories (-0)
+2010-05-09 09:54:05 completed (-0)

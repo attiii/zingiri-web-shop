@@ -101,12 +101,12 @@ else { $limit = ""; }
 
 
 	if ($action == "list") {
-		$query = "SELECT * FROM `".$dbtablesprefix."product` "; 
+		$query = "SELECT * FROM `".$dbtablesprefix."product` ";
 		if ($stock_enabled == 1 && $hide_outofstock == 1 && IsAdmin() == false) { // filter out products with stock lower than 1
 			$query = sprintf("SELECT * FROM `".$dbtablesprefix."product` where `STOCK` > 0 AND `CATID`=%s ORDER BY `$orderby_field` ASC", quote_smart($cat));
 		}
-		elseif (!empty($cat)) { 
-			$query = sprintf("SELECT * FROM `".$dbtablesprefix."product` WHERE CATID=%s ORDER BY `$orderby_field` ASC", quote_smart($cat)); 
+		elseif (!empty($cat)) {
+			$query = sprintf("SELECT * FROM `".$dbtablesprefix."product` WHERE CATID=%s ORDER BY `$orderby_field` ASC", quote_smart($cat));
 		}
 	}
 	elseif ($action == "shownew") {
@@ -131,11 +131,12 @@ else { $limit = ""; }
 			}
 			$searchquery .= ")";
 		}
-		else { 
+		else {
 			//$searchquery = "WHERE (DESCRIPTION = 'never_find_me')";
-			$searchquery = " "; 
+			$searchquery = " ";
 		} // just to cause that the searchresult is empty
 		$query = "SELECT * FROM `".$dbtablesprefix."product` $searchquery ORDER BY `$orderby_field` ASC";
+		$limit="";
 	}
 
 	// total products without the limit
@@ -151,7 +152,15 @@ else { $limit = ""; }
 			
 		$optel = 0;
 
-		while ($row = mysql_fetch_array($sql)) {
+		if ($searchfor) {
+			$rows=wsOrderByRelevance($sql,$query,$searchitem,$searchmethod,$start_record,$orderby_field);
+		} else {
+			$rows=array();
+			while ($row = mysql_fetch_array($sql)) {
+				$rows[]=$row;
+			}
+		}
+		foreach ($rows as $row) {
 			$optel++;
 			if ($optel == 3) { $optel = 1; }
 			if ($optel == 1) { $kleur = ""; }
@@ -188,9 +197,10 @@ else { $limit = ""; }
 					
 				// if the script uses make_thumbs, then search for thumbs
 				if ($make_thumbs == 1) {
-					if (thumb_exists($product_dir ."/tn_". $picture . ".jpg")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/tn_".$picture.".jpg\" alt=\"\" />"; }
-					if (thumb_exists($product_dir ."/tn_". $picture . ".gif")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/tn_".$picture.".gif\" alt=\"\" />"; }
-					if (thumb_exists($product_dir ."/tn_". $picture . ".png")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/tn_".$picture.".png\" alt=\"\" />"; }
+					if (!empty($row['DEFAULTIMAGE']) && thumb_exists($product_dir ."/". $row['DEFAULTIMAGE'])) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/".$row['DEFAULTIMAGE']."\" alt=\"\" />"; }
+					elseif (thumb_exists($product_dir ."/tn_". $picture . ".jpg")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/tn_".$picture.".jpg\" alt=\"\" />"; }
+					elseif (thumb_exists($product_dir ."/tn_". $picture . ".gif")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/tn_".$picture.".gif\" alt=\"\" />"; }
+					elseif (thumb_exists($product_dir ."/tn_". $picture . ".png")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/tn_".$picture.".png\" alt=\"\" />"; }
 				}
 					
 				if ($thumb != "" && $thumbs_in_pricelist == 0) {
@@ -211,7 +221,7 @@ else { $limit = ""; }
 			}
 			// make up the description to print according to the pricelist_format and max_description
 			$print_description=printDescription($row[1],$row[3]);
-			
+
 			echo "<tr".$kleur.">";
 
 			// see what the stock is
@@ -231,8 +241,8 @@ else { $limit = ""; }
 			echo "<td>".$stockpic."<a class=\"plain\" href=\"index.php?page=details&prod=".$row[0]."&cat=".$row[2]."&group=".$group."\">".$thumb.$print_description."</a> ".$picturelink." ".$new." ".$stocktext.$admin_edit."</td>";
 			if ($ordering_enabled) {
 				echo "<td><div style=\"text-align:right;\">";
-			if ($order_from_pricelist) {
-				?>
+				if ($order_from_pricelist) {
+					?>
 	<form id="order<?php echo $row[0];?>" method="POST" action="?page=cart&action=add">
 	<div style="text-align: right"><input type="hidden" id="prodid" name="prodid"
 		value="<?php echo $row[0] ?>"
@@ -288,10 +298,11 @@ else { $limit = ""; }
 	<br />
 	<?php }
 	if (!$includesearch) {
-	if (!$row['LINK']) {
-		echo $txt['details6'] ?>:<br />
+		if (!$row['LINK']) {
+			echo $txt['details6'] ?>:<br />
 	<input type="text" size="4" name="numprod" value="1" maxlength="4">&nbsp; <?php }?> <input
-		type="<?php if (ZING_PROTOTYPE || ZING_JQUERY) echo 'button'; else echo 'submit';?>" id="addtocart" value="<?php echo $txt['details7'] ?>" name="sub"
+		type="<?php if (ZING_PROTOTYPE || ZING_JQUERY) echo 'button'; else echo 'submit';?>"
+		class="addtocart" id="addtocart" value="<?php echo $txt['details7'] ?>" name="sub"
 	> <?php
 	}
 	if ($row[4] == 0) {
@@ -301,17 +312,17 @@ else { $limit = ""; }
 	
 	</form>
 	<?php
+				}
+				else { echo "<big><strong>".$currency_symbol."&nbsp;".$printprijs."</strong></big>"; }
+				echo "</div></td>";
 			}
-			else { echo "<big><strong>".$currency_symbol."&nbsp;".$printprijs."</strong></big>"; }
-			echo "</div></td>";
-		}
 			echo "</tr>";
 		} ?>
 </table>
-<?php if (!$includesearch) {?>
+		<?php if (!$includesearch) {?>
 <div style="text-align: right;"><img src="<?php echo $gfx_dir ?>/photo.gif" alt="" /> <em><small><?php echo $txt['browse6'] ?></small></em></div>
 		<?php
-}
+		}
 		// page code
 		if ($products_per_page > 0 && $num_products > $products_per_page) {
 
@@ -323,10 +334,10 @@ else { $limit = ""; }
 	  echo "<br /><h4>".$txt['browse11'].": ";
 
 	  if ($num_page > $page_range) {
-			echo "<a href=\"index.php?page=browse&action=$action&group=$group&cat=$cat&orderby=$orderby&searchmethod=$searchmethod&searchfor=$searchfor&num_page=1&includesearch=$includesearch\">[1]</a>";	  
+	  	echo "<a href=\"index.php?page=browse&action=$action&group=$group&cat=$cat&orderby=$orderby&searchmethod=$searchmethod&searchfor=$searchfor&num_page=1&includesearch=$includesearch\">[1]</a>";
 	  }
 	  if ($num_page > $page_range + 1) echo ' ...';
-	  
+
 	  for($i = 0; $i < $num_products; $i++) {
 		  $page_counter++;
 		  if ($page_counter == $products_per_page) {
@@ -376,11 +387,56 @@ else { $limit = ""; }
 			<?php
 		}
 	}
-if (ZING_PROTOTYPE && !is_admin()) {
-	?>
+	function wsOrderByRelevance($sql,$query,$searchitems,$searchmethod,$start_record,$orderby_field) {
+		global $products_per_page;
+
+		$i=0;
+		$rows=array();
+		$allrows=array();
+		while ($row = mysql_fetch_array($sql)) {
+			$search_quotient = 0;
+			foreach ($searchitems as $term) {
+				if ($searchmethod!="AND") $search_quotient=0;
+				$term=strtolower($term);
+				$sdes=substr_count(strtolower($row['PRODUCTID']),$term);
+				$ldes=substr_count(strtolower($row['DESCRIPTION']),$term);
+				if ($sdes == 0 && $ldes == 1) $search_quotient += 1 ;
+				elseif ($sdes == 0 && $ldes > 1) $search_quotient += 2 ;
+				elseif ($sdes >= 1 && $ldes == 0) $search_quotient += 3 ;
+				elseif ($sdes >= 1 && $ldes == 1) $search_quotient += 4 ;
+				elseif ($sdes >= 1 && $ldes >= 1) $search_quotient += 5 ;
+			}
+			$key=sprintf("%04d",$search_quotient).'_';
+			if ($orderby_field=="PRICE") $key.=sprintf("%09d",$row[$orderby_field]*1000);
+			else $key.=sprintf("%s",$row[$orderby_field]); 
+			$key.='_'.sprintf("%09d",$i);
+			//echo '<br />'.$key;
+			$allrows[$search_quotient.'.'.$i]=$row;
+			$i++;
+		}
+		krsort($allrows);
+		$i=0;
+		foreach ($allrows as $id => $row) {
+			if ($i >= $start_record && $i < ($start_record+$products_per_page)) $rows[$id]=$row;
+			$i++;
+		}
+		return $rows;
+	}
+	if (ZING_PROTOTYPE && !is_admin()) {
+		?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
 	document.observe("dom:loaded", function() {
+	    wsFrontPage=false;
+		cart=new wsCart();
+		cart.order();
+	});
+//]]>
+</script>
+<?php } elseif (ZING_JQUERY && !is_admin()) {?>
+<script type="text/javascript" language="javascript">
+//<![CDATA[
+	jQuery(document).ready(function() {
 	    wsFrontPage=false;
 		cart=new wsCart();
 		cart.order();
