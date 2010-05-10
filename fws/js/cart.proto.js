@@ -70,9 +70,11 @@ var wsCart = Class.create( {
 			}.bind(this)
 		});
 
-		Effect.Shake(image, {
-			duration : 1.0
-		});
+		if (image!=null) {
+			Effect.Shake(image, {
+				duration : 1.0
+			});
+		}
 	},
 
 	getCart : function() {

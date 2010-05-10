@@ -48,6 +48,7 @@ if ($use_prodgfx == 1) {
 		$width = intval($size[0] * $percent);
 		$screenshot = "<img src=\"".$thumb."\" width=\"".$width."\" height=\"".$height."\" />";
 	}
+	$screenshot="<div style=\"height:100px\">".$screenshot."</div>";
 }
 if ($row_count == 1) { echo "<tr>"; }
 echo '<td width="33%">

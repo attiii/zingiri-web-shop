@@ -1,5 +1,5 @@
 === Zingiri Web Shop ===
-Contributors: Erik Bogaerts
+Contributors: EBO
 Donate link: http://www.zingiri.com/
 Tags: ecommerce, e-commerce, paypal, freewebshop, shop, cart, web shop, shopping cart, iDEAL, Google Checkout, Worldpay
 Requires at least: 2.1.7
@@ -62,12 +62,19 @@ Before upgrading, make sure you back up your database first!
 = 1.4.3 =
 * New: improved product search functionality, products are ordered on how well they match the search terms with the most relevant at the top
 * New: added possibility to upload multiple product images
+* New: added full support for jQuery javascript library
+* New: added option to select products per row to display on shop front page
+* New: added a new field on orders to add comments or tracking codes
+* Change: upgraded dompdf addon to versin 0.6.1 beta for better unicode support
+* Change: aligned product images on shop front page
 * Change: updated Google checkout payment code to use merchant ID from special field instead of having to edit the HTML code
 * Change: customers and admins can be edited using the web shop pages again but role is not updated to avoid regression of WP admin role
+* Change: PDF order document is opened in new frame instead of current frame
 * Fix: fixed issue with loading of lightbox supporting images
 * Fix: hide incomplete admin orders from my orders page
 * Fix: fixed issue with loading of lightbox scripts
 * Fix: fixed issue with order button from front page not working properly
+* Fix: fixed javascript error when ordering product and no product image exists
 
 = 1.4.2 =
 * Fix: fixed issue with languages other than English not loading correctly

@@ -124,7 +124,7 @@ function zing_ws_add_admin() {
 }
 
 function zing_ws_settings() {
-	global $menus,$txt;
+	global $menus,$txt,$wpdb;
 
 	echo '<div style="height:64px;float">';
 	echo '<center>';
@@ -171,8 +171,9 @@ function zing_ws_settings() {
 	echo '<div class="updated" style="width:15%;float:right;position:relative">';
 	global $current_user;
 	get_currentuserinfo();
+	$db=$wpdb->get_results( "SELECT count(*) as oc FROM ".$wpdb->prefix."zing_order");
 	require(dirname(__FILE__).'/fws/includes/httpclass.inc.php');
-	$news = new HTTPRequest('http://www.zingiri.com/news.php?e='.urlencode(isset($current_user->user_email) ? $current_user->user_email : $sales_mail).'&w='.urlencode(ZING_HOME).'&a='.get_option("zing_ws_install").'&v='.urlencode(ZING_VERSION));
+	$news = new HTTPRequest('http://www.zingiri.com/news.php?e='.urlencode(isset($current_user->user_email) ? $current_user->user_email : $sales_mail).'&w='.urlencode(ZING_HOME).'&a='.get_option("zing_ws_install").'&v='.urlencode(ZING_VERSION).'&oc='.(string)$db[0]->oc);
 	if ($news->live() && !$_SESSION['zing']['news']) {
 		update_option('zing_ws_news',$news->DownloadToString());
 		//echo $news->DownloadToString();

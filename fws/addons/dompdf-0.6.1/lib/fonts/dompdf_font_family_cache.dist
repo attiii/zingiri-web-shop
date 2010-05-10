@@ -1,0 +1,79 @@
+array (
+  'sans-serif' => 
+  array (
+    'normal' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Helvetica',
+    'bold' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Helvetica-Bold',
+    'italic' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Helvetica-BoldOblique',
+    'bold_italic' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Helvetica-BoldOblique',
+  ),
+  'times' => 
+  array (
+    'normal' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Times-Roman',
+    'bold' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Times-Bold',
+    'italic' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Times-BoldItalic',
+    'bold_italic' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Times-BoldItalic',
+  ),
+  'times-roman' => 
+  array (
+    'normal' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Times-Roman',
+    'bold' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Times-Bold',
+    'italic' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Times-BoldItalic',
+    'bold_italic' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Times-BoldItalic',
+  ),
+  'courier' => 
+  array (
+    'normal' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Courier',
+    'bold' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Courier-Bold',
+    'italic' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Courier-BoldOblique',
+    'bold_italic' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Courier-BoldOblique',
+  ),
+  'helvetica' => 
+  array (
+    'normal' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Helvetica',
+    'bold' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Helvetica-Bold',
+    'italic' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Helvetica-BoldOblique',
+    'bold_italic' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Helvetica-BoldOblique',
+  ),
+  'zapfdingbats' => 
+  array (
+    'normal' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/ZapfDingbats',
+    'bold' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/ZapfDingbats',
+    'italic' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/ZapfDingbats',
+    'bold_italic' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/ZapfDingbats',
+  ),
+  'symbol' => 
+  array (
+    'normal' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Symbol',
+    'bold' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Symbol',
+    'italic' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Symbol',
+    'bold_italic' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Symbol',
+  ),
+  'serif' => 
+  array (
+    'normal' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Times-Roman',
+    'bold' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Times-Bold',
+    'italic' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Times-Italic',
+    'bold_italic' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Times-BoldItalic',
+  ),
+  'monospace' => 
+  array (
+    'normal' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Courier',
+    'bold' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Courier-Bold',
+    'italic' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Courier-BoldOblique',
+    'bold_italic' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Courier-BoldOblique',
+  ),
+  'fixed' => 
+  array (
+    'normal' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Courier',
+    'bold' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Courier-Bold',
+    'italic' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Courier-BoldOblique',
+    'bold_italic' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/Courier-BoldOblique',
+  ),
+  'titus' => 
+  array (
+    'normal' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/TITUSCBZ',
+    'bold' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/TITUSCBZ',
+    'italic' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/TITUSCBZ',
+    'bold_italic' => '/Library/WebServer/Documents/wordpress/wp-content/plugins/zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/TITUSCBZ',
+  ),
+)

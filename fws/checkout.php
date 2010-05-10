@@ -329,19 +329,19 @@ if (LoggedIn() == True) {
 			// make pdf
 			$pdf = "";
 			$fullpdf = "";
-			//$message=iconv($charset,'ISO-8859-1',$message);
 			if ($create_pdf == 1) {
-				$m = '<html><head><meta http-equiv="Content-Type" content="text/html; charset='.$charset.'" /></head><body>';
-				if ($charset=='UTF-8' && $lang=='se') {
-					$m.='<div style="font-family:FreeSerif">';
-					ini_set("memory_limit","128M");
-					$m.= utf8_decode($message);
+				$m = '<html><head><meta http-equiv="Content-Type" content="text/html; charset='.$charset.'" /></head>';
+				if ($charset=='UTF-8test') { 
+					$m.='<body style="font-family:titus;">';
+					ini_set("memory_limit","512M");
+					//$m.= utf8_decode($message);
+					$m.=$message;
 				} else {
+					$m.='<body>';
 					$m.=$message;
 				}
-				$m.= '</div>';
 				$m.='</body></html>';
-				require_once(dirname(__FILE__)."/addons/dompdf/dompdf_config.inc.php");
+				require_once(dirname(__FILE__)."/addons/dompdf-0.6.1/dompdf_config.inc.php");
 				$dompdf = new DOMPDF();
 				$dompdf->load_html($m);
 				$dompdf->render();
@@ -390,7 +390,7 @@ if (LoggedIn() == True) {
 		       </td></tr>
 		     </table>
 		     <h4><a href="'.ZING_URL.'fws/printorder.php?orderid='.$lastid.'" target="_blank">'.$txt['readorder1'].'</a>';
-				if ($create_pdf == 1) { echo "<br /><a href=\"".$orders_url."/".$pdf."\">".$txt['checkout27']."</a></h4>"; }
+				if ($create_pdf == 1) { echo "<br /><a href=\"".$orders_url."/".$pdf."\" target=\"_blank\">".$txt['checkout27']."</a></h4>"; }
 			} else {
 				PutWindow($gfx_dir, $txt['general13'], $txt['checkout104'], "loader.gif", "50");
 				echo '<div>'.$payment_code.'</div>';

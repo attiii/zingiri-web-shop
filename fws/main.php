@@ -46,7 +46,7 @@ if ($shop_disabled == 1 && IsAdmin() == true) {
 
 		<?php
 		// Are there any special offers (frontpage=1 in product details)?
-		$prods_per_row = 3;
+		if ($prods_per_row = wsSetting('productsperrow')); else $prods_per_row=3;
 		$row_count = 0;
 		$f_query = "SELECT * FROM `".$dbtablesprefix."product` WHERE `FRONTPAGE` = '1'";
 		$f_sql = mysql_query($f_query) or die(mysql_error());

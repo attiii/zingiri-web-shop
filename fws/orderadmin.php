@@ -45,6 +45,9 @@ else {
 		$orderid=$_POST['orderid'];
 	}
 
+	if (!empty($_POST['tracking'])) {
+		$tracking=$_POST['tracking'];
+	}
 	// show pull down to choose new status
 	if ($action == "showstatus") {
 		if (!empty($_GET['orderid'])) {
@@ -72,7 +75,7 @@ else {
 			echo "<br />";
 			echo "<form method=\"post\" action=\"".zurl('index.php?page=orderadmin&action=changestatus')."\">";
 			echo "<input type=\"hidden\" name=\"orderid\" value=\"" . $orderid . "\">";
-			echo "<SELECT NAME=\"newstatus\">";
+			echo "<SELECT style=\"vertical-align:top\" NAME=\"newstatus\">";
 			echo "    <OPTION SELECTED VALUE=\"\">";
 			echo "    <OPTION VALUE=\"2\">" . $txt['db_status2'];
 			echo "    <OPTION VALUE=\"3\">" . $txt['db_status3'];
@@ -81,7 +84,8 @@ else {
 			echo "    <OPTION VALUE=\"6\">" . $txt['db_status6'];
 			echo "    <OPTION VALUE=\"7\">" . $txt['db_status7'];
 			echo "    <OPTION VALUE=\"delete\">Delete";
-			echo "</SELECT><br />";
+			echo "</SELECT>";
+			echo "<textarea cols=\"50\" name=\"tracking\"/>"."</textarea>"."<br />";
 			echo "<input type=\"checkbox\" name=\"notify\" value=\"yes\" checked>".$txt['orderadmin7']."<br />";
 			echo "<h4><input type=\"submit\" value=\"".$txt['orderadmin8']."\"></h4>";
 			echo "</form></td></tr></table>";
@@ -105,7 +109,7 @@ else {
 			PutWindow($gfx_dir, $txt['general13'], $txt['orderadmin3'], "notify.gif", "50");
 		}
 		else {
-			$query = "UPDATE `".$dbtablesprefix."order` SET `STATUS` = '" . $newstatus . "' WHERE `ID` = " . $orderid;
+			$query = "UPDATE `".$dbtablesprefix."order` SET `TRACKING` = ".qs($tracking).", `STATUS` = '" . $newstatus . "' WHERE `ID` = " . $orderid;
 			$sql = mysql_query($query) or die(mysql_error());
 			$message = $txt['orderadmin15'];
 			// send notification to customer??
@@ -135,7 +139,9 @@ else {
 
 				// prepare the email and send it
 				$subject = $txt['orderadmin1'] . $webid. $txt['orderadmin2'];
-				$body = $txt['orderadmin1'] . $webid. $txt['orderadmin2'].": ".$email_status.$txt['orderadmin4'].$custid. $txt['orderadmin5'];
+				$body = $txt['orderadmin1'] . $webid. $txt['orderadmin2'].": ".$email_status;
+				if (!empty($tracking)) $body.= '<br /><br />'.$txt['shipping3'].':<br />'.$tracking;
+				$body.= $txt['orderadmin4'].$custid. $txt['orderadmin5'];
 				mymail($webmaster_mail, $to, $subject, $body, $charset);
 				$message = $message."<br />".$txt['orderadmin6']." ".$to;
 			}
@@ -207,7 +213,7 @@ else {
 
 					// if a pdf was created, lets show it here
 					if ($row[10] != "" && !is_null($row[10]) && file_exists($orders_dir ."/". $row[10])) {
-						echo "<a href=\"".$orders_url ."/". $row[10]."\"><img src=\"".$gfx_dir."/pdf.gif\" alt=\"PDF\"></a> ";
+						echo "<a href=\"".$orders_url ."/". $row[10]."\" target=\"_blank\"><img src=\"".$gfx_dir."/pdf.gif\" alt=\"PDF\"></a> ";
 					}
 					// if customer added notes to the order, then lets bring this to the admins attention by adding a note icon
 					if ($row[8] != "" && !is_null($row[8])) {
