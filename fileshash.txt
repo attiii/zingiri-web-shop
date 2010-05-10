@@ -83,7 +83,7 @@ zingiri-web-shop/fws/addons/dompdf-0.6.1/include/text_frame_decorator.cls.php,24
 zingiri-web-shop/fws/addons/dompdf-0.6.1/include/text_frame_reflower.cls.php,390b6a6404782d127b78b5c5b8cb1baf
 zingiri-web-shop/fws/addons/dompdf-0.6.1/include/text_renderer.cls.php,bff8565549980b87e0ab185fb646143a
 zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/class.pdf.php,e57ed8ce5220b70700ec80c637e99b5d
-zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/dompdf_font_family_cache.dist,3a76f36f9ee3aec7db9c815b88f6c3dc
+zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/dompdf_font_family_cache.dist,1937b6b9bf25561f7796939dfb9bf5ad
 zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/fonts/mustRead.html,e5013b5c73921e3dea085e1615a22f66
 zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/res/broken_image.png,dbb511bf5c2d3b020c58e6bf9bf51abe
 zingiri-web-shop/fws/addons/dompdf-0.6.1/lib/res/html.css,be5ffe9ea5690bf25cf532e12c78ab68
@@ -1396,7 +1396,7 @@ zingiri-web-shop/fws/topmenu.php,050a308db10eace4721072fe1b91bb02
 zingiri-web-shop/fws/uploadadmin.php,07bf67c055a354e04c9a29289267db6a
 zingiri-web-shop/index.php,d41d8cd98f00b204e9800998ecf8427e
 zingiri-web-shop/load.php,a6f8d9189453eafa40f46db9eb22f4a5
-zingiri-web-shop/readme.txt,f6502eaa75c2366adb8d06d998ba1e73
+zingiri-web-shop/readme.txt,10708ed476ce98da0860fb9c8b7ccb1c
 zingiri-web-shop/zap/classes/db.class.php,206286aa46be0adfb53211f9660a71b3
 zingiri-web-shop/zap/classes/element.class.php,433445bab0885c86f8f04be0b01a73e8
 zingiri-web-shop/zap/classes/form.class.php,568af625c20256388004e6174a02d7b8
@@ -1518,4 +1518,4 @@ zingiri-web-shop/zing.startfunctions.inc.php,0342011d96d6ca3a8449c96cc0ac768d
 zingiri-web-shop/zing.startmodules.inc.php,6f2c7098e169d19a914e35cffe346b2e
 zingiri-web-shop/zing.subs.readcookie.inc.php,ad534dc9ab2cb400b8b6b293f9a14574
 zingiri-web-shop/zingiri-logo.png,770bd6f033e935c0460385a86b5cf627
-zingiri-web-shop/zingiri_webshop.php,a506e3af092d696c09b1cc769e7c63f1
+zingiri-web-shop/zingiri_webshop.php,2ad919b87b8fc91c55250e4e6f3cf5e5
