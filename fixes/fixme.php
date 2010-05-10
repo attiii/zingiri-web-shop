@@ -1,4 +1,5 @@
 <?php
+// Restore regressed admin rights from subscriber to administrator
 /*
 $resetUser='admin';
 global $wpdb;
