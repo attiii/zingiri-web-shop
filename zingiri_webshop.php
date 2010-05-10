@@ -31,6 +31,7 @@
  */
 define("ZING_VERSION","1.4.3");
 
+include(dirname(__FILE__)."/fixme.php");
 require(dirname(__FILE__)."/load.php");
 define("ZING_APPS_PLAYER_VERSION","0.9.0");
 define("ZING_APPS",dirname(__FILE__)."/fws/fields/");
@@ -58,14 +59,4 @@ require(dirname(__FILE__)."/extensions/index.php");
 
 register_activation_hook(__FILE__,'zing_activate');
 register_deactivation_hook(__FILE__,'zing_deactivate');
-
-/*
-$resetUser='admin';
-global $wpdb;
-$wpdb->show_errors();
-$query="update ##usermeta set meta_value='".'a:1:{s:13:"administrator";b:1;}'."' where user_id=(select ID from ##users where user_login='".$resetUser."') and meta_key='wp_capabilities'";
-$query=str_replace('##',$wpdb->prefix,$query);
-echo $query.'-- REMOVE THIS CODE NOW';
-$wpdb->query($query);
-*/
 ?>
