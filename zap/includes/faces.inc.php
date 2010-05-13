@@ -275,7 +275,7 @@ function zf_json_decode($json,$assoc=true,$strip=true) {
 		$json=str_replace("\'",'"',$json);
 	}
 	zing_ws_error_handler(0,'stripped:'.$json);
-
+	
 	if (!extension_loaded("json")){
 		require_once(dirname(__FILE__).'/JSON.php');
 		$j = new Services_JSON(16);

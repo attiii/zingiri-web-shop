@@ -27,8 +27,7 @@ $zfp=intval($_GET['zfp']);
 $zft=$_GET['zft'];
 $pos=$_GET['pos'];
 $mapflat=$_GET['map'];
-//$json=str_replace("\'",'"',$_GET['map']);
-$json=stripslashes($_GET['map']);
+$json=str_replace("\'",'"',$_GET['map']);
 $map=zf_json_decode($json,true);
 $zflist=new zfForm($formname,$formid);
 $formname=$zflist->form;
@@ -101,7 +100,6 @@ if ($zflist)
 	{
 		echo '<th id="'.$key.'">'.$value.'</th>';
 	}
-	//echo '<th>'.'Action'.'</th>';
 	echo '</tr>';
 
 	$altrow="altrow";
@@ -111,10 +109,6 @@ if ($zflist)
 		$rows=$zflist->NextRows();
 		$line=1;
 		$script="";
-		//$script.="var tableX=Element.cumulativeOffset($('".$formname."')).left;";
-		//$script.="var tableX=$('".$formname."').left;";
-		//$script.="var mouseX=tableX;";
-		//$script.="$('".$formname."').observe('mousemove', function(e) { mouseX=Event.pointerX(e)-tableX; });";
 		foreach ($rows as $id => $row)
 		{
 			$links=$alink->getLinks($id);
@@ -142,13 +136,15 @@ if ($zflist)
 				$i++;
 			}
 			echo '</td>';
-			$script.="var zelt = $('foo".$line."');";
-			//$script.="var actelt = null;";
-			//$script.="var acttable = $('".$formname."');";
-
-			//$script.="zelt.observe('mouseover', function() { if (actelt != null) { $(actelt).setStyle({ display : 'none' }); }; actelt='fox'+".$line."; $('fox".$line."').setStyle({ display : 'block', backgroundColor : '#ccdd4f', leftna : 0 + 'px' }); });";
-			$script.="zelt.observe('mouseover', function() { $('fox".$line."').setStyle({ display : 'block', backgroundColor : '#ccdd4f'}); });";
-			$script.="zelt.observe('mouseout', function() { $('fox".$line."').setStyle({ display : 'none'});});";
+			if (ZING_PROTOTYPE) {
+				$script.="var zelt = $('foo".$line."');";
+				$script.="zelt.observe('mouseover', function() { $('fox".$line."').setStyle({ display : 'block', backgroundColor : '#ccdd4f'}); });";
+				$script.="zelt.observe('mouseout', function() { $('fox".$line."').setStyle({ display : 'none'});});";
+			} elseif (ZING_JQUERY) {
+				$script.="var zelt = jQuery('#foo".$line."');";
+				$script.="zelt.bind('mouseover', this, function() { jQuery('#fox".$line."').css('display','block');jQuery('#fox".$line."').css('backgroundColor','#ccdd4f'); });";
+				$script.="zelt.bind('mouseout', this, function() { jQuery('#fox".$line."').css('display','none'); });";
+			}
 			$line++;
 		}
 

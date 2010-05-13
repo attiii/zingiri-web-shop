@@ -59,6 +59,15 @@ Before upgrading, make sure you back up your database first!
 
 == Changelog ==
 
+= 1.4.5 =
+* Fix: creation of tracking code on order database table is now fixed
+* Fix: fixed issue with non resized product image appearing as a stripe in product details page
+* Fix: solved compatibility issues with jQuery Class javascript library under IE8
+* Fix: load product upload image javascript only when editing or adding a product
+* Fix: fixed order link on frontpage for products other than first one (in case of prototype javascript libary use on IE8)
+* Fix: fixed chaining issue between tax id's and tax rates 
+* Fix: optimize database tables not directing to correct page
+
 = 1.4.4 =
 * Fix: issue with warning messages being displayed upon activation
 * Fix: corrected issue with dompdf fonts path definitions causing incorrect PDF generation

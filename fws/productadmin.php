@@ -277,7 +277,7 @@ else {
 			unlink($product_dir.'/'.str_replace('tn_','',$imageid));
 		}
 	}
-	
+
 	//set default image
 	if (isset($_POST['image_default']) && ($action == "update_product" || $action == "save_new_product")) {
 		$img=$defaultImage;
@@ -285,7 +285,7 @@ else {
 		$query.=" WHERE ID=".$prodid;
 		$sql = mysql_query($query) or die(mysql_error());
 	}
-	
+
 	//display next link if any
 	echo $nextlink;
 
@@ -444,7 +444,7 @@ function wsShowImage($picid,$defaultImage) {
 			echo "</a>";
 			if ($img == $defaultImage) $checked='checked'; else $checked='';
 			echo '<input type="radio" name="image_default" value="'.$img.'" '.$checked.' />';
-			
+				
 			echo '</div>';
 		}
 	}
@@ -481,9 +481,11 @@ function wsShowImage($picid,$defaultImage) {
 	 */
 	echo '</div><div style="clear:both"></div>';
 }
-if (ZING_PROTOTYPE) {
-	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/imageupload.proto.js"></script>';
-} elseif (ZING_JQUERY) {
-	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/imageupload.jquery.js"></script>';
+if ($action == "add_product" || $action == "edit_product") {
+	if (ZING_PROTOTYPE) {
+		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/imageupload.proto.js"></script>';
+	} elseif (ZING_JQUERY) {
+		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/imageupload.jquery.js"></script>';
+	}
 }
 ?>

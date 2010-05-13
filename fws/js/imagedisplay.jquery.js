@@ -3,6 +3,5 @@ function wsHoverImage(img,height,width) {
 	highlight.attr('src',img);
 	highlight.attr('height',height);
 	highlight.attr('width',width);
-	
-	jQuery("#highlight_ref").attr('href',img);
+	if (jQuery("#highlight_ref") != null)	jQuery("#highlight_ref").attr('href',img);
 }

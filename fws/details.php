@@ -55,8 +55,9 @@ else {
 			$size=wsResizeImage($thumb);
 			$resized=$size['resized'];
 			$height=$size['height'];
-			$width=$width['width'];
-			if ($resized == 0) { $screenshot = "<img class=\"borderimg\" src=\"".$thumb."\" height=".$height." width=".$width." alt=\"\" />"; }
+			$width=$size['width'];
+			echo 'ebo:'.$product_max_height.'/'.$height.'/'.$width;
+			if ($resized == 0) { $screenshot = "<div style=\"height:".$product_max_height."px\"><img id=\"highlight_image\" class=\"borderimg\" src=\"".$thumb."\" height=".$height." width=".$width." alt=\"\" /></div>"; }
 			else {
 				if ($use_imagepopup == 0) {
 					$screenshot = "<a id=\"highlight_ref\" href=\"".$thumb."\"><div style=\"height:".$product_max_height."px\"><img class=\"borderimg\" id=\"highlight_image\" src=\"".$thumb."\" height=".$height." width=".$width." alt=\"\"/></div>".$txt['details9']."</a>";

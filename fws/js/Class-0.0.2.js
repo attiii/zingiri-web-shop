@@ -192,7 +192,8 @@ Class = {
                 for(i in this) {
                     /* if a property is a function (other than our built-in helpers) and it already exists
                     in the class, save it as a super. note that this only saves the last occurrence */
-                    if(extendee[i] && extendee[i].constructor == Function && ['namespace','create','sup'].indexOf(i) == -1) {
+//ebo fixme
+                	if(extendee[i] && extendee[i].constructor == Function && 'namespace create sup'.indexOf(i) == -1) {
                         //since Function.name is almost never set for us, do it manually
                         this[i].name = extendee[i].name = i;
                         
