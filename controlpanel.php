@@ -126,6 +126,8 @@ function zing_ws_add_admin() {
 function zing_ws_settings() {
 	global $menus,$txt,$wpdb;
 
+	zing_header();
+	
 	echo '<div style="height:64px;float">';
 	echo '<center>';
 	foreach ($menus as $id => $menu) {

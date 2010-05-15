@@ -56,7 +56,6 @@ else {
 			$resized=$size['resized'];
 			$height=$size['height'];
 			$width=$size['width'];
-			echo 'ebo:'.$product_max_height.'/'.$height.'/'.$width;
 			if ($resized == 0) { $screenshot = "<div style=\"height:".$product_max_height."px\"><img id=\"highlight_image\" class=\"borderimg\" src=\"".$thumb."\" height=".$height." width=".$width." alt=\"\" /></div>"; }
 			else {
 				if ($use_imagepopup == 0) {

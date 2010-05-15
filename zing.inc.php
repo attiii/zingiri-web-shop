@@ -136,9 +136,15 @@ function zing_admin_notices() {
 	$zing_version=get_option("zing_webshop_version");
 
 	if (!$zing_version) {
-		$message='Zingiri Web Shop is almost ready. You need to launch the <a href="admin.php?page=zingiri-web-shop">installation</a>.';
+		if ($_GET['page']!='zingiri-web-shop')
+		$message='Zingiri Web Shop is almost ready. You need to launch the <a href="admin.php?page=zingiri-web-shop">installation</a> from the integration page.';
+		else
+		$message='Zingiri Web Shop is almost ready. You need to launch the installation by clicking the Install button below.';
 	} elseif ($zing_version != ZING_VERSION) {
-		$message='You downloaded Zingiri Web Shop version '.ZING_VERSION.' and need to <a href="admin.php?page=zingiri-web-shop">upgrade</a> your database (currently at version '.$zing_version.').';
+		if ($_GET['page']!='zingiri-web-shop')
+		$message='You downloaded Zingiri Web Shop version '.ZING_VERSION.' and need to <a href="admin.php?page=zingiri-web-shop">upgrade</a> your database (currently at version '.$zing_version.') from the integration page.';
+		else
+		$message='You downloaded Zingiri Web Shop version '.ZING_VERSION.' and need to upgrade your database (currently at version '.$zing_version.') by clicking the Upgrade button below.';
 	}
 	if ($message) echo "<div id='zing-warning' style='background-color:greenyellow' class='updated fade'><p><strong>".$message."</strong> "."</p></div>";
 
@@ -186,7 +192,7 @@ function zing_check() {
 	foreach ($dirs as $file) {
 		if (!is_writable($file)) $warnings[]='Directory '.$file.' is not writable, please chmod to 777';
 	}
-	
+
 	if ($zing_version) {
 		$dirs=array();
 		$dirs[]=BLOGUPLOADDIR.'zingiri-web-shop';
@@ -864,7 +870,7 @@ function zing_init()
 	} elseif (!defined("ZING_JQUERY") || ZING_JQUERY) {
 		wp_enqueue_script('jquery');
 	}
-	
+
 	ob_start();
 
 	global $dbtablesprefix;
