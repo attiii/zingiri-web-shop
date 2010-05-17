@@ -82,7 +82,7 @@ else {
 		$picid=$row['ID'];
 		$handle=opendir($product_dir);
 		while (($img = readdir($handle))!==false) {
-			if (strstr($img,'tn_'.$picid)) {
+			if (strstr($img,'tn_'.$picid.'.')) {
 				echo '<div id="'.$img.'" style="position:relative;float:left">';
 				$size=wsResizeImage($product_dir.'/'.str_replace('tn_','',$img));
 				echo '<a href="javascript:void(0);" onMouseOver="wsHoverImage(\''.$product_url.'/'.str_replace('tn_','',$img).'\','.$size['height'].','.$size['width'].')"><img src="'.$product_url.'/'.$img.'" class="borderimg" />';

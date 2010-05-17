@@ -59,6 +59,9 @@ Before upgrading, make sure you back up your database first!
 
 == Changelog ==
 
+= 1.4.7 =
+* Fix: issue with unrelated product images being displayed on product details page when editing or adding a product
+
 = 1.4.6 =
 * Change: clarified install/upgrade message
 * Fix: removed debugging display from product details page

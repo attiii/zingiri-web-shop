@@ -432,10 +432,9 @@ else {
 function wsShowImage($picid,$defaultImage) {
 	global $product_dir,$product_url,$txt,$pricelist_thumb_width,$pricelist_thumb_height;
 	echo '<div id="uploaded_images">';
-
 	$handle=opendir($product_dir);
 	while (($img = readdir($handle))!==false) {
-		if (strstr($img,'tn_'.$picid)) {
+		if (strstr($img,'tn_'.$picid.'.')) {
 			echo '<div id="'.$img.'" style="position:relative;float:left">';
 			echo "<img src=\"".$product_url."/".$img."\" class=\"borderimg\" /><br />";
 			if (ZING_PROTOTYPE || ZING_JQUERY) echo '<a href="javascript:wsDeleteImage(\''.$img.'\');">';
