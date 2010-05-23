@@ -105,21 +105,14 @@ if (LoggedIn() == True) {
 				$address=new wsAddress($customerid);
 				$adrid=$_POST['address'];
 				$adr=$address->getAddress($adrid);
-				$initials=$adr['NAME'];
-				//$lastname = $row[3];
-				//$middlename = $row[4];
-				//$initials = $row[5];
+				$initials=$adr['INITIALS'];
+				$lastname = $adr['LASTNAME'];
 				$address=$adr['ADDRESS'];
-				//$address = $row[7];
 				$zipcode=$adr['ZIP'];
-				//$zipcode = $row[8];
 				$city=$adr['CITY'];
-				//$city = $row[9];
 				$state=$adr['STATE'];
-				//$stat = $row[10];
 				$to = $row[12];
 				$country=$adr['COUNTRY'];
-				//$country = $row[14];
 				$phone = $row[11];
 				$customer_row = $row;
 			}

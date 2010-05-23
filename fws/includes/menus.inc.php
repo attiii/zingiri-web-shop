@@ -33,6 +33,7 @@ $menus['orders']=array('hide' => true, 'group' => 'my5', 'label' => 'my8','href'
 $menus['cart']=array('hide' => true, 'group' => 'my5', 'label' => 'my9','href' => 'page=cart&action=show', 'img' => 'carticon.gif');
 $menus['products']=array('hide' => true, 'group' => 'my5', 'label' => 'admin5','href' => 'page=products&action=show', 'img' => 'products.gif');
 $menus['readorder']=array('page' => 'readorder', 'hide' => true, 'group' => 'admin23', 'label' => 'details7','href' => 'page=orderadmin', 'img' => 'orders.gif', 'func' => 'CountAllOrders');
+$menus['customeradmin']=array('hide' => true,'page' => 'customeradmin', 'group' => 'menu9', 'label' => 'admin3','href' => 'page=customeradmin&action=showcustomers', 'img' => 'customers.gif', 'func' => 'CountCustomers','param' => 'CUSTOMER');
 
 if (file_exists(dirname(__FILE__).'/../builder.php')) {
 	$menus['builder']=array('group' => 'admin23', 'label' => 'details7','href' => 'page=builder', 'img' => 'pagesadmin_add.png');

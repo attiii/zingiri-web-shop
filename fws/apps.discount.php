@@ -49,7 +49,7 @@ else {
 	}
 	echo '<table width="100%" class="borderless">
 				<tr><td>
-					<form method="POST" action="'.zurl('index.php?zfaces=list&form=discount').'">
+					<form method="POST" action="'.zurl('index.php?zfaces=list&form=discount'.(is_admin() ? '&page=discountadmin' : '')).'">
 						<input type="hidden" name="action" value="add_discount">
 						'.$txt['discountadmin2'].' <input type="text" name="number" value="10" size="4" maxlength="4"><br />
 						'.$txt['discountadmin3'].' <input type="text" name="amount" value="" size="7" maxlength="7"><br />
@@ -58,34 +58,12 @@ else {
 					</form>
 					</td>
 					<td>
-					<form method="POST" action="'.zurl('index.php?zfaces=list&form=discount').'">
+					<form method="POST" action="'.zurl('index.php?zfaces=list&form=discount'.(is_admin() ? '&page=discountadmin' : '')).'">
 						<input type="hidden" name="action" value="delete_all">
 						<input type="submit" value="'.$txt['generic1'].' '.strtolower($txt['discountadmin6']).'">
 					</form>
 				</td></tr>	
 			</table>
 			<br /><br />';		
-
-	/*
-	echo '<table width="100%" class="datatable">
-				<caption>'.$txt['discountadmin6'].'</caption>
-				<tr><th>'.$txt['discountadmin7'].'</th><th>'.$txt['discountadmin3'].'</th><th>'.$txt['discountadmin9'].'</th></tr>';
-
-	$discount_query="SELECT * FROM `".$dbtablesprefix."discount` WHERE `orderid` = '0'";
-	$discount_sql = mysql_query($discount_query) or die(mysql_error());
-	if (mysql_num_rows($discount_sql) == 0) {
-		echo '<tr><td colspan="3">'.$txt['discountadmin8'].'</td></tr>';
-	}
-	else {
-		// let's read the discount codes
-		while ($discount_row = mysql_fetch_row($discount_sql)) {
-			$discount = $discount_row[2];
-			if ($discount_row[3] == 1) { $discount .= "%"; }
-			else { $discount = $currency_symbol_pre.myNumberFormat($discount,$number_format).$currency_symbol_post; }
-			echo '<tr><td>'.$discount_row[0].'</td><td>'.$discount.'</td><td>'.$discount_row[4].'</td></tr>';
-		}
-	}
-	echo '</table>';
-	*/
 }
 ?>

@@ -125,7 +125,7 @@ function zing_ws_add_admin() {
 
 function zing_ws_settings() {
 	global $menus,$txt,$wpdb;
-
+	
 	zing_header();
 	
 	echo '<div style="height:64px;float">';
@@ -140,9 +140,9 @@ function zing_ws_settings() {
 	echo '</center>';
 	echo '<div style="display:none" id="icon_label"></div>';
 	echo '</div>';
-
+	
 	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/controlpanel.js"></script>';
-
+	
 	//main window
 	echo '<div style="width:80%;float:left;position:relative">';
 	$page=$_GET['page'];
@@ -157,7 +157,7 @@ function zing_ws_settings() {
 			$params[$n]=$v;
 		}
 	}
-
+	
 	if (isset($menus[$page]['page'])) $_GET['page']=$menus[$page]['page'];
 	echo '<link rel="stylesheet" type="text/css" href="'.ZING_URL.'zing.css" />';
 	zing_main('content');

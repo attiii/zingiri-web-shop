@@ -4,7 +4,7 @@ Donate link: http://www.zingiri.com/
 Tags: ecommerce, e-commerce, paypal, freewebshop, shop, cart, web shop, shopping cart, iDEAL, Google Checkout, Worldpay
 Requires at least: 2.1.7
 Tested up to: 2.9.1
-Stable tag: 1.4.6
+Stable tag: 1.4.7
 
 Zingiri Web Shop is a Wordpress plugin that brings together a great content management system with the fantastic FreeWebShop ecommerce solution.
 
@@ -60,7 +60,12 @@ Before upgrading, make sure you back up your database first!
 == Changelog ==
 
 = 1.4.7 =
+* New: added option to specify product category in tag like [zing-ws:browse&cat=1234]
 * Fix: issue with unrelated product images being displayed on product details page when editing or adding a product
+* Fix: corrected issue with name not appearing on first line of order (PDF)
+* Fix: fixed issue with search customers causing error "You do not have sufficient permissions to access this page"
+* Fix: corrected issue with discount "make codes" and "delete all unused codes" not working from WP backend page
+* Fix: editing theme files didn't work anymore after adding dashboard functionality, related to use of $file variable
 
 = 1.4.6 =
 * Change: clarified install/upgrade message

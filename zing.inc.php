@@ -96,7 +96,6 @@ $dbuser = DB_USER;
 $dbpass = DB_PASSWORD;
 
 $zing_version=get_option("zing_webshop_version");
-
 require (ZING_LOC."./zing.startfunctions.inc.php");
 require_once(dirname(__FILE__) . '/zing.integrator.class.php');
 if ($zing_version) {
@@ -629,10 +628,6 @@ function zing_main($process,$content="") {
 
 	require (ZING_LOC."./zing.readcookie.inc.php");      // read the cookie
 
-	//include (ZING_LOC."./zing.globals.inc.php");
-	//	error_reporting(E_ALL & ~E_NOTICE);
-	//	ini_set('display_errors', '1');
-
 	$to_include="";
 
 	switch ($process)
@@ -661,6 +656,13 @@ function zing_main($process,$content="") {
 					$_GET['action']=$cf['zing_action'][0];
 				}
 			}
+			elseif (preg_match('/\[zing-ws:(.*)&amp;(.*)=(.*)\]/',$content,$matches)==1) { //[zing-ws:page&x=y]
+					echo 'hello';
+				list($prefix,$postfix)=preg_split('/\[zing-ws:(.*)\]/',$content);
+				$_GET['page']=$matches[1];
+				if ($matches[2]=='cat') $_GET['action']='list';
+				$_GET[$matches[2]]=$matches[3];
+			}
 			elseif (preg_match('/\[zing-ws:(.*)\]/',$content,$matches)==1) { //[zing-ws:page]
 				list($prefix,$postfix)=preg_split('/\[zing-ws:(.*)\]/',$content);
 				$_GET['page']=$matches[1];
@@ -672,7 +674,7 @@ function zing_main($process,$content="") {
 			if (isset($cf['cat'])) {
 				$_GET['cat']=$cf['cat'][0];
 			}
-
+			
 			$to_include="loadmain.php";
 			break;
 		case "footer":

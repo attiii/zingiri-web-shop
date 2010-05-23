@@ -99,7 +99,6 @@ else { $limit = ""; }
 	</tr>
 	<?php
 
-
 	if ($action == "list") {
 		$query = "SELECT * FROM `".$dbtablesprefix."product` ";
 		if ($stock_enabled == 1 && $hide_outofstock == 1 && IsAdmin() == false) { // filter out products with stock lower than 1
@@ -115,7 +114,6 @@ else { $limit = ""; }
 		}
 		else { $query = "SELECT * FROM `".$dbtablesprefix."product` WHERE `NEW` = '1' ORDER BY `$orderby_field` ASC"; }
 	}
-
 	else {
 		//search on the given terms
 		if ($searchfor != "") {

@@ -219,7 +219,6 @@ function zing_apps_player_content($content) {
 	if (defined("ZING_APPS_CUSTOM")) { require(ZING_APPS_CUSTOM."globals.php"); }
 
 	$cf=get_post_custom();
-
 	
 	//if (!isset($_GET['zfaces']) && ($post->ID == get_option("zing_apps_player_page"))) {
 	//	$zfaces="summary";

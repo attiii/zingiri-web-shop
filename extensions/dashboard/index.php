@@ -3,9 +3,9 @@
 //ini_set('display_errors', '1');
 
 if ($handle = opendir(dirname(__FILE__))) {
-	while (false !== ($file = readdir($handle))) {
-		if (!strstr($file,"index.php") && strstr($file,".php")) {
-			require_once(dirname(__FILE__).'/'.$file);
+	while (false !== ($filex = readdir($handle))) {
+		if (!strstr($filex,"index.php") && strstr($filex,".php")) {
+			require_once(dirname(__FILE__).'/'.$filex);
 		}
 	}
 	closedir($handle);
