@@ -34,7 +34,7 @@ if (mysql_num_rows($sql) == 0) {
 	echo $txt['menu17']; // no groups found
 }
 else {
-	echo "<ul id=\"navlist\">\n";
+	echo "<ul id=\"zing-navlist\">\n";
 	while ($row = mysql_fetch_row($sql)) {
 		// lets find out how many categories there are in the group
 		$query_cat = sprintf("SELECT * FROM `".$dbtablesprefix."category` where `GROUPID`=%s ORDER BY `DESC` ASC", quote_smart($row[0]));

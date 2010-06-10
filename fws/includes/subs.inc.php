@@ -259,6 +259,23 @@ Function myNumberFormat ($aNumber) {
 	}
 	return $aNumber;
 }
+
+//rounding of numbers
+function myNumberRounding($aNumber) {
+	global $number_format;
+	switch ($number_format) {
+		case "1234,56":
+		case "1.234,56":
+		case "1234.56":
+		case "1,234.56":
+			$aNumber = round($aNumber,2);
+			break;
+		default:
+			$aNumber = round($aNumber,0);
+	}
+	return $aNumber;
+}
+
 // is the id of an admin?
 Function IsAdmin() {
 	Global $dbtablesprefix,$integrator;

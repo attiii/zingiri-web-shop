@@ -888,7 +888,7 @@ zingiri-web-shop/fws/classes/invoice.class.php,b6c528d726510e7042633919c21f7e10
 zingiri-web-shop/fws/classes/payment_code.class.php,4c945c16d0a7ea3a9393f83dc294c10c
 zingiri-web-shop/fws/classes/payment_option.class.php,6b4981771fa0853940915cd700a6a3f0
 zingiri-web-shop/fws/classes/prompts.class.php,8b6126fa0729ae7609de638169e570c1
-zingiri-web-shop/fws/classes/tax.class.php,87bf5cf994f2b8bf7cc216b140fc79b2
+zingiri-web-shop/fws/classes/tax.class.php,346b3afc2a94d832e23241a4fbb6008e
 zingiri-web-shop/fws/classes/template.class.php,1b1106b3448f6bd28651f0812c878837
 zingiri-web-shop/fws/conditions.php,1a9aad04e76a20a363cb4b78206162cd
 zingiri-web-shop/fws/contact.php,be840eac073601cf0beff112ffdc59de
@@ -896,7 +896,7 @@ zingiri-web-shop/fws/countries.txt,943f690ad651b04b5d742b95219eff9c
 zingiri-web-shop/fws/customer.php,df9717b61e21934fb464feddcb53eb97
 zingiri-web-shop/fws/customeradmin.php,eed2326ce97b15410302963740882860
 zingiri-web-shop/fws/dashboard.php,7648186cb03639dfc51572f12f74e31d
-zingiri-web-shop/fws/db/FreeWebshop-0.9.12.sql,99974f728b92e0877c3362851ef14f47
+zingiri-web-shop/fws/db/FreeWebshop-0.9.12.sql,48a004d8b6eae69a771e2b3270d065f8
 zingiri-web-shop/fws/db/FreeWebshop-0.9.16.sql,7229eeed4bf64910e4d09d528f70061d
 zingiri-web-shop/fws/db/FreeWebshop-0.9.19.sql,c8489a63d796584f841e19c270e7e45b
 zingiri-web-shop/fws/db/FreeWebshop-1.1.0.sql,f99bd296e6449697273373f23c3b42d4
@@ -911,8 +911,9 @@ zingiri-web-shop/fws/db/FreeWebshop-1.3.7.sql,332e9b96df12eb1773ec59e5b62f6f95
 zingiri-web-shop/fws/db/FreeWebshop-1.4.0.sql,d5d043aaf480c655b034853f935547e6
 zingiri-web-shop/fws/db/FreeWebshop-1.4.3.sql,c2f66f9050b7f06492b186805ded6fe3
 zingiri-web-shop/fws/db/FreeWebshop-1.4.5.sql,be8c4476b14c72354ed25017d52c7210
+zingiri-web-shop/fws/db/FreeWebshop-1.4.8.sql,6a6ea95da1d1733abb87850543e69db0
 zingiri-web-shop/fws/db/index.php,d41d8cd98f00b204e9800998ecf8427e
-zingiri-web-shop/fws/details.php,336e1d5e76e7a86cceb0619dd225961a
+zingiri-web-shop/fws/details.php,e37fe9313f50e050be33fc625c1e0af3
 zingiri-web-shop/fws/discount.php,819ade6a9d7db1ed189d3d14e030bc33
 zingiri-web-shop/fws/download.php,047427c4736b6969bfa4cf9f76dd6751
 zingiri-web-shop/fws/editsettings.php,648519fba3322880a5bbffc98d0ecad1
@@ -933,7 +934,7 @@ zingiri-web-shop/fws/includes/readsettings.inc.php,2da4075edb924e15297dc2e5c611f
 zingiri-web-shop/fws/includes/readvals.inc.php,89a7c441c68776f12fd55a99536c8baf
 zingiri-web-shop/fws/includes/setfolders.inc.php,85fc94fcb8cd1e3bea070b811e9807f3
 zingiri-web-shop/fws/includes/settings.inc.php,e80709cbdd1a5eab0815af778e657d6b
-zingiri-web-shop/fws/includes/subs.inc.php,93b103112de967e4dffd6e825cec3f05
+zingiri-web-shop/fws/includes/subs.inc.php,2ee5d1050af81c3065ccdbef17e01c31
 zingiri-web-shop/fws/includes/wp-settings.php,e516e9fc9ec71b67756bf0e07fe4accc
 zingiri-web-shop/fws/index.php,9c6729c4d6465ee81b808202202f85ab
 zingiri-web-shop/fws/info.php,65aeff4056c99c3b90a3917fedb8c4e5
@@ -989,7 +990,7 @@ zingiri-web-shop/fws/langs/ee/main.iso-8859-1.txt,6e6e2b056f17cfb25ac5d6f3a2205e
 zingiri-web-shop/fws/langs/ee/main.txt,bad6329a795f604c9f0c2bf8d5b1002c
 zingiri-web-shop/fws/langs/en/conditions.txt,86d8ecb797433c514a1ae734b054081c
 zingiri-web-shop/fws/langs/en/index.php,d41d8cd98f00b204e9800998ecf8427e
-zingiri-web-shop/fws/langs/en/lang.txt,e46cb36bf45953f8ef784cb50da4878e
+zingiri-web-shop/fws/langs/en/lang.txt,4c4d532e960eeeb455c24f7103c5d1ff
 zingiri-web-shop/fws/langs/en/main.txt,3b2da1f75414df11ba45f48b9ef562b2
 zingiri-web-shop/fws/langs/es/conditions.txt,6c64cd689f463e95657e45981e04902a
 zingiri-web-shop/fws/langs/es/index.php,499f94914e9deefb9ea157d11bb9d952
@@ -1037,7 +1038,7 @@ zingiri-web-shop/fws/langs/nl/main.txt,1ce58dfda3de432d4d532d6345d473e1
 zingiri-web-shop/fws/langs/no/conditions.txt,869324425a0f505eeb9d67d529605275
 zingiri-web-shop/fws/langs/no/index.php,d41d8cd98f00b204e9800998ecf8427e
 zingiri-web-shop/fws/langs/no/lang.iso88591.txt,9c6e46efd5e8e94aabc63a17088cc956
-zingiri-web-shop/fws/langs/no/lang.txt,df8346ac435c724274632b37fadf915d
+zingiri-web-shop/fws/langs/no/lang.txt,5468a4b7461b194796ee88cd9e871f74
 zingiri-web-shop/fws/langs/no/main.iso88591.txt,b397fd51baeb6faf990003c2a6b1db56
 zingiri-web-shop/fws/langs/no/main.txt,53abb694da50c069007bf4fe8a5591b6
 zingiri-web-shop/fws/langs/pl/conditions.iso-8859-2.txt,c5d1bdb7e1785e0f4f8405501895e7d9
@@ -1058,7 +1059,7 @@ zingiri-web-shop/fws/langs/ro/conditions.iso88591.txt,060f175fc6c3914d26ee3eb286
 zingiri-web-shop/fws/langs/ro/conditions.txt,060f175fc6c3914d26ee3eb2864ac94e
 zingiri-web-shop/fws/langs/ro/index.php,d41d8cd98f00b204e9800998ecf8427e
 zingiri-web-shop/fws/langs/ro/lang.iso88591.txt,eac9314924bff93210b888e3cad02cf9
-zingiri-web-shop/fws/langs/ro/lang.txt,a9c98abc0777012634dd8c242d52776a
+zingiri-web-shop/fws/langs/ro/lang.txt,3302b0729b17f4ac23be681dd26974bb
 zingiri-web-shop/fws/langs/ro/main.iso88591.txt,de0d83447ad7f96ef1fb99c9d2bf5253
 zingiri-web-shop/fws/langs/ro/main.txt,de0d83447ad7f96ef1fb99c9d2bf5253
 zingiri-web-shop/fws/langs/ru/conditions.cp1251.txt,a14996d269952d32db96691a9e500353
@@ -1072,7 +1073,7 @@ zingiri-web-shop/fws/langs/se/conditions.iso88591.txt,7104e8854b2d8aa98c1cf24853
 zingiri-web-shop/fws/langs/se/conditions.txt,9fee5b4ced11cbae48103504171e44cf
 zingiri-web-shop/fws/langs/se/index.php,d41d8cd98f00b204e9800998ecf8427e
 zingiri-web-shop/fws/langs/se/lang.iso88591.txt,93e96d677c493cd118ba2a64fea5fa5c
-zingiri-web-shop/fws/langs/se/lang.txt,138e063d823d1730033c1f06c3f4329e
+zingiri-web-shop/fws/langs/se/lang.txt,7e7e8361a4757d2d05ecc07a50307b3f
 zingiri-web-shop/fws/langs/se/main.txt,242e991cd194254ceb5e629c0954df2c
 zingiri-web-shop/fws/langs/th/conditions.txt,f36b79d67666903c1d652fd333bf7340
 zingiri-web-shop/fws/langs/th/conditions.windows-874.txt,f36b79d67666903c1d652fd333bf7340
@@ -1098,8 +1099,8 @@ zingiri-web-shop/fws/logout.php,2ea516bbebab23e8038eda0a3cb9b580
 zingiri-web-shop/fws/mailinglist.php,8d2b73350634719b06e7599dbd8c5b0b
 zingiri-web-shop/fws/main.php,c77a15888df3874c4e96db9bbcfe8aa7
 zingiri-web-shop/fws/menu_cart.php,6b731164294dcc09435e247a9065f552
-zingiri-web-shop/fws/menu_general.php,0066ea26396ca764dac8c04eb6c970a9
-zingiri-web-shop/fws/menu_products.php,70c783d1359d69aa82c94582c92f1c2f
+zingiri-web-shop/fws/menu_general.php,dc2dafd88d5c906f0957858b28e6b695
+zingiri-web-shop/fws/menu_products.php,eb9896d0f10f8de38189a3ffadd6ab51
 zingiri-web-shop/fws/menu_search.php,8da74435758d3cbee17e44f09b403c94
 zingiri-web-shop/fws/my.php,aff37baf42ce1d7b23b8f002c3d83032
 zingiri-web-shop/fws/onecheckout.php,27cb7b552b473761bf4733ca467d4b35
@@ -1111,7 +1112,7 @@ zingiri-web-shop/fws/printorder.php,05d27cc3b6ba30cae733a5a1bc37642d
 zingiri-web-shop/fws/prodgfx/1.jpg,a93ea691e05d7aa0c52a3495e0522a11
 zingiri-web-shop/fws/prodgfx/index.php,d41d8cd98f00b204e9800998ecf8427e
 zingiri-web-shop/fws/prodgfx/tn_1.jpg,9d70742cce411f07baf0c5919f597a63
-zingiri-web-shop/fws/productadmin.php,259723b028b069195373020e8654f1df
+zingiri-web-shop/fws/productadmin.php,9180a553e09d7dd5df324b82df8c9862
 zingiri-web-shop/fws/products.php,4a51c69e0ca64ccadafb59999293a65d
 zingiri-web-shop/fws/readorder.php,f4137a56f3412d9d8525973e11f77e4c
 zingiri-web-shop/fws/robots.txt,2cc905061f7d41f6427da15b4b9eb58f
@@ -1397,7 +1398,7 @@ zingiri-web-shop/fws/topmenu.php,050a308db10eace4721072fe1b91bb02
 zingiri-web-shop/fws/uploadadmin.php,07bf67c055a354e04c9a29289267db6a
 zingiri-web-shop/index.php,d41d8cd98f00b204e9800998ecf8427e
 zingiri-web-shop/load.php,a6f8d9189453eafa40f46db9eb22f4a5
-zingiri-web-shop/readme.txt,2452e24410ab664d02ffae66d9a95713
+zingiri-web-shop/readme.txt,33905f3b485130342525ab8d660109b6
 zingiri-web-shop/zap/classes/db.class.php,206286aa46be0adfb53211f9660a71b3
 zingiri-web-shop/zap/classes/element.class.php,433445bab0885c86f8f04be0b01a73e8
 zingiri-web-shop/zap/classes/form.class.php,568af625c20256388004e6174a02d7b8
@@ -1415,7 +1416,7 @@ zingiri-web-shop/zap/classes/sub.captcha.class.php,5fee55284392cd5318d5f2d4d9a4d
 zingiri-web-shop/zap/classes/sub.checkbox.php,53db649c00c6c2b5342cabb8edcf4433
 zingiri-web-shop/zap/classes/sub.date.class.php,1d87f6268c9d4b686c79437b485245f6
 zingiri-web-shop/zap/classes/sub.dbtable.class.php,5de8bb95790d01171b95570104f20071
-zingiri-web-shop/zap/classes/sub.default.class.php,6138dbe794fc44e9a760d7f0a127003e
+zingiri-web-shop/zap/classes/sub.default.class.php,3c07c2ce2e986bf158891b20b5331ed7
 zingiri-web-shop/zap/classes/sub.dynamic_select.class.php,44d34474cb6d899803919e097d55be87
 zingiri-web-shop/zap/classes/sub.email.class.php,bc483f7e55af2ec8726dcfdc27b7d192
 zingiri-web-shop/zap/classes/sub.htmlarea.class.php,ec8418ba125839542a875fcf3954c02b
@@ -1505,18 +1506,18 @@ zingiri-web-shop/zap/includes/wp-settings.php,f99ddc79ec74018d3f4442e7aaf1bf25
 zingiri-web-shop/zap/index.php,d41d8cd98f00b204e9800998ecf8427e
 zingiri-web-shop/zap/js/index.php,d41d8cd98f00b204e9800998ecf8427e
 zingiri-web-shop/zap/js/sorttable.js,a27a76a848784e1196d1b04fb711b302
-zingiri-web-shop/zap/scripts/form.php,3322afe87f4cc1597fba668d73d76bea
+zingiri-web-shop/zap/scripts/form.php,02dfc9553a60a62fa1fe8f7f8b4438ab
 zingiri-web-shop/zap/scripts/index.php,d41d8cd98f00b204e9800998ecf8427e
 zingiri-web-shop/zap/scripts/list.php,1e39a21a94941109588052295ab8f003
 zingiri-web-shop/zap/scripts/mform.php,7d6534870746537a7b2af88c9dbd768d
 zingiri-web-shop/zing.css,f0fb91ba457312865013904e6f97570e
 zingiri-web-shop/zing.dashboard.php,27be0b428a590166a8164da3482ce150
 zingiri-web-shop/zing.globals.inc.php,ed0384ad29e60110b310a02e95287ee6
-zingiri-web-shop/zing.inc.php,be8ddd122539ac3a22843992281336d7
+zingiri-web-shop/zing.inc.php,8d6c26ac82d480b13acb753220c3e786
 zingiri-web-shop/zing.integrator.class.php,515bd652d53403a03457e01d6f86b751
 zingiri-web-shop/zing.readcookie.inc.php,0db07715bc72c72827e4fec6d5b12b35
 zingiri-web-shop/zing.startfunctions.inc.php,0342011d96d6ca3a8449c96cc0ac768d
 zingiri-web-shop/zing.startmodules.inc.php,6f2c7098e169d19a914e35cffe346b2e
 zingiri-web-shop/zing.subs.readcookie.inc.php,ad534dc9ab2cb400b8b6b293f9a14574
 zingiri-web-shop/zingiri-logo.png,770bd6f033e935c0460385a86b5cf627
-zingiri-web-shop/zingiri_webshop.php,9cd0a82dbb654f2c0f98a7f0f692090e
+zingiri-web-shop/zingiri_webshop.php,5fc08619e0a5f3fe4c6af615cf721c00

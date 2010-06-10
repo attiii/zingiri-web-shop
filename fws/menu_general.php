@@ -24,7 +24,7 @@
 <?php if ($index_refer <> 1) { exit(); } ?>
 <?php
            //echo "<h1>".$txt['menu14']."</h1>\n"; 
-           echo "<ul id=\"navlist\">\n";
+           echo "<ul id=\"zing-navlist\">\n";
            echo "<li"; if ($page == "search") { echo " id=\"active\""; }; echo "><a href=\"index.php?page=search\">" . $txt['menu4'] . "</a></li>\n";
            if ($new_page == 1) { echo "<li"; if ($page == "browse" && $action=="shownew") { echo " id=\"active\""; }; echo "><a href=\"index.php?page=browse&action=shownew\">" . $txt['menu16'] . "</a></li>\n"; }
            

@@ -638,4 +638,5 @@ $txt['discountadmin6'] = 'Alla oanvända rabattkoder';
 $txt['discountadmin7'] = 'Rabattkod';
 $txt['discountadmin8'] = 'Inga oanvända rabattkoder';
 $txt['discountadmin9'] = 'Skapad den';
+
 ?>

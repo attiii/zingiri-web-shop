@@ -362,7 +362,7 @@ $txt['editsettings5'] = 'Vis Lager Beløp';
 $txt['editsettings4'] = 'Standard fraktland <a href=# class=info>(?)<span>Dette er vanligvis landet foretaket ditt kommer fra</span></a>';
 $txt['editsettings7'] = 'Ekstrakostnad for postoppkrav <a href=# class=info>(?)<span>Kommer i tillegg til vanlig fraktkostnad (koster for øyeblikket 60 kroner ekstra hos Posten). Format: 12.34</span></a>';
 $txt['editsettings8'] = 'Valuta';
-$txt['editsettings9'] = 'Valuta-"symbol" <a href=# class=info>(?)<span>I ditt tilfelle blir det sannsynligvis: NOK</span></a>>';
+$txt['editsettings9'] = 'Valuta-"symbol" <a href=# class=info>(?)<span>I ditt tilfelle blir det sannsynligvis: NOK</span></a>';
 $txt['editsettings10'] = 'Betal innen xx dager <a href=# class=info>(?)<span>Innen hvor mange dager skal kjøpesummen betales inn til din bankkonto?</span></a>';
 $txt['editsettings11'] = 'Inkludert moms <a href=# class=info>(?)<span>Hvis moms er 25% skal det her stå: 1.25</span></a></a>';
 $txt['editsettings12'] = 'Moms tekst <a href=# class=info>(?)<span>Hvis momsen er 25 % skal det her stå: 25%</span></a>';
@@ -687,4 +687,36 @@ $txt['editsettings112'] = 'Produkt ID & full beskrivelse';
 $txt['prompt1'] = 'Språk';
 $txt['prompt2'] = 'Standard tekst';
 $txt['prompt3'] = 'Tilpasset tekst';
+
+//v1.3.7 - added
+$txt['discountadmin100'] = 'Expiry date';
+$txt['discountadmin101'] = 'Expiry quantity';
+//v1.4.0 - added
+$txt['admin102'] = 'Skrivebord';
+$txt['dashboard1'] = 'Monthly Signups';
+$txt['dashboard2'] = 'Month';
+$txt['dashboard3'] = 'Statistics';
+$txt['dashboard4'] = 'Alltime sales';
+$txt['dashboard5'] = 'Average sale';
+$txt['dashboard6'] = 'Last 5 Orders';
+
+//v1.4.1 - added
+$txt['paymentadmin100'] = 'Merchant ID';
+$txt['paymentadmin101'] = 'Secret';
+
+//v1.4.8 - changed
+$txt['editsettings8'] = 'Currency <a href=# class=info>(?)<span>Make sure you use ISO codes for currency, so for example EUR, USD, GBP, ...</span></a>';
+
+//1.4.9 - new
+$txt['address1'] = 'For';
+$txt['address2'] = 'Etter';
+$txt['address3'] = 'Gate';
+$txt['address4'] = 'Navn';
+$txt['address5'] = '...';
+$txt['apps1'] = 'Lagre';
+$txt['apps2'] = 'Delete';
+$txt['apps3'] = 'Back';
+
+
+
 ?>

@@ -291,7 +291,7 @@ function zing_install() {
 		if (count($files) > 0) {
 			foreach ($files as $afile) {
 				list($file,$v)=$afile;
-				zing_ws_error_handler(0,$file);
+				zing_ws_error_handler(0,'Process '.$file);
 				if ($v>='1.2.7' && !$player) {
 					zing_apps_player_install();
 					$player=true;
@@ -324,7 +324,23 @@ function zing_install() {
 			}
 		}
 	}
+	//Load Apps forms if not loaded yet
+	if (!$player) {
+		zing_ws_error_handler(0,'Loading Apps forms');
+		zing_apps_player_install();
+		$player=true;
+	}
 
+	//Update default settings
+	$query="update ".$prefix."settings set sales_mail='".get_bloginfo('admin_email')."' where id=1";
+	mysql_query($query) or zing_ws_error_handler(1,mysql_error().'-'.$query);
+	$query="update ".$prefix."settings set webmaster_mail='".get_bloginfo('admin_email')."' where id=1";
+	mysql_query($query) or zing_ws_error_handler(1,mysql_error().'-'.$query);
+	$query="update ".$prefix."settings set shopname='".get_bloginfo('name')."' where id=1";
+	mysql_query($query) or zing_ws_error_handler(1,mysql_error().'-'.$query);
+	$query="update ".$prefix."settings set shopurl='".get_option('home')."' where id=1";
+	mysql_query($query) or zing_ws_error_handler(1,mysql_error().'-'.$query);
+	
 	//Load language files
 	zing_ws_error_handler(0,'load language files');
 
@@ -657,7 +673,6 @@ function zing_main($process,$content="") {
 				}
 			}
 			elseif (preg_match('/\[zing-ws:(.*)&amp;(.*)=(.*)\]/',$content,$matches)==1) { //[zing-ws:page&x=y]
-					echo 'hello';
 				list($prefix,$postfix)=preg_split('/\[zing-ws:(.*)\]/',$content);
 				$_GET['page']=$matches[1];
 				if ($matches[2]=='cat') $_GET['action']='list';
@@ -674,7 +689,7 @@ function zing_main($process,$content="") {
 			if (isset($cf['cat'])) {
 				$_GET['cat']=$cf['cat'][0];
 			}
-			
+				
 			$to_include="loadmain.php";
 			break;
 		case "footer":

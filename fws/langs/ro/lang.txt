@@ -367,7 +367,7 @@ $txt['readorder2'] = 'Inapoi la comenzi';
 // editsettings.php
 $txt['editsettings1'] = 'Schimba setari';
 $txt['editsettings2'] = 'Salveaza setari';
-$txt['editsettings3'] = 'Tema de culori';
+$txt['editsettings3'] = 'Ascunde produsele care nu sunt pe stoc';
 $txt['editsettings4'] = 'Tara de domiciliu <a href=# class=info>(?)<span>De obicei, tara in care se afla compania</span></a>';
 $txt['editsettings5'] = 'Taxa de expediere<a href=# class=info>(?)<span>Taxa de expediere pentru tara de domiciliu. Format: 12.34</span></a>';
 $txt['editsettings6'] = 'Taxa de expediere in strainatate';

@@ -56,9 +56,9 @@ class wsTax {
 				$ex_vat =$price;
 			}
 		}
-		$this->ex=$ex_vat;
-		$this->in=$in_vat;
-		$this->tax=$taxtot;
+		$this->ex=myNumberRounding($ex_vat);
+		$this->in=myNumberRounding($in_vat);
+		$this->tax=myNumberRounding($taxtot);
 		$this->taxes=$taxes;
 		$this->inFtd=myNumberFormat($in_vat);
 		$this->exFtd=myNumberFormat($ex_vat);

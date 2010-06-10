@@ -369,7 +369,6 @@ $txt['editsettings3'] = 'Hide out of stock products';
 $txt['editsettings4'] = 'Standard shipping country <a href=# class=info>(?)<span>This is usually the country in which your company resides</span></a>';
 $txt['editsettings5'] = 'Show stock amount';
 $txt['editsettings7'] = 'Additional shipping rate pay on recieve <a href=# class=info>(?)<span>In addition to the normal shipping rate, this form of shipping costs extra. Format: 12.34</span></a>';
-$txt['editsettings8'] = 'Currency';
 $txt['editsettings9'] = 'Currency symbol <a href=# class=info>(?)<span>In your case probably: $</span></a>';
 $txt['editsettings10'] = 'Pay within xx days <a href=# class=info>(?)<span>Within how many days should the order amount be on your account?</span></a>';
 $txt['editsettings11'] = 'Including VAT <a href=# class=info>(?)<span>If the VAT is 19% this number should read: 1.19</span></a>';
@@ -708,4 +707,16 @@ $txt['dashboard6'] = 'Last 5 Orders';
 $txt['paymentadmin100'] = 'Merchant ID';
 $txt['paymentadmin101'] = 'Secret';
 
+//v1.4.8 - changed
+$txt['editsettings8'] = 'Currency <a href=# class=info>(?)<span>Make sure you use ISO codes for currency, so for example EUR, USD, GBP, ...</span></a>';
+
+//1.4.9 - new
+$txt['address1'] = 'First';
+$txt['address2'] = 'Last';
+$txt['address3'] = 'Street';
+$txt['address4'] = 'Name';
+$txt['address5'] = 'Line 2';
+$txt['apps1'] = 'Save';
+$txt['apps2'] = 'Delete';
+$txt['apps3'] = 'Back';
 ?>

@@ -4,7 +4,7 @@ Donate link: http://www.zingiri.com/
 Tags: ecommerce, e-commerce, paypal, freewebshop, shop, cart, web shop, shopping cart, iDEAL, Google Checkout, Worldpay
 Requires at least: 2.1.7
 Tested up to: 2.9.1
-Stable tag: 1.4.7
+Stable tag: 1.4.8
 
 Zingiri Web Shop is a Wordpress plugin that brings together a great content management system with the fantastic FreeWebShop ecommerce solution.
 
@@ -59,6 +59,16 @@ Before upgrading, make sure you back up your database first!
 
 == Changelog ==
 
+= 1.4.8 =
+* Change: updated Norwegian translations
+* New: shop name and default emails are now initialised with info from Wordpress configuration (only for new installs) 
+* Fix: changed default currency from Euro to ISO currency code for Euro: EUR
+* Fix: fixed issue with rounding of amounts in case products are exclusive of tax
+* Fix: corrected issue with only 1 image showing instead of multiple images
+* Fix: fixed potential issue occuring during upgrading resulting in an incomplete upgrade of discount functionality
+* Fix: corrected Romanian translation
+* Fix: removed hello display
+ 
 = 1.4.7 =
 * New: added option to specify product category in tag like [zing-ws:browse&cat=1234]
 * Fix: issue with unrelated product images being displayed on product details page when editing or adding a product
