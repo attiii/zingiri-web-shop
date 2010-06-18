@@ -1612,4 +1612,4 @@ zingiri-web-shop/zing.startfunctions.inc.php,0342011d96d6ca3a8449c96cc0ac768d
 zingiri-web-shop/zing.startmodules.inc.php,6f2c7098e169d19a914e35cffe346b2e
 zingiri-web-shop/zing.subs.readcookie.inc.php,ad534dc9ab2cb400b8b6b293f9a14574
 zingiri-web-shop/zingiri-logo.png,770bd6f033e935c0460385a86b5cf627
-zingiri-web-shop/zingiri_webshop.php,cf82c8780a3ecdf507bd7bdce6c5f3f1
+zingiri-web-shop/zingiri_webshop.php,591c4175083ae26209ffe559dea4c266
