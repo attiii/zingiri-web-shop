@@ -59,6 +59,36 @@ Before upgrading, make sure you back up your database first!
 
 == Changelog ==
 
+= 1.5.0 =
+* New: made customer registration and profile forms completely editable
+* New: added option to completely disable stock management
+* New: added product carousels
+* New: added automatic database clean up of error log and access log (messages older than 7 days are deleted)
+* New: added option to set front page indicator from product browse menu (avoids toggling back and forth to product details)
+* New: added confirmation message before deleting product
+* New: product name is now clickable on shop front page
+* New: added option to display Zingiri logo in site footer, page footer or to disable it (on request)
+* New: added display of name and address information in orders summary
+* New: added option to specify email on payment method level, can be used to specify a Paypal email different from the default sales email
+* New: added check on product in stock when adding to basket 
+* Change: replaced style sheet ID 'navlist' by 'zing-navlist' to avoid conflicts with certain themes 
+* Change: removed default Dutch labels from shipping and payment options (only applies to new installations) 
+* Change: in case of stock management on basis of status only, changed the way stock status is set on product level
+* Change: protected fields label and standard text in when editing Prompts & labels
+* Change: removed link to product details from products admin page
+* Change: removed stock details description from products admin page
+* Change: removed support for PHP 4
+* Change: a Javascript library is now required
+* Change: removed obsolete files
+* Change: don't show image thumbnails on product page if only 1 image uploaded
+* Fix: resolved compatibility issue with Zingiri Forum plugin
+* Fix: fixed issue with display of date field if contents is empty
+* Fix: corrected Romanian translation of a few settings
+* Fix: fixed issue with selecting of discount code with mouse double-click also including "Edit"
+* Fix: fixed issue with image not being clickable on shop front page in IE8
+* Fix: live search widget now supports search on words containing numbers
+* Fix: corrected rounding issue when applying percentage discounts
+
 = 1.4.8 =
 * Change: updated Norwegian translations
 * New: shop name and default emails are now initialised with info from Wordpress configuration (only for new installs) 

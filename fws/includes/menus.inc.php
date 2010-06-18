@@ -28,7 +28,8 @@ $menus['accesslogadmin']=array('group' => 'admin25', 'label' => 'admin31','href'
 $menus['admin']=array('group' => 'admin25', 'label' => 'admin7','href' => 'page=admin&adminaction=optimize_tables', 'img' => 'optimize.gif');
 $menus['mailinglist']=array('group' => 'admin25', 'label' => 'admin35','href' => 'page=mailinglist', 'img' => 'mailinglist.gif');
 
-$menus['customer']=array('hide' => true, 'group' => 'my5', 'label' => 'my7','href' => 'page=customer&action=show', 'img' => 'customers.gif');
+//$menus['customer']=array('hide' => true, 'group' => 'my5', 'label' => 'my7','href' => 'page=customer&action=show', 'img' => 'customers.gif');
+$menus['customer']=array('type' => 'apps','hide' => true, 'group' => 'my5', 'label' => 'my7','href' => 'page=customer&action=show', 'img' => 'customers.gif');
 $menus['orders']=array('hide' => true, 'group' => 'my5', 'label' => 'my8','href' => 'page=orders&id='.$customerid, 'img' => 'orders.gif');
 $menus['cart']=array('hide' => true, 'group' => 'my5', 'label' => 'my9','href' => 'page=cart&action=show', 'img' => 'carticon.gif');
 $menus['products']=array('hide' => true, 'group' => 'my5', 'label' => 'admin5','href' => 'page=products&action=show', 'img' => 'products.gif');

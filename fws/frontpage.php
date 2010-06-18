@@ -38,7 +38,7 @@ if ($use_prodgfx == 1) {
 
 	if ($thumb == "") {
 		$thumb = $gfx_dir."/nothumb.jpg";
-		$screenshot = "<img src=\"".$thumb."\" width=\"100\" height=\"100\" />";
+		$screenshot = "<img style=\"height:100px\" src=\"".$thumb."\" width=\"100\" height=\"100\" />";
 	} else {
 		$size = getimagesize(str_replace($product_url,$product_dir,$thumb));
 		$max_height = 100;
@@ -46,13 +46,13 @@ if ($use_prodgfx == 1) {
 		$percent = min($max_height / $size[1], $max_width / $size[0]);
 		$height = intval($size[1] * $percent);
 		$width = intval($size[0] * $percent);
-		$screenshot = "<img src=\"".$thumb."\" width=\"".$width."\" height=\"".$height."\" />";
+		$screenshot = "<img style=\"height:100px\" src=\"".$thumb."\" width=\"".$width."\" height=\"".$height."\" />";
 	}
-	$screenshot="<div style=\"height:100px\">".$screenshot."</div>";
+	//$screenshot="<div style=\"height:100px\">".$screenshot."</div>";
 }
 if ($row_count == 1) { echo "<tr>"; }
 echo '<td width="33%">
-			       <h5>'.$f_row[1].'</h5>'."<a class=\"plain\" href=\"index.php?page=details&prod=".$f_row[0]."&cat=".$f_row[2]."\">".$screenshot.'</a><br />
+			       '."<a class=\"plain\" href=\"index.php?page=details&prod=".$f_row[0]."&cat=".$f_row[2]."\"><h5>".$f_row[1].'</h5>'.$screenshot.'</a><br />
 				   <br />
                   <form id="order'.$f_row[0].'" method="post" action="?page=cart&action=add">
                        <input type="hidden" name="prodid" value="'.$f_row[0].'">';

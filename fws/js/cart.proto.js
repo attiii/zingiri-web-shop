@@ -62,10 +62,12 @@ var wsCart = Class.create( {
 		if (wsFrontPage) var image = e.up('td').down('img');
 		else var image = e.up('tr').down('img');
 		form = e.up('form').id;
-		new Ajax.Request($(form).action, {
+		//new Ajax.Request($(form).action, {
+		new Ajax.Request(wsURL + "addToCart.php", {
 			method : "post",
 			parameters : $(form).serialize(true),
 			onComplete : function(request) {
+				if (request.responseText) alert(request.responseText);
 				this.getCart();
 			}.bind(this)
 		});

@@ -22,26 +22,43 @@
 ?>
 <?php
 class dateZfSubElement extends zfSubElement {
-	
+
 	function output($mode="edit",$input="")
 	{
-		if ($this->ext!='') $this->ext=date("d-m-Y",strtotime($this->int));
-		return $this->ext;	
+		if ($this->int!='' && $this->int!='0000-00-00') $this->ext=date("d-m-Y",strtotime($this->int));
+		else $this->ext='';
+		return $this->ext;
 	}
-	
+
 	function verify()
 	{
 		$success=true;
 		if ($this->ext!='' && !strtotime($this->ext))
-			{
+		{
 			$success=false;
 			$this->error_message="Wrong date format!";
 			$this->is_error=true;
 		} else {
-			$this->int=date("Ymd",strtotime($this->ext));
-			$this->ext=date("d-m-Y",strtotime($this->ext));
+			if ($this->ext!='') {
+				$this->int=date("Ymd",strtotime($this->ext));
+				$this->ext=date("d-m-Y",strtotime($this->ext));
+			} else {
+				$this->int='';
+			}
 		}
 		return $success;
+	}
+
+	function display(&$field_markup,&$subscript_markup) {
+		$e=$this->element;
+		$i=$this->subid;
+		$xmlf=$this->xmlf;
 		
+		if($e->populated_value['element_'.$e->id.'_'.$i] == ""){
+			$e->populated_value['element_'.$e->id.'_'.$i] = $xmlf->fields->{'field'.$i}->default;
+		}
+		if ($e->populated_value['element_'.$e->id.'_'.$i]=='0000-00-00') $e->populated_value['element_'.$e->id.'_'.$i]='';
+		$field_markup.="<input id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" size=\"{$this->size}\" value=\"{$e->populated_value['element_'.$e->id.'_'.$i]}\" maxlength=\"{$this->maxlength}\" type=\"text\" {$e->readonly}/>";
+		$subscript_markup.="<label id=\"label_{$e->id}_{$i}\"for=\"element_{$e->id}_{$i}\">".$xmlf->fields->{'field'.$i}->label."</label>";
 	}
 }

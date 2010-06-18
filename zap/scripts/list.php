@@ -29,7 +29,9 @@ $pos=$_GET['pos'];
 $mapflat=$_GET['map'];
 $json=str_replace("\'",'"',$_GET['map']);
 $map=zf_json_decode($json,true);
-$zflist=new zfForm($formname,$formid);
+if (class_exists('zf'.$formname)) $zfClass='zf'.$formname;
+else $zfClass='zfForm';
+$zflist=new $zfClass($formname,$formid,'','list','list');
 $formname=$zflist->form;
 $formid=$zflist->id;
 if ($action=='search') {
@@ -39,38 +41,37 @@ if ($action=='search') {
 $stack=new zfStack('list',$formname,$search);
 
 echo '<p class="zfaces-form-label">'.z_($zflist->label).'</p>';
+$map=$zflist->filter($map);
 
-if (!AllowAccess('list',$formid,$action)) return false;
+//if (!AllowAccess('list',$formid,$action)) return false;
+if (!$zflist->allowAccess()) {
+	echo $zflist->errorMessage;
+	return false;
+}
 
 if (file_exists(ZING_APPS_CUSTOM.'apps.'.$formname.'.php')) require(ZING_APPS_CUSTOM.'apps.'.$formname.'.php');
 
-$linksin=new zfDB();
-$linksin->select("select * from ##flink where formin='*' and displayout='list' and formout='".$zflist->id."' and mapping <> ''");
-while ($l=$linksin->next()) {
-	$s=explode(",",$l['MAPPING']);
-	foreach ($s as $m) {
-		$f=explode(":",$m);
-		$map[$f[0]]=$f[1];
-	}
-}
 
 //search fields
-	echo '<form name="faces" method="POST" action="?page='.$page.'&zfaces=list&form='.$formname.'&action=search';
-	echo '&zft=form&zfp='.$formid.'">';
-	echo '<ul id="zfaces" class="zfaces">';
-	$zflist->Prepare();
-	$zflist->Render("search");
-	echo '</ul>';
-	if ($zflist->searchable) {
-		echo '<center><input class="art-button" type="submit" name="search" value="'.z_('Search').'"></center>';
-	}
-	echo '</form>';
+echo '<form name="faces" method="POST" action="?page='.$page.'&zfaces=list&form='.$formname.'&action=search';
+echo '&zft=form&zfp='.$formid.'">';
+echo '<ul id="zfaces" class="zfaces">';
+$zflist->Prepare();
+$zflist->Render("search");
+echo '</ul>';
+if ($zflist->searchable) {
+	echo '<center><input class="art-button" type="submit" name="search" value="'.z_('Search').'"></center>';
+}
+echo '</form>';
 
-
+$alink=new zfLink($zflist->id,false,'list');
 ?>
-<div id="<?php echo $formname;?>"><a
-	href="?page=<?php echo $page;?>&zfaces=form&form=<?php echo $formname;?>&action=add&zft=list&zfp=<?php echo $formid;?>&map=<?php echo urlencode($mapflat);?>"
-><img class="zfimg" src="<?php echo ZING_APPS_PLAYER_URL; ?>images/add.png"></a> <?php if (defined("ZING_APPS_BUILDER") && ZingAppsIsAdmin()) {?>
+<div id="<?php echo $formname;?>">
+<?php if ($alink->canAdd) {
+echo '<a href="?page='.$page.'&zfaces=form&form='.$formname.'&action=add&zft=list&zfp='.$formid.'&map='.urlencode($mapflat).'"><img class="zfimg" src="'.ZING_APPS_PLAYER_URL.'images/add.png"></a>';
+} 
+?>
+<?php if (defined("ZING_APPS_BUILDER") && ZingAppsIsAdmin()) {?>
 <select id="zfheader">
 	<option value="none" selected="selected">Add column</option>
 	<?php
@@ -84,12 +85,11 @@ while ($l=$linksin->next()) {
 if ($zflist)
 {
 
-	$links=new zfDB();
-	$links->select("select * from ##flink where formin='".$zflist->id."'");
-	while ($l=$links->next()) {
-		$alink[]=$l;
-	}
-	$alink=new zfLink($zflist->id,false,'list');
+	//$links=new db();
+	//$links->select("select * from ##flink where formin='".$zflist->id."'");
+	//while ($l=$links->next()) {
+	//	$alink[]=$l;
+	//}
 
 	$h=$zflist->headers;
 
@@ -127,23 +127,25 @@ if ($zflist)
 			foreach ($row as $column)
 			{
 				echo '<td>';
-				echo $column;
+				echo '<div>'.$column.'</div>';
 				if ($i==1 && !empty($span)) {
 					echo '<span style="filter:alpha(opacity=90);opacity:0.9;padding:4px;display:none;position:absolute;" id="fox'.$line.'">'.$span.'</span>';
-					echo '<br />&nbsp';
+					echo '<br />';
 				}
 				echo '</td>';
 				$i++;
 			}
 			echo '</td>';
-			if (ZING_PROTOTYPE) {
-				$script.="var zelt = $('foo".$line."');";
-				$script.="zelt.observe('mouseover', function() { $('fox".$line."').setStyle({ display : 'block', backgroundColor : '#ccdd4f'}); });";
-				$script.="zelt.observe('mouseout', function() { $('fox".$line."').setStyle({ display : 'none'});});";
-			} elseif (ZING_JQUERY) {
-				$script.="var zelt = jQuery('#foo".$line."');";
-				$script.="zelt.bind('mouseover', this, function() { jQuery('#fox".$line."').css('display','block');jQuery('#fox".$line."').css('backgroundColor','#ccdd4f'); });";
-				$script.="zelt.bind('mouseout', this, function() { jQuery('#fox".$line."').css('display','none'); });";
+			if (!empty($span)) {
+				if (ZING_PROTOTYPE) {
+					$script.="var zelt = $('foo".$line."');";
+					$script.="zelt.observe('mouseover', function() { $('fox".$line."').setStyle({ display : 'block', backgroundColor : '#ccdd4f'}); });";
+					$script.="zelt.observe('mouseout', function() { $('fox".$line."').setStyle({ display : 'none'});});";
+				} elseif (ZING_JQUERY) {
+					$script.="var zelt = jQuery('#foo".$line."');";
+					$script.="zelt.bind('mouseover', this, function() { jQuery('#fox".$line."').css('display','block');jQuery('#fox".$line."').css('backgroundColor','#ccdd4f'); });";
+					$script.="zelt.bind('mouseout', this, function() { jQuery('#fox".$line."').css('display','none'); });";
+				}
 			}
 			$line++;
 		}
@@ -155,7 +157,14 @@ if ($zflist)
 	}
 	echo '</table>';
 	echo '<script type="text/javascript">';
-	echo $script;
+	if (ZING_PROTOTYPE) {
+		echo 'document.observe("dom:loaded", function() {';
+		echo $script;
+	} elseif (ZING_JQUERY) {
+		echo 'jQuery(document).ready(function() {';
+		echo $script;
+	}
+	echo '});';
 	echo '</script>';
 	if ($stack->getPrevious()) echo '<a href="'.$stack->getPrevious().'">Back</a>';
 	if ($zflist->rowsCount > ZING_APPS_MAX_ROWS) {

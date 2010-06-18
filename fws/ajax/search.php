@@ -59,15 +59,13 @@ if ($searchfor) {
 					$start=0;
 					$end=strlen($data);
 					for ($i=$pos; $i >= 0; $i--) {
-						if ($data[$i]==" " || !ctype_alpha($data[$i])) { $start=$i; break; }
+						if ($data[$i]==" " || !ctype_alnum($data[$i])) { $start=$i; break; }
 					}
 					for ($i=$pos; $i <= strlen($data); $i++) {
-						if ($data[$i]==" " || !ctype_alpha($data[$i])) { $end=$i; break; }
+						if ($data[$i]==" " || !ctype_alnum($data[$i])) { $end=$i; break; }
 					}
 					$word=trim(substr($data,$start,$end-$start));
 					$words[]=$word;
-					//$results.='<li>'.substr($data,$start,$end-$start).'-'.$pos.'-'.$start.'-'.$end.'</li>';
-					//					$results.='<li><a href="'.zurl('index.php?page=browse&searchfor='.$word).'">'.$word.'</a></li>';
 				}
 			}
 		}

@@ -132,11 +132,11 @@ else {
 		   echo "</td><td>";
 		   echo "<a href=\"javascript:alert('LOGIN: ".stripslashes($row[1])."')\"><img src=\"".$gfx_dir."/customeradmin_login.png\" alt=\"Login\"></a>&nbsp;";
 		   echo "<a href=\"mailto:".$row[12]."\"><img src=\"".$gfx_dir."/customeradmin_mail.png\" alt=\"".$row[12]."\"></a>&nbsp;";
-		   echo "<a href=\"?page=customer&action=show&customerid=".$row[0]."\"><img src=\"".$gfx_dir."/customeradmin_edit.png\" alt=\"Edit\" /></a>&nbsp;";
+		   echo "<a href=\"?page=customer&zfaces=form&form=profile&action=edit&id=".$row[0]."\"><img src=\"".$gfx_dir."/customeradmin_edit.png\" alt=\"Edit\" /></a>&nbsp;";
 		   if ($row[0] != 1 && !$integrator->wpAdmin) { echo $link1.$row[0].$link2; } // you can not UN-ADMIN the main admin
 		   if ($row[13] != "ADMIN" && !$integrator->wpAdmin) {  
 			   // you cannot remove a shop admin even if you wanted it
-			   echo "<a href=\"?page=customer&action=delete&customerid=".$row[0]."\"><img src=\"".$gfx_dir."/customeradmin_delete.png\" alt=\"Delete\" /></a>&nbsp;";
+			   echo "<a href=\"?zfaces=form&form=customer&action=delete&id=".$row[0]."\"><img src=\"".$gfx_dir."/customeradmin_delete.png\" alt=\"Delete\" /></a>&nbsp;";
 		   }
 		   echo "</td></tr>";
 	    }

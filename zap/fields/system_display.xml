@@ -5,11 +5,12 @@
 		<field1>
 			<name>display</name>
 			<format>varchar(4)</format>
-			<default>form</default>
+			<default>any</default>
 			<type>select</type>
 			<values type="multi">
-				<option1 value="form">Form</option1>
-				<option2 value="list">List</option2>
+				<option1 value="0">*</option1>
+				<option2 value="form">Form</option2>
+				<option3 value="list">List</option3>
 			</values>
 		</field1>
 	</fields>

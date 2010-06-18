@@ -1,6 +1,6 @@
 <?php
 function zfCreateTable($entity) {
-	$newtable=new zfDB();
+	$newtable=new db();
 	$query="CREATE TABLE IF NOT EXISTS `".DB_PREFIX.$entity."`";
 	$query.="(
   		`ID` int(11) NOT NULL auto_increment,
@@ -10,7 +10,7 @@ function zfCreateTable($entity) {
 	if ($newtable->update($query) && function_exists('zfDumpQuery')) zfDumpQuery($query);
 }
 function zfTableExists($entity) {
-	$db=new zfDB();
+	$db=new db();
 	return $db->exists($entity);
 }
 function zfCreateColumns($entity,$data)
@@ -18,7 +18,7 @@ function zfCreateColumns($entity,$data)
 	global $allfields;
 	$allfields=array('ID','DATE_CREATED','DATE_UPDATED');
 	
-	$newtable=new zfDB();
+	$newtable=new db();
 	if (is_new_field($entity,'ID')) {
 		$query="ALTER TABLE `".DB_PREFIX.$entity."`";
 		$query.="ADD COLUMN `ID` int(11) NOT NULL auto_increment PRIMARY KEY";
@@ -36,7 +36,9 @@ function zfCreateColumns($entity,$data)
 	}
 	$jdata=zf_json_decode($data,true);
 	foreach ($jdata as $element) {
-		faces_add_element($element['column'],$element['type'],$entity);
+		if ($element['column']!='ID' && $element['column']!='DATE_CREATED' && $element['column']!='DATE_UPDATED') {
+			faces_add_element($element['column'],$element['type'],$entity,$element['attributes']['zfmaxlength']);
+		}
 	}
 	
 	$fieldsInDb=zfShowColumns($entity);
@@ -51,7 +53,7 @@ function zfCreateColumns($entity,$data)
  * @param $form_dbtable
  * @return unknown_type
  */
-function faces_add_element($fieldname,$multiformat,$form_dbtable){
+function faces_add_element($fieldname,$multiformat,$form_dbtable,$maxlength){
 	global $allfields;
 	$xmlf=faces_get_xml($multiformat);
 	$fields=$xmlf->fields->attributes()->count;
@@ -81,6 +83,7 @@ function faces_add_element($fieldname,$multiformat,$form_dbtable){
 		} else {
 			$format="varchar(255)";
 		}
+		if ($maxlength > 0) $format=preg_replace('/varchar(.*)/','varchar('.$maxlength.')',$format);
 		if (!empty($format) && $format != "none") {
 			if (!$isfirst) {
 				$query.= ", ";
@@ -95,19 +98,19 @@ function faces_add_element($fieldname,$multiformat,$form_dbtable){
 		$allfields[]=$fieldname;
 	}
 
-	$table=new zfDB();
+	$table=new db();
 	if (!$isfirst && $table->update($query)) zfDumpQuery($query);
 }
 
 function zfShowColumns($form_dbtable) {
-	$table=new zfDB();
+	$table=new db();
 	$query = "SHOW COLUMNS FROM `".DB_PREFIX."{$form_dbtable}` ";
 	$result = do_query($query);
 
 	$columns=mysql_num_rows($result);
 	while ($row = mysql_fetch_row($result))
 	{
-		$field_array[] = $row[0];
+		$field_array[] = strtoupper($row[0]);
 	}
 
 	return $field_array;
@@ -126,7 +129,7 @@ function is_new_field($form_dbtable,$fieldname)
 	}
 }
 
-function zfCreate($name,$elementcount,$entity,$type,$data,$label,$id=false) {
+function zfCreate($name,$elementcount,$entity,$type,$data,$label,$id=false,$remote=false) {
 	
 	$keysread['NAME']=$name;
 	$keys="";
@@ -137,7 +140,8 @@ function zfCreate($name,$elementcount,$entity,$type,$data,$label,$id=false) {
 		$row['ELEMENTCOUNT']=$elementcount;
 		$row['ENTITY']=$entity;
 		$row['TYPE']=$type;
-		$row['DATA']=$data;
+		if ($remote) $row['CUSTOM']=$data;
+		else $row['DATA']=$data;
 		$row['LABEL']=$label;
 		$same=true;
 		foreach($row as $k => $v) {

@@ -170,14 +170,6 @@ function zing_check() {
 	$dirs=array();
 	$zing_version=get_option("zing_webshop_version");
 
-	//if ($zing_version == "") {
-	//$errors[]='Please proceed with a clean install or deactivate your plugin';
-	//return array('errors'=> $errors, 'warnings' => $warnings);
-	//}
-	//elseif ($zing_version != ZING_VERSION) $errors[]='You downloaded version '.ZING_VERSION.' and need to upgrade your database (currently at version '.$zing_version.').';
-
-	//if ($zing_version < '1.2.0') return $errors;
-
 	$files[]=ZING_LOC.'log.txt';
 	$files[]=ZING_DIR.'banned.txt';
 
@@ -206,7 +198,7 @@ function zing_check() {
 		}
 	}
 
-	if (phpversion() < '5')	$warnings[]="You are running PHP version ".phpversion().". If you wish to use the PDF invoice generation functionality, you will need to upgrade to version 5.x.x";
+	if (phpversion() < '5')	$errors[]="You are running PHP version ".phpversion().". You require PHP version 5 or higher to install the Web Shop.";
 	if (ini_get("zend.ze1_compatibility_mode")) $warnings[]="You are running PHP in PHP 4 compatibility mode. The PDF invoice functionality requires this mode to be turned off.";
 
 	//check files hash
@@ -398,6 +390,16 @@ function zing_install() {
 		}
 	}
 
+	//Update registration page
+	/*
+	$ids=get_option("zing_webshop_pages");
+	$ida=explode(",",$ids);
+	$id=$ida[7];
+	delete_post_meta($id,'zing_page');
+	add_post_meta($id,'zing_form','register');
+	add_post_meta($id,'zfaces','form');
+	*/
+	
 	//Create digital products directory if it doesn't exist yet
 	if (!get_option('zing_webshop_dig')) {
 		update_option('zing_webshop_dig',CreateRandomCode(15));
@@ -453,7 +455,7 @@ function zing_install() {
  * @return void
  */
 function zing_deactivate() {
-	if (function_exists('zing_apps_player_deactivate')) zing_apps_player_deactivate();
+	wp_clear_scheduled_hook('zing_ws_cron_hook');
 }
 
 /**
@@ -692,9 +694,6 @@ function zing_main($process,$content="") {
 				
 			$to_include="loadmain.php";
 			break;
-		case "footer":
-			$to_include="footer.php";
-			break;
 		case "sidebar":
 			$to_include="menu_".$content.".php";
 			break;
@@ -723,6 +722,7 @@ function zing_main($process,$content="") {
 		include($scripts_dir.$to_include);
 		if ($process=='content') echo '</div>';
 		echo $postfix;
+		if (!is_admin() && $process=='content' && get_option('zing_ws_logo')=='pf') zing_display_logo();
 		//stop logging
 		restore_error_handler();
 	}
@@ -746,6 +746,7 @@ function zing_header()
 {
 	echo '<script type="text/javascript" language="javascript">';
 	echo "var wsURL='".ZING_URL."fws/ajax/';";
+	echo "var wpabspath='".ABSPATH."';";
 	echo '</script>';
 
 	if (ZING_PROTOTYPE) {
@@ -762,6 +763,9 @@ function zing_header()
 		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/cart.jquery.js"></script>';
 		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/search.jquery.js"></script>';
 	}
+	if (is_admin()) {
+		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/admin.js"></script>';
+	}
 	echo '<link rel="stylesheet" type="text/css" href="' . ZING_URL . 'zing.css" media="screen" />';
 
 	echo '<link rel="stylesheet" href="' . ZING_URL . 'fws/addons/lightbox/lightbox.css" type="text/css" media="screen" />';
@@ -774,102 +778,21 @@ function zing_ws_header_custom()
 }
 
 /**
- * Sidebar general menu widget
- * @param $args
- * @return unknown_type
- */
-function widget_sidebar_general($args) {
-
-	global $txt;
-	zing_main("init");
-	extract($args);
-	echo $before_widget;
-	echo $before_title;
-	echo $txt['menu14'];
-	echo $after_title;
-	echo '<div id="zing-sidebar-general">';
-	zing_main("sidebar","general");
-	echo '</div>';
-	echo $after_widget;
-
-}
-
-/**
- * Sidebar products menu widget
- * @param $args
- * @return unknown_type
- */
-function widget_sidebar_products($args) {
-	global $txt;
-	zing_main("init");
-	extract($args);
-	echo $before_widget;
-	echo $before_title;
-	echo $txt['menu15'];
-	echo $after_title;
-	echo '<div id="zing-sidebar-products">';
-	zing_main("sidebar","products");
-	echo "</div>";
-	echo $after_widget;
-}
-
-/**
- * Sidebar cart menu widget
- * @param $args
- * @return unknown_type
- */
-function widget_sidebar_cart($args) {
-	global $txt;
-	zing_main("init");
-	extract($args);
-	echo $before_widget;
-	echo $before_title;
-	echo $txt['menu2'];
-	echo $after_title;
-	echo '<div id="zing-sidebar-cart">';
-	zing_main("sidebar","cart");
-	echo '</div>';
-	echo $after_widget;
-}
-
-/**
- * Sidebar cart menu widget
- * @param $args
- * @return unknown_type
- */
-function widget_sidebar_search($args) {
-	global $txt;
-	zing_main("init");
-	extract($args);
-	echo $before_widget;
-	echo $before_title;
-	echo $txt['menu4'];
-	echo $after_title;
-	echo '<div id="zing-sidebar-search">';
-	zing_main("sidebar","search");
-	echo '</div>';
-	echo $after_widget;
-}
-
-/**
  * Register sidebar widgets
  * @return unknown_type
  */
+require(dirname(__FILE__).'/extensions/widgets/index.php');
 function zing_sidebar_init()
 {
-	register_sidebar_widget(__('Zingiri Web Shop Cart'), 'widget_sidebar_cart');
-	register_sidebar_widget(__('Zingiri Web Shop General'), 'widget_sidebar_general');
-	register_sidebar_widget(__('Zingiri Web Shop Products'), 'widget_sidebar_products');
-	if (ZING_PROTOTYPE || ZING_JQUERY) register_sidebar_widget(__('Zingiri Web Shop Search'), 'widget_sidebar_search');
-	register_widget_control(__('Zingiri Web Shop Search'), 'widget_control_search');
-}
-
-function widget_control_search() {
-	$data = get_option('zing_ws_widget_options');
-	echo '<p><label>Size of search input field<input name="ws_zing_search_size" type="text" value="'.$data['search_size'].'" /></label></p>';
-	if (isset($_POST['ws_zing_search_size'])){
-		$data['search_size'] = attribute_escape($_POST['ws_zing_search_size']);
-		update_option('zing_ws_widget_options', $data);
+	global $wsWidgets;
+	foreach ($wsWidgets as $w) {
+		//if (isset($w['class'])) register_sidebar_widget(__($w['name']), array($w['class'],'init'));
+		if (isset($w['class'])) {
+			$wstemp=new $w['class'];
+			register_sidebar_widget(__($w['name']), array($wstemp,'init'));
+			if (isset($w['control'])) register_widget_control(__($w['name']), array($wstemp,'control'));
+		}
+		elseif (isset($w['function'])) register_sidebar_widget(__($w['name']), $w['function']);
 	}
 }
 
@@ -1106,14 +1029,19 @@ function zing_footer($footer="")
 {
 	$bail_out = ( ( defined( 'WP_ADMIN' ) && WP_ADMIN == true ) || ( strpos( $_SERVER[ 'PHP_SELF' ], 'wp-admin' ) !== false ) );
 	if ( $bail_out ) return $footer;
-	//Please contact us if you wish to remove the Zingiri and FWS logos from the footer
+	if (get_option('zing_ws_logo')!='sf' && get_option('zing_ws_logo')!='') return $footer;
+	zing_display_logo();
+}
+
+function zing_display_logo()
+{
+	//Please contact us if you wish to remove the Zingiri logo
 	echo '<center style="position:relative;clear:both;font-size:smaller;margin-top:5px">';
 	echo '<a href="http://www.zingiri.com" alt="Zingiri Web Shop">';
 	echo '<img src="'.ZING_URL.'/zingiri-logo.png" height="35"/>';
 	echo '</a>';
 	echo '</center>';
 }
-
 /**
  * Recording of database errors
  * @param $query
@@ -1293,4 +1221,23 @@ function zing_ws_title($title) {
 function zing_ws_page_title($title) {
 	return $title;
 }
+
+//cron
+function zing_ws_cron() {
+	$cron=get_option('zing_ws_cron');
+	$db=new db();
+	$query="delete from `##errorlog` where date_add(`time`, interval 7 day) < curdate()";
+	$db->update($query);	
+	$cron.=$query;
+
+	$query="delete from `##accesslog` where date_add(`time`, interval 7 day) < curdate()";
+	$db->update($query);	
+	$cron.=$query;
+	
+	update_option('zing_ws_cron',$cron);
+}
+if (!wp_next_scheduled('zing_ws_cron_hook')) {
+	wp_schedule_event( time(), 'hourly', 'zing_ws_cron_hook' );
+}
+add_action('zing_ws_cron_hook','zing_ws_cron');
 ?>

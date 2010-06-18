@@ -41,6 +41,8 @@ class zfSubElement {
 		$this->ext=trim($ext);
 		$this->error_message="";
 		$this->is_error=false;
+		$this->size=$element->attributes['zfsize'] ? $element->attributes['zfsize'] : $xmlf->fields->{'field'.$this->subid}->size;
+		$this->maxlength=$element->attributes['maxlength'] ? $element->attributes['maxlength'] : $xmlf->fields->{'field'.$this->subid}->maxlength;
 	}
 
 	function prepare() {
@@ -73,15 +75,19 @@ class zfSubElement {
 		return false;
 	}
 
+	function postSave() {
+		return true;
+	}
+	
 	function display(&$field_markup,&$subscript_markup) {
 		$e=$this->element;
 		$i=$this->subid;
 		$xmlf=$this->xmlf;
-
+		
 		if($e->populated_value['element_'.$e->id.'_'.$i] == ""){
 			$e->populated_value['element_'.$e->id.'_'.$i] = $xmlf->fields->{'field'.$i}->default;
 		}
-		$field_markup.="<input id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" size=\"{$xmlf->fields->{'field'.$i}->size}\" value=\"{$e->populated_value['element_'.$e->id.'_'.$i]}\" maxlength=\"{$xmlf->fields->{'field'.$i}->maxlength}\" type=\"text\" {$e->readonly}/>";
+		$field_markup.="<input id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" size=\"{$this->size}\" value=\"{$e->populated_value['element_'.$e->id.'_'.$i]}\" maxlength=\"{$this->maxlength}\" type=\"text\" {$e->readonly}/>";
 		$subscript_markup.="<label id=\"label_{$e->id}_{$i}\"for=\"element_{$e->id}_{$i}\">".z_($xmlf->fields->{'field'.$i}->label)."</label>";
 	}
 

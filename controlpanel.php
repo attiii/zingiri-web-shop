@@ -1,12 +1,4 @@
 <?php
-
-//error_reporting(E_ALL & ~E_NOTICE);
-//ini_set('display_errors', '1');
-if (get_option('zing_webshop_version')) {
-//	require(dirname(__FILE__).'/zing.dashboard.php');
-}
-
-
 function zing_set_options() {
 	global $wpdb,$zing_ws_options,$zing_ws_name,$zing_ws_shortname;
 
@@ -16,15 +8,11 @@ function zing_set_options() {
 	$zing_yn = array("Yes", "No");
 
 	$zing_ws_options = array (
-
-	array(  "name" => "Zingiri Web Shop Settings",
-            "type" => "heading",
-			"desc" => "This section customizes the Zingiri Web Shop area.",
-	)
+		array(  "name" => "Zingiri Web Shop Settings",
+    	        "type" => "heading",
+				"desc" => "This section customizes the Zingiri Web Shop area.",
+		)
 	);
-//	$zing_ws_options[]=array(  "name" => "Zingiri Web Shop Integration",
-//            "type" => "heading",
-//			"desc" => "This section customizes the way Zingiri Web Shop integrates with Wordpress.",);
 
 	$zing_ws_options[]=	array(	"name" => "User management",
 			"desc" => "Select whether you want to use full integration<br />with Wordpress user management or<br />Zingiri's stand alone user management.",
@@ -34,11 +22,18 @@ function zing_set_options() {
 			"options" => array("Zingiri","WP"));
 
 	$zing_ws_options[]=	array(	"name" => "Javascript library",
-			"desc" => "Select the javascript library you want to activate.<br />Our plugin fully supports Prototype and jQuery. If your theme uses either of these it is best to select the same.<br />If your theme uses another one, you can try with the jQuery library and if it doesn't work you can deactivate javascript by selecting Off.",
+			"desc" => "Select the javascript library you want to activate.<br />Our plugin fully supports Prototype and jQuery. If your theme uses either of these it is best to select the same.<br />If your theme uses another one, try first with the jQuery library.",
 			"id" => $zing_ws_shortname."_effects",
 			"std" => "jQuery",
 			"type" => "select",
-			"options" => array("jQuery","Prototype","Off"));
+			"options" => array("jQuery","Prototype"));
+
+	$zing_ws_options[]=	array(	"name" => "Product carousel",
+			"desc" => "Select the product carousel you want to activate. To display the carousel simple call the function <code>zing_carousel()</code><br />at the end of your theme header.php file. All products flagged as New will be displayed in the product carousel.",
+			"id" => $zing_ws_shortname."_carousel",
+			"std" => "",
+			"type" => "selectwithkey",
+			"options" => array("" => "","ekologic" => "Ekologic (requires jQuery)"));
 
 	if ($ids=get_option("zing_webshop_pages")) {
 		$ida=explode(",",$ids);
@@ -52,6 +47,12 @@ function zing_set_options() {
 			"options" => $zing_yn);
 		}
 	}
+	$zing_ws_options[]= array(	"name" => "Zingiri logo",
+			"desc" => "Select how and where you want to display the Zingiri logo. You can display it at the bottom of your site or a the bottom of every shop page.<br />Only select other if you received a written confirmation from us that it is ok to do so.",
+			"id" => $zing_ws_shortname."_logo",
+			"std" => "sf",
+			"type" => "selectwithkey",
+			"options" => array('sf'=>'In site footer','pf'=>'At bottom of page','na'=>'Other'));
 	$zing_ws_options[]= array(	"name" => "Newsletter",
 			"desc" => "We regularly send out a newsletter containing information about new releases, security warnings, ... 
 			<br />If you don't wish to receive this newsletter, please select 'No'.
@@ -125,7 +126,7 @@ function zing_ws_add_admin() {
 
 function zing_ws_settings() {
 	global $menus,$txt,$wpdb;
-	
+
 	zing_header();
 	
 	echo '<div style="height:64px;float">';
@@ -140,8 +141,14 @@ function zing_ws_settings() {
 	echo '</center>';
 	echo '<div style="display:none" id="icon_label"></div>';
 	echo '</div>';
+
+	echo '<script type="text/javascript" language="javascript">';
+	echo "var wsURL='".ZING_URL."fws/ajax/';";
+	echo "var wpabspath='".ABSPATH."';";
+	echo '</script>';
 	
 	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/controlpanel.js"></script>';
+	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/admin.js"></script>';
 	
 	//main window
 	echo '<div style="width:80%;float:left;position:relative">';
@@ -157,7 +164,7 @@ function zing_ws_settings() {
 			$params[$n]=$v;
 		}
 	}
-	
+
 	if (isset($menus[$page]['page'])) $_GET['page']=$menus[$page]['page'];
 	echo '<link rel="stylesheet" type="text/css" href="'.ZING_URL.'zing.css" />';
 	zing_main('content');
@@ -274,6 +281,21 @@ if ($zing_warnings) {
 		<td><select name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>">
 		<?php foreach ($value['options'] as $option) { ?>
 			<option <?php if ( get_settings( $value['id'] ) == $option) { echo ' selected="selected"'; }?>><?php echo $option; ?></option>
+			<?php } ?>
+		</select></td>
+
+	</tr>
+	<tr>
+		<td colspan=2><small><?php echo $value['desc']; ?> </small></td>
+	</tr>
+
+	<?php } elseif ($value['type'] == "selectwithkey") { ?>
+
+	<tr align="left">
+		<th scope="top"><?php echo $value['name']; ?>:</th>
+		<td><select name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>">
+		<?php foreach ($value['options'] as $key => $option) { ?>
+			<option value="<?php echo $key;?>" <?php if ( get_settings( $value['id'] ) == $key) { echo ' selected="selected"'; }?>><?php echo $option; ?></option>
 			<?php } ?>
 		</select></td>
 

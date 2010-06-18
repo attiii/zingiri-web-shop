@@ -44,29 +44,31 @@ class zfForm {
 	var $label;
 	var $search;
 	var $searchable=false; //whether form contains searcheable fields
+	var $action;
+	var $errorMessage;
+	var $recid;
+	var $rec;
+	var $success;
+	var $page;
+	var $filter;
+	var $data=array();
 
-	function zfForm($form,$id=0,$post=null) {
+	function zfForm($form,$id=0,$post=null,$action="",$page="") {
+		$this->page=$page;
+		$this->action=$action;
 		$this->form=$form;
-		$table=new zfDB();
+		$table=new db();
 		if ($form) $query="select * from `".DB_PREFIX."faces` WHERE `NAME`=".zfqs($form);
 		else $query="select * from `".DB_PREFIX."faces` WHERE `ID`=".zfqs($id);
 		$table->select($query);
 		if ($row=$table->next())
 		{
-			$linksin=new zfDB();
-			$query="select * from ##flink where formin='*' and displayout='form' and formout='".$row['ID']."' and mapping <> ''";
-			$linksin->select($query);
-			while ($l=$linksin->next()) {
-				$s=explode(",",$l['MAPPING']);
-				foreach ($s as $m) {
-					$f=explode(":",$m);
-					$post[$f[0]]=$f[1];
-				}
-			}
-
+			$this->id=$row['ID'];
 			$this->form=$row['NAME'];
+			$post=$this->filter();
 			$this->label=$row['LABEL'];
-			$this->json=zf_json_decode($row['DATA'],true); //form data
+			if ($row['CUSTOM']!='') $this->json=zf_json_decode($row['CUSTOM'],true); //form data
+			else $this->json=zf_json_decode($row['DATA'],true);
 			$this->elementcount=$row['ELEMENTCOUNT'];
 			$this->type=$row['TYPE'];
 			$this->entity=$row['ENTITY'];
@@ -85,7 +87,6 @@ class zfForm {
 			$this->headersCount=count($this->headers);
 			$this->allheaders=$this->Headers(true);
 
-			$this->id=$row['ID'];
 			$this->post=$post;
 		}
 		else
@@ -94,6 +95,28 @@ class zfForm {
 			$this->error=true;
 		}
 
+	}
+
+	function filter($post='') {
+		$linksin=new db();
+		$query="select * from ##flink where (displayout='".$this->page."' or displayout='any') and formout='".$this->id."' and mapping <> ''";
+		$linksin->select($query);
+		while ($l=$linksin->next()) {
+			if (!empty($l['CONTEXT'])) {
+				$context=eval('return '.$l['CONTEXT'].';');
+			} else {
+				$context=true;
+			}
+			if ($context) {
+				$s=explode(",",$l['MAPPING']);
+				foreach ($s as $m) {
+					$f=explode(":",$m);
+					$post[$f[0]]=$f[1];
+				}
+			}
+		}
+		$this->filter=$post;
+		return $post;
 	}
 
 	function Headers($all=false)
@@ -203,13 +226,15 @@ class zfForm {
 				$element->is_searchable=$value['searchable'];
 				if ($value['searchable']) $this->searchable=true;
 				$element->readonly=$value['readonly'];
+				if ($value['searchable'] && $mode=="search") $element->readonly='';
 				$element->hidden=$value['hidden'];
+				$element->attributes=$value['attributes'];
 				$element->unique=$value['unique'];
 				$element->linksin=$value['links'];
 				$element->rules=$this->elements['rules'][$key];
 
 				$c=$this->countSubelements($value['subelements'],$key);
-				
+
 				foreach ($value['subelements'] as $key2 => $sub)
 				{
 					if (isset($this->elements['cat'][$key][$key2]) && $this->elements['cat'][$key][$key2]=='parameter') {
@@ -262,10 +287,21 @@ class zfForm {
 			$element->hidden=$value['hidden'];
 			$element->unique=$value['unique'];
 			$element->rules=$this->elements['rules'][$key];
-				
+
 			$c=$this->countSubelements($value['subelements'],$key);
 			foreach ($value['subelements'] as $key2 => $sub)
 			{
+				if (isset($this->elements['cat'][$key][$key2]) && $this->elements['cat'][$key][$key2]=='parameter') {
+					$populated_value['element_'.$key.'_'.$key2]=$sub['populate'];
+				}
+				elseif (isset($sub['populate']) && empty($this->input))
+				{
+					$populated_value['element_'.$key.'_'.$key2]=$sub['populate'];
+				}
+				elseif (!empty($this->input))
+				{
+					$populated_value['element_'.$key.'_'.$key2]=$this->input['element_'.$key.'_'.$key2];
+				}
 				if ($c > 1) {
 					$f=strtoupper($this->column[$key]."_".$element->xmlf->fields->{'field'.$key2}->name);
 				} else {
@@ -273,6 +309,7 @@ class zfForm {
 				}
 				$populated_column[$f]=$this->input['element_'.$key.'_'.$key2];
 			}
+			$element->populated_value=$populated_value;
 			$element->populated_column=$populated_column;
 
 			$sv=$element->Verify($this->input,$this->output);
@@ -281,6 +318,7 @@ class zfForm {
 			$this->elements['is_error'][$key]=$element->is_error;
 			$this->elements['error_message'][$key]=$element->error_message;
 			$this->elements['format'][$key]=$element->format;
+			$this->data=$this->populated_column;
 		}
 		return $success;
 	}
@@ -309,9 +347,16 @@ class zfForm {
 	function Save($id=0)
 	{
 		$success=true;
-		if ($this->type=="DB") $success=$this->SaveDB($id);
+		if ($this->type=="DB") $id=$this->SaveDB($id);
+		$this->recid=$id;
+		$this->postSaveElements();
+		$this->postSave();
 		$this->alert("Save successfull!");
 		return $success;
+	}
+
+	function postSave() {
+		return true;
 	}
 
 	function SaveDB($id=0)
@@ -338,8 +383,58 @@ class zfForm {
 
 		} else {
 			$row['DATE_CREATED']=date("Y-m-d H:i:s");
-			InsertRecord($this->entity,$keys,$row,"");
+			$id=InsertRecord($this->entity,$keys,$row,"");
 		}
+		$this->rec=$row;
+		return $id;
+	}
+
+	function postSaveElements()
+	{
+		$success=true;
+		foreach ($this->json as $key => $value)
+		{
+			$element=new element($value['type']);
+			$element->id=$key;
+			$element->is_required=$value['mandatory'];
+			$element->is_searchable=$value['searchable'];
+			$element->readonly=$value['readonly'];
+			$element->hidden=$value['hidden'];
+			$element->unique=$value['unique'];
+			$element->rules=$this->elements['rules'][$key];
+
+			$c=$this->countSubelements($value['subelements'],$key);
+			foreach ($value['subelements'] as $key2 => $sub)
+			{
+				if (isset($this->elements['cat'][$key][$key2]) && $this->elements['cat'][$key][$key2]=='parameter') {
+					$populated_value['element_'.$key.'_'.$key2]=$sub['populate'];
+				}
+				elseif (isset($sub['populate']) && empty($this->input))
+				{
+					$populated_value['element_'.$key.'_'.$key2]=$sub['populate'];
+				}
+				elseif (!empty($this->input))
+				{
+					$populated_value['element_'.$key.'_'.$key2]=$this->input['element_'.$key.'_'.$key2];
+				}
+				if ($c > 1) {
+					$f=strtoupper($this->column[$key]."_".$element->xmlf->fields->{'field'.$key2}->name);
+				} else {
+					$f=$this->column[$key];
+				}
+				$populated_column[$f]=$this->input['element_'.$key.'_'.$key2];
+			}
+			$element->populated_value=$populated_value;
+			$element->populated_column=$populated_column;
+
+			$sv=$element->postSave($this->input,$this->output);
+			$success=$success && $sv;
+			$this->elements['name'][$key]=$element->name;
+			$this->elements['is_error'][$key]=$element->is_error;
+			$this->elements['error_message'][$key]=$element->error_message;
+			$this->elements['format'][$key]=$element->format;
+		}
+		return $success;
 	}
 
 	function sanitize($input,$escape_mysql=false,$sanitize_html=false,$sanitize_special_chars=false,$allowable_tags=''){
@@ -377,7 +472,7 @@ class zfForm {
 
 	function setSearch($search,&$map) {
 		if (isset($_GET['search']) && is_array($_GET['search'])) $search=array_merge($_GET['search'],$search);
-		
+
 		if (!empty($search)) $this->search=$this->Sanitize($search);
 		else return;
 		$s="";
@@ -388,7 +483,7 @@ class zfForm {
 				if (!isset($_GET[$i])) $_GET[$i]=$v;
 			}
 		}
-		
+
 		foreach ($this->search as $id => $value) {
 			list($prefix,$key1,$key2)=explode('_',$id);
 			$key=100*$key1+$key2;
@@ -433,7 +528,7 @@ class zfForm {
 			$this->query.=$qwhere;
 		}
 		$this->query.=" ORDER BY `ID`";
-		$this->db=new zfDB();
+		$this->db=new db();
 		$this->rowsCount=$this->db->select($this->query);
 
 		$this->query.=' LIMIT '.$pos.','.ZING_APPS_MAX_ROWS;
@@ -444,7 +539,7 @@ class zfForm {
 
 	function CountRowsDB() {
 	}
-	
+
 	function NextRows()
 	{
 		$rows=array();
@@ -475,10 +570,10 @@ class zfForm {
 		}
 		return $rows;
 	}
-	
+
 	/*
- 	* Converts input format to output
- 	*/
+	 * Converts input format to output
+	 */
 	function output($input,$mode="edit")
 	{
 
@@ -495,15 +590,16 @@ class zfForm {
 
 	/*
 	 * Prepares form data before displaying it.
-	 * 
+	 *
 	 * If the data record ID is not filled, a blank form is prefilled with values coming from:
 	 * 	$_POST/$_GET in the form of 'element_x' or 'element_x_y'
-	 *  
-	 * If the data record ID is filled, the data record with that ID will be retrieved. Any filters passed via $_POST are 
+	 *
+	 * If the data record ID is filled, the data record with that ID will be retrieved. Any filters passed via $_POST are
 	 * also verified.
 	 */
 	function Prepare($id=null)
 	{
+		$this->recid=$id;
 		$input=array();
 		if (!$id) {
 			foreach ($this->allfields as $key => $column)
@@ -536,7 +632,7 @@ class zfForm {
 					$this->query.=' AND '.$f.'='.zfqs($v);
 				}
 			}
-			$this->db=new zfDB();
+			$this->db=new db();
 			$this->db->select($this->query);
 			if ($r=$this->db->next())
 			{
@@ -548,11 +644,18 @@ class zfForm {
 					zfKeys($key,$key1,$key2);
 					$input['element_'.$key1."_".$key2]=$r[str_replace('`','',$column)];
 				}
-			} else { return false; }
+			} else {
+				return $this->postPrepare(false);
+			}
+			$this->data=$r;
 		}
 		$this->input=$this->sanitize($input);
 		$this->output=$this->output($this->input);
-		return true;
+		return $this->postPrepare(true);
+	}
+
+	function postPrepare($success) {
+		return $success;
 	}
 
 	function DeleteMe()
@@ -561,6 +664,26 @@ class zfForm {
 		$keys['NAME']=$this->form;
 		DeleteRecord("faces",$keys,"");
 		return true;
+	}
+
+	function searchByFieldName($name) {
+		foreach ($this->allfields as $e => $fn) {
+			if ($name == str_replace('`','',$fn)) {
+				zfKeys($e,$key1,$key2);
+				return $this->input['element_'.$key1.'_'.$key2];
+			}
+		}
+		return false;
+	}
+
+	function allowAccess() {
+		$access=new zfAccess($this->id,$this->page,$this->action,$this->filter,$this->data);
+		$allowed=$access->allowed();
+		if ($allowed) return true;
+		else {
+			$this->errorMessage="You don't have access to this form";
+			return false;
+		}
 	}
 
 }

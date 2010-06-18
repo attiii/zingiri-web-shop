@@ -124,7 +124,7 @@ if (LoggedIn() == True) {
 			if ($row = mysql_fetch_array($sql)) {
 				$lastid=$row['ORDERID'];
 			} else {
-				$query = sprintf("INSERT INTO `".$dbtablesprefix."order` (`DATE`,`STATUS`,`SHIPPING`,`PAYMENT`,`CUSTOMERID`,`TOPAY`,`WEBID`,`NOTES`,`WEIGHT`) VALUES ('".Date($date_format)."','1',%s,%s,%s,'1','n/a',%s,%s)", quote_smart($shippingid), quote_smart($paymentid), quote_smart($customerid), quote_smart($notes), quote_smart($weightid));
+				$query = sprintf("INSERT INTO `".$dbtablesprefix."order` (`ADDRESSID`,`DATE`,`STATUS`,`SHIPPING`,`PAYMENT`,`CUSTOMERID`,`TOPAY`,`WEBID`,`NOTES`,`WEIGHT`) VALUES (%s,'".Date($date_format)."','1',%s,%s,%s,'1','n/a',%s,%s)", quote_smart($adrid), quote_smart($shippingid), quote_smart($paymentid), quote_smart($customerid), quote_smart($notes), quote_smart($weightid));
 				$sql = mysql_query($query) or die(mysql_error());
 				// get the last id
 				$lastid = mysql_insert_id();
@@ -317,15 +317,15 @@ if (LoggedIn() == True) {
 			
 			//basket update
 			$query = sprintf("UPDATE `".$dbtablesprefix."basket` SET `ORDERID` = '".$lastid."',`STATUS`=%s WHERE (`CUSTOMERID` = %s AND `STATUS` = '0')", qs($basket_status), quote_smart($customerid));
-			$sql = mysql_query($query) or die(mysql_error());
+			//ebo $sql = mysql_query($query) or die(mysql_error());
 
 			// make pdf
 			$pdf = "";
 			$fullpdf = "";
 			if ($create_pdf == 1) {
 				$m = '<html><head><meta http-equiv="Content-Type" content="text/html; charset='.$charset.'" /></head>';
-				if ($charset=='UTF-8test') { 
-					$m.='<body style="font-family:titus;">';
+				if ($charset=='UTF-8') { 
+					$m.='<body style="font-family:courier;">';
 					ini_set("memory_limit","512M");
 					//$m.= utf8_decode($message);
 					$m.=$message;

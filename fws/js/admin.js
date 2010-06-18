@@ -28,4 +28,20 @@ var dashboard = Class.create({
 				});
 				
 	}
-})
+});
+
+function wsFrontPage(id,checked) {
+	new Ajax.Request(
+			wsURL+"product_update.php",
+			{
+				method : "post",
+				parameters : {
+					'id' : id,
+					'frontpage' : checked,
+					'wpabspath' : wpabspath
+				},
+				onComplete : function(request) {
+					//alert(request.responseText);
+				}.bind(this)
+			});
+}

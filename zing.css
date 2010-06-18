@@ -1,8 +1,3 @@
-/* LAYOUT ONLY!! */ /* orange 		#cc6604 */
-	/* charcoal 	#302F34 048-047-052*/ /* darkgrey		#808080 128-128-128*/
-	/* warmgrey		#594F4F */ /* lightgrey	#C2C2C6 */
-	/* verylightgrey	#D6DDE6 */ /* lightblue	#ccffff 204-255-255*/
-	/* TEXT MAKEUP AND OTHER COSMETICS HERE!!! */
 #hideable {
 	background-color: white;
 }
@@ -21,12 +16,6 @@
 img {
 	border-width: 0px;
 }
-
-/*FIXME*//*
-.imgaboutus {
-	align: center; 
-}
-*/ 
 
 /* this image is used in details.php and browse.php, all other images should not have borders */
 .borderimg {

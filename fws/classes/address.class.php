@@ -1,10 +1,10 @@
 <?php
 class wsAddress {
-	
+
 	function wsAddress($customerid=0) {
 		$this->customerid=$customerid;
 	}
-	
+
 	function getAddresses() {
 		$addresses=array();
 		$db=new db();
@@ -19,11 +19,23 @@ class wsAddress {
 		}
 		return $addresses;
 	}
-	
+
 	function getAddress($id=0) {
 		if (empty($id)) $id=0;
 		$addresses=$this->getAddresses();
 		return $addresses[$id];
 	}
+
+	function displayAddress($id) {
+		$address=$this->getAddress($id);
+		$text=$address['NAME'].'<br />';
+		$text.=$address['ADDRESS'].'<br />';
+		$text.=$address['CITY'].' '.$address['ZIP'].'<br />';
+		if (!empty($address['STATE'])) $text.=$address['STATE'].'<br />';
+		$text.=$address['COUNTRY'].'<br />';
+		return $text;
+	}
+
+
 }
 ?>

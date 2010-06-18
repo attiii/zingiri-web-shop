@@ -59,6 +59,7 @@ var wsCart = Class.create( {
 			type : "post",
 			data : form.serialize(true),
 			success : function(request) {
+				if (request) alert(request);
 				t.getCart();
 			}
 		});

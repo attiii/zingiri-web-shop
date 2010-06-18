@@ -214,8 +214,12 @@ else { $limit = ""; }
 				$admin_edit = "<br /><br />";
 				if ($stock_enabled == 1) { $admin_edit .= $txt['productadmin12'].": ".$row[5]."<br />"; }
 				$admin_edit .= "<a href=\"?page=productadmin&action=edit_product&pcat=".$cat."&prodid=".$row[0]."\">".$txt['browse7']."</a>";
-				$admin_edit .= " | <a href=\"?page=productadmin&action=delete_product&pcat=".$cat."&prodid=".$row[0]."\">".$txt['browse8']."</a>";
-				//$admin_edit .= " | <a href=\"?page=productadmin&action=picture_upload_form&picid=".$picture."\">".$txt['browse10']."</a>";
+				$admin_edit .= " | <a href=\"?page=productadmin&action=delete_product&pcat=".$cat."&prodid=".$row[0]."\" onclick=\"return confirm('".$txt['generic1']."?');\">".$txt['browse8']."</a>";
+				if (is_admin()) {
+					$admin_edit .= " | ".$txt['productadmin14'].' <input id="wsfp'.$row[0].'" type="checkbox" class="wsfrontpage" onclick="wsFrontPage('.$row[0].',this.checked);"';
+					if ($row['FRONTPAGE']) $admin_edit.=" checked";
+					$admin_edit.='>';
+				}
 			}
 			// make up the description to print according to the pricelist_format and max_description
 			$print_description=printDescription($row[1],$row[3]);
@@ -236,7 +240,10 @@ else { $limit = ""; }
 				}
 			}
 
-			echo "<td>".$stockpic."<a class=\"plain\" href=\"index.php?page=details&prod=".$row[0]."&cat=".$row[2]."&group=".$group."\">".$thumb.$print_description."</a> ".$picturelink." ".$new." ".$stocktext.$admin_edit."</td>";
+			echo "<td>".$stockpic;
+			if (!is_admin()) echo "<a class=\"plain\" href=\"index.php?page=details&prod=".$row[0]."&cat=".$row[2]."&group=".$group."\">".$thumb.$print_description."</a> ";
+			else echo $thumb.$print_description;
+			echo $picturelink." ".$new." ".$stocktext.$admin_edit."</td>";
 			if ($ordering_enabled) {
 				echo "<td><div style=\"text-align:right;\">";
 				if ($order_from_pricelist) {
@@ -304,7 +311,7 @@ else { $limit = ""; }
 	> <?php
 	}
 	if ($row[4] == 0) {
-		if ($row[5] == 0 && $hide_outofstock == 0) { echo '<strong><big>'.$txt['browse12'].'</big></strong>'; }
+		if ($row[5] == 0 && $hide_outofstock == 0 && $stock_enabled != 2) { echo '<strong><big>'.$txt['browse12'].'</big></strong>'; }
 	}
 	?>
 	
@@ -363,7 +370,7 @@ else { $limit = ""; }
 		}
 		?>
 		<?php
-		if ($stock_enabled == 0) {
+		if ($stock_enabled == 0 && !is_admin()) {
 			?>
 <br />
 <br />
@@ -406,7 +413,7 @@ else { $limit = ""; }
 			}
 			$key=sprintf("%04d",$search_quotient).'_';
 			if ($orderby_field=="PRICE") $key.=sprintf("%09d",$row[$orderby_field]*1000);
-			else $key.=sprintf("%s",$row[$orderby_field]); 
+			else $key.=sprintf("%s",$row[$orderby_field]);
 			$key.='_'.sprintf("%09d",$i);
 			//echo '<br />'.$key;
 			$allrows[$search_quotient.'.'.$i]=$row;
@@ -431,7 +438,7 @@ else { $limit = ""; }
 	});
 //]]>
 </script>
-<?php } elseif (ZING_JQUERY && !is_admin()) {?>
+		<?php } elseif (ZING_JQUERY && !is_admin()) {?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
 	jQuery(document).ready(function() {
@@ -441,4 +448,4 @@ else { $limit = ""; }
 	});
 //]]>
 </script>
-<?php }?>
+		<?php }?>

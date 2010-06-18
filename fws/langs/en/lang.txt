@@ -379,7 +379,7 @@ $txt['editsettings16'] = 'Webshop URL <a href=# class=info>(?)<span>URL starting
 $txt['editsettings17'] = 'Standard language';
 $txt['editsettings18'] = 'Order prefix (optional) <a href=# class=info>(?)<span>Every order id starts with the prefix, for example: WEB-</span></a>';
 $txt['editsettings19'] = 'Order suffix (optional) <a href=# class=info>(?)<span>Every order id ends with the suffix, for example the current year: -06</span></a>';
-$txt['editsettings20'] = 'Use stock amounts <a href=# class=info>(?)<span><strong>enabled:</strong> you use stock amounts<br /><br /><strong>disabled:</strong> you use stock status (in stock/in backorder/out of stock)</span></a>';
+$txt['editsettings20'] = 'Use stock amounts <a href=# class=info>(?)<span><strong>enabled:</strong> you use stock amounts<br /><strong>status:</strong> you use stock status (in stock/in backorder/out of stock)<br /><strong>disabled:</strong> not used</span></a>';
 $txt['editsettings21'] = 'Enable Order-module';
 $txt['editsettings22'] = 'Disable webshop';
 $txt['editsettings23'] = 'Disable webshop title';
@@ -719,4 +719,15 @@ $txt['address5'] = 'Line 2';
 $txt['apps1'] = 'Save';
 $txt['apps2'] = 'Delete';
 $txt['apps3'] = 'Back';
+
+//1.5.0 - added
+$txt['general102'] = "Enabled";
+$txt['general103'] = "Disabled";
+$txt['stockadmin100'] = "Status only";
+$txt['groupadmin104'] = 'This group contains still contains categories';
+
+
+//1.5.0 - modified
+$txt['productadmin13'] = 'Stock';
+
 ?>

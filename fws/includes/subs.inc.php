@@ -783,6 +783,7 @@ Function ActiveDiscounts() {
 function zurl($url,$printurl=false) {
 	if (is_admin()) $url=str_replace('index.php','admin.php',$url);
 	else $url=str_replace('index.php',ZING_HOME.'/index.php',$url);
+	
 	if ($printurl) echo $url;
 	else return $url;
 }
@@ -839,12 +840,13 @@ function faces_group() {
 			$group=$f_row['GROUP'];
 		}
 	} else $group="GUEST";
-
 	return $group;
 }
 
-function qs($value) {
-	return quote_smart($value);
+if (!function_exists('qs')) {
+	function qs($value) {
+		return quote_smart($value);
+	}
 }
 
 function getCustomerByLogin($login) {
@@ -890,7 +892,7 @@ function calcFeaturesPrice($allfeatures) {
 	return $prodprice;
 }
 
-function customerId() {
+function customerId($e='') {
 	global $customerid;
 	return $customerid;
 }
@@ -910,7 +912,7 @@ function wsComments($text) {
 
 function wsResizeImage($thumb) {
 	global $product_url,$product_dir,$product_max_height,$product_max_width;
-	
+
 	$size = getimagesize(str_replace($product_url,$product_dir,$thumb));
 	$height = $size[1];
 	$width = $size[0];
@@ -931,4 +933,72 @@ function wsResizeImage($thumb) {
 	}
 	return array('height' => $height,'width' => $width,'resized' => $resized);
 }
+
+function wsProductImage($picture,$default_image) {
+	global $product_dir,$product_url,$make_thumbs,$pricelist_thumb_width,$pricelist_thumb_height,$thumbs_in_pricelist;
+	
+	// determine resize of thumbs
+	$width = "";
+	$height = "";
+	if ($pricelist_thumb_width != 0) { $width = " width=\"".$pricelist_thumb_width."\""; }
+	if ($pricelist_thumb_height != 0) { $height = " height=\"".$pricelist_thumb_height."\""; }
+	if (thumb_exists($product_dir ."/". $picture . ".jpg")) { $thumb = $product_url."/".$picture.".jpg"; }
+	if (thumb_exists($product_dir ."/". $picture . ".gif")) { $thumb = $product_url."/".$picture.".gif"; }
+	if (thumb_exists($product_dir ."/". $picture . ".png")) { $thumb = $product_url."/".$picture.".png"; }
+	// if the script uses make_thumbs, then search for thumbs
+	if ($make_thumbs == 1) {
+		if (!empty($default_image) && thumb_exists($product_dir ."/". $default_image)) { $thumb = $product_url."/".$default_image; }
+		elseif (thumb_exists($product_dir ."/tn_". $picture . ".jpg")) { $thumb = $product_url."/tn_".$picture.".jpg"; }
+		elseif (thumb_exists($product_dir ."/tn_". $picture . ".gif")) { $thumb = $product_url."/tn_".$picture.".gif"; }
+		elseif (thumb_exists($product_dir ."/tn_". $picture . ".png")) { $thumb = $product_url."/tn_".$picture.".png"; }
+	}
+		
+	if ($thumb == "") {
+		// use a photo icon instead of a thumb
+		$thumb = $gfx_dir."/photo.gif>";
+		$thumb = "";
+	}
+	return $thumb;
+}
+
+function customerTypeIsNotAdmin() {
+	return !IsAdmin();
+}
+
+function AllowAccess($zfaces,$formid="",$action="") {
+	Global $dbtablesprefix;
+
+	if (ZingAppsIsAdmin()) $group="ADMIN";
+	elseif (function_exists('faces_group')) $group=faces_group();
+	else $group="GUEST";
+	switch ($zfaces)
+	{
+		case "form":
+		case "list":
+			$role=new db();
+			$query="select ##faccess.id from ##frole,##faccess where ##faccess.roleid=##frole.id and ##frole.name=".zfqs($group)." and (##faccess.formid=0 OR ##faccess.formid=".zfqs($formid).")";
+			if ($role->select($query)) return true;
+			break;
+		case "edit":
+		case "summary":
+		case "face":
+			if (ZingAppsIsAdmin()) return true;
+			break;
+	}
+	echo "You don't have access to this form";
+	return false;
+}
+
+function faces_map($a) {
+	$q='';
+	foreach ($a as $id => $value) {
+		if (!$q) $q='{';
+		else $q.=',';
+		$q.="'".$id."':'".$value."'";
+	}	
+	$q.='}';
+	return $q;
+}
+
+
 ?>

@@ -380,11 +380,19 @@ else {
 
 			if ($stock_enabled == 1) {
 				echo $txt['productadmin12'];
+				echo " <input type=\"text\" name=\"pstock\" size=\"4\" maxlength=\"10\" value=\"".$pstock."\"><br />";
 			}
-			else {
+			elseif ($stock_enabled == 0) {
 				echo $txt['productadmin13'];
+				$opts=array(0 => $txt['db_stock2'], 1 => $txt['db_stock1'], 2 => $txt['db_stock3']);
+				echo '<select name="pstock">';
+				foreach ($opts as $pkey => $plabel) {
+					echo '<option value='.$pkey;
+					if ($pstock==$pkey) echo ' SELECTED';
+					echo '>'.$plabel.'</option>';
+				}
+				echo '</select><br />';
 			}
-			echo " <input type=\"text\" name=\"pstock\" size=\"4\" maxlength=\"10\" value=\"".$pstock."\"><br />";
 			echo $txt['productadmin14']." <input type=\"checkbox\" name=\"pfrontpage\" "; if ($pfrontpage == 1) { echo "checked"; } echo "><br />";
 			echo $txt['productadmin15']." <input type=\"checkbox\" name=\"pnew\" "; if ($pnew == 1) { echo "checked"; } echo "><br />";
 			echo "<br />";

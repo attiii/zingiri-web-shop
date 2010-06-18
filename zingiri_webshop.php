@@ -29,16 +29,17 @@
  Version: 1.4.8
  Author URI: http://www.zingiri.com/
  */
-define("ZING_VERSION","1.4.8");
+define("ZING_VERSION","1.5.0");
 
 @include(dirname(__FILE__)."/fixme.php");
 require(dirname(__FILE__)."/load.php");
-define("ZING_APPS_PLAYER_VERSION","0.9.0");
 define("ZING_APPS",dirname(__FILE__)."/fws/fields/");
 define("ZING_APPS_CUSTOM",dirname(__FILE__)."/fws/");
+define("ZING_GLOBALS",dirname(__FILE__)."/fws/globals.php");
 define("ZING_APPS_EMBED","zap/");
 define("ZING_APPS_TRANSLATE",'z_');
 define("ZING_APPS_CAPTCHA",dirname(__FILE__)."/fws/addons/captcha/");
+define("ZING_APPS_EDITABLES","'register','customer'");
 
 if (get_option('zing_ws_effects')=="Prototype" || get_option('zing_ws_effects')=="") {
 	define("ZING_PROTOTYPE",true);

@@ -162,7 +162,7 @@ if ($showform == "edit") {
 	}
 	*/
 	
-	echo '<form name="faces" method="POST" action="?zfaces=mform&'.$getforms.'&action='.$action;
+	echo '<form enctype="multipart/form-data" name="faces" method="POST" action="?zfaces=mform&'.$getforms.'&action='.$action;
 	if (!empty($newstep)) echo '&step='.$newstep;
 	if (!empty($id)) echo '&id='.$id;
 	echo '&zft=form&zfp='.$formid.'">';

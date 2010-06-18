@@ -73,35 +73,39 @@ else {
 		<td colspan=2>
 		<h5><?php echo $txt['details2'] ?>: <?php echo $row[1] ?></h5>
 		<br />
-		<br />
-		<div style="text-align:center;"><?php echo $screenshot; ?><br /><br />
+		<div style="text-align:center;"><?php echo $screenshot; ?><br />
 		<?php
 		//other images
 
-		echo '<div id="uploaded_images">';
+		$imagesCount=0;
 		$picid=$row['ID'];
 		$handle=opendir($product_dir);
 		while (($img = readdir($handle))!==false) {
 			if (strstr($img,'tn_'.$picid.'.') || strstr($img,'tn_'.$picid.'__')) {
-				echo '<div id="'.$img.'" style="position:relative;float:left">';
+				$imagesCount++;
+				$imagesMarkUp.='<div id="'.$img.'" style="position:relative;float:left">';
 				$size=wsResizeImage($product_dir.'/'.str_replace('tn_','',$img));
-				echo '<a href="javascript:void(0);" onMouseOver="wsHoverImage(\''.$product_url.'/'.str_replace('tn_','',$img).'\','.$size['height'].','.$size['width'].')"><img src="'.$product_url.'/'.$img.'" class="borderimg" />';
-				echo "</a>";
-				echo '</div>';
+				$imagesMarkUp.='<a href="javascript:void(0);" onMouseOver="wsHoverImage(\''.$product_url.'/'.str_replace('tn_','',$img).'\','.$size['height'].','.$size['width'].')"><img src="'.$product_url.'/'.$img.'" class="borderimg" />';
+				$imagesMarkUp.="</a>";
+				$imagesMarkUp.='</div>';
 			}
 		}
 		closedir($handle);
-		echo '</div><div style="clear:both"></div>';
+		if ($imagesCount > 1) {
+			echo '<div id="uploaded_images">';
+			echo $imagesMarkUp;
+			echo '</div><div style="clear:both"></div>';
+		}
 
 		// show extra admin options?
 		$admin_edit = "";
 		if (IsAdmin() == true) {
-			$admin_edit = "<br /><br />";
+			$admin_edit = "<br />";
 			$admin_edit = $admin_edit."<a href=\"?page=productadmin&action=edit_product&pcat=".$cat."&prodid=".$row[0]."\">".$txt['browse7']."</a>";
 			$admin_edit = $admin_edit."&nbsp;|&nbsp;<a href=\"?page=productadmin&action=delete_product&pcat=".$cat."&prodid=".$row[0]."\">".$txt['browse8']."</a>";
 			//$admin_edit = $admin_edit."&nbsp;|&nbsp;<a href=\"?page=productadmin&action=picture_upload_form&picid=".$picture."\">".$txt['browse10']."</a>";
 		}
-		?> <br />
+		?>
 		<br />
 		<table class="borderless" width="90%">
 			<tr>

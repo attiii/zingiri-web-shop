@@ -41,7 +41,7 @@ class zfrule_forcevalue extends zfrule {
 		$type=$parameters[0];
 		$value=$parameters[1];
 		if ($type == 'function') {
-			$this->input['element_'.$e->id.'_1']=$value();
+			$this->input['element_'.$e->id.'_1']=$value($e);
 		} elseif ($type == 'variable') {
 			global $$value;
 			$this->input['element_'.$e->id.'_1']=$$value;

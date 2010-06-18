@@ -50,7 +50,7 @@ else {
 	    if (!empty($_POST['default_lang'])) {$default_lang = $_POST['default_lang']  ; } else { $default_lang = ""; }
 	    if (!empty($_POST['order_prefix'])) {$order_prefix = $_POST['order_prefix']; } else { $order_prefix = ""; }
 	    if (!empty($_POST['order_suffix'])) {$order_suffix = $_POST['order_suffix']; } else { $order_suffix = ""; }
-	    $stock_enabled = CheckBox($_POST['stock_enabled']);
+	    $stock_enabled = $_POST['stock_enabled'];
 	    $ordering_enabled = CheckBox($_POST['ordering_enabled']);
 	    $shop_disabled = CheckBox($_POST['shop_disabled']);
 	    if (!empty($_POST['shop_disabled_title'])) {$shop_disabled_title = $_POST['shop_disabled_title']; } else { $shop_disabled_title = ""; }
@@ -378,7 +378,13 @@ else {
 	                  </td>
         	      </tr>
 	              <tr><td><?php echo $txt['editsettings20'] ?></td>
-	                  <td><input type="checkbox" name="stock_enabled" <?php if ($stock_enabled == 1) { echo "checked"; } ?>></td>
+	                  <td>
+	                  	<select name="stock_enabled">
+	                  	<option value="1" <?php if ($stock_enabled == 1) { echo "SELECTED"; } ?>><?php echo $txt['general102']?></option>
+	                  	<option value="0" <?php if ($stock_enabled == 0) { echo "SELECTED"; } ?>><?php echo $txt['stockadmin100']?></option>
+	                  	<option value="2" <?php if ($stock_enabled == 2) { echo "SELECTED"; } ?>><?php echo $txt['general103']?></option>
+	                  	</select>
+	                  </td>
         	      </tr>
 	              <tr><td><?php echo $txt['editsettings99'] ?></td>
 	                  <td><input type="checkbox" name="use_stock_warning" <?php if ($use_stock_warning == 1) { echo "checked"; } ?>></td>

@@ -189,6 +189,7 @@ else {
 	<caption><?php echo $txt['orderadmin13']; ?></caption>
 	<tr>
 		<th><?php echo $txt['orders4']; ?></th>
+		<th><?php echo $txt['customer21']; ?></th>
 		<th><?php echo $txt['orders5']; ?></th>
 		<th><?php echo $txt['orders6']." (".$currency.")"; ?></th>
 		<th><?php echo $txt['orders7']; ?></th>
@@ -200,7 +201,7 @@ else {
 		echo "<tr><td colspan=\"5\">" . $txt['orderadmin10'] ."</td></tr>";
 	}
 	else {
-		while ($row = mysql_fetch_row($sql)) {
+		while ($row = mysql_fetch_array($sql)) {
 
 			// lets first check if the order still has a local file in the Orders folder
 			if (file_exists($orders_dir ."/". $row[7].".php")) {
@@ -223,6 +224,11 @@ else {
 						echo "<a href=\"javascript:alert('".stripslashes($txt['shipping3']).": \\n$note')\"><img src=\"".$gfx_dir."/admin_notes.gif\" alt=\"".$txt['orderadmin12']."\"></a> ";
 					}
 					echo "</td><td>";
+					// address details
+					$address=new wsAddress($row['CUSTOMERID']);
+					echo $address->displayAddress($row['ADDRESSID']);
+					echo "</td><td>";
+					
 					// find out shipping method
 					$ship_query = "SELECT * FROM `".$dbtablesprefix."shipping` WHERE `id` = ".$row[3];
 					$ship_sql = mysql_query($ship_query) or die(mysql_error());

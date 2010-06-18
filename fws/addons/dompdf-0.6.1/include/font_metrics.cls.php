@@ -65,7 +65,6 @@ if (file_exists(DOMPDF_FONT_DIR . "dompdf_font_family_cache")) {
 	define('__DOMPDF_FONT_CACHE_FILE', DOMPDF_FONT_DIR . "dompdf_font_family_cache.dist");
 }
 
-
 /**
  * The font metrics class
  *

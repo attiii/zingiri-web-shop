@@ -64,10 +64,7 @@ if (IsAdmin()) {
 	//wrap it up
 	echo '</ul>';
 	echo '</div>';
-	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/admin.js"></script>';
 	echo '<script type="text/javascript" language="javascript">';
-	echo "var wsURL='".ZING_URL."fws/ajax/';";
-	echo "var wpabspath='".ABSPATH."';";
 	echo 'var mydashboard=new dashboard();';
 	echo '</script>';
 

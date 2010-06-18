@@ -25,47 +25,54 @@ class zfLink {
 
 	var $links=array();
 	var $escape_quote;
+	var $canAdd=false;
 
 	function zfLink($id,$escape_quote=false,$type='form') {
 		$this->escape_quote=$escape_quote;
 		$a=array();
-		$links=new zfDB();
+		$links=new db();
 		$links->select("select * from ##flink where formin='".$id."' and displayin=".zfqs($type));
 		while ($link=$links->next()) {
 			$link['IMAGE']=$link['ICON'] ? $link['ICON'] : "edit.png";
+			if ($link['ACTION']=='add') {
+				$this->canAdd=true;
+			}
 			$a[]=$link;
 		}
 		$this->links=$a;
 	}
 
+	/*
+	 * Show all links except add
+	 */
 	function getLinks($id) {
 		$a=array();
 		foreach ($this->links as $i => $link) {
-			$map=array();
-			$url=$link['FORMOUTALT'];
-			if ($link['MAPPING']) {
-				$s=explode(",",$link['MAPPING']);
-				foreach ($s as $value) {
-					$v=explode(":",$value);
-					$from=$v[1];
-					$to=$v[0];
-					if ($$from) $map[$to]=$$from;
-					elseif ($_POST[$from]) $map[$to]=$_POST[$from];
-					elseif ($_GET[$from]) $map[$to]=$_GET[$from];
-					else $map[$to]=$from;
-					$url.="&".$to."=".$map[$to];
+			if ($link['ACTION']!='add') {
+				$map=array();
+				$url=$link['FORMOUTALT'];
+				if ($link['MAPPING']) {
+					$s=explode(",",$link['MAPPING']);
+					foreach ($s as $value) {
+						$v=explode(":",$value);
+						$from=$v[1];
+						$to=$v[0];
+						if ($$from) $map[$to]=$$from;
+						elseif ($_POST[$from]) $map[$to]=$_POST[$from];
+						elseif ($_GET[$from]) $map[$to]=$_GET[$from];
+						else $map[$to]=$from;
+						$url.="&".$to."=".$map[$to];
+					}
+					$json=zf_json_encode($map);
+					$json=str_replace('"',"'",$json);
+					if ($this->escape_quote) $json=str_replace("'","\'",$json);
 				}
-				$json=zf_json_encode($map);
-				$json=str_replace('"',"'",$json);
-				if ($this->escape_quote) $json=str_replace("'","\'",$json);
+				$link['MAP']=$json;
+				$link['URL']=$url;
+				$a[]=$link;
 			}
-			$link['MAP']=$json;
-			$link['URL']=$url;
-			$a[]=$link;
 		}
 		return $a;
-
 	}
-
 }
 ?>

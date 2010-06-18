@@ -4,7 +4,7 @@ class wsPaymentOption {
 	var $description;
 
 	function wsPaymentOption($paymentid) {
-		require(dirname(__FILE__).'/../globals.php');
+		require(ZING_GLOBALS);
 
 		$query = sprintf("SELECT * FROM `".$dbtablesprefix."payment` WHERE `id` = %s", quote_smart($paymentid));
 		$sql = mysql_query($query) or die(mysql_error());
@@ -14,7 +14,7 @@ class wsPaymentOption {
 		}
 	}
 	function getCode($customer_row) {
-		require(dirname(__FILE__).'/../globals.php');
+		require(ZING_GLOBALS);
 		
 		// there could be some variables in the code, like %total%, %webid% and %shopurl% so lets update them with the correct values
 		$payment_code = $this->code;

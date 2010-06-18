@@ -27,14 +27,13 @@ function zfKeys($key,&$key1,&$key2)
 	$key1=(int)substr($key,0,strlen($key)-2);
 }
 
-function get_form_dbtable($form_id)
+function zfGetForm($formid)
 {
-	//get form DB table
-	$query = "select form_dbtable from `ap_forms` where form_id='$form_id'";
-	$result = do_query($query);
-	$row = do_fetch_result($result);
-	return $row['form_dbtable'];
-
+	$db=new db();
+	if ($db->select("select `name` from `##faces` where id=".qs($formid))) {
+		$db->next();
+		return $db->get('name');
+	} else return false;
 }
 
 
@@ -63,39 +62,6 @@ function faces_get_xml($type,$dir="") {
 	}
 
 	die("no file loaded");
-}
-
-
-
-
-function faces_simple_element($element_name,$element_info,$table_data,$element_data) {
-
-	$fieldname = $element_info['dbfield'];
-	$prefix="";
-	if (substr($fieldnames[0],0,1) == "#")
-	{
-		$prefix=substr($fieldnames[0],1-strlen($fieldnames[0]));
-	}
-
-	if (empty($prefix) && empty($fieldname)) {
-		$xmlf=faces_get_xml($element_info['type']);
-		$fieldname=$xmlf->fields->field1->name;
-	} elseif (!empty($prefix) && empty($fieldname)) {
-		$xmlf=faces_get_xml($element_info['type']);
-		$fieldname=$prefix."_".$xmlf->fields->field1->name;
-	}
-
-	$table_data["{$fieldname}"] = $element_data;
-	return $table_data;
-}
-
-function faces_simple_entry($fieldname,$multiformat,$entry_data) {
-
-	if (empty($fieldname)) {
-		$xmlf=faces_get_xml($multiformat);
-		$fieldname=$xmlf->fields->field1->name;
-	}
-	return $entry_data["{$fieldname}"];
 }
 
 function faces_log($msg,$fileerr="warning") {
@@ -153,64 +119,6 @@ function faces_translate($text)
 
 }
 
-function faces_enrich_field($row,$column_type_lookup,$column_name,$column_enrich_lookup) {
-
-	if (($column_enrich_lookup[$column_name]['type'] == "sql") && !empty($column_enrich_lookup[$column_name]['rule'])) {
-		$query=$column_enrich_lookup[$column_name]['rule'];
-		$query=str_replace("##",DB_PREFIX,$query);
-
-		while (strpos($query,"?")) {
-			$i=strpos($query,"?");
-			$before=substr($query,0,$i); //first part of query string
-			$after=strstr($query,"?"); //second part of query string
-			$after=substr($after,1); // shift second part 1 position
-			$i=strpos($after,"?");
-			$variable=substr($after,0,$i); //variable part of second part of query string
-			$after=strstr($after,"?"); //part after variable
-			$after=substr($after,1); //shift part 1 position
-			$value=$row[$variable];
-			$query=$before.$value.$after;
-		}
-
-		$result = do_query($query);
-		while ($res = mysql_fetch_row($result))
-		{
-			return $res[0];
-		}
-	} elseif ($column_enrich_lookup[$column_name]['type'] == "function") {
-		$f=$column_enrich_lookup[$column_name]['rule'];
-		if (function_exists($f))
-		{
-			return $f($row,$column_name);
-		}
-	} else {
-		return htmlspecialchars(str_replace("\r","",str_replace("\n"," ",$row[$column_name])),ENT_QUOTES);
-	}
-
-}
-
-
-function psi_time($row,$column_name) {
-	global $psi_incpath;
-	if (empty($psi_incpath)) { $psi_incpath=ZING_SCHED_SUB."/phpScheduleIt/"; }
-	global $conf;
-
-	require_once($psi_incpath.'lib/Time.class.php');
-	$conf['app']['timeFormat']=24;
-	$time=new Time();
-	return $time->formatTime($row[$column_name]);
-}
-
-function psi_date($row,$column_name) {
-	global $psi_incpath;
-	if (empty($psi_incpath)) { $psi_incpath=ZING_SCHED_SUB."/phpScheduleIt/"; }
-	global $conf;
-	require_once($psi_incpath.'lib/Time.class.php');
-	$conf['app']['timeFormat']=24;
-	$time=new Time();
-	return $time->formatDate($row[$column_name]+60*$row['STARTTIME'],"%d-%m-%y");
-}
-
 function zfqs($value)
 {
 	if( is_array($value) ) {
@@ -237,36 +145,9 @@ function zfqs($value)
 }
 
 function do_query($query) {
-	$result=mysql_query($query) or zing_ws_error_handler(1,$query);
+	$result=mysql_query($query) or zing_apps_error_handler(1,$query);
 	return $result;
 }
-
-function AllowAccess($zfaces,$formid="",$action="") {
-	Global $dbtablesprefix;
-
-	if (ZingAppsIsAdmin()) $group="ADMIN";
-	elseif (function_exists('faces_group')) $group=faces_group();
-	else $group="GUEST";
-
-	switch ($zfaces)
-	{
-		case "form":
-		case "list":
-			$role=new zfDB();
-			$query="select ##faccess.id from ##frole,##faccess where ##faccess.roleid=##frole.id and ##frole.name=".zfqs($group)." and (##faccess.formid=0 OR ##faccess.formid=".zfqs($formid).")";
-			if ($role->select($query)) return true;
-			break;
-		case "edit":
-		case "summary":
-		case "face":
-			if (ZingAppsIsAdmin()) return true;
-			break;
-	}
-	echo "You don't have access to this form";
-	return false;
-
-}
-
 
 function zf_json_decode($json,$assoc=true,$strip=true) {
 	if ($strip) {
@@ -274,8 +155,8 @@ function zf_json_decode($json,$assoc=true,$strip=true) {
 		$json=str_replace("\\",'',$json);
 		$json=str_replace("\'",'"',$json);
 	}
-	zing_ws_error_handler(0,'stripped:'.$json);
-	
+	zing_apps_error_handler(0,'stripped:'.$json);
+
 	if (!extension_loaded("json")){
 		require_once(dirname(__FILE__).'/JSON.php');
 		$j = new Services_JSON(16);
@@ -325,10 +206,37 @@ function showForm() {
 	require(dirname(__FILE__).'/../scripts/form.php');
 }
 
+function appsForm($form,$action,$formURL,$noRedirect=true) {
+	global $line;
+	$notitle=true;
+	require(dirname(__FILE__).'/../scripts/form.php');
+	$zfform->success=$success;
+	$zfform->showform=$showform;
+	return $zfform;
+}
+
 function showList() {
 	global $line;
 	$notitle=true;
 	require(dirname(__FILE__).'/../scripts/list.php');
 }
 
+if (!function_exists('qs')) {
+	function qs($value) {
+		if( is_array($value) ) {
+			return array_map("quote_smart", $value);
+		} else {
+			if( get_magic_quotes_gpc() ) {
+				$value = stripslashes($value);
+			}
+			if( $value == '' ) {
+				$value = '';
+			}
+			if( !is_numeric($value) || $value[0] == '0' ) {
+				$value = "'".mysql_escape_string($value)."'";
+			}
+			return $value;
+		}
+	}
+}
 ?>

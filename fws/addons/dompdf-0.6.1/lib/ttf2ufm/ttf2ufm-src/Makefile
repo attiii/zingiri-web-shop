@@ -9,7 +9,7 @@
 #
 # Use GNU C even if it's not the default compiler
 #
-#CC=gcc
+CC=gcc
 #
 # Use the standard ANSI C compiler on HP-UX even if it's not default
 #
@@ -28,7 +28,7 @@ CFLAGS_SYS= -g
 #
 # For GNU C with long options support library (Linux etc.)
 #
-#CFLAGS_SYS= -O2 -D_GNU_SOURCE
+CFLAGS_SYS= -O2 -D_GNU_SOURCE
 #
 # For GNU C on HP-UX/PA-RISC 1.1
 #
@@ -120,7 +120,7 @@ LIBS= $(LIBS_SYS) $(LIBS_FT) $(LIBS_AT)
 # Installation-related stuff
 # 
 # The base dir for installation and subdirs in it
-INSTDIR = /usr/local
+INSTDIR = ./usr/local
 # for binaries
 BINDIR = $(INSTDIR)/bin
 # for binaries of little general interest
@@ -130,8 +130,8 @@ SHAREDIR = $(INSTDIR)/share/ttf2pt1
 MANDIR = $(INSTDIR)/man
 
 # owner and group of installed files
-OWNER = root
-GROUP = bin
+OWNER = ebo
+GROUP = staff
 
 # After you have configured the Makefile, comment out the following
 # definition:

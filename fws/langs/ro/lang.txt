@@ -411,7 +411,7 @@ $txt['editsettings43'] = 'Salvat';
 $txt['editsettings44'] = 'Setarile au fost salvate in baza de date';
 $txt['editsettings45'] = 'Detaliile bancii';
 $txt['editsettings46'] = 'Layout';
-$txt['editsettings47'] = 'Salveaza';
+$txt['editsettings47'] = 'Magazin';
 $txt['editsettings48'] = 'Finante';
 $txt['editsettings49'] = 'Formatul numerelor';
 $txt['editsettings50'] = 'Lungimea maxima a descrierii <a href=# class=info>(?)<span>Folosita pentru a scurta descrierea in lista de preturi. <br><b>0 = nu scurta<br>1-99 = scurteaza</b></span></a>';
@@ -464,9 +464,11 @@ $txt['editsettings97'] = 'Pozitia simbol moneda';
 $txt['editsettings98'] = 'Foloseste acest template';
 $txt['editsettings99'] = 'Foloseste avertizorul de stoc';
 $txt['editsettings100'] = 'Stoc minim';
-$txt['editsettings101'] = 'Unitate de masure <a href=# class=info>(?)<span>Predefinit <strong>Kg</strong></span></a>';
+$txt['editsettings101'] = 'Unitate de masura a greutatii <a href=# class=info>(?)<span>Predefinit <strong>Kg</strong></span></a>';
 $txt['editsettings102'] = 'Order from pricelist';
 $txt['editsettings103'] = 'Foloseste repara data <a href=# class=info>(?)<span>Doar daca logul de erori se umple cu date fara corespondenta</span></a>';
+$txt['editsettings107'] = 'Activeaza redirectionare la pagina de plata <a href=# class=info>(?)<span>Cand este bifat si daca permite modalitatea de plata, redirectioneaza automat catre finalizarea platii alese.</span></a>';
+$txt['editsettings108'] = 'Creaza PDF <a href=# class=info>(?)<span>Daca este bifat, realizeaza confirmarea comenzii in format PDF, pentru a fi transmisa prin email ca atasament.</span></a>';
 
 
 // productadmin.php

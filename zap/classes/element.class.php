@@ -43,13 +43,15 @@ class element {
 	var $input=array();
 	var $output=array();
 	var $is_searchable;
+	var $attributes=array();
+	var $mode;
 
 	function element($constraint) {
 		$this->constraint=$constraint;
 		$xmlf=faces_get_xml($this->constraint);
 		$this->xmlf=$xmlf;
 		$this->fields=$xmlf->fields->attributes()->count;
-		//$this->name=(string)$xmlf->name;
+//		$this->countParams=isset($xmlf->params) ? $xmlf->params->attributes()->count : 0;
 		$this->name=array();
 		$this->sublabel=array();
 		for ($i=1; $i<=$this->fields; $i++) {
@@ -67,10 +69,7 @@ class element {
 					$this->links[$i]['id']=(string)$link->attributes()->id;
 				}
 			}
-
 		}
-
-
 	}
 
 	function verify($input,&$output) {
@@ -103,6 +102,36 @@ class element {
 
 			$output['element_'.$this->id.'_'.$i]=$subelement->int;
 		}
+		return $success;
+	}
+
+	function postSave($input,$output) {
+	
+		$success=true;
+		$this->is_error=false;
+		$this->input=$input;
+		
+		for ($i=1; $i<=$this->fields; $i++) {
+			$int=$ext=$this->input['element_'.$this->id.'_'.$i];
+
+			$type=$this->xmlf->fields->{'field'.$i}->type;
+			if ($this->fields > 1)
+			$this->name[$i]=(string)$this->xmlf->fields->{'field'.$i}->name;
+			$zfclass="zf".$type;
+
+			if (class_exists($type."ZfSubElement"))	{ $c=$type."ZfSubElement"; }
+			else { $c="zfSubElement"; }
+
+			$subelement=new $c($int,$ext,$this->xmlf->fields->{'field'.$i},$this,$i);
+			if (!$subelement->postSave())
+			{
+				$success=false;
+				$this->error_message=$subelement->error_message;
+				$this->is_error=$subelement->is_error;
+			}
+
+			$output['element_'.$this->id.'_'.$i]=$subelement->int;
+		}
 		
 		return $success;
 
@@ -126,6 +155,7 @@ class element {
 	
 
 	function output($input,&$output,$mode="edit") {
+		$this->mode=$mode;
 		$success=true;
 		$this->is_error=false;
 
@@ -177,7 +207,8 @@ class element {
 	function display($mode="edit") {
 
 		Global $facesdefaultvalues;
-
+		$this->mode=$mode;
+		
 		if ($mode=="search" && !$this->is_searchable) return;
 		
 		$this->preRules();
@@ -271,13 +302,6 @@ EOT;
 					//$option_markup .= "<label class=\"choice\" for=\"element_{$this->id}_{$i}\">{$this->title}</label>\n";
 					$field_markup.=$option_markup;
 					if (!empty($xmlf->fields->{'field'.$i}->label)) $subscript_markup.="<label for=\"element_{$this->id}_{$i}\">{$xmlf->fields->{'field'.$i}->label}</label>";
-			} elseif ($values=$xmlf->fields->{'field'.$i}->type == "password") {
-						//password
-						//$field_markup.="<input id=\"element_{$this->id}_{$i}\" name=\"element_{$this->id}_{$i}\" class=\"element text\" style=\"width: {$xmlf->fields->{'field'.$i}->width}\" value=\"{$this->populated_value['element_'.$this->id.'_'.$i]}\" maxlength=\"{$xmlf->fields->{'field'.$i}->maxlength}\" type=\"password\" {$this->readonly}/>";
-						$field_markup.="<input id=\"element_{$this->id}_{$i}\" name=\"element_{$this->id}_{$i}\" class=\"element text\" value=\"{$this->populated_value['element_'.$this->id.'_'.$i]}\" maxlength=\"{$xmlf->fields->{'field'.$i}->maxlength}\" type=\"password\" {$this->readonly}/>";
-						//$field_markup.="<input id=\"element_{$this->id}_{$i}_repeat\" name=\"element_{$this->id}_{$i}_repeat\" class=\"element text\" value=\"{$this->populated_value['element_'.$this->id.'_'.$i]}\" maxlength=\"{$xmlf->fields->{'field'.$i}->maxlength}\" type=\"password\" {$this->readonly}/>";
-						$subscript_markup.="<label for=\"element_{$this->id}_{$i}\">{$xmlf->fields->{'field'.$i}->label}</label>";
-
 			} elseif ($values=$xmlf->fields->{'field'.$i}->type == "radio") {
 							//radio
 							$default=trim($this->populated_value['element_'.$this->id.'_'.$i]);
@@ -294,16 +318,6 @@ EOT;
 							}
 							$subscript_markup.="<label for=\"element_{$this->id}_{$i}\">{$xmlf->fields->{'field'.$i}->label}</label>";
 
-/*
-			} elseif ($values=$xmlf->fields->{'field'.$i}->type == "textarea") {
-								//textarea
-								$size=$xmlf->fields->{'field'.$i}->size;
-								$sizes=explode(",",$size);
-								if (!is_numeric($sizes[0])) $sizes[0]=40;
-								if (!is_numeric($sizes[1])) $sizes[1]=3;
-								$field_markup.="<textarea id=\"element_{$this->id}_{$i}\" name=\"element_{$this->id}_{$i}\" class=\"element text\" cols=\"{$sizes[0]}\" rows=\"{$sizes[1]}\" {$this->readonly}>{$this->populated_value['element_'.$this->id.'_'.$i]}</textarea>";
-								$subscript_markup.="<label id=\"label_{$this->id}_{$i}\"for=\"element_{$this->id}_{$i}\">".$xmlf->fields->{'field'.$i}->label."</label>";
-*/
 			} elseif ($values=$xmlf->fields->{'field'.$i}->type == "submit") {
 								//submit
 								if($this->populated_value['element_'.$this->id.'_'.$i] == ""){
