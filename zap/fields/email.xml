@@ -5,7 +5,7 @@
 		<field1>
 			<name>email</name>
 			<maxlength>128</maxlength>
-			<default>@</default>
+			<default></default>
 			<width></width>
 			<type>email</type>
 			<format>text</format>

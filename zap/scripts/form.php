@@ -29,17 +29,12 @@ $zfform=new $zfClass($form,$formid,$map,$action,'form');
 $form=$zfform->form;
 $formid=$zfform->id;
 $stack=new zfStack('form',$form);
-//if (!AllowAccess('form',$formid,$action)) return false;
 
 $allowed=false;
 $success=true;
 if (isset($_GET['showform'])) $showform=$_GET['showform']; else $showform="edit";
 
-if ($action == "not_allowed") {
-	echo "Action not allowed";
-	$success=false;
-
-} elseif ($action == "add" && $step == "") {
+if ($action == "add" && $step == "") {
 	if ($zfform->allowAccess()) {
 		$allowed=true;
 		$success=$zfform->Prepare();
@@ -70,8 +65,11 @@ if ($action == "not_allowed") {
 	}
 
 } elseif ($action == "edit" && $step == "check") {
-	$zfSuccess=$zfform->Verify($_POST);
-	$newstep="save";
+	$success=$zfform->Verify($_POST);
+	if ($zfform->allowAccess()) {
+		$allowed=true;
+		$newstep="save";
+	}
 
 } elseif ($action == "edit" && $step == "save") {
 	$newstep="save";
@@ -92,9 +90,9 @@ if ($action == "not_allowed") {
 	}
 
 } elseif ($action == "delete" && $step == "") {
+	$success=$zfform->Prepare($id);
 	if ($zfform->allowAccess()) {
 		$allowed=true;
-		$success=$zfform->Prepare($id);
 		$newstep="save";
 	}
 
@@ -109,28 +107,31 @@ if ($action == "not_allowed") {
 		if ($redirect && (!defined("ZING_SAAS") || !ZING_SAAS)) header('refresh:1; url='.$redirect);
 	}
 } elseif ($action == "view" && $step == "") {
+	$success=$zfform->Prepare($id);
 	if ($zfform->allowAccess()) {
 		$allowed=true;
-		$success=$zfform->Prepare($id);
 	}
 } else {
-	$a=explode(".",$action);
-	if (count($a) == 2) {
-		$c=$a[0]; //class
-		$m=$a[1]; //method
-		if (class_exists($c)) {
-			$o=new $c($id);
-			if (method_exists($o,$m)) {
-				$r=$o->$m();
-				if ($r) $action="view";
-				else {
-					$action="";
-					echo "Error when calling the method";
+	if ($zfform->allowAccess()) {
+		$allowed=true;
+		$a=explode(".",$action);
+		if (count($a) == 2) {
+			$c=$a[0]; //class
+			$m=$a[1]; //method
+			if (class_exists($c)) {
+				$o=new $c($id);
+				if (method_exists($o,$m)) {
+					$r=$o->$m();
+					if ($r) $action="view";
+					else {
+						$action="";
+						echo "Error when calling the method";
+					}
 				}
 			}
 		}
+		if ($id) $success=$zfform->Prepare($id);
 	}
-	if ($id) $success=$zfform->Prepare($id);
 }
 
 if (!$success || !$allowed) {

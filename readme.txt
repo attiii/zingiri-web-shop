@@ -71,6 +71,7 @@ Before upgrading, make sure you back up your database first!
 * New: added display of name and address information in orders summary
 * New: added option to specify email on payment method level, can be used to specify a Paypal email different from the default sales email
 * New: added check on product in stock when adding to basket 
+* New: moved widgets code to extensions directory to allow easy adding of new custom widgets
 * Change: replaced style sheet ID 'navlist' by 'zing-navlist' to avoid conflicts with certain themes 
 * Change: removed default Dutch labels from shipping and payment options (only applies to new installations) 
 * Change: in case of stock management on basis of status only, changed the way stock status is set on product level
@@ -88,6 +89,8 @@ Before upgrading, make sure you back up your database first!
 * Fix: fixed issue with image not being clickable on shop front page in IE8
 * Fix: live search widget now supports search on words containing numbers
 * Fix: corrected rounding issue when applying percentage discounts
+* Fix: fixed issue with pagination on errorlog
+* Fix: fixed issue with pagination on customeradmin
 
 = 1.4.8 =
 * Change: updated Norwegian translations

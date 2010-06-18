@@ -55,7 +55,7 @@ var wsCart = Class.create( {
 		else var image = e.closest('tr').find('img');
 		form = e.closest('form');
 		new jQuery.ajax({
-			url : form.attr('action'),
+			url : wsURL + "addToCart.php",
 			type : "post",
 			data : form.serialize(true),
 			success : function(request) {
