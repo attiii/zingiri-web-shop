@@ -997,7 +997,7 @@ function faces_map($a) {
 		$q.="'".$id."':'".$value."'";
 	}	
 	$q.='}';
-	return $q;
+	return urlencode($q);
 }
 
 

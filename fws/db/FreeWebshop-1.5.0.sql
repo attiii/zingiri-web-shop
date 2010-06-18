@@ -29,7 +29,7 @@ UPDATE `##faccess` SET `FORMID`=64,`ACTION`=0,`RULES`='id:customerId',`ROLEID`=2
 
 -- Delete obsolete links
 DELETE FROM `##flink` WHERE `ID`=41;
-DELETE FROM `##flink` WHERE `ID`=29;
+DELETE FROM `##flink` WHERE `ID`=26;
 
 -- Customer access to Password form
 INSERT INTO `##faccess` (`FORMID`,`ACTION`,`RULES`,`ROLEID`,`ALLOWED`,`DATE_CREATED`) VALUES (65,'edit','id:customerId',2,1,'2010-06-16 19:27:11');

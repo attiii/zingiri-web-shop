@@ -997,7 +997,7 @@ zingiri-web-shop/fws/db/FreeWebshop-1.4.0.sql,d5d043aaf480c655b034853f935547e6
 zingiri-web-shop/fws/db/FreeWebshop-1.4.3.sql,c2f66f9050b7f06492b186805ded6fe3
 zingiri-web-shop/fws/db/FreeWebshop-1.4.5.sql,be8c4476b14c72354ed25017d52c7210
 zingiri-web-shop/fws/db/FreeWebshop-1.4.8.sql,6a6ea95da1d1733abb87850543e69db0
-zingiri-web-shop/fws/db/FreeWebshop-1.5.0.sql,e1a9fb56481c54b08a01a9bbf89742f1
+zingiri-web-shop/fws/db/FreeWebshop-1.5.0.sql,72d203e50b6ec7ac478edd41064ca4ee
 zingiri-web-shop/fws/db/index.php,d41d8cd98f00b204e9800998ecf8427e
 zingiri-web-shop/fws/details.php,6783c682070ab522803fcf656ae5fb75
 zingiri-web-shop/fws/discount.php,819ade6a9d7db1ed189d3d14e030bc33
@@ -1019,7 +1019,7 @@ zingiri-web-shop/fws/includes/readsettings.inc.php,2da4075edb924e15297dc2e5c611f
 zingiri-web-shop/fws/includes/readvals.inc.php,89a7c441c68776f12fd55a99536c8baf
 zingiri-web-shop/fws/includes/setfolders.inc.php,85fc94fcb8cd1e3bea070b811e9807f3
 zingiri-web-shop/fws/includes/settings.inc.php,e80709cbdd1a5eab0815af778e657d6b
-zingiri-web-shop/fws/includes/subs.inc.php,d3a34623b79224f69a8b3f7785716189
+zingiri-web-shop/fws/includes/subs.inc.php,31eb6bd5aafb6ddcdb37bc5005b80467
 zingiri-web-shop/fws/includes/wp-settings.php,e516e9fc9ec71b67756bf0e07fe4accc
 zingiri-web-shop/fws/index.php,9c6729c4d6465ee81b808202202f85ab
 zingiri-web-shop/fws/ipn.php,a5d0f429cef0e9c655b8a02dded8cdb8
@@ -1190,7 +1190,7 @@ zingiri-web-shop/fws/menu_cart.php,6b731164294dcc09435e247a9065f552
 zingiri-web-shop/fws/menu_general.php,f09b5a0503742b8c92d1f02980632065
 zingiri-web-shop/fws/menu_products.php,eb9896d0f10f8de38189a3ffadd6ab51
 zingiri-web-shop/fws/menu_search.php,8da74435758d3cbee17e44f09b403c94
-zingiri-web-shop/fws/my.php,6d883f5e371a7ba263b889684db1ddb0
+zingiri-web-shop/fws/my.php,07c202845892c6497e9fd1a6a77d8971
 zingiri-web-shop/fws/onecheckout.php,27cb7b552b473761bf4733ca467d4b35
 zingiri-web-shop/fws/orderadmin.php,21e72670eecf7f9da78c00945e1fa88b
 zingiri-web-shop/fws/orders/index.php,d41d8cd98f00b204e9800998ecf8427e
