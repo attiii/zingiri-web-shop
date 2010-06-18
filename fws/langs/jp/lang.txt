@@ -1,0 +1,708 @@
+<?php
+//この言語の文字設定が不明の場合、ISO-8859-1をご利用してください。
+$charset = "ISO-8859-1";
+
+//この言語ファイルでまず、利用可な値
+// 注文の為のデーターベース値
+$txt['frontpage1'] = 'もっと詳しい情報';
+
+$txt['db_shipping1'] = '商品引き取り、配送料金無し';
+
+// database values for payments
+$txt['db_payment1'] = '銀行振込';
+$txt['db_payment2'] = '店頭支払い（お引取り頂ける場合のみ）';
+$txt['db_payment3'] = 'PayPal（クレジットカード）払い';
+$txt['db_payment4'] = '代金引換';
+
+// order status
+$txt['db_status1'] = 'お客様からの注文を受付';
+$txt['db_status2'] = 'お支払い待ち';
+$txt['db_status3'] = '予約待ち';
+$txt['db_status4'] = '注文処理中';
+$txt['db_status5'] = '送付済（完了）';
+$txt['db_status6'] = 'お客様により引取済';
+$txt['db_status7'] = 'キャンセル';
+
+$txt['db_status10'] = '状況の説明';
+$txt['db_status11'] = 'あなた様のご注文を承りましたが、従業員によって確認がされていません';
+$txt['db_status12'] = 'あなた様のご注文が確認されました。ご注文の料金を銀行振込にてお願い致します';
+$txt['db_status13'] = 'あなた様のお支払いを受領致しました。お引取り頂く準備ができた事をお知らせするメールをお送り致しました。ご予約をお取りいただく為、電話にてご連絡をお願い致します';
+$txt['db_status14'] = 'あなた様のお支払いを受領致しました。 'ご注文を処理中です。発送準備中もしくは、商品の確保が出きった事を表しています';
+$txt['db_status15'] = '商品はTPG Postal serviceにて発送済です。ご注文完了';
+$txt['db_status16'] = '商品はあなた様により、お受け取り頂きました。ご注文完了';
+$txt['db_status17'] = '商品はあなた様もしくは、当店によりキャンセルされました';
+
+// database values for stock
+$txt['db_stock1'] = '在庫あり';
+$txt['db_stock2'] = '在庫無し';
+$txt['db_stock3'] = '入荷待ち';
+$txt['db_stock10'] = '在庫状況の説明';
+$txt['db_stock11'] = '商品在庫あり：ご注文後、商品をお受け取り頂けます';
+$txt['db_stock12'] = '商品在庫無し'
+$txt['db_stock13'] = '商品入荷待ちの為、しばらくお待ち下さい';
+
+// general values
+$txt['general1'] = 'アクセス拒否！';
+$txt['general2'] = 'あなたのIPアドレスはさらなる不正使用防止の為、記録されました';
+$txt['general3'] = '新';
+$txt['general4'] = 'アドミンオプションに戻る';
+$txt['general6'] = '除';
+$txt['general7'] = '含.';
+$txt['general8'] = 備考：このウェブショップは使用不能状態です。ウェブページを見る事や商品の注文ができません';
+$txt['general9'] = '404エラー ページが見つかりません！';
+$txt['general10'] = 'このウェブショップから追放されています';
+$txt['general11'] = '当店について';
+$txt['general12'] = 'エラー';
+$txt['general13'] = 'お知らせ';
+$txt['general14'] = '戻る';
+$txt['general15'] = 'このコードを入力';
+$txt['general16'] = 'コードが正しくありません。せい入力をして下さい';
+
+// header.php
+$txt['header1'] = 'セキュリティの危険性';
+$txt['header2'] = ようこそ';
+$txt['header3'] = 'ゲスト';
+$txt['header4'] = '<font color=red><strong>install.php</strong></font> 見つかりました。操作を続ける前にこのファイルの削除/名前の変更が必要です';
+
+// menu.php
+$txt['menu1'] = 'ホーム';
+$txt['menu2'] = '買い物かご';
+$txt['menu3'] = 'チェックアウト';
+$txt['menu4'] = '検索';
+$txt['menu5'] = '一般条件';
+$txt['menu6'] = '発送';
+$txt['menu7'] = '保証';
+$txt['menu8'] = 'お問合せ';
+$txt['menu9'] = '管理';
+$txt['menu10'] = '個人ページ';
+$txt['menu11'] = 'ログアウト';
+$txt['menu12'] = 'ログイン';
+$txt['menu13'] = '登録';
+$txt['menu14'] = '情報';
+$txt['menu15'] = '商品';
+$txt['menu16'] = '<font color=red><strong>New</strong></font>商品';
+$txt['menu17'] = '商品がありません';
+$txt['menu18'] = '当店について';
+$txt['menu19'] = '追加';
+
+// sendprocedure.php
+$txt['send1'] = '発送方法';
+
+// cart.php
+$txt['cart1'] = '買い物かご';
+$txt['cart2'] = '買い物かごは空です';
+$txt['cart3'] = '説明';
+$txt['cart4'] = '料金';
+$txt['cart5'] = '数量';
+$txt['cart6'] = '削除';
+$txt['cart7'] = '合計';
+$txt['cart8'] = '空';
+$txt['cart9'] = 'チェックアウト';
+$txt['cart10'] = '更新';
+$txt['cart11'] = '買い物かごの内容';
+$txt['cart12'] = '購入を続ける';
+
+// browse.php
+$txt['browse1'] = '検索結果';
+$txt['browse2'] = '商品説明';
+$txt['browse3'] = '料金';
+$txt['browse4'] = '分類';
+$txt['browse5'] = '商品が見つかりません';
+$txt['browse6'] = '備考：一切の権利をこのイメージから得られません。料金は変動します';
+$txt['browse7'] = '編集';
+$txt['browse8'] = '削除';
+$txt['browse9'] = '商品一覧';
+$txt['browse10'] = '写真変更';
+$txt['browse11'] = 'ページ';
+$txt['browse12'] = '売切れ';
+$txt['browse13'] = '在庫あり';
+
+// submenu.php
+$txt['submenu1'] = 'このグループのカテゴリー';
+$txt['submenu2'] = 'このグループ内にカテゴリーは見つかりません';
+
+// main.php
+$txt['main1'] = 'ようこそ';
+$txt['main2'] = 'キャンペーン';
+
+// details.php
+$txt['details1'] = '商品詳細';
+$txt['details2'] = '商品ID';
+$txt['details4'] = '説明';
+$txt['details5'] = '料金/単価';
+$txt['details6'] = '数量';
+$txt['details7'] = '注文';
+$txt['details8'] = '一覧に戻る';
+$txt['details9'] = 'フルサイズはクリック';
+
+// conditions.php
+$txt['conditions1'] = '条件に同意します';
+$txt['conditions2'] = '条件に同意しません';
+$txt['conditions3'] = '障害';
+$txt['conditions4'] = '注文は現在中止しています';
+$txt['conditions5'] = '一般取引条件';
+
+// shipping.php
+$txt['shipping1'] = '配送と支払い';
+$txt['shipping2'] = '配送方法の選択';
+$txt['shipping3'] = '追加のコメント／質問';
+$txt['shipping4'] = '値引コード';
+$txt['shipping5'] = '値引コードをお持ちの場合、こちらに入力して下さい';
+$txt['shipping9'] = '次の手順';
+$txt['shipping10'] = 'お支払い方法の選択';
+
+// checkout.php
+$txt['checkout1'] = '無効な値引コードです。この表示がエラーだと考えられる場合は、ご購入手続きを進める前に当店にご連絡をして下さい';
+$txt['checkout2'] = 'ページが失効しました。お買い物かごに戻り、チェックアウトボタンをクリックしてください';
+$txt['checkout3'] = " $lastname 様<br /><br /><br />このメッセージはあなた様の注文を確認する<strong>$shopname</strong><br /><br />あなたの注文ID: $webid<br />お客様ID: $customerid<br /><br />こちらの商品を注文しました:<br />";
+$txt['checkout4'] = ' x 商品 ';
+$txt['checkout5'] = ' 料金';
+$txt['checkout6'] = "<br />";
+$txt['checkout7'] = '注文を試みました:';
+$txt['checkout8'] = '現在在庫あり:';
+$txt['checkout9'] = "<br /><br />このリンクをクリックする事で、あなたの注文状況の表示いつでもできます: <a href=\"$shopurl/index.php?page=orders&id=$customerid\">$shopurl/index.php?page=orders&id=$customerid</a><br /><br />ご注文ありがとうございます。<br />ご不明な点はウェブサイトないのお問合せからお願い致します。";
+$txt['checkout10'] = 注文の確定'.$shopname;
+$txt['checkout11'] = '注文が完了しました。確認メールが送信されました。';
+$txt['checkout12'] = '確認メールが送信できませんでしたので、下記のを印刷して下さい';
+$txt['checkout13'] = '下記に注文の内容です。印刷して下さい！';
+$txt['checkout14'] = '割引';
+$txt['checkout15'] = 'あなた様が注文した数量に在庫が足りません。';
+$txt['checkout16'] = "配送方法";
+$txt['checkout17'] = "<strong>配送先住所:</strong><br />$company<br />$initials $middlename $lastname<br />$address<br />$zipcode  $city<br />$state<br />$country<br />$phone";
+$txt['checkout18'] = '割引コード';
+$txt['checkout19'] = "<strong>お支払い方法:</strong> ";
+$txt['checkout20'] = "<strong>銀行情報:</strong><br />口座番号: $bankaccount<br />口座名義人: $bankaccountowner<br />City: $bankcity<br />国: $bankcountry<br />銀行名: $bankname<br />IBAN: $bankiban<br />BIC: $bankbic<br />件名／参照: $webid";
+$txt['checkout21'] = "商品を入荷しましたら、メールにてお知らせ致します。";
+$txt['checkout22'] = "Paypalアカウントから当店へ送金して下さい。";
+$txt['checkout23'] = "荷物を受け取る際に、郵便料金をお支払い頂く必要があります。";
+$txt['checkout24'] = "合計";
+$txt['checkout26'] = "ご請求全額を$paymentdays日以内にお支払い下さい。 当店がお支払いを受領しましたら、直ちにご注文を処理し発送いたします。";
+$txt['checkout27'] = "または、ご注文をPDFでダウンロードして下さい";
+
+// search.php
+$txt['search1'] = '商品を見つける';
+$txt['search2'] = '検索';
+$txt['search3'] = '検索方法';
+$txt['search4'] = '全ての語句マッチ';
+$txt['search5'] = 'いずれかの語句マッチ';
+$txt['search6'] = '検索';
+
+// guarantee.php
+$txt['guarantee1'] = '保証';
+
+// contact.php
+$txt['contact1'] = '質問フォーム'. $shopurl;
+$txt['contact2'] = 'メッセージ送信';
+$txt['contact3'] = 'メッセージが送信されました。必要があれば、直ぐに返信いたします。';
+$txt['contact5'] = 'フォーム項目全てを入力する必要があります。<br /><a href="javascript:history.go(-1)"><strong>こちらをクリック</strong></a> 戻るには';
+$txt['contact6'] = 'お問合せ';
+$txt['contact7'] = 'どの様に連絡をとるのか';
+$txt['contact8'] = 'Eメール';
+$txt['contact9'] = '電話';
+$txt['contact10'] = 'ファックス';
+$txt['contact11'] = 'ウェブサイト上でお問合せ頂くには、下のフォームからお問合せしてください:';
+$txt['contact12'] = '送り先';
+$txt['contact13'] = 'あなたの名前';
+$txt['contact14'] = 'メールアドレス';
+$txt['contact15'] = 'メッセージ';
+
+// checklogin.php
+$txt['checklogin1'] = ログインに個人コードをご使用して下さい';
+$txt['checklogin2'] = 'ログイン名';
+$txt['checklogin3'] = 'パスワード';
+$txt['checklogin4'] = 'ログイン';
+$txt['checklogin5'] = 'まだ、お客様IDをお持ちではない方はこちらをクリックして下さい';
+$txt['checklogin6'] = 'メンバーになる理由';
+$txt['checklogin7'] = '当店で商品をお買い求め頂くには、メンバー登録が必要です。登録には名前、送付先住所、メールアドレスなどを入力します。これらの情報が商品を正しく処理するために必要です。<br /><br /><strong>あなたの情報は当店のみで使用いたします。</strong><br /><br /><br />メンバー登録後に可能な操作:<ul><li>どのPCからでもログイン<li>商品の注文<li>注文した商品の処理状況を確認<li>お買い物かごの管理</ul>';
+$txt['checklogin8'] = 'ログイン情報を忘れた';
+$txt['checklogin9'] = 'あなたおアカウントで利用するメールアドレスを入力して下さい。ログイン情報が入力されたアドレスに送信されます。';
+$txt['checklogin10'] = 'メール送信';
+$txt['checklogin11'] = 'ログイン情報を失くした';
+$txt['checklogin12'] = 'ログイン情報が送信されたアドレス';
+$txt['checklogin13'] = 'ログイン上をを失くした'. $shopurl;
+$txt['checklogin14'] = "あたなのリクエストにより、ログイン情報が送信されました。(<a href=\"$shopurl\">$shopurl</a>)";
+$txt['checklogin15'] = 'あなたが入力したメールアドレスに該当するお客様が見つかりません。';
+$txt['checklogin18'] = '戻る';
+
+// login.php
+$txt['login1'] = 'ログインでエラーが発生しました・・・しばらくお待ち下さい。';
+$txt['login2'] = 'または、こちらをクリック';
+$txt['login3'] = 'ログインしています。しばらくお待ち下さい。';
+
+// logout.php
+$txt['logout1'] = 'ログオフしています。';
+
+// my.php
+$txt['my3'] = 'あなたのパーソナルページについて';
+$txt['my4'] = 'あなたのパーソナルページです。正しくログインした場合、あなたのみアクセス可能です。.<br /><br />こちらの画面であなたの情報、買い物かごなどを表示できます。';
+$txt['my5'] = 'パーソナルページオプション';
+$txt['my6'] = 'お客様ID';
+$txt['my7'] = '情報の変更';
+$txt['my8'] = '注文の表示';
+$txt['my9'] = 'お買い物かご表示';
+
+// admin.php
+$txt['admin1'] = 'ショップ管理';
+$txt['admin2'] = 'その他';
+$txt['admin3'] = '顧客';
+$txt['admin4'] = '店舗';
+$txt['admin5'] = '商品';
+$txt['admin6'] = 'グループ＆<br />カテゴリー';
+$txt['admin7'] = 'データーベース最適化';
+$txt['admin8'] = '設定';
+$txt['admin10'] = '全データーベーステーブル最適化';
+$txt['admin11'] = '最適化中・・';
+$txt['admin12'] = '最適化完了！';
+$txt['admin13'] = '情報とサポート';
+$txt['admin14'] = 'アップデートチェック';
+$txt['admin15'] = '一般条件';
+$txt['admin16'] = '配送ページ';
+$txt['admin17'] = '保証ページ';
+$txt['admin18'] = '配送オプション';
+$txt['admin19'] = '禁止リスト';
+$txt['admin20'] = '当店について';
+$txt['admin21'] = 'お支払いオプション';
+$txt['admin22'] = 'フロントページ';
+$txt['admin23'] = '設定変更';
+$txt['admin24'] = 'ファイル変更';
+$txt['admin25'] = 'インフォメーション';
+$txt['admin26'] = 'エラーログ';
+$txt['admin27'] = 'バックアップデーターベース';
+$txt['admin28'] = 'バックアップ完了。バックアップをダウンロードするには、下のリストをクリック';
+$txt['admin29'] = '管理';
+$txt['admin30'] = '追加ページ';
+$txt['admin31'] = 'アクセスログ';
+$txt['admin32'] = '在庫管理';
+$txt['admin33'] = '商品数(';
+$txt['admin34'] = ') は下記が最小在庫レベルです';
+$txt['admin35'] = 'メールリスト';
+$txt['admin36'] = '<strong><font color="red">FreeWebshop.orgからのニュースがあります</font></strong><br /><br />セキュリティー修復がされました、新バージョンか重要なニュース。 下記をクリックするか、ここを訪問<a href="http://www.freewebshop.org">FreeWebshop.org</a>!<br /><br />(このお知らせは、新しいニュースがある時のみ受け取ります)';
+$txt['admin37'] = '配送国';
+$txt['admin38'] = '割引';
+
+// customeradmin.php
+$txt['customeradmin1'] = '姓';
+$txt['customeradmin2'] = '登録日付';
+$txt['customeradmin3'] = 'メール';
+$txt['customeradmin4'] = '電話';
+$txt['customeradmin5'] = 'オプション';
+$txt['customeradmin6'] = 'メンバー管理';
+$txt['customeradmin7'] = 'この方は現在グループの管理者です';
+$txt['customeradmin8'] = 'この方は現在、顧客メンバーグループです';
+$txt['customeradmin9'] = '該当の顧客は見つかりません';
+$txt['customeradmin10'] = '検索';
+
+// orderadmin.php
+$txt['orderadmin1'] = 'あなたの注文状況';
+$txt['orderadmin2'] = '変更されました';
+$txt['orderadmin3'] = '注文は移動されました';
+$txt['orderadmin4'] = "<br /><br /><a href=\"$shopurl/index.php?page=orders&id=";
+$txt['orderadmin5'] = '">こちらをクリック</a> をし現在の注文状況の確認';
+$txt['orderadmin6'] = 'メールを送る';
+$txt['orderadmin7'] = '顧客へメール送信';
+$txt['orderadmin8'] = 'アップデート';
+$txt['orderadmin9'] = '全ての注文';
+$txt['orderadmin10'] = 'あなたの特定した注文はありません';
+$txt['orderadmin11'] = '表示';
+$txt['orderadmin12'] = '備考: お客様がメモを追加しました';
+$txt['orderadmin13'] = '注文管理';
+$txt['orderadmin14'] = '状況変更';
+$txt['orderadmin15'] = '注文状況を変更しました';
+
+// orders.php
+$txt['orders3'] = 'ご注文内容<a href=# class=info>(?)<span>下記はあなたの注文とそれらの状況です。<br />詳細の表示は注文IDをクリックして下さい。</span></a>';
+$txt['orders4'] = '注文ID';
+$txt['orders5'] = '配送＆お支払い';
+$txt['orders6'] = 'ご請求金額';
+$txt['orders7'] = '注文日付';
+$txt['orders8'] = '状況';
+$txt['orders9'] = 'こちらのショップでまだ、ご注文をされていません';
+
+// customer.php
+$txt['customer1'] = '状態';
+$txt['customer2'] = 'お客様移動';
+$txt['customer3'] = '戻る';
+$txt['customer5'] = '続けるにはエラーを解決してください';
+$txt['customer6'] = '(*)が付いている項目は全て入力して下さい';
+$txt['customer7'] = 'ユーザー名は英数字で入力して下さい';
+$txt['customer8'] = '２つのパスワードが一致していません';
+$txt['customer9'] = '5文字以上でパスワードを入力して下さい';
+$txt['customer10'] = '有効ではないメールアドレスが入力されました';
+$txt['customer11'] = "ようこそ $shopname";
+$txt['customer12'] = "$tussenvoegsels $naam　様,<br /><br />$shopname Webshop　へ登録ありがとうございます (<a href=\"$shopurl\">$shopurl</a>).<br /><br />ショップにログインしました。商品の購入をして下さい<br />または、注文内容を表示してください。<br /><br />あなたのログイン情報:<br />ログイン名:  $login<br />パスワード: $pass1<br /><br />大切にこの情報を保管して下さい。<br /><br /><a href=\"$shopurl\">$shopurl</a>でお会いいたしましょう。<br /><br />敬具、<br /><br /><br />管理者";
+$txt['customer13'] = 'あなたの情報は正しく登録されました。';
+$txt['customer14'] = 'できるだけ正確な情報を提供してください。';
+$txt['customer15'] = 'ログイン名';
+$txt['customer16'] = 'パスワード';
+$txt['customer17'] = 'パスワード再入力';
+$txt['customer18'] = '姓';
+$txt['customer19'] = '敬称';
+$txt['customer20'] = 'イニシャル';
+$txt['customer21'] = '住所';
+$txt['customer22'] = '郵便番号';
+$txt['customer23'] = '市町村';
+$txt['customer24'] = '国';
+$txt['customer25'] = '電話';
+$txt['customer26'] = 'メール';
+$txt['customer27'] = '* = 入力必須';
+$txt['customer28'] = '保存';
+$txt['customer29'] = '入力して頂いたユーザー名は既に、他のお客様によりご利用されています';
+$txt['customer30'] = '会社';
+$txt['customer32'] = '管理アカウ削除しようとしています。この操作はショップへログインが出来なくなる為、拒否されました';
+$txt['customer33'] = '(5文字以上10文字以内)';
+$txt['customer34'] = '入力されたメールアドレスは既に、他のお客様が登録されています';
+$txt['customer35'] = 'ログインはこちらをクリック';
+$txt['customer36'] = '新規お客様';
+$txt['customer37'] = 'お客様がショップへ登録されました。お客様へ送信したメールのコピーは下記に表示:';
+$txt['customer38'] = 'ニュースレター';
+
+// readorder.php
+$txt['readorder1'] = '注文内容の印刷';
+$txt['readorder2'] = '注文に戻る';
+
+// editsettings.php
+$txt['editsettings1'] = '設定変更';
+$txt['editsettings2'] = '設定保存';
+$txt['editsettings3'] = '商品在庫を隠す';
+$txt['editsettings4'] = '基本配送国<a href=# class=info>(?)<span>通常はあなたの会社の駐在国です</span></a>';
+$txt['editsettings5'] = '在庫数を表示';
+$txt['editsettings7'] = '受け取る際の追加配送料金レート<a href=# class=info>(?)<span>通常の配送料金レート、追加料金のフォーム　フォーマット: 12.34</span></a>';
+$txt['editsettings8'] = '通貨';
+$txt['editsettings9'] = '通貨文字 <a href=# class=info>(?)<span>あなたの場合: $</span></a>';
+$txt['editsettings10'] = 'ｘｘ以内にお支払いして下さい<a href=# class=info>(?)<span>ご注文数が何日であなたのアカウントに反映されるか？</span></a>';
+$txt['editsettings11'] = '税込み<a href=# class=info>(?)<span>消費税が５％の場合の表示：1.05</span></a>';
+$txt['editsettings12'] = '消費税<a href=# class=info>(?)<span>5％の消費税の表示：5％</span></a>';
+$txt['editsettings14'] = '営業部のメールアドレス<a href=# class=info>(?)<span>このメールアドレスにご注文内容が送信されます。例え: sales@yourdomain.com</span></a>';
+$txt['editsettings15'] = '店舗名';
+$txt['editsettings16'] = 'ウェブショップURL <a href=# class=info>(?)<span>URLはhttp://から始まり、 末尾/は付けない。例え: http://www.yourdomain.com/shop</span></a>';
+$txt['editsettings17'] = '基本言語';
+$txt['editsettings18'] = '注文識別番号 (オプション) <a href=# class=info>(?)<span>全ての注文番号は識別番号で始まります。例: WEB-</span></a>';
+$txt['editsettings19'] = '注文末尾 番号(オプション) <a href=# class=info>(?)<span>全ての注文番号は末尾番号で終わります。例：現在の年 -06</span></a>';
+$txt['editsettings20'] = '在庫数を使用するa href=# class=info>(?)<span><strong>有:</strong> 在庫数を使用する<br /><br /><strong>無:</strong> 在庫状況を使用する(在庫有り/お取り寄せ/売り切れ)</span></a>';
+$txt['editsettings21'] = '利用できる注文モジュール';
+$txt['editsettings22'] = '有効でないウェブショップ';
+$txt['editsettings23'] = '有効でないウェブショップタイトル';
+$txt['editsettings24'] = '有効でないウェブショップメッセージ';
+$txt['editsettings25'] = 'ウェブマスターメールアドレス';
+$txt['editsettings26'] = '電話番号（オプション）';
+$txt['editsettings27'] = 'ファックス番号（オプション）';
+$txt['editsettings28'] = '銀行'口座';
+$txt['editsettings29'] = '名義人';
+$txt['editsettings30'] = '銀行所在(市町村）';
+$txt['editsettings31'] = '銀行所在国';
+$txt['editsettings32'] = '銀行IBAN';
+$txt['editsettings33'] = '銀行 BIC';
+$txt['editsettings34'] = '開始年<a href=# class=info>(?)<span>あなたが会社を始めた年</span></a>';
+$txt['editsettings35'] = 'ロゴ <a href=# class=info>(?)<span>あなたが持っているロゴ。これはフォルダーに保存されている必要があります。<strong>'.$gfx_dir.'</strong></span></a>';
+$txt['editsettings37'] = '会社スローガン（オプション） <a href=# class=info>(?)<span>スローガンはロゴの下にプリントできます</span></a>';
+$txt['editsettings38'] = 'ページタイトル <a href=# class=info>(?)<span>タイトルはウェブショップが表示されるブラウザーに表示されます</span></a>';
+$txt['editsettings39'] = 'フッター';
+$txt['editsettings44'] = '設定はデーターベースに保存されました';
+$txt['editsettings45'] = '銀行詳細';
+$txt['editsettings46'] = 'レイアウト';
+$txt['editsettings47'] = '店舗';
+$txt['editsettings48'] = 'ファイナンス';
+$txt['editsettings49'] = 'ナンバーフォマット';
+$txt['editsettings50'] = '最大の説明文字数 <a href=# class=info>(?)<span>料金一覧では説明文が短くなります。<br /><strong>0 = 省略はしないで下さい<br />1-99 = ワードラップ xx文字</strong></span></a>';
+$txt['editsettings52'] = '銀行名';
+$txt['editsettings53'] = '料金一覧フォーマット<a href=# class=info>(?)<span>この設定は料金リストに適用され、買い物かごと注文確認メールに使用されます</span></a>';
+$txt['editsettings54'] = '商品ID';
+$txt['editsettings55'] = '説明';
+$txt['editsettings56'] = '商品ID と説明';
+$txt['editsettings57'] = '日付フォーマット<a href=# class=info>(?)<span><strong>d-m-Y @ G:i</strong> dd-mm-jjjj @ 23:59<br /><strong>m-d-Y @ G:i</strong> mm-dd-jjjj @ 23:59<br /></span></a>';
+$txt['editsettings58'] = 'gfxを料金リスト内で検索<a href=# class=info>(?)<span>料金リストをローディングしている間に、様々な商品の写真を検索。写真が見つかるとアイコンが商品の後ろに表示される為、お客様は写真があることが分かります。<br /><br />ローディング時間を短くする、または写真がリモートホストにある場合、このオプションを無効にするべきです</span></a>';
+$txt['editsettings59'] = '写真を使用する<a href=# class=info>(?)<span>商品に写真がない場合は、このオプションを無効にするべきです</span></a>';
+$txt['editsettings69'] = '縮小サイズを料金リストに使用する<a href=# class=info>(?)<span>表示(見つかった場合)説明分の前に小さな商品を表示するプレビュー</span></a>';
+$txt['editsettings70'] = 'キーワード(,で区切る) <a href=# class=info>(?)<span>検索エンジンで見つけてもらいたい単語</span></a>';
+$txt['editsettings71'] = 'コンピューターの文字コードを使用する'<a href=# class=info>(?)<span>言語によって異なった文字設定が必要です。ISO-8859-1</span></a>';
+$txt['editsettings73'] = '保証リンク表示';
+$txt['editsettings75'] = '写真ファイル名<a href=# class=info>(?)<span>言語によってファイル名に許可されない文字があります。大体のケースでデーターベースIDを使用するとよい。</span></a>';
+$txt['editsettings76'] = 'データーベースID (推奨)';
+$txt['editsettings77'] = '商品ID';
+$txt['editsettings78'] = '当店についてリンク表示';
+$txt['editsettings79'] = 'ライブニュースを有効にする<a href=# class=info>(?)<span>有効にすることでFreeWebshop.orgからの更新された情報やその他のニュースをお知らせします。 このオプションの扱いが困難な場合のみ無効にして下さい</span></a>';
+$txt['editsettings80'] = '料金リスト縮小横サイズ<a href=# class=info>(?)<span>横pixels.<br />デフォルト=50<br/>0=リサイズ無効</span></a>';
+$txt['editsettings81'] = '料金リスト縮小縦サイズ<a href=# class=info>(?)<span>縦 pixels.<br />デフォルト=50<br />0=リサイズ無効</span></a>';
+$txt['editsettings82'] = 'カテゴリー縮小横サイズ<a href=# class=info>(?)<span>横 pixels.<br />デフォルト=50<br />0=リサイズ無効</span></a>';
+$txt['editsettings83'] = 'カテゴリー縮小縦サイズ<a href=# class=info>(?)<span>縦 pixels.<br />デフォルト=50<br />0=リサイズ無効</span></a>';
+$txt['editsettings84'] = '商品写真最大横サイズ <a href=# class=info>(?)<span>横最大 pixels.<br />デフォルト=450<br />9999=無効</span></a>';
+$txt['editsettings85'] = '商品写真最大縦サイズ <a href=# class=info>(?)<span>縦最大 pixels.<br />デフォルト=350<br />9999=無効</span></a>';
+$txt['editsettings86'] = '全て';
+$txt['editsettings87'] = '新商品リンク表示';
+$txt['editsettings88'] = 'WYSIWYG編集を使用する';
+$txt['editsettings89'] = '自動縮小作成 <a href=# class=info>(?)<span>商品写真をアップロードする時に自動縮小作成が機能するためには <br /><strong>GD extension</strong>ご利用下さい</span></a>';
+$txt['editsettings90'] = 'ショップ説明 <a href=# class=info>(?)<span>検索エンジンのショップのインデックスに使われます</span></a>';
+$txt['editsettings91'] = '１ページ辺りの商品 <a href=# class=info>(?)<span>１ページの商品数<br />0 = 無限</span></a>';
+$txt['editsettings92'] = '無効';
+$txt['editsettings93'] = '進行';
+$txt['editsettings94'] = 'シンプル';
+$txt['editsettings95'] = 'キャプチャ使用 <a href=# class=info>(?)<span>キャプチャ使用(antiスパム)お問合せフォームとお客様登録</span></a>';
+$txt['editsettings96'] = 'イメージポップアップ使用 <a href=# class=info>(?)<span>見た目がイメージを使用する<br />Japaスクリップ要求されます</span></a>';
+$txt['editsettings97'] = '通貨記号';
+$txt['editsettings98'] = 'このテンプレートを使用';
+$txt['editsettings99'] = '在庫レベルの警告';
+$txt['editsettings100'] = '最小在庫レベル';
+$txt['editsettings101'] = '重量クラス <a href=# class=info>(?)<span>推測 <strong>LB</strong></span></a>';
+$txt['editsettings102'] = '料金リストから注文';
+$txt['editsettings103'] = 'データー修正使用 <a href=# class=info>(?)<span>エラーログがデーター警告でフルになった時のみに使用する</span></a>';
+$txt['editsettings104'] = '料金リストソート';
+$txt['editsettings105'] = '説明';
+$txt['editsettings106'] = '料金';
+$txt['editsettings107'] = '自動実行を有効にする <a href=# class=info>(?)<span>有効にしお支払い方法がサポートされている場合、お客様が選択されたお支払いポータルへ移動します</span></a>';
+$txt['editsettings108'] = 'PDF作成 \'s <a href=# class=info>(?)<span>有効になっている場合は、お客様のご注文確認がPDFで添付されメールにて送信されます</span></a>';
+$txt['editsettings109'] = 'メール方法 <a href=# class=info>(?)<span>PHPメール使用() メールを送信または、その他のオプションを選択</span></a>';
+
+// productadmin.php
+$txt['productadmin1'] = 'アップロードされました ';
+$txt['productadmin2'] = 'アップロードファイルでエラーが発生しました。再試行してください。';
+$txt['productadmin3'] = '.jpg, .png or .gif ファイルでアップロードして下さい';
+$txt['productadmin4'] = '他の商品を追加';
+$txt['productadmin5'] = '商品リストに戻る';
+$txt['productadmin6'] = '商品追加';
+$txt['productadmin7'] = '商品アップロード';
+$txt['productadmin8'] = '先にグループを追加する';
+$txt['productadmin9'] = 'ID';
+$txt['productadmin10'] = '説明 <a href=# class=info>(?)<span>HTMLコードが許可されました</span></a>';
+$txt['productadmin11'] = '料金 <a href=# class=info>(?)<span>フォーマット: 123456.78</span></a>';
+$txt['productadmin12'] = '在庫数';
+$txt['productadmin13'] = '在庫 (0|1|2) <a href=# class=info>(?)<span>0=在庫なし<br />1=在庫有り<br />2=お取り寄せ</span></a>';
+$txt['productadmin14'] = 'フロントページ';
+$txt['productadmin15'] = '新';
+$txt['productadmin16'] = '商品追加';
+$txt['productadmin17'] = '商品アップロード';
+$txt['productadmin18'] = 'グループ/カテゴリー';
+$txt['productadmin19'] = 'jpg, png or gif ファイルを選択してください';
+$txt['productadmin20'] = 'アップロード';
+$txt['productadmin21'] = '料金アップロード';
+$txt['productadmin22'] = '先にカテゴリーを追加';
+$txt['productadmin23'] = '商品IDがない為、写真がアップロードできません';
+$txt['productadmin24'] = 'この写真を削除';
+$txt['productadmin25'] = '写真削除に成功しました';
+$txt['productadmin26'] = '商品削除に成功しました';
+$txt['productadmin27'] = '追加オプション';
+$txt['productadmin28'] = '全ての写真縮小(しばらく時間がかかります)';
+$txt['productadmin29'] = '全ての縮小写真が作成されました(必要な場所で)..';
+$txt['productadmin30'] = '機能 <a href=# class=info>(?)<span>機能１:赤、白、青|機能２:小、中、大<br />スペースなし</span></a>';
+$txt['productadmin31'] = '重量 <a href=# class=info>(?)<span>ご注文合計の重さが計算された重量</span></a>';
+
+// groupadmin.php
+$txt['groupadmin1'] = ' アップロードは完了しました';
+$txt['groupadmin2'] = 'アップロード中にエラーが発生しました、再試行してください。';
+$txt['groupadmin3'] = '.jpg, png or .gif ファイルでアップロードしてください。';
+$txt['groupadmin4'] = 'グループが追加されました。';
+$txt['groupadmin5'] = 'グループアップデートされました。';
+$txt['groupadmin6'] = 'グループ（カテゴリーと商品の下）削除されました。';
+$txt['groupadmin7'] = 'カテゴリーが追加されました。';
+$txt['groupadmin8'] = 'カテゴリーアップロードされました。';
+$txt['groupadmin9'] = 'カテゴリー移動しました。';
+$txt['groupadmin10'] = 'カテゴリー（商品下）削除されました。';
+$txt['groupadmin11'] = 'グループ名';
+$txt['groupadmin12'] = 'グループ追加';
+$txt['groupadmin13'] = 'まだ、グループはありません';
+$txt['groupadmin14'] = 'グループ';
+$txt['groupadmin15'] = '新グループ名';
+$txt['groupadmin16'] = 'グループアップデート';
+$txt['groupadmin17'] = 'グループ削除';
+$txt['groupadmin18'] = 'グループオプション';
+$txt['groupadmin19'] = 'カテゴリーオプション';
+$txt['groupadmin20'] = 'カテゴリー名';
+$txt['groupadmin21'] = 'カテゴリー追加';
+$txt['groupadmin22'] = 'カテゴリー';
+$txt['groupadmin23'] = '新カテゴリー名';
+$txt['groupadmin24'] = 'アップデートカテゴリー';
+$txt['groupadmin25'] = 'カテゴリー移動';
+$txt['groupadmin26'] = 'カテゴリー削除';
+$txt['groupadmin27'] = 'jpg, png or gifファイルを選択';
+$txt['groupadmin28'] = 'アップロード';
+$txt['groupadmin29'] = '写真アップロード';
+$txt['groupadmin30'] = '一般オプション';
+$txt['groupadmin31'] = '空のカテゴリーとグループ削除';
+$txt['groupadmin32'] = '複数のカテゴリー削除';
+$txt['groupadmin33'] = '複数のグループ削除';
+$txt['groupadmin34'] = 'この名前のグループ'.$gname.'は既に存在します。異なる名前を選択して下さい';
+$txt['groupadmin35'] = 'このグループ名は空です';
+$txt['groupadmin36'] = '新グループの名前が入力されていません';
+$txt['groupadmin37'] = 'このグループ名'.$cname.'は既に存在します。異なる名前を選択して下さい';
+$txt['groupadmin38'] = '新しいカテゴリー名を入力していません';
+$txt['groupadmin39'] = 'カテゴリー名が空です';
+
+// uploadadmin.php
+$txt['uploadadmin1'] = 'アップロードしました';
+$txt['uploadadmin2'] = 'アップロードファイルでエラーが発生しました。再試行してください';
+
+// adminedit.php
+$txt['adminedit1'] = '変更を保存';
+$txt['adminedit2'] = '変更を保存されました.';
+$txt['adminedit3'] = '現在の編集';
+
+// shippingadmin.php
+$txt['shippingadmin1'] = '配送方法が追加されました';
+$txt['shippingadmin2'] = '配送方法を削除しました';
+$txt['shippingadmin3'] = '配送方法を編集';
+$txt['shippingadmin4'] = 'サポートされた配送方法';
+$txt['shippingadmin5'] = '説明';
+$txt['shippingadmin6'] = 'コスト';
+
+$txt['shippingadmin7'] = "可能地域 $send_default_country?";
+$txt['shippingadmin8'] = '編集';
+$txt['shippingadmin9'] = '動かす';
+$txt['shippingadmin10'] = '追加';
+$txt['shippingadmin11'] = '配送国編集';
+$txt['shippingadmin12'] = 'オプション';
+$txt['shippingadmin13'] = 'お支払い方法';
+$txt['shippingadmin14'] = '配送方法編集';
+$txt['shippingadmin15'] = '備考: 配送方法のシステムを変更しようとしています この手段は他のこのウェブショップを誘発します。お支払い方法の本質は変えず、説明を変更して下さい';
+$txt['shippingadmin16'] = 'デフォルト配送国を編集';
+$txt['shippingadmin17'] = 'その他のオプション';
+$txt['shippingadmin18'] = 'フォーム';
+$txt['shippingadmin19'] = '宛て';
+$txt['shippingadmin20'] = 'コスト';
+$txt['shippingadmin21'] = '配送コスト/重さ規則は正しく削除されました';
+$txt['shippingadmin22'] = '配送なし（受け取り)';
+
+// paymentadmin.php
+$txt['paymentadmin1'] = 'お支払い方法を追加しました';
+$txt['paymentadmin2'] = 'お支払い方法を削除';
+$txt['paymentadmin3'] = 'お支払い方法編集';
+$txt['paymentadmin4'] = 'サポートされたお支払い方法';
+$txt['paymentadmin5'] = '説明';
+$txt['paymentadmin6'] = 'お支払い方法変更';
+$txt['paymentadmin7'] = 'お支払いHTMLコード';
+$txt['paymentadmin8'] = '編集';
+$txt['paymentadmin9'] = '削除';
+$txt['paymentadmin10'] = '追加';
+$txt['paymentadmin11'] = 'オプション';
+$txt['paymentadmin12'] = '備考: お支払い方法のシステムを変更しようとしています この手段は他のこのウェブショップを誘発します。お支払い方法の本質は変えず、説明を変更して下さい';
+
+// errorlogadmin.php
+$txt['errorlogadmin1'] = 'エラーログ';
+$txt['errorlogadmin2'] = '重大性';
+$txt['errorlogadmin3'] = 'エラー';
+$txt['errorlogadmin4'] = 'ファイル';
+$txt['errorlogadmin5'] = 'ライン';
+$txt['errorlogadmin6'] = '日付';
+$txt['errorlogadmin7'] = 'エラーはみつかりません';
+$txt['errorlogadmin8'] = 'ログをクリア';
+$txt['errorlogadmin9'] = 'エラーログは正しくクリアされました';
+
+// pagesadmin.php
+$txt['pagesadmin1'] = '追加ページ';
+$txt['pagesadmin2'] = 'ページ名';
+$txt['pagesadmin3'] = 'オプション';
+$txt['pagesadmin4'] = '名前の変更';
+$txt['pagesadmin5'] = 'ノーマルページ追加';
+$txt['pagesadmin6'] = 'ページ名を変更しました';
+$txt['pagesadmin7'] = 'ページ削除';
+$txt['pagesadmin8'] = '失敗しました';
+$txt['pagesadmin9'] = 'ページが追加されました';
+$txt['pagesadmin10'] = 'プライベートページ追加';
+$txt['pagesadmin11'] = '隠されました';
+
+// accessadmin.php
+$txt['accesslogadmin1'] = 'アクセスログ';
+$txt['accesslogadmin2'] = 'ログイン';
+$txt['accesslogadmin3'] = 'パスワード';
+$txt['accesslogadmin4'] = 'タイム';
+$txt['accesslogadmin5'] = '成功';
+//$txt['accesslogadmin6'] = '日付';
+$txt['accesslogadmin7'] = 'アクセスログデーターはみつかりません';
+$txt['accesslogadmin8'] = 'ログクリア';
+$txt['accesslogadmin9'] = 'アクセスログは正しくクリアされました';
+
+// stockadmin.php
+$txt['stockadmin2'] = '表示';
+$txt['stockadmin3'] = '在庫管理';
+
+// mailinglist.php
+$txt['mailinglist1'] = '好きなマスメーラーソフトウェアにコピー／貼り付け';
+
+// discountadmin.php
+$txt['discountadmin2'] = 'コードナンバー';
+$txt['discountadmin3'] = '割引額';
+$txt['discountadmin4'] = '割引パーセンテージ';
+$txt['discountadmin5'] = 'コードを作る';
+$txt['discountadmin6'] = '全ての未使用コード';
+$txt['discountadmin7'] = '割引コード';
+$txt['discountadmin8'] = '未使用コードなし';
+$txt['discountadmin9'] = '作成';
+
+//v1.1.0 - new
+$txt['groupadmin100'] = 'カテゴリー';
+$txt['groupadmin101'] = 'フィジカル';
+$txt['groupadmin102'] = 'デジタル';
+$txt['groupadmin103'] = '新カテゴリータイプ';
+$txt['productadmin100'] = 'デジタル源? <a href=# class=info>(?)<span>これがデジタル製品出れば、音楽、ビデオ、eブックをアップロードできます。フィルはここ</span></a>';
+$txt['readorder100'] = 'あなたダウンロード';
+$txt['products1'] = 'ダウンロード';
+
+//v1.2.0 - modified
+$txt['editsettings72'] = '一般条件を表示する';
+$txt['editsettings74'] = '配送ページを表示する';
+
+//v1.2.2 - added
+$txt['generic1'] = '削除';
+
+//v1.2.4 - added
+$txt['checkout100'] = "お支払いは正しく処理されました";
+$txt['checkout101'] = "お支払いを実行できません";
+
+//v1.2.4 - modified
+$txt['uploadadmin3'] = '.xml か .sql filesのみでアップロードして下さい';
+$txt['uploadadmin4'] = 'データインポー（商品、料金表など）';
+$txt['uploadadmin5'] = 'XML かSQL ファイルを選択してください';
+$txt['uploadadmin6'] = 'ファイルインポート';
+$txt['uploadadmin7'] = 'データがデータベースに挿入されました';
+$txt['uploadadmin100'] = "ファイルをアップロードできませんでした:";
+$txt['uploadadmin101'] = "ファイルが不明です:";
+$txt['uploadadmin102'] = "オンライン";
+$txt['uploadadmin103'] = "待機中: 不明なファイルをスキップしています";
+$txt['admin9'] = '商品アップロード';
+
+//v1.2.5
+$txt['uploadadmin104'] = '最大ファイルバイトサイズ<a href=# class=info>(?)<span>これがシステム内の最大ファイルサイズです。増加したい場合は、php.ini ファイルの編集が必要です。/span></a>';
+$txt['uploadadmin105'] = 'デジタル商品にはsymlinksをご利用してください。<a href=# class=info>(?)<span>デジタル商品をコピーする代わりに、symlinkが作成されました。</span></a>';
+$txt['details100'] = 'その他の商品';
+
+//v1.2.7 - new
+$txt['admin100'] = '税';
+$txt['general100'] = '率';
+$txt['general101'] = 'Label1'] = 'カスケード';
+$txt['checkout25'] = "税込み";
+$txt['checkout102'] = "税";
+$txt['checkout103'] = "手続きを続ける前に条件に同意をして下さい";
+$txt['checkout104'] = "ご注文手続きを完了する為、お支払いポータルへ移動します";
+$txt['editsettings110'] = 'クイックチェックアウトを有効するにする';
+$txt['cart100'] = '表示';
+$txt['cart101'] = '隠す';
+$txt['editsettings111'] = '登録フォーム内の生年月日';
+
+//v1.2.7 -eddited
+$txt['general5'] = '税';
+$txt['editsettings51'] = '税金なし <a href=# class=info>(?)<span>消費税を使用しない場合は有効にして下さい</span></a>';
+$txt['editsettings13'] = 'DB内の料金は税金を含みます';
+
+//v1.3.0 - 追加済
+$txt['admin101'] = 'プロンプト＆ & ラベル';
+$txt['editsettings112']= '商品ID＆説明';
+$txt['prompt1'] = '言語';
+$txt['prompt2'] = '標準テキスト';
+$txt['prompt3'] = 'テキストカスタム';
+
+//v1.3.7 - added
+$txt['discountadmin100'] = '期限切れ日付け';
+$txt['discountadmin101'] = '期限切れ数量';
+
+//v1.4.0 - added
+$txt['admin102'] = 'ダッシュボード';
+$txt['dashboard1'] = '月別サインアップ';
+$txt['dashboard2'] = '月';
+$txt['dashboard3'] = '統計';
+$txt['dashboard4'] = '全ての売り上げ';
+$txt['dashboard5'] = '平均売り上げ';
+$txt['dashboard6'] = '過去５件の宗門';
+
+//v1.4.1 - added
+$txt['paymentadmin100'] = 'マーチャントID';
+$txt['paymentadmin101'] = '選択';
+
+?>

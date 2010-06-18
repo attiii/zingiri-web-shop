@@ -1,0 +1,1 @@
+{"NAME":"group","ELEMENTCOUNT":"1","ENTITY":"group","TYPE":"DB","DATA":"{\"2\":{\"subelements\":{\"1\":{\"id\":1,\"populate\":\"\"}},\"rules\":[],\"id\":2,\"label\":\"Group name\",\"x\":45,\"y\":5,\"type\":\"text_large\",\"column\":\"NAME\",\"children\":2}}","LABEL":"Group","ID":61}
