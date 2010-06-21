@@ -66,6 +66,8 @@ Before upgrading, make sure you back up your database first!
 * Change: removed fws/menu_*.php files (now recoded in extensions directory)
 * Change: added customer profile form to the list of editable forms
 * Change: removed requirement to have CURL installed
+* Change: changed label and icon for other addresses in customer personal page
+* Change: product carousels are now simple widgets that can be put anywhere on the page
 * Fix: corrected missing replacements of navlist with zing-navlist
 * Fix: fixed alignment issues with products on frontpage 
 

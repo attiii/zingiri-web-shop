@@ -28,13 +28,6 @@ function zing_set_options() {
 			"type" => "select",
 			"options" => array("jQuery","Prototype"));
 
-	$zing_ws_options[]=	array(	"name" => "Product carousel",
-			"desc" => "Select the product carousel you want to activate. To display the carousel simple call the function <code>zing_carousel()</code><br />at the end of your theme header.php file. All products flagged as New will be displayed in the product carousel.",
-			"id" => $zing_ws_shortname."_carousel",
-			"std" => "",
-			"type" => "selectwithkey",
-			"options" => array("" => "","ekologic" => "Ekologic (requires jQuery)"));
-
 	if ($ids=get_option("zing_webshop_pages")) {
 		$ida=explode(",",$ids);
 		foreach ($ida as $i) {
