@@ -182,7 +182,7 @@ function zing_ws_settings() {
 	get_currentuserinfo();
 	$db=$wpdb->get_results( "SELECT count(*) as oc FROM ".$wpdb->prefix."zing_order");
 	require(dirname(__FILE__).'/fws/includes/httpclass.inc.php');
-	$news = new HTTPRequest('http://www.zingiri.com/news.php?e='.urlencode(isset($current_user->user_email) ? $current_user->user_email : $sales_mail).'&w='.urlencode(ZING_HOME).'&a='.get_option("zing_ws_install").'&v='.urlencode(ZING_VERSION).'&oc='.(string)$db[0]->oc);
+	$news = new wsNewsRequest('http://www.zingiri.com/news.php?e='.urlencode(isset($current_user->user_email) ? $current_user->user_email : $sales_mail).'&w='.urlencode(ZING_HOME).'&a='.get_option("zing_ws_install").'&v='.urlencode(ZING_VERSION).'&oc='.(string)$db[0]->oc);
 	if ($news->live() && !$_SESSION['zing']['news']) {
 		update_option('zing_ws_news',$news->DownloadToString());
 		//echo $news->DownloadToString();

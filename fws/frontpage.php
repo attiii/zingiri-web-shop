@@ -51,8 +51,8 @@ if ($use_prodgfx == 1) {
 	//$screenshot="<div style=\"height:100px\">".$screenshot."</div>";
 }
 if ($row_count == 1) { echo "<tr>"; }
-echo '<td width="33%">
-			       '."<a class=\"plain\" href=\"index.php?page=details&prod=".$f_row[0]."&cat=".$f_row[2]."\"><h5>".$f_row[1].'</h5>'.$screenshot.'</a><br />
+echo '<td width="'.(intval(100/$prods_per_row)).'%">
+			       '."<a class=\"plain\" href=\"index.php?page=details&prod=".$f_row[0]."&cat=".$f_row[2]."\"><h5 style=\"text-align:center\">".$f_row[1].'</h5>'.$screenshot.'</a><br />
 				   <br />
                   <form id="order'.$f_row[0].'" method="post" action="?page=cart&action=add">
                        <input type="hidden" name="prodid" value="'.$f_row[0].'">';

@@ -39,7 +39,7 @@ define("ZING_GLOBALS",dirname(__FILE__)."/fws/globals.php");
 define("ZING_APPS_EMBED","zap/");
 define("ZING_APPS_TRANSLATE",'z_');
 define("ZING_APPS_CAPTCHA",dirname(__FILE__)."/fws/addons/captcha/");
-define("ZING_APPS_EDITABLES","'register','customer'");
+define("ZING_APPS_EDITABLES","'register','profile'");
 
 if (get_option('zing_ws_effects')=="Prototype" || get_option('zing_ws_effects')=="") {
 	define("ZING_PROTOTYPE",true);

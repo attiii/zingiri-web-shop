@@ -55,7 +55,7 @@ if ($shop_disabled == 1 && IsAdmin() == true) {
 			echo "<div style=\"text-align:center;\">";
 			echo "<h2>".$txt['main2']."</h2>";
 			echo "<br />";
-			echo '<table width="100%" class="borderless">';
+			echo '<table width="100%" class="borderless" style="width:100%">';
 
 			while ($f_row = mysql_fetch_array($f_sql)) {
 				$row_count++;

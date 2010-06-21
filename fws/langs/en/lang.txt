@@ -730,4 +730,7 @@ $txt['groupadmin104'] = 'This group contains still contains categories';
 //1.5.0 - modified
 $txt['productadmin13'] = 'Stock';
 
+//1.5.1 - added
+$txt['dashboard7'] = 'Nothing to display';
+$txt['my10'] = 'Other addresses';
 ?>

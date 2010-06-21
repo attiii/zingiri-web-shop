@@ -132,7 +132,7 @@ function display_table($caption,$headers,$rows=null,$sql=null) {
 			echo '</tr>';
 		}
 	} else {
-		echo '<tr><td>'.$txt['dashboard4'].'</td></tr>';
+		echo '<tr><td>'.$txt['dashboard7'].'</td></tr>';
 	}
 	echo '</table>';
 

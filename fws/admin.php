@@ -83,7 +83,7 @@ else {
 		if ($live_news == true || $live_news == false) {
 			global $current_user;
 			get_currentuserinfo();
-			$news = new HTTPRequest('http://www.zingiri.com/news.php?e='.urlencode(isset($current_user->user_email) ? $current_user->user_email : $sales_mail).'&w='.urlencode(ZING_HOME).'&a='.get_option("zing_ws_install").'&v='.urlencode(ZING_VERSION));
+			$news = new wsNewsRequest('http://www.zingiri.com/news.php?e='.urlencode(isset($current_user->user_email) ? $current_user->user_email : $sales_mail).'&w='.urlencode(ZING_HOME).'&a='.get_option("zing_ws_install").'&v='.urlencode(ZING_VERSION));
 			if ($news->live()) {
 				PutWindow($gfx_dir, $txt['general13'], $news->DownloadToString(), "news.gif", "90");
 			}
