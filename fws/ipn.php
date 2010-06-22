@@ -234,6 +234,7 @@ else
 
 				user_error_handler("0", "step C-OK\n","ipn.php",0);
 
+				
 				//update order payment status
 				$query="select * from " . $dbtablesprefix . "order where WEBID=" . quote_smart(trim($item_name));
 				$sql=mysql_query($query) or die(user_error_handler("1",
@@ -241,8 +242,24 @@ else
 						. mysql_errno(),
 						"ipn.php", 0));
 				if ($row = mysql_fetch_array($sql)) {
+					//check if order contains only downloadable items
+					$digProducts=$allProducts=0;
+					$query_basket=sprintf("select PRODUCTID from ".$dbtablesprefix."basket where CUSTOMERID=%s and ORDERID=%s",$row['CUSTOMERID'],$row['ID']);
+					user_error_handler(1,$query_basket);
+					$sql_basket=mysql_query($query_basket) or die(user_error_handler("1","Error reading basket:<br>" . mysql_error() . "<br>" . mysql_errno(),"ipn.php", 0));
+					while ($row_basket = mysql_fetch_array($sql_basket)) {
+						$query_product=sprintf("select LINK from ".$dbtablesprefix."product where ID=%s",$row_basket['PRODUCTID']);
+						user_error_handler(1,$query_product);
+						$sql_product=mysql_query($query_product) or die(user_error_handler("1","Error reading product:<br>" . mysql_error() . "<br>" . mysql_errno(),"ipn.php", 0));
+						if ($row_product = mysql_fetch_array($sql_product)) {
+							if (!empty($row_product['LINK'])) $digProducts++;
+							$allProducts++;
+						}
+					}
+					user_error_handler(1,'Products:'.$digProducts.'/'.$allProducts);
 					$paid=$row['PAID'] + $mc_gross;
-					if ($paid >= $row['TOPAY']) $status=4;
+					if (($paid >= $row['TOPAY']) && ($allProducts==$digProducts)) $status=5;
+					elseif ($paid >= $row['TOPAY']) $status=4;
 					else $status=$row['STATUS'];
 					$query="update " . $dbtablesprefix . "order SET STATUS=".$status.", PAID=".$paid ." WHERE WEBID =" . quote_smart(trim($item_name));
 					user_error_handler("0", "custom=" . $custom . "\n","ipn.php",0);

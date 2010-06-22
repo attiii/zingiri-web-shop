@@ -73,6 +73,7 @@ Before upgrading, make sure you back up your database first!
 * Fix: added few new Dutch translations
 * Fix: corrected issue with product images not being displayed in the order they're uploaded
 * Fix: corrected issue with product images being overwritten by new images when updating product
+* Fix: order status is now set to completed upon successful receipt of Paypal IPN in case the order only contains digital products (previously it was set to being processed)
 
 = 1.5.0 =
 * New: made customer registration and profile forms completely editable
