@@ -153,7 +153,7 @@ if ($zflist)
 	}
 	else
 	{
-		echo "<tr><td colspan=".($zflist->headersCount+1)."><center>No records available</center></td></tr>";
+		echo "<tr><td colspan=".($zflist->headersCount+1)."><center>".z_("No records available")."</center></td></tr>";
 	}
 	echo '</table>';
 	echo '<script type="text/javascript">';

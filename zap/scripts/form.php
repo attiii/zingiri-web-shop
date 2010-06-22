@@ -180,10 +180,10 @@ if ($allowed && $success && $showform == "edit") {
 				echo '<input type="hidden" name="redirect" value="'.$link['REDIRECT'].'" />';
 				if (!empty($id)) $link['URL'].='&id='.$id;
 				if ($link['FORMOUTALT']) {
-					echo '<input class="art-button" type="submit" name="save" value="'.$link['ACTION'].'" onclick="form.action=\''.$link['URL'].'\'">';
+					echo '<input class="art-button" type="submit" name="save" value="'.z_($link['ACTION']).'" onclick="form.action=\''.$link['URL'].'\'">';
 				}
 				else {
-					echo '<input class="art-button" type="submit" name="save" value="'.$link['ACTION'].'" onclick="form.action=\'?zfaces='.$link['DISPLAYOUT'].'&formid='.$link['FORMOUT'].'&id='.$id.'&map='.$link['MAP'].'\'">';
+					echo '<input class="art-button" type="submit" name="save" value="'.z_($link['ACTION']).'" onclick="form.action=\'?zfaces='.$link['DISPLAYOUT'].'&formid='.$link['FORMOUT'].'&id='.$id.'&map='.$link['MAP'].'\'">';
 				}
 			}
 		}
@@ -191,14 +191,14 @@ if ($allowed && $success && $showform == "edit") {
 
 	if (!$noForm) {
 		if (($action == 'add' or $action == 'edit') && (!$override_save)) {
-			echo '<center><input class="art-button" type="submit" name="save" value="Save"></center>';
+			echo '<center><input class="art-button" type="submit" name="save" value="'.z_('Save').'"></center>';
 		} elseif ($action == 'delete') {
-			echo '<center><input class="art-button" type="submit" name="delete" value="Delete"></center>';
+			echo '<center><input class="art-button" type="submit" name="delete" value="'.z_('Delete').'"></center>';
 		}
 		echo '</form><br />';
 	}
 	echo '</div>';
-	if ($stack->getPrevious()) echo '<a href="'.$stack->getPrevious().'">Back</a>';
+	if ($stack->getPrevious()) echo '<a href="'.$stack->getPrevious().'">'.z_('Back').'</a>';
 
 } elseif ($showform == "saved") {
 	if ($stack->getPrevious()) {

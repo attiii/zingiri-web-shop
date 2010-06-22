@@ -165,7 +165,8 @@ class zfForm {
 								$f[$key1*100+$key2]=strtoupper('`'.$value['column'].'_'.$this->elements['name'][$key1][$key2].'`');
 								if (defined("ZING_APPS_TRANSLATE")) {
 									$tempfunc=ZING_APPS_TRANSLATE;
-									$h[$key1*100+$key2]=$tempfunc($value['label']).' '.$tempfunc($this->elements['label'][$key1][$key2]);
+									//$h[$key1*100+$key2]=$tempfunc($value['label']).' '.$tempfunc($this->elements['label'][$key1][$key2]);
+									$h[$key1*100+$key2]=$tempfunc($this->elements['label'][$key1][$key2]);
 								} else {
 									$h[$key1*100+$key2]=$value['label'].' '.$this->elements['label'][$key1][$key2];
 								}

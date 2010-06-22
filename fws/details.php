@@ -73,15 +73,23 @@ else {
 		<td colspan=2>
 		<h5><?php echo $txt['details2'] ?>: <?php echo $row[1] ?></h5>
 		<br />
-		<div style="text-align:center;"><?php echo $screenshot; ?><br />
+		<div style="text-align: center;"><?php echo $screenshot; ?><br />
 		<?php
 		//other images
 
 		$imagesCount=0;
 		$picid=$row['ID'];
+		$imgs=array();
 		$handle=opendir($product_dir);
 		while (($img = readdir($handle))!==false) {
 			if (strstr($img,'tn_'.$picid.'.') || strstr($img,'tn_'.$picid.'__')) {
+				$imgs[]=$img;
+			}
+		}
+		closedir($handle);
+		asort($imgs);
+		if (count($imgs) > 0) {
+			foreach ($imgs as $img) {
 				$imagesCount++;
 				$imagesMarkUp.='<div id="'.$img.'" style="position:relative;float:left">';
 				$size=wsResizeImage($product_dir.'/'.str_replace('tn_','',$img));
@@ -90,7 +98,6 @@ else {
 				$imagesMarkUp.='</div>';
 			}
 		}
-		closedir($handle);
 		if ($imagesCount > 1) {
 			echo '<div id="uploaded_images">';
 			echo $imagesMarkUp;
@@ -105,8 +112,7 @@ else {
 			$admin_edit = $admin_edit."&nbsp;|&nbsp;<a href=\"?page=productadmin&action=delete_product&pcat=".$cat."&prodid=".$row[0]."\">".$txt['browse8']."</a>";
 			//$admin_edit = $admin_edit."&nbsp;|&nbsp;<a href=\"?page=productadmin&action=picture_upload_form&picid=".$picture."\">".$txt['browse10']."</a>";
 		}
-		?>
-		<br />
+		?> <br />
 		<table class="borderless" width="90%">
 			<tr>
 				<td class="borderless">

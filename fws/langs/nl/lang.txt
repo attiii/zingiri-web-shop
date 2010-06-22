@@ -636,4 +636,20 @@ $txt['discountadmin6'] = 'Alle ongebruikte codes';
 $txt['discountadmin7'] = 'Kortingscode';
 $txt['discountadmin8'] = 'Geen ongebruikte codes';
 $txt['discountadmin9'] = 'Aanmaak datum';
+
+//1.5.1 - added
+$txt['dashboard7'] = 'Geen data beschikbaar';
+$txt['apps4'] = 'Geen data beschikbaar';
+$txt['my10'] = 'Andere adressen';
+$txt['address1'] = 'Voornaam';
+$txt['address2'] = 'Achternaam';
+$txt['address3'] = 'Straat';
+$txt['address5'] = 'Vervolg';
+$txt['address6'] = 'Naam';
+$txt['apps1'] = 'Opslaan';
+$txt['apps2'] = 'Verwijderen';
+$txt['apps3'] = 'Terug';
+
+
+
 ?>

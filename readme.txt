@@ -70,6 +70,9 @@ Before upgrading, make sure you back up your database first!
 * Change: product carousels are now simple widgets that can be put anywhere on the page
 * Fix: corrected missing replacements of navlist with zing-navlist
 * Fix: fixed alignment issues with products on frontpage 
+* Fix: added few new Dutch translations
+* Fix: corrected issue with product images not being displayed in the order they're uploaded
+* Fix: corrected issue with product images being overwritten by new images when updating product
 
 = 1.5.0 =
 * New: made customer registration and profile forms completely editable

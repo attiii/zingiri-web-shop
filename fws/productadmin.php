@@ -256,8 +256,9 @@ else {
 			if (strstr($img,$key)) {
 				$ext = strtolower(substr(strrchr($img, '.'), 1));
 				if (strstr($img,'tn_'.$key)) $tn='tn_'; else $tn='';
-				$newimg=$tn.$picid.'.'.$ext;
-				$i=1;
+				if (isset($_POST['lastimg'])) $i=$_POST['lastimg'];
+				else $i=1;
+				$newimg=$tn.$picid.'__'.sprintf('%03d',$i).'.'.$ext;
 				while (file_exists($product_dir.'/'.$newimg)) {
 					$i++;
 					$newimg=$tn.$picid.'__'.sprintf('%03d',$i).'.'.$ext;
@@ -439,10 +440,18 @@ else {
 
 function wsShowImage($picid,$defaultImage) {
 	global $product_dir,$product_url,$txt,$pricelist_thumb_width,$pricelist_thumb_height;
+	$imgs=array();
 	echo '<div id="uploaded_images">';
 	$handle=opendir($product_dir);
 	while (($img = readdir($handle))!==false) {
 		if (strstr($img,'tn_'.$picid.'.') || strstr($img,'tn_'.$picid.'__')) {
+			$imgs[]=$img;
+		}
+	}
+	closedir($handle);
+	if (count($imgs) > 0) {
+		asort($imgs);
+		foreach ($imgs as $img) {
 			echo '<div id="'.$img.'" style="position:relative;float:left">';
 			echo "<img src=\"".$product_url."/".$img."\" class=\"borderimg\" /><br />";
 			if (ZING_PROTOTYPE || ZING_JQUERY) echo '<a href="javascript:wsDeleteImage(\''.$img.'\');">';
@@ -451,41 +460,13 @@ function wsShowImage($picid,$defaultImage) {
 			echo "</a>";
 			if ($img == $defaultImage) $checked='checked'; else $checked='';
 			echo '<input type="radio" name="image_default" value="'.$img.'" '.$checked.' />';
-				
 			echo '</div>';
+			preg_match('/tn_(.*)__(.*)\./',$img,$matches);
+			if (count($matches) == 3) $lastimg=$matches[2]+1;
+			else $lastimg=1;
 		}
+		echo '<input type="hidden" name="lastimg" id="lastimg" value="'.$lastimg.'">';
 	}
-	closedir($handle);
-
-	/*
-	 if (file_exists($product_dir."/".$picid.".jpg")) { $thumb = $picid.".jpg"; }
-	 if (file_exists($product_dir."/".$picid.".gif")) { $thumb = $picid.".gif"; }
-	 if (file_exists($product_dir."/".$picid.".png")) { $thumb = $picid.".png"; }
-	 if ($thumb != "") {
-	 $size = getimagesize($product_dir."/".$thumb);
-	 $height = $size[1];
-	 $width = $size[0];
-	 //$ref=150;
-	 if ($height > $pricelist_thumb_height)
-	 {
-	 $height = $pricelist_thumb_height;
-	 $percent = ($size[1] / $height);
-	 $width = round($size[0] / $percent);
-	 }
-	 if ($width > $pricelist_thumb_width)
-	 {
-	 $width = $pricelist_thumb_width;
-	 $percent = ($size[0] / $width);
-	 $height = round($size[1] / $percent);
-	 }
-	 echo '<div style="position:relative;float:left">';
-	 echo "<img src=\"".$product_url."/".$thumb."\" class=\"borderimg\" height=".$height." width=".$width."><br />";
-	 echo "<a href=\"".zurl("index.php?page=productadmin&action=del_image&picid=".$picid)."\">";
-	 echo '<img style="position:absolute;right:0px;top:0px;" src="'.ZING_URL.'fws/templates/default/images/delete.gif" height="16px" width="16px" />';
-	 echo "</a>";
-	 echo '</div>';
-	 }
-	 */
 	echo '</div><div style="clear:both"></div>';
 }
 if ($action == "add_product" || $action == "edit_product") {

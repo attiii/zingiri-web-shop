@@ -731,6 +731,9 @@ $txt['groupadmin104'] = 'This group contains still contains categories';
 $txt['productadmin13'] = 'Stock';
 
 //1.5.1 - added
-$txt['dashboard7'] = 'Nothing to display';
+$txt['dashboard7'] = 'No records available';
+$txt['apps4'] = 'No records available';
 $txt['my10'] = 'Other addresses';
+$txt['address6'] = 'Name';
+
 ?>
