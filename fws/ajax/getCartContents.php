@@ -28,6 +28,10 @@ require(dirname(__FILE__).'/../../../../../wp-blog-header.php');
 require(dirname(__FILE__).'/../../zing.readcookie.inc.php');
 require(dirname(__FILE__).'/../../zing.startmodules.inc.php');
 
+error_reporting(E_ALL & ~E_NOTICE);
+ini_set('display_errors', '1');
+
 /** Display cart */
-require(dirname(__FILE__).'/../menu_cart.php');
+$wsc=new widget_sidebar_cart();
+$wsc->display(); 
 ?>
