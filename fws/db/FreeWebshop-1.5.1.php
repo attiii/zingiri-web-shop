@@ -17,8 +17,6 @@ function ws_upgrade_1_5_1_set_category_images() {
 	}
 }
 function ws_upgrade_1_5_1_set_templates() {
-	error_reporting(E_ALL & ~E_NOTICE);
-	ini_set('display_errors', '1');
 	$db=new db();
 	$db->update('truncate ##template');
 	$prompts=new zingPrompts();

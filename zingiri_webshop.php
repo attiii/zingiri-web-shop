@@ -31,7 +31,6 @@
  */
 define("ZING_VERSION","1.5.1");
 
-error_reporting(E_ALL & ~E_NOTICE);
 @include(dirname(__FILE__)."/fixme.php");
 require(dirname(__FILE__)."/load.php");
 define("ZING_APPS",dirname(__FILE__)."/fws/fields/");

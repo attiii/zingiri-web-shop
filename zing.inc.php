@@ -1030,9 +1030,6 @@ function zing_delete_user($id) {
 
 function zing_ws_title($title) {
 	if ($_GET['prod']) {
-		error_reporting(E_ALL & ~E_NOTICE);
-		ini_set('display_errors', '1');
-
 		$prodid=$_GET['prod'];
 		$db=new db();
 		//echo 'select product from ##product,##category where ##product.catid=##category.id and ##product.id='.qs($prodid);

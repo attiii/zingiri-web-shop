@@ -25,9 +25,6 @@
 // general settings
 $version = "2.2.9_R2"; // the version of this webshop
 $index_refer = 1; // pages of the webshop cannot be opened if this value is unset
-//error_reporting(E_ALL ^ E_NOTICE); // ^ E_NOTICE
-//set_error_handler("user_error_handler");
-//ini_set('display_errors', '1');
 require(dirname(__FILE__).'/../classes/index.php');
 
 function CreateRandomCode($len) {
@@ -1000,5 +997,9 @@ function faces_map($a) {
 	return urlencode($q);
 }
 
+
+function zing_carousel() {
+	//not used	
+}
 
 ?>

@@ -24,8 +24,6 @@
 <?php if ($index_refer <> 1) { exit(); } ?>
 <?php
 // admin check
-//error_reporting(E_ALL & ~E_NOTICE);
-//ini_set('display_errors', '1');
 if (IsAdmin() == false) {
 	PutWindow($gfx_dir, $txt['general12'], $txt['general2'], "warning.gif", "50");
 }

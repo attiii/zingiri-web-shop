@@ -22,9 +22,6 @@
 ?>
 <?php if ($index_refer <> 1) { exit(); } ?>
 <?php
-
-error_reporting(E_ALL & ~E_NOTICE);
-ini_set('display_errors', '1');
 require(dirname(__FILE__).'/../zap/includes/faces.inc.php');
 
 if (IsAdmin()) {
