@@ -52,9 +52,12 @@
 			and it must be a folder under the CONFIG_SYS_ROOT_PATH or the same folder
 		*/
 		
-	define('CONFIG_SYS_DEFAULT_PATH', '../../../up/'); 
-	define('CONFIG_SYS_ROOT_PATH', '../../../up/');	//the root folder where the files would be uploaded to
-	define("CONFIG_SYS_DIR_SESSION_PATH", 'session/');
+	//define('CONFIG_SYS_DEFAULT_PATH', '../../../up/'); 
+	//define('CONFIG_SYS_ROOT_PATH', '../../../up/');	//the root folder where the files would be uploaded to
+	//define("CONFIG_SYS_DIR_SESSION_PATH", 'session/');
+	define('CONFIG_SYS_ROOT_PATH', dirname(__FILE__).'/../../../../../../../../../../uploads/zingiri-web-shop/');	//the root folder where the files would be uploaded to
+	define('CONFIG_SYS_DEFAULT_PATH', CONFIG_SYS_ROOT_PATH); 
+	define("CONFIG_SYS_DIR_SESSION_PATH", CONFIG_SYS_ROOT_PATH);
 	define('CONFIG_SYS_INC_DIR_PATTERN', ''); //leave empty if you want to include all foldler
 	define('CONFIG_SYS_EXC_DIR_PATTERN', ''); //leave empty if you want to include all folder
 	define('CONFIG_SYS_INC_FILE_PATTERN', '');

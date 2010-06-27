@@ -60,7 +60,18 @@ Before upgrading, make sure you back up your database first!
 == Changelog ==
 
 = 1.5.1 =
+* New: replaced order confirmation with a templating system, including possibility to add a logo, define own styles, ...
 * New: support for Wordpress 3.0
+* New: added possibility to login with email address
+* New: groups and categories are now sortable and can be arranged in any order
+* New: added random product widget
+* New: added test on presence of products before deleting a category
+* New: added test on presence of categories before deleting a group
+* New: added order date in order confirmation template
+* Change: set tinymce to use Wordpress uploads folder instead of its own folder
+* Change: don't expand shopping cart if product added to cart is not in stock
+* Change: introduced new back end interface to manage groups and categories
+* Change: simplified way category images are edited
 * Change: rearranged personal page icons for better fit with WP3 default theme
 * Change: removed unused fws/templates/default/stylesheet.css file
 * Change: removed fws/menu_*.php files (now recoded in extensions directory)
@@ -68,6 +79,9 @@ Before upgrading, make sure you back up your database first!
 * Change: removed requirement to have CURL installed
 * Change: changed label and icon for other addresses in customer personal page
 * Change: product carousels are now simple widgets that can be put anywhere on the page
+* Change: consolidated PHP global variables
+* Change: email addresses are now synchronised when installing the web shop in WP integration mode
+* Fix: corrected aspect ratio resizing issue on category thumbnails
 * Fix: corrected missing replacements of navlist with zing-navlist
 * Fix: fixed alignment issues with products on frontpage 
 * Fix: added few new Dutch translations

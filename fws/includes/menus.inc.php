@@ -9,13 +9,15 @@ $menus['browse']=array('group' => 'menu9', 'label' => 'menu15','href' => 'page=b
 $menus['stockadmin']=array('group' => 'menu9', 'label' => 'admin32','href' => 'page=stockadmin', 'img' => 'stockadmin.gif');
 $menus['showadmins']=array('page' => 'customeradmin', 'group' => 'admin23', 'label' => 'admin29','href' => 'page=customeradmin&action=showadmins', 'img' => 'admins.gif', 'func' => 'CountCustomers','param' => 'ADMIN');
 //if (get_option('zing_ws_login') == "WP") $menus['showadmins']['hide']=true;
-$menus['groupadmin']=array('group' => 'admin23', 'label' => 'admin6','href' => 'page=groupadmin', 'img' => 'groups.gif');
+//$menus['groupadmin']=array('group' => 'admin23', 'label' => 'admin6','href' => 'page=groupadmin', 'img' => 'groups.gif');
+$menus['groupadmin']=array('type' => 'apps', 'group' => 'admin23', 'label' => 'admin6','href' => 'zfaces=list&form=group', 'img' => 'groups.gif');
 //$menus['paymentadmin']=array('group' => 'admin23', 'label' => 'admin21','href' => 'page=paymentadmin', 'img' => 'paymentadmin.gif');
 $menus['paymentadmin']=array('type' => 'apps', 'group' => 'admin23', 'label' => 'admin21','href' => 'zfaces=list&form=payment', 'img' => 'paymentadmin.gif');
 $menus['shippingadmin']=array('group' => 'admin23', 'label' => 'admin18','href' => 'page=shippingadmin', 'img' => 'shippingadmin.gif');
 $menus['uploadadmin']=array('group' => 'admin23', 'label' => 'admin9','href' => 'page=uploadadmin', 'img' => 'uploadlist.gif');
 $menus['editsettings']=array('group' => 'admin23', 'label' => 'admin8','href' => 'page=editsettings', 'img' => 'settings.gif');
 $menus['advancedsettings']=array('type' => 'apps', 'group' => 'admin23', 'label' => 'editsettings93','href' => 'zfaces=form&form=settings&action=edit&no_redirect=1&id=1', 'img' => 'pc.gif');
+$menus['templates']=array('type' => 'apps', 'group' => 'admin23', 'label' => 'template3','href' => 'zfaces=list&form=template', 'img' => 'template.png');
 $menus['discountadmin']=array('type' => 'apps', 'group' => 'admin23', 'label' => 'admin38','href' => 'zfaces=list&form=discount', 'img' => 'discount.gif');
 $menus['taxes']=array('type' => 'apps', 'group' => 'admin23', 'label' => 'admin100','href' => 'zfaces=list&form=taxes', 'img' => 'taxes.png');
 $menus['adminedit']=array('group' => 'admin24', 'label' => 'admin15','href' => 'page=adminedit&filename=conditions.sql&root=0&wysiwyg=0', 'img' => 'conditionsadmin.gif');

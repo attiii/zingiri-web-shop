@@ -57,11 +57,12 @@ class zingPrompts {
 
 	}
 
-	function loadLang($lang='en') {
+	function loadLang($lang='en',$getCustom=false) {
 		$db=new db();
 		$db->select("select * from ##prompt where lang=".qs($lang));
 		while ($db->next()) {
-			$txt[$db->get('label')]=$db->get('standard');
+			if ($getCustom && trim($db->get('custom'))!='') $txt[$db->get('label')]=$db->get('custom');
+			else $txt[$db->get('label')]=$db->get('standard');
 		}
 		return $txt;
 	}
@@ -159,12 +160,13 @@ class zingPrompts {
 	}
 
 
-	function loadOldLangFile() {
+	function loadOldLangFile($lang='') {
+		if (empty($lang)) $lang=$this->lang;
 		$txt=array();
 		foreach ($this->vars as $var) {
 			$$var='$'.$var;
 		}
-		require(ZING_DIR.'langs/'.$this->lang.'/lang.txt');
+		require(ZING_DIR.'langs/'.$lang.'/lang.txt');
 		return $txt;
 	}
 

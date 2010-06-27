@@ -68,7 +68,7 @@ var wsCart = Class.create( {
 			parameters : $(form).serialize(true),
 			onComplete : function(request) {
 				if (request.responseText) alert(request.responseText);
-				this.getCart();
+				else this.getCart();
 			}.bind(this)
 		});
 

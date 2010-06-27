@@ -50,7 +50,7 @@ else {
 			elseif (thumb_exists($product_dir ."/". $picture . ".gif")) { $thumb = $product_url ."/". $picture . ".gif"; }
 			elseif (thumb_exists($product_dir ."/". $picture . ".png")) { $thumb = $product_url ."/". $picture . ".png"; }
 
-			if ($thumb == "") { $thumb = $gfx_dir."/nothumb.jpg"; }
+			if ($thumb != "") { $thumb = $gfx_dir."/nothumb.jpg"; }
 
 			$size=wsResizeImage($thumb);
 			$resized=$size['resized'];

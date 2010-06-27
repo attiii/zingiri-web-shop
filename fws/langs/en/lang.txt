@@ -724,7 +724,7 @@ $txt['apps3'] = 'Back';
 $txt['general102'] = "Enabled";
 $txt['general103'] = "Disabled";
 $txt['stockadmin100'] = "Status only";
-$txt['groupadmin104'] = 'This group contains still contains categories';
+$txt['groupadmin104'] = 'This group still contains categories';
 
 
 //1.5.0 - modified
@@ -735,5 +735,10 @@ $txt['dashboard7'] = 'No records available';
 $txt['apps4'] = 'No records available';
 $txt['my10'] = 'Other addresses';
 $txt['address6'] = 'Name';
+$txt['groupadmin105'] = 'This category still contains products';
+$txt['template1'] = 'Content';
+$txt['template2'] = 'Title';
+$txt['template3'] = 'Templates';
+
 
 ?>

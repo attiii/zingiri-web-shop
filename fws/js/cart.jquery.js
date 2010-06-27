@@ -60,7 +60,7 @@ var wsCart = Class.create( {
 			data : form.serialize(true),
 			success : function(request) {
 				if (request) alert(request);
-				t.getCart();
+				else t.getCart();
 			}
 		});
 

@@ -21,8 +21,8 @@
  */
 ?>
 <?php
-$formname=$_GET['form'];
 $formid=$_GET['formid'];
+$formname=$_GET['form'] ? $_GET['form'] : zfGetForm($_GET['formid']);
 $zfp=intval($_GET['zfp']);
 $zft=$_GET['zft'];
 $pos=$_GET['pos'];
@@ -95,13 +95,16 @@ if ($zflist)
 
 	if (ZingAppsIsAdmin()) echo '<table id="'.$formname.'" class="datatable sortable draggable">';
 	else echo '<table id="'.$formname.'" class="datatable">';
+	echo '<thead>';
 	echo '<tr>';
 	foreach ($h as $key => $value)
 	{
 		echo '<th id="'.$key.'">'.$value.'</th>';
 	}
 	echo '</tr>';
-
+	echo '</thead>';
+	echo '<tbody id="foo" class="sortlist">';
+	
 	$altrow="altrow";
 
 	if ($zflist->SelectRows($map,$pos))
@@ -120,8 +123,8 @@ if ($zflist)
 				}
 
 			}
-
-			echo '<tr class="'.$altrow.'" id="foo'.$line.'">';
+			$line=$id;
+			echo '<tr class="'.$altrow.'" id="foo_'.$line.'">';
 			if ($altrow) $altrow=""; else $altrow="altrow";
 			$i=1;
 			foreach ($row as $column)
@@ -129,7 +132,7 @@ if ($zflist)
 				echo '<td>';
 				echo '<div>'.$column.'</div>';
 				if ($i==1 && !empty($span)) {
-					echo '<span style="filter:alpha(opacity=90);opacity:0.9;padding:4px;display:none;position:absolute;" id="fox'.$line.'">'.$span.'</span>';
+					echo '<span style="filter:alpha(opacity=90);opacity:0.9;padding:4px;display:none;position:absolute;" id="fox_'.$line.'">'.$span.'</span>';
 					echo '<br />';
 				}
 				echo '</td>';
@@ -138,13 +141,13 @@ if ($zflist)
 			echo '</td>';
 			if (!empty($span)) {
 				if (ZING_PROTOTYPE) {
-					$script.="var zelt = $('foo".$line."');";
-					$script.="zelt.observe('mouseover', function() { $('fox".$line."').setStyle({ display : 'block', backgroundColor : '#ccdd4f'}); });";
-					$script.="zelt.observe('mouseout', function() { $('fox".$line."').setStyle({ display : 'none'});});";
+					$script.="var zelt = $('foo_".$line."');";
+					$script.="zelt.observe('mouseover', function() { $('fox_".$line."').setStyle({ display : 'block', backgroundColor : '#ccdd4f'}); });";
+					$script.="zelt.observe('mouseout', function() { $('fox_".$line."').setStyle({ display : 'none'});});";
 				} elseif (ZING_JQUERY) {
-					$script.="var zelt = jQuery('#foo".$line."');";
-					$script.="zelt.bind('mouseover', this, function() { jQuery('#fox".$line."').css('display','block');jQuery('#fox".$line."').css('backgroundColor','#ccdd4f'); });";
-					$script.="zelt.bind('mouseout', this, function() { jQuery('#fox".$line."').css('display','none'); });";
+					$script.="var zelt = jQuery('#foo_".$line."');";
+					$script.="zelt.bind('mouseover', this, function() { jQuery('#fox_".$line."').css('display','block');jQuery('#fox_".$line."').css('backgroundColor','#ccdd4f'); });";
+					$script.="zelt.bind('mouseout', this, function() { jQuery('#fox_".$line."').css('display','none'); });";
 				}
 			}
 			$line++;
@@ -155,6 +158,7 @@ if ($zflist)
 	{
 		echo "<tr><td colspan=".($zflist->headersCount+1)."><center>".z_("No records available")."</center></td></tr>";
 	}
+	echo '</tbody>';
 	echo '</table>';
 	echo '<script type="text/javascript">';
 	if (ZING_PROTOTYPE) {
@@ -178,3 +182,26 @@ if ($zflist)
 
 
 ?></div>
+<?php 
+if (method_exists($zflist,'sortlist')) {
+	$zflist->sortlist();
+	if (ZING_PROTOTYPE || is_admin()) { 
+?>
+
+<script type="text/javascript" language="javascript">
+//<![CDATA[
+	document.observe("dom:loaded", function() {
+	    appsSortList.init('<?php echo $zflist->ajaxUpdateURL;?>');
+	});
+//]]>
+</script>
+		<?php } elseif (ZING_JQUERY) {?>
+<script type="text/javascript" language="javascript">
+//<![CDATA[
+	jQuery(document).ready(function() {
+	    appsSortList.init('<?php echo $zflist->ajaxUpdateURL;?>');
+	});
+//]]>
+</script>
+<?php }
+		}?>

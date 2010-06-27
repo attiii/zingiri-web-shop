@@ -1,5 +1,13 @@
 <?php
 class zfgroup extends zfForm {
+	function init() {
+		$this->orderKeys="`SORTORDER`,`NAME`";
+	}
+	
+	function sortlist() {
+		$this->ajaxUpdateURL=ZING_URL.'fws/ajax/group_sort.php';
+	}
+
 	function postPrepare($success) {
 		if ($this->action == 'delete') {
 			$db=new db();

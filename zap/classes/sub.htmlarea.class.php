@@ -25,10 +25,15 @@ class htmlareaZfSubElement extends zfSubElement {
 
 	function output($mode="edit",$input="")
 	{
-		return substr($this->ext,0,250)."...";
-			
+		return substr($this->ext);
 	}
 
+	function verify()
+	{
+		$this->int=stripslashes($this->ext);
+		return true;
+	}
+	
 	function display(&$field_markup,&$subscript_markup) {
 		$e=$this->element;
 		$i=$this->subid;

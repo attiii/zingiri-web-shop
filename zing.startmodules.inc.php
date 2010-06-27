@@ -30,10 +30,12 @@ include( ZING_DIR."./includes/setfolders.inc.php");      // set appropriate fold
 
 $product_url = BLOGUPLOADURL.'zingiri-web-shop/'.$product_dir;
 $brands_url = BLOGUPLOADURL.'zingiri-web-shop/'.$brands_dir;
+define('ZING_WS_CATS_URL',$brands_url.'/');
 $orders_url = BLOGUPLOADURL.'zingiri-web-shop/'.$orders_dir;
 
 $product_dir = BLOGUPLOADDIR.'zingiri-web-shop/'.$product_dir;
 $brands_dir = BLOGUPLOADDIR.'zingiri-web-shop/'.$brands_dir;
+define('ZING_WS_CATS_DIR',$brands_dir.'/');
 $orders_dir = BLOGUPLOADDIR.'zingiri-web-shop/'.$orders_dir;
 $lang_dir = ZING_DIR.$lang_dir;
 

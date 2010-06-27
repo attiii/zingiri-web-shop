@@ -65,7 +65,7 @@ class integrator {
 				$query2.="('".$user->data->user_login."', '".$user->data->first_name."', '".$user->data->last_name."', '".$user->data->user_email."', '".$group."', '".date("Y-m-d")."')";
 				$wpdb->query($query2);
 			} else {
-				$query2=sprintf("UPDATE `".$this->prefix."customer` SET `GROUP`='%s' WHERE `LOGINNAME`='%s'",$group,$user->data->user_login);
+				$query2=sprintf("UPDATE `".$this->prefix."customer` SET `GROUP`='%s',`EMAIL`='%s' WHERE `LOGINNAME`='%s'",$group,$user->data->user_email,$user->data->user_login);
 				$wpdb->query($query2);
 			}
 		}

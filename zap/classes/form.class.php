@@ -52,6 +52,7 @@ class zfForm {
 	var $page;
 	var $filter;
 	var $data=array();
+	var $orderKeys="`ID`";
 
 	function zfForm($form,$id=0,$post=null,$action="",$page="") {
 		$this->page=$page;
@@ -94,9 +95,13 @@ class zfForm {
 			$this->json=false;
 			$this->error=true;
 		}
-
+		$this->init();
 	}
 
+	function init() {
+		return true;
+	}
+	
 	function filter($post='') {
 		$linksin=new db();
 		$query="select * from ##flink where (displayout='".$this->page."' or displayout='any') and formout='".$this->id."' and mapping <> ''";
@@ -528,7 +533,7 @@ class zfForm {
 			}
 			$this->query.=$qwhere;
 		}
-		$this->query.=" ORDER BY `ID`";
+		$this->query.=" ORDER BY ".$this->orderKeys;
 		$this->db=new db();
 		$this->rowsCount=$this->db->select($this->query);
 

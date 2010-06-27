@@ -121,6 +121,7 @@ function zing_ws_settings() {
 	global $menus,$txt,$wpdb;
 
 	zing_header();
+	zing_apps_player_header_cp();
 	
 	echo '<div style="height:64px;float">';
 	echo '<center>';

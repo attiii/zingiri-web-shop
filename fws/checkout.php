@@ -106,6 +106,7 @@ if (LoggedIn() == True) {
 				$adrid=$_POST['address'];
 				$adr=$address->getAddress($adrid);
 				$initials=$adr['INITIALS'];
+				$middlename=$adr['MIDDLENAME'];
 				$lastname = $adr['LASTNAME'];
 				$address=$adr['ADDRESS'];
 				$zipcode=$adr['ZIP'];
@@ -116,15 +117,17 @@ if (LoggedIn() == True) {
 				$phone = $row[11];
 				$customer_row = $row;
 			}
-
+				
 			// process the order. NOTE: the price is calculated and added later on in this process!!! so $total is still empty at this point
 			// let's see if an aborted order already exists in which case we'll reuse it
-			$query = sprintf("SELECT `ORDERID` FROM `".$dbtablesprefix."basket` WHERE `STATUS`=0 AND `CUSTOMERID`=%s AND `ORDERID` <> 0", quote_smart($customerid));
+			$query = sprintf("SELECT `ORDERID`,`DATE` FROM `".$dbtablesprefix."basket` WHERE `STATUS`=0 AND `CUSTOMERID`=%s AND `ORDERID` <> 0", quote_smart($customerid));
 			$sql = mysql_query($query) or die(mysql_error());
 			if ($row = mysql_fetch_array($sql)) {
 				$lastid=$row['ORDERID'];
+				$orderDate=$row['DATE'];
 			} else {
-				$query = sprintf("INSERT INTO `".$dbtablesprefix."order` (`ADDRESSID`,`DATE`,`STATUS`,`SHIPPING`,`PAYMENT`,`CUSTOMERID`,`TOPAY`,`WEBID`,`NOTES`,`WEIGHT`) VALUES (%s,'".Date($date_format)."','1',%s,%s,%s,'1','n/a',%s,%s)", quote_smart($adrid), quote_smart($shippingid), quote_smart($paymentid), quote_smart($customerid), quote_smart($notes), quote_smart($weightid));
+				$orderDate=Date($date_format);
+				$query = sprintf("INSERT INTO `".$dbtablesprefix."order` (`ADDRESSID`,`DATE`,`STATUS`,`SHIPPING`,`PAYMENT`,`CUSTOMERID`,`TOPAY`,`WEBID`,`NOTES`,`WEIGHT`) VALUES (%s,'".$orderDate."','1',%s,%s,%s,'1','n/a',%s,%s)", quote_smart($adrid), quote_smart($shippingid), quote_smart($paymentid), quote_smart($customerid), quote_smart($notes), quote_smart($weightid));
 				$sql = mysql_query($query) or die(mysql_error());
 				// get the last id
 				$lastid = mysql_insert_id();
@@ -138,7 +141,18 @@ if (LoggedIn() == True) {
 			$sql = mysql_query($query) or die(mysql_error());
 
 			$zingPrompts->load(true);
-
+				
+			//template
+			$tpl=new wsTemplate('order',$lang);
+			$tpl->replace('ORDERDATE',$orderDate);
+			$tpl->replace('INITIALS',$initials);
+			$tpl->replace('LASTNAME',$lastname);
+			$tpl->replace('MIDDLENAME','');
+			$tpl->replace('SHOPNAME',$shopname);
+			$tpl->replace('SHOPURL',$shopurl);
+			$tpl->replace('WEBID',$webid);
+			$tpl->replace('CUSTOMERID',$customerid);
+			
 			$message = $txt['checkout3'];
 			$paymentmessage = "";
 			// now go through all all products from basket with status 'basket'
@@ -149,7 +163,7 @@ if (LoggedIn() == True) {
 
 			// let's format the product list a little
 			$message .= "<table width=\"100%\" class=\"borderless\">";
-
+			
 			while ($row = mysql_fetch_row($sql)) {
 				$query_details = "SELECT * FROM ".$dbtablesprefix."product WHERE ID = '" . $row[2] . "'";
 				$sql_details = mysql_query($query_details) or die(mysql_error());
@@ -175,12 +189,18 @@ if (LoggedIn() == True) {
 					$tax = new wsTax($product_price);
 					$product_price = $tax->in;
 					//					}
-
+					
 					// make up the description to print according to the pricelist_format and max_description
 					$print_description=printDescription($row_details[1],$row_details[3]);
 					if (!empty($row[7])) { $print_description .= "<br />".$printvalue; } // product features
 					$total_add = $product_price * $row[6];
 					$message .= "<tr><td>".$row[6].$txt['checkout4']."</td><td>".$print_description."<br />".$currency_symbol_pre.myNumberFormat($product_price,$number_format).$currency_symbol_post.$txt['checkout5']."</td><td style=\"text-align: right\">".$currency_symbol_pre.myNumberFormat($total_add,$number_format).$currency_symbol_post."</tr>";
+					$tpl->repeatRow(array('DESCRIPTION','QTY','PRICE','LINETOTAL'));
+					$tpl->replace('DESCRIPTION',$print_description);
+					$tpl->replace('QTY',$row[6]);
+					$tpl->replace('PRICE',$currency_symbol_pre.myNumberFormat($product_price,$number_format).$currency_symbol_post);
+					$tpl->replace('LINETOTAL',$currency_symbol_pre.myNumberFormat($total_add,$number_format).$currency_symbol_post);
+						
 					$total = $total + $total_add;
 
 					// update stock amount if needed
@@ -201,27 +221,34 @@ if (LoggedIn() == True) {
 					}
 				}
 			}
+			
 			// there might be a discount code
 			if ($discount_code <> "") {
 				$discount->calculate();
 				$message.= '<tr><td>'.$txt['checkout14'].'</td><td>'.$txt['checkout18'].' '.$discount_code.'<br />';
+				$tpl->replace('DISCOUNTCODE',$discount_code);
 				if ($discount->percentage>0) {
 					// percentage
+					$tpl->replace('DISCOUNTRATE',$discount->percentage.'%');
 					$message.= $txt['checkout14'].' '.$discount->percentage.'%</td><td style="text-align: right"><strong>-'.$currency_symbol_pre.myNumberFormat($discount->discount,$number_format).$currency_symbol_post.'</strong></td></tr>';
 				}
 				else {
+					$tpl->replace('DISCOUNTRATE','');
 					$message.= $txt['checkout14'].' '.$currency_symbol_pre.myNumberFormat($discount->discount,$number_format).$currency_symbol_post.'</td><td style="text-align: right"><strong>-'.$currency_symbol_pre.myNumberFormat($discount->discount,$number_format).$currency_symbol_post.'</strong></td></tr>';
 				}
+				$tpl->replace('DISCOUNTAMOUNT',$currency_symbol_pre.myNumberFormat($discount->discount,$number_format).$currency_symbol_post);
 				$total -= $discount->discount;
 				$discount->consume();
 			}
-
+			$tpl->removeRow(array('DISCOUNTCODE','DISCOUNTRATE','DISCOUNTAMOUNT'));
+			
 			// if the customer added additional notes/questions, we will display them too
 			if (!empty($_POST['notes'])) {
 				$message = $message . $txt['checkout6'].$txt['checkout6']; // white line
 				$message = $message . $txt['shipping3']."<br />".nl2br($notes);
 			}
-
+			$tpl->replace('NOTES',nl2br($notes));
+				
 			// first the shipping description
 			$query = sprintf("SELECT * FROM `".$dbtablesprefix."shipping` WHERE `id` = %s", quote_smart($shippingid));
 			$sql = mysql_query($query) or die(mysql_error());
@@ -239,7 +266,9 @@ if (LoggedIn() == True) {
 			}
 			$zingPrompts->load(true); // update sendcost in language file
 			$message .= '<tr><td>'.$txt['checkout16'].'</td><td>'.$shipping_descr.'</td><td style="text-align: right">'.$currency_symbol_pre.myNumberFormat($sendcosts,$number_format).$currency_symbol_post.'</td></tr>';
-
+			$tpl->replace('SHIPPINGMETHOD',$shipping_descr);
+			$tpl->replace('SHIPPINGCOSTS',$currency_symbol_pre.myNumberFormat($sendcosts,$number_format).$currency_symbol_post);
+				
 			$total = $total + $sendcosts;
 			$totalprint = myNumberFormat($total);
 			$print_sendcosts = myNumberFormat($sendcosts);
@@ -249,23 +278,42 @@ if (LoggedIn() == True) {
 			$taxheader=$txt['checkout102'];
 			if (count($tax->taxes)>0) {
 				foreach ($tax->taxes as $label => $data) {
+					$tpl->repeatRow(array('TAXHEADER','TAXLABEL','TAXRATE','TAXTOTAL'));
+					$tpl->replace('TAXHEADER',$taxheader);
+					$tpl->replace('TAXRATE',$data['RATE']);
+					$tpl->replace('TAXTOTAL',$currency_symbol_pre.myNumberFormat($data['TAX'],$number_format).$currency_symbol_post);
+					$tpl->replace('TAXLABEL',$label);
 					$message .= '<tr><td>'.$taxheader.'</td><td>'.$label.' '.$data['RATE'].'%</td><td style="text-align: right">'.$currency_symbol_pre.myNumberFormat($data['TAX'],$number_format).$currency_symbol_post.'</td></tr>';
 					$taxheader="";
 				}
 			}
-			$message .= '<tr><td>'.$txt['checkout24'].'</td><td>'.$txt['checkout25'].'</td><td style="text-align: right"><big><strong>'.$currency_symbol_pre.myNumberFormat($total,$number_format).$currency_symbol_post.'</strong></big></td></tr>';
-			$message .= "</table><br /><br />";
 
+			// now lets calculate the invoice total now we know the final addition, the shipping costs
+			$message .= '<tr><td>'.$txt['checkout24'].'</td><td>'.$txt['checkout25'].'</td><td style="text-align: right"><big><strong>'.$currency_symbol_pre.myNumberFormat($total,$number_format).$currency_symbol_post.'</strong></big></td></tr>';
+			$tpl->replace('TOTAL',$currency_symbol_pre.myNumberFormat($total,$number_format).$currency_symbol_post);
+			$message .= "</table><br /><br />";
+				
 			// shippingmethod 2 is pick up at store. if you don't support this option, there is no need to remove this
 			if ($shippingid == "2") { // pickup from store
 				$message .= $txt['checkout18']; // appointment line
-			}
-			elseif ($_POST['address']!='') {
+				$tpl->replace('PHONE','');
+				$tpl->replace('COMPANY','');
+				$tpl->replace('ADDRESS','');
+				$tpl->replace('ZIPCODE','');
+				$tpl->replace('CITY','');
+				$tpl->replace('STATE','');
+				$tpl->replace('COUNTRY','');
+			} elseif ($_POST['address']!='') {
 				$message .= $txt['checkout17']; // shipping address
+				$tpl->replace('PHONE',$customer_row['PHONE']);
+				$tpl->replace('COMPANY',$customer_row['COMPANY']);
+				$tpl->replace('ADDRESS',$address);
+				$tpl->replace('ZIPCODE',$zipcode);
+				$tpl->replace('CITY',$city);
+				$tpl->replace('STATE',$state);
+				$tpl->replace('COUNTRY',$country);
 			}
 			$message = $message . $txt['checkout6'].$txt['checkout6']; // white line
-
-			// now lets calculate the invoice total now we know the final addition, the shipping costs
 
 			// now the payment
 			$payment=new paymentCode();
@@ -274,35 +322,36 @@ if (LoggedIn() == True) {
 			$message .= $txt['checkout19'].$payment_descr; // Payment method:
 			$message .= $txt['checkout6']; // line break
 
-			// paypal and ideal use extra code to checkout. if there is extra code, then we paste it here
-			if ($payment_code <> "") {
-				$paymentmessage .= $payment_code;
-				$paymentmessage .= $txt['checkout6']; // line break
-			}
-
 			// the two standard build in payment methods
 			if ($paymentid == "1") {
 				//bank payment
-				$message .= $txt['checkout20']; // bank info
-				$message .= $txt['checkout6'].$txt['checkout6']; // new line
-				$message .= $txt['checkout26'];  // pay within xx days
-			} elseif ($paymentid == "2") {
-				// if the payment method is 'pay at the store', you don't need to pay within 14 days
-				$message .= $txt['checkout21']; // cash payment
-			} else {
-				//other methods
+				$paymentmessage = $txt['checkout20']; // bank info
 				$paymentmessage .= $txt['checkout6'].$txt['checkout6']; // new line
 				$paymentmessage .= $txt['checkout26'];  // pay within xx days
-				if ($autosubmit && $payment_code!='') {
+				$message.=$paymentmessage;
+			} elseif ($paymentid == "2") {
+				// if the payment method is 'pay at the store', you don't need to pay within 14 days
+				$paymentmessage = $txt['checkout21']; // cash payment
+				$message.=$paymentmessage;
+			} else {
+				//other methods
+				//$paymentmessage .= $txt['checkout6'].$txt['checkout6']; // new line
+				if ($payment_code!='') {
+					$paymentmessage = $payment_code;
 					$message .= $paymentmessage;
 				} else {
 					$message .= $paymentmessage;
 				}
+				$paymentmessage .= $txt['checkout26'];  // pay within xx days
+				//if (!$autosubmit) 
 			}
-
+			$tpl->replace('PAYMENTCODE',$paymentmessage);
+			
 			$message .= $txt['checkout6']; // white line
 			$message .= $txt['checkout9']; // direct link to customer order for online status checking
-
+			
+			$message=$tpl->getContent();
+			
 			//update order & basket
 			if ($autosubmit && $payment_code!="") {
 				$basket_status=0;
@@ -314,7 +363,7 @@ if (LoggedIn() == True) {
 			// order update
 			$query = "UPDATE `".$dbtablesprefix."order` SET `STATUS`=".qs($order_status).", `TOPAY` = '".$total."',`DISCOUNTCODE`=".qs($discount_code)." WHERE `ID` = ".$lastid;
 			$sql = mysql_query($query) or die(mysql_error());
-			
+				
 			//basket update
 			$query = sprintf("UPDATE `".$dbtablesprefix."basket` SET `ORDERID` = '".$lastid."',`STATUS`=%s WHERE (`CUSTOMERID` = %s AND `STATUS` = '0')", qs($basket_status), quote_smart($customerid));
 			$sql = mysql_query($query) or die(mysql_error());
@@ -324,7 +373,7 @@ if (LoggedIn() == True) {
 			$fullpdf = "";
 			if ($create_pdf == 1) {
 				$m = '<html><head><meta http-equiv="Content-Type" content="text/html; charset='.$charset.'" /></head>';
-				if ($charset=='UTF-8') { 
+				if ($charset=='UTF-8') {
 					$m.='<body style="font-family:courier;">';
 					ini_set("memory_limit","512M");
 					//$m.= utf8_decode($message);
@@ -373,7 +422,7 @@ if (LoggedIn() == True) {
 
 			// now lets show the customer some details
 			CheckoutShowProgress();
-
+			
 			// now print the confirmation on the screen
 			if (!$autosubmit || ($autosubmit && $payment_code=='')) {
 				echo '
@@ -388,7 +437,7 @@ if (LoggedIn() == True) {
 				PutWindow($gfx_dir, $txt['general13'], $txt['checkout104'], "loader.gif", "50");
 				echo '<div>'.$payment_code.'</div>';
 				if (ZING_PROTOTYPE) {
-				?>
+					?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
 					document.observe("dom:loaded", function() {
@@ -396,7 +445,7 @@ if (LoggedIn() == True) {
 					});
            //]]>
 </script>
-				<?php
+					<?php
 				} elseif (ZING_JQUERY) {?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[

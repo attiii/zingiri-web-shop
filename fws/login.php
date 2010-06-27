@@ -59,7 +59,7 @@ if ($lostlogin == 0) {
 	$post_pass = $_POST['pass'];
 	if ((empty($post_pass)) || ($post_pass == "")) { $post_pass = "no_password_is_never_valid!"; }
 
-	$query = sprintf("SELECT * FROM `".$dbtablesprefix."customer` WHERE `LOGINNAME`=%s AND `PASSWORD`=%s", quote_smart($post_name), quote_smart(md5($post_pass)));
+	$query = sprintf("SELECT * FROM `".$dbtablesprefix."customer` WHERE (`LOGINNAME`=%s OR `EMAIL`=%s) AND `PASSWORD`=%s", quote_smart($post_name), quote_smart($post_name), quote_smart(md5($post_pass)));
 	$sql = mysql_query($query) or die(mysql_error());
 	$count = mysql_num_rows($sql);
 	while ($row = mysql_fetch_row($sql)) {

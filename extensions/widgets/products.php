@@ -25,7 +25,7 @@ class widget_sidebar_products {
 		// if the category is send, then use that to find out the group
 		if ($cat != 0 && $group == 0) { $group = TheGroup($cat); }
 
-		$query = "SELECT * FROM `".$dbtablesprefix."group` ORDER BY `NAME` ASC";
+		$query = "SELECT * FROM `".$dbtablesprefix."group` ORDER BY `SORTORDER`,`NAME` ASC";
 		$sql = mysql_query($query) or die(mysql_error());
 
 		if (mysql_num_rows($sql) == 0) {
@@ -35,7 +35,7 @@ class widget_sidebar_products {
 			echo "<ul id=\"zing-navlist\">\n";
 			while ($row = mysql_fetch_row($sql)) {
 				// lets find out how many categories there are in the group
-				$query_cat = sprintf("SELECT * FROM `".$dbtablesprefix."category` where `GROUPID`=%s ORDER BY `DESC` ASC", quote_smart($row[0]));
+				$query_cat = sprintf("SELECT * FROM `".$dbtablesprefix."category` where `GROUPID`=%s ORDER BY `SORTORDER`,`DESC` ASC", quote_smart($row[0]));
 				$sql_cat = mysql_query($query_cat) or die(mysql_error());
 				$ahref = "";
 

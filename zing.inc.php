@@ -179,7 +179,6 @@ function zing_check() {
 	}
 
 	$dirs[]=ZING_DIR.'addons/captcha';
-	$dirs[]=ZING_DIR.'addons/tinymce/jscripts/up';
 	foreach ($dirs as $file) {
 		if (!is_writable($file)) $warnings[]='Directory '.$file.' is not writable, please chmod to 777';
 	}
@@ -265,21 +264,27 @@ function zing_install() {
 		update_option("zing_webshop_version",ZING_VERSION);
 	}
 
-
 	if ($handle = opendir(dirname(__FILE__).'/fws/db')) {
 		$files=array();
+		$execs=array();
 		while (false !== ($file = readdir($handle))) {
 			if (strstr($file,".sql")) {
 				$f=explode("-",$file);
-
 				$v=str_replace(".sql","",$f[1]);
 				if ($zing_version < $v) {
 					$files[]=array(dirname(__FILE__).'/fws/db/'.$file,$v);
+				}
+			} elseif (strstr($file,".php")) {
+				$f=explode("-",$file);
+				$v=str_replace(".php","",$f[1]);
+				if ($zing_version < $v) {
+					$execs[]=dirname(__FILE__).'/fws/db/'.$file;
 				}
 			}
 		}
 		closedir($handle);
 		asort($files);
+		asort($execs);
 		if (count($files) > 0) {
 			foreach ($files as $afile) {
 				list($file,$v)=$afile;
@@ -315,7 +320,13 @@ function zing_install() {
 				}
 			}
 		}
+		if (count($execs) > 0) {
+			foreach ($execs as $exec) {
+				require($exec);
+			}
+		}
 	}
+
 	//Load Apps forms if not loaded yet
 	if (!$player) {
 		zing_ws_error_handler(0,'Loading Apps forms');
@@ -511,132 +522,7 @@ function zing_uninstall() {
  * @return unknown_type
  */
 function zing_main($process,$content="") {
-	global $post;
-	global $wpdb;
-	global $aboutus_page;
-	global $action;
-	global $author;
-	global $autosubmit;
-	global $bankaccount;
-	global $bankaccountowner;
-	global $bankbic;
-	global $bankcity;
-	global $bankcountry;
-	global $bankiban;
-	global $bankname;
-	global $brands_dir;
-	global $breadcrumb;
-	global $cat;
-	global $catdesc;
-	global $category_thumb_height;
-	global $category_thumb_width;
-	global $cntry;
-	global $conditions_page;
-	global $create_pdf;
-	global $currency;
-	global $currency_pos;
-	global $currency_symbol;
-	global $currency_symbol_post;
-	global $currency_symbol_pre;
-	global $customerid;
-	global $date_format;
-	global $date_format_ext;
-	global $db_lang;
-	global $db_prices_including_vat;
-	global $dblocation;
-	global $dbname;
-	global $dbpass;
-	global $dbtablesprefix;
-	global $dbuser;
-	global $default_lang;
-	global $description;
-	global $gfx_dir;
-	global $guarantee_page;
-	global $hide_outofstock;
-	global $index_refer;
-	global $isbn_access_key;
-	global $keywords;
-	global $lang;
-	global $lang_dir;
-	global $lang_file;
-	global $lang2;
-	global $lang3;
-	global $live_news;
-	global $main_file;
-	global $make_thumbs;
-	global $max_description;
-	global $name;
-	global $new_days;
-	global $new_page;
-	global $no_vat;
-	global $number_format;
-	global $order_from_pricelist;
-	global $order_prefix;
-	global $order_suffix;
-	global $orderby;
-	global $ordering_enabled;
-	global $orders_dir;
-	global $page;
-	global $page_footer;
-	global $page_title;
-	global $paymentdays;
-	global $pictureid;
-	global $pricelist_format;
-	global $pricelist_thumb_height;
-	global $pricelist_thumb_width;
-	global $product_dir;
-	global $product_url,$orders_url,$brands_url;
-	global $product_max_height;
-	global $product_max_width;
-	global $products_dir;
-	global $products_per_page;
-	global $rate;
-	global $region;
-	global $sales_mail;
-	global $scripts_dir;
-	global $search_prodgfx;
-	global $send_default_country;
-	global $shipping_page;
-	global $shop_disabled;
-	global $shop_disabled_reason;
-	global $shop_disabled_title;
-	global $shop_logo;
-	global $shop_name;
-	global $shopfax;
-	global $shopname;
-	global $shoptel;
-	global $shopurl;
-	global $show_stock;
-	global $show_vat;
-	global $slogan;
-	global $start_year;
-	global $stock_enabled;
-	global $stock_warning_level;
-	global $template;
-	global $template_dir;
-	global $thumbs_in_pricelist;
-	global $title;
-	global $titlepage;
-	global $topupdelta;
-	global $topuplow;
-	global $topupmin;
-	global $txt;
-	global $use_captcha;
-	global $use_datefix;
-	global $use_imagepopup;
-	global $use_phpmail;
-	global $use_prodgfx;
-	global $use_stock_warning;
-	global $use_wysiwyg;
-	global $vat;
-	global $webmaster_mail;
-	global $weight_metric;
-	global $charset;
-	global $zing_loaded;
-	global $menus;
-	global $integrator;
-	global $zing;
-	global $zingPrompts;
+	require(ZING_GLOBALS);
 
 	$matches=array();
 
@@ -1058,7 +944,7 @@ function zing_dberror($query,$loc) {
 function zing_login($loginname) {
 	global $dbtablesprefix;
 
-	$query = sprintf("SELECT * FROM `".$dbtablesprefix."customer` WHERE `LOGINNAME`=%s", quote_smart($loginname));
+	$query = sprintf("SELECT * FROM `".$dbtablesprefix."customer` WHERE (`LOGINNAME`=%s OR `EMAIL`=%s)", quote_smart($loginname),quote_smart($loginname));
 	$sql = mysql_query($query) or die(mysql_error());
 	if ($row = mysql_fetch_row($sql)) {
 		$id = $row[0];
@@ -1086,7 +972,7 @@ function zing_login($loginname) {
 		$query = "UPDATE `".$dbtablesprefix."customer` SET `IP` = '".GetUserIP()."' WHERE `ID`=".$id;
 		$sql = mysql_query($query) or die(mysql_error());
 		// make acccesslog entry
-		$query = sprintf("INSERT INTO ".$dbtablesprefix."accesslog (login, time, succeeded) VALUES(%s, '".date("F j, Y, g:i a")."', '1')", quote_smart($loginname));
+		$query = sprintf("INSERT INTO ".$dbtablesprefix."accesslog (login, time, succeeded) VALUES(%s, '".date("F j, Y, g:i a")."', '1')", quote_smart($name));
 		$sql = mysql_query($query) or die(mysql_error());
 
 		setcookie ("fws_cust",$cookie_data, 0, '/'); //time()+3600
@@ -1126,72 +1012,12 @@ function zing_profile($user_id) {
 
 	if ($db->readRecord('customer',array('LOGINNAME' => $user_data->user_login))) {
 		$db->updateRecord('customer',array('LOGINNAME' => $user_data->user_login), $row);
-		/*
-		 $_GET['page']='apps';
-		 $_GET['zfaces']='form';
-		 $_GET['form']='profile1';
-		 $_GET['action']='edit';
-		 $_GET['step']='save';
-		 unset($_GET['showform']);
-		 $_GET['no_redirect']=1;
-		 $user=get_userdata($user_id);
-		 $_GET['id']=getCustomerByLogin($user->user_login);
-		 zing_main('content');
-		 zing_apps_player_content('content');
-		 $_SESSION['zing']['ProfileNextStep']="";
-		 */
 	} else {
 		$row['LOGINNAME']=$user_data->user_login;
 		$row['DATE_CREATED']=date('Y-m-d');
 		$db->insertRecord('customer',"",$row);
 	}
 }
-/*
- function zing_profile_show($user_id) {
- zing_profile_edit($user_id);
- }
-
- function zing_profile_edit($user_id) {
- echo '<link rel="stylesheet" type="text/css" href="'.ZING_APPS_PLAYER_URL.'css/apps_wp_admin.css" />';
-
- if (isset($_GET['user_id'])) { $id=(int) $_GET['user_id']; 	$user=get_userdata($id); }
- elseif (isset($_POST['user_id'])) { $id=(int) $_POST['user_id']; $user=get_userdata($id); }
- else $user=$user_id;
- $_GET['page']='apps';
- $_GET['zfaces']='form';
- $_GET['form']='profile1';
- $_GET['action']='edit';
- $_GET['step']=$_SESSION['zing']['ProfileNextStep'];
- $_GET['showform']='edit';
- $_GET['no_form']=1;
- $_GET['id']=getCustomerByLogin($user->user_login);
- zing_main('content');
- zing_apps_player_content('content');
- $_SESSION['zing']['ProfileNextStep']="";
- }
- */
-
-/*
- * Check errors before committing user data
- */
-/*
- function zing_profile_check_errors(&$errors, $update, &$user) {
- global $zfform,$zfSuccess;
-
- $_GET['page']='apps';
- $_GET['zfaces']='form';
- $_GET['form']='profile1';
- $_GET['action']='edit';
- if ($_POST['action']=='update') $_GET['step']='check';
- else $_GET['step']="";
- $_GET['showform']=false;
- $_GET['id']=getCustomerByLogin($user->user_login);
- zing_main('content');
- zing_apps_player_content('content');
- if (!$zfSuccess) $errors->errors['invalid']=array('Errors');
- $_SESSION['zing']['ProfileNextStep']="check";
- }
- */
 
 function zing_profile_pre($user_id) {
 }
