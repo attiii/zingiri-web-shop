@@ -1,0 +1,3 @@
+= 0.9.4 =
+* Added 'add' link to Links form
+* Removed context field from Links form
