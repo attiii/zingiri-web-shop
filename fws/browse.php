@@ -339,7 +339,7 @@ else { $limit = ""; }
 	  echo "<br /><h4>".$txt['browse11'].": ";
 
 	  if ($num_page > $page_range) {
-	  	echo "<a href=\"index.php?page=browse&action=$action&group=$group&cat=$cat&orderby=$orderby&searchmethod=$searchmethod&searchfor=$searchfor&num_page=1&includesearch=$includesearch\">[1]</a>";
+	  	echo "<a href=\"".zurl('index.php?page=browse&action=$action&group=$group&cat=$cat&orderby=$orderby&searchmethod=$searchmethod&searchfor=$searchfor&num_page=1&includesearch=$includesearch')."\">[1]</a>";
 	  }
 	  if ($num_page > $page_range + 1) echo ' ...';
 
@@ -352,7 +352,7 @@ else { $limit = ""; }
 			  if ($num_pages == $num_page) {
 				  echo "<b>[$num_pages]</b>";
 			  }
-			  elseif (($num_pages-$num_page <= $page_range) && ($num_pages-$num_page >= -$page_range)) { echo "<a href=\"index.php?page=browse&action=$action&group=$group&cat=$cat&orderby=$orderby&searchmethod=$searchmethod&searchfor=$searchfor&num_page=$num_pages&includesearch=$includesearch\">[$num_pages]</a>"; }
+			  elseif (($num_pages-$num_page <= $page_range) && ($num_pages-$num_page >= -$page_range)) { echo "<a href=\"".zurl('index.php?page=browse&action=$action&group=$group&cat=$cat&orderby=$orderby&searchmethod=$searchmethod&searchfor=$searchfor&num_page=$num_pages&includesearch=$includesearch')."\">[$num_pages]</a>"; }
 			  echo " ";
 		  }
 	  }
@@ -363,7 +363,7 @@ else { $limit = ""; }
 		  if ($num_pages == $num_page) {
 			  echo "<b>[$num_pages]</b>";
 		  }
-		  else { echo "<a href=\"index.php?page=browse&action=$action&group=$group&cat=$cat&orderby=$orderby&searchmethod=$searchmethod&searchfor=$searchfor&num_page=$num_pages&includesearch=$includesearch\">[$num_pages]</a>"; }
+		  else { echo "<a href=\"".zurl('index.php?page=browse&action=$action&group=$group&cat=$cat&orderby=$orderby&searchmethod=$searchmethod&searchfor=$searchfor&num_page=$num_pages&includesearch=$includesearch')."\">[$num_pages]</a>"; }
 	  }
 
 	  echo "</h4>";

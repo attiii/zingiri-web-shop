@@ -506,18 +506,22 @@ else {
                         </SELECT>  
 	                  </td>
         	      </tr>
+        	      <!--
 	              <tr><td><?php echo $txt['editsettings35'] ?></td>
 	                  <td><input type="text" name="shop_logo" size="30" maxlength="50" value="<?php echo $shop_logo ?>"></td>
         	      </tr>
+        	      -->
 	              <tr><td><?php echo $txt['editsettings37'] ?></td>
 	                  <td><input type="text" name="slogan" size="30" maxlength="200" value="<?php echo $slogan ?>"></td>
         	      </tr>
 	              <tr><td><?php echo $txt['editsettings38'] ?></td>
 	                  <td><input type="text" name="page_title" size="30" maxlength="200" value="<?php echo $page_title ?>"></td>
         	      </tr>
+        	      <!--
 	              <tr><td><?php echo $txt['editsettings39'] ?></td>
 	                  <td><input type="text" name="page_footer" size="30" maxlength="100" value="<?php echo $page_footer ?>"></td>
         	      </tr>
+        	      -->
 	              <tr><td><?php echo $txt['editsettings53'] ?></td>
 	                  <td>
                         <SELECT NAME="pricelist_format">

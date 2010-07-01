@@ -25,7 +25,7 @@ class htmlareaZfSubElement extends zfSubElement {
 
 	function output($mode="edit",$input="")
 	{
-		return substr($this->ext);
+		return $this->ext;
 	}
 
 	function verify()

@@ -50,7 +50,6 @@ function ws_upgrade_1_5_1_set_templates() {
 			$title=str_replace('$'.$var,"[".strtoupper($var)."]",$title);
 		}
 		$db->insertRecord('template','',array('CONTENT'=>$message,'LANG'=>$lang,'NAME'=>'order','TITLE'=>$title));
-		echo '<br />'.$message;
 	}
 }
 

@@ -178,6 +178,7 @@ function zing_check() {
 		if (!is_writable($file)) $warnings[]='File '.$file.' is not writable, please chmod to 666';
 	}
 
+	$dirs[]=BLOGUPLOADDIR;
 	$dirs[]=ZING_DIR.'addons/captcha';
 	foreach ($dirs as $file) {
 		if (!is_writable($file)) $warnings[]='Directory '.$file.' is not writable, please chmod to 777';

@@ -71,6 +71,8 @@ if (LoggedIn() == True) {
 			PutWindow($gfx_dir, $txt['general12'], $txt['checkout2'], "warning.gif", "50");
 			$error = 1;
 		}
+		
+		$totalWeight=WeighCart($customerid);
 
 		// lets find out some customer details
 		$query = sprintf("SELECT * FROM ".$dbtablesprefix."customer WHERE ID = %s", quote_smart($customerid));
@@ -117,14 +119,18 @@ if (LoggedIn() == True) {
 				$phone = $row[11];
 				$customer_row = $row;
 			}
-				
+
 			// process the order. NOTE: the price is calculated and added later on in this process!!! so $total is still empty at this point
 			// let's see if an aborted order already exists in which case we'll reuse it
-			$query = sprintf("SELECT `ORDERID`,`DATE` FROM `".$dbtablesprefix."basket` WHERE `STATUS`=0 AND `CUSTOMERID`=%s AND `ORDERID` <> 0", quote_smart($customerid));
+			$query = sprintf("SELECT `ORDERID` FROM `".$dbtablesprefix."basket` WHERE `STATUS`=0 AND `CUSTOMERID`=%s AND `ORDERID` <> 0", quote_smart($customerid));
 			$sql = mysql_query($query) or die(mysql_error());
 			if ($row = mysql_fetch_array($sql)) {
-				$lastid=$row['ORDERID'];
-				$orderDate=$row['DATE'];
+				$query_order = sprintf("SELECT `DATE` FROM `".$dbtablesprefix."order` WHERE `ID`=%s", $row['ORDERID']);
+				$sql_order = mysql_query($query_order) or die(mysql_error());
+				if ($row_order = mysql_fetch_array($sql_order)) {
+					$lastid=$row['ORDERID'];
+					$orderDate=$row_order['DATE'];
+				}
 			} else {
 				$orderDate=Date($date_format);
 				$query = sprintf("INSERT INTO `".$dbtablesprefix."order` (`ADDRESSID`,`DATE`,`STATUS`,`SHIPPING`,`PAYMENT`,`CUSTOMERID`,`TOPAY`,`WEBID`,`NOTES`,`WEIGHT`) VALUES (%s,'".$orderDate."','1',%s,%s,%s,'1','n/a',%s,%s)", quote_smart($adrid), quote_smart($shippingid), quote_smart($paymentid), quote_smart($customerid), quote_smart($notes), quote_smart($weightid));
@@ -141,7 +147,7 @@ if (LoggedIn() == True) {
 			$sql = mysql_query($query) or die(mysql_error());
 
 			$zingPrompts->load(true);
-				
+
 			//template
 			$tpl=new wsTemplate('order',$lang);
 			$tpl->replace('ORDERDATE',$orderDate);
@@ -152,7 +158,7 @@ if (LoggedIn() == True) {
 			$tpl->replace('SHOPURL',$shopurl);
 			$tpl->replace('WEBID',$webid);
 			$tpl->replace('CUSTOMERID',$customerid);
-			
+				
 			$message = $txt['checkout3'];
 			$paymentmessage = "";
 			// now go through all all products from basket with status 'basket'
@@ -163,7 +169,7 @@ if (LoggedIn() == True) {
 
 			// let's format the product list a little
 			$message .= "<table width=\"100%\" class=\"borderless\">";
-			
+				
 			while ($row = mysql_fetch_row($sql)) {
 				$query_details = "SELECT * FROM ".$dbtablesprefix."product WHERE ID = '" . $row[2] . "'";
 				$sql_details = mysql_query($query_details) or die(mysql_error());
@@ -189,7 +195,7 @@ if (LoggedIn() == True) {
 					$tax = new wsTax($product_price);
 					$product_price = $tax->in;
 					//					}
-					
+						
 					// make up the description to print according to the pricelist_format and max_description
 					$print_description=printDescription($row_details[1],$row_details[3]);
 					if (!empty($row[7])) { $print_description .= "<br />".$printvalue; } // product features
@@ -200,7 +206,7 @@ if (LoggedIn() == True) {
 					$tpl->replace('QTY',$row[6]);
 					$tpl->replace('PRICE',$currency_symbol_pre.myNumberFormat($product_price,$number_format).$currency_symbol_post);
 					$tpl->replace('LINETOTAL',$currency_symbol_pre.myNumberFormat($total_add,$number_format).$currency_symbol_post);
-						
+
 					$total = $total + $total_add;
 
 					// update stock amount if needed
@@ -221,7 +227,7 @@ if (LoggedIn() == True) {
 					}
 				}
 			}
-			
+				
 			// there might be a discount code
 			if ($discount_code <> "") {
 				$discount->calculate();
@@ -241,14 +247,14 @@ if (LoggedIn() == True) {
 				$discount->consume();
 			}
 			$tpl->removeRow(array('DISCOUNTCODE','DISCOUNTRATE','DISCOUNTAMOUNT'));
-			
+				
 			// if the customer added additional notes/questions, we will display them too
 			if (!empty($_POST['notes'])) {
 				$message = $message . $txt['checkout6'].$txt['checkout6']; // white line
 				$message = $message . $txt['shipping3']."<br />".nl2br($notes);
 			}
 			$tpl->replace('NOTES',nl2br($notes));
-				
+
 			// first the shipping description
 			$query = sprintf("SELECT * FROM `".$dbtablesprefix."shipping` WHERE `id` = %s", quote_smart($shippingid));
 			$sql = mysql_query($query) or die(mysql_error());
@@ -268,7 +274,7 @@ if (LoggedIn() == True) {
 			$message .= '<tr><td>'.$txt['checkout16'].'</td><td>'.$shipping_descr.'</td><td style="text-align: right">'.$currency_symbol_pre.myNumberFormat($sendcosts,$number_format).$currency_symbol_post.'</td></tr>';
 			$tpl->replace('SHIPPINGMETHOD',$shipping_descr);
 			$tpl->replace('SHIPPINGCOSTS',$currency_symbol_pre.myNumberFormat($sendcosts,$number_format).$currency_symbol_post);
-				
+
 			$total = $total + $sendcosts;
 			$totalprint = myNumberFormat($total);
 			$print_sendcosts = myNumberFormat($sendcosts);
@@ -292,18 +298,9 @@ if (LoggedIn() == True) {
 			$message .= '<tr><td>'.$txt['checkout24'].'</td><td>'.$txt['checkout25'].'</td><td style="text-align: right"><big><strong>'.$currency_symbol_pre.myNumberFormat($total,$number_format).$currency_symbol_post.'</strong></big></td></tr>';
 			$tpl->replace('TOTAL',$currency_symbol_pre.myNumberFormat($total,$number_format).$currency_symbol_post);
 			$message .= "</table><br /><br />";
-				
+
 			// shippingmethod 2 is pick up at store. if you don't support this option, there is no need to remove this
-			if ($shippingid == "2") { // pickup from store
-				$message .= $txt['checkout18']; // appointment line
-				$tpl->replace('PHONE','');
-				$tpl->replace('COMPANY','');
-				$tpl->replace('ADDRESS','');
-				$tpl->replace('ZIPCODE','');
-				$tpl->replace('CITY','');
-				$tpl->replace('STATE','');
-				$tpl->replace('COUNTRY','');
-			} elseif ($_POST['address']!='') {
+			if ($shippingid != "2" && $totalWeight > 0) { // only show shipping address if something to ship and not pickup from store
 				$message .= $txt['checkout17']; // shipping address
 				$tpl->replace('PHONE',$customer_row['PHONE']);
 				$tpl->replace('COMPANY',$customer_row['COMPANY']);
@@ -312,7 +309,16 @@ if (LoggedIn() == True) {
 				$tpl->replace('CITY',$city);
 				$tpl->replace('STATE',$state);
 				$tpl->replace('COUNTRY',$country);
-			}
+			} else {
+				$message .= $txt['checkout18']; // appointment line
+				$tpl->replace('PHONE','');
+				$tpl->replace('COMPANY','');
+				$tpl->replace('ADDRESS','');
+				$tpl->replace('ZIPCODE','');
+				$tpl->replace('CITY','');
+				$tpl->replace('STATE','');
+				$tpl->replace('COUNTRY','');
+			} 
 			$message = $message . $txt['checkout6'].$txt['checkout6']; // white line
 
 			// now the payment
@@ -343,15 +349,15 @@ if (LoggedIn() == True) {
 					$message .= $paymentmessage;
 				}
 				$paymentmessage .= $txt['checkout26'];  // pay within xx days
-				//if (!$autosubmit) 
+				//if (!$autosubmit)
 			}
 			$tpl->replace('PAYMENTCODE',$paymentmessage);
-			
+				
 			$message .= $txt['checkout6']; // white line
 			$message .= $txt['checkout9']; // direct link to customer order for online status checking
-			
+				
 			$message=$tpl->getContent();
-			
+				
 			//update order & basket
 			if ($autosubmit && $payment_code!="") {
 				$basket_status=0;
@@ -363,7 +369,7 @@ if (LoggedIn() == True) {
 			// order update
 			$query = "UPDATE `".$dbtablesprefix."order` SET `STATUS`=".qs($order_status).", `TOPAY` = '".$total."',`DISCOUNTCODE`=".qs($discount_code)." WHERE `ID` = ".$lastid;
 			$sql = mysql_query($query) or die(mysql_error());
-				
+
 			//basket update
 			$query = sprintf("UPDATE `".$dbtablesprefix."basket` SET `ORDERID` = '".$lastid."',`STATUS`=%s WHERE (`CUSTOMERID` = %s AND `STATUS` = '0')", qs($basket_status), quote_smart($customerid));
 			$sql = mysql_query($query) or die(mysql_error());
@@ -418,11 +424,11 @@ if (LoggedIn() == True) {
 				}
 				else { PutWindow($gfx_dir, $txt['general12'], $txt['checkout12'], "warning.gif", "50"); }
 			}
-			mymail($sales_mail, $sales_mail, $subject, $message, $charset); // no error checking here, because there is no use to report this to the customer
+			mymail($sales_mail, $sales_mail, $txt['db_status1'].":".$webid, $message, $charset); // no error checking here, because there is no use to report this to the customer
 
 			// now lets show the customer some details
 			CheckoutShowProgress();
-			
+				
 			// now print the confirmation on the screen
 			if (!$autosubmit || ($autosubmit && $payment_code=='')) {
 				echo '

@@ -59,6 +59,18 @@ Before upgrading, make sure you back up your database first!
 
 == Changelog ==
 
+= 1.5.2 = 
+* Change: changed the subject/title of the email sent to the shop administrator when a customer places an order
+* Change: removed shop logo from shop settings as this is no longer required with the introduction of templates
+* Change: removed footer option from settings as this is not used
+* Fix: fixed issue with error on inexisting DATE field when going to checkout
+* Fix: resolved issue with address not being parsed when using multi-step checkout process
+* Fix: removed displays during upgrade
+* Fix: corrected issue with address form not being available to customers
+* Fix: added missing country field to customre register and profile forms
+* Fix: fixed issue with product image not appearing
+* Fix: fixed issue with pagination in products overview
+
 = 1.5.1 =
 * New: replaced order confirmation with a templating system, including possibility to add a logo, define own styles, ...
 * New: support for Wordpress 3.0
