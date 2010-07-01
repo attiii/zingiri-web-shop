@@ -284,8 +284,7 @@ if (LoggedIn() == True) {
 			$taxheader=$txt['checkout102'];
 			if (count($tax->taxes)>0) {
 				foreach ($tax->taxes as $label => $data) {
-					$tpl->repeatRow(array('TAXHEADER','TAXLABEL','TAXRATE','TAXTOTAL'));
-					$tpl->replace('TAXHEADER',$taxheader);
+					$tpl->repeatRow(array('TAXLABEL','TAXRATE','TAXTOTAL'));
 					$tpl->replace('TAXRATE',$data['RATE']);
 					$tpl->replace('TAXTOTAL',$currency_symbol_pre.myNumberFormat($data['TAX'],$number_format).$currency_symbol_post);
 					$tpl->replace('TAXLABEL',$label);

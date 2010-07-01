@@ -164,6 +164,13 @@ function zing_init_uninstall() {
  */
 function zing_check() {
 	global $lang_dir;
+
+	require(ABSPATH.'wp-admin/includes/class-wp-filesystem-base.php');
+	require(ABSPATH.'wp-admin/includes/class-wp-filesystem-ftpext.php');
+	if (!defined('FS_CONNECT_TIMEOUT')) define('FS_CONNECT_TIMEOUT',30);
+	$f=new WP_Filesystem_FTPext(array('hostname'=>FTP_HOST,'username'=>FTP_USER,'password'=>FTP_PASS));
+	@$f->connect();
+
 	$errors=array();
 	$warnings=array();
 	$files=array();
@@ -174,13 +181,14 @@ function zing_check() {
 	$files[]=ZING_DIR.'banned.txt';
 
 	foreach ($files as $file) {
-		//		if (!file_exists($file)) $warnings[]='File '.$file. " doesn't exist";
+		@$f->chmod($file,0666);
 		if (!is_writable($file)) $warnings[]='File '.$file.' is not writable, please chmod to 666';
 	}
 
 	$dirs[]=BLOGUPLOADDIR;
 	$dirs[]=ZING_DIR.'addons/captcha';
 	foreach ($dirs as $file) {
+		@$f->chmod($file,0777);
 		if (!is_writable($file)) $warnings[]='Directory '.$file.' is not writable, please chmod to 777';
 	}
 
@@ -194,7 +202,10 @@ function zing_check() {
 
 		foreach ($dirs as $file) {
 			if (!file_exists($file)) $warnings[]='Directory '.$file. " doesn't exist";
-			elseif (!is_writable($file)) $warnings[]='Directory '.$file.' is not writable, please chmod to 777';
+			else {
+				@$f->chmod($dirs,0777);
+				if (!is_writable($file)) $warnings[]='Directory '.$file.' is not writable, please chmod to 777';
+			}
 		}
 	}
 

@@ -35,7 +35,7 @@ function ws_upgrade_1_5_1_set_templates() {
 		$message.= '<tr><td>'.$txt['checkout14'].'</td><td>'.$txt['checkout18'].' '.'[DISCOUNTCODE]'.'<br />';
 		$message.= '([DISCOUNTRATE])'.'</td><td style="text-align: right"><strong>-'.'[DISCOUNTAMOUNT]'.'</strong></td></tr>';
 		$message.= '<tr><td>'.$txt['checkout16'].'</td><td>'.'[SHIPPINGMETHOD]'.'</td><td style="text-align: right">'.'[SHIPPINGCOSTS]'.'</td></tr>';
-		$message.= '<tr><td>'.'[TAXHEADER]'.'</td><td>'.'[TAXLABEL]'.' '.'[TAXRATE]'.'%</td><td style="text-align: right">'.'[TAXTOTAL]'.'</td></tr>';
+		$message.= '<tr><td>'.$txt['checkout102'].'</td><td>'.'[TAXLABEL]'.' '.'[TAXRATE]'.'%</td><td style="text-align: right">'.'[TAXTOTAL]'.'</td></tr>';
 		$message.= '<tr><td>'.$txt['checkout24'].'</td><td>'.$txt['checkout25'].'</td><td style="text-align: right"><big><strong>'.'[TOTAL]'.'</strong></big></td></tr>';
 		$message.= "</table><br /><br />";
 		$message.= $txt['shipping3']."<br />".'[NOTES]';

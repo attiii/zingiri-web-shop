@@ -60,6 +60,7 @@ Before upgrading, make sure you back up your database first!
 == Changelog ==
 
 = 1.5.2 = 
+* New: attempt to chmod files and directories if possible (FTP parameters set up correctly)
 * Change: changed the subject/title of the email sent to the shop administrator when a customer places an order
 * Change: removed shop logo from shop settings as this is no longer required with the introduction of templates
 * Change: removed footer option from settings as this is not used
