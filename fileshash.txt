@@ -1430,7 +1430,7 @@ zingiri-web-shop/fws/templates/index.php,d41d8cd98f00b204e9800998ecf8427e
 zingiri-web-shop/fws/uploadadmin.php,e4074dc012a72ccec62f13d6fbc63bb0
 zingiri-web-shop/index.php,d41d8cd98f00b204e9800998ecf8427e
 zingiri-web-shop/load.php,a6f8d9189453eafa40f46db9eb22f4a5
-zingiri-web-shop/readme.txt,006d022c2cc6c9009acdb6d7812c61fd
+zingiri-web-shop/readme.txt,db9d8cb621d1fc0f33c2b5693f5ea6e1
 zingiri-web-shop/zap/classes/access.class.php,10572485ffa6458edad5cb78d93ec642
 zingiri-web-shop/zap/classes/db.class.php,ac9fb590b06c4722c95cec2837aba727
 zingiri-web-shop/zap/classes/element.class.php,81950486e7e1054fe8a356b8ae14d8de
