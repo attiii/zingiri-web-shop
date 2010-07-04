@@ -107,7 +107,7 @@ if ($zing_version) {
 	add_action('wp_head','zing_header');
 	add_action('wp_head','zing_ws_header_custom',100);
 	add_filter('wp_title','zing_ws_title');
-	add_filter('the_title','zing_ws_page_title');
+	add_filter('the_title','zing_ws_page_title', 10, 2);
 	if ($integrator->wpCustomer) {
 		add_action('wp_login','zing_login');
 		add_action('wp_logout','zing_logout');
@@ -525,6 +525,16 @@ function zing_uninstall() {
 	if (function_exists('zing_apps_player_uninstall')) zing_apps_player_uninstall(false);
 
 	restore_error_handler();
+}
+
+function zing_ws_is_shop_page($pid) {
+	$isShopPage=false;
+	$ids=get_option("zing_webshop_pages");
+	$ida=explode(",",$ids);
+	foreach ($ida as $id) {
+		if (!empty($id) && $pid==$id) $isShopPage=true;
+	}
+	return $isShopPage;
 }
 
 /**
@@ -1044,7 +1054,6 @@ function zing_ws_title($title) {
 	if ($_GET['prod']) {
 		$prodid=$_GET['prod'];
 		$db=new db();
-		//echo 'select product from ##product,##category where ##product.catid=##category.id and ##product.id='.qs($prodid);
 		$db->select('select `productid`,`desc` from `##product`,`##category` where ##product.catid=##category.id and ##product.id='.qs($prodid));
 		if ($db->next()) {
 			return $db->get('desc').' &raquo; '.$db->get('productid');
@@ -1053,8 +1062,42 @@ function zing_ws_title($title) {
 	return $title;
 }
 
-function zing_ws_page_title($title) {
-	return $title;
+function zing_ws_page_title($pageTitle,$id) {
+	require(ZING_GLOBALS);
+	
+	if (!zing_ws_is_shop_page($id)) return $pageTitle;
+	
+	if (!$zing_loaded)	{
+		require (ZING_LOC."./zing.startmodules.inc.php");
+		$zing_loaded=TRUE;
+	} else {
+		require (ZING_DIR."./includes/readvals.inc.php");        // get and post values
+	}
+	
+	if ($_GET['prod']) {
+		$prodid=$_GET['prod'];
+		$db=new db();
+		$db->select('select `productid`,`desc` from `##product`,`##category` where ##product.catid=##category.id and ##product.id='.qs($prodid));
+		if ($db->next()) {
+			$pageTitle=$db->get('productid');
+		}
+	} elseif ($p=$_GET['page']) {
+		if (isset($wsPages[$p])) $pageTitle=$txt[$wsPages[$p]];
+	} elseif ($_GET['zfaces'] && $p=$_GET['form']) {
+		if ($pt=zing_ws_get_form_title($_GET['form'])) $pageTitle=$pt;
+	}
+	return $pageTitle;
+}
+
+function zing_ws_get_form_title($id) {
+	$db=new db();
+	$query="select label from ##faces where id=".qs($id)." or name=".qs($id);
+	if ($db->select($query)) {
+		$db->next();
+		return z_($db->get('label'));
+	}
+	return '';
+	
 }
 
 //cron

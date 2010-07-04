@@ -42,7 +42,6 @@ if (LoggedIn() == True) {
 	}
 	if ($error == 0) {
 		echo '<table width="100%" class="datatable">
-				<caption>'.$txt['shipping4'].'</caption>
 				<tr><td>'.$txt['shipping5'].'
 					<form method="post" action="'.zurl('?page=checkout').'">
 						<input type="hidden" name="shippingid" value="'.$shippingid.'">

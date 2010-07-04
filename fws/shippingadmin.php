@@ -201,7 +201,6 @@ else {
 	}
 
 	echo "<table width=\"100%\" class=\"datatable\">";
-	echo "  <caption>".$txt['shippingadmin4']."</caption>";
 	echo "  <tr><th>".$txt['shippingadmin5']."</th><th>".$zingPrompts->parse($txt['shippingadmin7'])."</th><th>".$txt['shippingadmin12']."</th></tr>";
 	// add a shipping method
 	echo "  <form method=\"POST\" action=\"".zurl("index.php?page=shippingadmin&action=add_shipping")."\">";

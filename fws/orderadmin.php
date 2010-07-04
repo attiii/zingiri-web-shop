@@ -186,7 +186,6 @@ else {
 </SELECT> <INPUT TYPE="submit" VALUE="<?php echo $txt['orderadmin11']; ?>"></FORM>
 
 <table width="100%" class="datatable">
-	<caption><?php echo $txt['orderadmin13']; ?></caption>
 	<tr>
 		<th><?php echo $txt['orders4']; ?></th>
 		<th><?php echo $txt['customer21']; ?></th>

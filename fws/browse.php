@@ -78,7 +78,6 @@ else { $limit = ""; }
 ?>
 
 <table width="100%" class="datatable">
-	<caption><?php echo $txt['browse9']; ?></caption>
 	<tr>
 		<th><?php 
 		echo $txt['browse2']." / ".$categorie;

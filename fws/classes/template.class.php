@@ -56,7 +56,7 @@ class wsTemplate {
 				}
 			}
 		} else {
-			$this->content=str_replace('<!--ws'.$set.'-->',$this->row[$set],$this->content);
+			$this->content=str_replace('<!--ws'.$set.'-->',$this->row[$set].'<!--ws'.$set.'-->',$this->content);
 		}
 	}
 

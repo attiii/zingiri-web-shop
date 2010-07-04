@@ -107,7 +107,6 @@ else {
     ?>
     
     <table width="100%" class="datatable">
-      <caption><?php echo $txt['customeradmin6']." (".$num_customers.")"; ?></caption>
      <tr> 
       <th><?php echo $txt['customeradmin1']; ?></th>
       <th><?php echo $txt['customeradmin2']; ?></th>

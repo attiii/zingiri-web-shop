@@ -24,7 +24,6 @@
 <?php if ($index_refer <> 1) { exit(); } ?>
 
 <table width="80%" class="datatable">
-	<caption><?php echo $txt['submenu1']; ?></caption>
 	<tr>
 		<td>
 		<div style="text-align: center;"><?php

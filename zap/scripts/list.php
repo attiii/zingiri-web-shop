@@ -40,7 +40,7 @@ if ($action=='search') {
 
 $stack=new zfStack('list',$formname,$search);
 
-echo '<p class="zfaces-form-label">'.z_($zflist->label).'</p>';
+if (is_admin()) echo '<p class="zfaces-form-label">'.z_($zflist->label).'</p>';
 $map=$zflist->filter($map);
 
 //if (!AllowAccess('list',$formid,$action)) return false;

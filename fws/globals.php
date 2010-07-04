@@ -66,7 +66,7 @@ global $order_suffix;
 global $orderby;
 global $ordering_enabled;
 global $orders_dir;
-global $orders_ur;
+global $orders_url;
 global $page_footer;
 global $page_title;
 global $page;
@@ -127,4 +127,5 @@ global $wpdb;
 global $zing_loaded;
 global $zing;
 global $zingPrompts;
+global $wsPages;
 ?>

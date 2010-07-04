@@ -57,7 +57,6 @@ else {
 
 
     <table width="100%" class="datatable">
-      <caption><?php echo $txt['errorlogadmin1']; ?></caption>
      <tr> 
       <th><?php echo $txt['errorlogadmin2']; ?></th>
       <th><?php echo $txt['errorlogadmin3']; ?></th>

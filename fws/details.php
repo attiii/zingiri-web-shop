@@ -68,11 +68,10 @@ else {
 
 		?>
 <table width="85%" class="datatable">
-	<caption><?php echo $txt['details1'] ?></caption>
 	<tr>
 		<td colspan=2>
-		<h5><?php echo $txt['details2'] ?>: <?php echo $row[1] ?></h5>
-		<br />
+		<!--<h5><?php echo $txt['details2'] ?>: <?php echo $row[1] ?></h5>
+		<br />-->
 		<div style="text-align: center;"><?php echo $screenshot; ?><br />
 		<?php
 		//other images

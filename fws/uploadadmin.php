@@ -386,7 +386,6 @@ else {
 	}
 	?>
 <table width="80%" class="datatable">
-	<caption><?php echo $txt['uploadadmin4']; ?></caption>
 	<tr>
 		<td>
 		<form enctype="multipart/form-data" action="<?php zurl('index.php?page=uploadadmin',true);?>"

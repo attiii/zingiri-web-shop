@@ -59,6 +59,14 @@ Before upgrading, make sure you back up your database first!
 
 == Changelog ==
 
+= 1.5.3 =
+* Change: show product title as page title instead of "Shop" when viewing a product
+* Change: changed title of address form and profile form to "Other addresses" and "Profile" respectively
+* Fix: PDF link after checkout now points to the correct URL
+* Fix: corrected issue with only 2 product lines appearing on the order confirmation/invoice even if more than 2 products are ordered
+* Fix: initialise customer country if not set, could be the case for customers created with version 1.5.0 or 1.5.1
+* Fix: fixed issue with category options link not working
+
 = 1.5.2 = 
 * New: attempt to chmod files and directories if possible (FTP parameters set up correctly)
 * Change: changed the subject/title of the email sent to the shop administrator when a customer places an order

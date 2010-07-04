@@ -24,7 +24,6 @@
 <?php if ($index_refer <> 1) { exit(); } ?>
   
   <table summary="search form" class="datatable" width="60%">
-      <caption><?php echo $txt['search1'] ?></caption>
 	  <tr>
 	    <td>
 	      <form method="get" action="?page=browse">

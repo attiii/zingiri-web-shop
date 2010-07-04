@@ -139,7 +139,7 @@ if (!$success || !$allowed) {
 }
 
 if ($allowed && $success && $showform == "edit") {
-	echo '<p class="zfaces-form-label">'.$zfform->label.'</p>';
+	if (is_admin()) echo '<p class="zfaces-form-label">'.$zfform->label.'</p>';
 	echo '<div class="zfaces-form">';
 	if (defined("ZING_APPS_BUILDER") && ZingAppsIsAdmin()) {
 		echo '<a href="'.get_option('home').'/index.php?page=appsbuilder&zfaces=edit&form='.$form.'" >'.z_('Edit form').'</a>';

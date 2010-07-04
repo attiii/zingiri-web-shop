@@ -147,7 +147,6 @@ function zing_ws_settings() {
 	//main window
 	echo '<div style="width:80%;float:left;position:relative">';
 	$page=$_GET['page'];
-	//echo $page.'-'.$menus[$page]['href'];
 	$params=array();
 	$pairs=explode('&',$menus[$page]['href']);
 	foreach ($pairs as $pair) {
@@ -161,6 +160,10 @@ function zing_ws_settings() {
 
 	if (isset($menus[$page]['page'])) $_GET['page']=$menus[$page]['page'];
 	echo '<link rel="stylesheet" type="text/css" href="'.ZING_URL.'zing.css" />';
+	if (isset($_GET['page'])) {
+		require(dirname(__FILE__).'/fws/includes/pages.inc.php');
+		echo '<h1>'.$txt[$wsPages[$page]].'</h1>';
+	}
 	zing_main('content');
 	if (isset($menus[$page]['type']) && $menus[$page]['type']=="apps") {
 		//$_GET['no_redirect']=true;

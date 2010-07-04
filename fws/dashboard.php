@@ -38,7 +38,6 @@ if (IsAdmin()) {
 	echo '<script type="text/javascript" src="'.ZING_URL.'fws/addons/fusioncharts/FusionCharts/FusionCharts.js"></script>';
 
 	echo '<table class="datatable" width="100%">';
-	echo '<caption>'.$txt['admin102'].'</caption>';
 	echo '</table>';
 
 	echo '<div style="width:100%">';

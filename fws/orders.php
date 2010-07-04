@@ -39,7 +39,6 @@ else {
 ?>
 
     <table width="100%" class="datatable">
-      <caption><?php echo $txt['orders3']; ?></caption>
      <tr>
       <th><?php echo $txt['orders4']; ?></th>
       <th><?php echo $txt['orders5']; ?></th>

@@ -49,7 +49,6 @@ if (LoggedIn() == true) {
 	if ($step == 1) {
 		?>
 <table width="100%" class="datatable">
-	<caption><?php echo $txt['shipping1']; ?></caption>
 	<tr>
 		<td>
 		<form method="post"
@@ -83,7 +82,6 @@ if (LoggedIn() == true) {
 	else {
 		?>
 		<table width="100%" class="datatable">
-			<caption><?php echo $txt['shipping1']; ?></caption>
 			<tr>
 				<td>
 				<form method="post"

@@ -87,7 +87,6 @@ if (loggedin()) {
 	?>
 <form id="checkout" method="post" action="<?php zurl('index.php?page=checkout',true);?>">
 <table width="100%" class="datatable">
-	<caption><?php echo $txt['cart9']; ?></caption>
 	<tr>
 		<td colspan="4"><?php echo $txt['shipping2'] ?><br />
 			<SELECT NAME="shipping" id="shipping"

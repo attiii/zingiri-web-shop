@@ -35,7 +35,7 @@ else {
 	       $mailinglist = $row[12].", ".$mailinglist;
 	}
 ?>
-  <table class="borderless" width="100%"><caption><?php echo $txt['mailinglist1']; ?></caption>
+  <table class="borderless" width="100%">
    <tr><td>
     <textarea rows="30" cols="65" readonly><?php echo $mailinglist ?></textarea><br />
    </td></tr>

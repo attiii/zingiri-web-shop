@@ -39,10 +39,9 @@ define('ZING_WS_CATS_DIR',$brands_dir.'/');
 $orders_dir = BLOGUPLOADDIR.'zingiri-web-shop/'.$orders_dir;
 $lang_dir = ZING_DIR.$lang_dir;
 
-//$template_dir = ZING_SUB.$template_dir;
-//$gfx_dir = $template_dir."/".$template."/images";
 $gfx_dir = ZING_URL.'fws/'.$template_dir."/".$template."/images";
 $scripts_dir = ZING_DIR;
 	
 include (ZING_DIR."./includes/initlang.inc.php");        // init the language
+
 ?>

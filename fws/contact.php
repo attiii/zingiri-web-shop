@@ -71,8 +71,6 @@
 	     }
 ?>
     <table width="70%" class="datatable">
-      <caption><?php echo $txt['contact6']; ?></caption>
-
      <tr><td>
           <?php echo $txt['contact7']." ".$shopname; ?><br />
          <br />

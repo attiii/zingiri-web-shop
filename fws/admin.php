@@ -97,7 +97,6 @@ else {
 
 		$menuItemsPerLine=3;
 		echo '<table width="80%" class="datatable">';
-		echo '<caption>'.$txt['admin1'].'</caption>';
 		echo '<tr><td><table class="borderless" width="100%">';
 		$menugroup="";
 		$i=0;

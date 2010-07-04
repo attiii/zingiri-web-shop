@@ -51,7 +51,6 @@ else {
     $sql = mysql_query($query) or die(mysql_error());
 ?>
     <table width="100%" class="datatable">
-      <caption><?php echo $txt['stockadmin3']; ?></caption>
      <tr> 
       <th><?php echo $txt['productadmin9']; ?></th>
       <th><?php echo $txt['productadmin12']; ?></th>

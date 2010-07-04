@@ -46,7 +46,6 @@ else {
 		
 		?>
 <table class="borderless" width="100%">
-	<caption><?php echo $txt['conditions5']; ?></caption>
 	<tr>
 		<td>
 		<?php 

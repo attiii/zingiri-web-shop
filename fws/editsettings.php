@@ -247,7 +247,6 @@ else {
             </h4>
             <br /><br />            
 	        <table width="80%" class="datatable">
-	          <caption><?php echo $txt['editsettings1']; ?></caption>
              <tr><td>
                  <table width="100%" class="borderless">
                       <form method="POST" action="?page=editsettings&show=<?php echo $show; ?>">

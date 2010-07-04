@@ -191,16 +191,15 @@ if (LoggedIn() == True) {
 						}
 					}
 
-					//					if ($no_vat == 0 && $db_prices_including_vat == 0) {
 					$tax = new wsTax($product_price);
 					$product_price = $tax->in;
-					//					}
 						
 					// make up the description to print according to the pricelist_format and max_description
 					$print_description=printDescription($row_details[1],$row_details[3]);
 					if (!empty($row[7])) { $print_description .= "<br />".$printvalue; } // product features
 					$total_add = $product_price * $row[6];
 					$message .= "<tr><td>".$row[6].$txt['checkout4']."</td><td>".$print_description."<br />".$currency_symbol_pre.myNumberFormat($product_price,$number_format).$currency_symbol_post.$txt['checkout5']."</td><td style=\"text-align: right\">".$currency_symbol_pre.myNumberFormat($total_add,$number_format).$currency_symbol_post."</tr>";
+					echo 'repeat row';
 					$tpl->repeatRow(array('DESCRIPTION','QTY','PRICE','LINETOTAL'));
 					$tpl->replace('DESCRIPTION',$print_description);
 					$tpl->replace('QTY',$row[6]);
@@ -357,6 +356,8 @@ if (LoggedIn() == True) {
 				
 			$message=$tpl->getContent();
 				
+			die($message);
+			
 			//update order & basket
 			if ($autosubmit && $payment_code!="") {
 				$basket_status=0;
@@ -432,7 +433,6 @@ if (LoggedIn() == True) {
 			if (!$autosubmit || ($autosubmit && $payment_code=='')) {
 				echo '
 		     <table width="100%" class="datatable">
-		       <caption>'.$txt['checkout13'].'</caption>
 		       <tr><td>'.$message.'
 		       </td></tr>
 		     </table>
