@@ -199,7 +199,6 @@ if (LoggedIn() == True) {
 					if (!empty($row[7])) { $print_description .= "<br />".$printvalue; } // product features
 					$total_add = $product_price * $row[6];
 					$message .= "<tr><td>".$row[6].$txt['checkout4']."</td><td>".$print_description."<br />".$currency_symbol_pre.myNumberFormat($product_price,$number_format).$currency_symbol_post.$txt['checkout5']."</td><td style=\"text-align: right\">".$currency_symbol_pre.myNumberFormat($total_add,$number_format).$currency_symbol_post."</tr>";
-					echo 'repeat row';
 					$tpl->repeatRow(array('DESCRIPTION','QTY','PRICE','LINETOTAL'));
 					$tpl->replace('DESCRIPTION',$print_description);
 					$tpl->replace('QTY',$row[6]);
@@ -356,8 +355,6 @@ if (LoggedIn() == True) {
 				
 			$message=$tpl->getContent();
 				
-			die($message);
-			
 			//update order & basket
 			if ($autosubmit && $payment_code!="") {
 				$basket_status=0;
