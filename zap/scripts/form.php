@@ -65,7 +65,7 @@ if ($action == "add" && $step == "") {
 	}
 
 } elseif ($action == "edit" && $step == "check") {
-	$success=$zfform->Verify($_POST);
+	$success=$zfform->Verify($_POST,$id);
 	if ($zfform->allowAccess()) {
 		$allowed=true;
 		$newstep="save";
@@ -73,7 +73,7 @@ if ($action == "add" && $step == "") {
 
 } elseif ($action == "edit" && $step == "save") {
 	$newstep="save";
-	if ($zfform->Verify($_POST))
+	if ($zfform->Verify($_POST,$id))
 	{
 		if ($zfform->allowAccess()) {
 			$allowed=true;
@@ -213,3 +213,4 @@ if ($allowed && $success && $showform == "edit") {
 		echo '<a href="'.$redirect2.'" class="button">Back</a>';
 	}
 }
+?>

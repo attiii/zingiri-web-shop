@@ -53,6 +53,7 @@ class zfForm {
 	var $filter;
 	var $data=array();
 	var $orderKeys="`ID`";
+	var $before=array();
 
 	function zfForm($form,$id=0,$post=null,$action="",$page="") {
 		$this->page=$page;
@@ -66,7 +67,7 @@ class zfForm {
 		{
 			$this->id=$row['ID'];
 			$this->form=$row['NAME'];
-			$post=$this->filter();
+			$post=$this->filter($post);
 			$this->label=$row['LABEL'];
 			if ($row['CUSTOM']!='') $this->json=zf_json_decode($row['CUSTOM'],true); //form data
 			else $this->json=zf_json_decode($row['DATA'],true);
@@ -101,7 +102,7 @@ class zfForm {
 	function init() {
 		return true;
 	}
-	
+
 	function filter($post='') {
 		$linksin=new db();
 		$query="select * from ##flink where (displayout='".$this->page."' or displayout='any') and formout='".$this->id."' and mapping <> ''";
@@ -133,16 +134,17 @@ class zfForm {
 		$g=array(); //sorted headers
 		$e=array(); //sorted fields
 
-
 		foreach ($this->json as $i => $value)
 		{
 			$key1=$value['id'];
-			foreach ($value['subelements'] as $key2 => $value2)
-			{
-				if ($this->elements['format'][$key1][$key2] != 'none') {
-					if ($all || !$value2['hide']) {
-						if (!isset($value2['sortorder'])) $value2['sortorder']=1;
-						$s[$key1*100+$key2]=$value2['sortorder'];
+			if (!$value['attributes']['zfrepeatable']) {
+				foreach ($value['subelements'] as $key2 => $value2)
+				{
+					if ($this->elements['format'][$key1][$key2] != 'none') {
+						if ($all || !$value2['hide']) {
+							if (!isset($value2['sortorder'])) $value2['sortorder']=1;
+							$s[$key1*100+$key2]=$value2['sortorder'];
+						}
 					}
 				}
 			}
@@ -279,8 +281,14 @@ class zfForm {
 		return $ret;
 	}
 
-	function Verify($input)
+	function Verify($input,$id=0)
 	{
+		if ($id) { //get image of record before update
+			$query="select * from `".DB_PREFIX.$this->entity."` where `ID`=".zfqs($id);
+			$db=new db();
+			$db->select($query);
+			$this->before=$db->next();
+		}
 		$success=true;
 		$this->input=$this->sanitize($input);
 		foreach ($this->json as $key => $value)
@@ -336,8 +344,15 @@ class zfForm {
 
 	function Delete($id)
 	{
+		//get image of record before update
+		$query="select * from `".DB_PREFIX.$this->entity."` where `ID`=".zfqs($id);
+		$db=new db();
+		$db->select($query);
+		$this->before=$db->next();
+
 		$success=true;
 		if ($this->type=="DB") $success=$this->DeleteDB($id);
+		$this->postDelete();
 		$this->alert("Record delete successfull!");
 		return $success;
 	}
@@ -349,6 +364,9 @@ class zfForm {
 		DeleteRecord($this->entity,$keys,"");
 	}
 
+	function postDelete() {
+		return true;
+	}
 
 	function Save($id=0)
 	{
@@ -365,33 +383,46 @@ class zfForm {
 		return true;
 	}
 
-	function SaveDB($id=0)
-	{
+	function makeRow($id) {
+		$row=array();
+		
 		foreach ($this->json as $key => $value)
 		{
-
-			foreach ($value['subelements'] as $key2 => $sub)
-			{
-				if ($this->elements['format'][$key][$key2] != "none") {
-					if (isset($this->elements['name'][$key][$key2]) && !empty($this->elements['name'][$key][$key2])) $f=$value['column']."_".$this->elements['name'][$key][$key2];
-					else $f=$value['column'];
-					$v=$this->output['element_'.$key.'_'.$key2];
-					$row[$f]=$v;
+			if (!$value['attributes']['zfrepeatable']) {
+				foreach ($value['subelements'] as $key2 => $sub)
+				{
+					if ($this->elements['format'][$key][$key2] != "none") {
+						if (isset($this->elements['name'][$key][$key2]) && !empty($this->elements['name'][$key][$key2])) $f=$value['column']."_".$this->elements['name'][$key][$key2];
+						else $f=$value['column'];
+						$v=$this->output['element_'.$key.'_'.$key2];
+						$row[$f]=$v;
+					}
 				}
+			} else {
+
 			}
 		}
-		$keys=array();
 		if ($id)
 		{
-			$keys['ID']=$id;
 			$row['DATE_UPDATED']=date("Y-m-d H:i:s");
-			UpdateRecord($this->entity,$keys,$row,"");
 
 		} else {
 			$row['DATE_CREATED']=date("Y-m-d H:i:s");
-			$id=InsertRecord($this->entity,$keys,$row,"");
 		}
 		$this->rec=$row;
+		return $row;
+	}
+
+	function SaveDB($id=0)
+	{
+		$row=$this->makeRow($id);
+		$keys=array();
+		if ($id) {
+			$keys['ID']=$id;
+			UpdateRecord($this->entity,$keys,$row,"");
+		} else {
+			$id=InsertRecord($this->entity,$keys,$row,"");
+		}
 		return $id;
 	}
 
@@ -500,9 +531,7 @@ class zfForm {
 				//$map[$id]=$value;
 				$s.='&search['.$id.']='.urlencode($value);
 			}
-			//echo '<br />'.$id.'='.$value.'='.$this->allfields[$key];
 		}
-		//echo '<br />';print_r($map);echo '<br />';
 		return $s;
 	}
 

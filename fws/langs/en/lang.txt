@@ -740,5 +740,9 @@ $txt['template1'] = 'Content';
 $txt['template2'] = 'Title';
 $txt['template3'] = 'Templates';
 
+//1.5.5 - added
+$txt['productadmin101'] = 'SKU';
+$txt['productadmin102'] = 'Short description';
+
 
 ?>

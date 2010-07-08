@@ -26,7 +26,7 @@ $formname=$_GET['form'] ? $_GET['form'] : zfGetForm($_GET['formid']);
 $zfp=intval($_GET['zfp']);
 $zft=$_GET['zft'];
 $pos=$_GET['pos'];
-$mapflat=$_GET['map'];
+$mapflat=stripslashes($_GET['map']);
 $json=str_replace("\'",'"',$_GET['map']);
 $map=zf_json_decode($json,true);
 if (class_exists('zf'.$formname)) $zfClass='zf'.$formname;
@@ -68,7 +68,8 @@ $alink=new zfLink($zflist->id,false,'list');
 ?>
 <div id="<?php echo $formname;?>">
 <?php if ($alink->canAdd) {
-echo '<a href="?page='.$page.'&zfaces=form&form='.$formname.'&action=add&zft=list&zfp='.$formid.'&map='.urlencode($mapflat).'"><img class="zfimg" src="'.ZING_APPS_PLAYER_URL.'images/add.png"></a>';
+//echo '<a href="?page='.$page.'&zfaces=form&form='.$formname.'&action=add&zft=list&zfp='.$formid.'&map='.urlencode($mapflat).'"><img class="zfimg" src="'.ZING_APPS_PLAYER_URL.'images/add.png"></a>';
+echo '<a href="?page='.$page.'&zfaces='.$alink->linkAdd['DISPLAYOUT'].'&action='.$alink->linkAdd['ACTIONOUT'].'&formid='.$alink->linkAdd['FORMOUT'].'&map='.urlencode($mapflat).'&zft=list&zfp='.$formid.'" alt="'.$alink->linkAdd['ACTION'].'"><img class="zfimg" src="'.ZING_APPS_PLAYER_URL.'images/add.png"></a>';
 } 
 ?>
 <?php if (defined("ZING_APPS_BUILDER") && ZingAppsIsAdmin()) {?>
@@ -84,12 +85,6 @@ echo '<a href="?page='.$page.'&zfaces=form&form='.$formname.'&action=add&zft=lis
 
 if ($zflist)
 {
-
-	//$links=new db();
-	//$links->select("select * from ##flink where formin='".$zflist->id."'");
-	//while ($l=$links->next()) {
-	//	$alink[]=$l;
-	//}
 
 	$h=$zflist->headers;
 

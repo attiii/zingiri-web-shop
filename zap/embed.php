@@ -305,8 +305,10 @@ function zing_apps_player_header()
 	}
 	if (!defined("ZING_PROTOTYPE") || ZING_PROTOTYPE) {
 		echo '<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/sortlist.proto.js"></script>';
+		echo '<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/repeatable.proto.js"></script>';
 	} elseif (defined("ZING_JQUERY") && ZING_JQUERY) {
 		echo '<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/sortlist.jquery.js"></script>';
+		echo '<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/repeatable.jquery.js"></script>';
 	}
 }
 

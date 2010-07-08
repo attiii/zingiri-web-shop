@@ -1,0 +1,1 @@
+{"ELEMENTCOUNT":"1","ENTITY":"order","TYPE":"DB","DATA":"{\"1\":{\"subelements\":{\"1\":{\"id\":1,\"populate\":\"\"}},\"rules\":[],\"mandatory\":1,\"links\":[],\"id\":1,\"label\":\"Customer ID \",\"x\":5,\"y\":5,\"type\":\"number\",\"column\":\"CUSTOMERID\",\"children\":2,\"attributes\":{\"zfsize\":\"\",\"zfmaxlength\":\"\"}}}","LABEL":"Add order","ID":"70","NAME":"order_add"}

@@ -9,10 +9,12 @@ function zfCreateTable($entity) {
   		PRIMARY KEY  (`ID`))";
 	if ($newtable->update($query) && function_exists('zfDumpQuery')) zfDumpQuery($query);
 }
+
 function zfTableExists($entity) {
 	$db=new db();
 	return $db->exists($entity);
 }
+
 function zfCreateColumns($entity,$data)
 {
 	global $allfields;
@@ -37,7 +39,8 @@ function zfCreateColumns($entity,$data)
 	$jdata=zf_json_decode($data,true);
 	foreach ($jdata as $element) {
 		if ($element['column']!='ID' && $element['column']!='DATE_CREATED' && $element['column']!='DATE_UPDATED') {
-			faces_add_element($element['column'],$element['type'],$entity,$element['attributes']['zfmaxlength']);
+			if ($element['attributes']['zfrepeatable']) faces_add_repeatable_element($element['column'],$element['type'],$entity,$element['attributes']['zfmaxlength']);
+			else faces_add_element($element['column'],$element['type'],$entity,$element['attributes']['zfmaxlength']);
 		}
 	}
 	
@@ -53,7 +56,7 @@ function zfCreateColumns($entity,$data)
  * @param $form_dbtable
  * @return unknown_type
  */
-function faces_add_element($fieldname,$multiformat,$form_dbtable,$maxlength){
+function faces_add_element($fieldname,$multiformat,$form_dbtable,$maxlength) {
 	global $allfields;
 	$xmlf=faces_get_xml($multiformat);
 	$fields=$xmlf->fields->attributes()->count;
@@ -100,6 +103,21 @@ function faces_add_element($fieldname,$multiformat,$form_dbtable,$maxlength){
 
 	$table=new db();
 	if (!$isfirst && $table->update($query)) zfDumpQuery($query);
+}
+
+function faces_add_repeatable_element($fieldname,$multiformat,$form_dbtable,$maxlength) {
+	$newtable=new db();
+	$query="CREATE TABLE IF NOT EXISTS `".DB_PREFIX.$form_dbtable."_attributes`";
+	$query.="(
+  		`ID` int(11) NOT NULL auto_increment,
+  		`DATE_CREATED` datetime NOT NULL default '0000-00-00 00:00:00',
+  		`DATE_UPDATED` datetime default NULL,
+  		`PARENTID` int(11) NOT NULL,
+  		`NAME` varchar(64) NOT NULL,
+  		`VALUE` text NULL,
+  		PRIMARY KEY  (`ID`))";
+	if ($newtable->update($query) && function_exists('zfDumpQuery')) zfDumpQuery($query);
+	
 }
 
 function zfShowColumns($form_dbtable) {

@@ -354,9 +354,39 @@ EOT;
 				$element_markup.=$field_markup;
 			}
 		}
+			if ($this->attributes['zfrepeatable']) {
+				$element_markup.='<div id="zfc_'.$this->id.'_del" class="zftablecontrol" style="float:left;position:relative;">';
+				//$element_markup.='<img id="zfci_'.$this->id.'_add" class="zfrepeatable_del" onclick="appsRepeatable.del(\'zf_'.$this->id.'_sf\',1)" src="'.ZING_APPS_PLAYER_URL.'/images/delete.png" height="16px"/>';
+				$element_markup.='<input type="button" id="zfci_'.$this->id.'_del" class="zfrepeatable_del" onclick="appsRepeatable.del(\'zf_'.$this->id.'_sf\',1)" value="-" height="16px"/>';
+				$element_markup.='</div>';
+				$element_markup.='<div id="zfc_'.$this->id.'_add" class="zftablecontrol" style="float:left;position:relative;">';
+				//$element_markup.='<img id="zfci_'.$this->id.'_del" class="zfrepeatable_add" onclick="appsRepeatable.add(\'zf_'.$this->id.'_sf\',1)" src="'.ZING_APPS_PLAYER_URL.'/images/add.png" height="16px"/>';
+				$element_markup.='<input type="button" id="zfci_'.$this->id.'_add" class="zfrepeatable_add" onclick="appsRepeatable.add(\'zf_'.$this->id.'_sf\',1)" value="+" height="16px"/>';
+				$element_markup.='</div>';
+				
+				if (ZING_PROTOTYPE) {
+?>
+<script type="text/javascript" language="javascript">
+//<![CDATA[
+	document.observe("dom:loaded", function() {
+	    appsRepeatable.init('<?php echo 'zf_'.$this->id.'_sf';?>');
+	});
+//]]>
+</script>
+		<?php } elseif (ZING_JQUERY) {?>
+<script type="text/javascript" language="javascript">
+//<![CDATA[
+	jQuery(document).ready(function() {
+	    appsRepeatable.init('<?php echo 'zf_'.$this->id.'_sf';?>');
+	});
+//]]>
+</script>
+<?php 
+		}
+			}
 		$element_markup.='<div class="zfclear"></div>';
 		$element_markup.='</div>'.$error_message.'<div class="zfclear"></div>';
-
+		
 		$element_markup.= <<<EOT
 	&nbsp;{$guidelines} 
 		</div>

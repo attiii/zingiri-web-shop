@@ -26,6 +26,7 @@ class zfLink {
 	var $links=array();
 	var $escape_quote;
 	var $canAdd=false;
+	var $linkAdd=array();
 
 	function zfLink($id,$escape_quote=false,$type='form') {
 		$this->escape_quote=$escape_quote;
@@ -36,6 +37,7 @@ class zfLink {
 			$link['IMAGE']=$link['ICON'] ? $link['ICON'] : "edit.png";
 			if ($link['ACTION']=='add') {
 				$this->canAdd=true;
+				$this->linkAdd=$link;
 			}
 			$a[]=$link;
 		}
