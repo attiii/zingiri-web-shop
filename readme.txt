@@ -4,7 +4,7 @@ Donate link: http://www.zingiri.com/
 Tags: ecommerce, e-commerce, paypal, freewebshop, shop, cart, web shop, shopping cart, iDEAL, Google Checkout, Worldpay
 Requires at least: 2.1.7
 Tested up to: 3.0
-Stable tag: 1.5.4
+Stable tag: 1.5.5
 
 Zingiri Web Shop is a Wordpress plugin that brings together a great content management system with the fantastic FreeWebShop ecommerce solution.
 
@@ -58,6 +58,12 @@ Upgrades are handled automatically. Simply upload the latest version, go to sett
 Before upgrading, make sure you back up your database first!
 
 == Changelog ==
+
+= 1.5.5 =
+* Fix: corrected problem with message "Warning: Missing argument 2 for zing_ws_page_title()"
+* Fix: fixed issue with repeating title head appearing after selecting from sidebar or other menu options
+* Fix: resolved problem with blank control panel, due to ftp connection issue
+* Fix: removed displays from 1.5.1 upgrade
 
 = 1.5.4 =
 * New: attempt to set directory and file permissions (if FTP parameters set up)

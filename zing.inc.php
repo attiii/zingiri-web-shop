@@ -168,8 +168,8 @@ function zing_check() {
 	require(ABSPATH.'wp-admin/includes/class-wp-filesystem-base.php');
 	require(ABSPATH.'wp-admin/includes/class-wp-filesystem-ftpext.php');
 	if (!defined('FS_CONNECT_TIMEOUT')) define('FS_CONNECT_TIMEOUT',30);
-	$f=new WP_Filesystem_FTPext(array('hostname'=>FTP_HOST,'username'=>FTP_USER,'password'=>FTP_PASS));
-	@$f->connect();
+	if (defined('FTP_HOST') && defined('FTP_USER') && defined('FTP_PASS') && ($f=new WP_Filesystem_FTPext(array('hostname'=>FTP_HOST,'username'=>FTP_USER,'password'=>FTP_PASS)))) $connected=true;
+	if ($connected) $connected=@$f->connect();
 
 	$errors=array();
 	$warnings=array();
@@ -181,14 +181,14 @@ function zing_check() {
 	$files[]=ZING_DIR.'banned.txt';
 
 	foreach ($files as $file) {
-		@$f->chmod($file,0666);
+		if ($connected) @$f->chmod($file,0666);
 		if (!is_writable($file)) $warnings[]='File '.$file.' is not writable, please chmod to 666';
 	}
 
 	$dirs[]=BLOGUPLOADDIR;
 	$dirs[]=ZING_DIR.'addons/captcha';
 	foreach ($dirs as $file) {
-		@$f->chmod($file,0777);
+		if ($connected) @$f->chmod($file,0777);
 		if (!is_writable($file)) $warnings[]='Directory '.$file.' is not writable, please chmod to 777';
 	}
 
@@ -203,7 +203,7 @@ function zing_check() {
 		foreach ($dirs as $file) {
 			if (!file_exists($file)) $warnings[]='Directory '.$file. " doesn't exist";
 			else {
-				@$f->chmod($dirs,0777);
+				if ($connected) @$f->chmod($dirs,0777);
 				if (!is_writable($file)) $warnings[]='Directory '.$file.' is not writable, please chmod to 777';
 			}
 		}
@@ -355,7 +355,7 @@ function zing_install() {
 	mysql_query($query) or zing_ws_error_handler(1,mysql_error().'-'.$query);
 	$query="update ".$prefix."settings set shopurl='".get_option('home')."' where id=1";
 	mysql_query($query) or zing_ws_error_handler(1,mysql_error().'-'.$query);
-	
+
 	//Load language files
 	zing_ws_error_handler(0,'load language files');
 
@@ -422,7 +422,7 @@ function zing_install() {
 	add_post_meta($id,'zing_form','register');
 	add_post_meta($id,'zfaces','form');
 	*/
-	
+
 	//Create digital products directory if it doesn't exist yet
 	if (!get_option('zing_webshop_dig')) {
 		update_option('zing_webshop_dig',CreateRandomCode(15));
@@ -599,7 +599,7 @@ function zing_main($process,$content="") {
 			if (isset($cf['cat'])) {
 				$_GET['cat']=$cf['cat'][0];
 			}
-				
+
 			$to_include="loadmain.php";
 			break;
 		case "sidebar":
@@ -1062,18 +1062,21 @@ function zing_ws_title($title) {
 	return $title;
 }
 
-function zing_ws_page_title($pageTitle,$id) {
+function zing_ws_page_title($pageTitle,$id=0) {
 	require(ZING_GLOBALS);
-	
+
+	if (!in_the_loop()) return $pageTitle;
+
+
 	if (!zing_ws_is_shop_page($id)) return $pageTitle;
-	
+
 	if (!$zing_loaded)	{
 		require (ZING_LOC."./zing.startmodules.inc.php");
 		$zing_loaded=TRUE;
 	} else {
 		require (ZING_DIR."./includes/readvals.inc.php");        // get and post values
 	}
-	
+
 	if ($_GET['prod']) {
 		$prodid=$_GET['prod'];
 		$db=new db();
@@ -1097,7 +1100,7 @@ function zing_ws_get_form_title($id) {
 		return z_($db->get('label'));
 	}
 	return '';
-	
+
 }
 
 //cron
@@ -1105,13 +1108,13 @@ function zing_ws_cron() {
 	$cron=get_option('zing_ws_cron');
 	$db=new db();
 	$query="delete from `##errorlog` where date_add(`time`, interval 7 day) < curdate()";
-	$db->update($query);	
+	$db->update($query);
 	$cron.=$query;
 
 	$query="delete from `##accesslog` where date_add(`time`, interval 7 day) < curdate()";
-	$db->update($query);	
+	$db->update($query);
 	$cron.=$query;
-	
+
 	update_option('zing_ws_cron',$cron);
 }
 if (!wp_next_scheduled('zing_ws_cron_hook')) {
