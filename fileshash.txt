@@ -1,4 +1,3 @@
-zingiri-web-shop/.externalToolBuilders/New_Builder.launch,6e985f19edf20f206742b32c7bf31bc7
 zingiri-web-shop/controlpanel.php,d08d005bca51c6e5d303d9813a82da4e
 zingiri-web-shop/extensions/dashboard/dashboard.php,35f83456f290471c6a2fc68fc24e5d23
 zingiri-web-shop/extensions/dashboard/errorlog.php,e722bc4c883c19e3885e8ef7388f4eae
@@ -846,7 +845,7 @@ zingiri-web-shop/fws/db/FreeWebshop-1.5.1.php,f0b7790f09cc49094f9c811896109244
 zingiri-web-shop/fws/db/FreeWebshop-1.5.1.sql,ff37014aba57eb791b0f7eb0b7e4d24d
 zingiri-web-shop/fws/db/FreeWebshop-1.5.2.sql,72d203e50b6ec7ac478edd41064ca4ee
 zingiri-web-shop/fws/db/FreeWebshop-1.5.3.sql,da6d810dab67cec0af69f55cfb0671f6
-zingiri-web-shop/fws/db/FreeWebshop-1.5.6.sql,e8b3a9f90e6cdacc8ee26d748a127908
+zingiri-web-shop/fws/db/FreeWebshop-1.5.6.sql,3d2d8cbce792c6ebb4cf15f16c48133b
 zingiri-web-shop/fws/db/index.php,d41d8cd98f00b204e9800998ecf8427e
 zingiri-web-shop/fws/details.php,4ec2fd51769c237399226a857dffd754
 zingiri-web-shop/fws/discount.php,7559aca963f0b20c1d8b95ee80f9dfe3
