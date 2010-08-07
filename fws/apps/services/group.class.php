@@ -2,6 +2,7 @@
 class zfgroup extends zfForm {
 	function init() {
 		$this->orderKeys="`SORTORDER`,`NAME`";
+		$this->maxRows=999;
 	}
 	
 	function sortlist() {

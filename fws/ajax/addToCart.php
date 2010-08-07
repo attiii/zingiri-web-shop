@@ -1,5 +1,5 @@
 <?php
-/*  zingiri_webshop.php
+/*  addToCart.php
  Copyright 2008,2009 Erik Bogaerts
  Support site: http://www.zingiri.com
 
@@ -21,12 +21,7 @@
  */
 ?>
 <?php
-/** Loads the WordPress Environment */
-require(dirname(__FILE__).'/../../../../../wp-blog-header.php');
-
-/** Load Zingiri Web Shop */
-require(dirname(__FILE__).'/../../zing.readcookie.inc.php');
-require(dirname(__FILE__).'/../../zing.startmodules.inc.php');
+require(dirname(__FILE__).'/init.inc.php');
 
 /** Add to cart */
 $action='add';

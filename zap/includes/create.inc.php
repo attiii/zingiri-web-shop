@@ -39,7 +39,7 @@ function zfCreateColumns($entity,$data)
 	$jdata=zf_json_decode($data,true);
 	foreach ($jdata as $element) {
 		if ($element['column']!='ID' && $element['column']!='DATE_CREATED' && $element['column']!='DATE_UPDATED') {
-			if ($element['attributes']['zfrepeatable']) faces_add_repeatable_element($element['column'],$element['type'],$entity,$element['attributes']['zfmaxlength']);
+			if ($element['attributes']['zfrepeatable'] || $element['type']=='system_subformproxy') faces_add_repeatable_element($element['column'],$element['type'],$entity,$element['attributes']['zfmaxlength']);
 			else faces_add_element($element['column'],$element['type'],$entity,$element['attributes']['zfmaxlength']);
 		}
 	}
@@ -113,6 +113,7 @@ function faces_add_repeatable_element($fieldname,$multiformat,$form_dbtable,$max
   		`DATE_CREATED` datetime NOT NULL default '0000-00-00 00:00:00',
   		`DATE_UPDATED` datetime default NULL,
   		`PARENTID` int(11) NOT NULL,
+  		`SET` int(11) NOT NULL,
   		`NAME` varchar(64) NOT NULL,
   		`VALUE` text NULL,
   		PRIMARY KEY  (`ID`))";

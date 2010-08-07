@@ -62,10 +62,13 @@ var wsCart = Class.create( {
 		if (wsFrontPage) var image = e.up('td').down('img');
 		else var image = e.up('tr').down('img');
 		form = e.up('form').id;
-		//new Ajax.Request($(form).action, {
+		data=$(form).serialize(true);
+		data.cms=wsCms;
+		data.abspath=wpabspath;
+
 		new Ajax.Request(wsURL + "addToCart.php", {
 			method : "post",
-			parameters : $(form).serialize(true),
+			parameters : data,
 			onComplete : function(request) {
 				if (request.responseText) alert(request.responseText);
 				else this.getCart();
@@ -84,7 +87,8 @@ var wsCart = Class.create( {
 		new Ajax.Request(wsURL + "getCartContents.php", {
 			method : "post",
 			parameters : {
-				'dummy' : '123'
+				'abspath' : wpabspath,
+				'cms' : wsCms
 			},
 			onComplete : function(request) {
 				tag.innerHTML = request.responseText;

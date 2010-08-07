@@ -45,6 +45,8 @@ else {
             The script is written in PHP and uses a MySQL database. The script is released under the GNU General Public License as 
             published by the Free Software Foundation.<br />
             You can find out more about the original project here: <a href="http://www.freewebshop.org"><img src="<?php echo ZING_URL;?>/fws/templates/default/images/poweredby.png"/></a>.<br />
+            <h6>Contributors</h6>
+            Special thanks go to Marek Krajnak for providing the Slovak version, Luisa Fumi for providing the Italian version, Timothy Hall for his testing support and excellent videos.
             <h6>3rd party addons</h6>
 			<strong>Lightbox JS: Fullsize Image Overlays</strong><br />
 			by Lokesh Dhakar - http://www.huddletogether.com<br />

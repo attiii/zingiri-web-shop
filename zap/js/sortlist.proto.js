@@ -17,10 +17,11 @@ appsSortList= {
 						{
 							method : "post",
 							parameters : {
+								'abspath' : wpabspath,
+								'cms' : wsCms,
 								'sortorder' : Sortable.serialize(that.container)
 							},
 							onComplete : function(request) {
-								 //alert('call:'+request.responseText);
 							}.bind(this)
 						}
 					);

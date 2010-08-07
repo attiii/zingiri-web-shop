@@ -1,5 +1,5 @@
 <?php
-/*  zingiri_webshop.php
+/*  wp-settings.php
  Copyright 2008,2009 Erik Bogaerts
  Support site: http://www.zingiri.com
 

@@ -22,5 +22,6 @@
 ?>
 <?php
 include (ZING_DIR."./includes/index.php");         // general functions
+include (ZING_DIR."./classes/index.php");         // general functions
 include (ZING_LOC."./zing.subs.readcookie.inc.php");  // cookie functions
 ?>

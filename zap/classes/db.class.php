@@ -130,7 +130,8 @@ if (!class_exists('db')) {
 			}
 
 
-			//	echo $query."<br />";
+			//zing_ws_error_handler(0,$query);
+				
 			$sql_update = mysql_query($query) or die($this->error($query));
 		}
 

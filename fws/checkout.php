@@ -289,6 +289,8 @@ if (LoggedIn() == True) {
 					$message .= '<tr><td>'.$taxheader.'</td><td>'.$label.' '.$data['RATE'].'%</td><td style="text-align: right">'.$currency_symbol_pre.myNumberFormat($data['TAX'],$number_format).$currency_symbol_post.'</td></tr>';
 					$taxheader="";
 				}
+			} else {
+				$tpl->removeRow(array('TAXLABEL','TAXRATE','TAXTOTAL'));
 			}
 
 			// now lets calculate the invoice total now we know the final addition, the shipping costs
@@ -346,7 +348,6 @@ if (LoggedIn() == True) {
 					$message .= $paymentmessage;
 				}
 				$paymentmessage .= $txt['checkout26'];  // pay within xx days
-				//if (!$autosubmit)
 			}
 			$tpl->replace('PAYMENTCODE',$paymentmessage);
 				

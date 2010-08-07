@@ -28,6 +28,7 @@ if ($row = mysql_fetch_array($sql)) {
 	$row_details = mysql_fetch_array($sql_details);
 	if ($row_details['LINK'] && ($row_order['STATUS']==5 || $row_order['STATUS']==6 || IsAdmin())) {
 		send_file(ZING_DIG,$row_details['LINK']);
+		restore_error_handler();
 		exit;
 	}
 

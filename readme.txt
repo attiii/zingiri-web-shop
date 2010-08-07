@@ -4,7 +4,7 @@ Donate link: http://www.zingiri.com/
 Tags: ecommerce, e-commerce, paypal, freewebshop, shop, cart, web shop, shopping cart, iDEAL, Google Checkout, Worldpay
 Requires at least: 2.1.7
 Tested up to: 3.0
-Stable tag: 1.5.5
+Stable tag: 1.5.6
 
 Zingiri Web Shop is a Wordpress plugin that brings together a great content management system with the fantastic FreeWebShop ecommerce solution.
 
@@ -26,18 +26,7 @@ The main feaures are:
 
 == Installation ==
 
-1. Upload the `zingiri-web-shop` folder to the `/wp-content/plugins/` directory
-2. A few files need to be chmod'd:
-    * log.txt 666
-    * fws/banned.txt 666
-    * fws/addons/captcha 777
-    * fws/addons/tinymce/jscripts/up 777
-3. Make sure the directory wp-content/uploads exists and is writable
-4. Activate the plugin through the 'Plugins' menu in WordPress
-5. Perform the plugin installation
-6. Activate the 4 sidebar widgets.
-
-Please visit the [Zingiri](http://www.zingiri.com/web-shop "Zingiri") website for more information and a Demo.
+Please visit the [Zingiri](http://www.zingiri.com/documentation/web-shop-doc/installation-2 "Zingiri") website for installation instructions.
 
 == Frequently Asked Questions ==
 
@@ -58,6 +47,45 @@ Upgrades are handled automatically. Simply upload the latest version, go to sett
 Before upgrading, make sure you back up your database first!
 
 == Changelog ==
+
+= 1.5.6 =
+* New: added Joomla integration
+* New: added automatic creation of index.php file inside uploads/zingiri-web-shop sub directories to avoid directory browsing
+* New: added language filter in templates list
+* New: added Slovak version (thanks to Marek Krajnak)
+* New: added iDeal Easy payment option
+* New: added Nestpay 3D Pay Hosting payment option
+* Change: replaced $searchfor variable by $wsSearchfor in ajax search widget to avoid conflicts with other plugins
+* Change: removed unused settings from settings page
+* Change: moved forms editor menu to Zingir menu block
+* Change: activate admin menus in Wordpress backend even if not using single sign on
+* Change: changed label 'Below is your order confirmation. Print it!' with 'Order confirmation' as the order confirmation is not always listed (in case of auto redirect to payment portal)
+* Change: moved cache directory required for product carousel and captcha to uploads directory
+* Change: reorganised payment gateway extensions
+* Change: removed support for Prototype javascript library, only jQuery is now supported
+* Change: removed stock admin page as this duplicates what can be managed under the products page
+* Change: shop administration menu is now via Wordpress admin backend, even when using Zingiri user administration
+* Fix: remove pagination from categories and groups page to allow full sorting of all items
+* Fix: corrected issue with zing_ws_page_title throwing an error
+* Fix: activate scheduled events only after the web shop is installed
+* Fix: added additional verifications before trying to connect to local filesystem via FTP
+* Fix: corrected issue with pagination links on product list page not working properly
+* Fix: corrected issue with some IDEAL payment methods not directing to payment portal
+* Fix: fixed issue with wsNewsRequest class being included twice when optimizing database tables and causing an error
+* Fix: removed remaining display of 'Not active' when installing plugin
+* Fix: fixed issue with contact form email title not being parsed correctly
+* Fix: corrected image alignment and resizing issue on shop front page
+* Fix: fixed issue with menu titles being replaced by other words in certain cases
+* Fix: corrected issue with pictures not always displaying properly on checkout page
+* Fix: fixed issue with shipping options not being updated correctly when updating cart in one step checkout page
+* Fix: fixed issue with user synchronisation when switching from Zingiri user mode to WP user mode
+* Fix: fixed issue with payment options not defaulting to the correct shipping method
+* Fix: corrected issue with product carousel not showing correct image in some cases
+* Fix: added category edit link
+* Fix: remove reference to taxes from checkout confirmation page and email if no taxes are used
+* Fix: fixed issue with error log filling with unrelated errors
+* Fix: corrected issue with customer registration page not editable
+* Fix: fixed compatibility issue with Events manager plugin
 
 = 1.5.5 =
 * Fix: corrected problem with message "Warning: Missing argument 2 for zing_ws_page_title()"

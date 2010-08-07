@@ -21,15 +21,7 @@
  */
 ?>
 <?php
-/** Loads the WordPress Environment */
-require(dirname(__FILE__).'/../../../../../wp-blog-header.php');
-
-/** Load Zingiri Web Shop */
-require(dirname(__FILE__).'/../../zing.readcookie.inc.php');
-require(dirname(__FILE__).'/../../zing.startmodules.inc.php');
-
-//error_reporting(E_ALL & ~E_NOTICE);
-//ini_set('display_errors', '1');
+require(dirname(__FILE__).'/init.inc.php');
 
 /** Display cart */
 $wsc=new widget_sidebar_cart();

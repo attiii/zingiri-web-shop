@@ -46,12 +46,13 @@ if ($use_prodgfx == 1) {
 		$percent = min($max_height / $size[1], $max_width / $size[0]);
 		$height = intval($size[1] * $percent);
 		$width = intval($size[0] * $percent);
-		$screenshot = "<img style=\"height:100px\" src=\"".$thumb."\" width=\"".$width."\" height=\"".$height."\" />";
+		
+		$screenshot = "<img src=\"".$thumb."\" width=\"".$width."\" height=\"".$height."\" />";
 	}
-	//$screenshot="<div style=\"height:100px\">".$screenshot."</div>";
+	$screenshot="<div style=\"height:100px\">".$screenshot."</div>";
 }
 if ($row_count == 1) { echo "<tr>"; }
-echo '<td width="'.(intval(100/$prods_per_row)).'%">
+echo '<td width="'.(intval(100/$prods_per_row)).'%" style="text-align:center;">
 			       '."<a class=\"plain\" href=\"index.php?page=details&prod=".$f_row[0]."&cat=".$f_row[2]."\"><h5 style=\"text-align:center\">".$f_row[1].'</h5>'.$screenshot.'</a><br />
 				   <br />
                   <form id="order'.$f_row[0].'" method="post" action="?page=cart&action=add">

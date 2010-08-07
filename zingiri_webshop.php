@@ -26,37 +26,17 @@
  Plugin URI: http://www.zingiri.com/web-shop
  Description: Zingiri Web Shop is a full featured software package that allows you to set up your own online webshop within minutes.
  Author: EBO
- Version: 1.5.5
+ Version: 1.5.6
  Author URI: http://www.zingiri.com/
  */
-define("ZING_VERSION","1.5.5");
+define('ZING_CMS','wp');
+define('ZING_SLUG','zingiri-web-shop');
 
-@include(dirname(__FILE__)."/fixme.php");
-require(dirname(__FILE__)."/load.php");
-define("ZING_APPS",dirname(__FILE__)."/fws/fields/");
-define("ZING_APPS_CUSTOM",dirname(__FILE__)."/fws/");
-define("ZING_GLOBALS",dirname(__FILE__)."/fws/globals.php");
-define("ZING_APPS_EMBED","zap/");
-define("ZING_APPS_TRANSLATE",'z_');
-define("ZING_APPS_CAPTCHA",dirname(__FILE__)."/fws/addons/captcha/");
-define("ZING_APPS_EDITABLES","'register','profile'");
+//error_reporting(E_ALL & ~E_NOTICE);
+//ini_set('display_errors', '1');
 
-if (get_option('zing_ws_effects')=="Prototype" || get_option('zing_ws_effects')=="") {
-	define("ZING_PROTOTYPE",true);
-	define("ZING_JQUERY",false);
-} elseif (get_option('zing_ws_effects')=="jQuery") {
-	define("ZING_JQUERY",true);
-	define("ZING_PROTOTYPE",false);
-} else {
-	define("ZING_PROTOTYPE",false);
-	define("ZING_JQUERY",false);
-}
-
-require(dirname(__FILE__)."/zap/embed.php");
-
-require(dirname(__FILE__)."/zing.inc.php");
-
-require(dirname(__FILE__)."/extensions/index.php");
+require(dirname(__FILE__)."/wp.init.inc.php");
+require(dirname(__FILE__)."/init.inc.php");
 
 register_activation_hook(__FILE__,'zing_activate');
 register_deactivation_hook(__FILE__,'zing_deactivate');

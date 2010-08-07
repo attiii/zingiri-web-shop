@@ -1,23 +1,21 @@
 appsRepeatable = {
-	j : 1,
-	n : 1,
+	j : {},
+	n : {},
 	
 	init : function(id) {
+		this.j.id=this.n.id=jQuery('#'+id).children().eq(0).children('input').size();
 		that=this;
 		jQuery('#'+id).children().each(function(i, itemin) {
 			if (itemin.id) {
 				divTag=jQuery('#'+itemin.id);
 				if (divTag.attr('class')=='zfsub') {
-					divTag.children('input').eq(0).each(function(i,input) {
-						if (divTag.attr('class')=='zfsub') {
-							inputTag=jQuery('#'+input.id);
-							inputTag.attr('pos',1);
-							inputTag.attr('name',inputTag.attr('name')+'[]');
-							inputTag.bind('keydown',that,function(event) {
-								return event.data.tab(event);
-					        });
-
-						}
+					divTag.children('input').each(function(k,input) {
+						inputTag=jQuery('#'+input.id);
+						inputTag.attr('pos',k+1);
+						if (inputTag.attr('name').indexOf('[]')<0) inputTag.attr('name',inputTag.attr('name')+'[]');
+						inputTag.bind('keydown',that,function(event) {
+							return event.data.tab(event);
+				        });
 					});
 				}
 			}
@@ -25,11 +23,11 @@ appsRepeatable = {
 	},
 
 	del : function(id,pos) {
-		if (this.n==1) {
+		if (this.n.id==1) {
 			alert('You can\'t remove this element');
 			return;
 		}
-		this.n--;
+		this.n.id--;
 		item=jQuery('#'+id);
 		jQuery('#'+id).children().each(function(i, itemin) {
 			if (itemin.id) {
@@ -62,8 +60,8 @@ appsRepeatable = {
 	},
 	
 	add : function(id,pos) {
-		this.j++;
-		this.n++;
+		this.j.id++;
+		this.n.id++;
 		that=this;
 		var html="";
 		item=jQuery('#'+id);
@@ -75,9 +73,9 @@ appsRepeatable = {
 						inputTag=jQuery('#'+input.id);
 						if (inputTag.attr('pos')==pos || (pos==1 && i==0)) {
 							newInputTag=jQuery("<input>");
-							key=divTag.attr('id')+'_'+that.j;
-							newInputTag.attr('id',divTag.attr('id')+'_'+that.j);
-							newInputTag.attr('pos',that.j);
+							key=divTag.attr('id')+'_'+that.j.id;
+							newInputTag.attr('id',divTag.attr('id')+'_'+that.j.id);
+							newInputTag.attr('pos',that.j.id);
 							newInputTag.attr('class',inputTag.attr('class'));
 							newInputTag.attr('type',inputTag.attr('type'));
 							newInputTag.bind('keydown',that,function(event) {
@@ -99,11 +97,11 @@ appsRepeatable = {
 						inputTag=jQuery('#'+input.id);
 						if (inputTag.attr('pos')==pos || (pos==1 && i==0)) {
 							newInputTag=jQuery("<input>");
-							newInputTag.attr('id',divTag.attr('id')+'_'+that.j);
-							if (inputTag.attr('value')=="+") action='appsRepeatable.add(\''+id+'\','+that.j+')';
-							else action='appsRepeatable.del(\''+id+'\','+that.j+')';
+							newInputTag.attr('id',divTag.attr('id')+'_'+that.j.id);
+							if (inputTag.attr('value')=="+") action='appsRepeatable.add(\''+id+'\','+that.j.id+')';
+							else action='appsRepeatable.del(\''+id+'\','+that.j.id+')';
 							newInputTag.attr('onclick',action);
-							newInputTag.attr('pos',that.j);
+							newInputTag.attr('pos',that.j.id);
 							newInputTag.attr('class',inputTag.attr('class'));
 							newInputTag.attr('value',inputTag.attr('value'));
 							newInputTag.attr('type',inputTag.attr('type'));

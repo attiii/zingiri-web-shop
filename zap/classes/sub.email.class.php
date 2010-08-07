@@ -25,6 +25,8 @@ class emailZfSubElement extends zfSubElement {
 	
 	function verify() {
 		$email=$this->int;
+		if ($email=='') return true;
+		
 		// First, we check that there's one @ symbol, and that the lengths are right
 		if (!ereg("^[^@]{1,64}@[^@]{1,255}$", $email)) {
 			// Email invalid because wrong number of characters in one section, or wrong number of @ symbols.

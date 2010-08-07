@@ -32,7 +32,7 @@ if ($shop_disabled == 1 && IsAdmin() == true) {
 <table width="100%" class="datatable">
 	<caption><?php
 	echo $txt['main1']." "; PrintUsername($txt['header3']);
-	if (IsAdmin() == true) { echo "[<a href=\"?page=adminedit&filename=main.txt&root=0\">".$txt['browse7']."</a>]"; }
+	if (IsAdmin() == true) { echo "[<a href=\"".zurl('?page=adminedit&filename=main.txt&root=0')."\">".$txt['browse7']."</a>]"; }
 	?></caption>
 	<tr>
 		<td><?php

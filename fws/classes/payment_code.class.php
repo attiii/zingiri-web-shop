@@ -3,37 +3,54 @@ class paymentCode {
 	var $payment_code;
 
 	function getCode($paymentid,$customer,$total,$webid) {
-		global $dbtablesprefix,$shopurl,$lang,$sales_mail,$currency,$autosubmit;
+		global $dbtablesprefix,$shopname,$shopurl,$lang,$sales_mail,$currency,$autosubmit;
 
-		$total_nodecimals = number_format($total, 2,"","");
+		$this->webid=$webid;
+		$this->total=$total;
+		$this->total_nodecimals = number_format($total, 2,"","");
 
 		// read the payment method
 		$query = sprintf("SELECT * FROM `".$dbtablesprefix."payment` WHERE `id` = %s", quote_smart($paymentid));
 		$sql = mysql_query($query) or die(mysql_error());
 		if ($row = mysql_fetch_array($sql)) {
-			//IDEAL hash
-			$validity="2016-01-01T12:00:00:0000Z";
-			$shastring = $row['SECRET'] . $row['MERCHANTID'] . "0" . $total_nodecimals. $webid . "ideal" . $validity . "12345" . $webid . "1". $total_nodecimals;
-			$clean_shaString = HTML_entity_decode($shastring);
-			$not_allowed = array("\t", "\n", "\r", " "); 
-			$clean_shaString = str_replace($not_allowed, "",$clean_shaString);
-			$idealhash = sha1($clean_shaString);
-				
-			$payment_descr = $row[1];
-			$payment_code = $row[2];
-			// there could be some variables in the code, like %total%, %webid% and %shopurl% so lets update them with the correct values
+			$payment_descr = $row['DESCRIPTION'];
+			$payment_code = $row['CODE'];
+			$gateway = $row['GATEWAY'];
+			$this->merchantid=$row['MERCHANTID'];
+			$this->secret=$row['SECRET'];
+			$this->email=$row['EMAIL'];
+			
+			//common variables
+			$this->returnUrl=$shopurl . '/index.php?page=checkout&status=1&webid='.urlencode($webid).'&gateway='.$gateway;
+			$this->cancelUrl=$shopurl . '/index.php?page=checkout&status=9&webid='.urlencode($webid).'&gateway='.$gateway;
+			
+			@include(ZING_LOC.'extensions/gateways/'.$gateway.'/'.$gateway.'.php');
+			if (class_exists($gateway.'Gateway')) {
+				$gc=$gateway.'Gateway';
+				$g=new $gc($this,$customer);
+				//calculate hash if needed
+				$hash=$g->calcHash();
+				$payment_code = str_replace("%hash%", $hash, $payment_code);
+				$payment_code = str_replace("%dealhash%", $hash, $payment_code); //for backward compatibility
+				// custom replacements
+				$payment_code = $gc->replace($payment_code);
+			}
+			
+			// common replacements
 			if ($autosubmit) $payment_code=str_replace('target="_new"','',$payment_code);
 			$payment_code = str_replace('<form','<form id="autosubmit"',$payment_code);
-			$payment_code = str_replace("%total_nodecimals%", $total_nodecimals, $payment_code);
-			$payment_code = str_replace("%validity%", $validity, $payment_code);
-			$payment_code = str_replace("%idealhash%", $idealhash, $payment_code);
-			$payment_code = str_replace("%merchantid%", $row['MERCHANTID'], $payment_code);
+			$payment_code = str_replace('<FORM','<FORM id="autosubmit"',$payment_code);
+			$payment_code = str_replace("%total_nodecimals%", $this->total_nodecimals, $payment_code);
+			$payment_code = str_replace("%merchantid%", $this->merchantid, $payment_code);
+			$payment_code = str_replace("%shopname%", $shopname, $payment_code);
 			$payment_code = str_replace("%total%", $total, $payment_code);
 			$payment_code = str_replace("%webid%", $webid, $payment_code);
 			$payment_code = str_replace("%shopurl%", $shopurl, $payment_code);
 			$payment_code = str_replace("%currency%", $currency, $payment_code);
 			$payment_code = str_replace("%lang%", $lang, $payment_code);
 			$payment_code = str_replace("%customer%", $customer['ID'], $payment_code);
+			$payment_code = str_replace("%name%", $customer['INITIALS'].' '.$customer['LASTNAME'], $payment_code);
+			if (isset($customer['COMPANY'])) $payment_code = str_replace("%company%", $customer['COMPANY'], $payment_code);
 			$payment_code = str_replace("%firstname%", $customer['INITIALS'], $payment_code);
 			$payment_code = str_replace("%lastname%", $customer['LASTNAME'], $payment_code);
 			$payment_code = str_replace("%address%", $customer['ADDRESS'], $payment_code);
@@ -43,11 +60,8 @@ class paymentCode {
 			$payment_code = str_replace("%country%", $customer['COUNTRY'], $payment_code);
 			$payment_code = str_replace("%email%", $customer['EMAIL'], $payment_code);
 			$payment_code = str_replace("%phone%", $customer['PHONE'], $payment_code);
-			$payment_code = str_replace("%ipn%", ZING_URL.'fws/ipn.php', $payment_code);
-			if (!empty($row['EMAIL'])) $payment_code = str_replace("%paypal_email%", $row['EMAIL'], $payment_code);
-			else $payment_code = str_replace("%paypal_email%", $sales_mail, $payment_code);
-			$payment_code = str_replace("%return%", $shopurl . '/index.php?page=checkout&status=1&webid='.urlencode($webid), $payment_code);
-			$payment_code = str_replace("%cancel%", $shopurl . '/index.php?page=checkout&status=9&webid='.urlencode($webid), $payment_code);
+			$payment_code = str_replace("%return%", $this->returnUrl, $payment_code);
+			$payment_code = str_replace("%cancel%", $this->cancelUrl, $payment_code);
 			$payment_code = trim($payment_code);
 			$this->payment_code=$payment_code;
 			return $payment_code;

@@ -165,7 +165,7 @@ $txt['checkout9'] = "<br /><br />You can view the status of your order at any ti
 $txt['checkout10'] = 'Confirmation of your order with '.$shopname;
 $txt['checkout11'] = 'Your order is completed. A confirmation e-mail is being send to you.';
 $txt['checkout12'] = 'The confirmation e-mail could not be send. Therefor print out the confirmation below.';
-$txt['checkout13'] = 'Below is your order confirmation. Print it!';
+$txt['checkout13'] = 'Order confirmation';
 $txt['checkout14'] = 'Discount';
 $txt['checkout15'] = 'There is not enough stock of the product you tried to order.';
 $txt['checkout16'] = "Shipping method";
@@ -404,7 +404,7 @@ $txt['editsettings46'] = 'Layout';
 $txt['editsettings47'] = 'Store';
 $txt['editsettings48'] = 'Finance';
 $txt['editsettings49'] = 'Number format';
-$txt['editsettings50'] = 'Maximum description lenght <a href=# class=info>(?)<span>This is to shorten the descriptions in the price lists. <br /><strong>0 = do not shorten<br />1-99 = wordwrap on xx characters</strong></span></a>';
+$txt['editsettings50'] = 'Maximum description length <a href=# class=info>(?)<span>This is to shorten the descriptions in the price lists. <br /><strong>0 = do not shorten<br />1-99 = wordwrap on xx characters</strong></span></a>';
 $txt['editsettings52'] = 'Name of bank';
 $txt['editsettings53'] = 'Pricelist format <a href=# class=info>(?)<span>This settings applies to the pricelists, shoppingcart and order confirmation email</span></a>';
 $txt['editsettings54'] = 'Product ID';

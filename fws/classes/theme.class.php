@@ -7,7 +7,7 @@ class wsTheme {
 		require(ZING_GLOBALS);
 		if (!$zing_loaded)
 		{
-			require (ZING_LOC."./zing.startmodules.inc.php");
+			require (ZING_LOC."./startmodules.inc.php");
 			$zing_loaded=TRUE;
 		} else {
 			require (ZING_DIR."./includes/readvals.inc.php");        // get and post values

@@ -33,7 +33,6 @@ img {
 /* price format */
 *.price {
 	font-weight: bold;
-/*	text-decoration: strong;*/ /*FIXME*/
 	text-align: right;
 }
 
@@ -96,7 +95,6 @@ table.borderless td h5 {
 	padding: 4px;
 	text-align: left;
 	vertical-align: top;
-	/*remove-background-color: #FFFFFF;*/
 }
 
 .datatable th {
@@ -105,13 +103,11 @@ table.borderless td h5 {
 	text-align: left;
 	padding: 4px;
 	border: 1px solid #808080; /*darkgrey*/
-	/*remove-background-color: #C2C2C6;*/ /*lightgrey*/ /*	display: none;*/
 }
 
 .datatable caption {
 	font-size: 24px;
 	font-weight: bold;
-	/*remove-color: #302F34;*/ /*charcoal*/
 	text-align: left;
 	padding-top: 3px;
 	padding-bottom: 8px;
@@ -128,16 +124,10 @@ table.borderless td h5 {
 	color: black;
 }
 
-.datatable tr:hover,.datatable tr.hilite {
-	/*remove-background-color: red;*/ /*lightblue*/
-	/*remove-color: black;*/
-}
-
 /* (?) popup properties */
 a.info {
 	position: relative; /*this is the key*/
 	z-index: 24;
-	/*remove-background-color: white;
 	color: black;*/
 	text-decoration: none;
 	font-size: 11px;
@@ -146,8 +136,6 @@ a.info {
 
 a.info:hover {
 	z-index: 90;
-	/*remove-background-color: #004c93;*/ /* darkblue */
-	/*remove-color: white;*/
 }
 
 a.info span {
@@ -230,9 +218,6 @@ div.dashboard {
 table.dashboard {
 	border: 1px solid;
 	border-collapse: collapse;
-	/*margin-left: auto;  
-	margin-right: auto;
-	min-width: 25%;*/
 }
 table.dashboard td {
 	border: 0px;

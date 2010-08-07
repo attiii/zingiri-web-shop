@@ -115,7 +115,7 @@ else {
 		if (file_exists($product_dir."/tn_".$picid.".png")) 	{ unlink($product_dir."/tn_".$picid.".png"); }
 			
 		if ($action == "del_image") { PutWindow($gfx_dir, $txt['general13'] , $txt['productadmin25'], "notify.gif", "50"); }
-		$nextlink="<h4><a href=\"?page=browse&action=list&group=".$pgroup."&cat=".$pcat."\">".$txt['productadmin5']."</a></h4>";
+		$nextlink="<h4><a href=\"".zurl("?page=browse&action=list&group=".$pgroup."&cat=".$pcat)."\">".$txt['productadmin5']."</a></h4>";
 
 	}
 
@@ -151,7 +151,7 @@ else {
 		$prodid=mysql_insert_id();
 
 		PutWindow($gfx_dir, $txt['general13'] , $txt['customer13'], "notify.gif", "50");
-		$nextlink="<h4><a href=\"?page=productadmin&action=add_product&pcat=".$pcat."\">".$txt['productadmin4']."</a></h4>";
+		$nextlink="<h4><a href=\"".zurl("?page=productadmin&action=add_product&pcat=".$pcat)."\">".$txt['productadmin4']."</a></h4>";
 		//	$action = "picture_upload_form";
 	}
 
@@ -201,7 +201,7 @@ else {
 		$query.=" WHERE ID=".$prodid;
 		$sql = mysql_query($query) or die(mysql_error());
 		PutWindow($gfx_dir, $txt['general13'] , $txt['customer13'], "notify.gif", "50");
-		$nextlink="<h4><a href=\"?page=browse&action=list&group=".$pgroup."&cat=".$pcat."\">".$txt['productadmin5']."</a></h4>";
+		$nextlink="<h4><a href=\"".zurl("?page=browse&action=list&group=".$pgroup."&cat=".$pcat)."\">".$txt['productadmin5']."</a></h4>";
 
 		//	$action = "picture_upload_form";
 	}
@@ -235,8 +235,6 @@ else {
 				if ($make_thumbs == 1) {
 					createthumb($target_path,$product_dir.'/tn_'.$picid.".".$ext,$pricelist_thumb_width,$pricelist_thumb_height);
 				}
-				//PutWindow($gfx_dir, $txt['general13'], basename( $_FILES['uploadedfile']['name']).$txt['productadmin1'].$target_path, "notify.gif", "50");
-				//echo "<h4><a href=\"?page=productadmin&action=add_product&pcat=".$pcat."\">".$txt['productadmin4']."</a></h4>";
 			}
 			else{
 				PutWindow($gfx_dir, $txt['general12'], $txt['productadmin2'], "warning.gif", "50");
@@ -250,25 +248,26 @@ else {
 	// move the multiple uploaded images to the correct folder
 	if ($_POST['upload_key']!='' && ($action == "update_product" || $action == "save_new_product")) {
 		$key=$_POST['upload_key'];
-		$handle=opendir($product_dir);
-		$imgs=array();
-		while (($img = readdir($handle))!==false) {
-			if (strstr($img,$key)) {
-				$ext = strtolower(substr(strrchr($img, '.'), 1));
-				if (strstr($img,'tn_'.$key)) $tn='tn_'; else $tn='';
-				if (isset($_POST['lastimg'])) $i=$_POST['lastimg'];
-				else $i=1;
-				$newimg=$tn.$picid.'__'.sprintf('%03d',$i).'.'.$ext;
-				while (file_exists($product_dir.'/'.$newimg)) {
-					$i++;
+		if ($handle=opendir($product_dir)) {
+			$imgs=array();
+			while (($img = readdir($handle))!==false) {
+				if (strstr($img,$key)) {
+					$ext = strtolower(substr(strrchr($img, '.'), 1));
+					if (strstr($img,'tn_'.$key)) $tn='tn_'; else $tn='';
+					if (isset($_POST['lastimg'])) $i=$_POST['lastimg'];
+					else $i=1;
 					$newimg=$tn.$picid.'__'.sprintf('%03d',$i).'.'.$ext;
+					while (file_exists($product_dir.'/'.$newimg)) {
+						$i++;
+						$newimg=$tn.$picid.'__'.sprintf('%03d',$i).'.'.$ext;
+					}
+					copy($product_dir.'/'.$img,$product_dir.'/'.$newimg);
+					unlink($product_dir.'/'.$img);
+					if (strstr($img,$defaultImage)) $defaultImage=$newimg;
 				}
-				copy($product_dir.'/'.$img,$product_dir.'/'.$newimg);
-				unlink($product_dir.'/'.$img);
-				if (strstr($img,$defaultImage)) $defaultImage=$newimg;
 			}
+			closedir($handle);
 		}
-		closedir($handle);
 	}
 
 	//delete images if required
@@ -374,6 +373,7 @@ else {
 			echo $txt['productadmin100']." <input name=\"digitalfile\" size=\"35\" type=\"file\">  ".$link[1]."<br />";
 			echo $txt['productadmin30']." <input type=\"text\" name=\"pfeatures\" size=\"55\" value=\"".$pfeatures."\"><br />";
 			echo $txt['productadmin11'];
+				
 			if ($no_vat == 0 && $db_prices_including_vat == 0) { echo " (".$txt['general6']." ".$txt['general5'].")"; }
 			if ($no_vat == 0 && $db_prices_including_vat == 1) { echo " (".$txt['general7']." ".$txt['general5'].")"; }
 			echo " <input type=\"text\" name=\"pprice\" size=\"10\" maxlength=\"10\" value=\"".$pprice."\"><br />";
@@ -394,6 +394,7 @@ else {
 				}
 				echo '</select><br />';
 			}
+				
 			echo $txt['productadmin14']." <input type=\"checkbox\" name=\"pfrontpage\" "; if ($pfrontpage == 1) { echo "checked"; } echo "><br />";
 			echo $txt['productadmin15']." <input type=\"checkbox\" name=\"pnew\" "; if ($pnew == 1) { echo "checked"; } echo "><br />";
 			echo "<br />";
@@ -404,7 +405,7 @@ else {
 			}
 			echo "<br /><br />";
 			wsShowImage($picid,$defaultImage);
-
+				
 			echo "<br /><div align=center>";
 
 			if ($action == "add_product") {
@@ -433,22 +434,24 @@ else {
 		echo "<br /><br />";
 		echo "<h6>".$txt['productadmin27']."</h6>";
 		echo "<ul>";
-		echo "<li><a href=\"?page=productadmin&action=check_thumbs\">".$txt['productadmin28']."</a></li>";
+		echo "<li><a href=\"".zurl("?page=productadmin&action=check_thumbs")."\">".$txt['productadmin28']."</a></li>";
 		echo "</ul>";
 	}
 }
 
 function wsShowImage($picid,$defaultImage) {
 	global $product_dir,$product_url,$txt,$pricelist_thumb_width,$pricelist_thumb_height;
+
 	$imgs=array();
 	echo '<div id="uploaded_images">';
-	$handle=opendir($product_dir);
-	while (($img = readdir($handle))!==false) {
-		if (strstr($img,'tn_'.$picid.'.') || strstr($img,'tn_'.$picid.'__')) {
-			$imgs[]=$img;
+	if ($handle=opendir($product_dir)) {
+		while (($img = readdir($handle))!==false) {
+			if (strstr($img,'tn_'.$picid.'.') || strstr($img,'tn_'.$picid.'__')) {
+				$imgs[]=$img;
+			}
 		}
+		closedir($handle);
 	}
-	closedir($handle);
 	if (count($imgs) > 0) {
 		asort($imgs);
 		foreach ($imgs as $img) {

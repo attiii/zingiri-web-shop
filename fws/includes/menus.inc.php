@@ -4,9 +4,9 @@ $menus['dashboard']=array('group' => 'menu9', 'label' => 'admin102','href' => 'p
 $menus['orderadmin']=array('group' => 'menu9', 'label' => 'admin2','href' => 'page=orderadmin', 'img' => 'orders.jpg', 'func' => 'CountAllOrders');
 $menus['showcustomers']=array('page' => 'customeradmin', 'group' => 'menu9', 'label' => 'admin3','href' => 'page=customeradmin&action=showcustomers', 'img' => 'customers.gif', 'func' => 'CountCustomers','param' => 'CUSTOMER');
 //if (get_option('zing_ws_login') == "WP") $menus['showcustomers']['hide']=true;
-$menus['productadmin']=array('group' => 'menu9', 'label' => 'productadmin6','href' => 'page=productadmin&action=add_product', 'img' => 'products.gif');
-$menus['browse']=array('group' => 'menu9', 'label' => 'menu15','href' => 'page=browse&includesearch=1', 'img' => 'productswh.png', 'func' => 'CountProducts');
-$menus['stockadmin']=array('group' => 'menu9', 'label' => 'admin32','href' => 'page=stockadmin', 'img' => 'stockadmin.gif');
+//$menus['productadmin']=array('group' => 'menu9', 'label' => 'productadmin6','href' => 'page=productadmin&action=add_product', 'img' => 'products.gif');
+$menus['product']=array('hide' => true,'type' => 'apps','group' => 'menu9', 'label' => 'productadmin17','href' => 'zfaces=list&form=product', 'img' => 'products.gif');
+$menus['browse']=array('page' => 'browse','group' => 'menu9', 'label' => 'menu15','href' => 'page=browse&includesearch=1&action=list', 'img' => 'productswh.png', 'func' => 'CountProducts');
 $menus['showadmins']=array('page' => 'customeradmin', 'group' => 'admin23', 'label' => 'admin29','href' => 'page=customeradmin&action=showadmins', 'img' => 'admins.gif', 'func' => 'CountCustomers','param' => 'ADMIN');
 //if (get_option('zing_ws_login') == "WP") $menus['showadmins']['hide']=true;
 //$menus['groupadmin']=array('group' => 'admin23', 'label' => 'admin6','href' => 'page=groupadmin', 'img' => 'groups.gif');
@@ -16,7 +16,7 @@ $menus['paymentadmin']=array('type' => 'apps', 'group' => 'admin23', 'label' => 
 $menus['shippingadmin']=array('group' => 'admin23', 'label' => 'admin18','href' => 'page=shippingadmin', 'img' => 'shippingadmin.gif');
 $menus['uploadadmin']=array('group' => 'admin23', 'label' => 'admin9','href' => 'page=uploadadmin', 'img' => 'uploadlist.gif');
 $menus['editsettings']=array('group' => 'admin23', 'label' => 'admin8','href' => 'page=editsettings', 'img' => 'settings.gif');
-$menus['advancedsettings']=array('type' => 'apps', 'group' => 'admin23', 'label' => 'editsettings93','href' => 'zfaces=form&form=settings&action=edit&no_redirect=1&id=1', 'img' => 'pc.gif');
+$menus['advancedsettings']=array('hide' => true, 'type' => 'apps', 'group' => 'admin23', 'label' => 'editsettings93','href' => 'zfaces=form&form=settings&action=edit&no_redirect=1&id=1', 'img' => 'pc.gif');
 $menus['templates']=array('type' => 'apps', 'group' => 'admin23', 'label' => 'template3','href' => 'zfaces=list&form=template', 'img' => 'template.png');
 $menus['discountadmin']=array('type' => 'apps', 'group' => 'admin23', 'label' => 'admin38','href' => 'zfaces=list&form=discount', 'img' => 'discount.gif');
 $menus['taxes']=array('type' => 'apps', 'group' => 'admin23', 'label' => 'admin100','href' => 'zfaces=list&form=taxes', 'img' => 'taxes.png');
@@ -37,8 +37,4 @@ $menus['cart']=array('hide' => true, 'group' => 'my5', 'label' => 'my9','href' =
 $menus['products']=array('hide' => true, 'group' => 'my5', 'label' => 'admin5','href' => 'page=products&action=show', 'img' => 'products.gif');
 $menus['readorder']=array('page' => 'readorder', 'hide' => true, 'group' => 'admin23', 'label' => 'details7','href' => 'page=orderadmin', 'img' => 'orders.gif', 'func' => 'CountAllOrders');
 $menus['customeradmin']=array('hide' => true,'page' => 'customeradmin', 'group' => 'menu9', 'label' => 'admin3','href' => 'page=customeradmin&action=showcustomers', 'img' => 'customers.gif', 'func' => 'CountCustomers','param' => 'CUSTOMER');
-
-if (file_exists(dirname(__FILE__).'/../builder.php')) {
-	$menus['builder']=array('group' => 'admin23', 'label' => 'details7','href' => 'page=builder', 'img' => 'pagesadmin_add.png');
-}
 ?>

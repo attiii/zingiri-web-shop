@@ -21,23 +21,17 @@
  */
 ?>
 <?php
-//error_reporting(E_ALL & ~E_NOTICE);
-//ini_set('display_errors', '1');
-$searchfor=$_POST['searchfor'];
-if (empty($searchfor)) exit;
+$wsSearchfor=$_POST['searchfor'];
+if (empty($wsSearchfor)) exit;
 
-/** Loads the WordPress Environment */
-require(dirname(__FILE__).'/../../../../../wp-blog-header.php');
+require(dirname(__FILE__).'/init.inc.php');
 
-/** Load Zingiri Web Shop */
-require(dirname(__FILE__).'/../../zing.readcookie.inc.php');
-require(dirname(__FILE__).'/../../zing.startmodules.inc.php');
-
+$wsSearchfor=$wsSearchfor ? $wsSearchfor : $_POST['searchfor'];
 /** Run search results */
 $results="";
-if ($searchfor) {
+if ($wsSearchfor) {
 	$searchmethod="AND";
-	$searchitems = explode (" ", $searchfor);
+	$searchitems = explode (" ", $wsSearchfor);
 	if ($stock_enabled == 1) { $searchquery = "WHERE `STOCK` > 0 AND ("; }
 	else $searchquery = "WHERE (";
 

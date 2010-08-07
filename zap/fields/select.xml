@@ -8,7 +8,7 @@
 		</field1>
 		<field2>
 			<label>Key pairs</label>
-			<size>256</size>
+			<size>40</size>
 			<maxlength>64</maxlength>
 			<type>textarea</type>
 			<default>id</default>
@@ -23,4 +23,5 @@
 			<cat>parameter</cat>
 		</field3>	
 	</fields>
+	<help>Provides a drop down list of selectable options.##In "Key pairs", provide the key pairs in the form option1=value,option2=value2.#For example 1=Mr,2=Mr##In "Size", provide the maximum length of the drop down box.</help>
 </config>

@@ -26,5 +26,17 @@ class submitZfSubElement extends zfSubElement {
 	{
 		return true;
 	}
+
+	function display(&$field_markup,&$subscript_markup) {
+		$e=$this->element;
+		$i=$this->subid;
+		$xmlf=$this->xmlf;
+
+		if($e->populated_value['element_'.$e->id.'_'.$i] == ""){
+			$e->populated_value['element_'.$e->id.'_'.$i] = $xmlf->fields->{'field'.$i}->default;
+		}
+		$field_markup.="<input id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" value=\"".$xmlf->fields->{'field'.$i}->name."\" type=\"submit\" onclick=\"form.action=location.href;\" {$e->readonly}/>";
+		$subscript_markup.="";
+	}
 }
 ?>

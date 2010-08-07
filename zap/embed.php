@@ -1,6 +1,6 @@
 <?php
 /*  embed.php
- Copyright 2008,2009 Erik Bogaerts
+ Copyright 2008,2009,2010 Erik Bogaerts
  Support site: http://www.zingiri.com
 
  This file is part of Zingiri Apps.
@@ -25,59 +25,8 @@ define("ZING_APPS_PLAYER_VERSION","0.9.4");
 if (get_option('zing_apps_remote_url')) define("ZING_APPS_REMOTE_URL",get_option('zing_apps_remote_url').'/');
 else define("ZING_APPS_REMOTE_URL","http://www.zingiri.com/");
 
-// Pre-2.6 compatibility for wp-content folder location
-if (!defined("WP_CONTENT_URL")) {
-	define("WP_CONTENT_URL", get_option("siteurl") . "/wp-content");
-}
-if (!defined("WP_CONTENT_DIR")) {
-	define("WP_CONTENT_DIR", ABSPATH . "wp-content");
-}
-if (!defined("WP_PLUGIN_URL")) {
-	define("WP_PLUGIN_URL", get_option("siteurl") . "/wp-content/plugins");
-}
-if (!defined("WP_PLUGIN_DIR")) {
-	define("WP_PLUGIN_DIR", ABSPATH . "wp-content/plugins");
-}
-
-if (!defined("ZING_APPS_EMBED")) {
-	define("ZING_APPS_EMBED","");
-}
-
-if (!defined("ZING_APPS_PLAYER_PLUGIN")) {
-	$zing_apps_player_plugin=str_replace(realpath(dirname(__FILE__).'/../..'),"",dirname(__FILE__));
-	$zing_apps_player_plugin=substr($zing_apps_player_plugin,1);
-	define("ZING_APPS_PLAYER_PLUGIN", $zing_apps_player_plugin);
-}
-
-if (!defined("ZING_APPS_PLAYER")) {
-	define("ZING_APPS_PLAYER", true);
-}
-
-if (!defined("ZING_APPS_PLAYER_URL")) {
-	define("ZING_APPS_PLAYER_URL", WP_PLUGIN_URL . "/".ZING_APPS_PLAYER_PLUGIN."/");
-}
-if (!defined("ZING_APPS_PLAYER_DIR")) {
-	define("ZING_APPS_PLAYER_DIR", WP_PLUGIN_DIR . "/".ZING_APPS_PLAYER_PLUGIN."/");
-}
-if (!defined("FACES_DIR")) {
-	define("FACES_DIR", WP_CONTENT_URL . "/plugins/".ZING_APPS_PLAYER_PLUGIN."/fields/");
-}
-
-$dbtablesprefix = $wpdb->prefix."zing_";
-if (!defined("DB_PREFIX") && $wpdb->prefix) define("DB_PREFIX",$dbtablesprefix);
-$dblocation = DB_HOST;
-$dbname = DB_NAME;
-$dbuser = DB_USER;
-$dbpass = DB_PASSWORD;
-
-if (get_option("zing_apps_player_version")) {
-	add_action("init","zing_apps_player_init");
-	add_filter('the_content', 'zing_apps_player_content', 11, 3);
-	add_action('wp_head','zing_apps_player_header',100);
-}
-
-//require_once(dirname(__FILE__) . '/apps.cp.php');
-
+require(dirname(__FILE__).'/'.ZING_CMS.'.init.inc.php');
+require(dirname(__FILE__).'/'.ZING_CMS.'.hooks.inc.php');
 
 function zing_apps_player_error_handler($severity, $msg, $filename, $linenum) {
 	echo $severity."-".$msg."-".$filename."-".$linenum;
@@ -106,20 +55,18 @@ function zing_apps_player_activate() {
 	set_error_handler("zing_apps_error_handler");
 	error_reporting(E_ALL & ~E_NOTICE);
 
-	$wpdb->show_errors();
-	$prefix=$wpdb->prefix."zing_";
-	$dbtablesprefix=$prefix;
+	$prefix=$dbtablesprefix;
 	if (!defined("DB_PREFIX")) define("DB_PREFIX",$prefix);
 	zing_apps_player_install();
 }
 
 function zing_apps_player_install() {
-	global $wpdb;
+	global $dbtablesprefix;
 
 	if (!function_exists('zfCreate')) require(dirname(__FILE__).'/includes/create.inc.php');
 	if (!function_exists('zfReadRecord')) require(dirname(__FILE__).'/includes/db.inc.php');
 	if (!function_exists('zf_json_decode')) require(dirname(__FILE__).'/includes/faces.inc.php');
-	if (!class_exists('zfDB')) require(dirname(__FILE__).'/classes/db.class.php');
+	if (!class_exists('db')) require(dirname(__FILE__).'/classes/db.class.php');
 
 	$zing_version=get_option("zing_apps_player_version");
 	if (!$zing_version)
@@ -131,8 +78,7 @@ function zing_apps_player_install() {
 		update_option("zing_apps_player_version",ZING_APPS_PLAYER_VERSION);
 	}
 
-	$wpdb->show_errors();
-	$prefix=$wpdb->prefix."zing_";
+	$prefix=$dbtablesprefix;
 
 	if ($handle = opendir(dirname(__FILE__).'/db')) {
 		$files=array();
@@ -196,15 +142,15 @@ function zing_apps_player_deactivate() {
  * @return void
  */
 function zing_apps_player_uninstall($drop=true) {
-	global $wpdb;
 	global $dbtablesprefix;
 
 	if ($drop) {
-		$rows=$wpdb->get_results("show tables like '".$dbtablesprefix."%'",ARRAY_N);
-		if (count($rows) > 0) {
-			foreach ($rows as $id => $row) {
+		$query="show tables like '".$dbtablesprefix."%'";
+		$sql = mysql_query($query) or die(mysql_error());
+		while ($row = mysql_fetch_row($sql)) {
+			if (($row[0]!=$dbtablesprefix.'options') && strpos($row[0],'_mybb_')===false && strstr($row[0],'_ost_')===false) {
 				$query="drop table ".$row[0];
-				$wpdb->query($query);
+				mysql_query($query) or zing_ws_error_handler(1,mysql_error().'-'.$query);
 			}
 		}
 	}
@@ -216,19 +162,19 @@ function zing_apps_player_uninstall($drop=true) {
  * @param $content
  * @return unknown_type
  */
-function zing_apps_player_content($content) {
+function zing_apps_player_content($content='') {
 
 	global $post;
 	global $dbtablesprefix,$page;
 	global $zing;
-
+	
 	$page=$_GET['page'];
 	error_reporting(E_ALL ^ E_NOTICE); // ^ E_NOTICE
 	if (function_exists("user_error_handler")) set_error_handler("user_error_handler");
 	else ini_set('display_errors', '1');
 
 	if (defined("ZING_APPS_CUSTOM")) { require(ZING_APPS_CUSTOM."globals.php"); }
-
+	
 	$cf=get_post_custom();
 
 	if (isset($_GET['zfaces'])) {
@@ -244,11 +190,12 @@ function zing_apps_player_content($content) {
 		restore_error_handler();
 		return $content;
 	}
-
+	
 	if ($cf['zing_form'][0]) $_GET['form']=$cf['zing_form'][0];
 	if ($cf['zing_action'][0]) $_GET['action']=$cf['zing_action'][0];
 
 	require_once(dirname(__FILE__)."/includes/all.inc.php");
+	
 	if (isset($zing->paths)) {
 		foreach ($zing->paths as $path) {
 			require($path."apps/classes/index.php");
@@ -257,7 +204,7 @@ function zing_apps_player_content($content) {
 			require($path."apps/services/index.php");
 		}
 	}
-
+	
 	echo '<div class="zing_ws_page" id="zing_ws_'.$_GET['form'].'">';
 	echo $prefix;
 	switch ($zfaces)
@@ -287,15 +234,16 @@ function zing_apps_player_content($content) {
  */
 function zing_apps_player_header()
 {
+	echo '<script type="text/javascript" language="javascript">';
+	echo "var zfAppsUrl='".ZING_APPS_PLAYER_URL."';";
 	if (defined("ZING_APPS_BUILDER")) {
-		echo '<script type="text/javascript" language="javascript">';
 		echo "var zfurl='".ZING_APPS_BUILDER_URL."ajax/';";
 		if (defined("ZING_APPS_CUSTOM")) echo "var zfAppsCustom='".ZING_APPS_CUSTOM."';";
 		else echo "var zfAppsCustom='';";
 		echo "var zfAppsSystem='".ZING_APPS_PLAYER_DIR."';";
-		echo '</script>';
 	}
-
+	echo '</script>';
+	
 	echo '<link rel="stylesheet" href="' . ZING_APPS_PLAYER_URL . 'css/integrated_view.css" type="text/css" media="screen" />';
 	if (defined("ZING_APPS_BUILDER") && (!defined("ZING_PROTOTYPE") || ZING_PROTOTYPE)) {
 		echo '<script type="text/javascript" src="' . ZING_APPS_BUILDER_URL . 'js/form.js"></script>';
@@ -310,14 +258,18 @@ function zing_apps_player_header()
 		echo '<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/sortlist.jquery.js"></script>';
 		echo '<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/repeatable.jquery.js"></script>';
 	}
+		//echo '<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/jquery.json-2.2.js"></script>';
 }
 
 function zing_apps_player_header_cp() {
+	zing_apps_player_header();
+	/*
 	if (!defined("ZING_PROTOTYPE") || ZING_PROTOTYPE) {
 		echo '<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/sortlist.proto.js"></script>';
 	} elseif (defined("ZING_JQUERY") && ZING_JQUERY) {
 		echo '<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/sortlist.jquery.js"></script>';
 	}
+	*/
 }
 
 /**
@@ -340,22 +292,10 @@ function zing_apps_player_init()
 	}
 }
 
-if (!function_exists("ZingAppsIsAdmin")) {
-	function ZingAppsIsAdmin() {
-		if (function_exists('current_user_can') && current_user_can('manage_options')) return true;
-		if (function_exists("IsAdmin")) { return IsAdmin(); }
-		return false;
-	}
-}
-
 function zing_apps_player_load($dir) {
-	global $wpdb;
+	global $dbtablesprefix;
 
-	//error_reporting(E_ALL & ~E_NOTICE);
-	//ini_set('display_errors', '1');
-
-	$wpdb->show_errors();
-	$prefix=$wpdb->prefix."zing_";
+	$prefix=$dbtablesprefix;
 
 	if ($handle = opendir($dir)) {
 		$files=array();
@@ -383,13 +323,11 @@ if (!function_exists('zing_apps_error_handler')) {
 	}
 }
 
-function zing_apps_cp() {
+function zing_apps_cp_submenus() {
 	$name='Zingiri Apps';
 	//add_options_page($name." Options", "$name", 8, 'zingiri-apps', 'zing_apps_editor');
 
-	add_menu_page($name, $name, 'administrator', 'zingiri-apps','zing_apps_settings');
-	add_submenu_page('zingiri-apps', $name.'- Settings', 'Settings', 'administrator', 'zingiri-apps', 'zing_apps_settings');
-	add_submenu_page('zingiri-apps', $name.'- Editor', 'Editor', 'administrator', 'zingiri-apps-settings', 'zing_apps_editor');
+	
 	//add_submenu_page('zingiri-apps', $name.'- List', 'List', 'administrator', 'zingiri-apps-summary', 'zing_apps_summary');
 }
 
@@ -404,7 +342,7 @@ function zing_apps_editor() {
 			if (!function_exists('zfCreate')) require(dirname(__FILE__).'/includes/create.inc.php');
 			if (!function_exists('zfReadRecord')) require(dirname(__FILE__).'/includes/db.inc.php');
 			if (!function_exists('zf_json_decode')) require(dirname(__FILE__).'/includes/faces.inc.php');
-			if (!class_exists('zfDB')) require(dirname(__FILE__).'/classes/db.class.php');
+			if (!class_exists('db')) require(dirname(__FILE__).'/classes/db.class.php');
 
 			$data=str_replace('\"','"',$_POST['zfremotedata']);
 			parse_str($_POST['zfremotesortorder']);
@@ -489,6 +427,4 @@ function zing_apps_settings() {
 	}
 	require(dirname(__FILE__).'/includes/controlpanel.inc.php');
 }
-
-add_action('admin_menu', 'zing_apps_cp');
 ?>

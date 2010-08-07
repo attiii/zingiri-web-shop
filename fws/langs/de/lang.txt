@@ -4,10 +4,12 @@ $charset = "UTF-8";
 
 // first some values that can also be used further along in this lang file
 // database values for orders
-$txt['frontpage1'] = 'mehr informationen';
+$txt['frontpage1'] = 'mehr Informationen';
 
 $txt['db_shipping1'] = 'Selbstabholer bezahlen keine Verpackung und Versand';
 $txt['db_shipping2'] = 'Selbstabholer';
+$txt['db_shipping5'] = 'Falls Sie einen Discountcode haben, bitte hier eintragen';
+
 
 // database values for payments
 $txt['db_payment1'] = 'per &Uuml;berweisung';
@@ -21,13 +23,13 @@ $txt['db_status2'] = 'Warten auf Zahlungseingang';
 $txt['db_status3'] = 'Warten auf Abholung';
 $txt['db_status4'] = 'Bestellung in Arbeit';
 $txt['db_status5'] = 'Bestellung abgeschickt (erledigt)';
-$txt['db_status6'] = 'Abgeholt(erledigt)';
+$txt['db_status6'] = 'Abgeholt (erledigt)';
 $txt['db_status7'] = 'Storniert';
 
 $txt['db_status10'] = 'Status und die Bedeutung';
 $txt['db_status11'] = 'Ihre Bestellung ist eingetroffen, aber noch nicht durch einen Mitarbeiter  best&auml;tigt.';
 $txt['db_status12'] = 'Ihre Bestellung wurde bearbeitet, Sie m&uuml;ssen nun die &Uuml;berweisung t&auml;tigen';
-$txt['db_status13'] = 'Die Bestellung ist bereit zur Abholung, Sie wurden per E-mail benachrichtigt.Bitte machen Sie telefonisch einen Termin aus.';
+$txt['db_status13'] = 'Die ​Bestellung ist bereit zur Abholung, Sie wurden per E-mail benachrichtigt. Bitte machen Sie telefonisch einen Termin aus.';
 $txt['db_status14'] = 'Die Zahlung ist eingetroffen, wir bearbeiten Ihre Bestellung';
 $txt['db_status15'] = 'Die Bestellung ist auf dem Weg zu Ihnen.';
 $txt['db_status16'] = 'Die Bestellungsabwicklung ist abgeschlossen';
@@ -48,9 +50,9 @@ $txt['general1'] = 'Zugriff verweigert!';
 $txt['general2'] = 'Ihre IP-Adresse wurde ausgesperrt!';
 $txt['general3'] = 'neu';
 $txt['general4'] = 'zur&uuml;ck zum Administrator';
-$txt['general5'] = 'Mwst';
-$txt['general6'] = 'excl.';
-$txt['general7'] = 'incl.';
+$txt['general5'] = 'MwSt.';
+$txt['general6'] = 'exkl.';
+$txt['general7'] = 'inkl.';
 $txt['general8'] = 'Beachte! Der Webshop ist inaktiv, d.h. Kunden k&ouml;nnen keine Produkte ordern.';
 $txt['general9'] = '404 error. Seite nicht gefunden!';
 $txt['general10'] = 'Sie sind von der Benutzung des Webshops ausgeschlossen worden.';
@@ -59,10 +61,10 @@ $txt['general12'] = 'Fehler!';
 $txt['general13'] = 'Bekanntmachung';
 $txt['general14'] = 'zur&uuml;ck';
 $txt['general15'] = 'Bitte den Code eingeben';
-$txt['general16'] = 'Der Code war falsch. Bitte nocheinmal.';
+$txt['general16'] = 'Der Code war falsch. Bitte noch einmal.';
 
 // header.php
-$txt['header1'] = 'Sicherheits Risiko';
+$txt['header1'] = 'Sicherheitsrisiko';
 $txt['header2'] = 'Willkommen';
 $txt['header3'] = 'Gast';
 $txt['header4'] = '<font color=red><b>install.php</b></font> gefunden. Sie m&uuml;ssen diese Datei l&ouml;schen oder umbenennen!';
@@ -114,10 +116,10 @@ $txt['browse5'] = 'keine Produkte gefunden';
 $txt['browse6'] = 'Die Bilder sind nicht rechtsbindend auf das Produkt!';
 $txt['browse7'] = 'editieren';
 $txt['browse8'] = 'l&ouml;schen';
-$txt['browse9'] = 'Produkt Liste';
+$txt['browse9'] = 'Produktliste';
 $txt['browse10'] = 'Bild austauschen';
 $txt['browse11'] = 'Seiten';
-$txt['browse12'] = 'Ausverkauft';
+$txt['browse12'] = 'ausverkauft';
 $txt['browse13'] = 'auf Lager';
 
 // submenu.php
@@ -125,7 +127,7 @@ $txt['submenu1'] = 'Unsere Produkte in dieser Kategorie';
 $txt['submenu2'] = 'Keine Produkte zur Zeit in dieser Kategorie!';
 
 // 'php
-$txt['main1'] = 'Willkommen';
+$txt['main1'] = 'Willkommen ';
 $txt['main2'] = 'Sonderangebote';
 
 // details.php
@@ -133,52 +135,55 @@ $txt['details1'] = 'Produkt Details';
 $txt['details2'] = 'Produkt ID';
 $txt['details3'] = 'Bildersuche mit Google';
 $txt['details4'] = 'Beschreibung';
-$txt['details5'] = 'Preis/Stck';
+$txt['details5'] = 'Preis/Stck.';
 $txt['details6'] = 'Menge';
 $txt['details7'] = 'Bestellung';
 $txt['details8'] = 'zur&uuml;ck zur Liste';
-$txt['details9'] = 'Klicken f&uuml;r Vollbild';
+$txt['details9'] = 'Klicken ​f&uuml;r ​Vollbild';
 
 // conditions.php
-$txt['conditions1'] = 'Ich stimme den allgemeinen Bestimmungen zu';
+$txt['conditions1'] = 'Ich stimme den AGBs zu';
 $txt['conditions2'] = 'Ich bin nicht einverstanden';
 $txt['conditions3'] = 'ausser Funktion';
 $txt['conditions4'] = 'Bestellungen sind derzeit nicht m&ouml;glich.';
-$txt['conditions5'] = 'Allgemeinen Bestimmungen';
+$txt['conditions5'] = 'AGB';
 
 // shipping.php
 $txt['shipping1'] = 'Versand und Bezahlung';
 $txt['shipping2'] = 'Versandauswahl';
 $txt['shipping3'] = 'Bemerkungen/Lob/Kritik';
+$txt['shipping5'] = 'Falls Sie einen Discountcode haben, bitte hier eintragen';
 $txt['shipping9'] = 'Bestellung abschicken';
-$txt['shipping10'] = 'Bezahlungsart w&auml;hlen';
+$txt['shipping10'] = 'Art der Bezahlung w&auml;hlen';
 
 // checkout.php
 $txt['checkout1'] = 'Fehler';
 $txt['checkout2'] = 'Die Seite ist nicht mehr g&uuml;ltig.';
-$txt['checkout3'] = "Guten Tag Herr/Frau $lastname,<br/><br/><br/>Diese Nachricht best&auml;tigt Ihre Bestellung bei <a href='$shopurl'>$shopname</a><br/><br/>Ihre Bestell-ID : $webid<br/>Ihre Kundennummer: $customerid<br/><br/>Ihre Bestellung :<br/>";
+$txt['checkout3'] = "Guten Tag Herr/Frau $lastname,<br/><br/><br/>Diese Nachricht best&auml;tigt Ihre Bestellung bei <a href='$shopurl'>$shopname</a><br/><br/>Ihre Bestell-ID : $webid<br/>Ihre Kundennummer: $customerid<br/><br/>Ihre Bestellung:<br/>";
 $txt['checkout4'] = ' x Produkt ';
 $txt['checkout5'] = ' einmal';
 $txt['checkout6'] = "<br/>";
 $txt['checkout7'] = 'Sie bestellten :';
 $txt['checkout8'] = 'auf Lager:';
-$txt['checkout9'] = "<br/><br/>Sie k&ouml;nnen den Status Ihrer Bestellung jederzeit aufrufen, indem Sie <a href='$shopurl/index.php?page=orders&id=$customerid'>hier klicken</a><br/><br/>Wir danken Ihnen f&uuml;r Ihre Bestellung.<br/>";
+$txt['checkout9'] = "<br/><br/>Sie k&ouml;nnen den Status Ihrer Bestellung jederzeit aufrufen, indem Sie <a href='$shopurl/index.php?page=orders&id=$customerid'>hier klicken</a><br/><br/>Wir danken Ihnen f&uuml;r Ihren Auftrag.<br/>";
 $txt['checkout10'] = 'Best&auml;tigung Ihrer Bestellung bei '.$shopname;
-$txt['checkout11'] = 'Ihre Bestellung ist aufgenommen. Ein Best&auml;tigungsformular wird Ihnen per E-mail zugesand.';
-$txt['checkout12'] = 'Die Best&auml;tigungs-E-mail konnte nicht versendet werden.versuchen Sie es nocheinmal oder drucken Sie das Formular aus.';
+$txt['checkout11'] = 'Ihre Auftrag ist aufgenommen. Ein Best&auml;tigungsformular wird Ihnen per E-mail zugesandt.';
+$txt['checkout12'] = 'Die Best&auml;tigungs-E-mail konnte nicht versendet werden.versuchen Sie es noch einmal oder drucken Sie das Formular aus.';
 $txt['checkout13'] = 'Dies ist eine Kopie der Best&auml;tigungsmail:';
 $txt['checkout15'] = 'Von dieser Ware haben wir nicht, Ihren Anforderungen entsprechend, genug auf Lager :';
-$txt['checkout16'] = "Versand : ";
+$txt['checkout16'] = "Versand: ";
 $txt['checkout17'] = "Lieferadresse:<br/>$company<br/>$address<br/>$zipcode $city<br/>$country";
 $txt['checkout19'] = "Bezahlung: ";
-$txt['checkout20'] = "Bank info:<br/> Kontonr.: $bankaccount<br/> Kontoinhaber: $bankaccountowner<br/>Stadt: $bankcity<br/>Land: $bankcountry<br/>Bankname: $bankname<br/>IBAN: $bankiban<br/>BIC: $bankbic<br/> Vermerk: $webid";
+$txt['checkout20'] = "Bankinfo:<br/> Kontonr.: $bankaccount<br/> Kontoinhaber: $bankaccountowner<br/>Stadt: $bankcity<br/>Land: $bankcountry<br/>Bankname: $bankname<br/>IBAN: $bankiban<br/>BIC: $bankbic<br/> Vermerk: $webid";
 $txt['checkout21'] = "Sobald das Produkt wieder auf Lager ist, benachrichtigen wir Sie.";
-$txt['checkout22'] = "Benutzen Sie Ihr paypal-Konto.";
+$txt['checkout22'] = "Benutzen Sie Ihr Paypal-Konto.";
 $txt['checkout23'] = "Die Bestellung wird per Nachnahme versendet.";
 $txt['checkout24'] = "Die Endsumme betr&auml;gt: $currency_symbol $totalprint (inkl. $currency_symbol $print_sendcosts Versand)";
 $txt['checkout25'] = "inkl. $show_vat ".$txt['general5'];
-$txt['checkout26'] = "Bitte &Uuml;berweisen Sie die Summe innerhalb von $paymentdays Tagen. Bei Zahlungseingang wird Ihnen Ihre Bestellung zugesand.";
+$txt['checkout26'] = "Bitte &Uuml;berweisen Sie die Summe innerhalb von $paymentdays Tagen. Bei Zahlungseingang wird Ihr Auftrag bearbeitet.";
 $txt['checkout27'] = 'oder anzeigen der Bestellung als PDF';
+$txt['checkout102'] = 'MwSt.';
+
 
 // search.php
 $txt['search1'] = 'Produktsuche';
@@ -218,33 +223,35 @@ $txt['checklogin5'] = 'Wenn Sie noch nicht Kunde sind, klicken Sie bitte hier';
 $txt['checklogin6'] = 'Welche Vorteile Sie durch eine Kundennummer haben?';
 $txt['checklogin7'] = 'Um auf unseren Seiten bestellen zu k&ouml;nnen brauchen Sie eine Kundennummer.Es werden w&auml;hrend der Registrierung nur die Bestellungsabwicklung erforderlichen Daten erfasst.<br/><br/><b>Ihre Daten werden an keine Dritten weitergegeben.</b><br/><br/><br/>Haben Sie erst eine Kundennummer k&ouml;nnen Sie:<ul><li>sich von jedem PC aus einloggen<li>Produkte bequem bestellen<li>den Fortschritt Ihrer Bestellung beobachten<li>Ihren Warenkorb verwalten</ul>';
 $txt['checklogin8'] = 'Login-Daten vergessen';
-$txt['checklogin9'] = 'Tragen Sie Ihre E-mail-adresse ein.(muss die selbe wie in Ihrer Kundendatei sein) Ihre login-Daten werden Ihnen zugesand.';
+$txt['checklogin9'] = 'Tragen Sie Ihre E-mailadresse ein. (muss die selbe wie in Ihrer Kundendatei sein) Ihre Login-Daten werden Ihnen zugesandt.';
 $txt['checklogin10'] = 'Send mail';
 $txt['checklogin11'] = 'Ihre Login-Daten vergessen?';
-$txt['checklogin12'] = 'Ihre Daten werden gesendet an : ';
+$txt['checklogin12'] = 'Ihre Daten werden gesendet an: ';
 $txt['checklogin13'] = 'Login-Daten '. $shopurl;
-$txt['checklogin14'] = 'Diese E-mail erhalten Sie,weil Sie Ihre Login-Daten verlegt haben ('. $shopurl .').';
-$txt['checklogin15'] = 'Diese E-mail existiert nicht in unserer KundenDatenbank';
+$txt['checklogin14'] = 'Diese E-mail erhalten Sie, weil Sie Ihre Login-Daten verlegt haben ('. $shopurl .').';
+$txt['checklogin15'] = 'Diese E-mail existiert nicht in unserer Kundendatenbank';
 $txt['checklogin16'] = 'Mail abgeschickt';
 $txt['checklogin17'] = 'Fehler';
 $txt['checklogin18'] = 'zur&uuml;ck';
 
 // login.php
-$txt['login1'] = 'Fehler bei Einloggen .. bitte warten';
+$txt['login1'] = 'Fehler bei Einloggen, bitte warten.';
 $txt['login2'] = 'oder hier klicken';
-$txt['login3'] = 'Sie sind eingeloggt.. bitte warten';
+$txt['login3'] = 'Sie sind eingeloggt, bitte warten.';
 
 // logout.php
-$txt['logout1'] = 'Sie sind ausgeloggt..';
+$txt['logout1'] = 'Sie sind ausgeloggt.';
 
 // my.php
-$txt['my3'] = '&uuml;ber die pers&ouml;nliche Seite';
-$txt['my4'] = 'Dies ist ihre pers&ouml;nliche Seite. Nur Sie haben Zugriff darauf. <br/><br/>Hier k&ouml;nnen Sie Ihre Kundendaten, Ihre Bestellungen und Ihren Warenkorb bearbeiten. H&uuml;bsch kompakt und &uuml;bersichtlich.';
+$txt['my3'] = 'Ihre pers&ouml;nliche Seite';
+$txt['my4'] = 'Dies ist Ihre pers&ouml;nliche Seite. Nur Sie haben Zugriff darauf. <br/><br/>Hier k&ouml;nnen Sie Ihre Kundendaten, Ihre Bestellungen und Ihren Warenkorb bearbeiten. Kompakt und &uuml;bersichtlich.';
 $txt['my5'] = 'Optionen';
 $txt['my6'] = 'meine Kundennummer';
 $txt['my7'] = 'meine Daten &auml;ndern';
 $txt['my8'] = 'meine Bestellungen';
 $txt['my9'] = 'mein Warenkorb';
+$txt['my10'] = 'andere Adressen';
+
 
 // admin.php
 $txt['admin1'] = 'Shop Administration';
@@ -256,7 +263,7 @@ $txt['admin6'] = 'Gruppen &<br/> Kategorien';
 $txt['admin7'] = 'Datenbank optimieren';
 $txt['admin8'] = 'Einstellungen';
 $txt['admin9'] = 'Preisliste hochladen';
-$txt['admin10'] = 'Datenbanktabellen optimieren..';
+$txt['admin10'] = 'Datenbanktabellen optimieren.';
 $txt['admin11'] = 'in Arbeit';
 $txt['admin12'] = 'Optimierung abgeschlossen!';
 $txt['admin13'] = 'Info und Support';
@@ -267,7 +274,7 @@ $txt['admin17'] = 'Garantie';
 $txt['admin18'] = 'Versandoptionen';
 $txt['admin19'] = 'Bann Liste';
 $txt['admin20'] = 'Impressum';
-$txt['admin21'] = 'Bezahlungs Optionen';
+$txt['admin21'] = 'Bezahloptionen';
 $txt['admin22'] = 'Startseite';
 $txt['admin23'] = 'Einstellungen &auml;ndern';
 $txt['admin24'] = 'Dateien bearbeiten';
@@ -311,7 +318,7 @@ $txt['orderadmin9'] = 'Alle Bestellungen';
 $txt['orderadmin10'] = 'Keine Bestellung hat den gesuchten Status';
 $txt['orderadmin11'] = 'anzeigen';
 $txt['orderadmin12'] = 'Kundennachricht!';
-$txt['orderadmin13'] = 'Bestellungs Administration';
+$txt['orderadmin13'] = 'Bestelladministration';
 $txt['orderadmin14'] = 'Status &auml;ndern';
 $txt['orderadmin15'] = 'Status wurde ge&auml;ndert';
 
@@ -344,10 +351,10 @@ $txt['customer15'] = 'Login Name';
 $txt['customer16'] = 'Passwort';
 $txt['customer17'] = 'Passwort wiederholen';
 $txt['customer18'] = 'Nachname';
-$txt['customer19'] = 'Vorname';
-$txt['customer20'] = 'Initialen';
-$txt['customer21'] = 'Addresse';
-$txt['customer22'] = 'PlZ';
+$txt['customer19'] = 'Titel';
+$txt['customer20'] = 'Vorname';
+$txt['customer21'] = 'Adresse';
+$txt['customer22'] = 'PLZ';
 $txt['customer23'] = 'Stadt';
 $txt['customer24'] = 'Land';
 $txt['customer25'] = 'Telefon';
@@ -355,7 +362,7 @@ $txt['customer26'] = 'E-mail';
 $txt['customer27'] = '* = muss ausgef&uuml;llt werden';
 $txt['customer28'] = 'Daten speichern';
 $txt['customer29'] = 'Ihr Benutzername ist bereits vergeben';
-$txt['customer30'] = 'Firma *';
+$txt['customer30'] = 'Firma';
 $txt['customer31'] = 'Verweigert!';
 $txt['customer32'] = 'Ihre Anfrage ist abgewiesen.';
 $txt['customer33'] = '(zwischen 5 und 10 Buchstaben)';
@@ -372,7 +379,7 @@ $txt['readorder2'] = 'zur&uuml;ck zu Bestellungen';
 // editsettings.php
 $txt['editsettings1'] = 'Einstellungen &auml;ndern';
 $txt['editsettings2'] = 'Einstellungen speichern';
-$txt['editsettings3'] = 'Farbdesign';
+$txt['editsettings3'] = 'Produkte die nicht auf Lager sind verbergen';
 $txt['editsettings4'] = 'Standard Land <a href=# class=info>(?)<span>f&uuml;r gew&ouml;hnlich in dem Land des Firmensitzes</span></a>';
 $txt['editsettings5'] = 'Versandstandard <a href=# class=info>(?)<span>Versandkosten. Format: 12.34</span></a>';
 $txt['editsettings6'] = 'Versand ins Ausland';
@@ -380,10 +387,10 @@ $txt['editsettings7'] = 'Versankosten per Nachnahme<a href=# class=info>(?)<span
 $txt['editsettings8'] = 'W&auml;hrung';
 $txt['editsettings9'] = 'W&auml;hrungssymbol <a href=# class=info>(?)<span>In diesem Fall wohl : $</span></a>';
 $txt['editsettings10'] = 'Zahlen innerhalb x?x Tagen <a href=# class=info>(?)<span>in welchem zeitrahmen soll die zahlung eingegangen sein?</span></a>';
-$txt['editsettings11'] = 'Mwst. angeben <a href=# class=info>(?)<span>In Fall 19% Mwst -->  1.19</span></a>';
-$txt['editsettings12'] = 'Mwst Text <a href=# class=info>(?)<span>In Fall 19% Mwst --> 19%</span></a>';
-$txt['editsettings13'] = 'Preis incl. Mwst';
-$txt['editsettings14'] = 'Email-addresse Verkaufsabteilung <a href=# class=info>(?)<span>Zu dieser Adresse werden die Bestellungen geschickt, zB. Shopmitarbeiter: nicola@yourshop.de</span></a>';
+$txt['editsettings11'] = 'MwSt. angeben <a href=# class=info>(?)<span>In Fall 19% MwSt. -->  1.19</span></a>';
+$txt['editsettings12'] = 'MwSt. Text <a href=# class=info>(?)<span>In Fall 19% MwSt. --> 19%</span></a>';
+$txt['editsettings13'] = 'Preis inkl. MwSt.';
+$txt['editsettings14'] = 'Email-Adresse Verkaufsabteilung <a href=# class=info>(?)<span>Zu dieser Adresse werden die Bestellungen geschickt, zB. Shopmitarbeiter: nicola@yourshop.de</span></a>';
 $txt['editsettings15'] = 'Shop Name';
 $txt['editsettings16'] = "Webshop URL <a href=# class=info>(?)<span>Adresse mit 'http://' aber ohne letzten '/' , zB: http://www.yourdomain.com/shop </span></a>";
 $txt['editsettings17'] = 'Standard Sprache';
@@ -396,12 +403,12 @@ $txt['editsettings23'] = 'Webshop offline Titelzeile';
 $txt['editsettings24'] = 'Webshop offline Mitteilung';
 $txt['editsettings25'] = 'E-mail-addresse Webmaster';
 $txt['editsettings26'] = 'Telefon (optional)';
-$txt['editsettings27'] = 'Fax  (optional)';
+$txt['editsettings27'] = 'Fax (optional)';
 $txt['editsettings28'] = 'Kontonummer';
 $txt['editsettings29'] = 'Kontoinhaber';
 $txt['editsettings30'] = 'Stadt';
 $txt['editsettings31'] = 'Land';
-$txt['editsettings32'] = 'Bank IBAN';
+$txt['editsettings32'] = 'IBAN';
 $txt['editsettings33'] = 'Bank BIC';
 $txt['editsettings34'] = 'seit <a href=# class=info>(?)<span>Gr&uuml;ndungsjahr der Firma</span></a>';
 $txt['editsettings35'] = 'Logobild <a href=# class=info>(?)<span>Sollte im Ordner <b>'.$gfx_dir.' </b>sein</span></a>';
@@ -420,7 +427,7 @@ $txt['editsettings47'] = 'Shop';
 $txt['editsettings48'] = 'Finanzen';
 $txt['editsettings49'] = 'Zahlenformat';
 $txt['editsettings50'] = 'Maximale Beschreibungsl&auml;nge <a href=# class=info>(?)<span>Gilt in der Preisliste. <br/><b>0 = nicht k&uuml;rzen<br/>1-99 = Wortumbruch nach xx Zeichen</b></span></a>';
-$txt['editsettings51'] = 'keine Mwst <a href=# class=info>(?)<span>Aktivieren, wenn keine Mwst im Shop angezeigt werden soll</span></a>';
+$txt['editsettings51'] = 'keine MwSt. <a href=# class=info>(?)<span>Aktivieren, wenn keine MwSt. im Shop angezeigt werden soll</span></a>';
 $txt['editsettings52'] = 'Name der Bank';
 $txt['editsettings53'] = 'Preislisten Format <a href=# class=info>(?)<span>Betrifft Preisliste,Warenkorb und Best&auml;tigungsmail</span></a>';
 $txt['editsettings54'] = 'Produkt ID';
@@ -468,7 +475,7 @@ $txt['editsettings95'] = 'Captcha benutzen <a href=# class=info>(?)<span>Captcha
 $txt['editsettings96'] = 'Image Popup <a href=# class=info>(?)<span>besseres Image Popup<br />ben&ouml;tigt Javascript</span></a>';
 $txt['editsettings97'] = 'Position des W&auml;hrungssymbols';
 $txt['editsettings98'] = 'Templateauswahl';
-$txt['editsettings99'] = 'Lagermengen Unterschreitung';
+$txt['editsettings99'] = 'Lagermengenunterschreitung-Warnung anschalten';
 $txt['editsettings100'] = 'Minimum Lagermenge';
 $txt['editsettings101'] = 'Gewichtseinheit <a href=# class=info>(?)<span>in kg, St&uuml;ck, etc. <strong>LB</strong></span></a>';
 $txt['editsettings102'] = 'Order from pricelist';
@@ -508,9 +515,9 @@ $txt['productadmin25'] = 'Bild wurde entfernt';
 $txt['productadmin26'] = 'Produkt wurde entfernt';
 $txt['productadmin27'] = 'Extra Optionen';
 $txt['productadmin28'] = 'Erstelle Vorschau f&uuml;r alle Bilder (kann etwas dauern)';
-$txt['productadmin29'] = 'Alle Vorschauen wurden erstellt..';
+$txt['productadmin29'] = 'Alle Vorschauen wurden erstellt.';
 $txt['productadmin30'] = 'Features <a href=# class=info>(?)<span>Feature1:Rot,Weiss,Blau|Feature2:Small,Medium,Large<br />No spaces!</span></a>';
-$txt['productadmin31'] = 'Gewicht <a href=# class=info>(?)<span>Das Gewicht wird f&uuml;r die Berechnung der Shipping Rate ben&ouml;tigt â es z&auml;hlt dann das Gesamtgewicht aller Positionen</span></a>';
+$txt['productadmin31'] = 'Gewicht <a href=# class=info>(?)<span>Das Gewicht wird f&uuml;r die Berechnung der Shipping Rate ben&ouml;tigt √¢¬Ä¬ì es z&auml;hlt dann das Gesamtgewicht aller Positionen</span></a>';
 
 // groupadmin.php
 $txt['groupadmin1'] = ' wurde hochgeladen nach ';
@@ -564,7 +571,7 @@ $txt['uploadadmin7'] = 'SQL Datei eingef&uuml;gt';
 
 // adminedit.php
 $txt['adminedit1'] = '&Auml;nderungen speichern';
-$txt['adminedit2'] = '&Auml;nderungen sind gespeichert...';
+$txt['adminedit2'] = '&Auml;nderungen sind gespeichert.. ';
 $txt['adminedit3'] = 'Editieren von ';
 
 //shippingadmin
@@ -580,7 +587,7 @@ $txt['shippingadmin9'] = 'Entfernen';
 $txt['shippingadmin10'] = 'Hinzuf&uuml;gen';
 $txt['shippingadmin11'] = 'Versandl&auml;nder editieren';
 $txt['shippingadmin12'] = 'Optionen';
-$txt['shippingadmin13'] = 'zahlungs Optionen';
+$txt['shippingadmin13'] = 'Zahlungsoptionen';
 $txt['shippingadmin14'] = 'Versand Arten editieren';
 $txt['shippingadmin15'] = 'Beachte: Sie sind im Begriff die Versand Arten zu &auml;ndern. Dies betrifft weitere Teile des Webshops. Darum sollten Sie nur die Beschreibung &auml;ndern!';
 $txt['shippingadmin16'] = 'Editieren des Haupt-Versandlandes';
@@ -614,7 +621,7 @@ $txt['errorlogadmin5'] = 'Zeile';
 $txt['errorlogadmin6'] = 'Datum';
 $txt['errorlogadmin7'] = 'keine Fehler';
 $txt['errorlogadmin8'] = 'Report l&ouml;schen';
-$txt['errorlogadmin9'] = '...wurde gel&ouml;scht';
+$txt['errorlogadmin9'] = 'wurde gel&ouml;scht';
 
 
 // pagesadmin.php
@@ -632,17 +639,17 @@ $txt['pagesadmin11'] = 'versteckt';
 // accessadmin.php
 $txt['accesslogadmin1'] = 'Access log';
 $txt['accesslogadmin2'] = 'Login';
-$txt['accesslogadmin3'] = 'Password';
-$txt['accesslogadmin4'] = 'Time';
-$txt['accesslogadmin5'] = 'Success';
-//$txt['accesslogadmin6'] = 'Date';
-$txt['accesslogadmin7'] = 'No access log data found';
-$txt['accesslogadmin8'] = 'Clear log';
-$txt['accesslogadmin9'] = 'The access log was cleared succesfully';
+$txt['accesslogadmin3'] = 'Passwort';
+$txt['accesslogadmin4'] = 'Zeit';
+$txt['accesslogadmin5'] = 'Erfolg';
+//$txt['accesslogadmin6'] = 'Datum';
+$txt['accesslogadmin7'] = 'Keine Zugriffs-Logdaten gefunden';
+$txt['accesslogadmin8'] = 'Log bereinigen';
+$txt['accesslogadmin9'] = 'Die Zugriffs-Logdaten wurden erfolgreich bereinigt';
 
 // stockadmin.php
-$txt['stockadmin2'] = 'Show';
-$txt['stockadmin3'] = 'Stock management';
+$txt['stockadmin2'] = 'Zeige';
+$txt['stockadmin3'] = 'Lagerverwaltung';
 
 // mailinglist.php
 $txt['mailinglist1'] = 'Copy/paste this to your favourite Mass mailer software';
@@ -650,7 +657,7 @@ $txt['mailinglist1'] = 'Copy/paste this to your favourite Mass mailer software';
 // discountadmin.php
 $txt['discountadmin2'] = 'Codeanzahl';
 $txt['discountadmin3'] = 'Codebetrag';
-$txt['discountadmin4'] = 'Percentage? <a href=# class=info>(?)<span>wenn z.B. 25% gegeben werden soll, tr&auml;gt man 25 in das Betragfeld ein und klickt diese Box. Wenn ein fetser Betrag gegeben werden soll, nicht dieses Feld ankreuzen</span></a>';
+$txt['discountadmin4'] = 'Prozent? <a href=# class=info>(?)<span>wenn z.B. 25% gegeben werden soll, tr&auml;gt man 25 in das Betragfeld ein und klickt diese Box. Wenn ein fetser Betrag gegeben werden soll, nicht dieses Feld ankreuzen</span></a>';
 $txt['discountadmin5'] = 'erstelle Codes';
 $txt['discountadmin6'] = 'Alle unverbrauchten Codes';
 $txt['discountadmin7'] = 'Rabattcode';

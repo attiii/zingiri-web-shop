@@ -17,7 +17,9 @@ class zfAccess {
 	function allowed() {
 		$allowed=false;
 		if (function_exists('faces_group')) $role=faces_group();
+		elseif (!function_exists('faces_group') && ZING_CMS=='wp' && current_user_can('edit_plugins')) $role="ADMIN";
 		else $role="GUEST";
+		
 		$roles=new db();
 		$query="select * from ##frole where name=".zfqs($role);
 		if ($roles->select($query)) {

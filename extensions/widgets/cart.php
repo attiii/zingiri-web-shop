@@ -11,7 +11,7 @@ class widget_sidebar_cart {
 		extract($args);
 		echo $before_widget;
 		echo $before_title;
-		echo $txt['menu2'];
+		if (ZING_CMS=='wp') echo $txt['menu2'];
 		echo $after_title;
 		echo '<div id="zing-sidebar-cart">';
 		//zing_main("sidebar","cart");
@@ -24,7 +24,7 @@ class widget_sidebar_cart {
 		require(ZING_GLOBALS);
 		$countCart=CountCart($customerid);
 		echo "<ul>";
-		echo "<li"; if ($page == "cart") { echo " id=\"active\""; }; echo "><a href=\"?page=cart&action=show\">".$txt['cart5'].": ".$countCart."<br />";
+		echo "<li"; if ($page == "cart") { echo " id=\"active\""; }; echo "><a href=\"".zurl("?page=cart&action=show")."\">".$txt['cart5'].": ".$countCart."<br />";
 		echo $txt['cart7'].": ".$currency_symbol_pre.myNumberFormat(CalculateCart($customerid), $number_format).$currency_symbol_post."</a></li>";
 		if ($countCart > 0 && (ZING_PROTOTYPE || ZING_JQUERY))
 		{
@@ -40,7 +40,7 @@ class widget_sidebar_cart {
 			if ($row_details = mysql_fetch_array($sql_details)) {
 				$price=$row['PRICE']+calcFeaturesPrice($row['FEATURES']);
 				$cart.='<li>';
-				$cart.='<a style="display:inline" href="?page=details&prod='.$row[2].'">';
+				$cart.='<a style="display:inline" href="'.zurl('?page=details&prod='.$row[2]).'">';
 				$cart.=substr($row_details['PRODUCTID'],0,20).' ';
 				$cart.='</a>';
 				$cart.='<form style="display:inline" id="cart_update'.$row['ID'].'" method="POST" action="?page=cart&action=update">';
@@ -78,7 +78,7 @@ class widget_sidebar_cart {
 		}
 		if ($countCart > 0) {
 			echo '<ul>';
-			echo '<li><a href="?page=conditions&action=checkout">'.$txt['menu3'].'</a></li>';
+			echo '<li><a href="'.zurl('?page=conditions&action=checkout').'">'.$txt['menu3'].'</a></li>';
 			echo '</ul>';
 		}
 

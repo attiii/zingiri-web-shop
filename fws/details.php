@@ -79,13 +79,14 @@ else {
 		$imagesCount=0;
 		$picid=$row['ID'];
 		$imgs=array();
-		$handle=opendir($product_dir);
-		while (($img = readdir($handle))!==false) {
-			if (strstr($img,'tn_'.$picid.'.') || strstr($img,'tn_'.$picid.'__')) {
-				$imgs[]=$img;
+		if ($handle=opendir($product_dir)) {
+			while (($img = readdir($handle))!==false) {
+				if (strstr($img,'tn_'.$picid.'.') || strstr($img,'tn_'.$picid.'__')) {
+					$imgs[]=$img;
+				}
 			}
+			closedir($handle);
 		}
-		closedir($handle);
 		asort($imgs);
 		if (count($imgs) > 0) {
 			foreach ($imgs as $img) {

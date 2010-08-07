@@ -1,6 +1,8 @@
 <?php
-	if (isset($_GET['dir']) && !empty($_GET['dir'])) $dir=dirname(__FILE__).'/../../../../data/'.$_GET['dir'].'/captcha/';
-	else $dir='./';
+//	if (isset($_GET['dir']) && !empty($_GET['dir'])) $dir=dirname(__FILE__).'/../../../../data/'.$_GET['dir'].'/captcha/';
+//	else $dir='./';
+	$dir=$_GET['dir'];
+	//die($dir);
 	// make random string and paste it onto the image
 	$RandomStr = md5(microtime());// md5 to generate the random string
 	$ResultStr = substr($RandomStr,0,5);//trim 5 digit 

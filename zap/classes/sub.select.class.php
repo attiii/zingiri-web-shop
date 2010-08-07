@@ -46,7 +46,7 @@ class selectZfSubElement extends zfSubElement {
 		$option_markup="";
 		if ($xmlf->fields->{'field'.$i}->values->attributes()->type=='multi') {
 			foreach ($xmlf->fields->{'field'.$i}->values->children() as $child) {
-				$option=$child[0];
+				$option=(string)$child[0];
 				if (isset($child->attributes()->value)) $value=$child->attributes()->value;
 				else $value=$option;
 				$selected="";

@@ -22,9 +22,9 @@
  */
 ?>
 <?php
-if (function_exists("qtrans_getLanguage")) {
-	$lang=qtrans_getLanguage();
-} else {
+if (defined('ICL_LANGUAGE_CODE')) $lang=ICL_LANGUAGE_CODE; 
+elseif (function_exists("qtrans_getLanguage")) $lang=qtrans_getLanguage();
+else {
 	// get language from cookie
 	if (isset($_COOKIE['cookie_lang'])) { $lang = $_COOKIE['cookie_lang']; }
 	else { $lang = $default_lang; }

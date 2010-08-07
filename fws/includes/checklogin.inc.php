@@ -44,21 +44,21 @@
 	<!--<p class="forgetmenot"><label><input name="rememberme" type="checkbox" id="rememberme" value="forever" tabindex="90" /> Remember Me</label></p> -->
 	<p class="submit">
 		<div style="text-align:center;"><input type="submit" name="wp-submit" id="wp-submit" class="button-primary" value="<?php echo $txt['checklogin4'] ?>" tabindex="100" /></div>
-		<input type="hidden" name="redirect_to" value="<?php echo get_option('home').'/index.php?'.$pagetoload;?>" />
+		<input type="hidden" name="redirect_to" value="<?php zurl(get_option('home').'/index.php?'.$pagetoload,true);?>" />
 		<input type="hidden" name="testcookie" value="1" />
 	</p>
 <br />	
 </form>
 </td></tr></table>		
-		  <div style="position:relative;float:left;width:50%;text-align:left;"><a href="index.php?page=customer&action=new&pagetoload=<?php echo urlencode($pagetoload);?>"><?php echo $txt['checklogin5'] ?></a></div>
-          <div style="position:relative;float:left;width:50%;text-align:right;"><a href="<?php echo get_option('siteurl');?>/wp-login.php?action=lostpassword"><?php echo $txt['checklogin11'] ?></a></div>
+		  <div style="position:relative;float:left;width:50%;text-align:left;"><a href="<?php zurl("index.php?page=customer&action=new&pagetoload=".urlencode($pagetoload),true);?>"><?php echo $txt['checklogin5'] ?></a></div>
+          <div style="position:relative;float:left;width:50%;text-align:right;"><a href="<?php zurl(get_option('siteurl')."/wp-login.php?action=lostpassword",true)?>"><?php echo $txt['checklogin11'] ?></a></div>
 		<?php } else {
         ?>
 		  <table width="60%" class="datatable">
 		    <caption><?php echo $txt['checklogin1'] ?></caption>
 		    <tr><td>
 		    <?php if (defined("ZING")) { ?>
-		        <form name="login" method="POST" action="index.php">
+		        <form name="login" method="POST" action="<?php echo zurl('index.php',true);?>">
 		              <input type="hidden" value="login" name="page">
             <?php } else { ?>
    		        <form name="login" method="POST" action="login.php">
@@ -75,13 +75,13 @@
 			          <br />
 			          <div style="text-align:center;"><input type="submit" value="<?php echo $txt['checklogin4'] ?>" name="sub"></div>
 			          <br />
-			          <div style="text-align:right;"><a href="?page=login&lostlogin=1"><?php echo $txt['checklogin11'] ?></a></div>
+			          <div style="text-align:right;"><a href="<?php zurl('?page=login&lostlogin=1',true);?>"><?php echo $txt['checklogin11'] ?></a></div>
 		  	    </form>
 		  	    </td>
 		  	</tr>
 		  </table>
 		  <br />
-		  <div style="text-align:center;"><a href="index.php?page=customer&action=new&pagetoload=<?php echo urlencode($pagetoload);?>"><?php echo $txt['checklogin5'] ?></a></div>
+		  <div style="text-align:center;"><a href="<?php zurl("index.php?page=customer&action=new&pagetoload=".urlencode($pagetoload),true);?>"><?php echo $txt['checklogin5'] ?></a></div>
 	 <?php
 		}
 		echo '<br /><br /><br />';

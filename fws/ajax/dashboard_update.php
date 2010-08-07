@@ -1,7 +1,8 @@
 <?php
-//require('../../../../../wp-blog-header.php');
-require($_POST['wpabspath'].'/wp-blog-header.php');
-require(dirname(__FILE__).'/../../zap/includes/faces.inc.php');
+require(dirname(__FILE__).'/init.inc.php');
+
+if (ZING_CMS=='wp') require(dirname(__FILE__).'/../../zap/includes/faces.inc.php');
+
 if (!IsAdmin()) die('No access');
 
 parse_str($_POST['data']);

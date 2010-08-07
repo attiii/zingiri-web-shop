@@ -5,9 +5,6 @@
 		<field1>
 			<type>checkbox</type>
 			<name>checkbox</name>
-			<maxlength></maxlength>
-			<default></default>
-			<width></width>
 			<format>int(6)</format>
 		</field1>
 	</fields>

@@ -61,6 +61,11 @@ function faces_get_xml($type,$dir="") {
 		}
 	}
 
+	$url_details=ZING_APPS_PLAYER_DIR.'fields/text.xml';
+	if (file_exists($url_details)) {
+		if ($xmlf=simplexml_load_file($url_details)) return $xmlf;
+	}
+
 	die("no file loaded");
 }
 
@@ -83,17 +88,21 @@ function faces_log($msg,$fileerr="warning") {
 
 }
 
-function faces_directory($dir,$filters) {
+function faces_directory($dir,$filters,$dirsOnly=false) {
 	$handle=opendir($dir);
 	$files=array();
-	if ($filters == "all"){while(($file = readdir($handle))!==false){$files[] = $file;}}
-	if ($filters != "all") {
+	if (!$filters || $filters == "all"){
+		while(($file = readdir($handle))!==false){
+			if ($file!='.' && $file!='..' && ($dirsOnly==false || ($dirsOnly==true && is_dir($dir.'/'.$file)))) $files[] = $file;
+		}
+	}
+	if ($filters && $filters != "all") {
 		$filters=explode(",",$filters);
 		while (($file = readdir($handle))!==false) {
 			for ($f=0;$f<sizeof($filters);$f++):
 			$system=explode(".",$file);
 			if ($system[1] == $filters[$f]){
-				$files[] = $file;
+				if ($dirsOnly==false || ($dirsOnly==true && is_dir($dir.'/'.$file))) $files[] = $file;
 			}
 			endfor;
 		}
@@ -158,7 +167,7 @@ function zf_json_decode($json,$assoc=true,$strip=true) {
 	zing_apps_error_handler(0,'stripped:'.$json);
 
 	if (!extension_loaded("json")){
-		require_once(dirname(__FILE__).'/JSON.php');
+		if (!class_exists('Services_JSON')) require_once(dirname(__FILE__).'/JSON.php');
 		$j = new Services_JSON(16);
 		$ret = $j->decode($json);
 	}
@@ -196,6 +205,12 @@ function zfDumpQuery($query,$table="") {
 	else {
 		fclose($handle);
 	}
+
+	if (defined("ZING_APPS_CUSTOM_SRCDIR")) {
+		$handle = fopen (ZING_APPS_CUSTOM_SRCDIR.'../../../tmp/apps.db.sql', "a");
+		if (fwrite($handle, $query)) fclose($handle);
+	}
+
 	//chmod($file,0666);
 	return true;
 }
@@ -239,4 +254,24 @@ if (!function_exists('qs')) {
 		}
 	}
 }
+
+if (!function_exists('zurl')) {
+	function zurl($url,$printurl=false) {
+
+		if (ZING_CMS=='wp') {
+			if (is_admin()) $url=str_replace('index.php','admin.php',$url);
+			else {
+				if (strstr($url,ZING_HOME)===false) $url=str_replace('index.php',ZING_HOME.'/index.php',$url);
+			}
+		} elseif (ZING_CMS=='jl') {
+			if ($url=='index.php') $url='index.php?option=com_zingiriwebshop';
+			if (is_admin() && !strstr($url,'option=com_zingiriwebshop')) $url=str_replace('?','?option=com_zingiriwebshop&',$url);
+			if (!is_admin() && !strstr($url,'option=com_zingiriwebshop')) $url=str_replace('?','?option=com_zingiriwebshop&',$url);
+		}
+
+		if ($printurl) echo $url;
+		else return $url;
+	}
+}
+
 ?>

@@ -26,7 +26,9 @@ $formname=$_GET['form'] ? $_GET['form'] : zfGetForm($_GET['formid']);
 $zfp=intval($_GET['zfp']);
 $zft=$_GET['zft'];
 $pos=$_GET['pos'];
-$mapflat=stripslashes($_GET['map']);
+$mapflat=$_GET['map'];
+//$mapflat=stripslashes($_GET['map']);
+
 $json=str_replace("\'",'"',$_GET['map']);
 $map=zf_json_decode($json,true);
 if (class_exists('zf'.$formname)) $zfClass='zf'.$formname;
@@ -68,8 +70,7 @@ $alink=new zfLink($zflist->id,false,'list');
 ?>
 <div id="<?php echo $formname;?>">
 <?php if ($alink->canAdd) {
-//echo '<a href="?page='.$page.'&zfaces=form&form='.$formname.'&action=add&zft=list&zfp='.$formid.'&map='.urlencode($mapflat).'"><img class="zfimg" src="'.ZING_APPS_PLAYER_URL.'images/add.png"></a>';
-echo '<a href="?page='.$page.'&zfaces='.$alink->linkAdd['DISPLAYOUT'].'&action='.$alink->linkAdd['ACTIONOUT'].'&formid='.$alink->linkAdd['FORMOUT'].'&map='.urlencode($mapflat).'&zft=list&zfp='.$formid.'" alt="'.$alink->linkAdd['ACTION'].'"><img class="zfimg" src="'.ZING_APPS_PLAYER_URL.'images/add.png"></a>';
+echo '<a href="'.zurl('?page='.$page.'&zfaces=form&form='.$formname.'&action=add&zft=list&zfp='.$formid.'&map='.urlencode($mapflat)).'"><img class="zfimg" src="'.ZING_APPS_PLAYER_URL.'images/add.png"></a>';
 } 
 ?>
 <?php if (defined("ZING_APPS_BUILDER") && ZingAppsIsAdmin()) {?>
@@ -114,7 +115,7 @@ if ($zflist)
 				$span="";
 				foreach ($links as $i => $link) {
 					if ($span) $span.=" | ";
-					$span.='<a href="?page='.$page.'&zfaces='.$link['DISPLAYOUT'].'&action='.$link['ACTIONOUT'].'&formid='.$link['FORMOUT'].'&id='.$id.'&map='.$link['MAP'].$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION'].'">'.ucfirst($link['ACTION']).'</a>';
+					$span.='<a href="'.zurl('?page='.$page.'&zfaces='.$link['DISPLAYOUT'].'&action='.$link['ACTIONOUT'].'&formid='.$link['FORMOUT'].'&id='.$id.'&map='.$link['MAP'].$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION']).'">'.ucfirst($link['ACTION']).'</a>';
 				}
 
 			}
@@ -166,9 +167,9 @@ if ($zflist)
 	echo '});';
 	echo '</script>';
 	if ($stack->getPrevious()) echo '<a href="'.$stack->getPrevious().'">Back</a>';
-	if ($zflist->rowsCount > ZING_APPS_MAX_ROWS) {
-		for ($i=0;$i<=$zflist->rowsCount;$i=$i+ZING_APPS_MAX_ROWS) {
-			echo '<a href="?page='.$page.'&zfaces=list&form='.$formname.'&pos='.$i.'&zft=list&zfp='.$zfp.'&map='.urlencode(zf_json_encode($map)).$search.'">['.$i.']</a> ';
+	if ($zflist->rowsCount > $zflist->maxRows) {
+		for ($i=0;$i<=$zflist->rowsCount;$i=$i+$zflist->maxRows) {
+			echo '<a href="'.zurl('?page='.$page.'&zfaces=list&form='.$formname.'&pos='.$i.'&zft=list&zfp='.$zfp.'&map='.urlencode(zf_json_encode($map)).$search).'">['.$i.']</a> ';
 		}
 	}
 
@@ -180,7 +181,7 @@ if ($zflist)
 <?php 
 if (method_exists($zflist,'sortlist')) {
 	$zflist->sortlist();
-	if (ZING_PROTOTYPE || is_admin()) { 
+	if (ZING_PROTOTYPE) { 
 ?>
 
 <script type="text/javascript" language="javascript">

@@ -84,61 +84,72 @@ if (loggedin()) {
 	CheckoutShowProgress();
 
 	//shipping start
+		$cart_weight = WeighCart($customerid);
+		//check if combined shipping and weight is applicable
+		if ($shippingid && $weightid) {
+			$weight_query = "SELECT * FROM `".$dbtablesprefix."shipping_weight` WHERE '".$cart_weight."' >= `FROM` AND '".$cart_weight."' <= `TO` AND `SHIPPINGID` = '".$shippingid."'";
+			$weight_sql = mysql_query($weight_query) or zfdbexit($weight_query);
+			if ($row_weight=mysql_fetch_array($weight_sql)) {
+				$weightid=$row_weight['ID'];
+			} else {
+				$weightid='';
+				$shippingid='';
+			}
+		}
 	?>
 <form id="checkout" method="post" action="<?php zurl('index.php?page=checkout',true);?>">
 <table width="100%" class="datatable">
 	<tr>
 		<td colspan="4"><?php echo $txt['shipping2'] ?><br />
-			<SELECT NAME="shipping" id="shipping"
-				onChange="this.form.action='?page=onecheckout';this.form.submit();"
-			>
-			<?php
-			// find out the shipping methods
-			$query="SELECT * FROM `".$dbtablesprefix."shipping` ORDER BY `id`";
-			$sql = mysql_query($query) or zfdbexit($query);
-			while ($row = mysql_fetch_row($sql)) {
-				// there must be at least 1 payment option available, so lets check that
-				$pay_query="SELECT * FROM `".$dbtablesprefix."shipping_payment` WHERE `shippingid`=".$row[0];
-				$pay_sql = mysql_query($pay_query) or zfdbexit($pay_query);
-				if (mysql_num_rows($pay_sql) <> 0) {
-					if ($row[2] == 0 || ($row[2] == 1 && IsCustomerFromDefaultSendCountry($send_default_country) == 1)) {
-						// now check the weight and the costs
+		<SELECT NAME="shipping" id="shipping"
+			onChange="this.form.action='?page=onecheckout';this.form.submit();"
+		>
+		<?php
+		// find out the shipping methods
+		$query="SELECT * FROM `".$dbtablesprefix."shipping` ORDER BY `id`";
+		$sql = mysql_query($query) or zfdbexit($query);
+		while ($row = mysql_fetch_row($sql)) {
+			// there must be at least 1 payment option available, so lets check that
+			$pay_query="SELECT * FROM `".$dbtablesprefix."shipping_payment` WHERE `shippingid`=".$row[0];
+			$pay_sql = mysql_query($pay_query) or zfdbexit($pay_query);
+			if (mysql_num_rows($pay_sql) <> 0) {
+				if ($row[2] == 0 || ($row[2] == 1 && IsCustomerFromDefaultSendCountry($send_default_country) == 1)) {
+					// now check the weight and the costs
+					$weight_query = "SELECT * FROM `".$dbtablesprefix."shipping_weight` WHERE '".$cart_weight."' >= `FROM` AND '".$cart_weight."' <= `TO` AND `SHIPPINGID` = '".$row[0]."'";
+					$weight_sql = mysql_query($weight_query) or zfdbexit($weight_query);
+					while ($weight_row = mysql_fetch_array($weight_sql)) {
 						if (!$shippingid) $shippingid=$row[0];
-						$cart_weight = WeighCart($customerid);
-						$weight_query = "SELECT * FROM `".$dbtablesprefix."shipping_weight` WHERE '".$cart_weight."' >= `FROM` AND '".$cart_weight."' <= `TO` AND `SHIPPINGID` = '".$row[0]."'";
-						$weight_sql = mysql_query($weight_query) or zfdbexit($weight_query);
-						while ($weight_row = mysql_fetch_row($weight_sql)) {
-							if (!$weightid) $weightid=$weight_row[0];
-							if ($shippingid==$row[0] && $weightid==$weight_row[0]) $selected='selected="SELECTED"'; else $selected="";
-							echo "<OPTION VALUE=\"".$weight_row[0].":".$row[0]."\" ".$selected." >".$row[1]."&nbsp;(".$currency_symbol_pre.myNumberFormat($weight_row[4],$number_format).$currency_symbol_post.")</OPTION>";
-						}
+						if (!$weightid) $weightid=$weight_row[0];
+						if ($shippingid==$row[0] && $weightid==$weight_row[0]) $selected='selected="SELECTED"'; else $selected="";
+						echo "<OPTION VALUE=\"".$weight_row[0].":".$row[0]."\" ".$selected." >".$row[1]."&nbsp;(".$currency_symbol_pre.myNumberFormat($weight_row[4],$number_format).$currency_symbol_post.")</OPTION>";
 					}
 				}
 			}
+		}
 
-			?>
-			</SELECT>
-			<br />
-			<?php echo $txt['shipping10'] ?>
-			<br />
-			<SELECT NAME="paymentid" id="paymentid" onChange="this.form.action='?page=onecheckout';this.form.submit();">
-			<?php
-			// find out the payment methods
-			$query="SELECT * FROM `".$dbtablesprefix."shipping_payment` WHERE `shippingid`='".$shippingid."' ORDER BY `paymentid`";
-			$sql = mysql_query($query) or die(mysql_error());
+		?>
+		</SELECT> <br />
+		<?php echo $txt['shipping10'] ?> <br />
+		<SELECT NAME="paymentid" id="paymentid"
+			onChange="this.form.action='?page=onecheckout';this.form.submit();"
+		>
+		<?php
+		// find out the payment methods
+		$query="SELECT * FROM `".$dbtablesprefix."shipping_payment` WHERE `shippingid`='".$shippingid."' ORDER BY `paymentid`";
+		$sql = mysql_query($query) or die(mysql_error());
 
-			while ($row = mysql_fetch_row($sql)) {
-				$query_pay="SELECT * FROM `".$dbtablesprefix."payment` WHERE `id`='".$row[1]."'";
-				$sql_pay = mysql_query($query_pay) or die(mysql_error());
+		while ($row = mysql_fetch_row($sql)) {
+			$query_pay="SELECT * FROM `".$dbtablesprefix."payment` WHERE `id`='".$row[1]."'";
+			$sql_pay = mysql_query($query_pay) or die(mysql_error());
 
-				while ($row_pay = mysql_fetch_row($sql_pay)) {
-					if (!$paymentid) $paymentid=$row_pay[0];
-					if ($paymentid==$row_pay[0]) $selected='selected="SELECTED"'; else $selected="";
-					echo "<OPTION VALUE=\"".$row_pay[0]."\" ".$selected.">".$row_pay[1];
-				}
+			while ($row_pay = mysql_fetch_row($sql_pay)) {
+				if (!$paymentid) $paymentid=$row_pay[0];
+				if ($paymentid==$row_pay[0]) $selected='selected="SELECTED"'; else $selected="";
+				echo "<OPTION VALUE=\"".$row_pay[0]."\" ".$selected.">".$row_pay[1];
 			}
-			?>
-			</SELECT></td>
+		}
+		?>
+		</SELECT></td>
 	</tr>
 	<tr>
 	<?php
@@ -214,7 +225,7 @@ if (loggedin()) {
 		$id++;
 		$query = "SELECT * FROM `".$dbtablesprefix."product` where `ID`='" . $row[2] . "'";
 		$sql_details = mysql_query($query) or die(mysql_error());
-		while ($row_details = mysql_fetch_row($sql_details)) {
+		while ($row_details = mysql_fetch_array($sql_details)) {
 			$optel = $optel +1;
 			if ($optel == 3) { $optel = 1; }
 			if ($optel == 1) { $kleur = ""; }
@@ -222,8 +233,8 @@ if (loggedin()) {
 
 			// is there a picture?
 			if ($search_prodgfx == 1 && $use_prodgfx == 1) {
-
-				if ($pictureid == 1) { $picture = $row_details[0]; }
+				if (!empty($row_details['DEFAULTIMAGE'])) { $picture = $row_details['DEFAULTIMAGE']; }
+				elseif ($pictureid == 1) { $picture = $row_details[0]; }
 				else { $picture = $row_details[1]; }
 
 				// determine resize of thumbs
@@ -231,16 +242,22 @@ if (loggedin()) {
 				$height = "";
 				$picturelink = "";
 				$thumb = "";
-					
-				if ($pricelist_thumb_width != 0) { $width = " width=\"".$pricelist_thumb_width."\""; }
-				if ($pricelist_thumb_height != 0) { $height = " height=\"".$pricelist_thumb_height."\""; }
 
-				if (thumb_exists($product_dir ."/". $picture . ".jpg")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/".$picture.".jpg\"".$width.$height." alt=\"\" />"; }
-				if (thumb_exists($product_dir ."/". $picture . ".gif")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/".$picture.".gif\"".$width.$height." alt=\"\" />"; }
-				if (thumb_exists($product_dir ."/". $picture . ".png")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/".$picture.".png\"".$width.$height." alt=\"\" />"; }
+				if (thumb_exists($product_dir ."/". $picture)) { $picUrl = $product_url."/".$picture; }
+				elseif (thumb_exists($product_dir ."/". $picture . ".jpg")) { $picUrl = $product_url."/".$picture.".jpg"; }
+				elseif (thumb_exists($product_dir ."/". $picture . ".gif")) { $picUrl = $product_url."/".$picture.".gif"; }
+				elseif (thumb_exists($product_dir ."/". $picture . ".png")) { $picUrl = $product_url."/".$picture.".png"; }
+
+				if ($picUrl) {
+					$size=wsResizeImage($picUrl);
+					$resized=$size['resized'];
+					$height=$size['height'];
+					$width=$size['width'];
+					$thumb = "<img class=\"imgleft\" src=\"".$picUrl."\" width=".$width." height=".$height." alt=\"\" />";
+				}
 
 				// if the script uses make_thumbs, then search for thumbs
-				if ($make_thumbs == 1) {
+				if (!$thumb && $make_thumbs == 1) {
 					if (thumb_exists($product_dir ."/tn_". $picture . ".jpg")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/tn_".$picture.".jpg\" alt=\"\" />"; }
 					if (thumb_exists($product_dir ."/tn_". $picture . ".gif")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/tn_".$picture.".gif\" alt=\"\" />"; }
 					if (thumb_exists($product_dir ."/tn_". $picture . ".png")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/tn_".$picture.".png\" alt=\"\" />"; }
@@ -372,7 +389,7 @@ if (loggedin()) {
 	<?php //notes
 	echo $txt['shipping3'];
 	?><br />
-<textarea name="notes" rows="5" style="width:100%"><?php echo $notes;?></textarea><br />
+<textarea name="notes" rows="5" style="width: 100%"><?php echo $notes;?></textarea><br />
 <br />
 <br />
 <br />
@@ -392,6 +409,6 @@ if (loggedin()) {
            //$checkout.checkout();
 //]]>
 </script>
-<?php 
+		<?php
 	}
 }?>

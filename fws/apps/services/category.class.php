@@ -4,6 +4,7 @@ class zfcategory extends zfForm {
 	
 	function init() {
 		$this->orderKeys="`SORTORDER`,`DESC`";
+		$this->maxRows=999;
 	}
 	
 	function sortlist() {

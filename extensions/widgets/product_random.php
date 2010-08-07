@@ -14,9 +14,9 @@ class widget_sidebar_product_random {
 			echo $before_title;
 			echo $row['PRODUCTID'];
 			echo $after_title;
-			echo '<div id="zing-sidebar-random-product">';
-			$this->display($row);
-			echo '</div>';
+			echo '<center><div id="zing-sidebar-random-product">';
+			echo $this->display($row);
+			echo '</div></center>';
 			echo $after_widget;
 		}
 	}

@@ -25,6 +25,7 @@
 if (!empty($_GET['pagetoload'])) {
 	$pagetoload=$_GET['pagetoload'];
 }
+echo 'here';
 require_once(ZING_APPS_PLAYER_DIR."includes/all.inc.php");
 $custForm=appsForm('register','add',"?page=customer&action=add&step=save&pagetoload=".urlencode($pagetoload),true);
 

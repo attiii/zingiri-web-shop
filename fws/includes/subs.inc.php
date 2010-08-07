@@ -25,7 +25,6 @@
 // general settings
 $version = "2.2.9_R2"; // the version of this webshop
 $index_refer = 1; // pages of the webshop cannot be opened if this value is unset
-require(dirname(__FILE__).'/../classes/index.php');
 
 function CreateRandomCode($len) {
 	$chars = "abcdefghijkmnpqrstuvwxyz23456789";
@@ -278,6 +277,8 @@ Function IsAdmin() {
 	Global $dbtablesprefix,$integrator;
 
 	if ($integrator->isAdmin()) return true;
+	//joomla
+	if (wsIsAdmin()) return true;
 
 	if (!isset($_COOKIE['fws_cust'])) { return false; }
 	$fws_cust = explode("-", $_COOKIE['fws_cust']);
@@ -508,7 +509,7 @@ Function stringsplit($the_string, $the_number)  {
 	return($the_output_array);
 }
 // see if url exists (for picture on remote host as well)
-function url_exists($url) {
+function wsUrlExists($url) {
 	$a_url = parse_url($url);
 	if (!isset($a_url['port'])) $a_url['port'] = 80;
 	$errno = 0;
@@ -534,7 +535,7 @@ function thumb_exists($thumbnail) {
 		return file_exists($thumbnail);
 	}
 	else {
-		return url_exists($thumbnail);
+		return wsUrlExists($thumbnail);
 	}
 }
 // get user IP
@@ -776,13 +777,23 @@ Function ActiveDiscounts() {
 	return $discount->countActive();
 }
 
+if (!function_exists('zurl')) {
+	function zurl($url,$printurl=false) {
 
-function zurl($url,$printurl=false) {
-	if (is_admin()) $url=str_replace('index.php','admin.php',$url);
-	else $url=str_replace('index.php',ZING_HOME.'/index.php',$url);
-	
-	if ($printurl) echo $url;
-	else return $url;
+		if (ZING_CMS=='wp') {
+			if (is_admin()) $url=str_replace('index.php','admin.php',$url);
+			else {
+				if (strstr($url,ZING_HOME)===false) $url=str_replace('index.php',ZING_HOME.'/index.php',$url);
+			}
+		} elseif (ZING_CMS=='jl') {
+			if ($url=='index.php') $url='index.php?option=com_zingiriwebshop';
+			if (is_admin() && !strstr($url,'option=com_zingiriwebshop')) $url=str_replace('?','?option=com_zingiriwebshop&',$url);
+			if (!is_admin() && !strstr($url,'option=com_zingiriwebshop')) $url=str_replace('?','?option=com_zingiriwebshop&',$url);
+		}
+
+		if ($printurl) echo $url;
+		else return $url;
+	}
 }
 
 function z_($label) {
@@ -830,7 +841,8 @@ function faces_group() {
 	global $customerid;
 
 	$group="";
-	if (LoggedIn() && $customerid) {
+	if (wsIsAdmin()) $group='ADMIN';
+	elseif (LoggedIn() && $customerid) {
 		$f_query = "SELECT * FROM ".$dbtablesprefix."customer WHERE ID = " . qs($customerid);
 		$f_sql = mysql_query($f_query) or die(mysql_error());
 		if ($f_row = mysql_fetch_array($f_sql)) {
@@ -869,24 +881,6 @@ function printDescription($productid,$description) {
 		$print_description = strip_tags($print_description); //remove html because of danger of broken tags
 	}
 	return $print_description;
-}
-
-function calcFeaturesPrice($allfeatures) {
-	$prodprice=0;
-
-	if (!empty($allfeatures)) {
-		$features = explode("|", $allfeatures);
-		$counter1 = 0;
-		while (!$features[$counter1] == NULL){
-			$feature = explode(":", $features[$counter1]);
-			$counter1 += 1;
-			if (!empty($_POST["$feature[0]"])) {
-				$detail = explode("+", $_POST["$feature[0]"]);
-				$prodprice += $detail[1];
-			}
-		}
-	}
-	return $prodprice;
 }
 
 function customerId($e='') {
@@ -928,12 +922,13 @@ function wsResizeImage($thumb) {
 		$height = round(($size[1] / $percent));
 		$resized = 1;
 	}
+	
 	return array('height' => $height,'width' => $width,'resized' => $resized);
 }
 
 function wsProductImage($picture,$default_image) {
 	global $product_dir,$product_url,$make_thumbs,$pricelist_thumb_width,$pricelist_thumb_height,$thumbs_in_pricelist;
-	
+
 	// determine resize of thumbs
 	$width = "";
 	$height = "";
@@ -949,7 +944,7 @@ function wsProductImage($picture,$default_image) {
 		elseif (thumb_exists($product_dir ."/tn_". $picture . ".gif")) { $thumb = $product_url."/tn_".$picture.".gif"; }
 		elseif (thumb_exists($product_dir ."/tn_". $picture . ".png")) { $thumb = $product_url."/tn_".$picture.".png"; }
 	}
-		
+
 	if ($thumb == "") {
 		// use a photo icon instead of a thumb
 		$thumb = $gfx_dir."/photo.gif>";
@@ -992,14 +987,23 @@ function faces_map($a) {
 		if (!$q) $q='{';
 		else $q.=',';
 		$q.="'".$id."':'".$value."'";
-	}	
+	}
 	$q.='}';
 	return urlencode($q);
 }
 
 
 function zing_carousel() {
-	//not used	
+	//not used
+}
+
+function wsCurrentPageURL($encode=false)
+{
+	if (isset($_SERVER['HTTPS'])) $pageURL = $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://';
+	else $pageURL = 'http://';
+	$pageURL .= $_SERVER['SERVER_PORT'] != '80' ? $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"] : $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+	if ($encode) return urlencode($pageURL);
+	else return $pageURL;
 }
 
 ?>

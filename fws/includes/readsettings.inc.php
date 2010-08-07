@@ -90,7 +90,7 @@ while ($row = mysql_fetch_array($sql)) {
 	$shipping_page = $row[60];
 	 
 	// new in 2.2
-	$pictureid = $row[61];
+	$pictureid = 1; //forced to database ID
 	$aboutus_page = $row[62];
 	$live_news = $row[63];
 	$pricelist_thumb_width = $row[64];

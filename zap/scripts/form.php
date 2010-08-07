@@ -25,7 +25,7 @@ if (isset($_POST['map'])) {
 if (empty($form)) $form=zfGetForm($formid);
 if (class_exists('zf'.$form)) $zfClass='zf'.$form;
 else $zfClass='zfForm';
-$zfform=new $zfClass($form,$formid,$map,$action,'form');
+$zfform=new $zfClass($form,$formid,$map,$action,'form',$id);
 $form=$zfform->form;
 $formid=$zfform->id;
 $stack=new zfStack('form',$form);
@@ -34,23 +34,23 @@ $allowed=false;
 $success=true;
 if (isset($_GET['showform'])) $showform=$_GET['showform']; else $showform="edit";
 
-if ($action == "add" && $step == "") {
+if ($action == "add" && ($step == "" || $step == "poll")) {
 	if ($zfform->allowAccess()) {
 		$allowed=true;
 		$success=$zfform->Prepare();
-		$newstep="save";
+		$newstep=empty($zfform->newstep) ? "save" : $zfform->newstep;
 	}
 
 } elseif ($action == "add" && $step == "save") {
 	if ($zfform->allowAccess()) {
 		$allowed=true;
 		if ($zfform->Verify($_POST))
-		{
+		{	
 			$zfform->Save();
 			$showform="saved";
 			if (isset($_POST['redirect'])) $redirect=$_POST['redirect'];
 			elseif (isset($_GET['redirect'])) $redirect=$_GET['redirect'];
-			if ($redirect && (!defined("ZING_SAAS") || !ZING_SAAS)) header('refresh:1; url='.$redirect);
+			if ($redirect && (!defined("ZING_SAAS") || !ZING_SAAS)) header('refresh:1; url='.zurl($redirect));
 
 		} else {
 			$newstep="save";
@@ -81,7 +81,7 @@ if ($action == "add" && $step == "") {
 			$showform="saved";
 			if (isset($_POST['redirect'])) $redirect=$_POST['redirect'];
 			elseif (isset($_GET['redirect'])) $redirect=$_GET['redirect'];
-			if ($redirect && (!defined("ZING_SAAS") || !ZING_SAAS)) header('refresh:1; url='.$redirect);
+			if ($redirect && (!defined("ZING_SAAS") || !ZING_SAAS)) header('refresh:1; url='.zurl($redirect));
 		}
 	} else {
 		if ($zfform->allowAccess()) {
@@ -104,7 +104,7 @@ if ($action == "add" && $step == "") {
 		$showform="saved";
 		if (isset($_POST['redirect'])) $redirect=$_POST['redirect'];
 		elseif (isset($_GET['redirect'])) $redirect=$_GET['redirect'];
-		if ($redirect && (!defined("ZING_SAAS") || !ZING_SAAS)) header('refresh:1; url='.$redirect);
+		if ($redirect && (!defined("ZING_SAAS") || !ZING_SAAS)) header('refresh:1; url='.zurl($redirect));
 	}
 } elseif ($action == "view" && $step == "") {
 	$success=$zfform->Prepare($id);
@@ -145,20 +145,21 @@ if ($allowed && $success && $showform == "edit") {
 		echo '<a href="'.get_option('home').'/index.php?page=appsbuilder&zfaces=edit&form='.$form.'" >'.z_('Edit form').'</a>';
 	}
 	if (!$noForm && !isset($formURL)) {
-		echo '<form enctype="multipart/form-data" name="faces" method="POST" action="?page='.$page.'&zfaces=form&form='.$form.'&action='.$action;
-		if (!empty($newstep)) echo '&step='.$newstep;
-		if (!empty($id)) echo '&id='.$id;
+		$aurl='?page='.$page.'&zfaces=form&form='.$form.'&action='.$action;
+		if (!empty($newstep)) $aurl.='&step='.$newstep;
+		if (!empty($id)) $aurl.='&id='.$id;
 
 		if (!empty($search)) {
 
 			foreach ($search as $i => $v) {
-				echo '&search['.$i.']='.urlencode($v);
+				$aurl.='&search['.$i.']='.urlencode($v);
 			}
 
 		}
-		echo '&zft=form&zfp='.$formid.'">';
+		$aurl.='&zft=form&zfp='.$formid;
+		echo '<form enctype="multipart/form-data" name="faces" method="POST" action="'.zurl($aurl).'">';
 	} elseif (!$noForm && isset($formURL)) {
-		echo '<form enctype="multipart/form-data" name="faces" method="POST" action="'.$formURL.'" >';
+		echo '<form enctype="multipart/form-data" name="faces" method="POST" action="'.zurl($formURL).'" >';
 	}
 	echo '<ul id="zfaces" class="zfaces">';
 	$zfform->Render($action);
@@ -174,6 +175,7 @@ if ($allowed && $success && $showform == "edit") {
 	$alink=new zfLink($formid,true);
 	$links=$alink->getLinks($id);
 	if ($links) {
+		echo '<center>';
 		foreach ($links as $i => $link) {
 			if (empty($link['ACTIONIN']) or strstr($link['ACTIONIN'],$action)) {
 				if ($link['ACTIONOUT'] == 'save') $override_save=true;
@@ -187,18 +189,18 @@ if ($allowed && $success && $showform == "edit") {
 				}
 			}
 		}
+		echo '</center>';
 	}
-
 	if (!$noForm) {
 		if (($action == 'add' or $action == 'edit') && (!$override_save)) {
-			echo '<center><input class="art-button" type="submit" name="save" value="'.z_('Save').'"></center>';
+			echo '<center><input id="appscommit" class="art-button" type="submit" name="save" value="'.z_('Save').'"></center>';
 		} elseif ($action == 'delete') {
 			echo '<center><input class="art-button" type="submit" name="delete" value="'.z_('Delete').'"></center>';
 		}
 		echo '</form><br />';
 	}
 	echo '</div>';
-	if ($stack->getPrevious()) echo '<a href="'.$stack->getPrevious().'">'.z_('Back').'</a>';
+	if ($stack->getPrevious()) echo '<a href="'.zurl($stack->getPrevious()).'">'.z_('Back').'</a>';
 
 } elseif ($showform == "saved") {
 	if ($stack->getPrevious()) {
@@ -207,10 +209,10 @@ if ($allowed && $success && $showform == "edit") {
 		$redirect2='?page='.$page.'&zfaces=form&form='.$form.'&zft='.$zft.'&zfp='.$zfp.'&action='.$action.'&id='.$id;
 	}
 	if (!$noRedirect && !$redirect && (!defined("ZING_SAAS") || !ZING_SAAS)) {
-		header('refresh:1; url='.$redirect2);
+		header('refresh:1; url='.zurl($redirect2));
 		exit;
 	} else {
-		echo '<a href="'.$redirect2.'" class="button">Back</a>';
+		echo '<a href="'.zurl($redirect2).'" class="button">Back</a>';
 	}
 }
 ?>

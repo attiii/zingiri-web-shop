@@ -54,10 +54,12 @@ var wsCart = Class.create( {
 		if (wsFrontPage) var image = e.closest('td').find('img');
 		else var image = e.closest('tr').find('img');
 		form = e.closest('form');
+		data=form.serialize(true);
+		data+='&cms='+wsCms+'&abspath='+wpabspath;
 		new jQuery.ajax({
 			url : wsURL + "addToCart.php",
 			type : "post",
-			data : form.serialize(true),
+			data : data,
 			success : function(request) {
 				if (request) alert(request);
 				else t.getCart();
@@ -73,12 +75,15 @@ var wsCart = Class.create( {
 		new jQuery.ajax({
 			url : wsURL + "getCartContents.php",
 			type : "post",
+			data : {
+				'abspath' : wpabspath,
+				'cms' : wsCms
+			},
 			success : function(request) {
 				tag.html(request);
 				if (jQuery.cookie('showcart')=='n') {
 					jQuery("#shoppingcart").show("blind", {direction: "vertical"}, 1000).delay(3000).hide("blind", {direction: "vertical"}, 1000);
 				}
-				//t.contents();
 			}
 		});
 	},

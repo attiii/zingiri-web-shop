@@ -1,3 +1,5 @@
+<<<<<<< .mine
+=======
 2010-07-14 05:03:41 DB_PREFIX:wp_zing_ (-0)
 2010-07-14 05:03:41 Undefined offset: 1 (/Library/WebServer/Documents/ws30/wp-content/plugins/zingiri-web-shop/zing.inc.php-291)
 2010-07-14 05:03:41 Loading Apps forms (-0)
@@ -522,3 +524,4 @@
 2010-07-14 05:04:07 create default pages (-0)
 2010-07-14 05:04:07 create directories (-0)
 2010-07-14 05:04:07 completed (-0)
+>>>>>>> .r272780

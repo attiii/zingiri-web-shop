@@ -9,13 +9,14 @@ appsSortList = {
 			this.container = item;
 			that = this;
 			element = itemin;
-			//alert(this.container.sortable("serialize"));
 			this.container.sortable( {
 				'stop' : function() {
 					new jQuery.ajax( {
 						url : ajaxUpdateURL,
 						type : "post",
 						data : {
+							'abspath' : wpabspath,
+							'cms' : wsCms,
 							'sortorder' : that.container.sortable("serialize")
 						},
 						success : function(request) {

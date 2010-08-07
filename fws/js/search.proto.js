@@ -12,7 +12,9 @@ var wsSearch = Class.create( {
 		new Ajax.Request(wsURL + "search.php", {
 			method : "post",
 			parameters : {
-				'searchfor' : $('searchbar').value
+				'searchfor' : $('searchbar').value,
+				'abspath' : wpabspath,
+				'cms' : wsCms
 			},
 			onComplete : function(request) {
 			tag.innerHTML = request.responseText;

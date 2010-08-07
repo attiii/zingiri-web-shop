@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config type="module" version="1.5.0">
-	<name>Single image</name>
+	<name>Image single upload</name>
 	<fields count="2">
 		<field1>
 			<maxlength>255</maxlength>

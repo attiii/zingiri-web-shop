@@ -34,7 +34,7 @@ while ($f_row = mysql_fetch_array($f_sql)) {
 	<?php  ?>
 	<p><?php echo $f_row['DESCRIPTION'] ?></p>
 	<?php  ?> <?php if (1==1) { ?> <img class="slidim"
-		src="<?php echo ZING_URL; ?>extensions/widgets/carousel_ekologic/timthumb.php?src=<?php echo urlencode(ZING_UPLOADS_URL.'prodgfx/'.$f_row['ID'].'.jpg'); ?>&amp;h=180&amp;w=400&amp;zc=1"
+		src="<?php echo ZING_URL; ?>fws/addons/timthumb/timthumb.php?src=<?php echo urlencode(ZING_UPLOADS_URL.'prodgfx/'.$f_row['DEFAULTIMAGE']); ?>&dir=<?php echo urlencode(BLOGUPLOADDIR.ZING_SLUG.'/cache')?>&amp;h=180&amp;w=400&amp;zc=1"
 		alt=""
 	/> <?php } else { ?> <img src="<?php ZING_CAROUSEL_URL; ?>images/place1.jpg" alt="" /> <?php } ?></div>
 	</li>

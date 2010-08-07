@@ -9,7 +9,9 @@ var wsSearch = Class.create( {
 					url : wsURL + "search.php",
 					type : "post",
 					data : {
-						'searchfor' : jQuery('#searchbar').attr('value')
+						'searchfor' : jQuery('#searchbar').attr('value'),
+						'abspath' : wpabspath,
+						'cms' : wsCms
 					},
 					success : function(request) {
 						tag.attr('innerHTML',request);

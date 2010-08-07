@@ -21,8 +21,6 @@
  */
 ?>
 <?php
-if (!defined("ZING_APPS_CAPTCHA")) define("ZING_APPS_CAPTCHA",dirname(__FILE__).'/../fields/captcha/');
-
 class captchaZfSubElement extends zfSubElement {
 	var $int;
 	var $xmlf;
@@ -53,7 +51,7 @@ class captchaZfSubElement extends zfSubElement {
 		if($e->populated_value['element_'.$e->id.'_'.$i] == ""){
 			$e->populated_value['element_'.$e->id.'_'.$i] = $xmlf->fields->{'field'.$i}->default;
 		}
-		$img='<img style="float:left" src="'.ZING_URL.'fws/addons/captcha/php_captcha.php" />&nbsp';
+		$img='<img style="float:left" src="'.ZING_URL.'fws/addons/captcha/php_captcha.php?dir='.urlencode(ZING_APPS_CAPTCHA).'" />&nbsp';
 		$field_markup.=$img;
 		$field_markup.="<input id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" size=\"{$xmlf->fields->{'field'.$i}->size}\" value=\"{$e->populated_value['element_'.$e->id.'_'.$i]}\" maxlength=\"{$xmlf->fields->{'field'.$i}->maxlength}\" type=\"text\" {$e->readonly}/>";
 		$subscript_markup.="<label id=\"label_{$e->id}_{$i}\"for=\"element_{$e->id}_{$i}\">".$xmlf->fields->{'field'.$i}->label."</label>";

@@ -79,7 +79,7 @@ else {
 
 			if (mysql_num_rows($sql) <> 0) {
 				while ($row = mysql_fetch_row($sql)) {
-					$selected=CheckBox($_POST[$row[0]]);
+					$selected=CheckBox($_POST['paymentoption'.$row[0]]);
 					if ($selected == 1) {
 						$query_shippay="SELECT * FROM `".$dbtablesprefix."shipping_payment` WHERE `shippingid`='".$sid."' AND paymentid='".$row[0]."'";
 						$sql_shippay = mysql_query($query_shippay) or die(mysql_error());
@@ -147,9 +147,9 @@ else {
 			
 		while ($row = mysql_fetch_row($sql)) {
 			if ($row[3] == 1) { PutWindow($gfx_dir, $txt['general13'], $txt['shippingadmin15'], "warning.gif", "50"); }   // part of system!
+			echo "<form method=\"POST\" action=\"".zurl("index.php?page=shippingadmin&action=update_shipping")."\">";
 			echo "<table width=\"100%\" class=\"datatable\">";
 			echo "<caption>".$txt['shippingadmin14']."</caption>";
-			echo "<form method=\"POST\" action=\"".zurl("index.php?page=shippingadmin&action=update_shipping")."\">";
 			echo "<input name=\"sid\" type=\"hidden\" value=\"".$row[0]."\">";
 			echo "<tr><td>";
 			echo $txt['shippingadmin5']."<br />";
@@ -170,7 +170,7 @@ else {
 				if (mysql_num_rows($sql_shippay) <> 0) {
 					$checked = "checked"; }
 					else { $checked = ""; }
-					echo "<input name=\"".$row_pay[0]."\" type=\"checkbox\" ".$checked.">&nbsp;".$row_pay[1]."<br />";
+					echo "<input name=\"paymentoption".$row_pay[0]."\" type=\"checkbox\" ".$checked.">&nbsp;".$row_pay[1]."<br />";
 			}
 			echo "</td></tr>";
 			echo "<tr><td colspan=\"2\">";
@@ -187,15 +187,15 @@ else {
 			while ($row_weight = mysql_fetch_row($sql_weight)) {
 				echo $txt['shippingadmin18']."(".$weight_metric.") <input type=\"text\" size=\"9\" value=\"".$row_weight[2]."\" disabled> ";
 				echo $txt['shippingadmin19']."(".$weight_metric.") <input type=\"text\" size=\"9\" value=\"".$row_weight[3]."\" disabled> ";
-				echo $txt['shippingadmin20']."(".$currency_symbol.") <input type=\"text\" size=\"9\" value=\"".$row_weight[4]."\" disabled> [<a href=\"?page=shippingadmin&action=delete_weight&wid=".$row_weight[0]."&sid=".$row[0]."\">".$txt['shippingadmin9']."</a>]<br />";
+				echo $txt['shippingadmin20']."(".$currency_symbol.") <input type=\"text\" size=\"9\" value=\"".$row_weight[4]."\" disabled> [<a href=\"".zurl("?page=shippingadmin&action=delete_weight&wid=".$row_weight[0]."&sid=".$row[0])."\">".$txt['shippingadmin9']."</a>]<br />";
 			}
 
 			echo "</td></tr>";
 			echo "<tr class=\"altrow\"><td colspan=\"2\">";
 			echo "<h4><input type=\"submit\" value=\"".$txt['shippingadmin8']."\"></h4>";
 			echo "</td></tr>";
-			echo "</form>";
 			echo "</table>";
+			echo "</form>";
 			echo "<br /><br />";
 		}
 	}
@@ -218,16 +218,16 @@ else {
 		echo "  <tr>";
 		echo "    <td>".$row[1]."</td>";
 		echo "    <td>".$row[2]."</td>";
-		echo "    <td><a class=\"plain\" href=\"?page=shippingadmin&sid=".$row[0]."&action=show_shipping\">".$txt['shippingadmin8']."</a><br />";
-		if ($row[3] <> 1) { echo "    <a class=\"plain\" href=\"?page=shippingadmin&sid=".$row[0]."&action=delete_shipping\">".$txt['shippingadmin9']."</a></td>"; }
+		echo "    <td><a class=\"plain\" href=\"".zurl("?page=shippingadmin&sid=".$row[0]."&action=show_shipping")."\">".$txt['shippingadmin8']."</a><br />";
+		if ($row[3] <> 1) { echo "    <a class=\"plain\" href=\"".zurl("?page=shippingadmin&sid=".$row[0]."&action=delete_shipping")."\">".$txt['shippingadmin9']."</a></td>"; }
 		echo "  </tr>";
 	}
 	echo "</table>";
 	echo "<br /><br />";
 	echo "<h6>".$txt['shippingadmin17']."</h6>";
 	echo "<ul>";
-	echo "<li><a class=\"plain\" href=\"?page=adminedit&filename=countries.txt&root=1&wysiwyg=0\">".$txt['shippingadmin11']."</a></li>";
-	echo "<li><a class=\"plain\" href=\"?page=editsettings&show=2\">" .$txt['shippingadmin16']." (".$send_default_country.")</a></li>";
+	echo "<li><a class=\"plain\" href=\"".zurl("?page=adminedit&filename=countries.txt&root=1&wysiwyg=0")."\">".$txt['shippingadmin11']."</a></li>";
+	echo "<li><a class=\"plain\" href=\"".zurl("?page=editsettings&show=2")."\">" .$txt['shippingadmin16']." (".$send_default_country.")</a></li>";
 	echo "</ul>";
 }
 ?>

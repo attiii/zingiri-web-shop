@@ -22,20 +22,36 @@
 ?>
 <?php
 class radioZfSubElement extends zfSubElement {
-	
+
 	function output($mode="edit",$input="")
 	{
-		foreach ($this->xmlf->values->children() as $key => $option) 
-		{
-			
-			$value=$this->xmlf->values->{$key}->attributes()->value;
-			//echo "[]".$key."-".$option."-".$value;
-			if ($value==$this->int) 
-			{
-				if ($mode == "list") $this->ext=$option;
-				else $this->ext=$value;
-			}
+		$this->ext="";
+		if ($mode!='list') {
+			$this->ext=$this->int;
+			return $this->ext;
 		}
-		return $this->ext;	
+		$e=$this->element;
+		$pairs=explode(",",$input['element_'.$e->id.'_2']);
+		foreach ($pairs as $pair) {
+			list($value,$option)=explode('=',$pair);
+			if ($this->int == $value) $this->ext=$option;
+		}
+		return $this->ext;
+	}
+	function display(&$field_markup,&$subscript_markup) {
+		$e=$this->element;
+		$i=$this->subid;
+		$xmlf=$this->xmlf;
+		$pairs=explode(",",$e->populated_value['element_'.$e->id.'_2']);
+		$k=0;
+		$default=trim($e->populated_value['element_'.$e->id.'_'.$i]);
+		foreach ($pairs as $pair) {
+			$k++;
+			list($value,$option)=explode('=',$pair);
+			if ($value==$default) { $checked="checked"; } else { $checked=""; }
+			$field_markup.="<input id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" value=\"{$value}\" type=\"radio\" {$e->readonly} {$checked}/> {$option}<br />";
+		}
+		$subscript_markup.="<label for=\"element_{$e->id}_{$i}\">{$xmlf->fields->{'field'.$i}->label}</label>";
 	}
 }
+?>

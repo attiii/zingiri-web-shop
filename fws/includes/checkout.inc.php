@@ -144,7 +144,7 @@ function CheckoutNextStep() {
 		if ($notes) $redir.="&notes=".$notes;
 		if ($discount_code) $redir.="&discount_code=".$discount_code;
 		$redir=ZING_HOME.'/index.php'.$redir.'&page_id='.$pid;
-		header("Location: ".$redir);
+		header("Location: ".zurl($redir));
 		exit;
 	}
 }

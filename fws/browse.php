@@ -28,7 +28,7 @@ elseif ($_POST['includesearch']) $includesearch=$_POST['includesearch'];
 if ($includesearch) {
 	require(dirname(__FILE__).'/search.php');
 }
-$searchmethod = " AND "; //default
+$searchmethod = "AND"; //default
 
 if (!empty($_POST['searchmethod'])) {
 	$searchmethod=$_POST['searchmethod'];
@@ -75,6 +75,10 @@ if ($products_per_page > 0) {
 	$limit    = " LIMIT $start_record, $products_per_page";
 }
 else { $limit = ""; }
+if (IsAdmin()) {
+	echo "<br /><a href=\"".zurl("?page=product&zfaces=form&form=product&action=add&redirect=".wsCurrentPageURL(true))."\"><img src=\"".ZING_APPS_PLAYER_URL."images/add.png\" height=\"16px\" />".$txt['productadmin16']."</a>";
+}
+
 ?>
 
 <table width="100%" class="datatable">
@@ -82,7 +86,7 @@ else { $limit = ""; }
 		<th><?php 
 		echo $txt['browse2']." / ".$categorie;
 		echo "<br />";
-		if ($action == "list") { echo "<a href=\"index.php?page=browse&action=list&group=$group&cat=$cat&orderby=1\"><small>".$txt['browse4']."</small></a>";  }
+		if ($action == "list") { echo "<a href=\"".zurl('index.php?page=browse&action=list&group='.$group.'&cat='.$cat.'&orderby=1')."\"><small>".$txt['browse4']."</small></a>";  }
 		?></th>
 		<?php if ($ordering_enabled) {?>
 		<th><?php 
@@ -91,7 +95,7 @@ else { $limit = ""; }
 		// if we use VAT, then display that the prices are including VAT in the list below
 		if ($no_vat == 0) { echo " (".$txt['general7']." ".$txt['general5'].")"; }
 		echo "<br />";
-		if ($action == "list") { echo "<a href=\"index.php?page=browse&action=list&group=$group&cat=$cat&orderby=2\"><small>".$txt['browse4']."</small></a>";  }
+		if ($action == "list") { echo "<a href=\"".zurl('index.php?page=browse&action=list&group='.$group.'&cat='.$cat.'&orderby=2')."\"><small>".$txt['browse4']."</small></a>";  }
 		echo "</div>";
 		?></th>
 		<?php }?>
@@ -206,14 +210,13 @@ else { $limit = ""; }
 					$thumb = "";
 				}
 			}
-
 			// see if you are an admin. if so, add a [EDIT] link to the line
 			$admin_edit = "";
 			if (IsAdmin() == true) {
 				$admin_edit = "<br /><br />";
 				if ($stock_enabled == 1) { $admin_edit .= $txt['productadmin12'].": ".$row[5]."<br />"; }
-				$admin_edit .= "<a href=\"?page=productadmin&action=edit_product&pcat=".$cat."&prodid=".$row[0]."\">".$txt['browse7']."</a>";
-				$admin_edit .= " | <a href=\"?page=productadmin&action=delete_product&pcat=".$cat."&prodid=".$row[0]."\" onclick=\"return confirm('".$txt['generic1']."?');\">".$txt['browse8']."</a>";
+				$admin_edit .= "<a href=\"".zurl("?page=product&zfaces=form&form=product&action=edit&id=".$row[0]."&redirect=".wsCurrentPageURL(true))."\">".$txt['browse7']."</a>";
+				$admin_edit .= " | <a href=\"".zurl("?page=product&zfaces=form&form=product&action=delete&id=".$row[0]."&redirect=".wsCurrentPageURL(true))."\" >".$txt['browse8']."</a>";
 				if (is_admin()) {
 					$admin_edit .= " | ".$txt['productadmin14'].' <input id="wsfp'.$row[0].'" type="checkbox" class="wsfrontpage" onclick="wsFrontPage('.$row[0].',this.checked);"';
 					if ($row['FRONTPAGE']) $admin_edit.=" checked";
@@ -240,7 +243,7 @@ else { $limit = ""; }
 			}
 
 			echo "<td>".$stockpic;
-			if (!is_admin()) echo "<a class=\"plain\" href=\"index.php?page=details&prod=".$row[0]."&cat=".$row[2]."&group=".$group."\">".$thumb.$print_description."</a> ";
+			if (!is_admin()) echo "<a class=\"plain\" href=\"".zurl("index.php?page=details&prod=".$row[0]."&cat=".$row[2]."&group=".$group)."\">".$thumb.$print_description."</a> ";
 			else echo $thumb.$print_description;
 			echo $picturelink." ".$new." ".$stocktext.$admin_edit."</td>";
 			if ($ordering_enabled) {
@@ -338,7 +341,7 @@ else { $limit = ""; }
 	  echo "<br /><h4>".$txt['browse11'].": ";
 
 	  if ($num_page > $page_range) {
-	  	echo "<a href=\"".zurl('index.php?page=browse&action=$action&group=$group&cat=$cat&orderby=$orderby&searchmethod=$searchmethod&searchfor=$searchfor&num_page=1&includesearch=$includesearch')."\">[1]</a>";
+	  	echo "<a href=\"".zurl('index.php?page=browse&action='.$action.'&group='.$group.'&cat='.$cat.'&orderby='.$orderby.'&searchmethod='.$searchmethod.'&searchfor='.$searchfor.'&num_page=1&includesearch='.$includesearch)."\">[1]</a>";
 	  }
 	  if ($num_page > $page_range + 1) echo ' ...';
 
@@ -351,7 +354,7 @@ else { $limit = ""; }
 			  if ($num_pages == $num_page) {
 				  echo "<b>[$num_pages]</b>";
 			  }
-			  elseif (($num_pages-$num_page <= $page_range) && ($num_pages-$num_page >= -$page_range)) { echo "<a href=\"".zurl('index.php?page=browse&action=$action&group=$group&cat=$cat&orderby=$orderby&searchmethod=$searchmethod&searchfor=$searchfor&num_page=$num_pages&includesearch=$includesearch')."\">[$num_pages]</a>"; }
+			  elseif (($num_pages-$num_page <= $page_range) && ($num_pages-$num_page >= -$page_range)) { echo "<a href=\"".zurl('index.php?page=browse&action='.$action.'&group='.$group.'&cat='.$cat.'&orderby='.$orderby.'&searchmethod='.$searchmethod.'&searchfor='.$searchfor.'&num_page='.$num_pages.'&includesearch='.$includesearch)."\">[$num_pages]</a>"; }
 			  echo " ";
 		  }
 	  }
@@ -362,7 +365,7 @@ else { $limit = ""; }
 		  if ($num_pages == $num_page) {
 			  echo "<b>[$num_pages]</b>";
 		  }
-		  else { echo "<a href=\"".zurl('index.php?page=browse&action=$action&group=$group&cat=$cat&orderby=$orderby&searchmethod=$searchmethod&searchfor=$searchfor&num_page=$num_pages&includesearch=$includesearch')."\">[$num_pages]</a>"; }
+		  else { echo "<a href=\"".zurl('index.php?page=browse&action='.$action.'&group='.$group.'&cat='.$cat.'&orderby='.$orderby.'&searchmethod='.$searchmethod.'&searchfor='.$searchfor.'&num_page='.$num_pages.'&includesearch='.$includesearch)."\">[$num_pages]</a>"; }
 	  }
 
 	  echo "</h4>";

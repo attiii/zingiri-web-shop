@@ -532,25 +532,6 @@ div.calendar {
 	width: 400px;
 }
 
-.zfcontrol {
-	padding: 4px;
-	border: 1px solid;
-	background-color: white;
-}
-
-.zfcontrol table {
-	border-top: 1px dashed;
-	width: 100%;
-}
-
-.zfcontrol table tr {
-	
-}
-
-.zfcontrol table tr td {
-	border: 0px;
-}
-
 .zfrequired {
 	color: red !important;
 	float: none !important;

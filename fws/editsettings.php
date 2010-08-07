@@ -394,6 +394,7 @@ else {
 	              <tr><td><?php echo $txt['editsettings21'] ?></td>
 	                  <td><input type="checkbox" name="ordering_enabled" <?php if ($ordering_enabled == 1) { echo "checked"; } ?>></td>
         	      </tr>
+        	      <!--
 	              <tr><td><?php echo $txt['editsettings22'] ?></td>
 	                  <td><input type="checkbox" name="shop_disabled" <?php if ($shop_disabled == 1) { echo "checked"; } ?>></td>
         	      </tr>
@@ -403,6 +404,7 @@ else {
 	              <tr><td><?php echo $txt['editsettings24'] ?></td>
 	                  <td><input type="text" name="shop_disabled_reason" size="30" maxlength="100" value="<?php echo $shop_disabled_reason ?>"></td>
         	      </tr>
+        	      -->
 	              <tr><td><?php echo $txt['editsettings25'] ?></td>
 	                  <td><input type="text" name="webmaster_mail" size="30" maxlength="500" value="<?php echo $webmaster_mail ?>"></td>
         	      </tr>
@@ -412,6 +414,7 @@ else {
 	              <tr><td><?php echo $txt['editsettings27'] ?></td>
 	                  <td><input type="text" name="shopfax" size="30" maxlength="50" value="<?php echo $shopfax ?>"></td>
         	      </tr>
+        	      <!--
 	              <tr><td><?php echo $txt['editsettings34'] ?></td>
 	                  <td><input type="text" name="start_year" size="4" maxlength="4" value="<?php echo $start_year ?>"></td>
         	      </tr>
@@ -434,6 +437,7 @@ else {
                         </SELECT>  
 	                  </td>
         	      </tr>
+        	      -->
 	              <tr><td><?php echo $txt['editsettings95'] ?></td>
 	                  <td><input type="checkbox" name="use_captcha" <?php if ($use_captcha == 1) { echo "checked"; } ?>></td>
         	      </tr>
@@ -509,14 +513,12 @@ else {
 	              <tr><td><?php echo $txt['editsettings35'] ?></td>
 	                  <td><input type="text" name="shop_logo" size="30" maxlength="50" value="<?php echo $shop_logo ?>"></td>
         	      </tr>
-        	      -->
 	              <tr><td><?php echo $txt['editsettings37'] ?></td>
 	                  <td><input type="text" name="slogan" size="30" maxlength="200" value="<?php echo $slogan ?>"></td>
         	      </tr>
 	              <tr><td><?php echo $txt['editsettings38'] ?></td>
 	                  <td><input type="text" name="page_title" size="30" maxlength="200" value="<?php echo $page_title ?>"></td>
         	      </tr>
-        	      <!--
 	              <tr><td><?php echo $txt['editsettings39'] ?></td>
 	                  <td><input type="text" name="page_footer" size="30" maxlength="100" value="<?php echo $page_footer ?>"></td>
         	      </tr>
@@ -597,9 +599,11 @@ else {
 	              <tr><td><?php echo $txt['editsettings87'] ?></td>
 	                  <td><input type="checkbox" name="new_page" <?php if ($new_page == 1) { echo "checked"; } ?>></td>
         	      </tr>
+        	      <!--
 	              <tr><td><?php echo $txt['editsettings79'] ?></td>
 	                  <td><input type="checkbox" name="live_news" <?php if ($live_news == 1) { echo "checked"; } ?>></td>
         	      </tr>
+        	      -->
 	              <tr><td><?php echo $txt['editsettings91'] ?></td>
 	                  <td><input type="text" name="products_per_page" size="4" maxlength="4" value="<?php echo $products_per_page ?>"></td>
         	      </tr>

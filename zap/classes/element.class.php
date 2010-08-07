@@ -51,9 +51,11 @@ class element {
 		$xmlf=faces_get_xml($this->constraint);
 		$this->xmlf=$xmlf;
 		$this->fields=$xmlf->fields->attributes()->count;
-//		$this->countParams=isset($xmlf->params) ? $xmlf->params->attributes()->count : 0;
+		//		$this->countParams=isset($xmlf->params) ? $xmlf->params->attributes()->count : 0;
 		$this->name=array();
 		$this->sublabel=array();
+		$this->help=z_((string)$xmlf->help);
+		
 		for ($i=1; $i<=$this->fields; $i++) {
 			if ($this->fields > 1)
 			{
@@ -73,17 +75,16 @@ class element {
 	}
 
 	function verify($input,&$output) {
+
 		$success=true;
 		$this->is_error=false;
 		$this->input=$input;
-		
 		//check rule conditions
 		if (!$this->postRules()) $success=false;
 		if ($this->disabled) return true;
-		
+
 		for ($i=1; $i<=$this->fields; $i++) {
 			$int=$ext=$this->input['element_'.$this->id.'_'.$i];
-
 			$type=$this->xmlf->fields->{'field'.$i}->type;
 			if ($this->fields > 1)
 			$this->name[$i]=(string)$this->xmlf->fields->{'field'.$i}->name;
@@ -92,25 +93,38 @@ class element {
 			if (class_exists($type."ZfSubElement"))	{ $c=$type."ZfSubElement"; }
 			else { $c="zfSubElement"; }
 
-			$subelement=new $c($int,$ext,$this->xmlf->fields->{'field'.$i},$this,$i);
-			if (!$subelement->verifyall())
-			{
-				$success=false;
-				$this->error_message=$subelement->error_message;
-				$this->is_error=$subelement->is_error;
+			if (is_array($int)) {
+				foreach ($int as $s => $v) {
+					$subelement=new $c($int[$s],$ext[$s],$this->xmlf->fields->{'field'.$i},$this,$i);
+					if (!$subelement->verifyall())
+					{
+						$success=false;
+						$this->error_message=$subelement->error_message;
+						$this->is_error=$subelement->is_error;
+					}
+					$output['element_'.$this->id.'_'.$i][$s]=$subelement->int;
+				}
+			} else {
+				$subelement=new $c($int,$ext,$this->xmlf->fields->{'field'.$i},$this,$i);
+				if (!$subelement->verifyall())
+				{
+					$success=false;
+					$this->error_message=$subelement->error_message;
+					$this->is_error=$subelement->is_error;
+				}
+				$output['element_'.$this->id.'_'.$i]=$subelement->int;
 			}
 
-			$output['element_'.$this->id.'_'.$i]=$subelement->int;
 		}
 		return $success;
 	}
 
-	function postSave($input,$output) {
-	
+	function postSave($input,$output,$recid) {
+
 		$success=true;
 		$this->is_error=false;
 		$this->input=$input;
-		
+
 		for ($i=1; $i<=$this->fields; $i++) {
 			$int=$ext=$this->input['element_'.$this->id.'_'.$i];
 
@@ -123,7 +137,7 @@ class element {
 			else { $c="zfSubElement"; }
 
 			$subelement=new $c($int,$ext,$this->xmlf->fields->{'field'.$i},$this,$i);
-			if (!$subelement->postSave())
+			if (!$subelement->postSave($recid))
 			{
 				$success=false;
 				$this->error_message=$subelement->error_message;
@@ -132,14 +146,14 @@ class element {
 
 			$output['element_'.$this->id.'_'.$i]=$subelement->int;
 		}
-		
+
 		return $success;
 
 	}
-	
+
 	function postRules() {
 		$success=true;
-		if (!is_array($this->rules) || count($this->rules) == 0) return $success;	
+		if (!is_array($this->rules) || count($this->rules) == 0) return $success;
 		foreach ($this->rules as $rule) {
 			$r='zf'.$rule['type'];
 			$n=new $r();
@@ -152,7 +166,7 @@ class element {
 		}
 		return $success;
 	}
-	
+
 
 	function output($input,&$output,$mode="edit") {
 		$this->mode=$mode;
@@ -196,23 +210,23 @@ class element {
 	}
 
 	function preRules() {
-		if (!is_array($this->rules) || count($this->rules) == 0) return;	
+		if (!is_array($this->rules) || count($this->rules) == 0) return;
 		foreach ($this->rules as $rule) {
 			$r='zf'.$rule['type'];
 			$n=new $r();
 			$n->precheck($this,$rule['parameters']);
 		}
 	}
-	
+
 	function display($mode="edit") {
 
 		Global $facesdefaultvalues;
 		$this->mode=$mode;
-		
+
 		if ($mode=="search" && !$this->is_searchable) return;
-		
+
 		$this->preRules();
-		
+
 		if ($this->disabled) return "";
 		//check for error
 		$error_class = '';
@@ -226,9 +240,7 @@ class element {
 		$fields=$xmlf->fields->attributes()->count;
 
 		if(!empty($this->is_error)){
-			//$error_class = 'class="error"';
 			$error_class = 'zferror';
-			//$error_message = "<p class=\"error\">{$this->error_message}</p>";
 			$error_message = "<p>{$this->error_message}</p>";
 		}
 
@@ -262,21 +274,13 @@ class element {
 			$tempfunc=ZING_APPS_TRANSLATE;
 			$label=$tempfunc($label);
 		}
-		
+
 		if ($this->hidden) $hidden='display:none;'; else $hidden="";
-		//$error_class='class="zfelement"';
-		$element_markup.= <<<EOT
-		<div id="zf_{$this->id}" class="zfelement {$error_class}" style="{$position}{$hidden}">
-EOT;
+		$element_markup.= '<div id="zf_'.$this->id.'" class="zfelement '.$error_class.'" style="'.$position.$hidden.'">';
 		if ($xmlf->attributes()->header == "none") { $label=""; }
-		$element_markup.= <<<EOT
-		<label id="zf_{$this->id}_name" class="zfelabel">{$label} {$span_required}</label>
-EOT;
-
-
+		$element_markup.= '<label id="zf_'.$this->id.'_name" class="zfelabel">'.$label.' '.$span_required.'</label>';
 		$element_markup.='<div class="zfsubelements" id="zf_'.$this->id.'_sf">';
 		for ($i=1; $i<=$fields; $i++) {
-
 			$fn=$xmlf->fields->{'field'.$i}->name;
 			if ($fields>1) $this->name[$i]=(string)$fn;
 			$size=$xmlf->fields->{'field'.$i}->size;
@@ -284,119 +288,74 @@ EOT;
 
 			$subscript_markup = '';
 			$field_markup ="<div id=\"zf_{$this->id}_{$fn}\" style=\"width: {$xmlf->fields->{'field'.$i}->width}\" class=\"zfsub\">";
-			if (isset($xmlf->fields->{'field'.$i}->values) && ($values=$xmlf->fields->{'field'.$i}->values->attributes()->type == "sql")) {
-					//sql
-					$e=new sqlZfSubElement("","",$xmlf,$this,$i);
+
+			$ac=1;
+			if ($this->isRepeatable) $ac=max($ac,count($this->populated_value['element_'.$this->id.'_'.$i]));
+
+			//default
+			for ($ai=0; $ai < $ac; $ai++) {
+				if (!empty($type) && class_exists($type."ZfSubElement")) $c=$type."ZfSubElement";
+				else $c="zfSubElement";
+				$e=new $c("","",$xmlf,$this,$i,$ai);
+				if (method_exists($e,"display")) {
 					$e->display($field_markup,$subscript_markup);
-
-				} elseif ($values=$xmlf->fields->{'field'.$i}->type == "checkbox") {
-					//checkbox
-					if(!empty($this->populated_value['element_'.$this->id.'_'.$i])){
-						$checked = 'checked="checked"';
-					}elseif(!empty($this->populated_value['element_'.$this->id])){
-						$checked = 'checked="checked"';
-					}else{
-						$checked = '';
-					}
-					$option_markup .= "<input id=\"element_{$this->id}_{$i}\" name=\"element_{$this->id}_{$i}\" class=\"element checkbox\" type=\"checkbox\" value=\"1\" {$checked} {$this->readonly}/>\n";
-					//$option_markup .= "<label class=\"choice\" for=\"element_{$this->id}_{$i}\">{$this->title}</label>\n";
-					$field_markup.=$option_markup;
-					if (!empty($xmlf->fields->{'field'.$i}->label)) $subscript_markup.="<label for=\"element_{$this->id}_{$i}\">{$xmlf->fields->{'field'.$i}->label}</label>";
-			} elseif ($values=$xmlf->fields->{'field'.$i}->type == "radio") {
-							//radio
-							$default=trim($this->populated_value['element_'.$this->id.'_'.$i]);
-							//		echo "def=".$default."=<br />";
-							foreach ($xmlf->fields->{'field'.$i}->values->children() as $key => $option) {
-								//this->populated_value['element_'.$this->id.'_'.$i]
-
-								$value=$xmlf->fields->{'field'.$i}->values->{$key}->attributes()->value;
-
-								if ($value==$default) { $checked="checked"; } else { $checked=""; }
-
-								//				echo "--".$key."=".$option."=".$value."=".$checked."<br />";
-								$field_markup.="<input id=\"element_{$this->id}_{$i}\" name=\"element_{$this->id}_{$i}\" class=\"element text\" value=\"{$value}\" type=\"radio\" {$this->readonly} {$checked}/>{$option}<br />";
-							}
-							$subscript_markup.="<label for=\"element_{$this->id}_{$i}\">{$xmlf->fields->{'field'.$i}->label}</label>";
-
-			} elseif ($values=$xmlf->fields->{'field'.$i}->type == "submit") {
-								//submit
-								if($this->populated_value['element_'.$this->id.'_'.$i] == ""){
-									$this->populated_value['element_'.$this->id.'_'.$i] = $xmlf->fields->{'field'.$i}->default;
-								}
-								$field_markup.="<input id=\"element_{$this->id}_{$i}\" name=\"element_{$this->id}_{$i}\" class=\"element text\" value=\"".$xmlf->fields->{'field'.$i}->name."\" type=\"submit\" onclick=\"form.action=location.href;\" {$this->readonly}/>";
-								$subscript_markup.="";
-
-			} elseif ($values=$xmlf->fields->{'field'.$i}->type == "domain") {
-								//domain
-								$e=new domainZfSubElement("","",$xmlf,$this,$i);
-								$e->display($field_markup,$subscript_markup);
-			} else {
-				//default
-				if (class_exists($type."ZfSubElement")) {
-					$c=$type."ZfSubElement";
-					$e=new $c("","",$xmlf,$this,$i);
-					if (method_exists($e,"display")) {
-						$e->display($field_markup,$subscript_markup);
-					}
-				} else {
-					if($this->populated_value['element_'.$this->id.'_'.$i] == ""){
-						$this->populated_value['element_'.$this->id.'_'.$i] = $xmlf->fields->{'field'.$i}->default;
-					}
-					$field_markup.="<input id=\"element_{$this->id}_{$i}\" name=\"element_{$this->id}_{$i}\" class=\"element text\" size=\"{$xmlf->fields->{'field'.$i}->size}\" value=\"{$this->populated_value['element_'.$this->id.'_'.$i]}\" maxlength=\"{$xmlf->fields->{'field'.$i}->maxlength}\" type=\"text\" {$this->readonly}/>";
-					$subscript_markup.="<label id=\"label_{$this->id}_{$i}\"for=\"element_{$this->id}_{$i}\">".$xmlf->fields->{'field'.$i}->label."</label>";
 				}
+				if ($ac > 1) $field_markup.='<br />';
+				if ($ac > 1 && $ai!=$ac-1) $subscript_markup='';
 			}
 			if ($xmlf->fields->{'field'.$i}->subscript != "none" && $xmlf->fields->{'field'.$i}->label != "") {
 				$field_markup.=$subscript_markup;
 			}
 			$field_markup.="</div>";
-			if ($xmlf->fields->{'field'.$i}->cat != 'parameter' || $mode=='editor' || isset($_POST['zf_type'])) { 
+			if ($xmlf->fields->{'field'.$i}->cat != 'parameter' || $mode=='editor' || isset($_POST['zf_type'])) {
 				$element_markup.=$field_markup;
 			}
 		}
-			if ($this->attributes['zfrepeatable']) {
-				$element_markup.='<div id="zfc_'.$this->id.'_del" class="zftablecontrol" style="float:left;position:relative;">';
-				//$element_markup.='<img id="zfci_'.$this->id.'_add" class="zfrepeatable_del" onclick="appsRepeatable.del(\'zf_'.$this->id.'_sf\',1)" src="'.ZING_APPS_PLAYER_URL.'/images/delete.png" height="16px"/>';
-				$element_markup.='<input type="button" id="zfci_'.$this->id.'_del" class="zfrepeatable_del" onclick="appsRepeatable.del(\'zf_'.$this->id.'_sf\',1)" value="-" height="16px"/>';
-				$element_markup.='</div>';
-				$element_markup.='<div id="zfc_'.$this->id.'_add" class="zftablecontrol" style="float:left;position:relative;">';
-				//$element_markup.='<img id="zfci_'.$this->id.'_del" class="zfrepeatable_add" onclick="appsRepeatable.add(\'zf_'.$this->id.'_sf\',1)" src="'.ZING_APPS_PLAYER_URL.'/images/add.png" height="16px"/>';
-				$element_markup.='<input type="button" id="zfci_'.$this->id.'_add" class="zfrepeatable_add" onclick="appsRepeatable.add(\'zf_'.$this->id.'_sf\',1)" value="+" height="16px"/>';
-				$element_markup.='</div>';
-				
+		if ($this->attributes['zfrepeatable']) {
+			$element_markup.='<div id="zfc_'.$this->id.'_del" class="zftablecontrol" style="float:left;position:relative;">';
+			for ($ai=1; $ai <= $ac; $ai++) {
+				$element_markup.='<input type="button" pos="'.$ai.'" id="zfci_'.$this->id.'_del_'.$ai.'" class="zfrepeatable_del" onclick="appsRepeatable.del(\'zf_'.$this->id.'_sf\','.$ai.')" value="-" height="16px"/>';
+				if ($ac > 1 && $ai < $ac) $element_markup.='<br />'; 
+			}
+			$element_markup.='</div>';
+			$element_markup.='<div id="zfc_'.$this->id.'_add" class="zftablecontrol" style="float:left;position:relative;">';
+			for ($ai=1; $ai <= $ac; $ai++) {
+				$element_markup.='<input type="button" pos="'.$ai.'" id="zfci_'.$this->id.'_add_'.$ai.'" class="zfrepeatable_add" onclick="appsRepeatable.add(\'zf_'.$this->id.'_sf\','.$ai.')" value="+" height="16px"/>';
+				if ($ac > 1 && $ai < $ac) $element_markup.='<br />'; 
+			}
+			$element_markup.='</div>';
+			$this->includeJavascript($this->id);
+		}
+		$element_markup.='<div class="zfclear"></div>';
+		$element_markup.='</div>'.$error_message.'<div class="zfclear"></div>';
+
+		$element_markup.='&nbsp;'.$guidelines.'</div>';
+		return $element_markup;
+	}
+
+	function includeJavaScript($id) {
 				if (ZING_PROTOTYPE) {
-?>
+					?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
 	document.observe("dom:loaded", function() {
-	    appsRepeatable.init('<?php echo 'zf_'.$this->id.'_sf';?>');
+	    appsRepeatable.init('<?php echo 'zf_'.$id.'_sf';?>');
 	});
 //]]>
 </script>
-		<?php } elseif (ZING_JQUERY) {?>
+					<?php } elseif (ZING_JQUERY) {?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
 	jQuery(document).ready(function() {
-	    appsRepeatable.init('<?php echo 'zf_'.$this->id.'_sf';?>');
+	    appsRepeatable.init('<?php echo 'zf_'.$id.'_sf';?>');
 	});
 //]]>
 </script>
-<?php 
-		}
-			}
-		$element_markup.='<div class="zfclear"></div>';
-		$element_markup.='</div>'.$error_message.'<div class="zfclear"></div>';
+					<?php
+					}
 		
-		$element_markup.= <<<EOT
-	&nbsp;{$guidelines} 
-		</div>
-EOT;
+	}
 
-
-								return $element_markup;
-							}
-
-
-
-						}
-						?>
+}
+	
+	?>

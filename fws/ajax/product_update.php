@@ -1,7 +1,6 @@
 <?php
-//require('../../../../../wp-blog-header.php');
-require($_POST['wpabspath'].'/wp-blog-header.php');
-//require(dirname(__FILE__).'/../../zap/includes/faces.inc.php');
+require(dirname(__FILE__).'/init.inc.php');
+
 if (!IsAdmin()) die('No access');
 
 $id=intval($_POST['id']);

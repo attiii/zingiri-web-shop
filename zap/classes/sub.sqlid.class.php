@@ -81,19 +81,19 @@ class sqlidZfSubElement extends zfSubElement {
 				}
 			}
 				
-			$result = do_query($query);
-				
-			while($row = mysql_fetch_array($result)){
-				$key=$row[0];
-				$option=$row[1];
-				$selected="";
-				if ($fields > 1) { $fieldsuffix='_'.$i; } else { $fieldsuffix=''; }
-				if(trim($e->populated_value['element_'.$e->id.'_'.$i]) == $key){
-					$selected = 'selected="selected"';
-				} elseif ($e->default_value == $key) {
-					$selected = 'selected="selected"';
+			if ($result = do_query($query)) {
+				while($row = mysql_fetch_array($result)){
+					$key=$row[0];
+					$option=$row[1];
+					$selected="";
+					if ($fields > 1) { $fieldsuffix='_'.$i; } else { $fieldsuffix=''; }
+					if(trim($e->populated_value['element_'.$e->id.'_'.$i]) == $key){
+						$selected = 'selected="selected"';
+					} elseif ($e->default_value == $key) {
+						$selected = 'selected="selected"';
+					}
+					if (!$e->readonly || ($e->readonly && $selected)) $option_markup .= "<option value=\"".$key."\" {$selected}>".$option."</option>";
 				}
-				if (!$e->readonly || ($e->readonly && $selected)) $option_markup .= "<option value=\"".$key."\" {$selected}>".$option."</option>";
 			}
 		}
 		$field_markup.=$option_markup;
