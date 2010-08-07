@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="module" version="1.5.0">
+	<name>Image multiple upload</name>
+	<fields count="3">
+		<field1>
+			<maxlength>255</maxlength>
+			<size>25</size>
+			<type>image_multiple</type>
+		</field1>
+		<field2>
+			<label>Images directory</label>
+			<format>none</format>
+			<cat>parameter</cat>
+		</field2>
+		<field3>
+			<label>Images URL</label>
+			<format>none</format>
+			<cat>parameter</cat>
+		</field3>
+	</fields>
+</config>
