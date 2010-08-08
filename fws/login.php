@@ -102,12 +102,11 @@ if ($lostlogin == 0) {
 			if (!empty($_POST['pagetoload'])) {
 				$pagetoload=$_POST['pagetoload'];
 			}
-			else { $pagetoload = "page=my"; }
-
-			// if the admin logs in, lets show him the admin screen
-			if ($group == "ADMIN" && $pagetoload = "page=my") {
+			elseif ($group == "ADMIN" && $pagetoload = "page=my") {
 				$pagetoload = "page=admin";
 			}
+			else { $pagetoload = "page=my"; }
+
 			header('Location:index.php?'.$pagetoload);
 			die();
 		}

@@ -129,7 +129,7 @@ function zing_header()
 	echo "var wpabspath='".ABSPATH."';";
 	echo "var wsCms='".ZING_CMS."';";
 	echo '</script>';
-
+	
 	if (ZING_PROTOTYPE) {
 		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/checkout.proto.js"></script>';
 		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/cart.proto.js"></script>';

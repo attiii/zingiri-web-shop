@@ -18,7 +18,6 @@ class zingPrompts {
 				"gr" => "Greek",
 				"hu" => "Hungarian",
 				"it" => "Italian",
-				"jp" => "Japanese",
 				"no" => "Norwegian",
 				"pl" => "Polish",
 				"pt" => "Portuguese",

@@ -14,12 +14,21 @@ function zing_set_options() {
 	)
 	);
 
-	$zing_ws_options[]=	array(	"name" => "User management",
+	if (ZING_CMS=='wp') { 
+		$zing_ws_options[]=	array(	"name" => "User management",
 			"desc" => "Select whether you want to use full integration with Wordpress user management or Zingiri's stand alone user management.",
 			"id" => $zing_ws_shortname."_login",
 			"std" => "WP",
 			"type" => "select",
 			"options" => array("WP","Zingiri"));
+	} else {
+		$zing_ws_options[]=	array(	"name" => "User management",
+			"desc" => "Select whether you want to use full integration with Joomla user management (not yet implemented) or Zingiri's stand alone user management.",
+			"id" => $zing_ws_shortname."_login",
+			"std" => "WP",
+			"type" => "select",
+			"options" => array("Zingiri"));
+	}
 
 	/*
 	$zing_ws_options[]=	array(	"name" => "Javascript library",
@@ -59,11 +68,11 @@ function zing_set_options() {
 			"options" => $install_type);
 }
 function zing_ws_add_admin() {
-
+	
 	global $zing_ws_name, $zing_ws_shortname, $zing_ws_options, $menus, $txt, $wpdb, $zing_version, $integrator;
 	global $dbtablesprefix;
 	if ($zing_version) require(dirname(__FILE__).'/startmodules.inc.php');
-
+	
 	zing_set_options();
 
 	if ((ZING_CMS=='wp' && $_GET['page']=='zingiri-web-shop') || (ZING_CMS=='jl' && $_GET['option'] == "com_zingiriwebshop") ) {
@@ -124,8 +133,8 @@ function zing_ws_add_admin() {
 	} elseif (ZING_CMS=='jl') {
 		JSubMenuHelper::addEntry(JText::_('Integration'), 'index.php?option=com_zingiriwebshop', true );
 		if ($zing_version) {
-			JSubMenuHelper::addEntry(JText::_('Administration'), 'index.php?option=com_zingiriwebshop&page=dashboard', true );
-			/*
+			//JSubMenuHelper::addEntry(JText::_('Administration'), 'index.php?option=com_zingiriwebshop&page=dashboard', true );
+			
 			foreach ($menus as $page => $menu) {
 				if (!$menu['hide']) {
 					JSubMenuHelper::addEntry($txt[$menu['label']], 'index.php?option=com_zingiriwebshop&page='.$page, true );				//add_submenu_page('zingiri-web-shop', $txt[$menu['label']], $txt[$menu['label']], 'administrator', $page, 'zing_ws_settings');
@@ -135,7 +144,7 @@ function zing_ws_add_admin() {
 				$menu=$menus[$_GET['page']];
 				JSubMenuHelper::addEntry($txt[$menu['label']], 'index.php?option=com_zingiriwebshop&page='.$_GET['page'], true );
 			}
-			*/
+			
 		}
 	}
 
@@ -148,6 +157,7 @@ function zing_ws_settings() {
 	zing_header();
 	zing_apps_player_header_cp();
 
+	if (ZING_CMS=='wp') {
 	echo '<div style="height:64px;float">';
 	echo '<center>';
 	foreach ($menus as $id => $menu) {
@@ -160,6 +170,7 @@ function zing_ws_settings() {
 	echo '</center>';
 	echo '<div style="display:none" id="icon_label"></div>';
 	echo '</div>';
+	}
 	
 	//echo '<script type="text/javascript" language="javascript">';
 	//echo "var wsURL='".ZING_URL."fws/ajax/';";

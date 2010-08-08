@@ -66,6 +66,7 @@ if (LoggedIn() == True) {
 
 	//first pass
 	if ($status==1) {
+		
 		// if the cart is empty, then you shouldn't be here
 		if (CountCart($customerid) == 0) {
 			PutWindow($gfx_dir, $txt['general12'], $txt['checkout2'], "warning.gif", "50");
@@ -169,7 +170,7 @@ if (LoggedIn() == True) {
 
 			// let's format the product list a little
 			$message .= "<table width=\"100%\" class=\"borderless\">";
-				
+			
 			while ($row = mysql_fetch_row($sql)) {
 				$query_details = "SELECT * FROM ".$dbtablesprefix."product WHERE ID = '" . $row[2] . "'";
 				$sql_details = mysql_query($query_details) or die(mysql_error());
@@ -260,7 +261,7 @@ if (LoggedIn() == True) {
 			while ($row = mysql_fetch_row($sql)) {
 				$shipping_descr = $row[1];
 			}
-
+			
 			// read the shipping costs
 			$query = sprintf("SELECT * FROM `".$dbtablesprefix."shipping_weight` WHERE `ID` = %s", quote_smart($weightid));
 			$sql = mysql_query($query) or die(mysql_error());
@@ -292,12 +293,11 @@ if (LoggedIn() == True) {
 			} else {
 				$tpl->removeRow(array('TAXLABEL','TAXRATE','TAXTOTAL'));
 			}
-
+			
 			// now lets calculate the invoice total now we know the final addition, the shipping costs
 			$message .= '<tr><td>'.$txt['checkout24'].'</td><td>'.$txt['checkout25'].'</td><td style="text-align: right"><big><strong>'.$currency_symbol_pre.myNumberFormat($total,$number_format).$currency_symbol_post.'</strong></big></td></tr>';
 			$tpl->replace('TOTAL',$currency_symbol_pre.myNumberFormat($total,$number_format).$currency_symbol_post);
 			$message .= "</table><br /><br />";
-
 			// shippingmethod 2 is pick up at store. if you don't support this option, there is no need to remove this
 			if ($shippingid != "2" && $totalWeight > 0) { // only show shipping address if something to ship and not pickup from store
 				$message .= $txt['checkout17']; // shipping address
@@ -319,11 +319,11 @@ if (LoggedIn() == True) {
 				$tpl->replace('COUNTRY','');
 			} 
 			$message = $message . $txt['checkout6'].$txt['checkout6']; // white line
-
+			
 			// now the payment
 			$payment=new paymentCode();
 			$payment_code=$payment->getCode($paymentid,$customer_row,$total,$webid);
-
+			
 			$message .= $txt['checkout19'].$payment_descr; // Payment method:
 			$message .= $txt['checkout6']; // line break
 
@@ -355,7 +355,7 @@ if (LoggedIn() == True) {
 			$message .= $txt['checkout9']; // direct link to customer order for online status checking
 				
 			$message=$tpl->getContent();
-				
+			
 			//update order & basket
 			if ($autosubmit && $payment_code!="") {
 				$basket_status=0;
@@ -371,7 +371,7 @@ if (LoggedIn() == True) {
 			//basket update
 			$query = sprintf("UPDATE `".$dbtablesprefix."basket` SET `ORDERID` = '".$lastid."',`STATUS`=%s WHERE (`CUSTOMERID` = %s AND `STATUS` = '0')", qs($basket_status), quote_smart($customerid));
 			$sql = mysql_query($query) or die(mysql_error());
-
+			
 			// make pdf
 			$pdf = "";
 			$fullpdf = "";

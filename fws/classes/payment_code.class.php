@@ -3,7 +3,7 @@ class paymentCode {
 	var $payment_code;
 
 	function getCode($paymentid,$customer,$total,$webid) {
-		global $dbtablesprefix,$shopname,$shopurl,$lang,$sales_mail,$currency,$autosubmit;
+		global $dbtablesprefix,$shopname,$shopurl,$lang,$sales_mail,$currency,$autosubmit,$index_refer;
 
 		$this->webid=$webid;
 		$this->total=$total;
@@ -23,7 +23,6 @@ class paymentCode {
 			//common variables
 			$this->returnUrl=$shopurl . '/index.php?page=checkout&status=1&webid='.urlencode($webid).'&gateway='.$gateway;
 			$this->cancelUrl=$shopurl . '/index.php?page=checkout&status=9&webid='.urlencode($webid).'&gateway='.$gateway;
-			
 			@include(ZING_LOC.'extensions/gateways/'.$gateway.'/'.$gateway.'.php');
 			if (class_exists($gateway.'Gateway')) {
 				$gc=$gateway.'Gateway';
@@ -33,7 +32,7 @@ class paymentCode {
 				$payment_code = str_replace("%hash%", $hash, $payment_code);
 				$payment_code = str_replace("%dealhash%", $hash, $payment_code); //for backward compatibility
 				// custom replacements
-				$payment_code = $gc->replace($payment_code);
+				$payment_code = $g->replace($payment_code);
 			}
 			
 			// common replacements

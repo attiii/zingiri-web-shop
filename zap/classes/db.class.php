@@ -60,7 +60,8 @@ if (!class_exists('db')) {
 		function error($query) {
 			$msg="Database Error:".$query."/".mysql_error();
 			echo $msg;
-			if (function_exists("zing_apps_error_handler")) zing_apps_error_handler(0,$msg);
+			if (function_exists("zing_ws_error_handler")) zing_ws_error_handler(0,$msg);
+			elseif (function_exists("zing_apps_error_handler")) zing_apps_error_handler(0,$msg);
 			die();
 		}
 
@@ -178,7 +179,7 @@ if (!class_exists('db')) {
 				}
 			}
 			$query.=")";
-			//	echo $query."<br />";
+				//echo $query."<br />";
 			$sql_insert = mysql_query($query) or die($this->error($query));
 			$id = mysql_insert_id();
 

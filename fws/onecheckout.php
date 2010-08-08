@@ -102,7 +102,7 @@ if (loggedin()) {
 	<tr>
 		<td colspan="4"><?php echo $txt['shipping2'] ?><br />
 		<SELECT NAME="shipping" id="shipping"
-			onChange="this.form.action='?page=onecheckout';this.form.submit();"
+			onChange="this.form.action='<?php zurl('?page=onecheckout',true)?>';this.form.submit();"
 		>
 		<?php
 		// find out the shipping methods
@@ -131,7 +131,7 @@ if (loggedin()) {
 		</SELECT> <br />
 		<?php echo $txt['shipping10'] ?> <br />
 		<SELECT NAME="paymentid" id="paymentid"
-			onChange="this.form.action='?page=onecheckout';this.form.submit();"
+			onChange="this.form.action='<?php zurl('?page=onecheckout',true)?>';this.form.submit();"
 		>
 		<?php
 		// find out the payment methods
@@ -194,7 +194,7 @@ if (loggedin()) {
 			value="<?php echo $discount_code?>"
 		> <?php if (!ZING_PROTOTYPE)?> <input type="submit" name="discount"
 			value="<?php echo $txt['cart10'];?>"
-			onclick="this.form.action='?page=onecheckout';this.form.submit();"
+			onclick="this.form.action='<?php zurl('?page=onecheckout',true)?>';this.form.submit();"
 		/> <?php ?></td>
 	</tr>
 </table>
@@ -292,11 +292,11 @@ if (loggedin()) {
 		<td style="text-align: right;"><input type="text" size="4"
 			name="numprod[<?php echo $row_details[0];?>]" value="<?php echo $row[6] ?>"
 		>&nbsp; <input type="submit" value="<?php echo $txt['cart10'] ?>"
-			onclick="form.action='?page=onecheckout&action=update&prodid=<?php echo $row_details[0] ?>';"
+			onclick="form.action='<?php zurl("?page=onecheckout&action=update&prodid=".$row_details[0],true)?>';"
 			name="sub"
 		> <br />
 		<input type="submit" value="<?php echo $txt['cart6']; ?>"
-			onclick="form.action='?page=onecheckout&action=delete&prodid=<?php echo $row_details[0] ?>';"
+			onclick="form.action='<?php zurl("?page=onecheckout&action=delete&prodid=".$row_details[0],true)?>';"
 			name="sub"
 		></td>
 	</tr>

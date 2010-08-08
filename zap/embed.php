@@ -21,7 +21,7 @@
  */
 ?>
 <?php
-define("ZING_APPS_PLAYER_VERSION","0.9.4");
+define("ZING_APPS_PLAYER_VERSION","0.9.5");
 if (get_option('zing_apps_remote_url')) define("ZING_APPS_REMOTE_URL",get_option('zing_apps_remote_url').'/');
 else define("ZING_APPS_REMOTE_URL","http://www.zingiri.com/");
 

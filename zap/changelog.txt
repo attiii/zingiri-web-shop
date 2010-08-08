@@ -1,3 +1,6 @@
+= 0.9.5 = 
+* Compatibility with Wordpress 3.0.1
+
 = 0.9.4 =
 * Added 'add' link to Links form
 * Removed context field from Links form

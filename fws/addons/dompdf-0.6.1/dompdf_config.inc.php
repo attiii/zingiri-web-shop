@@ -113,7 +113,7 @@ define("DOMPDF_FONT_DIR", DOMPDF_DIR . "/lib/fonts/");
  */
 
 if (!defined("DOMPDF_FONT_CACHE")) {
-  define("DOMPDF_FONT_CACHE", DOMPDF_FONT_DIR);
+	define("DOMPDF_FONT_CACHE", DOMPDF_FONT_DIR);
 }
 
 /**
@@ -124,7 +124,7 @@ if (!defined("DOMPDF_FONT_CACHE")) {
  * using the PFDLib back end.
  */
 if (!defined('DOMPDF_TEMP_DIR')) {
-  define("DOMPDF_TEMP_DIR", sys_get_temp_dir());
+	define("DOMPDF_TEMP_DIR", sys_get_temp_dir());
 }
 
 /**
@@ -140,7 +140,7 @@ if (!defined('DOMPDF_TEMP_DIR')) {
  * $dompdf = new DOMPDF();	$dompdf->load_html($htmldata); $dompdf->render(); $pdfdata = $dompdf->output();
  */
 if (!defined("DOMPDF_CHROOT")) {
-  define("DOMPDF_CHROOT", realpath(DOMPDF_DIR));
+	define("DOMPDF_CHROOT", realpath(DOMPDF_DIR));
 }
 
 /**
@@ -157,7 +157,7 @@ if (!defined("DOMPDF_CHROOT")) {
  *
  */
 if (!defined("DOMPDF_UNICODE_ENABLED")) {
-  define("DOMPDF_UNICODE_ENABLED", true);
+	define("DOMPDF_UNICODE_ENABLED", true);
 }
 
 /**
@@ -172,8 +172,8 @@ if (!defined("DOMPDF_UNICODE_ENABLED")) {
  * @link http://ttf2pt1.sourceforge.net/
  */
 if (!defined("TTF2AFM")) {
-  //define("TTF2AFM", DOMPDF_LIB_DIR ."/ttf2ufm/ttf2ufm-src/ttf2pt1");
-  define("TTF2AFM", "/opt/local/bin/ttf2pt1");
+	//define("TTF2AFM", DOMPDF_LIB_DIR ."/ttf2ufm/ttf2ufm-src/ttf2pt1");
+	define("TTF2AFM", "/opt/local/bin/ttf2pt1");
 }
 
 /**
@@ -205,7 +205,7 @@ if (!defined("TTF2AFM")) {
  * @link http://www.php.net/image
  */
 if (!defined("DOMPDF_PDF_BACKEND")) {
-  define("DOMPDF_PDF_BACKEND", "CPDF");
+	define("DOMPDF_PDF_BACKEND", "CPDF");
 }
 
 /**
@@ -221,7 +221,7 @@ if (!defined("DOMPDF_PDF_BACKEND")) {
  * a real license code must exist!
  */
 if (!defined("DOMPDF_PDFLIB_LICENSE")) {
-  #define("DOMPDF_PDFLIB_LICENSE", "your license key here");
+	#define("DOMPDF_PDFLIB_LICENSE", "your license key here");
 }
 
 /**
@@ -235,7 +235,7 @@ if (!defined("DOMPDF_PDFLIB_LICENSE")) {
  * Therefore allow specification of content here.
  */
 if (!defined("DOMPDF_DEFAULT_MEDIA_TYPE")) {
-  define("DOMPDF_DEFAULT_MEDIA_TYPE", "screen");
+	define("DOMPDF_DEFAULT_MEDIA_TYPE", "screen");
 }
 
 /**
@@ -246,7 +246,7 @@ if (!defined("DOMPDF_DEFAULT_MEDIA_TYPE")) {
  * @see CPDF_Adapter::PAPER_SIZES for valid sizes
  */
 if (!defined("DOMPDF_DEFAULT_PAPER_SIZE")) {
-  define("DOMPDF_DEFAULT_PAPER_SIZE", "letter");
+	define("DOMPDF_DEFAULT_PAPER_SIZE", "letter");
 }
 
 
@@ -257,7 +257,7 @@ if (!defined("DOMPDF_DEFAULT_PAPER_SIZE")) {
  * @var string
  */
 if (!defined("DOMPDF_DEFAULT_FONT")) {
-  define("DOMPDF_DEFAULT_FONT", "serif");
+	define("DOMPDF_DEFAULT_FONT", "serif");
 }
 /**
  * Image DPI setting
@@ -293,7 +293,7 @@ if (!defined("DOMPDF_DEFAULT_FONT")) {
  * @var int
  */
 if (!defined("DOMPDF_DPI")) {
-  define("DOMPDF_DPI", "96");
+	define("DOMPDF_DPI", "96");
 }
 
 /**
@@ -309,7 +309,7 @@ if (!defined("DOMPDF_DPI")) {
  * @var bool
  */
 if (!defined("DOMPDF_ENABLE_PHP")) {
-  define("DOMPDF_ENABLE_PHP", false);
+	define("DOMPDF_ENABLE_PHP", false);
 }
 
 /**
@@ -330,9 +330,9 @@ if (!defined("DOMPDF_ENABLE_PHP")) {
  * @var bool
  */
 if (!defined("DOMPDF_ENABLE_REMOTE")) {
-  define("DOMPDF_ENABLE_REMOTE", false);
+	define("DOMPDF_ENABLE_REMOTE", false);
 }
- 
+
 /**
  * DOMPDF autoload function
  *
@@ -344,25 +344,32 @@ if (!defined("DOMPDF_ENABLE_REMOTE")) {
  * @param string $class
  */
 function DOMPDF_autoload($class) {
-  $filename = DOMPDF_INC_DIR . "/" . mb_strtolower($class) . ".cls.php";
-  
-  if ( is_file($filename) )
-    require_once($filename);
+	$filename = DOMPDF_INC_DIR . "/" . mb_strtolower($class) . ".cls.php";
+	
+	if ( is_file($filename) )
+	require_once($filename);
 }
 
-if ( function_exists("spl_autoload_register") ) {
+if ( ZING_CMS!='jl' ) {
+	if ( function_exists("spl_autoload_register")) {
 
-   spl_autoload_register("DOMPDF_autoload");
+		spl_autoload_register("DOMPDF_autoload");
 
-} else if ( !function_exists("__autoload") ) {
-  /**
-   * Default __autoload() function
-   *
-   * @param string $class
-   */
-  function __autoload($class) {
-    DOMPDF_autoload($class);
-  }
+	} else if ( !function_exists("__autoload") ) {
+		/**
+		 * Default __autoload() function
+		 *
+		 * @param string $class
+		 */
+		function __autoload($class) {
+			DOMPDF_autoload($class);
+		}
+	}
+} else {
+	$pdfClasses=array('DOMPDF','Frame_Tree','Stylesheet','Frame','Canvas','CPDF_Adapter','Canvas_Factory','Font_Metrics','Style','CSS_Color','Attribute_Translator','Frame_Decorator','Text_Frame_Decorator','Positioner','Inline_Positioner','Frame_Reflower','Text_Frame_Reflower','Inline_Frame_Decorator','Inline_Frame_Reflower','Cellmap','Table_Frame_Decorator','Table_Frame_Reflower','Table_Row_Frame_Decorator','Null_Positioner','Table_Row_Frame_Reflower','Block_Frame_Decorator','Table_Cell_Frame_Decorator','Table_Cell_Positioner','Block_Frame_Reflower','Table_Cell_Frame_Reflower','Frame_Factory','Page_Frame_Decorator','Frame_Reflower','Page_Frame_Reflower','Block_Frame_Decorator','Positioner','Block_Positioner','Block_Frame_Reflower','Abstract_Renderer','Text_Renderer','Inline_Renderer','Block_Renderer','Table_Cell_Renderer','Renderer','Image_Cache');
+	foreach ($pdfClasses as $pdfClass) {
+		require_once(DOMPDF_INC_DIR."/".strtolower($pdfClass).".cls.php");
+	}
 }
 
 // ### End of user-configurable options ###
@@ -416,11 +423,11 @@ $_DOMPDF_DEBUG_TYPES = array(); //array("page-break" => 1);
  * the browser cache and the premature output prevents setting of the mime type.
  */
 if (!defined('DEBUGPNG')) {
-  define('DEBUGPNG',0);
+	define('DEBUGPNG',0);
 }
 if (!defined('DEBUGKEEPTEMP')) {
-  define('DEBUGKEEPTEMP',0);
+	define('DEBUGKEEPTEMP',0);
 }
 if (!defined('DEBUGCSS')) {
-  define('DEBUGCSS',0);
+	define('DEBUGCSS',0);
 }

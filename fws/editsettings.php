@@ -249,7 +249,7 @@ else {
 	        <table width="80%" class="datatable">
              <tr><td>
                  <table width="100%" class="borderless">
-                      <form method="POST" action="?page=editsettings&show=<?php echo $show; ?>">
+                      <form method="POST" action="<?php zurl("?page=editsettings&show=".$show,true)?>">
                       <input type="hidden" name="action" value="save">
                       
         	      <?php

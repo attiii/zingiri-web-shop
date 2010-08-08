@@ -51,6 +51,6 @@ function ws_upgrade_1_5_1_set_templates() {
 	}
 }
 
-ws_upgrade_1_5_1_set_category_images();
+if ($zing_version) ws_upgrade_1_5_1_set_category_images();
 ws_upgrade_1_5_1_set_templates();
 ?>

@@ -23,7 +23,7 @@
 <?php
 $zing_version=get_option("zing_webshop_version");
 require (ZING_LOC."./zing.startfunctions.inc.php");
-require_once(dirname(__FILE__) . '/wp.integrator.class.php');
+require_once(dirname(__FILE__) . '/'.ZING_CMS.'.integrator.class.php');
 require(dirname(__FILE__).'/'.ZING_CMS.'.hooks.inc.php');
 
 if (!defined("ZING_DIG") && get_option('zing_webshop_dig')!="") {
@@ -227,10 +227,13 @@ function zing_install() {
 				}
 			}
 		}
-		if ($zing_version && count($execs) > 0) {
-			foreach ($execs as $exec) {
-				require($exec);
-			}
+	}
+
+	//Running scripts
+	zing_ws_error_handler(0,'Running scripts');
+	if (count($execs) > 0) {
+		foreach ($execs as $exec) {
+			require($exec);
 		}
 	}
 
@@ -310,7 +313,6 @@ function zing_install() {
 
 	zing_ws_error_handler(0,'completed');
 	restore_error_handler();
-
 }
 
 /**
@@ -328,7 +330,7 @@ function zing_uninstall() {
 	$sql = mysql_query($query) or die(mysql_error());
 	while ($row = mysql_fetch_row($sql)) {
 		print_r($row);
-		if (($row[0]!=$dbtablesprefix.'options') && strpos($row[0],'_mybb_')===false && strstr($row[0],'_ost_')===false) {
+		if (strpos($row[0],'_mybb_')===false && strstr($row[0],'_ost_')===false) {
 			$query="drop table ".$row[0];
 			mysql_query($query) or zing_ws_error_handler(1,mysql_error().'-'.$query);
 		}
@@ -430,7 +432,7 @@ function zing_main($process,$content="") {
 	//start logging
 	error_reporting(E_ALL ^ E_NOTICE); // ^ E_NOTICE
 	set_error_handler("user_error_handler");
-	
+
 	if (!$zing_loaded)
 	{
 		require (ZING_LOC."./startmodules.inc.php");
