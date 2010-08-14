@@ -106,7 +106,7 @@ else {
 
 		// show extra admin options?
 		$admin_edit = "";
-		if (IsAdmin() == true) {
+		if (IsAdmin() && is_admin()) {
 			$admin_edit = "<br />";
 			$admin_edit = $admin_edit."<a href=\"?page=productadmin&action=edit_product&pcat=".$cat."&prodid=".$row[0]."\">".$txt['browse7']."</a>";
 			$admin_edit = $admin_edit."&nbsp;|&nbsp;<a href=\"?page=productadmin&action=delete_product&pcat=".$cat."&prodid=".$row[0]."\">".$txt['browse8']."</a>";
@@ -127,7 +127,7 @@ else {
 		</div>
 		<br />
 		<?php if ($ordering_enabled) {?>
-		<form id="order" method="POST" action="?page=cart&action=add">
+		<form id="order" method="POST" action="<?php zurl("?page=cart&action=add",true)?>">
 		<div style="text-align: right"><input type="hidden" name="prodid" value="<?php echo $row[0] ?>"> <input
 			type="hidden" name="prodprice" value="<?php echo $row[4] ?>"
 		> <?php

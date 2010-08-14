@@ -2,7 +2,6 @@
 	height: 250px; 
 	overflow: hidden;
 	position: relative; 
-	background:#01070d url(images/slide.jpg) no-repeat;
 }
 #gallerycover{
 	overflow: hidden;
@@ -20,7 +19,6 @@
 	left:5px;
 	top:5px;
 	padding:10px;
-	background:#6E9612;
 }
 
 .mytext{

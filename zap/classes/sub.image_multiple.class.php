@@ -25,10 +25,12 @@ class image_multipleZfSubElement extends zfSubElement {
 
 	function output($mode="edit",$input="")
 	{
-		$url=@constant($input['element_'.$this->elementid.'_'.($this->subid+2)]);
-		$image=$url.'/'.$input['element_'.$this->elementid.'_'.$this->subid];
-		if ($this->int!='') $this->ext='<img src="'.$image.'" height="48px"/>';
-		else $this->ext='';
+		if ($mode=='list') {
+			$url=@constant($input['element_'.$this->elementid.'_'.($this->subid+2)]);
+			$image=$url.'/'.$input['element_'.$this->elementid.'_'.$this->subid];
+			if ($this->int!='') $this->ext='<img src="'.$image.'" height="48px"/>';
+			else $this->ext='';
+		} else $this->ext='';
 		return $this->ext;
 	}
 

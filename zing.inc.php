@@ -116,6 +116,7 @@ function zing_check() {
 
 	if (phpversion() < '5')	$errors[]="You are running PHP version ".phpversion().". You require PHP version 5 or higher to install the Web Shop.";
 	if (ini_get("zend.ze1_compatibility_mode")) $warnings[]="You are running PHP in PHP 4 compatibility mode. The PDF invoice functionality requires this mode to be turned off.";
+	if (get_magic_quotes_gpc()) $warnings[]='Turn off magic quotes on your installation. Read more about why you should disable this setting <a href="http://www.php.net/manual/en/security.magicquotes.php">here</a>.';
 
 	//check files hash
 	$c=new filesHash();

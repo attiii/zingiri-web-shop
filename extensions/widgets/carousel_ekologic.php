@@ -3,7 +3,7 @@ class widget_carousel_ekologic {
 	function init($args) {
 		global $txt;
 		//zing_main("init");
-		extract($args);
+		//extract($args);
 		//echo $before_widget;
 		//echo $before_title;
 		//echo $txt['menu2'];

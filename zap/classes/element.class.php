@@ -169,6 +169,7 @@ class element {
 
 
 	function output($input,&$output,$mode="edit") {
+	
 		$this->mode=$mode;
 		$success=true;
 		$this->is_error=false;

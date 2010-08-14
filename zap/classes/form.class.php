@@ -683,7 +683,11 @@ class zfForm {
 
 				//stripslashes added by magic quotes
 				if(get_magic_quotes_gpc()){
-					$input_array[$key] = stripslashes($input_array[$key]);
+					if (is_array($input_array[$key])) {
+						foreach ($input_array[$key] as $key2 => $value2) {
+							$input_array[$key][$key2] = stripslashes($value2);
+						}
+					} else $input_array[$key] = stripslashes($input_array[$key]);
 				}
 
 				if($sanitize_html){

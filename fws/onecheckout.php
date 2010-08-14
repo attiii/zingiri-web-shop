@@ -274,7 +274,7 @@ if (loggedin()) {
 			$print_description=printDescription($row_details[1],$row_details[3]);
 			?>
 	<tr <?php echo $kleur; ?>>
-		<td colspan="2"><a href="index.php?page=details&prod=<?php echo $row_details[0]; ?>"><?php echo $thumb.$print_description.$picturelink; ?></a>
+		<td colspan="2"><a href="<?php zurl("index.php?page=details&prod=".$row_details[0],true); ?>"><?php echo $thumb.$print_description.$picturelink; ?></a>
 		<?php
 		$productprice = $row[3]; // the price of a product
 		$printvalue = $row[7];   // features

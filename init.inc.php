@@ -1,5 +1,5 @@
 <?php
-define("ZING_VERSION","1.5.7");
+define("ZING_VERSION","1.5.9");
 @include(dirname(__FILE__)."/source.inc.php");
 @include(dirname(__FILE__)."/fixme.php");
 require(dirname(__FILE__)."/load.php");

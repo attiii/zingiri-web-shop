@@ -4,7 +4,7 @@ Donate link: http://www.zingiri.com/
 Tags: ecommerce, e-commerce, paypal, freewebshop, shop, cart, web shop, shopping cart, iDEAL, Google Checkout, Worldpay
 Requires at least: 2.1.7
 Tested up to: 3.0.1
-Stable tag: 1.5.7
+Stable tag: 1.5.9
 
 Zingiri Web Shop is a Wordpress plugin that brings together a great content management system with the fantastic FreeWebShop ecommerce solution.
 
@@ -47,6 +47,24 @@ Upgrades are handled automatically. Simply upload the latest version, go to sett
 Before upgrading, make sure you back up your database first!
 
 == Changelog ==
+
+= 1.5.9 =
+* New: first release for Drupal
+* New: added a test on magic quotes off 
+* Change: only allow editing products from back-end
+* Change: restored stock admin functionality and fixed product edit link
+* Change: reorganised back-end menu to make it easier to use
+* Change: removed mac-style top menu in back-end pages since they duplicate the menus on the side
+* Change: removed background image from product carousel
+* Change: included updated dump of all links
+* Fix: corrected non working links when running with Joomla
+* Fix: display group + category when adding/editing products instead of only category
+* Fix: fixed issue with old product images not displaying
+* Fix: fixed issue with image upload when running with magic quotes on
+* Fix: corrected 'constant' error thrown in error log when editing a product (related to multiple images display)
+
+= 1.5.8
+* New: added license file for Joomla
 
 = 1.5.7 =
 * New: compatibility with Wordpress 3.0.1

@@ -1,5 +1,7 @@
 = 0.9.5 = 
 * Compatibility with Wordpress 3.0.1
+* Fixed issue with parsing input of array elements when magic quotes is set to on
+* Corrected 'constant' error thrown in error log related to multiple images display
 
 = 0.9.4 =
 * Added 'add' link to Links form

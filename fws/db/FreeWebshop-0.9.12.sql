@@ -203,7 +203,7 @@ INSERT INTO `customer` VALUES (1234, 'dummy', '', 'dummy', '', 'K', '192.168.0.1
 
 INSERT INTO `group` VALUES (1, 'Test group');
 INSERT INTO `category` VALUES (1, 'Test category', '1');
-INSERT INTO `product` VALUES (1, 'TestID', 1, 'This is a test product.<br />Enjoy using <strong><big>FreeWebshop.org</big></strong>', 1234.56, 10, 0, 1, 'Color:Red+-10.00,White+20.00,Blue+30.50|Text',0);
+INSERT INTO `product` VALUES (1, 'TestID', 1, 'This is a test product.<br />Enjoy using <strong><big>FreeWebshop.org</big></strong>', 1234.56, 9999, 0, 1, 'Color:Red+-10.00,White+20.00,Blue+30.50|Text',0);
 
 INSERT INTO `payment` VALUES (1, 'Bank', '', 1);
 INSERT INTO `payment` VALUES (2, 'Cash', '', 1);

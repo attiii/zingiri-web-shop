@@ -86,7 +86,7 @@ if (IsAdmin()) {
 		<th><?php 
 		echo $txt['browse2']." / ".$categorie;
 		echo "<br />";
-		if ($action == "list") { echo "<a href=\"".zurl('index.php?page=browse&action=list&group='.$group.'&cat='.$cat.'&orderby=1')."\"><small>".$txt['browse4']."</small></a>";  }
+		if ($action == "list") { echo "<a href=\"".zurl('?page=browse&action=list&group='.$group.'&cat='.$cat.'&orderby=1')."\"><small>".$txt['browse4']."</small></a>";  }
 		?></th>
 		<?php if ($ordering_enabled) {?>
 		<th><?php 
@@ -95,7 +95,7 @@ if (IsAdmin()) {
 		// if we use VAT, then display that the prices are including VAT in the list below
 		if ($no_vat == 0) { echo " (".$txt['general7']." ".$txt['general5'].")"; }
 		echo "<br />";
-		if ($action == "list") { echo "<a href=\"".zurl('index.php?page=browse&action=list&group='.$group.'&cat='.$cat.'&orderby=2')."\"><small>".$txt['browse4']."</small></a>";  }
+		if ($action == "list") { echo "<a href=\"".zurl('?page=browse&action=list&group='.$group.'&cat='.$cat.'&orderby=2')."\"><small>".$txt['browse4']."</small></a>";  }
 		echo "</div>";
 		?></th>
 		<?php }?>
@@ -187,6 +187,9 @@ if (IsAdmin()) {
 				if ($pictureid == 1) { $picture = $row[0]; }
 				else { $picture = $row[1]; }
 					
+				list($image_url,$height,$width)=wsDefaultProductImageUrl($picture,$row['DEFAULTIMAGE']);
+				$thumb = "<img class=\"imgleft\" src=\"".$image_url."\"".$width.$height." alt=\"\" />";
+				/*				
 				// determine resize of thumbs
 				$width = "";
 				$height = "";
@@ -209,15 +212,16 @@ if (IsAdmin()) {
 					$picturelink = "<a href=\"".$product_dir."/".$picture.".jpg\"><img src=".$gfx_dir."/photo.gif></a>";
 					$thumb = "";
 				}
+				*/
 			}
 			// see if you are an admin. if so, add a [EDIT] link to the line
 			$admin_edit = "";
 			if (IsAdmin() == true) {
 				$admin_edit = "<br /><br />";
 				if ($stock_enabled == 1) { $admin_edit .= $txt['productadmin12'].": ".$row[5]."<br />"; }
-				$admin_edit .= "<a href=\"".zurl("?page=product&zfaces=form&form=product&action=edit&id=".$row[0]."&redirect=".wsCurrentPageURL(true))."\">".$txt['browse7']."</a>";
-				$admin_edit .= " | <a href=\"".zurl("?page=product&zfaces=form&form=product&action=delete&id=".$row[0]."&redirect=".wsCurrentPageURL(true))."\" >".$txt['browse8']."</a>";
 				if (is_admin()) {
+					$admin_edit .= "<a href=\"".zurl("?page=product&zfaces=form&form=product&action=edit&id=".$row[0]."&redirect=".wsCurrentPageURL(true))."\">".$txt['browse7']."</a>";
+					$admin_edit .= " | <a href=\"".zurl("?page=product&zfaces=form&form=product&action=delete&id=".$row[0]."&redirect=".wsCurrentPageURL(true))."\" >".$txt['browse8']."</a>";
 					$admin_edit .= " | ".$txt['productadmin14'].' <input id="wsfp'.$row[0].'" type="checkbox" class="wsfrontpage" onclick="wsFrontPage('.$row[0].',this.checked);"';
 					if ($row['FRONTPAGE']) $admin_edit.=" checked";
 					$admin_edit.='>';

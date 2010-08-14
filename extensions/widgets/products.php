@@ -8,7 +8,7 @@ class widget_sidebar_products {
 	function init($args) {
 		global $txt;
 		zing_main("init");
-		extract($args);
+		if (is_array($args)) extract($args);
 		echo $before_widget;
 		echo $before_title;
 		echo $txt['menu15'];
@@ -104,6 +104,6 @@ class widget_sidebar_products {
 	}
 }
 
-$wsWidgets[]=array('class'=>'widget_sidebar_products','name'=>'Zingiri Web Shop Products');
+$wsWidgets[]=array('class'=>'widget_sidebar_products','name'=>'Zingiri Web Shop Products','title'=>'menu15');
 
 ?>

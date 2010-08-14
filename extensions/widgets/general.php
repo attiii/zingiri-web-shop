@@ -13,7 +13,7 @@ class widget_sidebar_general {
 	function init($args) {
 		global $txt;
 		zing_main("init");
-		extract($args);
+		if (is_array($args)) extract($args);
 		echo $before_widget;
 		echo $before_title;
 		echo $txt['menu14'];
@@ -27,6 +27,7 @@ class widget_sidebar_general {
 	function display() {
 		require(ZING_GLOBALS);
 		echo "<ul id=\"zing-navlist\">\n";
+		if (ZING_CMS=='dp') { echo "<li"; if ($page == "main") { echo " id=\"active\""; }; echo "><a href=\"".zurl("index.php?page=main")."\">" . $txt['main1'] . "</a></li>\n"; }
 		echo "<li"; if ($page == "search") { echo " id=\"active\""; }; echo "><a href=\"".zurl("index.php?page=search")."\">" . $txt['menu4'] . "</a></li>\n";
 		if ($new_page == 1) { echo "<li"; if ($page == "browse" && $action=="shownew") { echo " id=\"active\""; }; echo "><a href=\"".zurl("index.php?page=browse&action=shownew")."\">" . $txt['menu16'] . "</a></li>\n"; }
 		echo "<li"; if ($page == "contact") { echo " id=\"active\""; }; echo "><a href=\"".zurl("index.php?page=contact")."\">" . $txt['menu8'] . "</a></li>\n";
@@ -41,6 +42,6 @@ class widget_sidebar_general {
 	}
 }
 
-$wsWidgets[]=array('name'=>'Zingiri Web Shop General','class'=>'widget_sidebar_general');
+$wsWidgets[]=array('name'=>'Zingiri Web Shop General','class'=>'widget_sidebar_general','title'=>'menu14');
 
 ?>

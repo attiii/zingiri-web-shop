@@ -789,6 +789,10 @@ if (!function_exists('zurl')) {
 			if ($url=='index.php') $url='index.php?option=com_zingiriwebshop';
 			if (is_admin() && !strstr($url,'option=com_zingiriwebshop')) $url=str_replace('?','?option=com_zingiriwebshop&',$url);
 			if (!is_admin() && !strstr($url,'option=com_zingiriwebshop')) $url=str_replace('?','?option=com_zingiriwebshop&',$url);
+		} elseif (ZING_CMS=='dp') {
+			if ($url=='index.php') $url='index.php?q=webshop';
+			if (!is_admin() && !strstr($url,'webshop')) $url=str_replace('?','?q=webshop&',$url);
+			if (is_admin()) $url=str_replace("index.php","",$url);
 		}
 
 		if ($printurl) echo $url;
@@ -922,8 +926,51 @@ function wsResizeImage($thumb) {
 		$height = round(($size[1] / $percent));
 		$resized = 1;
 	}
-	
+
 	return array('height' => $height,'width' => $width,'resized' => $resized);
+}
+
+function wsDefaultProductImageUrl($picture,$defaultimage) {
+	global $pricelist_thumb_width,$pricelist_thumb_width,$product_dir,$product_url,$gfx_dir,$make_thumbs,$thumbs_in_pricelist;
+
+	$width = "";
+	$height = "";
+	$image_url = "";
+
+	if ($thumbs_in_pricelist) {
+		if (!empty($defaultimage) && thumb_exists($product_dir ."/". $defaultimage)) {
+			$image_url = $product_url."/".$defaultimage;
+		} elseif ($make_thumbs != 1) {
+			if ($pricelist_thumb_width != 0) { $width = " width=\"".$pricelist_thumb_width."\""; }
+			if ($pricelist_thumb_height != 0) { $height = " height=\"".$pricelist_thumb_height."\""; }
+			$i=0;
+			while ($image_url=="" && $i<=99) {
+				if ($i==0) $suffix='';
+				else $suffix='__'.sprintf("%03d",$i);
+				foreach (array('.jpg','.gif','.png') as $ext) {
+					if (thumb_exists($product_dir ."/". $picture . $suffix . $ext)) { $image_url = $product_url."/".$picture.$suffix.$ext; }
+				}
+				$i++;
+			}
+		} else {
+			$i=0;
+			while ($image_url=="" && $i<=99) {
+				if ($i==0) $suffix='';
+				else $suffix='__'.sprintf("%03d",$i);
+				foreach (array('.jpg','.gif','.png') as $ext) {
+					if (thumb_exists($product_dir ."/tn_". $picture . $suffix . $ext)) { $image_url = $product_url."/tn_".$picture.$suffix.$ext; }
+				}
+				$i++;
+			}
+		}
+		if ($image_url == "") {
+			// use a photo icon instead of a thumb
+			$image_url = $gfx_dir."/nopic.gif";
+		}
+	} else {
+		$image_url = $gfx_dir."/photo.gif";
+	}
+	return array($image_url,$height,$width);
 }
 
 function wsProductImage($picture,$default_image) {

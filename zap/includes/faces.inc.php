@@ -65,8 +65,8 @@ function faces_get_xml($type,$dir="") {
 	if (file_exists($url_details)) {
 		if ($xmlf=simplexml_load_file($url_details)) return $xmlf;
 	}
-
-	die("no file loaded");
+echo ZING_APPS_PLAYER_DIR;
+	die("no file loaded: ".$type);
 }
 
 function faces_log($msg,$fileerr="warning") {

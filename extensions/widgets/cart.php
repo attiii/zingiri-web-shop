@@ -5,10 +5,11 @@
  * @return unknown_type
  */
 class widget_sidebar_cart {
+	
 	function init($args) {
 		global $txt;
 		zing_main("init");
-		extract($args);
+		if (is_array($args)) extract($args);
 		echo $before_widget;
 		echo $before_title;
 		if (ZING_CMS=='wp') echo $txt['menu2'];
@@ -104,6 +105,6 @@ class widget_sidebar_cart {
 <?php }		
 	}
 }
-$wsWidgets[]=array('class'=>'widget_sidebar_cart','name'=>'Zingiri Web Shop Cart');
+$wsWidgets[]=array('class'=>'widget_sidebar_cart','name'=>'Zingiri Web Shop Cart','title'=>'menu2');
 
 ?>
