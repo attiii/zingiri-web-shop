@@ -83,7 +83,7 @@ Before upgrading, make sure you back up your database first!
 * Fix: fixed compatibilty issue with Dynamic Headers plugin (Wordpress)
 * Fix: fixed issue with error log filling very quickly
 * Fix: corrected issue with payment method not defaulting to current value when editing it
-* Fix: fixed small issue with redirect after installing (Wordpress)
+* Fix: fixed small issue with redirect after installing (Wordpress) 
 
 = 1.5.9 =
 * New: first release for Drupal
