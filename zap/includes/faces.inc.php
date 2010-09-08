@@ -190,7 +190,7 @@ function zf_json_encode($a) {
 }
 
 function zfDumpQuery($query,$table="") {
-	$include=array("frole","faccess","flink","settings");
+	$include=array("frole","faccess","flink");
 	if (!defined("ZING_APPS_BUILDER")) return true;
 	if (!empty($table) && !in_array($table,$include)) return true;
 	$query=str_replace(DB_PREFIX,"##",$query);
@@ -208,7 +208,7 @@ function zfDumpQuery($query,$table="") {
 
 	if (defined("ZING_APPS_CUSTOM_SRCDIR")) {
 		$handle = fopen (ZING_APPS_CUSTOM_SRCDIR.'../../../tmp/apps.db.sql', "a");
-		if (fwrite($handle, $query)) fclose($handle);
+		if (fwrite($handle, $query.";\r\n")) fclose($handle);
 	}
 
 	//chmod($file,0666);
@@ -267,6 +267,10 @@ if (!function_exists('zurl')) {
 			if ($url=='index.php') $url='index.php?option=com_zingiriwebshop';
 			if (is_admin() && !strstr($url,'option=com_zingiriwebshop')) $url=str_replace('?','?option=com_zingiriwebshop&',$url);
 			if (!is_admin() && !strstr($url,'option=com_zingiriwebshop')) $url=str_replace('?','?option=com_zingiriwebshop&',$url);
+		} elseif (ZING_CMS=='dp') {
+			if ($url=='index.php') $url='index.php?q=webshop';
+			if (!is_admin() && !strstr($url,'webshop')) $url=str_replace('?','?q=webshop&',$url);
+			if (is_admin()) $url=str_replace("index.php","",$url);
 		}
 
 		if ($printurl) echo $url;

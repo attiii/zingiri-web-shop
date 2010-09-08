@@ -30,7 +30,7 @@ if (IsAdmin() == false) {
 	PutWindow($gfx_dir, $txt['general12'], $txt['general2'], "warning.gif", "50");
 }
 else {
-	if (ZING_PROTOTYPE || ZING_JQUERY) echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/ajaxupload.js"></script>';
+	if (ZING_JQUERY) echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/ajaxupload.js"></script>';
 
 	if ($action == "edit_product" || $action == "delete_product") {
 		if (!empty($_GET['prodid'])) {
@@ -398,7 +398,7 @@ else {
 			echo $txt['productadmin14']." <input type=\"checkbox\" name=\"pfrontpage\" "; if ($pfrontpage == 1) { echo "checked"; } echo "><br />";
 			echo $txt['productadmin15']." <input type=\"checkbox\" name=\"pnew\" "; if ($pnew == 1) { echo "checked"; } echo "><br />";
 			echo "<br />";
-			if (ZING_PROTOTYPE || ZING_JQUERY) {
+			if (ZING_JQUERY) {
 				echo '<input type="button" id="upload_button" value="'.$txt['productadmin21'].'" />';
 			} else {
 				echo $txt['productadmin21'].' '.wsComments($txt['productadmin19']).'<input name="uploadedfile" type="file"><br />';
@@ -457,7 +457,7 @@ function wsShowImage($picid,$defaultImage) {
 		foreach ($imgs as $img) {
 			echo '<div id="'.$img.'" style="position:relative;float:left">';
 			echo "<img src=\"".$product_url."/".$img."\" class=\"borderimg\" /><br />";
-			if (ZING_PROTOTYPE || ZING_JQUERY) echo '<a href="javascript:wsDeleteImage(\''.$img.'\');">';
+			if (ZING_JQUERY) echo '<a href="javascript:wsDeleteImage(\''.$img.'\');">';
 			else echo "<a href=\"".zurl("index.php?page=productadmin&action=del_image&picid=".$picid)."\">";
 			echo '<img style="position:absolute;right:0px;top:0px;" src="'.ZING_URL.'fws/templates/default/images/delete.gif" height="16px" width="16px" />';
 			echo "</a>";
@@ -473,10 +473,6 @@ function wsShowImage($picid,$defaultImage) {
 	echo '</div><div style="clear:both"></div>';
 }
 if ($action == "add_product" || $action == "edit_product") {
-	if (ZING_PROTOTYPE) {
-		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/imageupload.proto.js"></script>';
-	} elseif (ZING_JQUERY) {
-		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/imageupload.jquery.js"></script>';
-	}
+	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/imageupload.jquery.js"></script>';
 }
 ?>

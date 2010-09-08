@@ -29,20 +29,21 @@ class payment_gatewayZfSubElement extends zfSubElement {
 		$xmlf=$this->xmlf;
 
 		$field_markup.="<select id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" {$e->readonly}>";
-		$option_markup="";
-		$files=faces_directory(ZING_LOC."extensions/gateways","",true);
 
+		$option_markup = "<option value=\"\"></option>";
+		
+		$files=faces_directory(ZING_LOC."extensions/gateways","",true);
 		foreach ($files as $file) {
 			if(trim($e->populated_value['element_'.$e->id.'_'.$i]) == $file){
 				$selected = 'selected="selected"';
 			} elseif ($e->default_value == $file) {
 				$selected = 'selected="selected"';
-			}
+			} else $selected='';
 			if (!$e->readonly || ($e->readonly && $selected)) $option_markup .= "<option value=\"".$file."\" {$selected}>".$file."</option>";
-			}
-			$field_markup.=$option_markup;
-			$field_markup.="</select>";
-			$subscript_markup.="<label for=\"element_{$e->id}_{$i}\">{$xmlf->fields->{'field'.$i}->label}</label>";
-			}
+		}
+		$field_markup.=$option_markup;
+		$field_markup.="</select>";
+		$subscript_markup.="<label for=\"element_{$e->id}_{$i}\">{$xmlf->fields->{'field'.$i}->label}</label>";
 	}
-	?>
+}
+?>

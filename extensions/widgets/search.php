@@ -5,13 +5,13 @@
  * @return unknown_type
  */
 class widget_sidebar_search {
-	function init($args) {
+	function init($args,$displayTitle=true) {
 		global $txt;
 		zing_main("init");
 		if (is_array($args)) extract($args);
 		echo $before_widget;
 		echo $before_title;
-		echo $txt['menu4'];
+		if ($displayTitle) echo $txt['menu4'];
 		echo $after_title;
 		echo '<div id="zing-sidebar-search">';
 		//zing_main("sidebar","search");
@@ -48,7 +48,7 @@ class widget_sidebar_search {
 	}
 }
 
-if (ZING_PROTOTYPE || ZING_JQUERY) {
+if (ZING_JQUERY) {
 	$wsWidgets[]=array('class'=>'widget_sidebar_search','name'=>'Zingiri Web Shop Search','control'=>1,'title'=>'menu4');
 }
 

@@ -21,7 +21,7 @@
  */
 ?>
 <?php
-define("ZING_APPS_PLAYER_VERSION","0.9.5");
+define("ZING_APPS_PLAYER_VERSION","0.9.6");
 if (get_option('zing_apps_remote_url')) define("ZING_APPS_REMOTE_URL",get_option('zing_apps_remote_url').'/');
 else define("ZING_APPS_REMOTE_URL","http://www.zingiri.com/");
 
@@ -53,15 +53,16 @@ function zing_apps_player_activate() {
 	global $wpdb,$dbtablesprefix;
 
 	set_error_handler("zing_apps_error_handler");
-	error_reporting(E_ALL & ~E_NOTICE);
+	$apper=error_reporting(E_ALL & ~E_NOTICE);
 
 	$prefix=$dbtablesprefix;
 	if (!defined("DB_PREFIX")) define("DB_PREFIX",$prefix);
 	zing_apps_player_install();
+	error_reporting($apper);
 }
 
 function zing_apps_player_install() {
-	global $dbtablesprefix;
+	global $dbtablesprefix,$zing_apps_builder_projects;
 
 	if (!function_exists('zfCreate')) require(dirname(__FILE__).'/includes/create.inc.php');
 	if (!function_exists('zfReadRecord')) require(dirname(__FILE__).'/includes/db.inc.php');
@@ -125,7 +126,10 @@ function zing_apps_player_install() {
 	}
 	//load forms
 	zing_apps_player_load(ZING_APPS_PLAYER_DIR.'forms/');
-	if (defined("ZING_APPS_CUSTOM")) zing_apps_player_load(ZING_APPS_CUSTOM.'apps/forms/');
+	foreach ($zing_apps_builder_projects as $project) {
+		zing_apps_player_load($project['dir'].'apps/forms/');
+	}
+	//if (defined("ZING_APPS_CUSTOM")) zing_apps_player_load(ZING_APPS_CUSTOM.'apps/forms/');
 
 }
 
@@ -169,7 +173,7 @@ function zing_apps_player_content($content='') {
 	global $zing;
 	
 	$page=$_GET['page'];
-	error_reporting(E_ALL ^ E_NOTICE); // ^ E_NOTICE
+	$apper=error_reporting(E_ALL ^ E_NOTICE); // ^ E_NOTICE
 	if (function_exists("user_error_handler")) set_error_handler("user_error_handler");
 	else ini_set('display_errors', '1');
 
@@ -188,6 +192,7 @@ function zing_apps_player_content($content='') {
 		$zfaces='form';
 	} else {
 		restore_error_handler();
+		error_reporting($apper);
 		return $content;
 	}
 	
@@ -222,9 +227,9 @@ function zing_apps_player_content($content='') {
 	echo $postfix;
 	echo '</div>';
 	restore_error_handler();
+	error_reporting($apper);
 
 	return "";
-
 }
 
 
@@ -275,7 +280,7 @@ function zing_apps_player_load($dir) {
 				zing_apps_error_handler(0,$file);
 				zing_apps_error_handler(0,$file_content);
 				zing_apps_error_handler(0,$a);
-				zfCreate($a['NAME'],$a['ELEMENTCOUNT'],$a['ENTITY'],$a['TYPE'],$a['DATA'],$a['LABEL'],$a['ID']);
+				zfCreate($a['NAME'],$a['ELEMENTCOUNT'],$a['ENTITY'],$a['TYPE'],$a['DATA'],$a['LABEL'],$a['PROJECT'],$a['ID']);
 			}
 		}
 	}
@@ -334,7 +339,7 @@ function zing_apps_editor() {
 			$a['LABEL']=$_POST['zfformlabel'];
 			$a['ID']=$_POST['zfremoteid'];
 			$form=$a['NAME']=$_POST['zfformname'];
-			zfCreate($a['NAME'],$a['ELEMENTCOUNT'],$a['ENTITY'],$a['TYPE'],$a['DATA'],$a['LABEL'],$a['ID'],true);
+			zfCreate($a['NAME'],$a['ELEMENTCOUNT'],$a['ENTITY'],$a['TYPE'],$a['DATA'],$a['LABEL'],$a['PROJECT'],$a['ID'],true);
 			$db=new db();
 			$db->update('update ##faces set custom='.qs($data).' where name='.qs($form));
 			echo '<div id="message" class="updated fade"><p>Form updated</p></div>';

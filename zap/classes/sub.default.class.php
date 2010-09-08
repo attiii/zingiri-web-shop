@@ -53,6 +53,10 @@ class zfSubElement {
 		}
 	}
 
+	function getLabel($label) {
+		return $label;
+	}
+	
 	function prepare() {
 	}
 

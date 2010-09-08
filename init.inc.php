@@ -1,5 +1,18 @@
 <?php
-define("ZING_VERSION","1.5.9");
+global $zing_apps_builder_projects;
+$zing_apps_builder_projects['fws']=array('label'=>'Web Shop','dir'=>ZING_DIR,'url'=>ZING_URL.'fws/');
+
+if (file_exists(WP_PLUGIN_DIR.'/zingiri-web-shop-pro/pro')) {
+	define('ZING_WS_PRO_DIR',WP_PLUGIN_DIR.'/zingiri-web-shop-pro/pro/');
+	define('ZING_WS_PRO_URL',WP_PLUGIN_URL.'/zingiri-web-shop-pro/pro/');
+	define('ZING_WS_PRO',true);
+	$zing_apps_builder_projects['pro']=array('label'=>'Web Shop Pro','dir'=>ZING_WS_PRO_DIR,'url'=>ZING_WS_PRO_URL);
+} else {
+	define("ZING_WS_PRO_DIR",'');
+	define("ZING_WS_PRO_URL",'');
+	define('ZING_WS_PRO',false);
+}
+define("ZING_VERSION","1.6.0");
 @include(dirname(__FILE__)."/source.inc.php");
 @include(dirname(__FILE__)."/fixme.php");
 require(dirname(__FILE__)."/load.php");

@@ -240,3 +240,16 @@ table.dashboard caption {
 	margin-left: auto;
 	margin-right: auto;
 }
+
+.wsfeatures {
+	float:right;
+	position:relative;
+	margin:3px;
+}
+
+.wsfeaturestable,wsfeaturestable tr,wsfeaturestable td {
+	border:0px;
+	border-collapse: collapse;
+	border-style: hidden;
+	
+}

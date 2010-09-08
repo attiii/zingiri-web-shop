@@ -25,13 +25,13 @@
 
 <?php
 if (IsAdmin() == false) {
-	if (defined("ZING") &&	current_user_can('manage_options'))
+	if (defined("ZING") && current_user_can('manage_options'))
 	include (ZING_SUB."./includes/checklogin.inc.php");
 	else
 	PutWindow($gfx_dir, $txt['general12'], $txt['general2'], "warning.gif", "50");
 }
 else {
-	if (ZING_CMS=="wp" && empty($_GET['adminaction'])) {
+	if (ZING_CMS=="wp" && empty($_GET['adminaction']) && wsCurrentCmsUserIsShopAdmin()) {
 		header('Location:'.get_option("siteurl").'/wp-admin/admin.php?page=dashboard');
 	}
 	include ("includes/httpclass.inc.php"); 

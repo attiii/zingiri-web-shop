@@ -28,6 +28,7 @@ if (IsAdmin() == false) {
   PutWindow($gfx_dir, $txt['general12'], $txt['general2'], "warning.gif", "50");
 }
 else {   
+	$wsSettings=new wsSettings();
     if (!empty($_POST['action'])) { $action = $_POST['action']; }
      
     $show = "1";   
@@ -233,17 +234,22 @@ else {
 			"`pricelist_orderby` = ".$orderby;
 	    }
 
+	    if ($show == "all") { $query = $query . ", "; }
+	    
+	    $query.=$wsSettings->query($show);
+	    //echo $query;
 	    $sql = mysql_query($query) or die(mysql_error());
         PutWindow($gfx_dir, $txt['general13'],$txt['editsettings44'], "notify.gif", "50");
      }
 ?>
             <h4> 
-            <a href="?page=editsettings&show=1"><?php echo $txt['editsettings48']; ?></a> |
-            <a href="?page=editsettings&show=2"><?php echo $txt['editsettings47']; ?></a> |
-            <a href="?page=editsettings&show=3"><?php echo $txt['editsettings45']; ?></a> |
-            <a href="?page=editsettings&show=4"><?php echo $txt['editsettings46']; ?></a> |
-            <a href="?page=editsettings&show=all"><?php echo $txt['editsettings86']; ?></a> |
-            <a href="?page=advancedsettings&zfaces=form&form=settings&action=edit&id=1&redirect=<?php zurl(urlencode('?'.$_SERVER['QUERY_STRING']),true);?>"><?php echo $txt['editsettings93']; ?></a> 
+            <?php foreach ($wsSettings->groups as $i => $label)
+            {
+            	echo '<a href="'.zurl("?page=editsettings&show=".($i+1)).'">'.$txt[$label].'</a> | ';
+            }
+            ?>
+            <a href="<?php zurl("?page=editsettings&show=all",true)?>"><?php echo $txt['editsettings86']; ?></a> |
+            <a href="<?php zurl("?page=advancedsettings&zfaces=form&form=settings&action=edit&id=1&redirect=".urlencode('?'.$_SERVER['QUERY_STRING']),true);?>"><?php echo $txt['editsettings93']; ?></a> 
             </h4>
             <br /><br />            
 	        <table width="80%" class="datatable">
@@ -497,7 +503,7 @@ else {
                         <SELECT NAME="template">
                           <OPTION VALUE="<?php echo $template ?>" SELECTED><?php echo $template; ?>
                           <?php 
-		        	         if ($dir = @opendir($template_dir)) {
+		        	         if ($dir = @opendir(ZING_DIR.$template_dir)) {
 		                		while (($file = readdir($dir)) !== false) {
 		                             if ($file != "." && $file != ".." && $file != "index.php") {
 									     echo "<OPTION VALUE=".$file.">".$file;
@@ -526,17 +532,17 @@ else {
 	              <tr><td><?php echo $txt['editsettings53'] ?></td>
 	                  <td>
                         <SELECT NAME="pricelist_format">
-                          <OPTION VALUE="<?php echo $pricelist_format ?>" SELECTED><?php 
-                                                                                      if ($pricelist_format == 0) { echo $txt['editsettings54']; }
-                                                                                      if ($pricelist_format == 1) { echo $txt['editsettings55']; }
-                                                                                      if ($pricelist_format == 2) { echo $txt['editsettings56']; }
-                                                                                   ?>	                  
-                          <OPTION VALUE="0"><?php echo $txt['editsettings54'] ?>
-                          <OPTION VALUE="1"><?php echo $txt['editsettings55'] ?>
-                          <OPTION VALUE="2"><?php echo $txt['editsettings56'] ?>
-                          <OPTION VALUE="3"><?php echo $txt['editsettings112'] ?>
+                          <OPTION VALUE="0" <?php if ($pricelist_format == 0) echo 'selected="SELECTED"'?>><?php echo $txt['editsettings54'] ?>
+                          <OPTION VALUE="1" <?php if ($pricelist_format == 1) echo 'selected="SELECTED"'?>><?php echo $txt['editsettings55'] ?>
+                          <OPTION VALUE="4" <?php if ($pricelist_format == 4) echo 'selected="SELECTED"'?>><?php echo $txt['editsettings114'] ?>
+                          <OPTION VALUE="2" <?php if ($pricelist_format == 2) echo 'selected="SELECTED"'?>><?php echo $txt['editsettings56'] ?>
+                          <OPTION VALUE="3" <?php if ($pricelist_format == 3) echo 'selected="SELECTED"'?>><?php echo $txt['editsettings112'] ?>
+                          <OPTION VALUE="5" <?php if ($pricelist_format == 5) echo 'selected="SELECTED"'?>><?php echo $txt['editsettings115'] ?>
                         </SELECT>  
 	                  </td>
+        	      </tr>
+	              <tr><td><?php echo $txt['editsettings50'] ?></td>
+	                  <td><input type="text" name="max_description" size="3" maxlength="3" value="<?php echo $max_description ?>"></td>
         	      </tr>
 	              <tr><td><?php echo $txt['editsettings104'] ?></td>
 	                  <td>
@@ -551,9 +557,6 @@ else {
                         </SELECT>  
 	                  </td>
 				  </tr>
-	              <tr><td><?php echo $txt['editsettings50'] ?></td>
-	                  <td><input type="text" name="max_description" size="3" maxlength="3" value="<?php echo $max_description ?>"></td>
-        	      </tr>
 	              <tr><td><?php echo $txt['editsettings102'] ?></td>
 	                  <td><input type="checkbox" name="order_from_pricelist" <?php if ($order_from_pricelist == 1) { echo "checked"; } ?>></td>
         	      </tr>
@@ -637,6 +640,7 @@ else {
         	      
         	      <?php
     	          }
+    	          	$wsSettings->fields($show);
 	              ?>    
         	      
         	      <tr><td colspan=2><div style="text-align:center;"><br /><br /><input type=submit value="<?php echo $txt['editsettings2'] ?>"></div></td></tr>

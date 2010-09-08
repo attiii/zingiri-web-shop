@@ -48,22 +48,24 @@ class image_multipleZfSubElement extends zfSubElement {
 		if ($this->element->input['upload_key']!='') {
 			$key=$this->element->input['upload_key'];
 			$imgs=$this->element->input['new_images'];
-			foreach ($imgs as $img) {
-				foreach (array("","tn_") as $tn) {
-					$ext = strtolower(substr(strrchr($img, '.'), 1));
-					if (isset($this->element->input['lastimg'])) $i=$this->element->input['lastimg'];
-					else $i=1;
-					$newimg=$tn.$picid.'__'.sprintf('%03d',$i).'.'.$ext;
-					while (file_exists($product_dir.'/'.$newimg)) {
-						$i++;
+			if (count($imgs) > 0) {
+				foreach ($imgs as $img) {
+					foreach (array("","tn_") as $tn) {
+						$ext = strtolower(substr(strrchr($img, '.'), 1));
+						if (isset($this->element->input['lastimg'])) $i=$this->element->input['lastimg'];
+						else $i=1;
 						$newimg=$tn.$picid.'__'.sprintf('%03d',$i).'.'.$ext;
+						while (file_exists($product_dir.'/'.$newimg)) {
+							$i++;
+							$newimg=$tn.$picid.'__'.sprintf('%03d',$i).'.'.$ext;
+						}
+						copy($product_dir.'/'.$tn.$img,$product_dir.'/'.$newimg);
+						unlink($product_dir.'/'.$tn.$img);
+						if ($tn.$img==$defaultImage) $defaultImage=$newimg;
 					}
-					copy($product_dir.'/'.$tn.$img,$product_dir.'/'.$newimg);
-					unlink($product_dir.'/'.$tn.$img);
-					if ($tn.$img==$defaultImage) $defaultImage=$newimg;
 				}
+				if (empty($defaultImage)) $defaultImage=$newimg;
 			}
-			if (empty($defaultImage)) $defaultImage=$newimg;
 		}
 
 		//delete images if required

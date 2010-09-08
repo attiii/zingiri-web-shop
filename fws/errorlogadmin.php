@@ -112,5 +112,5 @@ else {
 ?>
     <br />
     <br />
-    <h4><a href="?page=errorlogadmin&action=clear"><?php echo $txt['errorlogadmin8']; ?></a></h4>
+    <h4><a href="<?php zurl("?page=errorlogadmin&action=clear",true)?>"><?php echo $txt['errorlogadmin8']; ?></a></h4>
 <?php } ?>    

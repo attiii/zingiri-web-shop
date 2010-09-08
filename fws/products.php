@@ -53,51 +53,22 @@ else {
 				if ($pictureid == 1) { $picture = $row_details[0]; }
 				else { $picture = $row_details[1]; }
 
-				// determine resize of thumbs
-				$width = "";
-				$height = "";
-				$picturelink = "";
-				$thumb = "";
-					
-				if ($pricelist_thumb_width != 0) { $width = " width=\"".$pricelist_thumb_width."\""; }
-				if ($pricelist_thumb_height != 0) { $height = " height=\"".$pricelist_thumb_height."\""; }
-
-				if (thumb_exists($product_dir ."/". $picture . ".jpg")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/".$picture.".jpg\"".$width.$height." alt=\"\" />"; }
-				if (thumb_exists($product_dir ."/". $picture . ".gif")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/".$picture.".gif\"".$width.$height." alt=\"\" />"; }
-				if (thumb_exists($product_dir ."/". $picture . ".png")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/".$picture.".png\"".$width.$height." alt=\"\" />"; }
-
-				// if the script uses make_thumbs, then search for thumbs
-				if ($make_thumbs == 1) {
-					if (thumb_exists($product_dir ."/tn_". $picture . ".jpg")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/tn_".$picture.".jpg\" alt=\"\" />"; }
-					if (thumb_exists($product_dir ."/tn_". $picture . ".gif")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/tn_".$picture.".gif\" alt=\"\" />"; }
-					if (thumb_exists($product_dir ."/tn_". $picture . ".png")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/tn_".$picture.".png\" alt=\"\" />"; }
-				}
-					
-				if ($thumb != "" && $thumbs_in_pricelist == 0) {
-					// use a photo icon instead of a thumb
-					$picturelink = "<a href=\"".$product_dir."/".$picture.".jpg\"><img src=".$gfx_dir."/photo.gif></a>";
-					$thumb = "";
-				}
+				list($image_url,$height,$width)=wsDefaultProductImageUrl($picture,$row_details['DEFAULTIMAGE']);
+				$thumb = "<img class=\"imgleft\" src=\"".$image_url."\"".$width.$height." alt=\"\" />";
 			}
 
 			// make up the description to print according to the pricelist_format and max_description
-			if ($pricelist_format == 0) { $print_description = $row_details[1]; }
-			if ($pricelist_format == 1) { $print_description = $row_details[3]; }
-			if ($pricelist_format == 2) { $print_description = $row_details[1]." - ".$row_details[3]; }
-			if ($max_description != 0) {
-				$description = stringsplit($print_description, $max_description); // so lets only show the first xx characters
-				if (strlen($print_description) != strlen($description[0])) { $description[0] = $description[0] . ".."; }
-				$print_description = $description[0];
-			}
-			$print_description = strip_tags($print_description); //remove html because of danger of broken tags
+			$print_description=printDescription($row_details[1],$row_details[3],$row_details['EXCERPT']);
 			?>
 	<tr <?php echo $kleur; ?>>
 		<td><a
 			href="index.php?page=details&prod=<?php echo $row_details[0]; ?>"><?php echo $thumb.$print_description.$picturelink; ?></a>
 			<?php
 			$productprice = $row[3]; // the price of a product
-			$printvalue = $row[7];   // features
-			if (!$printvalue == "") { echo "<br />(".$printvalue.")"; }
+			if ($row[7]) {
+				$wsFeatures=new wsFeatures();
+				echo "<br />(".$wsFeatures->toString($row[7]).")";
+			}
 			?></td>
 		<td><?php 
 		echo $currency_symbol_pre;

@@ -14,7 +14,11 @@ jQuery(document).ready(function() {
 	var key=jQuery('#upload_key').attr('value');
 	if (key!=null) {
 		new AjaxUpload('upload_button', {
-			data: { 'upload_key': key },
+			data: { 
+				'upload_key' : key,
+				'wpabspath' : wpabspath,
+				'cms' : wsCms
+				},
 			responseType: 'json',
 			action: wsURL+'uploadimage.php',
 			onComplete: function(file, response) {

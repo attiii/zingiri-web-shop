@@ -55,12 +55,19 @@ class element {
 		$this->name=array();
 		$this->sublabel=array();
 		$this->help=z_((string)$xmlf->help);
-		
+
 		for ($i=1; $i<=$this->fields; $i++) {
 			if ($this->fields > 1)
 			{
 				$this->name[$i]=(string)$this->xmlf->fields->{'field'.$i}->name;
 				$this->sublabel[$i]=(string)$this->xmlf->fields->{'field'.$i}->label;
+				if ($this->sublabel[$i]=='%') {
+					$type=$this->xmlf->fields->{'field'.$i}->type;
+					if (class_exists($type."ZfSubElement"))	{ $c=$type."ZfSubElement"; }
+					else { $c="zfSubElement"; }
+					$subelement=new $c($int,$ext,$this->xmlf->fields->{'field'.$i},$this,$i);
+					$this->sublabel[$i]=$subelement->getlabel($this->sublabel[$i]);
+				}
 			}
 			$this->format[$i]=(string)$this->xmlf->fields->{'field'.$i}->format;
 			if (isset($this->xmlf->fields->{'field'.$i}->cat)) $this->cat[$i]=(string)$this->xmlf->fields->{'field'.$i}->cat;
@@ -169,7 +176,7 @@ class element {
 
 
 	function output($input,&$output,$mode="edit") {
-	
+
 		$this->mode=$mode;
 		$success=true;
 		$this->is_error=false;
@@ -311,32 +318,32 @@ class element {
 			if ($xmlf->fields->{'field'.$i}->cat != 'parameter' || $mode=='editor' || isset($_POST['zf_type'])) {
 				$element_markup.=$field_markup;
 			}
-		}
-		if ($this->attributes['zfrepeatable']) {
-			$element_markup.='<div id="zfc_'.$this->id.'_del" class="zftablecontrol" style="float:left;position:relative;">';
-			for ($ai=1; $ai <= $ac; $ai++) {
-				$element_markup.='<input type="button" pos="'.$ai.'" id="zfci_'.$this->id.'_del_'.$ai.'" class="zfrepeatable_del" onclick="appsRepeatable.del(\'zf_'.$this->id.'_sf\','.$ai.')" value="-" height="16px"/>';
-				if ($ac > 1 && $ai < $ac) $element_markup.='<br />'; 
 			}
-			$element_markup.='</div>';
-			$element_markup.='<div id="zfc_'.$this->id.'_add" class="zftablecontrol" style="float:left;position:relative;">';
-			for ($ai=1; $ai <= $ac; $ai++) {
-				$element_markup.='<input type="button" pos="'.$ai.'" id="zfci_'.$this->id.'_add_'.$ai.'" class="zfrepeatable_add" onclick="appsRepeatable.add(\'zf_'.$this->id.'_sf\','.$ai.')" value="+" height="16px"/>';
-				if ($ac > 1 && $ai < $ac) $element_markup.='<br />'; 
+			if ($this->attributes['zfrepeatable']) {
+				$element_markup.='<div id="zfc_'.$this->id.'_del" class="zftablecontrol" style="float:left;position:relative;">';
+				for ($ai=1; $ai <= $ac; $ai++) {
+					$element_markup.='<input type="button" pos="'.$ai.'" id="zfci_'.$this->id.'_del_'.$ai.'" class="zfrepeatable_del" onclick="appsRepeatable.del(\'zf_'.$this->id.'_sf\','.$ai.')" value="-" height="16px"/>';
+					if ($ac > 1 && $ai < $ac) $element_markup.='<br />';
+				}
+				$element_markup.='</div>';
+				$element_markup.='<div id="zfc_'.$this->id.'_add" class="zftablecontrol" style="float:left;position:relative;">';
+				for ($ai=1; $ai <= $ac; $ai++) {
+					$element_markup.='<input type="button" pos="'.$ai.'" id="zfci_'.$this->id.'_add_'.$ai.'" class="zfrepeatable_add" onclick="appsRepeatable.add(\'zf_'.$this->id.'_sf\','.$ai.')" value="+" height="16px"/>';
+					if ($ac > 1 && $ai < $ac) $element_markup.='<br />';
+				}
+				$element_markup.='</div>';
+				$this->includeJavascript($this->id);
 			}
-			$element_markup.='</div>';
-			$this->includeJavascript($this->id);
+			$element_markup.='<div class="zfclear"></div>';
+			$element_markup.='</div>'.$error_message.'<div class="zfclear"></div>';
+
+			$element_markup.='&nbsp;'.$guidelines.'</div>';
+			return $element_markup;
 		}
-		$element_markup.='<div class="zfclear"></div>';
-		$element_markup.='</div>'.$error_message.'<div class="zfclear"></div>';
 
-		$element_markup.='&nbsp;'.$guidelines.'</div>';
-		return $element_markup;
-	}
-
-	function includeJavaScript($id) {
-				if (ZING_PROTOTYPE) {
-					?>
+		function includeJavaScript($id) {
+			if (ZING_PROTOTYPE) {
+				?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
 	document.observe("dom:loaded", function() {
@@ -344,7 +351,7 @@ class element {
 	});
 //]]>
 </script>
-					<?php } elseif (ZING_JQUERY) {?>
+				<?php } elseif (ZING_JQUERY) {?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
 	jQuery(document).ready(function() {
@@ -352,11 +359,11 @@ class element {
 	});
 //]]>
 </script>
-					<?php
-					}
-		
+				<?php
+				}
+
+		}
+
 	}
 
-}
-	
 	?>

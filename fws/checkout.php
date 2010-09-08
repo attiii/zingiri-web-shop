@@ -177,31 +177,25 @@ if (LoggedIn() == True) {
 
 				while ($row_details = mysql_fetch_array($sql_details)) {
 					$product_price = $row[3]; // read from the cart
-					// additional costs for features?
-					if (!empty($row[7])) {
-						// features might involve extra costs, but we don't want to show them
-						$features = explode(", ", $row[7]);
-						$counter1 = 0;
-						$printvalue = "";
-						while (!$features[$counter1] == NULL){
-							$feature = explode("+",$features[$counter1]);
-							$printvalue .= $feature[0];    // don't show the extra costs here, just show the feature
-							$counter1 += 1;
-							if (!empty($features[$counter1])) { $printvalue .= ", "; }
-							$product_price += $feature[1]; // if there are extra costs, let's add them
-						}
-					}
 
 					$tax = new wsTax($product_price);
 					$product_price = $tax->in;
 						
 					// make up the description to print according to the pricelist_format and max_description
-					$print_description=printDescription($row_details[1],$row_details[3]);
-					if (!empty($row[7])) { $print_description .= "<br />".$printvalue; } // product features
+					$print_description=printDescription($row_details[1],$row_details[3],$row_details['EXCERPT']);
+					if (!empty($row[7])) {
+						$wsFeatures=new wsFeatures(); 
+						$print_description .= "<br />".$wsFeatures->toString($row[7]); 
+					} // product features
 					$total_add = $product_price * $row[6];
 					$message .= "<tr><td>".$row[6].$txt['checkout4']."</td><td>".$print_description."<br />".$currency_symbol_pre.myNumberFormat($product_price,$number_format).$currency_symbol_post.$txt['checkout5']."</td><td style=\"text-align: right\">".$currency_symbol_pre.myNumberFormat($total_add,$number_format).$currency_symbol_post."</tr>";
 					$tpl->repeatRow(array('DESCRIPTION','QTY','PRICE','LINETOTAL'));
 					$tpl->replace('DESCRIPTION',$print_description);
+					if ($pictureid == 1) { $picture = $row_details[0]; }
+					else { $picture = $row_details[1]; }
+					list($image_url,$height,$width)=wsDefaultProductImageUrl($picture,$row_details['DEFAULTIMAGE']);
+					$thumb = "<img class=\"imgleft\" src=\"".$image_url."\"".$width.$height." alt=\"\" />";
+					$tpl->replace('IMAGE',$thumb);
 					$tpl->replace('QTY',$row[6]);
 					$tpl->replace('PRICE',$currency_symbol_pre.myNumberFormat($product_price,$number_format).$currency_symbol_post);
 					$tpl->replace('LINETOTAL',$currency_symbol_pre.myNumberFormat($total_add,$number_format).$currency_symbol_post);
@@ -439,17 +433,7 @@ if (LoggedIn() == True) {
 			} else {
 				PutWindow($gfx_dir, $txt['general13'], $txt['checkout104'], "loader.gif", "50");
 				echo '<div>'.$payment_code.'</div>';
-				if (ZING_PROTOTYPE) {
 					?>
-<script type="text/javascript" language="javascript">
-//<![CDATA[
-					document.observe("dom:loaded", function() {
-           				wsSubmit();
-					});
-           //]]>
-</script>
-					<?php
-				} elseif (ZING_JQUERY) {?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
 					jQuery(document).ready(function() {
@@ -457,9 +441,8 @@ if (LoggedIn() == True) {
 					});
 			           //]]>
 					</script>
-				<?php }
+				<?php 
 			}
-
 		}
 		//end
 	}

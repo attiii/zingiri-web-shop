@@ -271,6 +271,7 @@ class zfForm {
 				{
 					if ($this->elements['format'][$key1][$key2] != 'none') {
 						if ($all || !$value2['hide']) {
+							
 							if ($count > 1) {
 								$f[$key1*100+$key2]=strtoupper('`'.$value['column'].'_'.$this->elements['name'][$key1][$key2].'`');
 								if (defined("ZING_APPS_TRANSLATE")) {

@@ -676,7 +676,7 @@ $txt['checkout104'] = "You will now be redirected to the payment portal to compl
 $txt['editsettings110'] = 'Activate fast checkout';
 $txt['cart100'] = 'show';
 $txt['cart101'] = 'hide';
-$txt['editsettings111'] = 'Date of birth on registration form';
+$txt['editsettings111'] = 'Date of birth on registration form'; //not used
 
 //v1.2.7 - modified
 $txt['general5'] = 'taxes';
@@ -744,5 +744,17 @@ $txt['template3'] = 'Templates';
 $txt['productadmin101'] = 'SKU';
 $txt['productadmin102'] = 'Short description';
 
-
+//1.6.0 - added
+$txt['editsettings113'] = 'Animate image when ordering';
+$txt['editsettings114'] = 'Short description';
+$txt['editsettings115'] = 'Product ID and short description';
+$txt['banned1'] = 'Banned IP addresses';
+$txt['banned2'] = 'IP address';
+$txt['customeradmin100'] = 'Customer ID';
+$txt['wishlist1'] = 'Wishlist';
+$txt['wishlist2'] = 'Add to wishlist';
+$txt['wishlist3'] = 'Activate wishlist';
+$txt['wishlist4'] = 'Your wishlist is empty.';
+$txt['browse100'] = 'List';
+$txt['browse101'] = 'Grid';
 ?>

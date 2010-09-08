@@ -5,13 +5,13 @@
  * @return unknown_type
  */
 class widget_sidebar_products {
-	function init($args) {
+	function init($args,$displayTitle=true) {
 		global $txt;
 		zing_main("init");
 		if (is_array($args)) extract($args);
 		echo $before_widget;
 		echo $before_title;
-		echo $txt['menu15'];
+		if ($displayTitle) echo $txt['menu15'];
 		echo $after_title;
 		echo '<div id="zing-sidebar-products">';
 		//zing_main("sidebar","products");
@@ -53,7 +53,7 @@ class widget_sidebar_products {
 				}
 				// if there are more categories in the group, then show the category list
 				if (mysql_num_rows($sql_cat) > 1) {
-					if (SHOWCAT && (ZING_PROTOTYPE || ZING_JQUERY)) {
+					if (SHOWCAT && (ZING_JQUERY)) {
 						$ahref = "\"index.php?page=browse&action=list&orderby=DESCRIPTION&group=".$row[0]."\"";
 						if (!$wsCatCollapse) {
 							echo '<li>'.$row[1];
@@ -96,11 +96,7 @@ class widget_sidebar_products {
 			}
 			echo "</ul>\n";
 		}
-		if (ZING_PROTOTYPE) {
-			echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/productmenu.proto.js"></script>';
-		} elseif (ZING_JQUERY) {
-			echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/productmenu.jquery.js"></script>';
-		}
+		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/productmenu.jquery.js"></script>';
 	}
 }
 

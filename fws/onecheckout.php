@@ -31,8 +31,8 @@ if (loggedin()) {
 	if (!empty($_POST['paymentid'])) {
 		$paymentid=intval($_POST['paymentid']);
 	}
-	if (!empty($_POST['basketid'])) {
-		$basketid=intval($_POST['basketid']);
+	if (!empty($_REQUEST['basketid'])) {
+		$basketid=intval($_REQUEST['basketid']);
 	}
 	if (!empty($_POST['conditions']) && $_POST['conditions']=="on") {
 		$conditions=true;
@@ -42,8 +42,7 @@ if (loggedin()) {
 	}
 	if (!empty($_GET['prodid'])) {
 		$prodid=intval($_GET['prodid']);
-		if (!empty($_POST['numprod'][$prodid])) $numprod=$_POST['numprod'][$prodid];
-		echo '/'.$prodid.'/'.$numprod.'<br />';
+		if (!empty($_POST['numprod'][$basketid])) $numprod=$_POST['numprod'][$basketid];
 	}
 	if (isset($_POST['shipping'])) { list($weightid, $shippingid) = explode(":", $_POST['shipping']); }
 
@@ -61,9 +60,10 @@ if (loggedin()) {
 	$today = getdate();
 	$error = 0; // no errors found
 	if ($action=="delete"){
-		$query = "DELETE FROM `".$dbtablesprefix."basket` WHERE `CUSTOMERID` = '". $customerid."' AND `STATUS` = '0' AND  `PRODUCTID` = '". $prodid."'";
+		$query = "DELETE FROM `".$dbtablesprefix."basket` WHERE `CUSTOMERID` = '". $customerid."' AND `STATUS` = '0' AND  `ID` = '". $basketid."'";
 		$sql = mysql_query($query) or die(mysql_error());
 	} elseif ($action=="update"){
+		
 		// if we work with stock amounts, then lets check if there is enough in stock
 		if ($stock_enabled == 1) {
 			$query = "SELECT `STOCK` FROM `".$dbtablesprefix."product` WHERE `ID` = '".$prodid."'";
@@ -76,7 +76,7 @@ if (loggedin()) {
 			}
 		}
 		if ($error == 0) {
-			$query = "UPDATE `".$dbtablesprefix."basket` SET `QTY` = ".$numprod." WHERE `CUSTOMERID` = '". $customerid."' AND `STATUS` = '0' AND  `PRODUCTID` = '". $prodid."'";
+			$query = "UPDATE `".$dbtablesprefix."basket` SET `QTY` = ".$numprod." WHERE `CUSTOMERID` = '". $customerid."' AND `STATUS` = '0' AND  `ID` = '". $basketid."'";
 			$sql = mysql_query($query) or die(mysql_error());
 		}
 	}
@@ -192,10 +192,10 @@ if (loggedin()) {
 	<tr>
 		<td><?php echo $txt['shipping5']?> <input type="text" id="discount_code" name="discount_code"
 			value="<?php echo $discount_code?>"
-		> <?php if (!ZING_PROTOTYPE)?> <input type="submit" name="discount"
+		><input type="submit" name="discount"
 			value="<?php echo $txt['cart10'];?>"
 			onclick="this.form.action='<?php zurl('?page=onecheckout',true)?>';this.form.submit();"
-		/> <?php ?></td>
+		/></td>
 	</tr>
 </table>
 	<?php //}
@@ -221,7 +221,7 @@ if (loggedin()) {
 	<?php
 	$optel = 0;
 	$id=0;
-	while ($row = mysql_fetch_row($sql)) {
+	while ($row = mysql_fetch_array($sql)) {
 		$id++;
 		$query = "SELECT * FROM `".$dbtablesprefix."product` where `ID`='" . $row[2] . "'";
 		$sql_details = mysql_query($query) or die(mysql_error());
@@ -237,44 +237,15 @@ if (loggedin()) {
 				elseif ($pictureid == 1) { $picture = $row_details[0]; }
 				else { $picture = $row_details[1]; }
 
-				// determine resize of thumbs
-				$width = "";
-				$height = "";
-				$picturelink = "";
-				$thumb = "";
-
-				if (thumb_exists($product_dir ."/". $picture)) { $picUrl = $product_url."/".$picture; }
-				elseif (thumb_exists($product_dir ."/". $picture . ".jpg")) { $picUrl = $product_url."/".$picture.".jpg"; }
-				elseif (thumb_exists($product_dir ."/". $picture . ".gif")) { $picUrl = $product_url."/".$picture.".gif"; }
-				elseif (thumb_exists($product_dir ."/". $picture . ".png")) { $picUrl = $product_url."/".$picture.".png"; }
-
-				if ($picUrl) {
-					$size=wsResizeImage($picUrl);
-					$resized=$size['resized'];
-					$height=$size['height'];
-					$width=$size['width'];
-					$thumb = "<img class=\"imgleft\" src=\"".$picUrl."\" width=".$width." height=".$height." alt=\"\" />";
-				}
-
-				// if the script uses make_thumbs, then search for thumbs
-				if (!$thumb && $make_thumbs == 1) {
-					if (thumb_exists($product_dir ."/tn_". $picture . ".jpg")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/tn_".$picture.".jpg\" alt=\"\" />"; }
-					if (thumb_exists($product_dir ."/tn_". $picture . ".gif")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/tn_".$picture.".gif\" alt=\"\" />"; }
-					if (thumb_exists($product_dir ."/tn_". $picture . ".png")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/tn_".$picture.".png\" alt=\"\" />"; }
-				}
-					
-				if ($thumb != "" && $thumbs_in_pricelist == 0) {
-					// use a photo icon instead of a thumb
-					$picturelink = "<a href=\"".$product_dir."/".$picture.".jpg\"><img src=".$gfx_dir."/photo.gif></a>";
-					$thumb = "";
-				}
+				list($image_url,$height,$width)=wsDefaultProductImageUrl($picture,$row_details['DEFAULTIMAGE']);
+				$thumb = "<img class=\"imgleft\" src=\"".$image_url."\"".$width.$height." alt=\"\" />";
 			}
 
 			// make up the description to print according to the pricelist_format and max_description
-			$print_description=printDescription($row_details[1],$row_details[3]);
+			$print_description=printDescription($row_details[1],$row_details[3],$row_details['EXCERPT']);
 			?>
 	<tr <?php echo $kleur; ?>>
-		<td colspan="2"><a href="<?php zurl("index.php?page=details&prod=".$row_details[0],true); ?>"><?php echo $thumb.$print_description.$picturelink; ?></a>
+		<td colspan="2"><a href="<?php zurl("index.php?page=details&prod=".$row_details[0].'&basketid='.$row['ID'],true); ?>"><?php echo $thumb.$print_description.$picturelink; ?></a>
 		<?php
 		$productprice = $row[3]; // the price of a product
 		$printvalue = $row[7];   // features
@@ -290,13 +261,13 @@ if (loggedin()) {
 		echo $currency_symbol_post;
 		?></td>
 		<td style="text-align: right;"><input type="text" size="4"
-			name="numprod[<?php echo $row_details[0];?>]" value="<?php echo $row[6] ?>"
+			name="numprod[<?php echo $row['ID'];?>]" value="<?php echo $row[6] ?>"
 		>&nbsp; <input type="submit" value="<?php echo $txt['cart10'] ?>"
-			onclick="form.action='<?php zurl("?page=onecheckout&action=update&prodid=".$row_details[0],true)?>';"
+			onclick="form.action='<?php zurl("?page=onecheckout&action=update&prodid=".$row_details[0].'&basketid='.$row['ID'],true)?>';"
 			name="sub"
 		> <br />
 		<input type="submit" value="<?php echo $txt['cart6']; ?>"
-			onclick="form.action='<?php zurl("?page=onecheckout&action=delete&prodid=".$row_details[0],true)?>';"
+			onclick="form.action='<?php zurl("?page=onecheckout&action=delete&prodid=".$row_details[0].'&basketid='.$row['ID'],true)?>';"
 			name="sub"
 		></td>
 	</tr>
@@ -400,15 +371,5 @@ if (loggedin()) {
 </form>
 
 <?php
-	}
-	if (ZING_PROTOTYPE) {
-		?>
-<script type="text/javascript" language="javascript">
-//<![CDATA[
-           //$checkout=new wsCheckout();
-           //$checkout.checkout();
-//]]>
-</script>
-		<?php
 	}
 }?>

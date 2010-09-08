@@ -1,7 +1,11 @@
-<?php 
-function wsIsAdmin() {
-	if (current_user_can('edit_plugins')) return true;
+<?php
+function wsCurrentCmsUserIsShopAdmin() {
+	if (current_user_can('administer_web_shop')) return true;
 	else return false;
+}
+
+function wsIsAdminPage() {
+	return is_admin();
 }
 
 define('ZING_CMS','wp');

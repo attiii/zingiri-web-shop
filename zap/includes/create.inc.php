@@ -7,7 +7,7 @@ function zfCreateTable($entity) {
   		`DATE_CREATED` datetime NOT NULL default '0000-00-00 00:00:00',
   		`DATE_UPDATED` datetime default NULL,
   		PRIMARY KEY  (`ID`))";
-	if ($newtable->update($query) && function_exists('zfDumpQuery')) zfDumpQuery($query);
+	$newtable->update($query);
 }
 
 function zfTableExists($entity) {
@@ -19,22 +19,22 @@ function zfCreateColumns($entity,$data)
 {
 	global $allfields;
 	$allfields=array('ID','DATE_CREATED','DATE_UPDATED');
-	
+
 	$newtable=new db();
 	if (is_new_field($entity,'ID')) {
 		$query="ALTER TABLE `".DB_PREFIX.$entity."`";
 		$query.="ADD COLUMN `ID` int(11) NOT NULL auto_increment PRIMARY KEY";
-		if ($newtable->update($query)) zfDumpQuery($query);
+		$newtable->update($query);
 	}
 	if (is_new_field($entity,'DATE_CREATED')) {
 		$query="ALTER TABLE `".DB_PREFIX.$entity."`";
 		$query.="ADD COLUMN `DATE_CREATED` datetime NOT NULL default '0000-00-00 00:00:00'";
-		if ($newtable->update($query)) zfDumpQuery($query);
+		$newtable->update($query);
 	}
 	if (is_new_field($entity,'DATE_UPDATED')) {
 		$query="ALTER TABLE `".DB_PREFIX.$entity."`";
 		$query.="ADD `DATE_UPDATED` datetime default NULL";
-		if ($newtable->update($query)) zfDumpQuery($query);
+		$newtable->update($query);
 	}
 	$jdata=zf_json_decode($data,true);
 	foreach ($jdata as $element) {
@@ -43,10 +43,10 @@ function zfCreateColumns($entity,$data)
 			else faces_add_element($element['column'],$element['type'],$entity,$element['attributes']['zfmaxlength']);
 		}
 	}
-	
+
 	$fieldsInDb=zfShowColumns($entity);
 	$fieldsToDelete=array_diff($fieldsInDb,$allfields); //nothing is done with this for now
-	
+
 }
 /**
  * Adds element to database table
@@ -94,7 +94,7 @@ function faces_add_element($fieldname,$multiformat,$form_dbtable,$maxlength) {
 			if (is_new_field($form_dbtable,$fieldname)) { //new field
 				$query.="ADD COLUMN `{$fieldname}` {$format} NULL";
 			} else { //updated field
-				$query.="CHANGE `{$fieldname}` `{$fieldname}` {$format} NULL";		
+				$query.="CHANGE `{$fieldname}` `{$fieldname}` {$format} NULL";
 			}
 			$isfirst=FALSE;
 		}
@@ -117,8 +117,7 @@ function faces_add_repeatable_element($fieldname,$multiformat,$form_dbtable,$max
   		`NAME` varchar(64) NOT NULL,
   		`VALUE` text NULL,
   		PRIMARY KEY  (`ID`))";
-	if ($newtable->update($query) && function_exists('zfDumpQuery')) zfDumpQuery($query);
-	
+	$newtable->update($query);
 }
 
 function zfShowColumns($form_dbtable) {
@@ -148,8 +147,8 @@ function is_new_field($form_dbtable,$fieldname)
 	}
 }
 
-function zfCreate($name,$elementcount,$entity,$type,$data,$label,$id=false,$remote=false) {
-	
+function zfCreate($name,$elementcount,$entity,$type,$data,$label,$project,$id=false,$remote=false) {
+
 	$keysread['NAME']=$name;
 	$keys="";
 	if ($r=zfReadRecord("faces",$keysread))
@@ -162,6 +161,7 @@ function zfCreate($name,$elementcount,$entity,$type,$data,$label,$id=false,$remo
 		if ($remote) $row['CUSTOM']=$data;
 		else $row['DATA']=$data;
 		$row['LABEL']=$label;
+		$row['PROJECT']=$project;
 		$same=true;
 		foreach($row as $k => $v) {
 			if ($r[$k] != $v) $same=false;
@@ -183,18 +183,19 @@ function zfCreate($name,$elementcount,$entity,$type,$data,$label,$id=false,$remo
 		$row['TYPE']=$type;
 		$row['DATA']=$data;
 		$row['LABEL']=$label;
+		$row['PROJECT']=$project;
 
 		$id=InsertRecord("faces",$keys,$row);
 		$msg="Form saved succesfully";
-		
+
 	}
 	if ($type == "DB")
 	{
 		if (!zfTableExists($entity)) zfCreateTable($entity);
 		zfCreateColumns($entity,$data);
 	}
-	
+
 	return $msg;
-	
+
 }
 ?>

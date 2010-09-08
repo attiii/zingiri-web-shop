@@ -10,7 +10,7 @@ var wsSearch = Class.create( {
 					type : "post",
 					data : {
 						'searchfor' : jQuery('#searchbar').attr('value'),
-						'abspath' : wpabspath,
+						'wpabspath' : wpabspath,
 						'cms' : wsCms
 					},
 					success : function(request) {

@@ -25,27 +25,29 @@ class imageZfSubElement extends zfSubElement {
 
 	function output($mode="edit",$input="")
 	{
-		$url=@constant($input['element_'.$this->elementid.'_'.($this->subid+1)].'URL');
-		$image=$url.$input['element_'.$this->elementid.'_'.$this->subid];
-		if ($this->int!='') $this->ext='<img src="'.$image.'" height="48px"/>';
-		else $this->ext='';
+		if (!empty($input['element_'.$this->elementid.'_'.($this->subid+1)])) {
+			$url=@constant($input['element_'.$this->elementid.'_'.($this->subid+1)].'URL');
+			$image=$url.$input['element_'.$this->elementid.'_'.$this->subid];
+			if ($this->int!='') $this->ext='<img src="'.$image.'" height="48px"/>';
+			else $this->ext='';
+		} else $this->ext='';
 		return $this->ext;
 	}
-	
+
 	function verify()
 	{
 		parent::verify();
-		
+
 		$dir=@constant($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+1)].'DIR');
 		$control=$_POST['control_element_'.$this->elementid.'_'.$this->subid];
 		$eln='file_element_'.$this->elementid.'_'.$this->subid;
 		$name=$this->element->populated_value['element_'.$this->elementid.'_'.$this->subid];
-		
+
 		if ($file = $_FILES[$eln]['name']) {
 			$ext = strtolower(substr(strrchr($file, '.'), 1));
-			$file=CreateRandomCode(15).'__'.$file;	
+			$file=CreateRandomCode(15).'__'.$file;
 			$target_path = $dir.$file;
-			
+				
 			if(move_uploaded_file($_FILES[$eln]['tmp_name'], $target_path)) {
 				chmod($target_path,0644); // new uploaded file can sometimes have wrong permissions
 				$this->ext=$this->int=$file;
@@ -57,19 +59,19 @@ class imageZfSubElement extends zfSubElement {
 		} elseif ($control=='del' && isset($name)) {
 			unlink($dir.$name);
 			$this->ext=$this->int='';
-			return true; 
+			return true;
 		} else {
-			$this->ext=$this->int=$name; 
-			return true; 
+			$this->ext=$this->int=$name;
+			return true;
 		}
 
 	}
-	
+
 	function display(&$field_markup,&$subscript_markup) {
 		$e=$this->element;
 		$i=$this->subid;
 		$xmlf=$this->xmlf;
-		
+
 		$url=@constant($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+1)].'URL');
 		if($e->populated_value['element_'.$e->id.'_'.$i] == ""){
 			$e->populated_value['element_'.$e->id.'_'.$i] = $xmlf->fields->{'field'.$i}->default;

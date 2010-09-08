@@ -23,6 +23,11 @@
 ?>
 <?php if ($index_refer <> 1) { exit(); } ?>
 <?php
+$features=array();
+
+$wsFeatures=new wsFeatures();
+$wsFeatures->setFeaturesFromBasketId(intval($_GET['basketid']));
+
 // read product details
 $query = sprintf("SELECT * FROM `".$dbtablesprefix."product` where `ID`=%s", quote_smart($prod));
 $sql = mysql_query($query) or die(mysql_error());
@@ -43,25 +48,18 @@ else {
 			}
 			else { $picture = $row[1]; }
 
-			$thumb = "";
+			list($thumb,$height,$width,$resized)=wsDefaultProductImageUrl($picture,$row['DEFAULTIMAGE'],false);
 
-			if (!empty($row['DEFAULTIMAGE']) && thumb_exists($product_dir ."/". str_replace('tn_','',$row['DEFAULTIMAGE']))) { $thumb = $product_url."/".str_replace('tn_','',$row['DEFAULTIMAGE']); }
-			elseif (thumb_exists($product_dir ."/". $picture . ".jpg")) { $thumb = $product_url ."/". $picture . ".jpg"; }
-			elseif (thumb_exists($product_dir ."/". $picture . ".gif")) { $thumb = $product_url ."/". $picture . ".gif"; }
-			elseif (thumb_exists($product_dir ."/". $picture . ".png")) { $thumb = $product_url ."/". $picture . ".png"; }
-
-			if ($thumb == "") { $thumb = $gfx_dir."/nothumb.jpg"; }
-
-			$size=wsResizeImage($thumb);
-			$resized=$size['resized'];
-			$height=$size['height'];
-			$width=$size['width'];
-			if ($resized == 0) { $screenshot = "<div style=\"height:".$product_max_height."px\"><img id=\"highlight_image\" class=\"borderimg\" src=\"".$thumb."\" height=".$height." width=".$width." alt=\"\" /></div>"; }
+			if ($resized == 0) {
+				$screenshot = "<div style=\"height:".$product_max_height."px\"><img id=\"highlight_image\" class=\"borderimg\" src=\"".$thumb."\" ".$height." ".$width." alt=\"\" /></div>"; 
+			}
 			else {
 				if ($use_imagepopup == 0) {
-					$screenshot = "<a id=\"highlight_ref\" href=\"".$thumb."\"><div style=\"height:".$product_max_height."px\"><img class=\"borderimg\" id=\"highlight_image\" src=\"".$thumb."\" height=".$height." width=".$width." alt=\"\"/></div>".$txt['details9']."</a>";
+					$screenshot = "<a id=\"highlight_ref\" href=\"".$thumb."\"><div style=\"height:".$product_max_height."px\"><img class=\"borderimg\" id=\"highlight_image\" src=\"".$thumb."\" ".$height." ".$width." alt=\"\"/></div>".$txt['details9']."</a>";
 				}
-				else {$screenshot = "<a id=\"highlight_ref\" href=\"".$thumb."\" rel=\"lightbox\" title=\"".$txt['details2'].": ".$row[1]."\"><div style=\"height:".$product_max_height."px\"><img id=\"highlight_image\" class=\"borderimg\" src=\"".$thumb."\" height=".$height." width=".$width." alt=\"\"/></div>".$txt['details9']."</a>"; }
+				else {
+					$screenshot = "<a id=\"highlight_ref\" href=\"".$thumb."\" rel=\"lightbox\" title=\"".$txt['details2'].": ".$row[1]."\"><div style=\"height:".$product_max_height."px\"><img id=\"highlight_image\" class=\"borderimg\" src=\"".$thumb."\" ".$height." ".$width." alt=\"\"/></div>".$txt['details9']."</a>"; 
+				}
 			}
 
 		}
@@ -69,8 +67,7 @@ else {
 		?>
 <table width="85%" class="datatable">
 	<tr>
-		<td colspan=2>
-		<!--<h5><?php echo $txt['details2'] ?>: <?php echo $row[1] ?></h5>
+		<td colspan=2><!--<h5><?php echo $txt['details2'] ?>: <?php echo $row[1] ?></h5>
 		<br />-->
 		<div style="text-align: center;"><?php echo $screenshot; ?><br />
 		<?php
@@ -92,7 +89,7 @@ else {
 			foreach ($imgs as $img) {
 				$imagesCount++;
 				$imagesMarkUp.='<div id="'.$img.'" style="position:relative;float:left">';
-				$size=wsResizeImage($product_dir.'/'.str_replace('tn_','',$img));
+				$size=wsResizeImage($product_dir.'/'.str_replace('tn_','',$img),false);
 				$imagesMarkUp.='<a href="javascript:void(0);" onMouseOver="wsHoverImage(\''.$product_url.'/'.str_replace('tn_','',$img).'\','.$size['height'].','.$size['width'].')"><img src="'.$product_url.'/'.$img.'" class="borderimg" />';
 				$imagesMarkUp.="</a>";
 				$imagesMarkUp.='</div>';
@@ -106,11 +103,10 @@ else {
 
 		// show extra admin options?
 		$admin_edit = "";
-		if (IsAdmin() && is_admin()) {
+		if (IsAdmin() && wsIsAdminPage()) {
 			$admin_edit = "<br />";
 			$admin_edit = $admin_edit."<a href=\"?page=productadmin&action=edit_product&pcat=".$cat."&prodid=".$row[0]."\">".$txt['browse7']."</a>";
 			$admin_edit = $admin_edit."&nbsp;|&nbsp;<a href=\"?page=productadmin&action=delete_product&pcat=".$cat."&prodid=".$row[0]."\">".$txt['browse8']."</a>";
-			//$admin_edit = $admin_edit."&nbsp;|&nbsp;<a href=\"?page=productadmin&action=picture_upload_form&picid=".$picture."\">".$txt['browse10']."</a>";
 		}
 		?> <br />
 		<table class="borderless" width="90%">
@@ -140,55 +136,42 @@ else {
 				echo "<big><strong>" . $txt['details5'] . ": ".$currency_symbol_pre.$tax->inFtd.$currency_symbol_post."</strong></big>";
 				echo "<br /><small>(".$currency_symbol_pre.$tax->exFtd.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>";
 			}
+		}
 
-			// product features
-			$allfeatures = $row[8];
-			if (!empty($allfeatures)) {
-				$features = explode("|", $allfeatures);
-				$counter1 = 0;
-				echo "<br /><br />";
-				while (!$features[$counter1] == NULL){
-					if (strpos($features[$counter1],":")===FALSE){echo "<br />".$features[$counter1].":  <input type=\"text\" name=\"".$features[$counter1]."\"> ";$counter1 += 1;}
-					else {
-						$feature = explode(":", $features[$counter1]);
-						$counter1 += 1;
-						echo "<br />".$feature[0].": ";
-						echo "<select name=\"".$feature[0]."\">";
-						$value = explode(",", $feature[1]);
-						$counter2 = 0;
-						while (!$value[$counter2] == NULL){
-
-							// optionally you can specify the additional costs: color:red+1.50,green+2.00,blue+3.00 so lets deal with that
-							$extracosts = explode("+",$value[$counter2]);
-							if (!$extracosts[1] == NULL) {
-								// there are extra costs
-								$printvalue = $extracosts[0]." (+".$currency_symbol_pre.myNumberFormat($extracosts[1],$number_format).$currency_symbol_post.")";
-							}
-							else {
-								$printvalue = $value[$counter2];
-							}
-
-							// print the pulldown menu
-							$printvalue = str_replace("+".$currency_symbol_pre."-", "-".$currency_symbol_pre, $printvalue);
-							echo "<option value=\"".$value[$counter2]."\""; if ($counter2 == 0) { echo " SELECTED"; } echo ">".$printvalue;
-							$counter2 += 1;
-						}
-						echo "</select>";
-					}
-				}
+		// product features
+		$allfeatures = $row[8];
+		$wsFeatures->setFeatures($allfeatures,$row['FEATURESHEADER']);
+		$wsFeatures->setProduct($row[0]);
+		echo '<input type="hidden" name="featuresets" value="'.$wsFeatures->sets.'" />';
+		if ($wsFeatures->set) echo '<input type="hidden" name="featuresuniqueset" value="'.$wsFeatures->setid.'" />';
+		if (count($wsFeatures->prefil)>0) {
+			for ($i=0;$i<$wsFeatures->sets;$i++) {
+				echo '<input type="hidden" name="basketid[]" value="'.$wsFeatures->prefil[$i]['id'].'" />';
 			}
 		}
-		?> <br />
-		<br />
-		<?php if (!$row['LINK']) { echo $txt['details6'] ?>: <input type="text" size="4" name="numprod"
-			value="1" maxlength="4"
-		>&nbsp;<?php }?><input type="submit" value="<?php echo $txt['details7'] ?>" id="addtocart"
-			name="sub"
-		>
+		echo '<div style="clear:both"></div>';
+		echo '<div class="wsfeatures">';
+		echo '<table class="'.$wsFeatures->tableClass.'">';
+		$wsFeatures->displayFeatures();
+		if (!$row['LINK']) {
+			echo '<tr>';
+			echo '<td>'.$txt['details6'].':</td>';
+			for ($i=0;$i<$wsFeatures->sets;$i++) {
+				if (isset($wsFeatures->prefil[$i]['qty'])) $numprod=$wsFeatures->prefil[$i]['qty'];
+				elseif (!isset($wsFeatures->setid)) $numprod=1;
+				else $numprod='';
+				echo '<td><input type="text" size="2" name="numprod[]" value="'.$numprod.'" maxlength="4" /></td>';
+			}
+			echo '</tr>';
+		}
+		echo '</table>';
+		echo '</div>';
+		echo '<div style="clear:both"></div>';
+
+		echo '<input type="submit" value="'.$txt['details7'].'" id="addtocart"name="sub" />';
+		echo '</form>';
+		}?></div>
 		
-		</form>
-		<?php }?>
-		</div>
 		</td>
 	</tr>
 	<?php if ($similar) {
@@ -223,9 +206,5 @@ if (ZING_PROTOTYPE) {
 </script>
 	<?php
 }
-if (ZING_PROTOTYPE) {
-	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/imagedisplay.proto.js"></script>';
-} elseif (ZING_JQUERY) {
-	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/imagedisplay.jquery.js"></script>';
-}
+echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/imagedisplay.jquery.js"></script>';
 ?>

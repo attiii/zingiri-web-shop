@@ -4,7 +4,7 @@ Donate link: http://www.zingiri.com/
 Tags: ecommerce, e-commerce, paypal, freewebshop, shop, cart, web shop, shopping cart, iDEAL, Google Checkout, Worldpay
 Requires at least: 2.1.7
 Tested up to: 3.0.1
-Stable tag: 1.5.9
+Stable tag: 1.6.0
 
 Zingiri Web Shop is a Wordpress plugin that brings together a great content management system with the fantastic FreeWebShop ecommerce solution.
 
@@ -48,6 +48,43 @@ Before upgrading, make sure you back up your database first!
 
 == Changelog ==
 
+= 1.6.0 =
+* New: added option to manage products that are ordered in pairs (for example lenses)
+* New: display selected product features as part of product details on order confirmation
+* New: display selected product features when viewing previously purchased products
+* New: added option to turn on or off image animation (shake) when ordering a product
+* New: defined new role and capability 'administer_web_shop' to better manage user integration with Wordpress
+* New: added option to display short description in price list
+* New: added possibility to include product categories on a page using [zing-ws-show-category:?] shortcut (Wordpress)
+* Change: restored possibility to edit and delete a product from the front end if logged in as a shop administrator (Wordpress) 
+* Change: added "install zingiriwebshop" permission (Drupal)
+* Change: replaced default products icon
+* Change: resized default orders icon
+* Change: banned IP's are now stored in the database rather than in the banned.txt text file
+* Change: restored possibility to administer shop if logged in as administrator to shop but not to Wordpress
+* Fix: fixed issue with Ideal hash not being parsed correctly
+* Fix: show upgrade message for Drupal users
+* Fix: corrected packaging issue with missing files in version 1.5.9
+* Fix: corrected issue with older products not showing image on detail page and shopping cart page
+* Fix: converted admin.js script to use jQuery library
+* Fix: fixed issue with duplicate title display in sidebar widgets (Joomla)
+* Fix: added missing links to form editor in Edit files sub menu
+* Fix: corrected errors occuring when updating/deleting products from checkout page
+* Fix: reviewed image and thumbnail resizing issues
+* Fix: fixed issue with select drop down not working on some configurations
+* Fix: fixed issue with edit settings links not working (Joomla)
+* Fix: changed newsletter field format to checkbox
+* Fix: corrected problem with logout link always being displayed (Drupal)
+* Fix: fixed the way out of stock products are shown, depending on whether they are set to be hidden or not
+* Fix: fixed error "opendir(templates): failed to open dir: No such file or directory" when editing layout settings
+* Fix: corrected error "Invalid argument supplied for foreach()" when editing product without changing images
+* Fix: fixed error "constant(): Couldn't find constant URL" when viewing categories in back-end
+* Fix: made gateway attribute of payment option not mandatory
+* Fix: fixed compatibilty issue with Dynamic Headers plugin (Wordpress)
+* Fix: fixed issue with error log filling very quickly
+* Fix: corrected issue with payment method not defaulting to current value when editing it
+* Fix: fixed small issue with redirect after installing (Wordpress)
+
 = 1.5.9 =
 * New: first release for Drupal
 * New: added a test on magic quotes off 
@@ -63,7 +100,7 @@ Before upgrading, make sure you back up your database first!
 * Fix: fixed issue with image upload when running with magic quotes on
 * Fix: corrected 'constant' error thrown in error log when editing a product (related to multiple images display)
 
-= 1.5.8
+= 1.5.8 =
 * New: added license file for Joomla
 
 = 1.5.7 =
@@ -111,6 +148,7 @@ Before upgrading, make sure you back up your database first!
 * Fix: fixed issue with error log filling with unrelated errors
 * Fix: corrected issue with customer registration page not editable
 * Fix: fixed compatibility issue with Events manager plugin
+* Fix: fixed issue with country drop down not working on some installations
 
 = 1.5.5 =
 * Fix: corrected problem with message "Warning: Missing argument 2 for zing_ws_page_title()"

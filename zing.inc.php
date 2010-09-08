@@ -36,12 +36,12 @@ function zing_admin_notices() {
 	$zing_version=get_option("zing_webshop_version");
 
 	if (!$zing_version) {
-		if ($_GET['page']!='zingiri-web-shop')
+		if ($_GET['page']!='zingiri-web-shop' && ZING_CMS=="wp")
 		$message='Zingiri Web Shop is almost ready. You need to launch the <a href="admin.php?page=zingiri-web-shop">installation</a> from the integration page.';
 		else
 		$message='Zingiri Web Shop is almost ready. You need to launch the installation by clicking the Install button below.';
 	} elseif ($zing_version != ZING_VERSION) {
-		if ($_GET['page']!='zingiri-web-shop')
+		if ($_GET['page']!='zingiri-web-shop' && ZING_CMS=="wp")
 		$message='You downloaded Zingiri Web Shop version '.ZING_VERSION.' and need to <a href="admin.php?page=zingiri-web-shop">upgrade</a> your database (currently at version '.$zing_version.') from the integration page.';
 		else
 		$message='You downloaded Zingiri Web Shop version '.ZING_VERSION.' and need to upgrade your database (currently at version '.$zing_version.') by clicking the Upgrade button below.';
@@ -49,14 +49,6 @@ function zing_admin_notices() {
 	if ($message) echo "<div id='zing-warning' style='background-color:greenyellow' class='updated fade'><p><strong>".$message."</strong> "."</p></div>";
 
 
-}
-
-function zing_init_uninstall() {
-	if (current_user_can('edit_plugins') && $_GET['zingiri']=='uninstall') {
-		zing_uninstall();
-		zing_apps_player_uninstall();
-		header("Location: options-general.php?page=zingiri-web-shop&uninstalled=true");
-	}
 }
 
 /**
@@ -82,7 +74,7 @@ function zing_check() {
 	$zing_version=get_option("zing_webshop_version");
 
 	$files[]=ZING_LOC.'log.txt';
-	$files[]=ZING_DIR.'banned.txt';
+	//$files[]=ZING_DIR.'banned.txt';
 
 	foreach ($files as $file) {
 		if ($connected)  @$f->chmod($file,0666);
@@ -117,7 +109,11 @@ function zing_check() {
 	if (phpversion() < '5')	$errors[]="You are running PHP version ".phpversion().". You require PHP version 5 or higher to install the Web Shop.";
 	if (ini_get("zend.ze1_compatibility_mode")) $warnings[]="You are running PHP in PHP 4 compatibility mode. The PDF invoice functionality requires this mode to be turned off.";
 	if (get_magic_quotes_gpc()) $warnings[]='Turn off magic quotes on your installation. Read more about why you should disable this setting <a href="http://www.php.net/manual/en/security.magicquotes.php">here</a>.';
-
+	if (ZING_CMS=='dp') {
+		global $db_url;
+		if (strpos($db_url,'mysqli') !== false) $errors[]="Mysqli is not supported, please change to Mysql.";
+	}
+	
 	//check files hash
 	$c=new filesHash();
 	$checksumErrors=$c->compare();
@@ -156,8 +152,8 @@ function zing_install() {
 
 	zing_ws_error_handler_truncate();
 	set_error_handler("zing_ws_error_handler");
-	error_reporting(E_ALL & ~E_NOTICE);
-
+	$wsper=error_reporting(E_ALL & ~E_NOTICE);
+	
 	$prefix=$dbtablesprefix;
 	if (!defined("DB_PREFIX")) define("DB_PREFIX",$prefix);
 
@@ -265,6 +261,9 @@ function zing_install() {
 	zing_ws_error_handler(0,'create default pages');
 	zing_ws_install_default_pages($zing_version);
 
+	//Define roles & set current user to admin
+	if (function_exists('zing_ws_install_roles')) zing_ws_install_roles();
+	
 	//Create digital products directory if it doesn't exist yet
 	if (!get_option('zing_webshop_dig')) {
 		update_option('zing_webshop_dig',CreateRandomCode(15));
@@ -314,6 +313,7 @@ function zing_install() {
 
 	zing_ws_error_handler(0,'completed');
 	restore_error_handler();
+	error_reporting($wsper);
 }
 
 /**
@@ -324,7 +324,7 @@ function zing_uninstall() {
 	global $wpdb,$dbtablesprefix;
 
 	set_error_handler("zing_ws_error_handler");
-	error_reporting(E_ALL & ~E_NOTICE);
+	$wsper=error_reporting(E_ALL & ~E_NOTICE);
 
 	$prefix=$dbtablesprefix;
 	$query="show tables like '".$prefix."%'";
@@ -350,6 +350,7 @@ function zing_uninstall() {
 	if (function_exists('zing_apps_player_uninstall')) zing_apps_player_uninstall(false);
 
 	restore_error_handler();
+	error_reporting($wsper);
 }
 
 function zing_ws_is_shop_page($pid) {
@@ -391,32 +392,25 @@ function zing_main($process,$content="") {
 
 			$cf=get_post_custom();
 
-			if (isset($_GET['page']))
-			{
+			if (isset($_GET['page'])) {
 				//do nothing, page already set
-			}
-			elseif (isset($cf['zing_page']))
-			{
+			}  elseif (isset($cf['zing_page'])) {
 				$_GET['page']=$cf['zing_page'][0];
 				if (isset($cf['zing_action']))
 				{
 					$_GET['action']=$cf['zing_action'][0];
 				}
-			}
-			elseif (preg_match('/\[zing-ws:(.*)&amp;(.*)=(.*)\]/',$content,$matches)==1) { //[zing-ws:page&x=y]
+			} elseif (preg_match('/\[zing-ws:(.*)&amp;(.*)=(.*)\]/',$content,$matches)==1) { //[zing-ws:page&x=y]
 				list($prefix,$postfix)=preg_split('/\[zing-ws:(.*)\]/',$content);
 				$_GET['page']=$matches[1];
 				if ($matches[2]=='cat') $_GET['action']='list';
 				$_GET[$matches[2]]=$matches[3];
-			}
-			elseif (preg_match('/\[zing-ws:(.*)\]/',$content,$matches)==1) { //[zing-ws:page]
+			} elseif (preg_match('/\[zing-ws:(.*)\]/',$content,$matches)==1) { //[zing-ws:page]
 				list($prefix,$postfix)=preg_split('/\[zing-ws:(.*)\]/',$content);
 				$_GET['page']=$matches[1];
-			}
-			else
-			{
-				return $content;
-			}
+			} elseif (preg_match('/\[zing-ws-(.*):(.*)\]/',$content,$matches)==1) { //[zing-ws:page]
+				$_GET['page']='parse';
+			} else return $content;
 			if (isset($cf['cat'])) {
 				$_GET['cat']=$cf['cat'][0];
 			}
@@ -431,34 +425,33 @@ function zing_main($process,$content="") {
 	}
 
 	//start logging
-	error_reporting(E_ALL ^ E_NOTICE); // ^ E_NOTICE
+	$wsper=error_reporting(E_ALL ^ E_NOTICE); // ^ E_NOTICE
 	set_error_handler("user_error_handler");
 
-	if (!$zing_loaded)
-	{
+	if (!$zing_loaded) {
 		require (ZING_LOC."./startmodules.inc.php");
 		$zing_loaded=TRUE;
 	} else {
 		require (ZING_DIR."./includes/readvals.inc.php");        // get and post values
 	}
 
-	if ($to_include=="loadmain.php" && ($page=='logout' || ($page=='login' && !$_GET['lostlogin'])))
-	{
+	if ($to_include=="loadmain.php" && ($page=='logout' || ($page=='login' && !$_GET['lostlogin']))) {
 		//stop logging
 		restore_error_handler();
+		error_reporting($wsper);
 		header('Location:'.ZING_HOME.'/index.php?page='.$page);
 		exit;
 	}
 	elseif ($to_include) {
 		echo $prefix;
 		if ($process=='content') echo '<div class="zing_ws_page" id="zing_ws_'.$_GET['page'].'">';
-
 		include($scripts_dir.$to_include);
 		if ($process=='content') echo '</div>';
 		echo $postfix;
-		if (!is_admin() && $process=='content' && get_option('zing_ws_logo')=='pf') zing_display_logo();
+		if (!wsIsAdminPage() && $process=='content' && get_option('zing_ws_logo')=='pf') zing_display_logo();
 		//stop logging
 		restore_error_handler();
+		error_reporting($wsper);
 	}
 }
 

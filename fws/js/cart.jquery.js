@@ -44,8 +44,11 @@ var wsCart = Class.create( {
 		var e = jQuery('.addtocart');
 		for (i = 0; i < e.length; i++) {
 			jQuery(e[i]).bind('click', this, function(v) {v.data.addToCart(v); });
-		}
-		;
+		};
+		var e = jQuery('.addtowishlist');
+		for (i = 0; i < e.length; i++) {
+			jQuery(e[i]).bind('click', this, function(v) {v.data.addToWishlist(v); });
+		};
 	},
 
 	addToCart : function(v) {
@@ -55,7 +58,7 @@ var wsCart = Class.create( {
 		else var image = e.closest('tr').find('img');
 		form = e.closest('form');
 		data=form.serialize(true);
-		data+='&cms='+wsCms+'&abspath='+wpabspath;
+		data+='&cms='+wsCms+'&wpabspath='+wpabspath;
 		new jQuery.ajax({
 			url : wsURL + "addToCart.php",
 			type : "post",
@@ -66,7 +69,27 @@ var wsCart = Class.create( {
 			}
 		});
 
-		image.effect("shake", {times : 3 }, 300);
+		if (wsAnimateImage==1) image.effect("shake", {times : 3 }, 300);
+	},
+
+	addToWishlist : function(v) {
+		var t=this;
+		var e = jQuery(v.target);
+		if (wsFrontPage) var image = e.closest('td').find('img');
+		else var image = e.closest('tr').find('img');
+		form = e.closest('form');
+		data=form.serialize(true);
+		data+='&cms='+wsCms+'&wpabspath='+wpabspath;
+		new jQuery.ajax({
+			url : wsURL + "add_to_wishlist.php",
+			type : "post",
+			data : data,
+			success : function(request) {
+				alert('Added to wishlist');
+				if (request) alert(request);
+				//else t.getCart();
+			}
+		});
 	},
 
 	getCart : function() {
@@ -76,8 +99,8 @@ var wsCart = Class.create( {
 			url : wsURL + "getCartContents.php",
 			type : "post",
 			data : {
-				'abspath' : wpabspath,
-				'cms' : wsCms
+				'wpabspath' : wpabspath,
+				'cms' : wsCms,
 			},
 			success : function(request) {
 				tag.html(request);

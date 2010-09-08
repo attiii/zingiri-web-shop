@@ -49,6 +49,17 @@ if (!class_exists('db')) {
 			if (mysql_query($query)) return true;
 			else return false;
 		}
+		
+		function fieldExists($table,$field) {
+			global $dbtablesprefix;
+			$query = "SHOW COLUMNS FROM `".$dbtablesprefix.$table."` ";
+			if ($result=mysql_query($query)) {
+				while ($row = mysql_fetch_row($result)) {
+					if ($row[0]==$field || $row[0]==strtoupper($field) || $row[0]==strtolower($field)) return true;
+				}
+			}
+			return false;
+		}
 			
 		function update($query) {
 			global $dbtablesprefix;

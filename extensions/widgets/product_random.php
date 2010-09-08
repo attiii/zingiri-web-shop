@@ -5,7 +5,7 @@
  * @return unknown_type
  */
 class widget_sidebar_product_random {
-	function init($args) {
+	function init($args,$displayTitle=true) {
 		if ($row=$this->selectProduct()) {
 			global $txt;
 			zing_main("init");

@@ -26,7 +26,8 @@ class selectZfSubElement extends zfSubElement {
 	function output($mode="edit",$input="")
 	{
 		foreach ($this->xmlf->values->children() as $child) {
-			$option=$child[0];
+			$t=(array)$child;
+			$option=$t[0];
 			if (isset($child->attributes()->value)) $value=$child->attributes()->value;
 			else $value=$option;
 			if ($value==$this->int) $this->ext=$option;
@@ -38,7 +39,7 @@ class selectZfSubElement extends zfSubElement {
 		$e=$this->element;
 		$i=$this->subid;
 		$xmlf=$this->xmlf;
-		
+
 		if($e->populated_value['element_'.$e->id.'_'.$i] == ""){
 			$e->populated_value['element_'.$e->id.'_'.$i] = $xmlf->fields->{'field'.$i}->default;
 		}
@@ -46,7 +47,9 @@ class selectZfSubElement extends zfSubElement {
 		$option_markup="";
 		if ($xmlf->fields->{'field'.$i}->values->attributes()->type=='multi') {
 			foreach ($xmlf->fields->{'field'.$i}->values->children() as $child) {
-				$option=(string)$child[0];
+				$t=(array)$child;
+
+				$option=$t[0];
 				if (isset($child->attributes()->value)) $value=$child->attributes()->value;
 				else $value=$option;
 				$selected="";

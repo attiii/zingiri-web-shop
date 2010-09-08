@@ -1,3 +1,10 @@
+= 0.9.6 =
+* Added project identification on form level
+* Removed db create logging from apps.db.sql log
+* Added IP field type
+* Fixed issue with select drop down not working on some configurations
+* Fixed issue with error log filling very quickly
+
 = 0.9.5 = 
 * Compatibility with Wordpress 3.0.1
 * Fixed issue with parsing input of array elements when magic quotes is set to on

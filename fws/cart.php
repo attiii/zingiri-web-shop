@@ -24,24 +24,20 @@
 <?php if ($index_refer <> 1) { exit(); } ?>
 
 <?php
-if (isset($_POST['numprod'])) {
-	$numprod=intval($_POST['numprod']);
-}
-elseif (isset($_GET['numprod'])) {
-	$numprod=intval($_GET['numprod']);
-}
-else { $numprod=1; }
-if (!empty($_POST['prodid'])) {
-	$prodid=intval($_POST['prodid']);
-}
-elseif (!empty($_GET['prodid'])) {
-	$prodid=intval($_GET['prodid']);
-}
-if (!empty($_POST['prodprice'])) {
-	$prodprice=$_POST['prodprice'];
-}
-if (!empty($_POST['basketid'])) {
-	$basketid=intval($_POST['basketid']);
+
+if (isset($_POST['featuresets'])) {
+	$featureSets=intval($_POST['featuresets']);
+} else $featureSets=1;
+
+if (!empty($_REQUEST['prodid'])) $prodid=intval($_REQUEST['prodid']);
+
+if ($action=='add') {
+	if (!empty($_REQUEST['basketid'])) $basketid=$_REQUEST['basketid'];
+	if (isset($_REQUEST['numprod'])) $numprod=$_REQUEST['numprod'];
+	else $numprod[]=1;
+} else {
+	if (!empty($_REQUEST['basketid'])) $basketid=intval($_REQUEST['basketid']);
+	if (isset($_REQUEST['numprod'])) $numprod=intval($_REQUEST['numprod']);
 }
 
 // current date
@@ -53,74 +49,74 @@ if (IsAdmin() == true) {
 	{ $customerid = intval($_GET['id']); }
 }
 
-if ($action=="add" && $numprod != 0) {
+if ($action=="add") {
+	
 	// if we work with stock amounts, then lets check if there is enough in stock
 	if ($stock_enabled == 1) {
 		// if you have 2 of product x in basket and stock is 2, you get an error if you try to add 1 more
-		$query = "SELECT `QTY` FROM `".$dbtablesprefix."basket` WHERE `CUSTOMERID` = '".$customerid."' AND `PRODUCTID` = '".$prodid."' AND STATUS = 0";
-		$sql = mysql_query($query) or die(mysql_error());
-		if (mysql_num_rows($sql) != 0) {
+		for ($i=0;$i<$featureSets;$i++) {
+			if (isset($basketid[$i])) {
+				$query = "SELECT `QTY` FROM `".$dbtablesprefix."basket` WHERE `CUSTOMERID` = ".qs($customerid)." AND `ID` = ".qs($basketid[$i])." AND `STATUS` = 0";
+				$sql = mysql_query($query) or die(mysql_error());
+				if (mysql_num_rows($sql) != 0) {
+					$row = mysql_fetch_row($sql);
+					$num_in_basket = $row[0];
+				}
+			} else { $num_in_basket = 0; }
+	
+			$query = sprintf("SELECT `STOCK` FROM `".$dbtablesprefix."product` WHERE `ID` = %s", qs($prodid));
+			$sql = mysql_query($query) or die(mysql_error());
 			$row = mysql_fetch_row($sql);
-			$num_in_basket = $row[0];
-		}
-		else { $num_in_basket = 0; }
-			
-		$query = sprintf("SELECT `STOCK` FROM `".$dbtablesprefix."product` WHERE `ID` = %s", quote_smart($prodid));
-		$sql = mysql_query($query) or die(mysql_error());
-		$row = mysql_fetch_row($sql);
-		$numordered = $numprod + $num_in_basket;
-		if ($numordered > $row[0] || $row[0] == 0) { // you're ordering more then whats in stock , or stock is 0
-			$warning = $txt['checkout15']."<br /><br />".$txt['checkout7']." ".$numordered."<br />".$txt['checkout8']." ".$row[0];
-			PutWindow($gfx_dir, $txt['general12'], $warning, "warning.gif", "50");
-			$error = 1;
+			//ebo
+			$numordered = $numprod[$i] + $num_in_basket;
+			if ($numordered > $row[0] || $row[0] == 0) { // you're ordering more then whats in stock , or stock is 0
+				$warning = $txt['checkout15']."<br /><br />".$txt['checkout7']." ".$numordered."<br />".$txt['checkout8']." ".$row[0];
+				PutWindow($gfx_dir, $txt['general12'], $warning, "warning.gif", "50");
+				$error = 1;
+			}
 		}
 	}
-
-	if ($error == 0) {
+	if (!$error) {
 		// product features
 		$query = sprintf("SELECT `FEATURES`,`PRICE` FROM `".$dbtablesprefix."product` WHERE `ID` = %s", quote_smart($prodid));
 		$sql = mysql_query($query) or die(mysql_error());
 		$row = mysql_fetch_array($sql);
-			
+
 		$prodprice = $row['PRICE'];
 		$allfeatures = $row[0];
 		$productfeatures = "";
-			
-		// dit stuk is stuk. in row7 moeten de geselecteerde features. in row3 de prijs inclusief deze features.
-		if (!empty($allfeatures)) {
-			$features = explode("|", $allfeatures);
-			$counter1 = 0;
-			echo "<br /><br />";
-			while (!$features[$counter1] == NULL){
-				$feature = explode(":", $features[$counter1]);
-				$counter1 += 1;
-				if (!empty($_POST["$feature[0]"])) {
-					$detail = explode("+", $_POST["$feature[0]"]);
-					$productfeatures .= $feature[0].": ".$detail[0];
-					$prodprice += $detail[1];
-				}
-				if (!empty($features[$counter1])) {
-					$productfeatures .= ", ";
+		$uniqueSet=isset($_POST['featuresuniqueset']) ? $_POST['featuresuniqueset'] : CreateRandomCode(10).time();
+
+		for ($i=0;$i<$featureSets;$i++) {
+			//features
+			$wsFeatures=new wsFeatures($allfeatures,$row['FEATURESHEADER']);
+
+			//full update or quantity only
+			$wsFeatures->calcPrice($i);
+			$productfeatures=$wsFeatures->featureString;
+			$prodprice+=$wsFeatures->price;
+			$qty=isset($numprod[$i]) ? $numprod[$i] : 1;
+
+			if (isset($basketid[$i])) {
+				if ($numprod==0) $query = "DELETE FROM `".$dbtablesprefix."basket` WHERE `ID` = ".qs($basketid[$i])." AND `CUSTOMERID` = ".qs($customerid);
+				else $query = "UPDATE `".$dbtablesprefix."basket` SET `QTY` = ".qs($qty).",`FEATURES`=".qs($productfeatures)." WHERE `ID` = ".qs($basketid[$i])." AND `CUSTOMERID` = ".qs($customerid)." AND STATUS = 0";
+			} else {
+				$query="SELECT `ID` FROM `".$dbtablesprefix."basket` WHERE `CUSTOMERID`=".qs($customerid)." AND `STATUS`=0 AND `PRODUCTID`=".qs($prodid)." AND `FEATURES`=".qs($productfeatures);
+				$sql = mysql_query($query) or zfdbexit($query);
+				if (mysql_num_rows($sql)>0) {
+					$row = mysql_fetch_row($sql);
+					$query = "UPDATE `".$dbtablesprefix."basket` SET `QTY` = ".qs($qty)." WHERE `ID` = ".qs($row['ID']);
+				} else {
+					$query = "INSERT INTO `".$dbtablesprefix."basket` ( `SET` ,`CUSTOMERID` , `PRODUCTID` , `PRICE` , `ORDERID` , `LINEADDDATE` , `QTY` , `FEATURES`) VALUES (".qs($uniqueSet).", '".$customerid."', '".$prodid."', '".$prodprice."', '0', '".Date("d-m-Y @ G:i")."', '".$qty."', '".$productfeatures."')";
 				}
 			}
+			$sql = mysql_query($query) or die(mysql_error());
 		}
-
-		// now lets check if the product we add is new, or we need to update an existing record
-		$query = "SELECT `ID` FROM `".$dbtablesprefix."basket` WHERE `CUSTOMERID` = '".$customerid."' AND `PRODUCTID` = '".$prodid."' AND `FEATURES` = '". $productfeatures . "' AND STATUS = 0";
-		$sql = mysql_query($query) or die(mysql_error());
-		if (mysql_num_rows($sql) == 0) {
-			$query = "INSERT INTO `".$dbtablesprefix."basket` ( `CUSTOMERID` , `PRODUCTID` , `PRICE` , `ORDERID` , `LINEADDDATE` , `QTY` , `FEATURES`) VALUES ('".$customerid."', '".$prodid."', '".$prodprice."', '0', '".Date("d-m-Y @ G:i")."', '".$numprod."', '".$productfeatures."')";
-		}
-		else {
-			$query = "UPDATE `".$dbtablesprefix."basket` SET `QTY` = `QTY` + ".$numprod." WHERE `PRODUCTID` = '".$prodid."' AND `CUSTOMERID` = '".$customerid."' AND STATUS = 0";
-		}
-		$sql = mysql_query($query) or die(mysql_error());
 	}
 }
-
-if ($action=="update"){
+elseif ($action=="update"){
 	if ($numprod == 0) {
-		$query = "DELETE FROM `".$dbtablesprefix."basket` WHERE `ID` = '". $basketid."' AND `STATUS` = '0'";
+		$query = "DELETE FROM `".$dbtablesprefix."basket` WHERE `ID` = '". $basketid."' AND `STATUS` = '0' AND `CUSTOMERID` = " . $customerid;
 		$sql = mysql_query($query) or die(mysql_error());
 	}
 	else {
@@ -141,9 +137,8 @@ if ($action=="update"){
 		}
 	}
 }
-
-if ($action=="empty"){
-	$query = "DELETE FROM ".$dbtablesprefix."basket WHERE `CUSTOMERID` = " . $customerid;
+elseif ($action=="empty"){
+	$query = "DELETE FROM ".$dbtablesprefix."basket WHERE `CUSTOMERID` = " . $customerid. " AND `STATUS`=0";
 	$sql = mysql_query($query) or die(mysql_error());
 }
 
@@ -183,7 +178,11 @@ else {
 				if ($pictureid == 1) { $picture = $row_details[0]; }
 				else { $picture = $row_details[1]; }
 
+				list($image_url,$height,$width)=wsDefaultProductImageUrl($picture,$row['DEFAULTIMAGE']);
+				$thumb = "<img class=\"imgleft\" src=\"".$image_url."\"".$width.$height." alt=\"\" />";
+				
 				// determine resize of thumbs
+				/*
 				$width = "";
 				$height = "";
 				$picturelink = "";
@@ -195,7 +194,7 @@ else {
 				if (thumb_exists($product_dir ."/". $picture . ".jpg")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/".$picture.".jpg\"".$width.$height." alt=\"\" />"; }
 				if (thumb_exists($product_dir ."/". $picture . ".gif")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/".$picture.".gif\"".$width.$height." alt=\"\" />"; }
 				if (thumb_exists($product_dir ."/". $picture . ".png")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/".$picture.".png\"".$width.$height." alt=\"\" />"; }
-				
+
 				// if the script uses make_thumbs, then search for thumbs
 				if ($make_thumbs == 1) {
 					if (!empty($row_details['DEFAULTIMAGE']) && thumb_exists($product_dir ."/". $row_details['DEFAULTIMAGE'])) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/".$row_details['DEFAULTIMAGE']."\" alt=\"\" />"; }
@@ -209,19 +208,23 @@ else {
 					$picturelink = "<a href=\"".$product_dir."/".$picture.".jpg\"><img src=".$gfx_dir."/photo.gif></a>";
 					$thumb = "";
 				}
+				*/
 			}
 
 			// make up the description to print according to the pricelist_format and max_description
-			$print_description=printDescription($row_details[1],$row_details[3]);
+			$print_description=printDescription($row_details[1],$row_details[3],$row_details['EXCERPT']);
 			?>
 	<tr <?php echo $kleur; ?>>
 		<td><a
-			href="index.php?page=details&prod=<?php echo $row_details[0]; ?>"><?php echo $thumb.$print_description.$picturelink; ?></a>
-			<?php
-			$productprice = $row[3]; // the price of a product
-			$printvalue = $row[7];   // features
-			if (!$printvalue == "") { echo "<br />(".$printvalue.")"; }
-			?></td>
+			href="index.php?page=details&prod=<?php echo $row_details[0]; ?>&basketid=<?php echo $row['ID']; ?>"
+		><?php echo $thumb.$print_description.$picturelink; ?></a> <?php
+		$productprice = $row[3]; // the price of a product
+		if (!empty($row[7])) {
+			$wsFeatures=new wsFeatures($row[7],$row['FEATURESHEADER']);
+			$printvalue = $wsFeatures->toString($row[7]);   // features
+		}
+		if (!$printvalue == "") { echo "<br />(".$printvalue.")"; }
+		?></td>
 		<td><?php 
 		echo $currency_symbol_pre;
 		$subtotaal = $productprice * $row[6];
@@ -231,23 +234,23 @@ else {
 		echo $printprijs;
 		echo $currency_symbol_post;
 		?></td>
-		<td>
-		<?php if (!$row_details['LINK']) {?>
-		<form method="POST" action="?page=cart&action=update">
-		<input type="hidden" name="prodid" value="<?php echo $row_details[0] ?>" /> <input
-			type="hidden" name="basketid" value="<?php echo $row[0] ?>" />
-		<div style="text-align: right;">
-		<input type="text" size="4" name="numprod" value="<?php echo $row[6] ?>" />&nbsp;
-		<input type="submit" value="<?php echo $txt['cart10'] ?>" name="sub" />
-		</div>
+		<td><?php if (!$row_details['LINK']) {?>
+		<form method="POST" action="?page=cart&action=update"><input type="hidden" name="prodid"
+			value="<?php echo $row_details[0] ?>"
+		/> <input type="hidden" name="basketid" value="<?php echo $row[0] ?>" />
+		<div style="text-align: right;"><input type="text" size="4" name="numprod"
+			value="<?php echo $row[6] ?>"
+		/>&nbsp; <input type="submit" value="<?php echo $txt['cart10'] ?>" name="sub" /></div>
 		</form>
 		<?php }?>
-		<form method="POST" action="?page=cart&action=update"><input
-			type="hidden" name="prodid" value="<?php echo $row_details[0] ?>"> <input
-			type="hidden" name="basketid" value="<?php echo $row[0] ?>"> <input
-			type="hidden" name="numprod" value="0">
-		<div style="text-align: right;"><input type="submit"
-			value="<?php echo $txt['cart6']; ?>" name="sub"></div>
+		<form method="POST" action="?page=cart&action=update"><input type="hidden" name="prodid"
+			value="<?php echo $row_details[0] ?>"
+		> <input type="hidden" name="basketid" value="<?php echo $row[0] ?>"> <input type="hidden"
+			name="numprod" value="0"
+		>
+		<div style="text-align: right;"><input type="submit" value="<?php echo $txt['cart6']; ?>"
+			name="sub"
+		></div>
 		</form>
 		</td>
 	</tr>
@@ -265,8 +268,7 @@ else {
 	?>
 	<tr>
 		<td colspan="3">
-		<div style="text-align: right;"><strong><?php echo $txt['cart7']; ?></strong>
-		<?php echo $currency_symbol_pre.$totaal.$currency_symbol_post; ?><br />
+		<div style="text-align: right;"><strong><?php echo $txt['cart7']; ?></strong> <?php echo $currency_symbol_pre.$totaal.$currency_symbol_post; ?><br />
 		<?php if ($no_vat == 0) { echo "<small>(".$currency_symbol_pre.$totaal_ex.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>"; } ?></div>
 		</td>
 	</tr>
@@ -278,8 +280,9 @@ else {
 <table class="borderless" width="50%">
 	<tr>
 		<td nowrap>
-		<form method="post" action="?page=cart&action=empty"><input
-			type="submit" value="<?php echo $txt['cart8']; ?>"></form>
+		<form method="post" action="?page=cart&action=empty"><input type="submit"
+			value="<?php echo $txt['cart8']; ?>"
+		></form>
 		</td>
 		<td nowrap><?php
 		// if the conditions page is disabled, then we might as well skip it ;)
@@ -309,6 +312,6 @@ else {
 	</tr>
 </table>
 </div>
-		<?php
+<?php
 }
 ?>

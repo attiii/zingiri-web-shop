@@ -75,60 +75,7 @@ function user_error_handler($severity, $msg, $filename="", $linenum=0) {
 	}
 }
 
-function createthumb($name,$filename,$new_w,$new_h){
-	if (file_exists($filename)) { unlink($filename); }
-	$ext = strtolower(substr(strrchr($name, '.'), 1));
-	if ($ext == 'jpg' || $ext == 'jpeg'){
-		$src_img=imagecreatefromjpeg($name);
-	}
-	if ($ext == 'png'){
-		$src_img=imagecreatefrompng($name);
-	}
-	if ($ext == 'gif'){
-		$src_img=imagecreatefromgif($name);
-	}
-	$old_x=imageSX($src_img);
-	$old_y=imageSY($src_img);
-	if ($old_x > $old_y) {
-		$thumb_w=$new_w;
-		$thumb_h=$old_y*($new_h/$old_x);
-	}
-	if ($old_x < $old_y) {
-		$thumb_w=$old_x*($new_w/$old_y);
-		$thumb_h=$new_h;
-	}
-	if ($old_x == $old_y) {
-		$thumb_w=$new_w;
-		$thumb_h=$new_h;
-	}
-	$dst_img=ImageCreateTrueColor($thumb_w,$thumb_h);
-	imagecopyresampled($dst_img,$src_img,0,0,0,0,$thumb_w,$thumb_h,$old_x,$old_y);
-	if ($ext == 'jpg' || $ext == 'jpeg'){
-		imagejpeg($dst_img,$filename);
-	}
-	if ($ext == 'png'){
-		imagepng($dst_img,$filename);
-	}
-	if ($ext == 'gif'){
-		imagegif($dst_img,$filename);
-	}
-	imagedestroy($dst_img);
-	imagedestroy($src_img);
-	chmod($filename,0644); // new file can sometimes have wrong permissions
-}
 
-function createallthumbs($gfx_folder,$thumb_w,$thumb_h) {
-	$pics=directory($gfx_folder,'jpg,JPG,JPEG,jpeg,png,PNG');
-	$pics=ditchtn($pics,'tn_');
-	if ($pics[0]!='')
-	{
-		foreach ($pics as $p)
-		{
-			createthumb($gfx_folder.'/'.$p,$gfx_folder.'/tn_'.$p,$thumb_w,$thumb_h);
-		}
-	}
-
-}
 function directory($dir,$filters) {
 	$handle=opendir($dir);
 	$files=array();
@@ -278,7 +225,7 @@ Function IsAdmin() {
 
 	if ($integrator->isAdmin()) return true;
 	//joomla
-	if (wsIsAdmin()) return true;
+	if (wsCurrentCmsUserIsShopAdmin()) return true;
 
 	if (!isset($_COOKIE['fws_cust'])) { return false; }
 	$fws_cust = explode("-", $_COOKIE['fws_cust']);
@@ -428,22 +375,13 @@ Function StockWarning($stock_warning_level) {
 Function CalculateCart($customerid) {
 	// customer id from cookie
 	Global $dbtablesprefix;
+	$wsFeatures=new wsFeatures();
 	$total=0;
 	$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (CUSTOMERID=".$customerid." AND STATUS=0)";
 	$sql = mysql_query($query) or die(mysql_error());
 	while ($row = mysql_fetch_row($sql)) {
 		$productprice = $row[3]; // the price of a product
-		if (!empty($row[7])) {
-			// features might involve extra costs, but we don't want to show them
-			$features = explode(", ", $row[7]);
-			$counter1 = 0;
-			while (!$features[$counter1] == NULL){
-				$feature = explode("+",$features[$counter1]);
-				$counter1 += 1;
-				if (!empty($feature[1]))
-				$productprice += $feature[1]; // if there are extra costs, let's add them
-			}
-		}
+		$prodprice+=$wsFeatures->calcTotalPrice($row[7]);
 		$subtotal = $productprice * $row[6];
 		$total = $total + $subtotal;
 	}
@@ -577,12 +515,17 @@ function IsBanned() {
 	$ip = GetUserIP();
 
 	// now check both in the banlist
+	$db=new db();
+	$query="select * from `##bannedip` where `ip` in (".qs($ip).",".qs($userip).")";
+	if ($db->select($query)) return true;
+	/*
 	$file = file(dirname(__FILE__).'/../banned.txt');
 	@array_walk($file, 'file_trim');
 	while (list($key, $val) = each($file)) {
 		if ($ip == $val) { return true; }
 		if ($userip == $val) { return true; }
 	}
+	*/
 	return false;
 }
 function isvalid_email_address($email) {
@@ -615,16 +558,16 @@ function isvalid_email_address($email) {
 	}
 	return true;
 }
-function is__writable($path) {
+function wsIsWritable($path) {
 	//will work in despite of Windows ACLs bug
 	//NOTE: use a trailing slash for folders!!!
 	//see http://bugs.php.net/bug.php?id=27609
 	//see http://bugs.php.net/bug.php?id=30931
 
 	if ($path{strlen($path)-1}=='/') // recursively return a temporary file path
-	return is__writable($path.uniqid(mt_rand()).'.tmp');
+	return wsIsWritable($path.uniqid(mt_rand()).'.tmp');
 	else if (is_dir($path))
-	return is__writable($path.'/'.uniqid(mt_rand()).'.tmp');
+	return wsIsWritable($path.'/'.uniqid(mt_rand()).'.tmp');
 	// check tmp file for read/write capabilities
 	$rm = file_exists($path);
 	$f = @fopen($path, 'a');
@@ -781,20 +724,21 @@ if (!function_exists('zurl')) {
 	function zurl($url,$printurl=false) {
 
 		if (ZING_CMS=='wp') {
-			if (is_admin()) $url=str_replace('index.php','admin.php',$url);
+			if (wsIsAdminPage()) $url=str_replace('index.php','admin.php',$url);
 			else {
 				if (strstr($url,ZING_HOME)===false) $url=str_replace('index.php',ZING_HOME.'/index.php',$url);
 			}
 		} elseif (ZING_CMS=='jl') {
 			if ($url=='index.php') $url='index.php?option=com_zingiriwebshop';
-			if (is_admin() && !strstr($url,'option=com_zingiriwebshop')) $url=str_replace('?','?option=com_zingiriwebshop&',$url);
-			if (!is_admin() && !strstr($url,'option=com_zingiriwebshop')) $url=str_replace('?','?option=com_zingiriwebshop&',$url);
+			if (wsIsAdminPage() && !strstr($url,'option=com_zingiriwebshop')) $url=str_replace('?','?option=com_zingiriwebshop&',$url);
+			if (!wsIsAdminPage() && !strstr($url,'option=com_zingiriwebshop')) $url=str_replace('?','?option=com_zingiriwebshop&',$url);
 		} elseif (ZING_CMS=='dp') {
 			if ($url=='index.php') $url='index.php?q=webshop';
-			if (!is_admin() && !strstr($url,'webshop')) $url=str_replace('?','?q=webshop&',$url);
-			if (is_admin()) $url=str_replace("index.php","",$url);
+			if (!wsIsAdminPage() && !strstr($url,'webshop')) $url=str_replace('?','?q=webshop&',$url);
+			if (!wsIsAdminPage() && !strstr($url,'q=webshop')) $url=str_replace('?','?q=webshop&',$url);
+			if (wsIsAdminPage()) $url=str_replace("index.php","",$url);
 		}
-
+		
 		if ($printurl) echo $url;
 		else return $url;
 	}
@@ -845,7 +789,7 @@ function faces_group() {
 	global $customerid;
 
 	$group="";
-	if (wsIsAdmin()) $group='ADMIN';
+	if (wsCurrentCmsUserIsShopAdmin()) $group='ADMIN';
 	elseif (LoggedIn() && $customerid) {
 		$f_query = "SELECT * FROM ".$dbtablesprefix."customer WHERE ID = " . qs($customerid);
 		$f_sql = mysql_query($f_query) or die(mysql_error());
@@ -871,7 +815,7 @@ function getCustomerByLogin($login) {
 	return false;
 }
 
-function printDescription($productid,$description) {
+function printDescription($productid,$description,$shortDescription) {
 	global $max_description,$pricelist_format;
 
 	if ($pricelist_format == 0) { $print_description = $productid; }
@@ -884,6 +828,8 @@ function printDescription($productid,$description) {
 		$print_description = $description[0];
 		$print_description = strip_tags($print_description); //remove html because of danger of broken tags
 	}
+	if ($pricelist_format == 4) { $print_description = strip_tags($shortDescription); }
+	if ($pricelist_format == 5) { $print_description = $productid."<br />".strip_tags($shortDescription); }
 	return $print_description;
 }
 
@@ -892,116 +838,8 @@ function customerId($e='') {
 	return $customerid;
 }
 
-function wsSetting($setting) {
-	$db=new db();
-	if ($db->select("select `".$setting."` from ##settings where `ID`=1")) {
-		$db->next();
-		return $db->get($setting);
-	}
-	return false;
-}
-
 function wsComments($text) {
 	return '<a href=# class=info>(?)<span>'.$text.'</span></a>';
-}
-
-function wsResizeImage($thumb) {
-	global $product_url,$product_dir,$product_max_height,$product_max_width;
-
-	$size = getimagesize(str_replace($product_url,$product_dir,$thumb));
-	$height = $size[1];
-	$width = $size[0];
-	$resized = 0;
-	if ($height > $product_max_height)
-	{
-		$height = $product_max_height;
-		$percent = ($size[1] / $height);
-		$width = round(($size[0] / $percent));
-		$resized = 1;
-	}
-	if ($width > $product_max_width)
-	{
-		$width = $product_max_width;
-		$percent = ($size[0] / $width);
-		$height = round(($size[1] / $percent));
-		$resized = 1;
-	}
-
-	return array('height' => $height,'width' => $width,'resized' => $resized);
-}
-
-function wsDefaultProductImageUrl($picture,$defaultimage) {
-	global $pricelist_thumb_width,$pricelist_thumb_width,$product_dir,$product_url,$gfx_dir,$make_thumbs,$thumbs_in_pricelist;
-
-	$width = "";
-	$height = "";
-	$image_url = "";
-
-	if ($thumbs_in_pricelist) {
-		if (!empty($defaultimage) && thumb_exists($product_dir ."/". $defaultimage)) {
-			$image_url = $product_url."/".$defaultimage;
-		} elseif ($make_thumbs != 1) {
-			if ($pricelist_thumb_width != 0) { $width = " width=\"".$pricelist_thumb_width."\""; }
-			if ($pricelist_thumb_height != 0) { $height = " height=\"".$pricelist_thumb_height."\""; }
-			$i=0;
-			while ($image_url=="" && $i<=99) {
-				if ($i==0) $suffix='';
-				else $suffix='__'.sprintf("%03d",$i);
-				foreach (array('.jpg','.gif','.png') as $ext) {
-					if (thumb_exists($product_dir ."/". $picture . $suffix . $ext)) { $image_url = $product_url."/".$picture.$suffix.$ext; }
-				}
-				$i++;
-			}
-		} else {
-			$i=0;
-			while ($image_url=="" && $i<=99) {
-				if ($i==0) $suffix='';
-				else $suffix='__'.sprintf("%03d",$i);
-				foreach (array('.jpg','.gif','.png') as $ext) {
-					if (thumb_exists($product_dir ."/tn_". $picture . $suffix . $ext)) { $image_url = $product_url."/tn_".$picture.$suffix.$ext; }
-				}
-				$i++;
-			}
-		}
-		if ($image_url == "") {
-			// use a photo icon instead of a thumb
-			$image_url = $gfx_dir."/nopic.gif";
-		}
-	} else {
-		$image_url = $gfx_dir."/photo.gif";
-	}
-	return array($image_url,$height,$width);
-}
-
-function wsProductImage($picture,$default_image) {
-	global $product_dir,$product_url,$make_thumbs,$pricelist_thumb_width,$pricelist_thumb_height,$thumbs_in_pricelist;
-
-	// determine resize of thumbs
-	$width = "";
-	$height = "";
-	if ($pricelist_thumb_width != 0) { $width = " width=\"".$pricelist_thumb_width."\""; }
-	if ($pricelist_thumb_height != 0) { $height = " height=\"".$pricelist_thumb_height."\""; }
-	if (thumb_exists($product_dir ."/". $picture . ".jpg")) { $thumb = $product_url."/".$picture.".jpg"; }
-	if (thumb_exists($product_dir ."/". $picture . ".gif")) { $thumb = $product_url."/".$picture.".gif"; }
-	if (thumb_exists($product_dir ."/". $picture . ".png")) { $thumb = $product_url."/".$picture.".png"; }
-	// if the script uses make_thumbs, then search for thumbs
-	if ($make_thumbs == 1) {
-		if (!empty($default_image) && thumb_exists($product_dir ."/". $default_image)) { $thumb = $product_url."/".$default_image; }
-		elseif (thumb_exists($product_dir ."/tn_". $picture . ".jpg")) { $thumb = $product_url."/tn_".$picture.".jpg"; }
-		elseif (thumb_exists($product_dir ."/tn_". $picture . ".gif")) { $thumb = $product_url."/tn_".$picture.".gif"; }
-		elseif (thumb_exists($product_dir ."/tn_". $picture . ".png")) { $thumb = $product_url."/tn_".$picture.".png"; }
-	}
-
-	if ($thumb == "") {
-		// use a photo icon instead of a thumb
-		$thumb = $gfx_dir."/photo.gif>";
-		$thumb = "";
-	}
-	return $thumb;
-}
-
-function customerTypeIsNotAdmin() {
-	return !IsAdmin();
 }
 
 function AllowAccess($zfaces,$formid="",$action="") {

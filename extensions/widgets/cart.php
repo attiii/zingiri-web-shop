@@ -6,13 +6,13 @@
  */
 class widget_sidebar_cart {
 	
-	function init($args) {
+	function init($args,$displayTitle=true) {
 		global $txt;
 		zing_main("init");
 		if (is_array($args)) extract($args);
 		echo $before_widget;
 		echo $before_title;
-		if (ZING_CMS=='wp') echo $txt['menu2'];
+		if ($displayTitle) echo $txt['menu2'];
 		echo $after_title;
 		echo '<div id="zing-sidebar-cart">';
 		//zing_main("sidebar","cart");
@@ -24,10 +24,11 @@ class widget_sidebar_cart {
 	function display() {
 		require(ZING_GLOBALS);
 		$countCart=CountCart($customerid);
+		$wsFeatures=new wsFeatures();
 		echo "<ul>";
 		echo "<li"; if ($page == "cart") { echo " id=\"active\""; }; echo "><a href=\"".zurl("?page=cart&action=show")."\">".$txt['cart5'].": ".$countCart."<br />";
 		echo $txt['cart7'].": ".$currency_symbol_pre.myNumberFormat(CalculateCart($customerid), $number_format).$currency_symbol_post."</a></li>";
-		if ($countCart > 0 && (ZING_PROTOTYPE || ZING_JQUERY))
+		if ($countCart > 0 && (ZING_JQUERY))
 		{
 			echo '<li id="showcart"><a href="javascript:void(0);">&#x25BE; ('.z_('show').')</a></li>';
 			echo '<li id="hidecart"><a href="javascript:void(0);">&#x25B4; ('.z_('hide').')</a></li>';
@@ -39,16 +40,16 @@ class widget_sidebar_cart {
 			$query = "SELECT * FROM `".$dbtablesprefix."product` where `ID`='" . $row[2] . "'";
 			$sql_details = mysql_query($query) or die(mysql_error());
 			if ($row_details = mysql_fetch_array($sql_details)) {
-				$price=$row['PRICE']+calcFeaturesPrice($row['FEATURES']);
+				$price=$row['PRICE']+$wsFeatures->calcTotalPrice($row['FEATURES']);
 				$cart.='<li>';
-				$cart.='<a style="display:inline" href="'.zurl('?page=details&prod='.$row[2]).'">';
+				$cart.='<a style="display:inline" href="'.zurl('?page=details&prod='.$row[2].'&basketid='.$row[0]).'">';
 				$cart.=substr($row_details['PRODUCTID'],0,20).' ';
 				$cart.='</a>';
 				$cart.='<form style="display:inline" id="cart_update'.$row['ID'].'" method="POST" action="?page=cart&action=update">';
 				$cart.='<input type="hidden" name="prodid" value="'.$row_details[0].'"/>';
 				$cart.='<input type="hidden" name="basketid" value="'.$row[0].'"/>';
 				$cart.='<input type="input" size="2" id="numprod" name="numprod" value="'.$row['QTY'].'" READONLY/> ';
-				if (ZING_PROTOTYPE || ZING_JQUERY) {
+				if (ZING_JQUERY) {
 					$cart.='<a style="display:inline" href="javascript:void(0);" onClick="sidebarcart.updateCart('.$row['ID'].',1);">';
 					$cart.='&#x25B4;';
 					$cart.='</a>';
@@ -58,7 +59,7 @@ class widget_sidebar_cart {
 				}
 				$cart.='</form>';
 				$cart.=' '.$currency_symbol_pre.myNumberFormat($price).$currency_symbol_post.' ';
-				if (ZING_PROTOTYPE || ZING_JQUERY) {
+				if (ZING_JQUERY) {
 					$cart.='<form style="display:inline" id="cart_remove'.$row['ID'].'" method="POST" action="?page=cart&action=update">';
 					$cart.='<input type="hidden" name="prodid" value="'.$row_details[0].'"/>';
 					$cart.='<input type="hidden" name="basketid" value="'.$row[0].'"/>';
@@ -83,17 +84,7 @@ class widget_sidebar_cart {
 			echo '</ul>';
 		}
 
-		if (ZING_PROTOTYPE) {
 			?>
-<script type="text/javascript" language="javascript">
-//<![CDATA[
-	document.observe("dom:loaded", function() {
-          sidebarcart=new wsCart();
-          sidebarcart.contents();
-	});
-//]]>
-</script>
-			<?php } elseif (ZING_JQUERY) {?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
 	jQuery(document).ready(function() {
@@ -102,7 +93,7 @@ class widget_sidebar_cart {
 	});
 	//]]>
 	</script>
-<?php }		
+<?php		
 	}
 }
 $wsWidgets[]=array('class'=>'widget_sidebar_cart','name'=>'Zingiri Web Shop Cart','title'=>'menu2');

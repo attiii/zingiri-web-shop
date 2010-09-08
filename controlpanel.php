@@ -85,7 +85,7 @@ function zing_ws_add_admin() {
 	if ((ZING_CMS=='dp' && strstr($_GET['q'],'admin/webshop')) || (ZING_CMS=='wp' && $_GET['page']=='zingiri-web-shop') || (ZING_CMS=='jl' && $_GET['option'] == "com_zingiriwebshop") ) {
 		if( isset($_REQUEST['sync']) ) {
 			$integrator->sync();
-			if (ZING_CMS=='wp') header("Location: options-general.php?page=zingiri-web-shop&synced=true");
+			if (ZING_CMS=='wp') header("Location: admin.php?page=zingiri-web-shop&synced=true");
 			elseif (ZING_CMS=='jl') header("Location: index?option=com_zingiriwebshop&synced=true");
 			elseif (ZING_CMS=='dp') header("Location: index.php?q=admin/webshop/integration&synced=true");
 			die;
@@ -106,7 +106,7 @@ function zing_ws_add_admin() {
 
 			if (ZING_CMS=="dp") { menu_router_build(TRUE); menu_cache_clear_all(); }
 						
-			if (ZING_CMS=='wp') header("Location: index.php?option=com_zingiriwebshop&page=zingiri-web-shop&installed=true");
+			if (ZING_CMS=='wp') header("Location: admin.php?page=zingiri-web-shop&installed=true");
 			elseif (ZING_CMS=='jl') header("Location: index.php?option=com_zingiriwebshop&installed=true");
 			elseif (ZING_CMS=='dp') header("Location: index.php?q=admin/webshop/integration&installed=true");
 			die;
@@ -120,7 +120,7 @@ function zing_ws_add_admin() {
 
 			if (ZING_CMS=="dp") { $zing_version=''; menu_router_build(TRUE); menu_cache_clear_all(); }
 						
-			if (ZING_CMS=='wp') header("Location: index.php?option=com_zingiriwebshop&page=zingiri-web-shop&uninstalled=true");
+			if (ZING_CMS=='wp') header("Location: admin.php?page=zingiri-web-shop&uninstalled=true");
 			elseif (ZING_CMS=='jl') header("Location: index.php?option=com_zingiriwebshop&uninstalled=true");
 			elseif (ZING_CMS=='dp') header("Location: index.php?q=admin/webshop/integration&uninstalled=true");
 			die;
@@ -175,7 +175,7 @@ function zing_ws_settings() {
 	*/
 	
 	if (ZING_CMS=='wp') echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/controlpanel.js"></script>';
-	//echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/admin.js"></script>';
+
 	//main window
 	echo '<div style="width:80%;float:left;position:relative">';
 	$_GET['page']=str_replace('zingiri-web-shop-','',$_GET['page']);
@@ -244,6 +244,7 @@ function zing_ws_admin() {
 <div class="wrap">
 <h2><?php echo $zing_ws_name; ?></h2>
 	<?php
+	if (ZING_CMS=='dp' || ZING_CMS=="jl") zing_admin_notices();
 	$zing_eaw=zing_check();
 	$zing_errors=$zing_eaw['errors'];
 	$zing_warnings=$zing_eaw['warnings'];

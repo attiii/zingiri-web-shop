@@ -23,14 +23,14 @@ class paymentCode {
 			//common variables
 			$this->returnUrl=$shopurl . '/index.php?page=checkout&status=1&webid='.urlencode($webid).'&gateway='.$gateway;
 			$this->cancelUrl=$shopurl . '/index.php?page=checkout&status=9&webid='.urlencode($webid).'&gateway='.$gateway;
-			@include(ZING_LOC.'extensions/gateways/'.$gateway.'/'.$gateway.'.php');
+			if (!empty($gateway)) @include(ZING_LOC.'extensions/gateways/'.$gateway.'/'.$gateway.'.php');
 			if (class_exists($gateway.'Gateway')) {
 				$gc=$gateway.'Gateway';
 				$g=new $gc($this,$customer);
 				//calculate hash if needed
 				$hash=$g->calcHash();
 				$payment_code = str_replace("%hash%", $hash, $payment_code);
-				$payment_code = str_replace("%dealhash%", $hash, $payment_code); //for backward compatibility
+				$payment_code = str_replace("%idealhash%", $hash, $payment_code); //for backward compatibility
 				// custom replacements
 				$payment_code = $g->replace($payment_code);
 			}
