@@ -12,7 +12,7 @@ if (file_exists(WP_PLUGIN_DIR.'/zingiri-web-shop-pro/pro')) {
 	define("ZING_WS_PRO_URL",'');
 	define('ZING_WS_PRO',false);
 }
-define("ZING_VERSION","1.6.0");
+define("ZING_VERSION","1.6.1");
 @include(dirname(__FILE__)."/source.inc.php");
 @include(dirname(__FILE__)."/fixme.php");
 require(dirname(__FILE__)."/load.php");

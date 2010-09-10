@@ -4,7 +4,7 @@ Donate link: http://www.zingiri.com/
 Tags: ecommerce, e-commerce, paypal, freewebshop, shop, cart, web shop, shopping cart, iDEAL, Google Checkout, Worldpay
 Requires at least: 2.1.7
 Tested up to: 3.0.1
-Stable tag: 1.5.9
+Stable tag: 1.6.1
 
 Zingiri Web Shop is a Wordpress plugin that brings together a great content management system with the fantastic FreeWebShop ecommerce solution.
 
@@ -49,10 +49,11 @@ Before upgrading, make sure you back up your database first!
 == Changelog ==
 
 = 1.6.1 =
-* New: added possibility to toggle between product display as list or as grid
+* Fix: fixed issue with link/grid toggle breaking the html 
 
 = 1.6.0 =
 * New: added option to manage products that are ordered in pairs (for example lenses)
+* New: added possibility to toggle between product display as list or as grid
 * New: display selected product features as part of product details on order confirmation
 * New: display selected product features when viewing previously purchased products
 * New: added option to turn on or off image animation (shake) when ordering a product

@@ -166,6 +166,8 @@ else {
 	echo '<a href="'.wsCurrentPageURL().'&displaytype=list" alt="'.$txt['browse100'].'">'.$txt['browse100'].'</a>';
 	echo ' <a href="'.wsCurrentPageURL().'&displaytype=grid" alt="'.$txt['browse101'].'">'.$txt['browse101'].'</a>';
 	echo '</div>';
+	echo '<div style="position:relative;clear:both"></div>';
+	
 	if ($wsProductDisplayType=='list') {
 		echo '<table width="100%" class="datatable">';
 		echo '<tr>';
