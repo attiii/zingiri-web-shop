@@ -215,9 +215,9 @@ function zing_ws_settings() {
 	
 	require(dirname(__FILE__).'/fws/includes/httpclass.inc.php');
 	$news = new wsNewsRequest('http://www.zingiri.com/news.php?e='.urlencode(isset($current_user->user_email) ? $current_user->user_email : $sales_mail).'&w='.urlencode(ZING_HOME).'&a='.get_option("zing_ws_install").'&v='.urlencode(ZING_VERSION).'&oc='.(string)$row['oc']);
-	if ($news->live() && !$_SESSION['zing']['news']) {
+	if ($news->live() && !$_SESSION['zing_session']['news']) {
 		update_option('zing_ws_news',$news->DownloadToString());
-		$_SESSION['zing']['news']=true;
+		$_SESSION['zing_session']['news']=true;
 	}
 	echo '<h3>Latest news</h3>';
 	echo get_option('zing_ws_news');

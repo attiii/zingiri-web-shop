@@ -234,7 +234,7 @@ else {
 			"`pricelist_orderby` = ".$orderby;
 	    }
 
-	    if ($show == "all") { $query = $query . ", "; }
+	    //if ($show == "all") { $query = $query . ", "; }
 	    
 	    $query.=$wsSettings->query($show);
 	    //echo $query;

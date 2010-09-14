@@ -743,6 +743,4 @@ $txt['template3'] = 'Šablóny';
 //1.5.5 - added
 $txt['productadmin101'] = 'SKU';
 $txt['productadmin102'] = 'Krátky popis';
-
-
 ?>

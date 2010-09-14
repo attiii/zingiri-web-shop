@@ -1,12 +1,13 @@
 <?php
 class wsSettings {
 	var $settings;
-	var $groups=array('editsettings48','editsettings47','editsettings45','editsettings46','wishlist1');
+	//var $groups=array('editsettings48','editsettings47','editsettings45','editsettings46','wishlist1');
+	var $groups=array('editsettings48','editsettings47','editsettings45','editsettings46');
 	var $count;
 
 	function wsSettings() {
 		//wishlist
-		$this->settings[5]['wishlistactive']=array('label'=>'wishlist3',type=>'checkbox');
+		//$this->settings[5]['wishlistactive']=array('label'=>'wishlist3',type=>'checkbox');
 		$this->count=count($this->groups);
 	}
 
