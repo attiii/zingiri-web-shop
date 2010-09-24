@@ -142,7 +142,7 @@ function zing_header()
 {
 	echo '<script type="text/javascript" language="javascript">';
 	echo "var wsURL='".ZING_URL."fws/ajax/';";
-	echo "var wpabspath='".ABSPATH."';";
+	echo "var wpabspath='".str_replace('\\','/',ABSPATH)."';";	
 	echo "var wsAnimateImage='".wsSetting('animateimage')."';";
 	echo "var wsCms='".ZING_CMS."';";
 	echo '</script>';

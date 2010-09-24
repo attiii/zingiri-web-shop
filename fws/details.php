@@ -48,7 +48,7 @@ else {
 			}
 			else { $picture = $row[1]; }
 
-			list($thumb,$height,$width,$resized)=wsDefaultProductImageUrl($picture,$row['DEFAULTIMAGE'],false);
+			list($thumb,$height,$width,$resized)=wsDefaultProductImageUrl($picture,str_replace('tn_','',$row['DEFAULTIMAGE']),false);
 
 			if ($resized == 0) {
 				$screenshot = "<div style=\"height:".$product_max_height."px\"><img id=\"highlight_image\" class=\"borderimg\" src=\"".$thumb."\" ".$height." ".$width." alt=\"\" /></div>"; 
@@ -193,18 +193,15 @@ else {
 	}
 	}
 }
-if (ZING_PROTOTYPE) {
 	?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
-	document.observe("dom:loaded", function() {
+	jQuery(document).ready(function() {
           wsFrontPage=false;
-          cart=new wsCart();
-          cart.order();
+          wsCart.order();
 	});
 //]]>
 </script>
 	<?php
-}
 echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/imagedisplay.jquery.js"></script>';
 ?>

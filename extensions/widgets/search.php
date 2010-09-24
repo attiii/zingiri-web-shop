@@ -32,7 +32,7 @@ class widget_sidebar_search {
 		?>
 		<script type="text/javascript" language="javascript">
 //<![CDATA[
-          search=new wsSearch();
+          wsSearch.init();
 //]]>
 </script>		
 		<?php

@@ -88,8 +88,7 @@ class widget_sidebar_cart {
 <script type="text/javascript" language="javascript">
 //<![CDATA[
 	jQuery(document).ready(function() {
-          sidebarcart=new wsCart();
-          sidebarcart.contents();
+          wsCart.contents();
 	});
 	//]]>
 	</script>

@@ -61,7 +61,9 @@ if (IsAdmin()) {
 	echo '</ul>';
 	echo '</div>';
 	echo '<script type="text/javascript" language="javascript">';
-	echo 'var mydashboard=new dashboard();';
+	echo 'jQuery(document).ready(function() {';
+	echo 'dashboard.initialize();';
+	echo '});';
 	echo '</script>';
 
 }

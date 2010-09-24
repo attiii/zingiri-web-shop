@@ -157,25 +157,6 @@ function zing_ws_settings() {
 	zing_header();
 	zing_apps_player_header_cp();
 
-	/*
-	if (ZING_CMS=='wp') {
-	echo '<div style="height:64px;float">';
-	echo '<center>';
-	foreach ($menus as $id => $menu) {
-		if (!$menu['hide']) {
-			echo '<a href="'.zurl('?page='.$id).'" alt="'.$txt[$menu['label']].'">';
-			echo '<img align="top" class="zing_cp_icon" height="32px" width="32px" id="'.$id.'" src="'.ZING_URL.'fws/templates/default/images/'.$menu['img'].'" alt="'.$txt[$menu['label']].'" />';
-			echo '</a>';
-		}
-	}
-	echo '</center>';
-	echo '<div style="display:none" id="icon_label"></div>';
-	echo '</div>';
-	}
-	*/
-	
-	if (ZING_CMS=='wp') echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/controlpanel.js"></script>';
-
 	//main window
 	echo '<div style="width:80%;float:left;position:relative">';
 	$_GET['page']=str_replace('zingiri-web-shop-','',$_GET['page']);

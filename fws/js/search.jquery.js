@@ -1,4 +1,4 @@
-var wsSearch = Class.create( {
+wsSearch = {
 
 	init : function() {
 		if (jQuery('#searchbar') != null) {
@@ -20,4 +20,4 @@ var wsSearch = Class.create( {
 			});
 		}
 	}
-});
+};

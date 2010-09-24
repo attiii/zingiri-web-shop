@@ -1,4 +1,4 @@
-var dashboard = Class.create({
+dashboard = {
 	
 	initialize : function(name)
 	{
@@ -27,7 +27,7 @@ var dashboard = Class.create({
 				});
 				
 	}
-});
+};
 
 function wsFrontPage(id,checked) {
 	new jQuery.ajax({

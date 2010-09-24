@@ -1,4 +1,4 @@
-var wsCart = Class.create( {
+var wsCart = {
 	
 	init : function() {
 		if (!jQuery.cookie('showcart')) jQuery.cookie('showcart','n',{expires : 1,path : '/'});
@@ -140,4 +140,4 @@ var wsCart = Class.create( {
 		});
 	}
 	
-});
+};

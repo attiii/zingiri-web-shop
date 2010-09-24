@@ -311,8 +311,7 @@ if (!wsIsAdminPage()) {
 //<![CDATA[
 	jQuery(document).ready(function() {
 	    wsFrontPage=false;
-		cart=new wsCart();
-		cart.order();
+		wsCart.order();
 	});
 //]]>
 </script>

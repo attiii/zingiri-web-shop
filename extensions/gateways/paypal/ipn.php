@@ -22,10 +22,13 @@
 ?>
 <?php
 
-include("../../../fws/includes/settings.inc.php");     // database settings
-include("../../../fws/includes/connectdb.inc.php");    // connect to db
-include("../../../fws/includes/subs.inc.php");         // general functions
-include("../../../fws/includes/readsettings.inc.php"); // read shop settigns
+error_reporting(E_ALL & ~E_NOTICE);
+ini_set('display_errors', '1');
+
+include(dirname(__FILE__)."/../../../fws/includes/settings.inc.php");     // database settings
+include(dirname(__FILE__)."/../../../fws/includes/connectdb.inc.php");    // connect to db
+include(dirname(__FILE__)."/../../../fws/includes/subs.inc.php");         // general functions
+include(dirname(__FILE__)."/../../../fws/includes/readsettings.inc.php"); // read shop settigns
 
 user_error_handler("0", "Begin script\n","ipn.php",0);
 /////////////////////////////////////////////////
