@@ -45,12 +45,40 @@ var wsCart = {
 		for (i = 0; i < e.length; i++) {
 			jQuery(e[i]).bind('click', this, function(v) {v.data.addToCart(v); });
 		};
-		var e = jQuery('.addtowishlist');
+		e = jQuery('.addtowishlist');
 		for (i = 0; i < e.length; i++) {
 			jQuery(e[i]).bind('click', this, function(v) {v.data.addToWishlist(v); });
 		};
+		e = jQuery('.wsfeatures input');
+		for (i = 0; i < e.length; i++) {
+			jQuery(e[i]).bind('keyup', this, function(v) {v.data.recalculatePrice(v); });
+		};
+		e = jQuery('.wsfeatures select');
+		for (i = 0; i < e.length; i++) {
+			jQuery(e[i]).bind('change', this, function(v) {v.data.recalculatePrice(v); });
+		};
 	},
 
+	recalculatePrice : function(v) {
+		var e = jQuery(v.target);
+		var form = e.closest('form');
+		var priceIn=form.find('.wspricein');
+		var priceEx=form.find('.wspriceex');
+		data=form.serialize(true);
+		data+='&cms='+wsCms+'&wpabspath='+wpabspath;
+		new jQuery.ajax({
+			url : wsURL + "recalculate_price.php",
+			type : "post",
+			data : data,
+			success : function(request) {
+				//alert(request);
+				a=eval("(" + request + ")");
+				priceIn.attr('innerHTML',a.pricein);
+				priceEx.attr('innerHTML',a.priceex);
+			}
+		});
+	},
+	
 	addToCart : function(v) {
 		var t=this;
 		var e = jQuery(v.target);
@@ -139,5 +167,4 @@ var wsCart = {
 			}
 		});
 	}
-	
 };

@@ -12,9 +12,7 @@ if ($_REQUEST['cms']=='jl') {
 } elseif ($_REQUEST['cms']=='dp') {
 	//all bootstrapping is already done
 } else {
-	//define('ZING_CMS','wp');
 	/** Loads the WordPress Environment */
-	//require(dirname(__FILE__).'/../../../../../wp-blog-header.php');
 	require($_REQUEST['wpabspath'].'wp-blog-header.php');
 	/** Load Zingiri Web Shop */
 	require(dirname(__FILE__).'/../../zing.readcookie.inc.php');

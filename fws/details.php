@@ -123,18 +123,18 @@ else {
 		</div>
 		<br />
 		<?php if ($ordering_enabled) {?>
-		<form id="order" method="POST" action="<?php zurl("?page=cart&action=add",true)?>">
+		<form id="order" method="POST" action="<?php zurl("?page=cart&action=add",true)?>" enctype="multipart/form-data">
 		<div style="text-align: right"><input type="hidden" name="prodid" value="<?php echo $row[0] ?>"> <input
 			type="hidden" name="prodprice" value="<?php echo $row[4] ?>"
 		> <?php
 		if (!$row[4] == 0) {
 			$tax=new wsTax($row[4]);
 			if ($no_vat == 1) {
-				echo "<big><strong>" . $txt['details5'] . ": ". $currency_symbol_pre.$tax->inFtd.$currency_symbol_post."</strong></big>";
+				echo "<big><strong>" . $txt['details5'] . ": ". $currency_symbol_pre.'<span class="wspricein" id="wsprice'.$row[0].'">'.$tax->inFtd.'</span>'.$currency_symbol_post."</strong></big>";
 			}
 			else {
-				echo "<big><strong>" . $txt['details5'] . ": ".$currency_symbol_pre.$tax->inFtd.$currency_symbol_post."</strong></big>";
-				echo "<br /><small>(".$currency_symbol_pre.$tax->exFtd.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>";
+				echo "<big><strong>" . $txt['details5'] . ": ".$currency_symbol_pre.'<span class="wspricein" id="wsprice'.$row[0].'">'.$tax->inFtd.'</span>'.$currency_symbol_post."</strong></big>";
+				echo "<br /><small>(".$currency_symbol_pre.'<span class="wspriceex" id="wsprice'.$row[0].'">'.$tax->exFtd.'</span>'.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>";
 			}
 		}
 

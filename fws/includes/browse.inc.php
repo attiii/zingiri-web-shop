@@ -77,17 +77,17 @@ function wsShowProductRow($row) {
 	if ($ordering_enabled) {
 		$output.= "<td><div style=\"text-align:right;\">";
 		if ($order_from_pricelist) {
-			$output.= '<form id="order'.$row[0].'" method="POST" action="?page=cart&action=add">';
+			$output.= '<form id="order'.$row[0].'" method="POST" action="?page=cart&action=add" enctype="multipart/form-data">';
 			$output.= '<div style="text-align: right"><input type="hidden" id="prodid" name="prodid" value="'.$row[0].'">';
 			$output.= '<input type="hidden" name="prodprice" value="'.$row[4].'">';
 			if (!$row[4] == 0) {
 				$tax=new wsTax($row[4]);
 				if ($no_vat == 1) {
-					$output.= "<big><strong>". $currency_symbol_pre.$tax->inFtd.$currency_symbol_post."</strong></big>";
+					$output.= "<big><strong>". $currency_symbol_pre.'<span class="wspricein" id="wsprice'.$row[0].'">'.$tax->inFtd.'</span>'.$currency_symbol_post."</strong></big>";
 				}
 				else {
-					$output.= "<big><strong>".$currency_symbol_pre.$tax->inFtd.$currency_symbol_post."</strong></big>";
-					$output.= "<br /><small>(".$currency_symbol_pre.$tax->exFtd.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>";
+					$output.= "<big><strong>".$currency_symbol_pre.'<span class="wspricein" id="wsprice'.$row[0].'">'.$tax->inFtd.'</span>'.$currency_symbol_post."</strong></big>";
+					$output.= "<br /><small>(".$currency_symbol_pre.'<span class="wspriceex" id="wsprice'.$row[0].'">'.$tax->exFtd.'</span>'.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>";
 				}
 
 				// product features

@@ -78,12 +78,12 @@ if ($action=="add") {
 	}
 	if (!$error) {
 		// product features
-		$query = sprintf("SELECT `FEATURES`,`PRICE` FROM `".$dbtablesprefix."product` WHERE `ID` = %s", quote_smart($prodid));
+		$query = sprintf("SELECT * FROM `".$dbtablesprefix."product` WHERE `ID` = %s", quote_smart($prodid));
 		$sql = mysql_query($query) or die(mysql_error());
 		$row = mysql_fetch_array($sql);
 
-		$prodprice = $row['PRICE'];
-		$allfeatures = $row[0];
+		$prodprice = 0;
+		$allfeatures = $row['FEATURES'];
 		$productfeatures = "";
 		$uniqueSet=isset($_POST['featuresuniqueset']) ? $_POST['featuresuniqueset'] : CreateRandomCode(10).time();
 
@@ -91,15 +91,19 @@ if ($action=="add") {
 			//features
 			$wsFeatures=new wsFeatures($allfeatures,$row['FEATURESHEADER']);
 
-			//full update or quantity only
-			$wsFeatures->calcPrice($i);
+			//verify features
+			//$wsFeatures->prepare($i);
+			
+			//calculate price
+			$wsFeatures->calcPrice($i,$row['PRICE'],$row['PRICE_FORMULA_TYPE'],$row['PRICE_FORMULA_RULE']);
+			
 			$productfeatures=$wsFeatures->featureString;
 			$prodprice+=$wsFeatures->price;
 			$qty=isset($numprod[$i]) ? $numprod[$i] : 1;
 
 			if (isset($basketid[$i])) {
 				if ($numprod==0) $query = "DELETE FROM `".$dbtablesprefix."basket` WHERE `ID` = ".qs($basketid[$i])." AND `CUSTOMERID` = ".qs($customerid);
-				else $query = "UPDATE `".$dbtablesprefix."basket` SET `QTY` = ".qs($qty).",`FEATURES`=".qs($productfeatures)." WHERE `ID` = ".qs($basketid[$i])." AND `CUSTOMERID` = ".qs($customerid)." AND STATUS = 0";
+				else $query = "UPDATE `".$dbtablesprefix."basket` SET `QTY` = ".qs($qty).",`FEATURES`=".qs($productfeatures).",`PRICE`=".qs($prodprice)." WHERE `ID` = ".qs($basketid[$i])." AND `CUSTOMERID` = ".qs($customerid)." AND STATUS = 0";
 			} else {
 				$query="SELECT `ID` FROM `".$dbtablesprefix."basket` WHERE `CUSTOMERID`=".qs($customerid)." AND `STATUS`=0 AND `PRODUCTID`=".qs($prodid)." AND `FEATURES`=".qs($productfeatures);
 				$sql = mysql_query($query) or zfdbexit($query);
@@ -181,34 +185,6 @@ else {
 				list($image_url,$height,$width)=wsDefaultProductImageUrl($picture,$row['DEFAULTIMAGE']);
 				$thumb = "<img class=\"imgleft\" src=\"".$image_url."\"".$width.$height." alt=\"\" />";
 				
-				// determine resize of thumbs
-				/*
-				$width = "";
-				$height = "";
-				$picturelink = "";
-				$thumb = "";
-					
-				if ($pricelist_thumb_width != 0) { $width = " width=\"".$pricelist_thumb_width."\""; }
-				if ($pricelist_thumb_height != 0) { $height = " height=\"".$pricelist_thumb_height."\""; }
-
-				if (thumb_exists($product_dir ."/". $picture . ".jpg")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/".$picture.".jpg\"".$width.$height." alt=\"\" />"; }
-				if (thumb_exists($product_dir ."/". $picture . ".gif")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/".$picture.".gif\"".$width.$height." alt=\"\" />"; }
-				if (thumb_exists($product_dir ."/". $picture . ".png")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/".$picture.".png\"".$width.$height." alt=\"\" />"; }
-
-				// if the script uses make_thumbs, then search for thumbs
-				if ($make_thumbs == 1) {
-					if (!empty($row_details['DEFAULTIMAGE']) && thumb_exists($product_dir ."/". $row_details['DEFAULTIMAGE'])) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/".$row_details['DEFAULTIMAGE']."\" alt=\"\" />"; }
-					elseif (thumb_exists($product_dir ."/tn_". $picture . ".jpg")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/tn_".$picture.".jpg\" alt=\"\" />"; }
-					elseif (thumb_exists($product_dir ."/tn_". $picture . ".gif")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/tn_".$picture.".gif\" alt=\"\" />"; }
-					elseif (thumb_exists($product_dir ."/tn_". $picture . ".png")) { $thumb = "<img class=\"imgleft\" src=\"".$product_url."/tn_".$picture.".png\" alt=\"\" />"; }
-				}
-					
-				if ($thumb != "" && $thumbs_in_pricelist == 0) {
-					// use a photo icon instead of a thumb
-					$picturelink = "<a href=\"".$product_dir."/".$picture.".jpg\"><img src=".$gfx_dir."/photo.gif></a>";
-					$thumb = "";
-				}
-				*/
 			}
 
 			// make up the description to print according to the pricelist_format and max_description
@@ -221,7 +197,8 @@ else {
 		$productprice = $row[3]; // the price of a product
 		if (!empty($row[7])) {
 			$wsFeatures=new wsFeatures($row[7],$row['FEATURESHEADER']);
-			$printvalue = $wsFeatures->toString($row[7]);   // features
+//			$wsFeatures->setDefinition($row_details['FEATURES']);
+			$printvalue = $wsFeatures->toString();   // features
 		}
 		if (!$printvalue == "") { echo "<br />(".$printvalue.")"; }
 		?></td>

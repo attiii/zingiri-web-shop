@@ -80,6 +80,9 @@ if (!defined("ZING_HOME")) {
 if (!defined("ZING_UPLOADS_URL")) {
 	define("ZING_UPLOADS_URL", BLOGUPLOADURL . "zingiri-web-shop/");
 }
+if (!defined("ZING_UPLOADS_DIR")) {
+	define("ZING_UPLOADS_DIR", BLOGUPLOADDIR . "zingiri-web-shop/");
+}
 
 if (function_exists("qtrans_getLanguage")) {
 	session_start();

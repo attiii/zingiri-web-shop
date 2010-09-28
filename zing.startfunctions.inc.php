@@ -22,6 +22,9 @@
 ?>
 <?php
 include (ZING_DIR."./includes/index.php");         // general functions
-include (ZING_DIR."./classes/index.php");         // general functions
+require(ZING_DIR."./classes/index.php");         // general classes
+if (get_option('zing_webshop_pro')) {
+	require_once(get_option('zing_webshop_pro_dir')."classes/index.php");         // general classes
+}
 include (ZING_LOC."./zing.subs.readcookie.inc.php");  // cookie functions
 ?>

@@ -25,6 +25,6 @@ if (!class_exists('zing')) {
 
 if (!isset($zing)) {
 	$zing=new zing();
-	$zing->paths[]=dirname(__FILE__).'/fws/';
 }
+$zing->paths[]=dirname(__FILE__).'/fws/';
 ?>

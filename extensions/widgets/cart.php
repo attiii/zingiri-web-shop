@@ -40,7 +40,7 @@ class widget_sidebar_cart {
 			$query = "SELECT * FROM `".$dbtablesprefix."product` where `ID`='" . $row[2] . "'";
 			$sql_details = mysql_query($query) or die(mysql_error());
 			if ($row_details = mysql_fetch_array($sql_details)) {
-				$price=$row['PRICE']+$wsFeatures->calcTotalPrice($row['FEATURES']);
+				$price=$row['PRICE']; //+$wsFeatures->calcTotalPrice($row['FEATURES']);
 				$cart.='<li>';
 				$cart.='<a style="display:inline" href="'.zurl('?page=details&prod='.$row[2].'&basketid='.$row[0]).'">';
 				$cart.=substr($row_details['PRODUCTID'],0,20).' ';

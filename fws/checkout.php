@@ -184,8 +184,10 @@ if (LoggedIn() == True) {
 					// make up the description to print according to the pricelist_format and max_description
 					$print_description=printDescription($row_details[1],$row_details[3],$row_details['EXCERPT']);
 					if (!empty($row[7])) {
-						$wsFeatures=new wsFeatures(); 
-						$print_description .= "<br />".$wsFeatures->toString($row[7]); 
+						$wsFeatures=new wsFeatures($row[7]); 
+						$wsFeatures->setDefinition($row_details['FEATURES']);
+						$print_description .= "<br />".$wsFeatures->toString(); 
+						$wsFeatures->prepare();
 					} // product features
 					$total_add = $product_price * $row[6];
 					$message .= "<tr><td>".$row[6].$txt['checkout4']."</td><td>".$print_description."<br />".$currency_symbol_pre.myNumberFormat($product_price,$number_format).$currency_symbol_post.$txt['checkout5']."</td><td style=\"text-align: right\">".$currency_symbol_pre.myNumberFormat($total_add,$number_format).$currency_symbol_post."</tr>";

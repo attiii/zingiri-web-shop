@@ -66,7 +66,8 @@ else {
 			<?php
 			$productprice = $row[3]; // the price of a product
 			if ($row[7]) {
-				$wsFeatures=new wsFeatures();
+				$wsFeatures=new wsFeatures($row[7]);
+				$wsFeatures->setDefinition($row_details['FEATURES']);
 				echo "<br />(".$wsFeatures->toString($row[7]).")";
 			}
 			?></td>

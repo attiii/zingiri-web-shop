@@ -381,7 +381,7 @@ Function CalculateCart($customerid) {
 	$sql = mysql_query($query) or die(mysql_error());
 	while ($row = mysql_fetch_row($sql)) {
 		$productprice = $row[3]; // the price of a product
-		$prodprice+=$wsFeatures->calcTotalPrice($row[7]);
+		//$prodprice+=$wsFeatures->calcTotalPrice($row[7]);
 		$subtotal = $productprice * $row[6];
 		$total = $total + $subtotal;
 	}

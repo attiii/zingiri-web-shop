@@ -1,7 +1,7 @@
 <?php
 //uploadadmin.php
 
-class wsFeatures {
+class wsFeaturesCore {
 	var $features=array();
 	var $headers;
 	var $setid;
@@ -9,23 +9,21 @@ class wsFeatures {
 	var $prefil=array();
 	var $tableClass='borderless';
 	var $productid=0;
+	var $formulaRule;
+	var $formulaType;
+	var $index;
+	var $basePrice;
+	var $productFeatures;
+	var $featureString;
+	var $definition;
 
-	function wsFeatures($features=array(),$header='',$productid=0) {
+	function wsFeaturesCore($features=array(),$header='',$productid=0) {
 		if (count($features)>0) $this->setFeatures($features,$header);
 		$this->productid=$productid;
 	}
 
 	function setFeatures($features,$header='') {
 		$this->features=$features;
-		/*
-		 if (substr($features,0,1)=='&') {
-			$tmp1=explode('|',$features);
-			$tmp2=explode(':',$tmp1[0]);
-			$tmp3=explode(',',$tmp2[1]);
-			$this->sets=count($tmp3);
-			$this->tableClass='wsfeaturestable';
-			}
-			*/
 		if ($header) {
 			$this->headers=explode(',',$header);
 			$this->sets=count($this->headers);
@@ -39,33 +37,82 @@ class wsFeatures {
 		$this->productid=$productid;
 	}
 
-	function calcPrice($index=0) {
+	function setDefinition($definition) {
+		$this->definition=$definition;
+	}
+
+	function prepare($index) {
+	}
+
+	function calcPrice($index=0,$price,$formulaType='',$formulaRule='') {
+		$this->formulaType=$formulaType;
+		$this->formulaRule=$formulaRule;
+		$this->index=$index;
+		$this->basePrice=$price;
 		$prodprice=0;
 		$productfeatures='';
-
-		if (!empty($this->features)) {
-			$features = explode("|", $this->features);
-			$counter1 = 0;
-			while (!$features[$counter1] == NULL){
-				$feature = explode(":", $features[$counter1]);
-				$counter1 += 1;
-				if (!empty($_POST["$feature[0]"][$index])) {
-					$detail = explode("+", $_POST["$feature[0]"][$index]);
-					$productfeatures .= $feature[0].": ".$detail[0];
-					$prodprice += $detail[1];
-				}
-				if (!empty($features[$counter1])) {
-					$productfeatures .= ", ";
+		if ($formulaType=='custom' && !empty($formulaRule) && method_exists($this,'calcFormula')) {
+			$prodprice=$this->calcFormula();
+			/*
+			 $wsPriceFormula=new wsPriceFormula($index,$this->features,$price,$formulaType,$formulaRule);
+			 $prodprice=$wsPriceFormula->calc();
+			 */
+			$productfeatures=$this->featureString;
+		} else {
+			$prodprice=$price;
+			if (!empty($this->features)) {
+				$features = explode("|", $this->features);
+				$counter1 = 0;
+				while (!$features[$counter1] == NULL){
+					$feature = explode(":", $features[$counter1]);
+					$counter1 += 1;
+					if (!empty($_POST["wsfeature".$counter1][$index])) {
+						$detail = explode("+", $_POST["wsfeature".$counter1][$index]);
+						$productfeatures .= $feature[0].": ".$detail[0];
+						$prodprice += $detail[1];
+					}
+					if (!empty($features[$counter1])) {
+						$productfeatures .= ", ";
+					}
 				}
 			}
 		}
 		$this->price=$prodprice;
 		$this->featureString=$productfeatures;
+		return $prodprice;
 	}
 
-	function toString($features) {
-		if (substr($features,0,1)=='&') return substr($features,1);
-		return $features;
+	function toString($features='') {
+		if ($features) {
+			if (substr($features,0,1)=='&') return substr($features,1);
+			$this->features=$features;
+		}
+
+		if (!empty($this->features) && !empty($this->definition)) {
+			$productfeatures='';
+			$features = explode(",", $this->features);
+			//echo '<br />val=';print_r($features);
+			$definitions = explode("|", $this->definition);
+			//echo '<br />def=';print_r($definitions);
+			$counter1 = 0;
+			while (isset($features[$counter1])){
+				$feature = explode(":", $features[$counter1]);
+				$definition = explode(":", $definitions[$counter1]);
+				//echo '<br />';print_r($feature);
+				//echo '<br />';print_r($definition);
+				$counter1 += 1;
+				if ($definition[1]=='file' && trim($feature[1])) {
+					$productfeatures .= $definition[0].': <a href="'.ZING_UPLOADS_URL.'orders/'.trim($feature[1]).'">'.trim($feature[1]).'</a>';
+				} else {
+					$productfeatures .= $definition[0].":".$feature[1];
+				}
+				if (!empty($features[$counter1])) {
+					$productfeatures .= ", ";
+				}
+				$i++;
+			}
+			return $productfeatures;
+		} else return $this->features;
 	}
 
 	function displayFeatures($display=true) {
@@ -74,8 +121,6 @@ class wsFeatures {
 		$db=new db();
 		$qty=$this->sets;
 		$r=0;
-		//echo $this->features;
-		//print_r($this->headers);
 		if (count($this->headers) > 0) {
 			$output.= '<tr><th></th>';
 			foreach ($this->headers as $header) {
@@ -93,10 +138,12 @@ class wsFeatures {
 				$output.= '<td>'.$feature[0].": </td>";
 				for ($i=0;$i<$qty;$i++) {
 					$output.= "<td>";
-					if (!isset($feature[1])){
-						$output.= "<input type=\"text\" name=\"".$feature[0]."[]\" value=\"".$this->prefil[$i]['features'][$r]."\" > ";
+					if (isset($feature[1]) && $feature[1]=='file'){
+						$output.=$this->outputFile($counter1,$i,$r);
+					} elseif (!isset($feature[1])){
+						$output.= '<input type="text" name="wsfeature'.$counter1.'[]" value="'.$this->prefil[$i]['features'][$r].'" > ';
 					} else {
-						$output.= '<select name="'.$feature[0].'[]">';
+						$output.= '<select name="wsfeature'.$counter1.'[]">';
 						if ($feature[1]=='?') {
 							$counter2 = 0;
 							$field="features_f".sprintf('%02d',$r+1);
@@ -186,25 +233,9 @@ class wsFeatures {
 		}
 		$this->prefil=$prefil;
 	}
+}
 
-	function calcTotalPrice($allfeatures) {
-		$prodprice=0;
-		return $prodprice;
-		//not useful since the cart stores the price including the features
-
-		if (empty($allfeatures)) $allfeatures=$this->features;
-		if (!empty($allfeatures)) {
-			$features = explode("|", $allfeatures);
-			$counter1 = 0;
-			while (!$features[$counter1] == NULL){
-				$feature = explode(":", $features[$counter1]);
-				$counter1 += 1;
-				if (!empty($_POST["$feature[0]"])) {
-					$detail = explode("+", $_POST["$feature[0]"]);
-					$prodprice += $detail[1];
-				}
-			}
-		}
-		return $prodprice;
+if (!get_option('zing_webshop_pro')) {
+	class wsFeatures extends wsFeaturesCore {
 	}
 }
