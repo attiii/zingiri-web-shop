@@ -7,7 +7,7 @@ if (!get_option('zing_webshop_pro')) {
 	define("ZING_WS_PRO_URL",'');
 	define('ZING_WS_PRO',false);
 }
-define("ZING_VERSION","1.6.4");
+define("ZING_VERSION","1.6.5");
 @include(dirname(__FILE__)."/source.inc.php");
 @include(dirname(__FILE__)."/fixme.php");
 require(dirname(__FILE__)."/load.php");

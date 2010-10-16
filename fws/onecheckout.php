@@ -60,7 +60,7 @@ if (loggedin()) {
 	$today = getdate();
 	$error = 0; // no errors found
 	if ($action=="delete"){
-		$query = "DELETE FROM `".$dbtablesprefix."basket` WHERE `CUSTOMERID` = '". $customerid."' AND `STATUS` = '0' AND  `ID` = '". $basketid."'";
+		$query = "DELETE FROM `".$dbtablesprefix."basket` WHERE `CUSTOMERID` = '". wsCid()."' AND `STATUS` = '0' AND  `ID` = '". $basketid."'";
 		$sql = mysql_query($query) or die(mysql_error());
 	} elseif ($action=="update"){
 		
@@ -76,7 +76,7 @@ if (loggedin()) {
 			}
 		}
 		if ($error == 0) {
-			$query = "UPDATE `".$dbtablesprefix."basket` SET `QTY` = ".$numprod." WHERE `CUSTOMERID` = '". $customerid."' AND `STATUS` = '0' AND  `ID` = '". $basketid."'";
+			$query = "UPDATE `".$dbtablesprefix."basket` SET `QTY` = ".$numprod." WHERE `CUSTOMERID` = '". wsCid()."' AND `STATUS` = '0' AND  `ID` = '". $basketid."'";
 			$sql = mysql_query($query) or die(mysql_error());
 		}
 	}
@@ -84,7 +84,7 @@ if (loggedin()) {
 	CheckoutShowProgress();
 
 	//shipping start
-		$cart_weight = WeighCart($customerid);
+		$cart_weight = WeighCart(wsCid());
 		//check if combined shipping and weight is applicable
 		if ($shippingid && $weightid) {
 			$weight_query = "SELECT * FROM `".$dbtablesprefix."shipping_weight` WHERE '".$cart_weight."' >= `FROM` AND '".$cart_weight."' <= `TO` AND `SHIPPINGID` = '".$shippingid."'";
@@ -153,9 +153,9 @@ if (loggedin()) {
 	</tr>
 	<tr>
 	<?php
-	if (WeighCart($customerid) > 0) {
+	if (WeighCart(wsCid()) > 0) {
 		echo '<td colspan="4">'.$txt['customer21'].'</td></tr><tr>';
-		$address=new wsAddress($customerid);
+		$address=new wsAddress(wsCid());
 		$addresses=$address->getAddresses();
 		$i=0;
 		$first=true;
@@ -188,6 +188,7 @@ if (loggedin()) {
 	?>
 	</tr>
 </table>
+<?php if (ActiveDiscounts()) {?>
 <table>
 	<tr>
 		<td><?php echo $txt['shipping5']?> <input type="text" id="discount_code" name="discount_code"
@@ -198,11 +199,12 @@ if (loggedin()) {
 		/></td>
 	</tr>
 </table>
+<?php }?>
 	<?php //}
 
 	//shipping end
 	// read basket
-	$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (`CUSTOMERID` = ".$customerid." AND `STATUS` = 0) ORDER BY ID";
+	$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (`CUSTOMERID` = ".wsCid()." AND `STATUS` = 0) ORDER BY ID";
 	$sql = mysql_query($query) or zfdbexit($query);
 	$count = mysql_num_rows($sql);
 
@@ -365,7 +367,7 @@ if (loggedin()) {
 <br />
 <br />
 <input type="hidden" name="onecheckout" value="1" /> <input type="checkbox" name="conditions"
-<?php if ($conditions) echo 'checked="yes"'?>
+<?php if (IsAdmin() || $conditions) echo 'checked="yes"'?>
 /> <a href="<?php zurl('index.php?page=conditions&action=show',true)?>"><?php echo $txt['conditions1'];?></a><br />
 <div style="text-align: center;"><input type=submit name=pay value="<?php echo $txt['cart9'] ?>"></div>
 </form>

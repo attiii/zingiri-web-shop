@@ -38,15 +38,6 @@ function zing_set_options() {
 			"options" => array("Zingiri"));
 	}
 
-	/*
-	$zing_ws_options[]=	array(	"name" => "Javascript library",
-			"desc" => "Select the javascript library you want to activate.<br />Our plugin fully supports Prototype and jQuery. If your theme uses either of these it is best to select the same.<br />If your theme uses another one, try first with the jQuery library.",
-			"id" => $zing_ws_shortname."_effects",
-			"std" => "jQuery",
-			"type" => "select",
-			"options" => array("jQuery","Prototype"));
-	*/
-
 	if ($ids=get_option("zing_webshop_pages")) {
 		$ida=explode(",",$ids);
 		foreach ($ida as $i) {
@@ -82,7 +73,7 @@ function zing_ws_add_admin() {
 	if ($zing_version) require(dirname(__FILE__).'/startmodules.inc.php');
 	
 	zing_set_options();
-	if ((ZING_CMS=='dp' && strstr($_GET['q'],'admin/webshop')) || (ZING_CMS=='wp' && $_GET['page']=='zingiri-web-shop') || (ZING_CMS=='jl' && $_GET['option'] == "com_zingiriwebshop") ) {
+	if ((ZING_CMS=='dp' && strstr($_GET['q'],'admin/webshop')) || (ZING_CMS=='wp' && $_GET['page']=='zingiri-web-shop') || (ZING_CMS=='jl' && $_REQUEST['option'] == "com_zingiriwebshop") ) {
 		if( isset($_REQUEST['sync']) ) {
 			$integrator->sync();
 			if (ZING_CMS=='wp') header("Location: admin.php?page=zingiri-web-shop&synced=true");
@@ -131,21 +122,7 @@ function zing_ws_add_admin() {
 	if (ZING_CMS=='wp') {
 		zing_ws_admin_menus();
 	} elseif (ZING_CMS=='jl') {
-		JSubMenuHelper::addEntry(JText::_('Integration'), 'index.php?option=com_zingiriwebshop', true );
-		if ($zing_version) {
-			//JSubMenuHelper::addEntry(JText::_('Administration'), 'index.php?option=com_zingiriwebshop&page=dashboard', true );
-			
-			foreach ($menus as $page => $menu) {
-				if (!$menu['hide']) {
-					JSubMenuHelper::addEntry($txt[$menu['label']], 'index.php?option=com_zingiriwebshop&page='.$page, true );				//add_submenu_page('zingiri-web-shop', $txt[$menu['label']], $txt[$menu['label']], 'administrator', $page, 'zing_ws_settings');
-				}
-			}
-			if ($menus[$_GET['page']] && $menus[$_GET['page']]['hide']) {
-				$menu=$menus[$_GET['page']];
-				JSubMenuHelper::addEntry($txt[$menu['label']], 'index.php?option=com_zingiriwebshop&page='.$_GET['page'], true );
-			}
-			
-		}
+		//zing_ws_admin_menus();
 	}
 
 }
@@ -178,10 +155,10 @@ function zing_ws_settings() {
 		require(dirname(__FILE__).'/fws/includes/pages.inc.php');
 		echo '<h1>'.$txt[$wsPages[$page]].'</h1>';
 	}
+	
 	zing_main('content');
 	if ((isset($menus[$page]['type']) && $menus[$page]['type']=="apps") || ZING_CMS!='wp') {
 		echo '<link rel="stylesheet" type="text/css" href="'.ZING_APPS_PLAYER_URL.'css/integrated_view.css" />';
-		
 		zing_apps_player_content('content');
 	}
 	echo '</div>';
@@ -197,11 +174,13 @@ function zing_ws_settings() {
 	require(dirname(__FILE__).'/fws/includes/httpclass.inc.php');
 	$news = new wsNewsRequest('http://www.zingiri.com/news.php?e='.urlencode(isset($current_user->user_email) ? $current_user->user_email : $sales_mail).'&w='.urlencode(ZING_HOME).'&a='.get_option("zing_ws_install").'&v='.urlencode(ZING_VERSION).'&oc='.(string)$row['oc']);
 	if ($news->live() && !$_SESSION['zing_session']['news']) {
-		update_option('zing_ws_news',$news->DownloadToString());
+		if (ZING_CMS=='jl') update_option('zing_ws_news',urlencode($news->DownloadToString()));
+		else update_option('zing_ws_news',$news->DownloadToString());
 		$_SESSION['zing_session']['news']=true;
 	}
 	echo '<h3>Latest news</h3>';
-	echo get_option('zing_ws_news');
+	if (ZING_CMS=='jl') echo urldecode(get_option('zing_ws_news'));
+	else echo get_option('zing_ws_news');
 
 	echo '</div>';
 
@@ -247,7 +226,7 @@ function zing_ws_admin() {
 
 	?>
 <form method="post">
-
+<?php if (ZING_CMS=='jl') echo '<input type="hidden" name="option" value="com_zingiriwebshop" />';?>
 <table class="optiontable">
 
 <?php if ($zing_ws_options) foreach ($zing_ws_options as $value) {

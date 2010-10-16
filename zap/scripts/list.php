@@ -44,16 +44,11 @@ $stack=new zfStack('list',$formname,$search);
 
 if (is_admin()) echo '<p class="zfaces-form-label">'.z_($zflist->label).'</p>';
 $map=$zflist->filter($map);
-
-//if (!AllowAccess('list',$formid,$action)) return false;
 if (!$zflist->allowAccess()) {
 	echo $zflist->errorMessage;
 	return false;
 }
-
 if (file_exists(ZING_APPS_CUSTOM.'apps.'.$formname.'.php')) require(ZING_APPS_CUSTOM.'apps.'.$formname.'.php');
-
-
 //search fields
 echo '<form name="faces" method="POST" action="?page='.$page.'&zfaces=list&form='.$formname.'&action=search';
 echo '&zft=form&zfp='.$formid.'">';

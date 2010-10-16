@@ -650,6 +650,7 @@ $txt['apps1'] = 'Opslaan';
 $txt['apps2'] = 'Verwijderen';
 $txt['apps3'] = 'Terug';
 
-
-
+//1.6.5 - added
+$txt['general104'] = 'Type';
+$txt['general105'] = 'Definitie';
 ?>

@@ -252,7 +252,7 @@ $txt['admin6'] = 'Categories';
 $txt['admin7'] = 'Optimize database';
 $txt['admin8'] = 'Settings';
 $txt['admin10'] = 'Optimizing all database tables..';
-$txt['admin11'] = 'Optimzing';
+$txt['admin11'] = 'Optimizing';
 $txt['admin12'] = 'Optimization completed!';
 $txt['admin13'] = 'Info and support';
 $txt['admin14'] = 'Check for updates';
@@ -757,4 +757,11 @@ $txt['wishlist3'] = 'Activate wishlist';
 $txt['wishlist4'] = 'Your wishlist is empty.';
 $txt['browse100'] = 'List';
 $txt['browse101'] = 'Grid';
+
+//1.6.5 - added
+$txt['general104'] = 'Type';
+$txt['general105'] = 'Definition';
+$txt['editsettings115'] = 'Close basket and submit';
+$txt['editsettings116'] = 'Submit but leave basket open';
+$txt['db_status0'] = 'Order in progress';
 ?>

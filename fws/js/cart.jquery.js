@@ -66,13 +66,21 @@ var wsCart = {
 		var priceEx=form.find('.wspriceex');
 		data=form.serialize(true);
 		data+='&cms='+wsCms+'&wpabspath='+wpabspath;
+		data+='&wsfeature='+e.attr('name').replace('[]','');
 		new jQuery.ajax({
 			url : wsURL + "recalculate_price.php",
 			type : "post",
 			data : data,
 			success : function(request) {
-				//alert(request);
 				a=eval("(" + request + ")");
+				f=form.find('.wsfeature');
+				for (i = 0; i < f.length; i++) {
+					n=jQuery(f[i]).attr('name').replace('[]','');
+					v=a.post[eval("'"+n+"'")][0];
+//					alert(n+'='+i+'='+a.post[eval("'"+n+"'")][0]);
+					jQuery(f[i]).attr('value',v);
+					//alert(i);
+				}
 				priceIn.attr('innerHTML',a.pricein);
 				priceEx.attr('innerHTML',a.priceex);
 			}
@@ -128,7 +136,7 @@ var wsCart = {
 			type : "post",
 			data : {
 				'wpabspath' : wpabspath,
-				'cms' : wsCms,
+				'cms' : wsCms
 			},
 			success : function(request) {
 				tag.html(request);

@@ -5,6 +5,10 @@
 * Added new rule allowing to check values of a constant
 * Fixed issue with select drop down not working on some configurations
 * Fixed issue with error log filling very quickly
+* Removed bullet image styling from forms
+* Cleaned up display in access class
+* Fixed issue with function faces_directory looping in case directory variable doesn't exist
+* Removed pause before redirect after form update
 
 = 0.9.5 = 
 * Compatibility with Wordpress 3.0.1

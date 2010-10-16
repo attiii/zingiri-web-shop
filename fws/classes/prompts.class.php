@@ -83,12 +83,14 @@ class zingPrompts {
 	}
 
 	function convertLangFile($lang) {
+		global $zing;
 		$db=new db();
 
 		foreach ($this->vars as $var) {
 			$$var='$'.$var;
 		}
 		require(ZING_DIR.'langs/'.$lang.'/lang.txt');
+		foreach ($zing->paths as $wsPath) if (file_exists($wsPath.'langs/'.$lang.'/lang.php')) include($wsPath.'langs/'.$lang.'/lang.php'); 
 		foreach ($txt as $label => $text) {
 			if ($row=$db->readRecord('prompt',array('lang' => $lang,'label' => $label))) {
 				if ($row['STANDARD'] != $text) {
@@ -162,12 +164,14 @@ class zingPrompts {
 
 
 	function loadOldLangFile($lang='') {
+		global $zing;
 		if (empty($lang)) $lang=$this->lang;
 		$txt=array();
 		foreach ($this->vars as $var) {
 			$$var='$'.$var;
 		}
 		require(ZING_DIR.'langs/'.$lang.'/lang.txt');
+		foreach ($zing->paths as $wsPath) if (file_exists($wsPath.'langs/'.$lang.'/lang.php')) include($wsPath.'langs/'.$lang.'/lang.php'); 
 		return $txt;
 	}
 

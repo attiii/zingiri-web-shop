@@ -140,7 +140,7 @@ else {
 
 		// product features
 		$allfeatures = $row[8];
-		$wsFeatures->setFeatures($allfeatures,$row['FEATURESHEADER']);
+		$wsFeatures->setFeatures($allfeatures,$row['FEATURESHEADER'],$row['FEATURES_SET']);
 		$wsFeatures->setProduct($row[0]);
 		echo '<input type="hidden" name="featuresets" value="'.$wsFeatures->sets.'" />';
 		if ($wsFeatures->set) echo '<input type="hidden" name="featuresuniqueset" value="'.$wsFeatures->setid.'" />';

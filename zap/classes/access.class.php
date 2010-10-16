@@ -19,13 +19,11 @@ class zfAccess {
 		if (function_exists('faces_group')) $role=faces_group();
 		elseif (!function_exists('faces_group') && ZING_CMS=='wp' && current_user_can('edit_plugins')) $role="ADMIN";
 		else $role="GUEST";
-		
 		$roles=new db();
 		$query="select * from ##frole where name=".zfqs($role);
 		if ($roles->select($query)) {
 			$roles->next();
 			$roleid=$roles->get('id');
-
 			switch ($this->type)
 			{
 				case "form":
@@ -57,13 +55,13 @@ class zfAccess {
 						$access->next();
 						if ($access->get('allowed')) $allowed=true;
 						else $allowed=false;
+						
 						break;
 					}
 					//check on role & form
 					$query="select id,allowed from ##faccess where roleid=".$roleid." and formid=".zfqs($this->formid)." and (action=0 or action is null) and (rules is null or rules='')";
 					if (!$allowed && $access->select($query)) {
 						$access->next();
-						echo $access->get('allowed');
 						if ($access->get('allowed')) $allowed=true;
 						else $allowed=false;
 						break;

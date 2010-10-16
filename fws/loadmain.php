@@ -35,9 +35,12 @@ elseif (IsBanned() == true) {
 }
 else {
 	if (file_exists(dirname(__FILE__)."/$page.php")) {
+		echo actionCompleteMessage();
 		include (dirname(__FILE__)."/$page.php");
-	}
-	else {
+	} elseif (get_option('zing_webshop_pro') && file_exists(ZING_WS_PRO_DIR."txn/".$page.".php")) {
+		echo actionCompleteMessage();
+		include (ZING_WS_PRO_DIR."txn/".$page.".php");
+	} else {
 		PutWindow($gfx_dir, $txt['general12'], $txt['general9'], "warning.gif", "50");
 	}
 }

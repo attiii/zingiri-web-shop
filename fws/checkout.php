@@ -52,7 +52,7 @@ if (LoggedIn() == True) {
 			else $dig="";
 
 			//update basket status
-			$query = sprintf("UPDATE `".$dbtablesprefix."basket` SET `STATUS` = 1 WHERE `CUSTOMERID` = %s AND `STATUS` = 0", quote_smart($customerid));
+			$query = sprintf("UPDATE `".$dbtablesprefix."basket` SET `STATUS` = 1 WHERE `CUSTOMERID` = %s AND `STATUS` = 0", quote_smart(wsCid()));
 			$sql = mysql_query($query) or die(mysql_error());
 
 			PutWindow($gfx_dir, $txt['general13'], $txt['checkout100'].$dig, "notify.gif", "50");
@@ -66,17 +66,17 @@ if (LoggedIn() == True) {
 
 	//first pass
 	if ($status==1) {
-		
+
 		// if the cart is empty, then you shouldn't be here
-		if (CountCart($customerid) == 0) {
+		if (CountCart(wsCid()) == 0) {
 			PutWindow($gfx_dir, $txt['general12'], $txt['checkout2'], "warning.gif", "50");
 			$error = 1;
 		}
-		
-		$totalWeight=WeighCart($customerid);
+
+		$totalWeight=WeighCart(wsCid());
 
 		// lets find out some customer details
-		$query = sprintf("SELECT * FROM ".$dbtablesprefix."customer WHERE ID = %s", quote_smart($customerid));
+		$query = sprintf("SELECT * FROM ".$dbtablesprefix."customer WHERE ID = %s", quote_smart(wsCid()));
 		$sql = mysql_query($query) or die(mysql_error());
 
 		// we can not find you, so please leave
@@ -105,7 +105,7 @@ if (LoggedIn() == True) {
 
 			// read the details
 			if ($row = mysql_fetch_array($sql)) {
-				$address=new wsAddress($customerid);
+				$address=new wsAddress(wsCid());
 				$adrid=$_POST['address'];
 				$adr=$address->getAddress($adrid);
 				$initials=$adr['INITIALS'];
@@ -123,7 +123,7 @@ if (LoggedIn() == True) {
 
 			// process the order. NOTE: the price is calculated and added later on in this process!!! so $total is still empty at this point
 			// let's see if an aborted order already exists in which case we'll reuse it
-			$query = sprintf("SELECT `ORDERID` FROM `".$dbtablesprefix."basket` WHERE `STATUS`=0 AND `CUSTOMERID`=%s AND `ORDERID` <> 0", quote_smart($customerid));
+			$query = sprintf("SELECT `ORDERID` FROM `".$dbtablesprefix."basket` WHERE `STATUS`=0 AND `CUSTOMERID`=%s AND `ORDERID` <> 0", quote_smart(wsCid()));
 			$sql = mysql_query($query) or die(mysql_error());
 			if ($row = mysql_fetch_array($sql)) {
 				$query_order = sprintf("SELECT `DATE` FROM `".$dbtablesprefix."order` WHERE `ID`=%s", $row['ORDERID']);
@@ -134,7 +134,7 @@ if (LoggedIn() == True) {
 				}
 			} else {
 				$orderDate=Date($date_format);
-				$query = sprintf("INSERT INTO `".$dbtablesprefix."order` (`ADDRESSID`,`DATE`,`STATUS`,`SHIPPING`,`PAYMENT`,`CUSTOMERID`,`TOPAY`,`WEBID`,`NOTES`,`WEIGHT`) VALUES (%s,'".$orderDate."','1',%s,%s,%s,'1','n/a',%s,%s)", quote_smart($adrid), quote_smart($shippingid), quote_smart($paymentid), quote_smart($customerid), quote_smart($notes), quote_smart($weightid));
+				$query = sprintf("INSERT INTO `".$dbtablesprefix."order` (`ADDRESSID`,`DATE`,`STATUS`,`SHIPPING`,`PAYMENT`,`CUSTOMERID`,`TOPAY`,`WEBID`,`NOTES`,`WEIGHT`) VALUES (%s,'".$orderDate."','1',%s,%s,%s,'1','n/a',%s,%s)", quote_smart($adrid), quote_smart($shippingid), quote_smart($paymentid), quote_smart(wsCid()), quote_smart($notes), quote_smart($weightid));
 				$sql = mysql_query($query) or die(mysql_error());
 				// get the last id
 				$lastid = mysql_insert_id();
@@ -158,19 +158,19 @@ if (LoggedIn() == True) {
 			$tpl->replace('SHOPNAME',$shopname);
 			$tpl->replace('SHOPURL',$shopurl);
 			$tpl->replace('WEBID',$webid);
-			$tpl->replace('CUSTOMERID',$customerid);
-				
+			$tpl->replace('CUSTOMERID',wsCid());
+
 			$message = $txt['checkout3'];
 			$paymentmessage = "";
 			// now go through all all products from basket with status 'basket'
 
-			$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE ( CUSTOMERID = ".$customerid." AND STATUS = 0 )";
+			$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE ( CUSTOMERID = ".wsCid()." AND STATUS = 0 )";
 			$sql = mysql_query($query) or die(mysql_error());
 			$total = 0;
 
 			// let's format the product list a little
 			$message .= "<table width=\"100%\" class=\"borderless\">";
-			
+				
 			while ($row = mysql_fetch_row($sql)) {
 				$query_details = "SELECT * FROM ".$dbtablesprefix."product WHERE ID = '" . $row[2] . "'";
 				$sql_details = mysql_query($query_details) or die(mysql_error());
@@ -180,13 +180,13 @@ if (LoggedIn() == True) {
 
 					$tax = new wsTax($product_price);
 					$product_price = $tax->in;
-						
+
 					// make up the description to print according to the pricelist_format and max_description
-					$print_description=printDescription($row_details[1],$row_details[3],$row_details['EXCERPT']);
+					$print_description=$row_details['PRODUCTID'];
 					if (!empty($row[7])) {
-						$wsFeatures=new wsFeatures($row[7]); 
-						$wsFeatures->setDefinition($row_details['FEATURES']);
-						$print_description .= "<br />".$wsFeatures->toString(); 
+						$wsFeatures=new wsFeatures($row[7]);
+						$wsFeatures->setDefinition($row_details['FEATURES'],$row_details['FEATURES_SET']);
+						$print_description .= "<br />".$wsFeatures->toString();
 						$wsFeatures->prepare();
 					} // product features
 					$total_add = $product_price * $row[6];
@@ -222,7 +222,7 @@ if (LoggedIn() == True) {
 					}
 				}
 			}
-				
+
 			// there might be a discount code
 			if ($discount_code <> "") {
 				$discount->calculate();
@@ -242,7 +242,7 @@ if (LoggedIn() == True) {
 				$discount->consume();
 			}
 			$tpl->removeRow(array('DISCOUNTCODE','DISCOUNTRATE','DISCOUNTAMOUNT'));
-				
+
 			// if the customer added additional notes/questions, we will display them too
 			if (!empty($_POST['notes'])) {
 				$message = $message . $txt['checkout6'].$txt['checkout6']; // white line
@@ -257,7 +257,7 @@ if (LoggedIn() == True) {
 			while ($row = mysql_fetch_row($sql)) {
 				$shipping_descr = $row[1];
 			}
-			
+				
 			// read the shipping costs
 			$query = sprintf("SELECT * FROM `".$dbtablesprefix."shipping_weight` WHERE `ID` = %s", quote_smart($weightid));
 			$sql = mysql_query($query) or die(mysql_error());
@@ -289,7 +289,7 @@ if (LoggedIn() == True) {
 			} else {
 				$tpl->removeRow(array('TAXLABEL','TAXRATE','TAXTOTAL'));
 			}
-			
+				
 			// now lets calculate the invoice total now we know the final addition, the shipping costs
 			$message .= '<tr><td>'.$txt['checkout24'].'</td><td>'.$txt['checkout25'].'</td><td style="text-align: right"><big><strong>'.$currency_symbol_pre.myNumberFormat($total,$number_format).$currency_symbol_post.'</strong></big></td></tr>';
 			$tpl->replace('TOTAL',$currency_symbol_pre.myNumberFormat($total,$number_format).$currency_symbol_post);
@@ -313,13 +313,13 @@ if (LoggedIn() == True) {
 				$tpl->replace('CITY','');
 				$tpl->replace('STATE','');
 				$tpl->replace('COUNTRY','');
-			} 
+			}
 			$message = $message . $txt['checkout6'].$txt['checkout6']; // white line
-			
+				
 			// now the payment
 			$payment=new paymentCode();
 			$payment_code=$payment->getCode($paymentid,$customer_row,$total,$webid);
-			
+				
 			$message .= $txt['checkout19'].$payment_descr; // Payment method:
 			$message .= $txt['checkout6']; // line break
 
@@ -346,16 +346,19 @@ if (LoggedIn() == True) {
 				$paymentmessage .= $txt['checkout26'];  // pay within xx days
 			}
 			$tpl->replace('PAYMENTCODE',$paymentmessage);
-				
+
 			$message .= $txt['checkout6']; // white line
 			$message .= $txt['checkout9']; // direct link to customer order for online status checking
-				
+
 			$message=$tpl->getContent();
-			
+				
 			//update order & basket
-			if ($autosubmit && $payment_code!="") {
+			if ($autosubmit==1 && $payment_code!="") {
 				$basket_status=0;
 				$order_status=0;
+			} elseif ($autosubmit==2 && $payment_code!="") {
+				$basket_status=1;
+				$order_status=1;
 			} else {
 				$basket_status=1;
 				$order_status=1;
@@ -365,9 +368,9 @@ if (LoggedIn() == True) {
 			$sql = mysql_query($query) or die(mysql_error());
 
 			//basket update
-			$query = sprintf("UPDATE `".$dbtablesprefix."basket` SET `ORDERID` = '".$lastid."',`STATUS`=%s WHERE (`CUSTOMERID` = %s AND `STATUS` = '0')", qs($basket_status), quote_smart($customerid));
+			$query = sprintf("UPDATE `".$dbtablesprefix."basket` SET `ORDERID` = '".$lastid."',`STATUS`=%s WHERE (`CUSTOMERID` = %s AND `STATUS` = '0')", qs($basket_status), quote_smart(wsCid()));
 			$sql = mysql_query($query) or die(mysql_error());
-			
+				
 			// make pdf
 			$pdf = "";
 			$fullpdf = "";
@@ -422,7 +425,7 @@ if (LoggedIn() == True) {
 
 			// now lets show the customer some details
 			CheckoutShowProgress();
-				
+
 			// now print the confirmation on the screen
 			if (!$autosubmit || ($autosubmit && $payment_code=='')) {
 				echo '
@@ -435,7 +438,7 @@ if (LoggedIn() == True) {
 			} else {
 				PutWindow($gfx_dir, $txt['general13'], $txt['checkout104'], "loader.gif", "50");
 				echo '<div>'.$payment_code.'</div>';
-					?>
+				?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
 					jQuery(document).ready(function() {
@@ -443,7 +446,7 @@ if (LoggedIn() == True) {
 					});
 			           //]]>
 					</script>
-				<?php 
+				<?php
 			}
 		}
 		//end

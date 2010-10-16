@@ -171,14 +171,14 @@ function zing_apps_player_content($content='') {
 	global $post;
 	global $dbtablesprefix,$page;
 	global $zing;
-	
+
 	$page=$_GET['page'];
 	$apper=error_reporting(E_ALL ^ E_NOTICE); // ^ E_NOTICE
 	if (function_exists("user_error_handler")) set_error_handler("user_error_handler");
 	else ini_set('display_errors', '1');
 
 	if (defined("ZING_APPS_CUSTOM")) { require(ZING_APPS_CUSTOM."globals.php"); }
-	
+
 	$cf=get_post_custom();
 
 	if (isset($_GET['zfaces'])) {
@@ -195,12 +195,12 @@ function zing_apps_player_content($content='') {
 		error_reporting($apper);
 		return $content;
 	}
-	
+
 	if ($cf['zing_form'][0]) $_GET['form']=$cf['zing_form'][0];
 	if ($cf['zing_action'][0]) $_GET['action']=$cf['zing_action'][0];
 
 	require_once(dirname(__FILE__)."/includes/all.inc.php");
-	
+
 	if (isset($zing->paths)) {
 		foreach ($zing->paths as $path) {
 			require($path."apps/classes/index.php");
@@ -209,7 +209,9 @@ function zing_apps_player_content($content='') {
 			require($path."apps/services/index.php");
 		}
 	}
-	
+
+	echo actionCompleteMessage();
+
 	echo '<div class="zing_ws_page" id="zing_ws_'.$_GET['form'].'">';
 	echo $prefix;
 	switch ($zfaces)
@@ -238,12 +240,12 @@ function zing_apps_player_content($content='') {
 function zing_apps_player_header_cp() {
 	zing_apps_player_header();
 	/*
-	if (!defined("ZING_PROTOTYPE") || ZING_PROTOTYPE) {
+	 if (!defined("ZING_PROTOTYPE") || ZING_PROTOTYPE) {
 		echo '<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/sortlist.proto.js"></script>';
-	} elseif (defined("ZING_JQUERY") && ZING_JQUERY) {
+		} elseif (defined("ZING_JQUERY") && ZING_JQUERY) {
 		echo '<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/sortlist.jquery.js"></script>';
-	}
-	*/
+		}
+		*/
 }
 
 /**
@@ -301,7 +303,7 @@ function zing_apps_cp_submenus() {
 	$name='Zingiri Apps';
 	//add_options_page($name." Options", "$name", 8, 'zingiri-apps', 'zing_apps_editor');
 
-	
+
 	//add_submenu_page('zingiri-apps', $name.'- List', 'List', 'administrator', 'zingiri-apps-summary', 'zing_apps_summary');
 }
 

@@ -33,7 +33,7 @@ else {
     <div align="center">
 	    <table border="0">
 		 <tr><td align="left">
-	         <form method="POST" action="?page=stockadmin">
+	         <form method="POST" action="<?php zurl('?page=stockadmin',true)?>">
                <strong><?php echo $txt['productadmin12']; ?> <</strong>
 		       <input type="text" name="minimal_stock" value="<?php echo $stock_warning_level; ?>" size="5">
 			   <input type="submit" name="filterstock" value="<?php echo $txt['stockadmin2']; ?>">

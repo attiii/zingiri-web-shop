@@ -44,10 +44,12 @@ if ($action=='add') {
 $today = getdate();
 $error = 0; // no errors found
 
+/*
 if (IsAdmin() == true) {
 	if (!empty($_GET['id']))
 	{ $customerid = intval($_GET['id']); }
 }
+*/
 
 if ($action=="add") {
 	
@@ -56,7 +58,7 @@ if ($action=="add") {
 		// if you have 2 of product x in basket and stock is 2, you get an error if you try to add 1 more
 		for ($i=0;$i<$featureSets;$i++) {
 			if (isset($basketid[$i])) {
-				$query = "SELECT `QTY` FROM `".$dbtablesprefix."basket` WHERE `CUSTOMERID` = ".qs($customerid)." AND `ID` = ".qs($basketid[$i])." AND `STATUS` = 0";
+				$query = "SELECT `QTY` FROM `".$dbtablesprefix."basket` WHERE `CUSTOMERID` = ".qs(wsCid())." AND `ID` = ".qs($basketid[$i])." AND `STATUS` = 0";
 				$sql = mysql_query($query) or die(mysql_error());
 				if (mysql_num_rows($sql) != 0) {
 					$row = mysql_fetch_row($sql);
@@ -89,7 +91,7 @@ if ($action=="add") {
 
 		for ($i=0;$i<$featureSets;$i++) {
 			//features
-			$wsFeatures=new wsFeatures($allfeatures,$row['FEATURESHEADER']);
+			$wsFeatures=new wsFeatures($allfeatures,$row['FEATURESHEADER'],$row['FEATURES_SET']);
 
 			//verify features
 			//$wsFeatures->prepare($i);
@@ -102,16 +104,16 @@ if ($action=="add") {
 			$qty=isset($numprod[$i]) ? $numprod[$i] : 1;
 
 			if (isset($basketid[$i])) {
-				if ($numprod==0) $query = "DELETE FROM `".$dbtablesprefix."basket` WHERE `ID` = ".qs($basketid[$i])." AND `CUSTOMERID` = ".qs($customerid);
-				else $query = "UPDATE `".$dbtablesprefix."basket` SET `QTY` = ".qs($qty).",`FEATURES`=".qs($productfeatures).",`PRICE`=".qs($prodprice)." WHERE `ID` = ".qs($basketid[$i])." AND `CUSTOMERID` = ".qs($customerid)." AND STATUS = 0";
+				if ($numprod==0) $query = "DELETE FROM `".$dbtablesprefix."basket` WHERE `ID` = ".qs($basketid[$i])." AND `CUSTOMERID` = ".qs(wsCid());
+				else $query = "UPDATE `".$dbtablesprefix."basket` SET `QTY` = ".qs($qty).",`FEATURES`=".qs($productfeatures).",`PRICE`=".qs($prodprice)." WHERE `ID` = ".qs($basketid[$i])." AND `CUSTOMERID` = ".qs(wsCid())." AND STATUS = 0";
 			} else {
-				$query="SELECT `ID` FROM `".$dbtablesprefix."basket` WHERE `CUSTOMERID`=".qs($customerid)." AND `STATUS`=0 AND `PRODUCTID`=".qs($prodid)." AND `FEATURES`=".qs($productfeatures);
+				$query="SELECT `ID` FROM `".$dbtablesprefix."basket` WHERE `CUSTOMERID`=".qs(wsCid())." AND `STATUS`=0 AND `PRODUCTID`=".qs($prodid)." AND `FEATURES`=".qs($productfeatures);
 				$sql = mysql_query($query) or zfdbexit($query);
 				if (mysql_num_rows($sql)>0) {
 					$row = mysql_fetch_row($sql);
 					$query = "UPDATE `".$dbtablesprefix."basket` SET `QTY` = ".qs($qty)." WHERE `ID` = ".qs($row['ID']);
 				} else {
-					$query = "INSERT INTO `".$dbtablesprefix."basket` ( `SET` ,`CUSTOMERID` , `PRODUCTID` , `PRICE` , `ORDERID` , `LINEADDDATE` , `QTY` , `FEATURES`) VALUES (".qs($uniqueSet).", '".$customerid."', '".$prodid."', '".$prodprice."', '0', '".Date("d-m-Y @ G:i")."', '".$qty."', '".$productfeatures."')";
+					$query = "INSERT INTO `".$dbtablesprefix."basket` ( `SET` ,`CUSTOMERID` , `PRODUCTID` , `PRICE` , `ORDERID` , `LINEADDDATE` , `QTY` , `FEATURES`) VALUES (".qs($uniqueSet).", '".wsCid()."', '".$prodid."', '".$prodprice."', '0', '".Date("d-m-Y @ G:i")."', '".$qty."', '".$productfeatures."')";
 				}
 			}
 			$sql = mysql_query($query) or die(mysql_error());
@@ -120,7 +122,7 @@ if ($action=="add") {
 }
 elseif ($action=="update"){
 	if ($numprod == 0) {
-		$query = "DELETE FROM `".$dbtablesprefix."basket` WHERE `ID` = '". $basketid."' AND `STATUS` = '0' AND `CUSTOMERID` = " . $customerid;
+		$query = "DELETE FROM `".$dbtablesprefix."basket` WHERE `ID` = '". $basketid."' AND `STATUS` = '0' AND `CUSTOMERID` = " . wsCid();
 		$sql = mysql_query($query) or die(mysql_error());
 	}
 	else {
@@ -142,17 +144,17 @@ elseif ($action=="update"){
 	}
 }
 elseif ($action=="empty"){
-	$query = "DELETE FROM ".$dbtablesprefix."basket WHERE `CUSTOMERID` = " . $customerid. " AND `STATUS`=0";
+	$query = "DELETE FROM ".$dbtablesprefix."basket WHERE `CUSTOMERID` = " . wsCid(). " AND `STATUS`=0";
 	$sql = mysql_query($query) or die(mysql_error());
 }
 
 // read basket
-$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (`CUSTOMERID` = ".$customerid." AND `STATUS` = 0) ORDER BY ID";
+$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (`CUSTOMERID` = ".wsCid()." AND `STATUS` = 0) ORDER BY ID";
 $sql = mysql_query($query) or zfdbexit($query);
 $count = mysql_num_rows($sql);
 
 if ($count == 0) {
-	PutWindow($gfx_dir, $txt['cart1'], $txt['cart2'], "carticon.gif", "50");
+	PutWindow($gfx_dir, '', $txt['cart2'], "carticon.gif", "50");
 }
 else {
 	?>
@@ -196,8 +198,7 @@ else {
 		><?php echo $thumb.$print_description.$picturelink; ?></a> <?php
 		$productprice = $row[3]; // the price of a product
 		if (!empty($row[7])) {
-			$wsFeatures=new wsFeatures($row[7],$row['FEATURESHEADER']);
-//			$wsFeatures->setDefinition($row_details['FEATURES']);
+			$wsFeatures=new wsFeatures($row[7],$row_details['FEATURESHEADER'],$row_details['FEATURES_SET']);
 			$printvalue = $wsFeatures->toString();   // features
 		}
 		if (!$printvalue == "") { echo "<br />(".$printvalue.")"; }

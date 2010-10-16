@@ -11,8 +11,10 @@ class zfcustomer extends zfForm {
 				
 			if ($integrator->wpCustomer) {
 				//$integrator->updateWpUser(array('user_pass'=>$pass1,'user_login'=>$login,'first_name'=>$initials,'last_name'=>$surname,'user_email'=>$email));
-				$integrator->updateWpUser(array('user_login'=>$login,'first_name'=>$initials,'last_name'=>$surname,'user_email'=>$email));
+			//	$integrator->updateWpUser(array('user_login'=>$login,'first_name'=>$initials,'last_name'=>$surname,'user_email'=>$email));
 			}
+		} elseif ($this->action == 'add') {
+			$_SESSION['zing_session']['customerid']=$this->recid;
 		}
 		return $success && true;
 	}

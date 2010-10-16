@@ -130,7 +130,7 @@ else {
 		
 		// new in 2.2.8
 	    if (!empty($_POST['orderby'])) {$orderby = $_POST['orderby']; } else { $orderby = 2; } //default is price
-	    $autosubmit = CheckBox($_POST['autosubmit']);
+	    $autosubmit = intval($_POST['autosubmit']);
 	    $create_pdf = CheckBox($_POST['create_pdf']);
 		
 		// new in 2.2.9
@@ -333,7 +333,13 @@ else {
 	                  <td><input type="text" name="weight_metric" size="5" maxlength="10" value="<?php echo $weight_metric ?>"></td>
         	      </tr>
 	              <tr><td><?php echo $txt['editsettings107'] ?></td>
-	                  <td><input type="checkbox" name="autosubmit" <?php if ($autosubmit == 1) { echo "checked"; } ?>></td>
+	                  <td>
+	                  	<select name="autosubmit">
+	                  	<option value="0" <?php if ($autosubmit == 0) { echo "SELECTED"; } ?>><?php echo $txt['editsettings92']?></option>
+	                  	<option value="2" <?php if ($autosubmit == 2) { echo "SELECTED"; } ?>><?php echo $txt['editsettings115']?></option>
+	                  	<option value="1" <?php if ($autosubmit == 1) { echo "SELECTED"; } ?>><?php echo $txt['editsettings116']?></option>
+	                  	</select>
+	                  </td>
         	      </tr>
 	              <tr><td><?php echo $txt['editsettings108'] ?></td>
 	                  <td><input type="checkbox" name="create_pdf" <?php if ($create_pdf == 1) { echo "checked "; if (phpversion() < '5') echo 'disabled '; } ?>></td>

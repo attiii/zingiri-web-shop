@@ -4,10 +4,10 @@ $menus['dashboard']=array('group' => 'admin102', 'grouping' => 'dashboard', 'sin
 $menus['orderadmin']=array('group' => 'admin2', 'grouping' => 'orders', 'label' => 'admin2','href' => 'page=orderadmin', 'img' => 'orders.jpg', 'func' => 'CountAllOrders');
 $menus['showcustomers']=array('page' => 'customeradmin', 'grouping' => 'customers', 'group' => 'admin3', 'label' => 'admin3','href' => 'page=customeradmin&action=showcustomers', 'img' => 'customers.gif', 'func' => 'CountCustomers','param' => 'CUSTOMER');
 $menus['showadmins']=array('page' => 'customeradmin', 'grouping' => 'customers', 'group' => 'admin3', 'label' => 'admin29','href' => 'page=customeradmin&action=showadmins', 'img' => 'admins.gif', 'func' => 'CountCustomers','param' => 'ADMIN');
-$menus['admineditbanned']=array('page' => 'adminedit', 'grouping' => 'customers', 'group' => 'admin3', 'label' => 'admin19','href' => 'page=adminedit&filename=banned.txt&root=1&wysiwyg=0', 'img' => 'banned.gif');
+//$menus['admineditbanned']=array('page' => 'adminedit', 'grouping' => 'customers', 'group' => 'admin3', 'label' => 'admin19','href' => 'page=adminedit&filename=banned.txt&root=1&wysiwyg=0', 'img' => 'banned.gif');
 $menus['mailinglist']=array('grouping' => 'customers', 'group' => 'admin3', 'label' => 'admin35','href' => 'page=mailinglist', 'img' => 'mailinglist.gif');
+$menus['inventory']=array('page' => 'inventory','grouping' => 'products', 'group' => 'menu15', 'label' => 'menu15','href' => 'page=inventory&includesearch=1&action=list', 'img' => 'productswh.png', 'func' => 'CountProducts');
 $menus['product']=array('hide' => true,'type' => 'apps','grouping' => 'products', 'group' => 'menu9', 'label' => 'productadmin17','href' => 'zfaces=list&form=product', 'img' => 'products.gif');
-$menus['browse']=array('page' => 'browse','grouping' => 'products', 'group' => 'menu15', 'label' => 'menu15','href' => 'page=browse&includesearch=1&action=list', 'img' => 'productswh.png', 'func' => 'CountProducts');
 $menus['stockadmin']=array('group' => 'menu15', 'grouping' => 'products', 'label' => 'admin32','href' => 'page=stockadmin', 'img' => 'stockadmin.gif');
 $menus['uploadadmin']=array('group' => 'menu15', 'grouping' => 'products', 'label' => 'admin9','href' => 'page=uploadadmin', 'img' => 'uploadlist.gif');
 $menus['editsettings']=array('group' => 'admin23', 'grouping' => 'settings', 'label' => 'admin8','href' => 'page=editsettings', 'img' => 'settings.gif');

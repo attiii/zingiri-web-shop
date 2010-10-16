@@ -109,13 +109,13 @@ function zing_check() {
 	if (phpversion() < '5')	$errors[]="You are running PHP version ".phpversion().". You require PHP version 5 or higher to install the Web Shop.";
 	if (ini_get("zend.ze1_compatibility_mode")) $warnings[]="You are running PHP in PHP 4 compatibility mode. The PDF invoice functionality requires this mode to be turned off.";
 	if (get_magic_quotes_gpc()) $warnings[]='Turn off magic quotes on your installation. Read more about why you should disable this setting <a href="http://www.php.net/manual/en/security.magicquotes.php">here</a>.';
-    if (ini_get('register_globals')) $warnings[]="You have set register globals on. It is highly recommended to turn this off as it poses a serious security risk.";
-	
+	if (ini_get('register_globals')) $warnings[]="You have set register globals on. It is highly recommended to turn this off as it poses a serious security risk.";
+
 	if (ZING_CMS=='dp') {
 		global $db_url;
 		if (strpos($db_url,'mysqli') !== false) $errors[]="Mysqli is not supported, please change to Mysql.";
 	}
-	
+
 	//check files hash
 	$c=new filesHash();
 	$checksumErrors=$c->compare();
@@ -155,7 +155,7 @@ function zing_install() {
 	zing_ws_error_handler_truncate();
 	set_error_handler("zing_ws_error_handler");
 	$wsper=error_reporting(E_ALL & ~E_NOTICE);
-	
+
 	$prefix=$dbtablesprefix;
 	if (!defined("DB_PREFIX")) define("DB_PREFIX",$prefix);
 
@@ -244,14 +244,16 @@ function zing_install() {
 	}
 
 	//Update default settings
-	$query="update ".$prefix."settings set sales_mail='".get_bloginfo('admin_email')."' where id=1";
-	mysql_query($query) or zing_ws_error_handler(1,mysql_error().'-'.$query);
-	$query="update ".$prefix."settings set webmaster_mail='".get_bloginfo('admin_email')."' where id=1";
-	mysql_query($query) or zing_ws_error_handler(1,mysql_error().'-'.$query);
-	$query="update ".$prefix."settings set shopname='".get_bloginfo('name')."' where id=1";
-	mysql_query($query) or zing_ws_error_handler(1,mysql_error().'-'.$query);
-	$query="update ".$prefix."settings set shopurl='".get_option('home')."' where id=1";
-	mysql_query($query) or zing_ws_error_handler(1,mysql_error().'-'.$query);
+	if (!$zing_version) {
+		$query="update ".$prefix."settings set sales_mail='".get_bloginfo('admin_email')."' where id=1";
+		mysql_query($query) or zing_ws_error_handler(1,mysql_error().'-'.$query);
+		$query="update ".$prefix."settings set webmaster_mail='".get_bloginfo('admin_email')."' where id=1";
+		mysql_query($query) or zing_ws_error_handler(1,mysql_error().'-'.$query);
+		$query="update ".$prefix."settings set shopname='".get_bloginfo('name')."' where id=1";
+		mysql_query($query) or zing_ws_error_handler(1,mysql_error().'-'.$query);
+		$query="update ".$prefix."settings set shopurl='".get_option('home')."' where id=1";
+		mysql_query($query) or zing_ws_error_handler(1,mysql_error().'-'.$query);
+	}
 
 	//Load language files
 	zing_ws_error_handler(0,'load language files');
@@ -265,7 +267,7 @@ function zing_install() {
 
 	//Define roles & set current user to admin
 	if (function_exists('zing_ws_install_roles')) zing_ws_install_roles();
-	
+
 	//Create digital products directory if it doesn't exist yet
 	if (!get_option('zing_webshop_dig')) {
 		update_option('zing_webshop_dig',CreateRandomCode(15));
@@ -312,6 +314,8 @@ function zing_install() {
 			}
 		}
 	}
+
+	if (function_exists('zing_ws_pro_install')) zing_ws_pro_install();
 
 	zing_ws_error_handler(0,'completed');
 	restore_error_handler();

@@ -65,7 +65,7 @@ function faces_get_xml($type,$dir="") {
 	if (file_exists($url_details)) {
 		if ($xmlf=simplexml_load_file($url_details)) return $xmlf;
 	}
-echo ZING_APPS_PLAYER_DIR;
+	echo ZING_APPS_PLAYER_DIR;
 	die("no file loaded: ".$type);
 }
 
@@ -89,25 +89,26 @@ function faces_log($msg,$fileerr="warning") {
 }
 
 function faces_directory($dir,$filters,$dirsOnly=false) {
-	$handle=opendir($dir);
 	$files=array();
-	if (!$filters || $filters == "all"){
-		while(($file = readdir($handle))!==false){
-			if ($file!='.' && $file!='..' && ($dirsOnly==false || ($dirsOnly==true && is_dir($dir.'/'.$file)))) $files[] = $file;
-		}
-	}
-	if ($filters && $filters != "all") {
-		$filters=explode(",",$filters);
-		while (($file = readdir($handle))!==false) {
-			for ($f=0;$f<sizeof($filters);$f++):
-			$system=explode(".",$file);
-			if ($system[1] == $filters[$f]){
-				if ($dirsOnly==false || ($dirsOnly==true && is_dir($dir.'/'.$file))) $files[] = $file;
+	if ($handle=opendir($dir)) {
+		if (!$filters || $filters == "all"){
+			while(($file = readdir($handle))!==false){
+				if ($file!='.' && $file!='..' && ($dirsOnly==false || ($dirsOnly==true && is_dir($dir.'/'.$file)))) $files[] = $file;
 			}
-			endfor;
 		}
+		if ($filters && $filters != "all") {
+			$filters=explode(",",$filters);
+			while (($file = readdir($handle))!==false) {
+				for ($f=0;$f<sizeof($filters);$f++):
+				$system=explode(".",$file);
+				if ($system[1] == $filters[$f]){
+					if ($dirsOnly==false || ($dirsOnly==true && is_dir($dir.'/'.$file))) $files[] = $file;
+				}
+				endfor;
+			}
+		}
+		closedir($handle);
 	}
-	closedir($handle);
 	return $files;
 }
 
@@ -197,18 +198,18 @@ function zfDumpQuery($query,$table="") {
 	if (defined("ZING_APPS_CUSTOM")) $dir=ZING_APPS_CUSTOM.'../tmp/';
 	else $dir=ZING_APPS_PLAYER_DIR.'db/';
 	$file=$dir."apps.db.sql";
-	$handle = fopen($file, "a");
-	if (!fwrite($handle, $query.";\r\n"))
-	{
-		return false;
-	}
-	else {
+	if ($handle = fopen($file, "a")) {
+		if (!fwrite($handle, $query.";\r\n"))
+		{
+			return false;
+		}
 		fclose($handle);
 	}
 
 	if (defined("ZING_APPS_CUSTOM_SRCDIR")) {
-		$handle = fopen (ZING_APPS_CUSTOM_SRCDIR.'../../../tmp/apps.db.sql', "a");
-		if (fwrite($handle, $query.";\r\n")) fclose($handle);
+		if ($handle = fopen (ZING_APPS_CUSTOM_SRCDIR.'../../../tmp/apps.db.sql', "a")) {
+			if (fwrite($handle, $query.";\r\n")) fclose($handle);
+		}
 	}
 
 	//chmod($file,0666);
@@ -278,4 +279,9 @@ if (!function_exists('zurl')) {
 	}
 }
 
+if (!function_exists('actionComplete()')) {
+	function actionComplete() {
+		
+	}
+}
 ?>

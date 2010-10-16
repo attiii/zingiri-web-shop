@@ -13,20 +13,30 @@ class wsTheme {
 			require (ZING_DIR."./includes/readvals.inc.php");        // get and post values
 		}
 
-		$this->db=new db();
-		if (!is_null($keys)) {
-			return $this->db->selectFromArray('product',$keys);
-		}
 	}
 
 	function getCategoryId($category) {
 		$this->db=new db();
 		if ($this->db->select("select `id` from `##category` where `desc`=".qs($category))) {
-			if ($this->db->next()) return $this->db->get('id');
-		}
-		return false;
+			if ($this->db->next()) {
+				$catid=$this->db->get('ID');
+				$this->db->select("select * from `##product`,`##category` where catid='".$catid."'");
+				return true;
+			}
+		} else return false;
 	}
 
+	function getCategories() {
+		$cat=array();
+		$db=new db();
+		if ($db->select("select `##group`.`name`,`##category`.`desc`,`##category`.`id` from `##group`,`##category` where `##category`.`groupid`=`##category`.`id` order by `##group`.`sortorder`,`##group`.`name`,`##category`.`sortorder`,`##category`.`desc`")) {
+			while ($row=$db->next()) {
+				$cat[$db->get('id')]['name']=$db->get('name').'-'.$db->get('desc');
+			}
+		}	
+		$this->categories=$cat;
+	}
+	
 	function have_products() {
 		$row=$this->db->next();
 		return $row;

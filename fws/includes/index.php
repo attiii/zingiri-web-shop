@@ -1,4 +1,4 @@
-<?php 
+<?php
 $files_to_exclude=array('checklogin.inc.php','connectdb.inc.php','httpclass.inc.php','initloc.inc.php','initlang.inc.php','readsettings.inc.php','readvals.inc.php','setfolders.inc.php','settings.inc.php','wp-settings.php');
 
 if ($handlex = opendir(dirname(__FILE__))) {
@@ -9,4 +9,18 @@ if ($handlex = opendir(dirname(__FILE__))) {
 	}
 	closedir($handlex);
 }
+
+foreach ($zing->paths as $wsPath) {
+	if ($wsPath.'includes' != dirname(__FILE__)) {
+		if ($handlex = opendir($wsPath.'includes')) {
+			while (false !== ($filex = readdir($handlex))) {
+				if (strstr($filex,"inc.php")) {
+					require_once($wsPath."includes/".$filex);
+				}
+			}
+			closedir($handlex);
+		}
+	}
+}
+
 ?>

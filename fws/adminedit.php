@@ -88,7 +88,7 @@ else {
 			
 		echo "<strong>".$txt['adminedit3']." ".$name[0]."</strong>";
 		?>
-<form method="post" action="?page=adminedit&wysiwyg=<?php echo $wysiwyg; ?>"><textarea rows="30"
+<form method="post" action="<?php zurl('?page=adminedit&wysiwyg='.$wysiwyg,true);?>"><textarea rows="30"
 	cols="65" name="text2edit"
 ><?php echo $text2edit ?></textarea><br />
 <input type="hidden" name="action" value="write_changes"> <input type="hidden" name="filename"

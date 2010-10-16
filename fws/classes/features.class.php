@@ -1,6 +1,4 @@
 <?php
-//uploadadmin.php
-
 class wsFeaturesCore {
 	var $features=array();
 	var $headers;
@@ -16,14 +14,21 @@ class wsFeaturesCore {
 	var $productFeatures;
 	var $featureString;
 	var $definition;
+	var $setType;
+	var $post;
 
-	function wsFeaturesCore($features=array(),$header='',$productid=0) {
-		if (count($features)>0) $this->setFeatures($features,$header);
+	function wsFeaturesCore($features=array(),$header='',$set='',$productid=0) {
+		if (count($features)>0) $this->setFeatures($features,$header,$set);
 		$this->productid=$productid;
+		$this->post=$_POST;
 	}
 
-	function setFeatures($features,$header='') {
-		$this->features=$features;
+	function setFeatures($features,$header='',$set='') {
+		if ($set && !$features) {
+			$this->features=$this->readDefinition($set);
+		} else {
+			$this->features=$features;
+		}
 		if ($header) {
 			$this->headers=explode(',',$header);
 			$this->sets=count($this->headers);
@@ -33,12 +38,26 @@ class wsFeaturesCore {
 		}
 	}
 
+	function readDefinition($set) {
+		$definition='';
+		$db=new db();
+		if ($db->select('select * from ##featureset where id='.qs($set))) {
+			$db->next();
+			$definition=$db->get('definition');
+			$this->setType=$db->get('type');
+		}
+		return $definition;
+	}
 	function setProduct($productid) {
 		$this->productid=$productid;
 	}
 
-	function setDefinition($definition) {
-		$this->definition=$definition;
+	function setDefinition($definition,$set='') {
+		if ($set && !$definition) {
+			$this->definition=$this->readDefinition($set);
+		} else {
+			$this->definition=$definition;
+		}
 	}
 
 	function prepare($index) {
@@ -53,10 +72,6 @@ class wsFeaturesCore {
 		$productfeatures='';
 		if ($formulaType=='custom' && !empty($formulaRule) && method_exists($this,'calcFormula')) {
 			$prodprice=$this->calcFormula();
-			/*
-			 $wsPriceFormula=new wsPriceFormula($index,$this->features,$price,$formulaType,$formulaRule);
-			 $prodprice=$wsPriceFormula->calc();
-			 */
 			$productfeatures=$this->featureString;
 		} else {
 			$prodprice=$price;
@@ -66,8 +81,8 @@ class wsFeaturesCore {
 				while (!$features[$counter1] == NULL){
 					$feature = explode(":", $features[$counter1]);
 					$counter1 += 1;
-					if (!empty($_POST["wsfeature".$counter1][$index])) {
-						$detail = explode("+", $_POST["wsfeature".$counter1][$index]);
+					if (!empty($this->post["wsfeature".$counter1][$index])) {
+						$detail = explode("+", $this->post["wsfeature".$counter1][$index]);
 						$productfeatures .= $feature[0].": ".$detail[0];
 						$prodprice += $detail[1];
 					}
@@ -141,9 +156,9 @@ class wsFeaturesCore {
 					if (isset($feature[1]) && $feature[1]=='file'){
 						$output.=$this->outputFile($counter1,$i,$r);
 					} elseif (!isset($feature[1])){
-						$output.= '<input type="text" name="wsfeature'.$counter1.'[]" value="'.$this->prefil[$i]['features'][$r].'" > ';
+						$output.= '<input type="text" class="wsfeature" name="wsfeature'.$counter1.'[]" value="'.$this->prefil[$i]['features'][$r].'" > ';
 					} else {
-						$output.= '<select name="wsfeature'.$counter1.'[]">';
+						$output.= '<select class="wsfeature" name="wsfeature'.$counter1.'[]">';
 						if ($feature[1]=='?') {
 							$counter2 = 0;
 							$field="features_f".sprintf('%02d',$r+1);
@@ -232,6 +247,10 @@ class wsFeaturesCore {
 			}
 		}
 		$this->prefil=$prefil;
+	}
+	
+	function validate($index=0) {
+		//not implemented in basic version
 	}
 }
 

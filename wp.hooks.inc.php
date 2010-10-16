@@ -149,7 +149,6 @@ function zing_header()
 
 	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/jquery-ui-1.7.3.custom.min.js"></script>';
 	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/lib.jquery.js"></script>';
-	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/Class-0.0.2.js"></script>';
 	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/cookie.jquery.js"></script>';
 	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/checkout.jquery.js"></script>';
 	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/cart.jquery.js"></script>';
@@ -571,21 +570,6 @@ function zing_ws_admin_menus() {
 	global $zing_ws_name, $zing_ws_name,$txt,$menus,$zing_version;
 	add_menu_page($zing_ws_name, 'Web Shop', 'administrator', 'zingiri-web-shop','zing_ws_admin',ZING_URL.'fws/templates/default/images/menu_webshop.png');
 	add_submenu_page('zingiri-web-shop', $zing_ws_name.'- Integration', 'Integration', 'administrator', 'zingiri-web-shop', 'zing_ws_admin');
-	/*
-	 if ($zing_version) {
-		foreach ($menus as $page => $menu) {
-		if (!$menu['hide']) {
-		add_submenu_page('zingiri-web-shop', $txt[$menu['label']], $txt[$menu['label']], 'administrator', $page, 'zing_ws_settings');
-		}
-		}
-		if ($menus[$_GET['page']] && $menus[$_GET['page']]['hide']) {
-		$menu=$menus[$_GET['page']];
-		add_submenu_page('zingiri-web-shop', $txt[$menu['label']], $txt[$menu['label']], 'administrator', $_GET['page'], 'zing_ws_settings');
-		}
-		add_submenu_page('zingiri-web-shop', 'Forms settings', 'Forms settings', 'administrator', 'zingiri-apps', 'zing_apps_settings');
-		add_submenu_page('zingiri-web-shop', 'Forms editor', 'Forms editor', 'administrator', 'zingiri-apps-settings', 'zing_apps_editor');
-		}
-		*/
 	if ($zing_version) {
 		$cap='administer_web_shop';
 		$groupings=array();

@@ -600,6 +600,7 @@ div.calendar {
 
 div.faces ul,div#zfaces ul,ul#zfaces,ul.zfaces {
 	list-style-type: none;
+	list-style-image: none;
 	margin-left: 0px;
   	padding-left: 0px
 }

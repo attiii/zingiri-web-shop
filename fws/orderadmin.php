@@ -59,7 +59,7 @@ else {
 		// read old status text
 		$query = "SELECT * FROM `".$dbtablesprefix."order` WHERE `ID` = ".$orderid;
 		$sql = mysql_query($query) or die(mysql_error());
-		while ($row = mysql_fetch_row($sql)) {
+		if ($row = mysql_fetch_array($sql)) {
 			$status_id = $row[0]; // status of this order
 
 			echo "<table width=\"70%\" class=\"datatable\">";
@@ -77,12 +77,9 @@ else {
 			echo "<input type=\"hidden\" name=\"orderid\" value=\"" . $orderid . "\">";
 			echo "<SELECT style=\"vertical-align:top\" NAME=\"newstatus\">";
 			echo "    <OPTION SELECTED VALUE=\"\">";
-			echo "    <OPTION VALUE=\"2\">" . $txt['db_status2'];
-			echo "    <OPTION VALUE=\"3\">" . $txt['db_status3'];
-			echo "    <OPTION VALUE=\"4\">" . $txt['db_status4'];
-			echo "    <OPTION VALUE=\"5\">" . $txt['db_status5'];
-			echo "    <OPTION VALUE=\"6\">" . $txt['db_status6'];
-			echo "    <OPTION VALUE=\"7\">" . $txt['db_status7'];
+			for ($i=1;$i<=7;$i++) {
+				if ($row['STATUS']!=$i) echo "    <OPTION VALUE=\"".$i."\">" . $txt['db_status'.$i];
+			}
 			echo "    <OPTION VALUE=\"delete\">Delete";
 			echo "</SELECT>";
 			echo "<textarea cols=\"50\" name=\"tracking\"/>"."</textarea>"."<br />";
@@ -167,7 +164,7 @@ else {
 	if ($status == "%") {  $where.= ""; }
 	else { $where.= "AND STATUS = '" . $status . "'"; }
 
-	$query = "SELECT * FROM `".$dbtablesprefix."order` WHERE `STATUS`>0 " . $where . " ORDER BY ID DESC";
+	$query = "SELECT * FROM `".$dbtablesprefix."order` WHERE `STATUS`>=0 " . $where . " ORDER BY ID DESC";
 	$sql = mysql_query($query) or die(mysql_error());
 	$num_orders = mysql_num_rows($sql);
 	$sql = mysql_query($query.$limit) or die(mysql_error());
@@ -209,7 +206,7 @@ else {
 
 				while ($sub_row = mysql_fetch_row($sub_sql)) {
 					echo "<tr><td nowrap>";
-					echo "<a href=\"?page=readorder&orderid=" . $row[0] . "\">" . $row[7] . "</a><br />";
+					echo "<a href=\"".zurl("?page=readorder&orderid=" . $row[0]) . "\">" . $row[7] . "</a><br />";
 
 					// if a pdf was created, lets show it here
 					if ($row[10] != "" && !is_null($row[10]) && file_exists($orders_dir ."/". $row[10])) {
@@ -233,7 +230,7 @@ else {
 					$ship_sql = mysql_query($ship_query) or die(mysql_error());
 					while ($ship_row = mysql_fetch_row($ship_sql)) { echo $ship_row[1]; }
 					echo "<br />";
-					// find out shipping method
+					// find out payment method
 					$pay_query = "SELECT * FROM `".$dbtablesprefix."payment` WHERE `id` = ".$row[4];
 					$pay_sql = mysql_query($pay_query) or die(mysql_error());
 					while ($pay_row = mysql_fetch_row($pay_sql)) { echo $pay_row[1]; }
@@ -242,7 +239,7 @@ else {
 					echo "<td>".$row[1]."</td>";
 					echo "<td>";
 					// determin the status and show a colored picture accordingly
-					$colors = array('1'=>'blue','2'=>'red','3'=>'red','4'=>'orange','5'=>'green','6'=>'green','7'=>'green');
+					$colors = array('0'=>'yellow','1'=>'blue','2'=>'red','3'=>'red','4'=>'orange','5'=>'green','6'=>'green','7'=>'green');
 					$order_status = $row[2];
 					$status_color = $colors[$order_status];
 					$status_text = $txt["db_status$order_status"];

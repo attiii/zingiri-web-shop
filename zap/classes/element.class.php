@@ -190,6 +190,7 @@ class element {
 			$this->name[$i]=(string)$this->xmlf->fields->{'field'.$i}->name;
 			if (class_exists($type."ZfSubElement"))	{ $c=$type."ZfSubElement"; }
 			else { $c="zfSubElement"; }
+			
 			$subelement=new $c($int,$ext,$this->xmlf->fields->{'field'.$i},$this,$i);
 			$ext=$subelement->output($mode,$input);
 

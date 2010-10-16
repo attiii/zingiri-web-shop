@@ -23,24 +23,23 @@ class widget_sidebar_cart {
 
 	function display() {
 		require(ZING_GLOBALS);
-		$countCart=CountCart($customerid);
-		$wsFeatures=new wsFeatures();
+		$countCart=CountCart(wsCid());
 		echo "<ul>";
 		echo "<li"; if ($page == "cart") { echo " id=\"active\""; }; echo "><a href=\"".zurl("?page=cart&action=show")."\">".$txt['cart5'].": ".$countCart."<br />";
-		echo $txt['cart7'].": ".$currency_symbol_pre.myNumberFormat(CalculateCart($customerid), $number_format).$currency_symbol_post."</a></li>";
+		echo $txt['cart7'].": ".$currency_symbol_pre.myNumberFormat(CalculateCart(wsCid()), $number_format).$currency_symbol_post."</a></li>";
 		if ($countCart > 0 && (ZING_JQUERY))
 		{
 			echo '<li id="showcart"><a href="javascript:void(0);">&#x25BE; ('.z_('show').')</a></li>';
 			echo '<li id="hidecart"><a href="javascript:void(0);">&#x25B4; ('.z_('hide').')</a></li>';
 		}
 		$cart="";
-		$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (`CUSTOMERID` = ".$customerid." AND `STATUS` = 0) ORDER BY ID";
+		$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (`CUSTOMERID` = ".wsCid()." AND `STATUS` = 0) ORDER BY ID";
 		$sql = mysql_query($query) or zfdbexit($query);
 		while ($row = mysql_fetch_array($sql)) {
 			$query = "SELECT * FROM `".$dbtablesprefix."product` where `ID`='" . $row[2] . "'";
 			$sql_details = mysql_query($query) or die(mysql_error());
 			if ($row_details = mysql_fetch_array($sql_details)) {
-				$price=$row['PRICE']; //+$wsFeatures->calcTotalPrice($row['FEATURES']);
+				$price=$row['PRICE']; 
 				$cart.='<li>';
 				$cart.='<a style="display:inline" href="'.zurl('?page=details&prod='.$row[2].'&basketid='.$row[0]).'">';
 				$cart.=substr($row_details['PRODUCTID'],0,20).' ';

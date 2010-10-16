@@ -47,7 +47,7 @@ else {
 		$query="SELECT * FROM `".$dbtablesprefix."basket` WHERE `ORDERID`=".quote_smart($orderid);
 		$sql_basket = mysql_query($query) or die(mysql_error());
 		while ($row_basket = mysql_fetch_array($sql_basket)) {
-			$query_prod="SELECT * FROM `".$dbtablesprefix."product` WHERE `LINK` IS NOT NULL AND `ID`=".quote_smart($row_basket['PRODUCTID']);
+			$query_prod="SELECT * FROM `".$dbtablesprefix."product` WHERE `LINK` IS NOT NULL AND `LINK` <> '' AND `ID`=".quote_smart($row_basket['PRODUCTID']);
 			$sql_prod = mysql_query($query_prod) or die(mysql_error());
 			if ($row_prod = mysql_fetch_array($sql_prod)) {
 				$linkhtml.='<a href="'.ZING_URL.'fws/download.php?basketid='.$row_basket['ID'].'&abspath='.ABSPATH.'">'.$row_prod['PRODUCTID'].'</a><br/>';
@@ -76,6 +76,6 @@ else {
 		<td><?php echo $order; ?></td>
 	</tr>
 </table>
-<h4><a href="<?php echo ZING_URL;?>fws/printorder.php?orderid=<?php echo $orderid ?>" target="_blank"><?php echo $txt['readorder1'] ?></a><br />
+<h4><a href="<?php echo zurl('?page=printorder&orderid='.$orderid,true) ?>" target="_blank"><?php echo $txt['readorder1'] ?></a><br />
 <a href="javascript:history.go(-1)"><?php echo $txt['readorder2'] ?></a></h4>
 	<?php } ?>

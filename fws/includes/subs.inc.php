@@ -226,7 +226,7 @@ Function IsAdmin() {
 	if ($integrator->isAdmin()) return true;
 	//joomla
 	if (wsCurrentCmsUserIsShopAdmin()) return true;
-
+	
 	if (!isset($_COOKIE['fws_cust'])) { return false; }
 	$fws_cust = explode("-", $_COOKIE['fws_cust']);
 	$customerid = $fws_cust[1];
@@ -375,13 +375,11 @@ Function StockWarning($stock_warning_level) {
 Function CalculateCart($customerid) {
 	// customer id from cookie
 	Global $dbtablesprefix;
-	$wsFeatures=new wsFeatures();
 	$total=0;
 	$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (CUSTOMERID=".$customerid." AND STATUS=0)";
 	$sql = mysql_query($query) or die(mysql_error());
 	while ($row = mysql_fetch_row($sql)) {
 		$productprice = $row[3]; // the price of a product
-		//$prodprice+=$wsFeatures->calcTotalPrice($row[7]);
 		$subtotal = $productprice * $row[6];
 		$total = $total + $subtotal;
 	}
@@ -519,13 +517,13 @@ function IsBanned() {
 	$query="select * from `##bannedip` where `ip` in (".qs($ip).",".qs($userip).")";
 	if ($db->select($query)) return true;
 	/*
-	$file = file(dirname(__FILE__).'/../banned.txt');
-	@array_walk($file, 'file_trim');
-	while (list($key, $val) = each($file)) {
+	 $file = file(dirname(__FILE__).'/../banned.txt');
+	 @array_walk($file, 'file_trim');
+	 while (list($key, $val) = each($file)) {
 		if ($ip == $val) { return true; }
 		if ($userip == $val) { return true; }
-	}
-	*/
+		}
+		*/
 	return false;
 }
 function isvalid_email_address($email) {
@@ -738,7 +736,7 @@ if (!function_exists('zurl')) {
 			if (!wsIsAdminPage() && !strstr($url,'q=webshop')) $url=str_replace('?','?q=webshop&',$url);
 			if (wsIsAdminPage()) $url=str_replace("index.php","",$url);
 		}
-		
+
 		if ($printurl) echo $url;
 		else return $url;
 	}
@@ -763,9 +761,11 @@ function z_($label) {
 }
 
 function reorder_txt() {
-	global $lang_dir;
+	global $lang_dir,$zing;
 
 	include($lang_dir."/en/lang.txt");
+	foreach ($zing->paths as $wsPath) if (file_exists($wsPath.'langs/'.$lang.'/lang.php')) include($wsPath.'langs/'.$lang.'/lang.php');
+
 	return array_flip($txt);
 }
 
@@ -834,8 +834,9 @@ function printDescription($productid,$description,$shortDescription) {
 }
 
 function customerId($e='') {
-	global $customerid;
-	return $customerid;
+	//global $customerid;
+	//return $customerid;
+	return wsCid();
 }
 
 function wsComments($text) {
@@ -891,4 +892,21 @@ function wsCurrentPageURL($encode=false)
 	else return $pageURL;
 }
 
+Function actionCompleteMessage() {
+	global $gfx_dir,$txt;
+	$msg='';
+	if ($_REQUEST['zmsg']) {
+		$title=$txt['general13'];
+		$message=$txt['adminedit2'];
+		$picture="notify.gif";
+		$msg ="<table width=\"".$width."%\" class=\"datatable\">";
+		//$msg.="<caption>".$title."</caption>";
+		//$msg.="<tr><td><img src=\"".$gfx_dir."/".$picture."\" alt=\"".$picture."\" height=\"32px\"></td>";
+		//$msg.="<td>".$message."</td></tr></table>";
+		$msg.="<tr><td><img src=\"".$gfx_dir."/".$picture."\" alt=\"".$picture."\" height=\"24px\">";
+		$msg.='<strong>'.$message.'</strong>'."</td></tr></table>";
+		$msg.="<br /><br />";
+	}
+	return $msg;
+}
 ?>

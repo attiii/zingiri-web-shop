@@ -25,8 +25,6 @@ error_reporting(E_ALL & ~E_NOTICE);
 ini_set('display_errors', '1');
 
 require(dirname(__FILE__).'/init.inc.php');
-//print_r($_POST);
-
 $wsProductId=intval($_POST['prodid']);
 if (isset($_POST['featuresets'])) {
 	$featureSets=intval($_POST['featuresets']);
@@ -38,8 +36,9 @@ $row = mysql_fetch_array($sql);
 $price = 0;
 //print_r($row);
 
-$wsFeatures=new wsFeatures($row['FEATURES'],$row['FEATURESHEADER']);
+$wsFeatures=new wsFeatures($row['FEATURES'],$row['FEATURESHEADER'],$row['FEATURES_SET']);
 for ($i=0;$i<$featureSets;$i++) {
+	$wsFeatures->validate($i);
 	$price+=$wsFeatures->calcPrice($i,$row['PRICE'],$row['PRICE_FORMULA_TYPE'],$row['PRICE_FORMULA_RULE']);
 	//$wsFeatures->parse($i);
 }
@@ -51,5 +50,6 @@ $a['priceex']=$tax->exFtd;
 $a['f']=$wsFeatures->f;
 $a['p']=$wsFeatures->p;
 $a['row']=$row['PRICE_FORMULA_RULE'];
+$a['post']=$wsFeatures->post;
 echo json_encode($a);
 ?>
