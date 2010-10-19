@@ -1362,7 +1362,7 @@ zingiri-web-shop/index.php,d41d8cd98f00b204e9800998ecf8427e
 zingiri-web-shop/init.inc.php,db472230b14b9fef16c210f83c402da3
 zingiri-web-shop/license.txt,39bba7d2cf0ba1036f2a6e2be52fe3f0
 zingiri-web-shop/load.php,7022e26fc64f96630e748eb82ef35779
-zingiri-web-shop/readme.txt,4cfccaf18133eba40cde84dc57eb629d
+zingiri-web-shop/readme.txt,d1714f13fbdc73939b1b1518ef643f5b
 zingiri-web-shop/startmodules.inc.php,c915cb98a9a5a4fa192a7173404d34f2
 zingiri-web-shop/wp.hooks.inc.php,23cbb2bdcbfd486a92c060a0279c0545
 zingiri-web-shop/wp.init.inc.php,2b50c85511c6d88139e35898352bbdd5
