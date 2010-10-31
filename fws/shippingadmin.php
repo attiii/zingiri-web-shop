@@ -98,7 +98,7 @@ else {
 			}
 
 			// add the weights and costs of it was submitted
-			if ((!empty($_POST['from'])) || (!empty($_POST['to'])) || (!empty($_POST['price'])) || ($_POST['from']==0) || ($_POST['to']==0) || ($_POST['price']==0)) {
+			if ((!empty($_POST['from'])) || (!empty($_POST['to'])) || (!empty($_POST['price'])) || ($_POST['from']===0) || ($_POST['to']===0) || ($_POST['price']===0)) {
 				if (empty($_POST['from'])) { $from = 0; }
 				else { $from = $_POST['from'];}
 				if (empty($_POST['to'])) { $to = 0; }

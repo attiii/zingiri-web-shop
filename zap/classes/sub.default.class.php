@@ -82,7 +82,7 @@ class zfSubElement {
 	}
 
 	function error($error_message) {
-		$this->error_message=$error_message;
+		$this->error_message=z_($error_message);
 		$this->is_error=true;
 		return false;
 	}

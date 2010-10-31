@@ -34,21 +34,29 @@ require_once(dirname(__FILE__) . '/controlpanel.php');
 
 function zing_admin_notices() {
 	$zing_version=get_option("zing_webshop_version");
+	$zing_version_pro=get_option("zing_ws_pro_version");
 
 	if (!$zing_version) {
 		if ($_GET['page']!='zingiri-web-shop' && ZING_CMS=="wp")
 		$message='Zingiri Web Shop is almost ready. You need to launch the <a href="admin.php?page=zingiri-web-shop">installation</a> from the integration page.';
 		else
 		$message='Zingiri Web Shop is almost ready. You need to launch the installation by clicking the Install button below.';
-	} elseif ($zing_version != ZING_VERSION) {
-		if ($_GET['page']!='zingiri-web-shop' && ZING_CMS=="wp")
-		$message='You downloaded Zingiri Web Shop version '.ZING_VERSION.' and need to <a href="admin.php?page=zingiri-web-shop">upgrade</a> your database (currently at version '.$zing_version.') from the integration page.';
-		else
-		$message='You downloaded Zingiri Web Shop version '.ZING_VERSION.' and need to upgrade your database (currently at version '.$zing_version.') by clicking the Upgrade button below.';
+	} elseif (!wsVersion()) {
+		if ($_GET['page']!='zingiri-web-shop' && ZING_CMS=="wp") {
+			$message='You downloaded Zingiri Web Shop version '.ZING_VERSION;
+			$message.=get_option('zing_webshop_pro') ? '/'.ZING_WS_PRO_VERSION : '';
+			$message.=' and need to <a href="admin.php?page=zingiri-web-shop">upgrade</a> your database (currently at version '.$zing_version;
+			$message.=get_option('zing_webshop_pro') ? '/'.$zing_version_pro : ''; 
+			$message.=') from the integration page.';
+		} else {
+			$message='You downloaded Zingiri Web Shop version '.ZING_VERSION;
+			$message.=get_option('zing_webshop_pro') ? '/'.ZING_WS_PRO_VERSION : '';
+			$message.=' and need to upgrade your database (currently at version '.$zing_version;
+			$message.=get_option('zing_webshop_pro') ? '/'.$zing_version_pro : ''; 
+			$message.=') by clicking the Upgrade button below.';
+		}
 	}
 	if ($message) echo "<div id='zing-warning' style='background-color:greenyellow' class='updated fade'><p><strong>".$message."</strong> "."</p></div>";
-
-
 }
 
 /**
@@ -355,6 +363,8 @@ function zing_uninstall() {
 
 	if (function_exists('zing_apps_player_uninstall')) zing_apps_player_uninstall(false);
 
+	if (function_exists('zing_ws_pro_uninstall')) zing_ws_pro_uninstall();
+	
 	restore_error_handler();
 	error_reporting($wsper);
 }
@@ -506,5 +516,11 @@ function zing_dberror($query,$loc) {
 	die();
 }
 
-
+function wsVersion() {
+	$s=$p=false;
+	if (get_option('zing_webshop_version') == ZING_VERSION) $s=true;
+	if (!get_option('zing_webshop_pro') || (get_option('zing_ws_pro_version') == ZING_WS_PRO_VERSION)) $p=true;
+	if ($s && $p) return true;
+	else return false;
+}
 ?>

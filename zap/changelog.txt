@@ -9,6 +9,8 @@
 * Cleaned up display in access class
 * Fixed issue with function faces_directory looping in case directory variable doesn't exist
 * Removed pause before redirect after form update
+* Added optimisations using caching
+* Upgraded defunct function ereg in email sub class
 
 = 0.9.5 = 
 * Compatibility with Wordpress 3.0.1

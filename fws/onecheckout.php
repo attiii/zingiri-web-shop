@@ -28,8 +28,8 @@ if (loggedin()) {
 	if (!empty($_POST['numprod'])) {
 		$numprod=intval($_POST['numprod']);
 	}
-	if (!empty($_POST['paymentid'])) {
-		$paymentid=intval($_POST['paymentid']);
+	if (!empty($_REQUEST['paymentid'])) {
+		$paymentid=intval($_REQUEST['paymentid']);
 	}
 	if (!empty($_REQUEST['basketid'])) {
 		$basketid=intval($_REQUEST['basketid']);
@@ -44,7 +44,12 @@ if (loggedin()) {
 		$prodid=intval($_GET['prodid']);
 		if (!empty($_POST['numprod'][$basketid])) $numprod=$_POST['numprod'][$basketid];
 	}
-	if (isset($_POST['shipping'])) { list($weightid, $shippingid) = explode(":", $_POST['shipping']); }
+	if (isset($_REQUEST['shipping'])) {
+		list($weightid, $shippingid) = explode(":", $_REQUEST['shipping']);
+		$weightid=intval($weightid);
+		$shippingid=intval($shippingid);
+		$wsShipping=$weightid.':'.$shippingid;
+	}
 
 	if (isset($_POST['discount_code'])) {
 		$discount_code=$_POST['discount_code'];
@@ -63,7 +68,7 @@ if (loggedin()) {
 		$query = "DELETE FROM `".$dbtablesprefix."basket` WHERE `CUSTOMERID` = '". wsCid()."' AND `STATUS` = '0' AND  `ID` = '". $basketid."'";
 		$sql = mysql_query($query) or die(mysql_error());
 	} elseif ($action=="update"){
-		
+
 		// if we work with stock amounts, then lets check if there is enough in stock
 		if ($stock_enabled == 1) {
 			$query = "SELECT `STOCK` FROM `".$dbtablesprefix."product` WHERE `ID` = '".$prodid."'";
@@ -84,18 +89,18 @@ if (loggedin()) {
 	CheckoutShowProgress();
 
 	//shipping start
-		$cart_weight = WeighCart(wsCid());
-		//check if combined shipping and weight is applicable
-		if ($shippingid && $weightid) {
-			$weight_query = "SELECT * FROM `".$dbtablesprefix."shipping_weight` WHERE '".$cart_weight."' >= `FROM` AND '".$cart_weight."' <= `TO` AND `SHIPPINGID` = '".$shippingid."'";
-			$weight_sql = mysql_query($weight_query) or zfdbexit($weight_query);
-			if ($row_weight=mysql_fetch_array($weight_sql)) {
-				$weightid=$row_weight['ID'];
-			} else {
-				$weightid='';
-				$shippingid='';
-			}
+	$cart_weight = WeighCart(wsCid());
+	//check if combined shipping and weight is applicable
+	if ($shippingid && $weightid) {
+		$weight_query = "SELECT * FROM `".$dbtablesprefix."shipping_weight` WHERE '".$cart_weight."' >= `FROM` AND '".$cart_weight."' <= `TO` AND `SHIPPINGID` = '".$shippingid."'";
+		$weight_sql = mysql_query($weight_query) or zfdbexit($weight_query);
+		if ($row_weight=mysql_fetch_array($weight_sql)) {
+			$weightid=$row_weight['ID'];
+		} else {
+			$weightid='';
+			$shippingid='';
 		}
+	}
 	?>
 <form id="checkout" method="post" action="<?php zurl('index.php?page=checkout',true);?>">
 <table width="100%" class="datatable">
@@ -142,19 +147,55 @@ if (loggedin()) {
 			$query_pay="SELECT * FROM `".$dbtablesprefix."payment` WHERE `id`='".$row[1]."'";
 			$sql_pay = mysql_query($query_pay) or die(mysql_error());
 
-			while ($row_pay = mysql_fetch_row($sql_pay)) {
+			while ($row_pay = mysql_fetch_array($sql_pay)) {
 				if (!$paymentid) $paymentid=$row_pay[0];
 				if ($paymentid==$row_pay[0]) $selected='selected="SELECTED"'; else $selected="";
+				if ($paymentid==$row_pay[0] && $row_pay['GATEWAY']=='offlinecc') {
+					$wsIsOfflineCC=$row_pay[0];
+				}
 				echo "<OPTION VALUE=\"".$row_pay[0]."\" ".$selected.">".$row_pay[1];
 			}
 		}
 		?>
-		</SELECT></td>
+		</SELECT> <?php
+		?></td>
 	</tr>
-	<tr>
+	<?php
+	if (IsAdmin() && get_option('zing_webshop_pro') && $wsIsOfflineCC) {
+		echo '<tr><td colspan="4">'.$txt['card1'].'</td></tr><tr>';
+		$wsCreditCard=new wsCreditCard(wsCid());
+		$i=0;
+		$first=true;
+		if (count($wsCreditCard->all()) > 0) {
+			foreach ($wsCreditCard->all() as $cardid => $card) {
+				$i++;
+				if ($i > 4) {
+					echo '</tr><tr>';
+					$i=1;
+				}
+				echo '<td width="25%">';
+				echo '<strong>'.$card['CARD_NAME'].'</strong><br />';
+				echo $card['CARD_TYPE'].' ';
+				echo $card['CARD_NUMBER'].'<br />';
+				if ($_POST['wscardid'] == $cardid || ($_POST['wscardid']=='' && $first)) $selected = 'CHECKED'; else $selected="";
+				echo '<input type="radio" name="wscardid" value="'.$cardid.'" '.$selected.'/>';
+				if ($cardid > 0) {
+					echo '<a href="index.php?zfaces=form&action=edit&form=bankcard&id='.$cardid.'&redirect='.urlencode('index.php?page=onecheckout&paymentid='.$paymentid.'&shipping='.$wsShipping).'" class="button">'.$txt['browse7'].'</a>';
+					echo ' ';
+					echo '<a href="index.php?zfaces=form&action=delete&form=bankcard&id='.$cardid.'&redirect='.urlencode('index.php?page=onecheckout&paymentid='.$paymentid.'&shipping='.$wsShipping).'" class="button">'.$txt['browse8'].'</a>';
+				}
+				echo '</td>';
+				$first=false;
+			}
+		}
+		echo '<tr><td colspan="4">';
+		echo '<a href="index.php?zfaces=form&action=add&form=bankcard&redirect='.urlencode('index.php?page=onecheckout&paymentid='.$paymentid.'&shipping='.$wsShipping).'" class="button">'.$txt['shippingadmin10'].'</a>';
+		echo '</td></tr>';
+	}
+	?>
 	<?php
 	if (WeighCart(wsCid()) > 0) {
-		echo '<td colspan="4">'.$txt['customer21'].'</td></tr><tr>';
+		echo '<tr><td colspan="4">'.$txt['customer21'].'</td></tr><tr>';
 		$address=new wsAddress(wsCid());
 		$addresses=$address->getAddresses();
 		$i=0;
@@ -188,31 +229,29 @@ if (loggedin()) {
 	?>
 	</tr>
 </table>
-<?php if (ActiveDiscounts()) {?>
+	<?php if (ActiveDiscounts()) {?>
 <table>
 	<tr>
 		<td><?php echo $txt['shipping5']?> <input type="text" id="discount_code" name="discount_code"
 			value="<?php echo $discount_code?>"
-		><input type="submit" name="discount"
-			value="<?php echo $txt['cart10'];?>"
+		><input type="submit" name="discount" value="<?php echo $txt['cart10'];?>"
 			onclick="this.form.action='<?php zurl('?page=onecheckout',true)?>';this.form.submit();"
 		/></td>
 	</tr>
 </table>
-<?php }?>
-	<?php //}
+<?php }?> <?php //}
 
-	//shipping end
-	// read basket
-	$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (`CUSTOMERID` = ".wsCid()." AND `STATUS` = 0) ORDER BY ID";
-	$sql = mysql_query($query) or zfdbexit($query);
-	$count = mysql_num_rows($sql);
+//shipping end
+// read basket
+$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (`CUSTOMERID` = ".wsCid()." AND `STATUS` = 0) ORDER BY ID";
+$sql = mysql_query($query) or zfdbexit($query);
+$count = mysql_num_rows($sql);
 
-	if ($count == 0) {
-		PutWindow($gfx_dir, $txt['cart1'], $txt['cart2'], "carticon.gif", "50");
-	}
-	else {
-		?> <br />
+if ($count == 0) {
+	PutWindow($gfx_dir, $txt['cart1'], $txt['cart2'], "carticon.gif", "50");
+}
+else {
+	?> <br />
 <table width="100%" class="datatable">
 	<tr>
 		<th colspan="2"><?php echo $txt['cart3']; ?></th>
@@ -247,8 +286,9 @@ if (loggedin()) {
 			$print_description=printDescription($row_details[1],$row_details[3],$row_details['EXCERPT']);
 			?>
 	<tr <?php echo $kleur; ?>>
-		<td colspan="2"><a href="<?php zurl("index.php?page=details&prod=".$row_details[0].'&basketid='.$row['ID'],true); ?>"><?php echo $thumb.$print_description.$picturelink; ?></a>
-		<?php
+		<td colspan="2"><a
+			href="<?php zurl("index.php?page=details&prod=".$row_details[0].'&basketid='.$row['ID'],true); ?>"
+		><?php echo $thumb.$print_description.$picturelink; ?></a> <?php
 		$productprice = $row[3]; // the price of a product
 		$printvalue = $row[7];   // features
 		if (!$printvalue == "") { echo "<br />(".$printvalue.")"; }
@@ -373,5 +413,5 @@ if (loggedin()) {
 </form>
 
 <?php
-	}
+}
 }?>

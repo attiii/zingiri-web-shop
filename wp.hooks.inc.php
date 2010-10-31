@@ -160,6 +160,8 @@ function zing_header()
 
 	echo '<link rel="stylesheet" href="' . ZING_URL . 'fws/addons/lightbox/lightbox.css" type="text/css" media="screen" />';
 	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/addons/lightbox/lightbox.js"></script>';
+	
+	if (function_exists('zing_ws_pro_header')) zing_ws_pro_header();
 }
 
 function zing_ws_header_custom()

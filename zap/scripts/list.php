@@ -110,7 +110,8 @@ if ($zflist)
 				$span="";
 				foreach ($links as $i => $link) {
 					if ($span) $span.=" | ";
-					$span.='<a href="'.zurl('?page='.$page.'&zfaces='.$link['DISPLAYOUT'].'&action='.$link['ACTIONOUT'].'&formid='.$link['FORMOUT'].'&id='.$id.'&map='.$link['MAP'].$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION']).'">'.ucfirst($link['ACTION']).'</a>';
+					if ($link['FORMOUTALT']) $span.='<a href="'.zurl('?'.$link['FORMOUTALT'].'&id='.$id.'&map='.$link['MAP'].$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION']).'">'.ucfirst($link['ACTION']).'</a>';
+					else $span.='<a href="'.zurl('?page='.$page.'&zfaces='.$link['DISPLAYOUT'].'&action='.$link['ACTIONOUT'].'&formid='.$link['FORMOUT'].'&id='.$id.'&map='.$link['MAP'].$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION']).'">'.ucfirst($link['ACTION']).'</a>';
 				}
 
 			}

@@ -387,8 +387,8 @@ $txt['editsettings7'] = 'Versankosten per Nachnahme<a href=# class=info>(?)<span
 $txt['editsettings8'] = 'W&auml;hrung';
 $txt['editsettings9'] = 'W&auml;hrungssymbol <a href=# class=info>(?)<span>In diesem Fall wohl : $</span></a>';
 $txt['editsettings10'] = 'Zahlen innerhalb x?x Tagen <a href=# class=info>(?)<span>in welchem zeitrahmen soll die zahlung eingegangen sein?</span></a>';
-$txt['editsettings11'] = 'MwSt. angeben <a href=# class=info>(?)<span>In Fall 19% MwSt. -->  1.19</span></a>';
-$txt['editsettings12'] = 'MwSt. Text <a href=# class=info>(?)<span>In Fall 19% MwSt. --> 19%</span></a>';
+$txt['editsettings11'] = 'MwSt. angeben <a href=# class=info>(?)<span>In Fall 19% MwSt. =  1.19</span></a>';
+$txt['editsettings12'] = 'MwSt. Text <a href=# class=info>(?)<span>In Fall 19% MwSt. = 19%</span></a>';
 $txt['editsettings13'] = 'Preis inkl. MwSt.';
 $txt['editsettings14'] = 'Email-Adresse Verkaufsabteilung <a href=# class=info>(?)<span>Zu dieser Adresse werden die Bestellungen geschickt, zB. Shopmitarbeiter: nicola@yourshop.de</span></a>';
 $txt['editsettings15'] = 'Shop Name';
@@ -663,4 +663,19 @@ $txt['discountadmin6'] = 'Alle unverbrauchten Codes';
 $txt['discountadmin7'] = 'Rabattcode';
 $txt['discountadmin8'] = 'keine unverbrauchten Codes';
 $txt['discountadmin9'] = 'erstellt am';
+
+//1.6.7
+$txt['apps1'] = 'Format des Betrags ung&uuml;ltig!';
+$txt['apps2'] = 'Falscher Code!';
+$txt['apps3'] = 'Falsches Datumsformat!';
+$txt['apps4'] = 'Dieses Feld ist obligatorisch!';
+$txt['apps5'] = 'Falsches Format der Email-Adresse!';
+$txt['apps6'] = 'Das Format der IP-Adresse ist falsch!';
+$txt['apps7'] = 'Bitte geben Sie die Nummern richtig formatiert ein!';
+$txt['apps8'] = 'Die Passworte sind nicht identisch!';
+$txt['apps9'] = 'Datensatz nicht gefunden';
+$txt['apps10'] = 'Eingabe wiederholen';
+$txt['apps11'] = 'Tief';
+$txt['apps12'] = 'Hoch';
+$txt['apps13'] = 'Betrag'; 
 ?>

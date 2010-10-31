@@ -135,7 +135,13 @@ function zfShowColumns($form_dbtable) {
 }
 function is_new_field($form_dbtable,$fieldname)
 {
-	$field_array = zfShowColumns($form_dbtable);
+	global $wsCache;
+	if (isset($wsCache['table_name']) && $wsCache['table_name']==$form_dbtable) $field_array=$wsCache['table_fields'];
+	else {
+		$field_array = zfShowColumns($form_dbtable);
+		$wsCache['table_name']=$form_dbtable;
+		$wsCache['table_fields']=$field_array;
+	}
 
 	if (!in_array($fieldname,$field_array))
 	{

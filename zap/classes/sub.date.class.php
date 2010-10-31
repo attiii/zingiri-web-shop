@@ -36,7 +36,7 @@ class dateZfSubElement extends zfSubElement {
 		if ($this->ext!='' && !strtotime($this->ext))
 		{
 			$success=false;
-			$this->error_message="Wrong date format!";
+			$this->error_message=z_("Wrong date format!");
 			$this->is_error=true;
 		} else {
 			if ($this->ext!='') {
@@ -59,6 +59,6 @@ class dateZfSubElement extends zfSubElement {
 		}
 		if ($e->populated_value['element_'.$e->id.'_'.$i]=='0000-00-00') $e->populated_value['element_'.$e->id.'_'.$i]='';
 		$field_markup.="<input id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" size=\"{$this->size}\" value=\"{$e->populated_value['element_'.$e->id.'_'.$i]}\" maxlength=\"{$this->maxlength}\" type=\"text\" {$e->readonly}/>";
-		$subscript_markup.="<label id=\"label_{$e->id}_{$i}\"for=\"element_{$e->id}_{$i}\">".$xmlf->fields->{'field'.$i}->label."</label>";
+		$subscript_markup.="<label id=\"label_{$e->id}_{$i}\"for=\"element_{$e->id}_{$i}\">".z_($xmlf->fields->{'field'.$i}->label)."</label>";
 	}
 }

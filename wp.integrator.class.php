@@ -1,5 +1,5 @@
 <?php
-
+global $integrator;
 $integrator=new integrator();
 
 class integrator {

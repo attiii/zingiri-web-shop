@@ -23,7 +23,8 @@ class paymentCode {
 			//common variables
 			$this->returnUrl=$shopurl . '/index.php?page=checkout&status=1&webid='.urlencode($webid).'&gateway='.$gateway;
 			$this->cancelUrl=$shopurl . '/index.php?page=checkout&status=9&webid='.urlencode($webid).'&gateway='.$gateway;
-			if (!empty($gateway)) @include(ZING_LOC.'extensions/gateways/'.$gateway.'/'.$gateway.'.php');
+			if (!empty($gateway) && file_exists(ZING_LOC.'extensions/gateways/'.$gateway.'/'.$gateway.'.php')) @include(ZING_LOC.'extensions/gateways/'.$gateway.'/'.$gateway.'.php');
+			elseif (!empty($gateway) && file_exists(ZING_WS_PRO_DIR.'../extensions/gateways/'.$gateway.'/'.$gateway.'.php')) @include(ZING_WS_PRO_DIR.'../extensions/gateways/'.$gateway.'/'.$gateway.'.php');
 			if (class_exists($gateway.'Gateway')) {
 				$gc=$gateway.'Gateway';
 				$g=new $gc($this,$customer);

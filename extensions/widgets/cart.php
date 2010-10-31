@@ -15,7 +15,6 @@ class widget_sidebar_cart {
 		if ($displayTitle) echo $txt['menu2'];
 		echo $after_title;
 		echo '<div id="zing-sidebar-cart">';
-		//zing_main("sidebar","cart");
 		$this->display();
 		echo '</div>';
 		echo $after_widget;
@@ -25,6 +24,11 @@ class widget_sidebar_cart {
 		require(ZING_GLOBALS);
 		$countCart=CountCart(wsCid());
 		echo "<ul>";
+		if (get_option('zing_webshop_pro') && isset($_SESSION['zing_session']['customerid'])) {
+			echo '<li>(';
+			echo getCustomerName(wsCid());
+			echo ')</li>';
+		}
 		echo "<li"; if ($page == "cart") { echo " id=\"active\""; }; echo "><a href=\"".zurl("?page=cart&action=show")."\">".$txt['cart5'].": ".$countCart."<br />";
 		echo $txt['cart7'].": ".$currency_symbol_pre.myNumberFormat(CalculateCart(wsCid()), $number_format).$currency_symbol_post."</a></li>";
 		if ($countCart > 0 && (ZING_JQUERY))

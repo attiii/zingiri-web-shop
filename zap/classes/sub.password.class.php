@@ -32,6 +32,9 @@ class passwordZfSubElement extends zfSubElement {
 	function verify() {
 		$pass1=$this->element->populated_value['element_'.$this->element->id.'_1'];
 		$pass2=$this->element->populated_value['element_'.$this->element->id.'_2'];
+		if (strlen($pass1) > 40) {
+			return ($this->error("Password is too long!"));
+		}
 		if ($pass1 != $pass2) {
 			return ($this->error("Passwords are not matching!"));
 		}
@@ -48,7 +51,7 @@ class passwordZfSubElement extends zfSubElement {
 			$e->populated_value['element_'.$e->id.'_'.$i] = $xmlf->fields->{'field'.$i}->default;
 		}
 		$field_markup.="<input id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" size=\"{$this->size}\" value=\"\" maxlength=\"{$this->maxlength}\" type=\"password\" {$e->readonly}/>";
-		$subscript_markup.="<label id=\"label_{$e->id}_{$i}\"for=\"element_{$e->id}_{$i}\">".$xmlf->fields->{'field'.$i}->label."</label>";
+		$subscript_markup.="<label id=\"label_{$e->id}_{$i}\"for=\"element_{$e->id}_{$i}\">".z_($xmlf->fields->{'field'.$i}->label)."</label>";
 	}
 	
 }

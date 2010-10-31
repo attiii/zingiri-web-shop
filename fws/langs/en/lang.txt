@@ -764,4 +764,22 @@ $txt['general105'] = 'Definition';
 $txt['editsettings115'] = 'Close basket and submit';
 $txt['editsettings116'] = 'Submit but leave basket open';
 $txt['db_status0'] = 'Order in progress';
+
+//1.6.7 - added
+$txt['generic2'] = 'New';
+$txt['apps1'] = 'Amount format incorrect!';
+$txt['apps2'] = 'Code incorrect!';
+$txt['apps3'] = 'Wrong date format!';
+$txt['apps4'] = 'Field is mandatory!';
+$txt['apps5'] = 'Wrong email format!';  
+$txt['apps6'] = 'IP address form is not valid!';  
+$txt['apps7'] = 'Number format incorrect!';  
+$txt['apps8'] = 'Passwords are not matching!';  
+$txt['apps9'] = 'Record not found';  
+$txt['apps10'] = 'Repeat';
+$txt['apps11'] = 'Low';
+$txt['apps12'] = 'High';
+$txt['apps13'] = 'Amount';
+$txt['apps14'] = 'Password is too long!';
+
 ?>

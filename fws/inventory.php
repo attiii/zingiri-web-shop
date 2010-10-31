@@ -1,5 +1,5 @@
 <?php
-/*  browse.php
+/*  inventory.php
  Copyright 2006, 2007, 2008 Elmar Wenners
  Support site: http://www.chaozz.nl
 
@@ -162,10 +162,6 @@ if (IsAdmin() == false) {
 		}
 		echo '</select>';
 		echo '</div>';
-		//echo '<div style="position:relative;float:right">';
-		//echo '<a href="'.wsCurrentPageURL().'&displaytype=list" alt="'.$txt['browse100'].'">'.$txt['browse100'].'</a>';
-		//echo ' <a href="'.wsCurrentPageURL().'&displaytype=grid" alt="'.$txt['browse101'].'">'.$txt['browse101'].'</a>';
-		//echo '</div>';
 		echo '<div style="position:relative;clear:both"></div>';
 
 		if ($wsProductDisplayType=='list') {
@@ -174,7 +170,7 @@ if (IsAdmin() == false) {
 			echo '<th>';
 			echo $txt['browse2']." / ".$categorie;
 			echo "<br />";
-			if ($action == "list") { echo "<a href=\"".zurl('?page=browse&action=list&group='.$group.'&cat='.$cat.'&orderby=1')."\"><small>".$txt['browse4']."</small></a>";  }
+			if ($action == "list") { echo "<a href=\"".zurl('?page=inventory&action=list&group='.$group.'&cat='.$cat.'&orderby=1')."\"><small>".$txt['browse4']."</small></a>";  }
 			echo '</th>';
 			if ($ordering_enabled) {
 				echo '<th>';
@@ -183,7 +179,7 @@ if (IsAdmin() == false) {
 				// if we use VAT, then display that the prices are including VAT in the list below
 				if ($no_vat == 0) { echo " (".$txt['general7']." ".$txt['general5'].")"; }
 				echo "<br />";
-				if ($action == "list") { echo "<a href=\"".zurl('?page=browse&action=list&group='.$group.'&cat='.$cat.'&orderby=2')."\"><small>".$txt['browse4']."</small></a>";  }
+				if ($action == "list") { echo "<a href=\"".zurl('?page=inventory&action=list&group='.$group.'&cat='.$cat.'&orderby=2')."\"><small>".$txt['browse4']."</small></a>";  }
 				echo "</div>";
 				echo '</th>';
 			}
@@ -220,7 +216,7 @@ if (IsAdmin() == false) {
 			echo "<br /><h4>".$txt['browse11'].": ";
 
 			if ($num_page > $page_range) {
-				echo "<a href=\"".zurl('index.php?page=browse&action='.$action.'&group='.$group.'&cat='.$cat.'&orderby='.$orderby.'&searchmethod='.$searchmethod.'&searchfor='.$searchfor.'&num_page=1&includesearch='.$includesearch)."\">[1]</a>";
+				echo "<a href=\"".zurl('index.php?page=inventory&action='.$action.'&group='.$group.'&cat='.$cat.'&orderby='.$orderby.'&searchmethod='.$searchmethod.'&searchfor='.$searchfor.'&num_page=1&includesearch='.$includesearch)."\">[1]</a>";
 			}
 			if ($num_page > $page_range + 1) echo ' ...';
 
@@ -233,7 +229,7 @@ if (IsAdmin() == false) {
 					if ($num_pages == $num_page) {
 						echo "<b>[$num_pages]</b>";
 					}
-					elseif (($num_pages-$num_page <= $page_range) && ($num_pages-$num_page >= -$page_range)) { echo "<a href=\"".zurl('index.php?page=browse&action='.$action.'&group='.$group.'&cat='.$cat.'&orderby='.$orderby.'&searchmethod='.$searchmethod.'&searchfor='.$searchfor.'&num_page='.$num_pages.'&includesearch='.$includesearch)."\">[$num_pages]</a>"; }
+					elseif (($num_pages-$num_page <= $page_range) && ($num_pages-$num_page >= -$page_range)) { echo "<a href=\"".zurl('index.php?page=inventory&action='.$action.'&group='.$group.'&cat='.$cat.'&orderby='.$orderby.'&searchmethod='.$searchmethod.'&searchfor='.$searchfor.'&num_page='.$num_pages.'&includesearch='.$includesearch)."\">[$num_pages]</a>"; }
 					echo " ";
 				}
 			}
@@ -244,7 +240,7 @@ if (IsAdmin() == false) {
 				if ($num_pages == $num_page) {
 					echo "<b>[$num_pages]</b>";
 				}
-				else { echo "<a href=\"".zurl('index.php?page=browse&action='.$action.'&group='.$group.'&cat='.$cat.'&orderby='.$orderby.'&searchmethod='.$searchmethod.'&searchfor='.$searchfor.'&num_page='.$num_pages.'&includesearch='.$includesearch)."\">[$num_pages]</a>"; }
+				else { echo "<a href=\"".zurl('index.php?page=inventory&action='.$action.'&group='.$group.'&cat='.$cat.'&orderby='.$orderby.'&searchmethod='.$searchmethod.'&searchfor='.$searchfor.'&num_page='.$num_pages.'&includesearch='.$includesearch)."\">[$num_pages]</a>"; }
 			}
 
 			echo "</h4>";

@@ -93,7 +93,7 @@ class sqlZfSubElement extends zfSubElement {
 		}
 		$field_markup.=$option_markup;
 		$field_markup.="</select>";
-		$subscript_markup.="<label for=\"element_{$e->id}_{$i}\">{$xmlf->fields->{'field'.$i}->label}</label>";
+		$subscript_markup.="<label for=\"element_{$e->id}_{$i}\">".z_($xmlf->fields->{'field'.$i}->label)."</label>";
 
 
 		}

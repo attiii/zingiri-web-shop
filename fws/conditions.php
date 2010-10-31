@@ -30,7 +30,7 @@ if (LoggedIn() == False && $action == "checkout") {
 	// do nothing
 }
 else {
-	$count = CountCart($customerid);
+	$count = CountCart(wsCid());
 	if ($count == 0 && $action == "checkout") {
 		PutWindow($gfx_dir, $txt['cart1'], $txt['cart2'], "carticon.gif", "50");
 	}

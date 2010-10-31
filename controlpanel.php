@@ -318,7 +318,7 @@ function zing_ws_admin() {
 </table>
 
 <?php if (!$zing_version) {?>
-<p class="submit"><input name="install" type="submit" value="Install" /> <?php } elseif ($zing_version != ZING_VERSION) {?>
+<p class="submit"><input name="install" type="submit" value="Install" /> <?php } elseif (!wsVersion()) {?>
 <p class="submit"><input name="install" type="submit" value="Upgrade" /> <?php } else {?>
 <p class="submit"><input name="install" type="submit" value="Update" /> <?php if ($integrator->wpAdmin) {?>
 <hr />
@@ -329,7 +329,7 @@ are given the Web Shop administrator rights.
 /></p>
 
 </form>
-<?php if ($zing_version == ZING_VERSION && !$integrator->wpAdmin) { ?>
+<?php if (wsVersion() && !$integrator->wpAdmin) { ?>
 <hr />
 <p>Please note that you have selected to use the user administration in the Zingiri Webshop.<br />
 If you wish you can use your own CMS user administration instead by selecting the appropriate

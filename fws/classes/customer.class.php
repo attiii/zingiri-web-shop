@@ -21,14 +21,14 @@ class wsCustomer {
 		}
 		return false;
 	}
-	
-	function getCustomerNameById($customerid) {
-		$db=new db();
-		$query = "SELECT * FROM ##customer WHERE ID = '" . $customerid. "'";
-		if ($db->select($query)) {
-			if ($db->next()) return $db->get('initials').' ' .$db->get('lastname');
-		}
-		return '';
+
+}
+function getCustomerNameById($customerid) {
+	$db=new db();
+	$query = "SELECT * FROM ##customer WHERE ID = '" . $customerid. "'";
+	if ($db->select($query)) {
+		if ($db->next()) return $db->get('initials').' ' .$db->get('lastname');
 	}
+	return '';
 }
 ?>

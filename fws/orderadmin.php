@@ -38,6 +38,9 @@ else {
 	if (!empty($_POST['newstatus'])) {
 		$newstatus=$_POST['newstatus'];
 	}
+	if (!empty($_REQUEST['id'])) {
+		$wsCustomerId=intval($_REQUEST['id']);
+	}
 	if (!empty($_POST['notify'])) {
 		$notify=$_POST['notify'];
 	}
@@ -75,6 +78,7 @@ else {
 			echo "<br />";
 			echo "<form method=\"post\" action=\"".zurl('index.php?page=orderadmin&action=changestatus')."\">";
 			echo "<input type=\"hidden\" name=\"orderid\" value=\"" . $orderid . "\">";
+			echo "<input type=\"hidden\" name=\"id\" value=\"" . $wsCustomerId . "\">";
 			echo "<SELECT style=\"vertical-align:top\" NAME=\"newstatus\">";
 			echo "    <OPTION SELECTED VALUE=\"\">";
 			for ($i=1;$i<=7;$i++) {
@@ -164,6 +168,7 @@ else {
 	if ($status == "%") {  $where.= ""; }
 	else { $where.= "AND STATUS = '" . $status . "'"; }
 
+	if ($wsCustomerId) $where.= "AND `CUSTOMERID` = '" . $wsCustomerId . "'";
 	$query = "SELECT * FROM `".$dbtablesprefix."order` WHERE `STATUS`>=0 " . $where . " ORDER BY ID DESC";
 	$sql = mysql_query($query) or die(mysql_error());
 	$num_orders = mysql_num_rows($sql);
@@ -184,12 +189,12 @@ else {
 
 <table width="100%" class="datatable">
 	<tr>
-		<th><?php echo $txt['orders4']; ?></th>
+		<th width="15%"><?php echo $txt['orders4']; ?></th>
 		<th><?php echo $txt['customer21']; ?></th>
-		<th><?php echo $txt['orders5']; ?></th>
-		<th><?php echo $txt['orders6']." (".$currency.")"; ?></th>
-		<th><?php echo $txt['orders7']; ?></th>
-		<th><?php echo $txt['orders8']; ?></th>
+		<th width="15%"><?php echo $txt['orders5']; ?></th>
+		<th width="15%"><?php echo $txt['orders6']." (".$currency.")"; ?></th>
+		<th width="12%"><?php echo $txt['orders7']; ?></th>
+		<th width="15%"><?php echo $txt['orders8']; ?></th>
 	</tr>
 
 	<?php
@@ -233,7 +238,25 @@ else {
 					// find out payment method
 					$pay_query = "SELECT * FROM `".$dbtablesprefix."payment` WHERE `id` = ".$row[4];
 					$pay_sql = mysql_query($pay_query) or die(mysql_error());
-					while ($pay_row = mysql_fetch_row($pay_sql)) { echo $pay_row[1]; }
+					if ($pay_row = mysql_fetch_row($pay_sql)) { echo $pay_row[1]; }
+					// find out bank card
+					if (get_option('zing_webshop_pro') && $row['CARDID']) {
+						$wsBankCard=new wsCreditCard();
+						$wsBankCard->getCard($row['CARDID']);
+						echo '<br />';
+						//echo '<a href="#">';
+						echo $wsBankCard->card['CARD_NAME'];
+						echo '<br />';
+						echo $wsBankCard->card['CARD_TYPE'];
+						echo '<br />';
+						echo $wsBankCard->card['CARD_NUMBER'];
+						echo '<br />';
+						echo $wsBankCard->card['EXPIRY_MONTH'].'-'.$wsBankCard->card['EXPIRY_YEAR'];
+						echo '<br />';
+						echo ' ('.$wsBankCard->card['CARD_CCV'].')';
+						
+						//echo '</a>';
+					}
 					echo "</td>";
 					echo "<td><div style=\"text-align:right;\">".myNumberFormat($row[6], $number_format)."</div></td>";
 					echo "<td>".$row[1]."</td>";
@@ -243,7 +266,7 @@ else {
 					$order_status = $row[2];
 					$status_color = $colors[$order_status];
 					$status_text = $txt["db_status$order_status"];
-					echo "<img src=\"".$gfx_dir."/bullit_".$status_color.".gif\" alt=\"".$status_text."\" />&nbsp;<a href=\"".zurl("index.php?page=orderadmin&action=showstatus&orderid=".$row[0]."&oldstatus=".$row[2])."\">".$status_text."</a><br />";
+					echo "<img src=\"".$gfx_dir."/bullit_".$status_color.".gif\" alt=\"".$status_text."\" />&nbsp;<a href=\"".zurl("index.php?page=orderadmin&action=showstatus&orderid=".$row[0]."&oldstatus=".$row[2]."&id=".$wsCustomerId)."\">".$status_text."</a><br />";
 					echo "</td></tr>";
 				}
 			}

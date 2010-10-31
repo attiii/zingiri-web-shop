@@ -5,3 +5,14 @@ function wsCid() {
 	else $cid=$customerid;
 	return $cid;
 }
+
+function getCustomerName($id) {
+	$name='';
+	$db=new db();
+	$query = "SELECT `INITIALS`,`MIDDLENAME`,`LASTNAME` FROM `##customer` WHERE `ID` = " . qs($id);
+	if ($db->select($query)) {
+		$db->next();
+		$name=$db->get('INITIALS').' '.$db->get('LAStNAME');
+	}
+	return $name;
+}

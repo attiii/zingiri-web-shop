@@ -38,32 +38,49 @@ function zfGetForm($formid)
 
 
 function faces_get_xml($type,$dir="") {
-	global $zing;
+	global $zing,$wsCache;
+	if (isset($wsCache['xmlf_type']) && $wsCache['xmlf_type']==$type) return $wsCache['xmlf_data'];
 
 	if (!empty($dir)) {
 		$url_details=$dir.$type.".xml";
 		if (file_exists($url_details)) {
-			if ($xmlf=simplexml_load_file($url_details)) return $xmlf;
+			if ($xmlf=simplexml_load_file($url_details)) {
+				$wsCache['xmlf_type']=$type;
+				$wsCache['xmlf_data']=$xmlf;
+				return $xmlf;
+			}
 		}
 	}
 
 	$url_details=ZING_APPS_PLAYER_DIR.'fields/'.$type.".xml";
 	if (file_exists($url_details)) {
-		if ($xmlf=simplexml_load_file($url_details)) return $xmlf;
+		if ($xmlf=simplexml_load_file($url_details)) {
+			$wsCache['xmlf_type']=$type;
+			$wsCache['xmlf_data']=$xmlf;
+			return $xmlf;
+		}
 	}
 
 	if ($zing) {
 		foreach ($zing->paths as $path) {
 			$url_details=$path.'apps/fields/'.$type.".xml";
 			if (file_exists($url_details)) {
-				if ($xmlf=simplexml_load_file($url_details)) return $xmlf;
+				if ($xmlf=simplexml_load_file($url_details)) {
+					$wsCache['xmlf_type']=$type;
+					$wsCache['xmlf_data']=$xmlf;
+					return $xmlf;
+				}
 			}
 		}
 	}
 
 	$url_details=ZING_APPS_PLAYER_DIR.'fields/text.xml';
 	if (file_exists($url_details)) {
-		if ($xmlf=simplexml_load_file($url_details)) return $xmlf;
+		if ($xmlf=simplexml_load_file($url_details)) {
+			$wsCache['xmlf_type']=$type;
+			$wsCache['xmlf_data']=$xmlf;
+			return $xmlf;
+		}
 	}
 	echo ZING_APPS_PLAYER_DIR;
 	die("no file loaded: ".$type);
@@ -165,7 +182,6 @@ function zf_json_decode($json,$assoc=true,$strip=true) {
 		$json=str_replace("\\",'',$json);
 		$json=str_replace("\'",'"',$json);
 	}
-	zing_apps_error_handler(0,'stripped:'.$json);
 
 	if (!extension_loaded("json")){
 		if (!class_exists('Services_JSON')) require_once(dirname(__FILE__).'/JSON.php');
@@ -257,21 +273,22 @@ if (!function_exists('qs')) {
 }
 
 if (!function_exists('zurl')) {
-	function zurl($url,$printurl=false) {
+	function zurl($url,$printurl=false,$interface='') {
 
 		if (ZING_CMS=='wp') {
-			if (is_admin()) $url=str_replace('index.php','admin.php',$url);
+			if (wsIsAdminPage() && ($interface!='front')) $url=str_replace('index.php','admin.php',$url);
 			else {
 				if (strstr($url,ZING_HOME)===false) $url=str_replace('index.php',ZING_HOME.'/index.php',$url);
 			}
 		} elseif (ZING_CMS=='jl') {
 			if ($url=='index.php') $url='index.php?option=com_zingiriwebshop';
-			if (is_admin() && !strstr($url,'option=com_zingiriwebshop')) $url=str_replace('?','?option=com_zingiriwebshop&',$url);
-			if (!is_admin() && !strstr($url,'option=com_zingiriwebshop')) $url=str_replace('?','?option=com_zingiriwebshop&',$url);
+			if (wsIsAdminPage() && !strstr($url,'option=com_zingiriwebshop')) $url=str_replace('?','?option=com_zingiriwebshop&',$url);
+			if (!wsIsAdminPage() && !strstr($url,'option=com_zingiriwebshop')) $url=str_replace('?','?option=com_zingiriwebshop&',$url);
 		} elseif (ZING_CMS=='dp') {
 			if ($url=='index.php') $url='index.php?q=webshop';
-			if (!is_admin() && !strstr($url,'webshop')) $url=str_replace('?','?q=webshop&',$url);
-			if (is_admin()) $url=str_replace("index.php","",$url);
+			if (!wsIsAdminPage() && !strstr($url,'webshop')) $url=str_replace('?','?q=webshop&',$url);
+			if (!wsIsAdminPage() && !strstr($url,'q=webshop')) $url=str_replace('?','?q=webshop&',$url);
+			if (wsIsAdminPage()) $url=str_replace("index.php","",$url);
 		}
 
 		if ($printurl) echo $url;
@@ -281,7 +298,7 @@ if (!function_exists('zurl')) {
 
 if (!function_exists('actionComplete()')) {
 	function actionComplete() {
-		
+
 	}
 }
 ?>

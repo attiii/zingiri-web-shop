@@ -2,7 +2,8 @@
 $menus=array();
 $menus['dashboard']=array('group' => 'admin102', 'grouping' => 'dashboard', 'single' => true, 'label' => 'admin102','href' => 'page=dashboard', 'img' => 'dashboard.png');
 $menus['orderadmin']=array('group' => 'admin2', 'grouping' => 'orders', 'label' => 'admin2','href' => 'page=orderadmin', 'img' => 'orders.jpg', 'func' => 'CountAllOrders');
-$menus['showcustomers']=array('page' => 'customeradmin', 'grouping' => 'customers', 'group' => 'admin3', 'label' => 'admin3','href' => 'page=customeradmin&action=showcustomers', 'img' => 'customers.gif', 'func' => 'CountCustomers','param' => 'CUSTOMER');
+//$menus['showcustomers']=array('page' => 'customeradmin', 'grouping' => 'customers', 'group' => 'admin3', 'label' => 'admin3','href' => 'page=customeradmin&action=showcustomers', 'img' => 'customers.gif', 'func' => 'CountCustomers','param' => 'CUSTOMER');
+$menus['showcustomers']=array('type' => 'apps', 'grouping' => 'customers', 'group' => 'admin3', 'label' => 'admin3','href' => 'zfaces=list&form=customer', 'img' => 'customers.gif');
 $menus['showadmins']=array('page' => 'customeradmin', 'grouping' => 'customers', 'group' => 'admin3', 'label' => 'admin29','href' => 'page=customeradmin&action=showadmins', 'img' => 'admins.gif', 'func' => 'CountCustomers','param' => 'ADMIN');
 //$menus['admineditbanned']=array('page' => 'adminedit', 'grouping' => 'customers', 'group' => 'admin3', 'label' => 'admin19','href' => 'page=adminedit&filename=banned.txt&root=1&wysiwyg=0', 'img' => 'banned.gif');
 $menus['mailinglist']=array('grouping' => 'customers', 'group' => 'admin3', 'label' => 'admin35','href' => 'page=mailinglist', 'img' => 'mailinglist.gif');

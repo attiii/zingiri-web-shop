@@ -143,7 +143,7 @@ if ($action == "add" && ($step == "" || $step == "poll")) {
 }
 
 if (!$success || !$allowed) {
-	echo (empty($zfform->errorMessage) ? 'Record not found' : $zfform->errorMessage);
+	echo (empty($zfform->errorMessage) ? z_('Record not found') : $zfform->errorMessage);
 }
 
 if ($allowed && $success && $showform == "edit") {

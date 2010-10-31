@@ -719,10 +719,10 @@ Function ActiveDiscounts() {
 }
 
 if (!function_exists('zurl')) {
-	function zurl($url,$printurl=false) {
+	function zurl($url,$printurl=false,$interface='') {
 
 		if (ZING_CMS=='wp') {
-			if (wsIsAdminPage()) $url=str_replace('index.php','admin.php',$url);
+			if (wsIsAdminPage() && ($interface!='front')) $url=str_replace('index.php','admin.php',$url);
 			else {
 				if (strstr($url,ZING_HOME)===false) $url=str_replace('index.php',ZING_HOME.'/index.php',$url);
 			}

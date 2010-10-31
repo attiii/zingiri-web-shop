@@ -108,7 +108,6 @@ class metaZfSubElement extends zfSubElement {
 		}
 		$field_markup.=$option_markup;
 		$field_markup.="</div>";
-		//$subscript_markup.="<label for=\"element_{$e->id}_{$i}\">{$xmlf->fields->{'field'.$i}->label}</label>";
 		}
 	}
 	?>

@@ -31,7 +31,7 @@ class payment_gatewayZfSubElement extends zfSubElement {
 		$field_markup.="<select id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" {$e->readonly}>";
 
 		$option_markup = "<option value=\"\"></option>";
-		
+
 		$files=faces_directory(ZING_LOC."extensions/gateways","",true);
 		foreach ($files as $file) {
 			if(trim($e->populated_value['element_'.$e->id.'_'.$i]) == $file){
@@ -41,9 +41,20 @@ class payment_gatewayZfSubElement extends zfSubElement {
 			} else $selected='';
 			if (!$e->readonly || ($e->readonly && $selected)) $option_markup .= "<option value=\"".$file."\" {$selected}>".$file."</option>";
 		}
+		if (get_option('zing_webshop_pro')) {
+			$files=faces_directory(ZING_WS_PRO_DIR."../extensions/gateways","",true);
+			foreach ($files as $file) {
+				if(trim($e->populated_value['element_'.$e->id.'_'.$i]) == $file){
+					$selected = 'selected="selected"';
+				} elseif ($e->default_value == $file) {
+					$selected = 'selected="selected"';
+				} else $selected='';
+				if (!$e->readonly || ($e->readonly && $selected)) $option_markup .= "<option value=\"".$file."\" {$selected}>".$file."</option>";
+			}
+		}
 		$field_markup.=$option_markup;
 		$field_markup.="</select>";
 		$subscript_markup.="<label for=\"element_{$e->id}_{$i}\">{$xmlf->fields->{'field'.$i}->label}</label>";
+		}
 	}
-}
-?>
+	?>
