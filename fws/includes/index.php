@@ -11,7 +11,8 @@ if ($handlex = opendir(dirname(__FILE__))) {
 }
 
 foreach ($zing->paths as $wsPath) {
-	if ($wsPath.'includes' != dirname(__FILE__)) {
+	if (str_replace('\\','/',$wsPath.'includes') != str_replace('\\','/',dirname(__FILE__))) {
+			
 		if ($handlex = opendir($wsPath.'includes')) {
 			while (false !== ($filex = readdir($handlex))) {
 				if (strstr($filex,"inc.php")) {

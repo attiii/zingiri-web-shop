@@ -26,9 +26,9 @@
   <table summary="search form" class="datatable" width="60%">
 	  <tr>
 	    <td>
-	      <form method="get" action="?page=browse">
+	      <form method="get" action="?page=<?php echo $page;?>">
 	       <?php echo $txt['search2'] ?>
-	       <input type="hidden" name="page" value="browse">
+	       <input type="hidden" name="page" value="<?php echo $page;?>">
 	       <input type="text" name="searchfor" size="40">
 	       <input type="hidden" name="action" value="search">
 	       <input type="hidden" name="includesearch" value="<?php echo $includesearch;?>">

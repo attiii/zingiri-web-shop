@@ -731,10 +731,10 @@ if (!function_exists('zurl')) {
 			if (wsIsAdminPage() && !strstr($url,'option=com_zingiriwebshop')) $url=str_replace('?','?option=com_zingiriwebshop&',$url);
 			if (!wsIsAdminPage() && !strstr($url,'option=com_zingiriwebshop')) $url=str_replace('?','?option=com_zingiriwebshop&',$url);
 		} elseif (ZING_CMS=='dp') {
-			if ($url=='index.php') $url='index.php?q=webshop';
-			if (!wsIsAdminPage() && !strstr($url,'webshop')) $url=str_replace('?','?q=webshop&',$url);
-			if (!wsIsAdminPage() && !strstr($url,'q=webshop')) $url=str_replace('?','?q=webshop&',$url);
-			if (wsIsAdminPage()) $url=str_replace("index.php","",$url);
+			//if ($url=='index.php') $url='index.php?q=webshop';
+			//if (!wsIsAdminPage() && !strstr($url,'webshop')) $url=str_replace('?','?q=webshop&',$url);
+			//if (!wsIsAdminPage() && !strstr($url,'q=webshop')) $url=str_replace('?','?q=webshop&',$url);
+			//if (wsIsAdminPage()) $url=str_replace("index.php","",$url);
 		}
 
 		if ($printurl) echo $url;

@@ -87,7 +87,7 @@ if (IsAdmin() == false) {
 	}
 	else { $limit = ""; }
 	if (IsAdmin()) {
-		echo "<br /><a href=\"".zurl("?page=product&zfaces=form&form=product&action=add&redirect=".wsCurrentPageURL(true))."\"><img src=\"".ZING_APPS_PLAYER_URL."images/add.png\" height=\"16px\" />".$txt['productadmin16']."</a>";
+		echo "<br /><a href=\"".zurl("?page=product&zfaces=form&form=product&action=add&zfp=62")."\"><img src=\"".ZING_APPS_PLAYER_URL."images/add.png\" height=\"16px\" />".$txt['productadmin16']."</a>";
 		echo '<br />';
 	}
 

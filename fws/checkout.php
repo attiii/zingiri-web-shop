@@ -139,7 +139,9 @@ if (LoggedIn() == True) {
 				}
 			} else {
 				$orderDate=Date($date_format);
-				$query = sprintf("INSERT INTO `".$dbtablesprefix."order` (`CARDID`,`ADDRESSID`,`DATE`,`STATUS`,`SHIPPING`,`PAYMENT`,`CUSTOMERID`,`TOPAY`,`WEBID`,`NOTES`,`WEIGHT`) VALUES (%s,%s,'".$orderDate."','1',%s,%s,%s,'1','n/a',%s,%s)", qs($wsCardId), quote_smart($adrid), quote_smart($shippingid), quote_smart($paymentid), quote_smart(wsCid()), quote_smart($notes), quote_smart($weightid));
+				if (get_option('zing_webshop_pro')) $query = sprintf("INSERT INTO `".$dbtablesprefix."order` (`CARDID`,`ADDRESSID`,`DATE`,`STATUS`,`SHIPPING`,`PAYMENT`,`CUSTOMERID`,`TOPAY`,`WEBID`,`NOTES`,`WEIGHT`) VALUES (%s,%s,'".$orderDate."','1',%s,%s,%s,'1','n/a',%s,%s)", qs($wsCardId), quote_smart($adrid), quote_smart($shippingid), quote_smart($paymentid), quote_smart(wsCid()), quote_smart($notes), quote_smart($weightid));
+				else $query = sprintf("INSERT INTO `".$dbtablesprefix."order` (`ADDRESSID`,`DATE`,`STATUS`,`SHIPPING`,`PAYMENT`,`CUSTOMERID`,`TOPAY`,`WEBID`,`NOTES`,`WEIGHT`) VALUES (%s,'".$orderDate."','1',%s,%s,%s,'1','n/a',%s,%s)", quote_smart($adrid), quote_smart($shippingid), quote_smart($paymentid), quote_smart(wsCid()), quote_smart($notes), quote_smart($weightid));
+				
 				$sql = mysql_query($query) or die(mysql_error());
 				// get the last id
 				$lastid = mysql_insert_id();
