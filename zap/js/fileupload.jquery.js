@@ -1,0 +1,71 @@
+function wsRemoveFile(id,key,dir) {
+	new jQuery.ajax({
+		url : wsURL+'removefile.php',
+		type : "post",
+		data : { 
+			'wsid' : id, 
+			'wskey' : key, 
+			'wsdir' : dir,
+			'wpabspath' : wpabspath,
+			'cms' : wsCms
+		},
+		success : function(request) {
+			jQuery('#'+jQuery.escape(id)).hide();
+		}
+	});
+
+}
+
+jQuery(document).ready(function() {
+	var key=jQuery('#upload_file_key').attr('value');
+	var dir=jQuery('#upload_file_dir').attr('value');
+	if (key!=null) {
+		new AjaxUpload('upload_file_button', {
+			data: { 
+				'upload_key' : key,
+				'wpabspath' : wpabspath,
+				'cms' : wsCms,
+				'wsdir' : dir
+				},
+			responseType: 'json',
+			action: wsURL+'uploadfile.php',
+			onComplete: function(file, response) {
+				var divTag = jQuery(document.createElement("li"));
+				divTag.css('position',"relative");
+				divTag.css('clear',"both");
+				//divTag.css('cssFloat',"left");
+				//divTag.css('styleFloat',"left");
+				divTag.attr('id',response.target_file);
+
+				var pTag = jQuery(document.createElement("p"));
+				pTag.attr('innerHTML',response.target_file);
+			
+				var aTag = jQuery(document.createElement("a"));
+				aTag.attr('href','javascript:wsRemoveFile(\''+response.target_file+'\',\''+key+'\',\''+dir+'\');');
+				aTag.attr('innerHTML','<img style="position:absolute;right:-16px;top:0px;" src="'+zfAppsUrl+'images/delete.png" height="16px" width="16px" />');
+			
+				var newTag = jQuery(document.createElement("input"));
+				newTag.attr('type','hidden');
+				newTag.attr('name','new_images[]');
+				newTag.attr('value',response.target_file);
+
+				divTag.append(pTag);
+				divTag.append(aTag);
+				divTag.append(newTag);
+				jQuery('#uploaded_files').append(divTag);
+
+			}
+		});
+	}
+});
+
+
+function wsDeleteFile(id) {
+	var inputTag = jQuery(document.createElement("input"));
+	inputTag.attr('name','delimage[]');
+	inputTag.attr('value',id);
+	inputTag.attr('type','hidden');
+	
+	jQuery('#upload_file_key').parent().append(inputTag);
+	jQuery('#'+jQuery.escape(id)).hide();
+}

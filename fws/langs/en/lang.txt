@@ -782,4 +782,9 @@ $txt['apps12'] = 'High';
 $txt['apps13'] = 'Amount';
 $txt['apps14'] = 'Password is too long!';
 
+//1.7.0 - added
+$txt['taxes2'] = 'Tax categories';
+$txt['taxes3'] = 'Tax category';
+$txt['general106'] = 'ID';
+
 ?>

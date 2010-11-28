@@ -38,7 +38,7 @@ else {
 		$query = "SELECT * FROM `".$dbtablesprefix."order` where `ID`='" . $row['ORDERID'] . "'";
 		$sql_details = mysql_query($query) or die(mysql_error());
 		$row_order = mysql_fetch_array($sql_details);
-				
+
 		$query = "SELECT * FROM `".$dbtablesprefix."product` where `ID`='" . $row[2] . "'";
 		$sql_details = mysql_query($query) or die(mysql_error());
 		if ($row_details = mysql_fetch_array($sql_details)) {
@@ -61,39 +61,44 @@ else {
 			$print_description=printDescription($row_details[1],$row_details[3],$row_details['EXCERPT']);
 			?>
 	<tr <?php echo $kleur; ?>>
-		<td><a
-			href="index.php?page=details&prod=<?php echo $row_details[0]; ?>"><?php echo $thumb.$print_description.$picturelink; ?></a>
-			<?php
-			$productprice = $row[3]; // the price of a product
-			if ($row[7]) {
-				$wsFeatures=new wsFeatures($row[7]);
-				$wsFeatures->setDefinition($row_details['FEATURES'],$row_details['FEATURES_SET']);
-				echo "<br />(".$wsFeatures->toString($row[7]).")";
-			}
-			?></td>
+		<td><a href="index.php?page=details&prod=<?php echo $row_details[0]; ?>"><?php echo $thumb.$print_description.$picturelink; ?></a>
+		<?php
+		$productprice = $row[3]; // the price of a product
+		if ($row[7]) {
+			$wsFeatures=new wsFeatures($row[7]);
+			$wsFeatures->setDefinition($row_details['FEATURES'],$row_details['FEATURES_SET']);
+			echo "<br />(".$wsFeatures->toString($row[7]).")";
+		}
+		?></td>
 		<td><?php 
 		echo $currency_symbol_pre;
 		$subtotaal = $productprice * $row[6];
 		if ($no_vat == 0 && $db_prices_including_vat == 0) {
-			$tax=new wsTax($subtotaal); 
-			$subtotaal = $tax->in; 
+			$tax=new wsTax($subtotaal,$row_details['TAXCATEGORYID']);
+			$subtotaal = $tax->in;
 		}
 		$printprijs = myNumberFormat($subtotaal);
 		echo $printprijs;
 		echo $currency_symbol_post;
 		?></td>
-		<td style="text-align:center;">
-		<?php echo $row[6];
-			if ($row_details['LINK'] && ($row_order['STATUS']==5 || $row_order['STATUS']==6 || IsAdmin())) {
-				echo '<br /><br />';
-				?>
-				<form method="POST" action="<?php echo ZING_URL;?>fws/download.php">
-                <input type="hidden" name="basketid" value="<?php echo $row[0] ?>">
-                <input type="hidden" name="abspath" value="<?php echo ABSPATH;?>">
-                <input type="submit" value="<?php echo $txt['products1'] ?>" name="sub">
-                </form>
-				<?php 
-			}	?>	</td>
+		<td style="text-align: center;"><?php echo $row[6];
+		if ($row_details['LINK'] && ($row_order['STATUS']==5 || $row_order['STATUS']==6 || IsAdmin())) {
+			echo '<br /><br />';
+			if ($handle=opendir(ZING_DIG)) {
+				while (($img = readdir($handle))!==false) {
+					if (strstr($img,$row_details['LINK'].'__')) {
+						$f=explode('__',$img);
+						echo '<form method="POST" action="'.ZING_URL.'fws/download.php">';
+						echo '<input type="hidden" name="basketid" value="'.$row[0].'">';
+						echo '<input type="hidden" name="abspath" value="'.ABSPATH.'">';
+						echo '<input type="submit" value="'.$f[1].'" name="wsfilename">';
+						echo '</form>';
+					}
+				}
+				closedir($handle);
+			}
+
+		}	?></td>
 	</tr>
 	<?php
 
@@ -103,6 +108,6 @@ else {
 </table>
 <br />
 <br />
-		<?php
+<?php
 }
 ?>

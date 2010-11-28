@@ -13,7 +13,8 @@ if ($_REQUEST['cms']=='jl') {
 	//all bootstrapping is already done
 } else {
 	/** Loads the WordPress Environment */
-	require($_REQUEST['wpabspath'].'wp-blog-header.php');
+	//require($_REQUEST['wpabspath'].'wp-blog-header.php');
+	require($_REQUEST['wpabspath'].'wp-load.php');
 	/** Load Zingiri Web Shop */
 	require(dirname(__FILE__).'/../../zing.readcookie.inc.php');
 	require(dirname(__FILE__).'/../../startmodules.inc.php');

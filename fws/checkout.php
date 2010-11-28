@@ -103,7 +103,7 @@ if (LoggedIn() == True) {
 		if (get_option('zing_webshop_pro') && isset($_POST['wscardid'])) {
 			$wsCardId=intval($_POST['wscardid']);
 		} else $wsCardId=0;
-		
+
 		if ($error == 0) {
 			// set global variables if not set yet
 			foreach ($zingPrompts->vars as $var) { global $$var; }
@@ -141,7 +141,7 @@ if (LoggedIn() == True) {
 				$orderDate=Date($date_format);
 				if (get_option('zing_webshop_pro')) $query = sprintf("INSERT INTO `".$dbtablesprefix."order` (`CARDID`,`ADDRESSID`,`DATE`,`STATUS`,`SHIPPING`,`PAYMENT`,`CUSTOMERID`,`TOPAY`,`WEBID`,`NOTES`,`WEIGHT`) VALUES (%s,%s,'".$orderDate."','1',%s,%s,%s,'1','n/a',%s,%s)", qs($wsCardId), quote_smart($adrid), quote_smart($shippingid), quote_smart($paymentid), quote_smart(wsCid()), quote_smart($notes), quote_smart($weightid));
 				else $query = sprintf("INSERT INTO `".$dbtablesprefix."order` (`ADDRESSID`,`DATE`,`STATUS`,`SHIPPING`,`PAYMENT`,`CUSTOMERID`,`TOPAY`,`WEBID`,`NOTES`,`WEIGHT`) VALUES (%s,'".$orderDate."','1',%s,%s,%s,'1','n/a',%s,%s)", quote_smart($adrid), quote_smart($shippingid), quote_smart($paymentid), quote_smart(wsCid()), quote_smart($notes), quote_smart($weightid));
-				
+
 				$sql = mysql_query($query) or die(mysql_error());
 				// get the last id
 				$lastid = mysql_insert_id();
@@ -174,10 +174,11 @@ if (LoggedIn() == True) {
 			$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE ( CUSTOMERID = ".wsCid()." AND STATUS = 0 )";
 			$sql = mysql_query($query) or die(mysql_error());
 			$total = 0;
-
+			$tax = new wsTaxSum();
+				
 			// let's format the product list a little
 			$message .= "<table width=\"100%\" class=\"borderless\">";
-				
+
 			while ($row = mysql_fetch_row($sql)) {
 				$query_details = "SELECT * FROM ".$dbtablesprefix."product WHERE ID = '" . $row[2] . "'";
 				$sql_details = mysql_query($query_details) or die(mysql_error());
@@ -185,7 +186,7 @@ if (LoggedIn() == True) {
 				while ($row_details = mysql_fetch_array($sql_details)) {
 					$product_price = $row[3]; // read from the cart
 
-					$tax = new wsTax($product_price);
+					$tax->calculate($product_price,$row_details['TAXCATEGORYID']);
 					$product_price = $tax->in;
 
 					// make up the description to print according to the pricelist_format and max_description
@@ -264,7 +265,7 @@ if (LoggedIn() == True) {
 			while ($row = mysql_fetch_row($sql)) {
 				$shipping_descr = $row[1];
 			}
-				
+
 			// read the shipping costs
 			$query = sprintf("SELECT * FROM `".$dbtablesprefix."shipping_weight` WHERE `ID` = %s", quote_smart($weightid));
 			$sql = mysql_query($query) or die(mysql_error());
@@ -282,21 +283,24 @@ if (LoggedIn() == True) {
 			$print_sendcosts = myNumberFormat($sendcosts);
 			$total_nodecimals = number_format($total, 2,"","");
 			$zingPrompts->load(true);
-			$tax = new wsTax($total);
 			$taxheader=$txt['checkout102'];
-			if (count($tax->taxes)>0) {
-				foreach ($tax->taxes as $label => $data) {
-					$tpl->repeatRow(array('TAXLABEL','TAXRATE','TAXTOTAL'));
-					$tpl->replace('TAXRATE',$data['RATE']);
-					$tpl->replace('TAXTOTAL',$currency_symbol_pre.myNumberFormat($data['TAX'],$number_format).$currency_symbol_post);
-					$tpl->replace('TAXLABEL',$label);
-					$message .= '<tr><td>'.$taxheader.'</td><td>'.$label.' '.$data['RATE'].'%</td><td style="text-align: right">'.$currency_symbol_pre.myNumberFormat($data['TAX'],$number_format).$currency_symbol_post.'</td></tr>';
-					$taxheader="";
+			if (count($tax->taxByCategory)>0) {
+				foreach ($tax->taxByCategory as $taxCategory => $taxes) {
+					if (count($taxes)>0) {
+						foreach ($taxes as $label => $data) {
+							$tpl->repeatRow(array('TAXLABEL','TAXRATE','TAXTOTAL'));
+							$tpl->replace('TAXRATE',$data['RATE']);
+							$tpl->replace('TAXTOTAL',$currency_symbol_pre.myNumberFormat($data['TAX'],$number_format).$currency_symbol_post);
+							$tpl->replace('TAXLABEL',$label);
+							$message .= '<tr><td>'.$taxheader.'</td><td>'.$label.' '.$data['RATE'].'%</td><td style="text-align: right">'.$currency_symbol_pre.myNumberFormat($data['TAX'],$number_format).$currency_symbol_post.'</td></tr>';
+							$taxheader="";
+						}
+					}
 				}
 			} else {
 				$tpl->removeRow(array('TAXLABEL','TAXRATE','TAXTOTAL'));
 			}
-				
+
 			// now lets calculate the invoice total now we know the final addition, the shipping costs
 			$message .= '<tr><td>'.$txt['checkout24'].'</td><td>'.$txt['checkout25'].'</td><td style="text-align: right"><big><strong>'.$currency_symbol_pre.myNumberFormat($total,$number_format).$currency_symbol_post.'</strong></big></td></tr>';
 			$tpl->replace('TOTAL',$currency_symbol_pre.myNumberFormat($total,$number_format).$currency_symbol_post);
@@ -322,11 +326,11 @@ if (LoggedIn() == True) {
 				$tpl->replace('COUNTRY','');
 			}
 			$message = $message . $txt['checkout6'].$txt['checkout6']; // white line
-				
+
 			// now the payment
 			$payment=new paymentCode();
 			$payment_code=$payment->getCode($paymentid,$customer_row,$total,$webid);
-				
+
 			$message .= $txt['checkout19'].$payment_descr; // Payment method:
 			$message .= $txt['checkout6']; // line break
 
@@ -358,7 +362,7 @@ if (LoggedIn() == True) {
 			$message .= $txt['checkout9']; // direct link to customer order for online status checking
 
 			$message=$tpl->getContent();
-				
+
 			//update order & basket
 			if ($autosubmit==1 && $payment_code!="") {
 				$basket_status=0;
@@ -377,7 +381,7 @@ if (LoggedIn() == True) {
 			//basket update
 			$query = sprintf("UPDATE `".$dbtablesprefix."basket` SET `ORDERID` = '".$lastid."',`STATUS`=%s WHERE (`CUSTOMERID` = %s AND `STATUS` = '0')", qs($basket_status), quote_smart(wsCid()));
 			$sql = mysql_query($query) or die(mysql_error());
-				
+
 			// make pdf
 			$pdf = "";
 			$fullpdf = "";
@@ -441,7 +445,8 @@ if (LoggedIn() == True) {
 		       </td></tr>
 		     </table>
 		     <h4><a href="'.ZING_URL.'fws/printorder.php?orderid='.$lastid.'" target="_blank">'.$txt['readorder1'].'</a>';
-				if ($create_pdf == 1) { echo "<br /><a href=\"".$orders_url."/".$pdf."\" target=\"_blank\">".$txt['checkout27']."</a></h4>"; }
+				if ($create_pdf == 1) { echo "<br /><a href=\"".$orders_url."/".$pdf."\" target=\"_blank\">".$txt['checkout27']."</a>"; }
+				echo '</h4>';
 			} else {
 				PutWindow($gfx_dir, $txt['general13'], $txt['checkout104'], "loader.gif", "50");
 				echo '<div>'.$payment_code.'</div>';

@@ -168,7 +168,8 @@ else {
 
 	<?php
 	$optel = 0;
-
+	$tax=new wsTaxSum();
+	
 	while ($row = mysql_fetch_array($sql)) {
 		$query = "SELECT * FROM `".$dbtablesprefix."product` where `ID`='" . $row[2] . "'";
 		$sql_details = mysql_query($query) or die(mysql_error());
@@ -206,7 +207,7 @@ else {
 		<td><?php 
 		echo $currency_symbol_pre;
 		$subtotaal = $productprice * $row[6];
-		$tax=new wsTax($subtotaal);
+		$tax->calculate($subtotaal,$row_details['TAXCATEGORYID']);
 		$subtotaal = $tax->in;
 		$printprijs = myNumberFormat($subtotaal);
 		echo $printprijs;
@@ -237,17 +238,17 @@ else {
 	$totaal = $totaal + $subtotaal;
 		}
 	}
-	$tax = new wsTax($totaal);
-	if ($no_vat == 0 ) {
-		$totaal_ex = $tax->exFtd;
-	}
 
 	$totaal = myNumberFormat($totaal);
 	?>
 	<tr>
 		<td colspan="3">
 		<div style="text-align: right;"><strong><?php echo $txt['cart7']; ?></strong> <?php echo $currency_symbol_pre.$totaal.$currency_symbol_post; ?><br />
-		<?php if ($no_vat == 0) { echo "<small>(".$currency_symbol_pre.$totaal_ex.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>"; } ?></div>
+		<?php if ($no_vat == 0) { 
+			$totaal_ex = myNumberFormat($tax->exSum);
+			echo "<small>(".$currency_symbol_pre.$totaal_ex.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>"; 
+		}
+		?></div>
 		</td>
 	</tr>
 </table>

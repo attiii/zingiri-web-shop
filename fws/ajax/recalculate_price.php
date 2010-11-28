@@ -42,7 +42,7 @@ for ($i=0;$i<$featureSets;$i++) {
 	$price+=$wsFeatures->calcPrice($i,$row['PRICE'],$row['PRICE_FORMULA_TYPE'],$row['PRICE_FORMULA_RULE']);
 	//$wsFeatures->parse($i);
 }
-$tax=new wsTax($price);
+$tax=new wsTax($price,$row['TAXCATEGORYID']);
 $a['pricein']=$tax->inFtd;
 $a['priceex']=$tax->exFtd;
 //$a['msg'][]=$wsFeatures->featureString;

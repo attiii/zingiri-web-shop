@@ -397,7 +397,7 @@ if (!wsIsAdminPage()) {
 				$output.= '<div style="text-align: right"><input type="hidden" id="prodid" name="prodid" value="'.$row[0].'">';
 				$output.= '<input type="hidden" name="prodprice" value="'.$row[4].'">';
 				if (!$row[4] == 0) {
-					$tax=new wsTax($row[4]);
+					$tax=new wsTax($row[4],$row['TAXCATEGORYID']);
 					if ($no_vat == 1) {
 						$output.= "<big><strong>". $currency_symbol_pre.'<span class="wspricein" id="wsprice'.$row[0].'">'.$tax->inFtd.'</span>'.$currency_symbol_post."</strong></big>";
 					}

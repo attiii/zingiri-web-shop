@@ -83,7 +83,7 @@ function wsShowProductRow($row) {
 			$output.= '<div style="text-align: right"><input type="hidden" id="prodid" name="prodid" value="'.$row[0].'">';
 			$output.= '<input type="hidden" name="prodprice" value="'.$row[4].'">';
 			if (!$row[4] == 0 || $stock_enabled != 1) {
-				$tax=new wsTax($row[4]);
+				$tax=new wsTax($row[4],$row['TAXCATEGORYID']);
 				if ($no_vat == 1) {
 					$output.= "<big><strong>". $currency_symbol_pre.'<span class="wspricein" id="wsprice'.$row[0].'">'.$tax->inFtd.'</span>'.$currency_symbol_post."</strong></big>";
 				}
@@ -167,7 +167,7 @@ function wsShowProductCell($row,$row_count,$prods_per_row) {
                   <form id="order'.$row[0].'" method="post" action="?page=cart&action=add">
                        <input type="hidden" name="prodid" value="'.$row[0].'">';
 	if (!$row[4] == 0) {
-		$tax=new wsTax($row[4]);
+		$tax=new wsTax($row[4],$row['TAXCATEGORYID']);
 		if ($no_vat == 1) {
 			$output.="<normal>" . $txt['details5'] . ": ". $currency_symbol_pre.$tax->inFtd.$currency_symbol_post."</normal>";
 		}

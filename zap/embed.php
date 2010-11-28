@@ -124,13 +124,15 @@ function zing_apps_player_install() {
 			}
 		}
 	}
+	
 	//load forms
 	zing_apps_player_load(ZING_APPS_PLAYER_DIR.'forms/');
 	foreach ($zing_apps_builder_projects as $project) {
 		zing_apps_player_load($project['dir'].'apps/forms/');
 	}
-	//if (defined("ZING_APPS_CUSTOM")) zing_apps_player_load(ZING_APPS_CUSTOM.'apps/forms/');
-
+	
+	//remote forms
+	if (get_option('zing_apps_remote_url') == 'http://www.zingiri.com') update_option('zing_apps_remote_url','http://forms.zingiri.com');
 }
 
 /**
@@ -385,7 +387,7 @@ function zing_apps_settings() {
 	$options[]=	array(	"name" => "Remote URL",
 			"desc" => "Remote URL to Zingir Apps Builder. Only change this if you know what you are doing.",
 			"id" => "zing_apps_remote_url",
-			"std" => "http://www.zingiri.com",
+			"std" => "http://forms.zingiri.com",
 			"type" => "text");
 
 	if ( $_GET['page'] == "zingiri-apps" ) {

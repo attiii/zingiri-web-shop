@@ -262,6 +262,8 @@ else {
 	<?php
 	$optel = 0;
 	$id=0;
+	$tax = new wsTaxSum();
+
 	while ($row = mysql_fetch_array($sql)) {
 		$id++;
 		$query = "SELECT * FROM `".$dbtablesprefix."product` where `ID`='" . $row[2] . "'";
@@ -289,15 +291,16 @@ else {
 		<td colspan="2"><a
 			href="<?php zurl("index.php?page=details&prod=".$row_details[0].'&basketid='.$row['ID'],true); ?>"
 		><?php echo $thumb.$print_description.$picturelink; ?></a> <?php
-		$productprice = $row[3]; // the price of a product
+		//$productprice = $row[3]; // the price of a product
+		$tax->calculate($row[3],$row_details['TAXCATEGORYID']);
+		$productprice = $tax->in;
+
 		$printvalue = $row[7];   // features
 		if (!$printvalue == "") { echo "<br />(".$printvalue.")"; }
 		?></td>
 		<td style="text-align: right"><?php 
 		echo $currency_symbol_pre;
 		$subtotaal = $productprice * $row[6];
-		//$tax=new wsTax($subtotaal);
-		//$subtotaal = $tax->in;
 		$printprijs = myNumberFormat($subtotaal);
 		echo $printprijs;
 		echo $currency_symbol_post;
@@ -359,25 +362,29 @@ else {
 	}
 
 	//calculate and display taxes
-	$tax = new wsTax($totaal);
-	$totaal_ex = $tax->exFtd;
-	$totaal_in = $tax->inFtd;
+	//$tax = new wsTax($totaal);
+	$totaal_ex = myNumberFormat($tax->exSum);
+	$totaal_in = myNumberFormat($tax->inSum);
 
 	function displayTaxes($tax) {
 		global $txt,$currency_symbol_pre,$number_format,$currency_symbol_post;
 		$taxheader=$txt['checkout102'];
-		if (count($tax->taxes>0)) {
-			foreach ($tax->taxes as $label => $data) {
-				echo '<tr>';
-				if ($taxheader) {
-					echo '<td rowspan="'.count($tax->taxes).'">'.$taxheader.'</td>';
+		if (count($tax->taxByCategory)>0) {
+			foreach ($tax->taxByCategory as $taxCategory => $taxes) {
+				if (count($taxes>0)) {
+					foreach ($taxes as $label => $data) {
+						echo '<tr>';
+						if ($taxheader) {
+							echo '<td rowspan="'.$tax->combinations.'">'.$taxheader.'</td>';
+						}
+						echo '<td>'.$label.' '.$data['RATE'].'%</td><td style="text-align: right">'.$currency_symbol_pre.myNumberFormat($data['TAX'],$number_format).$currency_symbol_post.'</td>';
+						if ($taxheader) {
+							echo '<td rowspan="'.$tax->combinations.'"></td>';
+						}
+						$taxheader="";
+						echo '</tr>';
+					}
 				}
-				echo '<td>'.$label.' '.$data['RATE'].'%</td><td style="text-align: right">'.$currency_symbol_pre.myNumberFormat($data['TAX'],$number_format).$currency_symbol_post.'</td>';
-				if ($taxheader) {
-					echo '<td rowspan="'.count($tax->taxes).'"></td>';
-				}
-				$taxheader="";
-				echo '</tr>';
 			}
 		}
 	}

@@ -15,7 +15,7 @@ require (ZING_LOC."./zing.readcookie.inc.php");      // read the cookie
 @ini_set('zlib.output_compression', 0);
 @ini_set('implicit_flush', 1);
 
-
+$filename=$_REQUEST['wsfilename'];
 $query = "SELECT ORDERID,PRODUCTID FROM `".$dbtablesprefix."basket` WHERE `CUSTOMERID` = ".$customerid." AND `ID` = ".$basketid." ORDER BY ID DESC";
 $sql = mysql_query($query) or zfdbexit($query);
 if ($row = mysql_fetch_array($sql)) {
@@ -27,7 +27,7 @@ if ($row = mysql_fetch_array($sql)) {
 	$sql_details = mysql_query($query) or die(mysql_error());
 	$row_details = mysql_fetch_array($sql_details);
 	if ($row_details['LINK'] && ($row_order['STATUS']==5 || $row_order['STATUS']==6 || IsAdmin())) {
-		send_file(ZING_DIG,$row_details['LINK']);
+		send_file(ZING_DIG,$row_details['LINK'].'__'.$filename,$filename);
 		restore_error_handler();
 		exit;
 	}
@@ -35,7 +35,7 @@ if ($row = mysql_fetch_array($sql)) {
 }
 # Send (download) file via pass thru
 #-------------------------------------
-function send_file($path, $file){
+function send_file($path, $file, $filename){
 
 	$mainpath = "$path/$file";
 	$filesize2 = sprintf("%u", filesize($mainpath));
@@ -55,7 +55,7 @@ function send_file($path, $file){
 		header("Content-Description: File Transfer");
 		header("Content-Transfer-Encoding: binary");
 		header("Content-Type: application/zip");
-		header("Content-Disposition: attachment; filename=\"".$file."\"");
+		header("Content-Disposition: attachment; filename=\"".$filename."\"");
 		header("Content-Type: application/force-download");
 		header("Content-length:".(string)($filesize2));
 		while(!feof($handle)) {

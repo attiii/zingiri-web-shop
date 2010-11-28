@@ -44,6 +44,6 @@ function zing_apps_player_header()
 		echo '<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/sortlist.jquery.js"></script>';
 		echo '<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/repeatable.jquery.js"></script>';
 	}
-		//echo '<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/jquery.json-2.2.js"></script>';
+	echo '<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/core.jquery.js"></script>';
 }
 ?>

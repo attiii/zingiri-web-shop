@@ -301,4 +301,30 @@ if (!function_exists('actionComplete()')) {
 
 	}
 }
+
+if (!function_exists('actionCompleteMessage')) {
+	function actionCompleteMessage() {
+		global $gfx_dir,$txt;
+		$msg='';
+		if ($_REQUEST['zmsg']) {
+			$title=$txt['general13'];
+			$message=$txt['adminedit2'];
+			$picture="notify.gif";
+			$msg ="<table width=\"".$width."%\" class=\"datatable\">";
+			$msg.="<tr><td><img src=\"".$gfx_dir."/".$picture."\" alt=\"".$picture."\" height=\"24px\">";
+			$msg.='<strong>'.$message.'</strong>'."</td></tr></table>";
+			$msg.="<br /><br />";
+		}
+		return $msg;
+	}
+}
+
+function loadJavascript($file) {
+	global $loadedJavascripts;
+	if (!in_array($file,$loadedJavascripts)) {
+		$loadedJavascripts[]=$file;
+		return '<script type="text/javascript" src="' . $file . '"></script>';
+	} else return '';
+}
+
 ?>

@@ -29,7 +29,7 @@ class widget_sidebar_product_random {
 		echo '<img src="'.$image_url.'" />';
 		echo '</a>';
 		echo '<br />';
-		$tax=new wsTax($row['PRICE']);
+		$tax=new wsTax($row['PRICE'],$row['TAXCATEGORYID']);
 		echo "<big><strong>". $currency_symbol_pre.$tax->inFtd.$currency_symbol_post."</strong></big>";
 	}
 

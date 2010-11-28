@@ -17,6 +17,7 @@ $menus['paymentadmin']=array('type' => 'apps', 'grouping' => 'settings', 'group'
 $menus['shippingadmin']=array('group' => 'admin23', 'grouping' => 'settings', 'label' => 'admin18','href' => 'page=shippingadmin', 'img' => 'shippingadmin.gif');
 $menus['discountadmin']=array('type' => 'apps', 'grouping' => 'settings', 'group' => 'admin23', 'label' => 'admin38','href' => 'zfaces=list&form=discount', 'img' => 'discount.gif');
 $menus['taxes']=array('type' => 'apps', 'grouping' => 'settings', 'group' => 'admin23', 'label' => 'admin100','href' => 'zfaces=list&form=taxes', 'img' => 'taxes.png');
+$menus['taxcategories']=array('type' => 'apps', 'grouping' => 'settings', 'group' => 'admin23', 'label' => 'taxes2','href' => 'zfaces=list&form=taxcategory', 'img' => 'taxes.png');
 $menus['admineditcountries']=array('page' => 'adminedit', 'grouping' => 'settings', 'group' => 'admin23', 'label' => 'admin37','href' => 'page=adminedit&filename=countries.txt&root=1&wysiwyg=0', 'img' => 'countries.gif');
 $menus['admineditmain']=array('page' => 'adminedit', 'grouping' => 'files', 'group' => 'admin24', 'label' => 'admin22','href' => 'page=adminedit&filename=main.sql&root=0', 'img' => 'mainadmin.gif');
 $menus['templates']=array('type' => 'apps', 'grouping' => 'files', 'group' => 'admin24', 'label' => 'template3','href' => 'zfaces=list&form=template', 'img' => 'template.png');

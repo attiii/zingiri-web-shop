@@ -50,7 +50,20 @@ else {
 			$query_prod="SELECT * FROM `".$dbtablesprefix."product` WHERE `LINK` IS NOT NULL AND `LINK` <> '' AND `ID`=".quote_smart($row_basket['PRODUCTID']);
 			$sql_prod = mysql_query($query_prod) or die(mysql_error());
 			if ($row_prod = mysql_fetch_array($sql_prod)) {
-				$linkhtml.='<a href="'.ZING_URL.'fws/download.php?basketid='.$row_basket['ID'].'&abspath='.ABSPATH.'">'.$row_prod['PRODUCTID'].'</a><br/>';
+				if ($handle=opendir(ZING_DIG)) {
+					while (($img = readdir($handle))!==false) {
+						if (strstr($img,$row_prod['LINK'].'__')) {
+							$f=explode('__',$img);
+							$linkhtml.= '<form method="POST" action="'.ZING_URL.'fws/download.php">';
+							$linkhtml.= '<input type="hidden" name="basketid" value="'.$row_basket['ID'].'">';
+							$linkhtml.= '<input type="hidden" name="abspath" value="'.ABSPATH.'">';
+							$linkhtml.= '<input type="submit" value="'.$f[1].'" name="wsfilename">';
+							$linkhtml.= '</form>';
+						}
+					}
+					closedir($handle);
+				}
+
 			}
 		}
 		if ($linkhtml) {
