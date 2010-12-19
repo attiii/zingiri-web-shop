@@ -247,9 +247,37 @@ table.dashboard caption {
 	margin:3px;
 }
 
-.wsfeaturestable,wsfeaturestable tr,wsfeaturestable td {
+table.wsfeaturestable,table.wsfeaturestable tr,table.wsfeaturestable td {
 	border:0px;
 	border-collapse: collapse;
 	border-style: hidden;
 	
+}
+
+.wsfeatures select, .wsfeatures input {
+	margin:0px;
+}
+
+#wslogin {
+	float:left;
+	position:relative;
+	width:50%;
+}
+#wslogin p, #wslogin tr td, #wslogin table {
+	padding:0px;
+	margin:0px;
+}
+#wsnoregistration {
+	margin-top:30px;
+	position: relative; 
+	float: right; 
+	width: 30%; 
+	text-align: left;
+}
+#wsregister {
+	margin-top:30px;
+	position:relative;
+	float:right;
+	width:30%;
+	text-align:left;
 }

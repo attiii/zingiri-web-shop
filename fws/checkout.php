@@ -120,9 +120,9 @@ if (LoggedIn() == True) {
 				$zipcode=$adr['ZIP'];
 				$city=$adr['CITY'];
 				$state=$adr['STATE'];
-				$to = $row[12];
+				$to = $row['EMAIL'];
 				$country=$adr['COUNTRY'];
-				$phone = $row[11];
+				$phone = $row['PHONE'];
 				$customer_row = $row;
 			}
 
@@ -166,7 +166,8 @@ if (LoggedIn() == True) {
 			$tpl->replace('SHOPURL',$shopurl);
 			$tpl->replace('WEBID',$webid);
 			$tpl->replace('CUSTOMERID',wsCid());
-
+			$tpl->replace('EMAIL',$to);
+			
 			$message = $txt['checkout3'];
 			$paymentmessage = "";
 			// now go through all all products from basket with status 'basket'
@@ -360,9 +361,10 @@ if (LoggedIn() == True) {
 
 			$message .= $txt['checkout6']; // white line
 			$message .= $txt['checkout9']; // direct link to customer order for online status checking
-
 			$message=$tpl->getContent();
 
+			if (isset($_REQUEST['wslive']) && $_REQUEST['wslive']=='dp') $message=str_replace($shopurl.'/index.php?',$_REQUEST['wsliveurl'].'/index.php?q=webshop&',$message);
+			
 			//update order & basket
 			if ($autosubmit==1 && $payment_code!="") {
 				$basket_status=0;
@@ -421,9 +423,6 @@ if (LoggedIn() == True) {
 				fclose($handle);
 			}
 
-			// email subject
-			$subject  = $txt['checkout10'].":".$webid;
-
 			// email confirmation in case no autosubmit
 			if (!$autosubmit  || ($autosubmit && $payment_code=='')) {
 				$subject = $txt['checkout10'];
@@ -432,7 +431,12 @@ if (LoggedIn() == True) {
 				}
 				else { PutWindow($gfx_dir, $txt['general12'], $txt['checkout12'], "warning.gif", "50"); }
 			}
-			mymail($sales_mail, $sales_mail, $txt['db_status1'].":".$webid, $message, $charset); // no error checking here, because there is no use to report this to the customer
+			if (wsSetting('order_email_admin')) {
+				$adminSubject = $txt['db_status1'].":".$webid;
+				$adminMessage=$txt['checkout105'].' '.$to.'<br /><br />';
+				$adminMessage.=$message;
+				mymail($sales_mail, $sales_mail, $adminSubject, $adminMessage, $charset); // no error checking here, because there is no use to report this to the customer
+			}
 
 			// now lets show the customer some details
 			CheckoutShowProgress();
@@ -444,7 +448,7 @@ if (LoggedIn() == True) {
 		       <tr><td>'.$message.'
 		       </td></tr>
 		     </table>
-		     <h4><a href="'.ZING_URL.'fws/printorder.php?orderid='.$lastid.'" target="_blank">'.$txt['readorder1'].'</a>';
+		     <h4><a href="'.zurl('index.php?page=printorder&orderid='.$lastid).'" target="_blank">'.$txt['readorder1'].'</a>';
 				if ($create_pdf == 1) { echo "<br /><a href=\"".$orders_url."/".$pdf."\" target=\"_blank\">".$txt['checkout27']."</a>"; }
 				echo '</h4>';
 			} else {

@@ -1,4 +1,6 @@
 = 0.9.6 =
+* Fixed display of checkboxes in list views
+* Added field help
 * Added project identification on form level
 * Removed db create logging from apps.db.sql log
 * Added IP field type

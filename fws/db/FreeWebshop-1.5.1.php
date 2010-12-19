@@ -21,11 +21,11 @@ function ws_upgrade_1_5_1_set_templates() {
 	$db->update('truncate ##template');
 	$prompts=new zingPrompts();
 	foreach ($prompts->langs as $lang => $label) {
-		if ($prompts->isLanguageActive($lang)) {
-			$txt=$prompts->loadlang($lang,true);
-		} else {
+		//if ($prompts->isLanguageActive($lang)) {
+		//	$txt=$prompts->loadlang($lang,true);
+		//} else {
 			$txt=$prompts->loadOldLangFile($lang);
-		}
+		//}
 		$title = $txt['checkout10'];
 		$message = $txt['checkout3'];
 		$message.= "<table width=\"100%\" class=\"borderless\">";

@@ -11,7 +11,8 @@ $menus['inventory']=array('page' => 'inventory','grouping' => 'products', 'group
 $menus['product']=array('hide' => true,'type' => 'apps','grouping' => 'products', 'group' => 'menu9', 'label' => 'productadmin17','href' => 'zfaces=list&form=product', 'img' => 'products.gif');
 $menus['stockadmin']=array('group' => 'menu15', 'grouping' => 'products', 'label' => 'admin32','href' => 'page=stockadmin', 'img' => 'stockadmin.gif');
 $menus['uploadadmin']=array('group' => 'menu15', 'grouping' => 'products', 'label' => 'admin9','href' => 'page=uploadadmin', 'img' => 'uploadlist.gif');
-$menus['editsettings']=array('group' => 'admin23', 'grouping' => 'settings', 'label' => 'admin8','href' => 'page=editsettings', 'img' => 'settings.gif');
+//$menus['editsettings']=array('group' => 'admin23', 'grouping' => 'settings', 'label' => 'admin8','href' => 'page=editsettings', 'img' => 'settings.gif');
+$menus['settings']=array('grouping' => 'settings', 'type' => 'apps', 'group' => 'admin23', 'label' => 'admin8','href' => 'zfaces=form&form=settings&action=edit&no_redirect=1&id=1', 'img' => 'pc.gif');
 $menus['groupadmin']=array('type' => 'apps', 'grouping' => 'settings', 'group' => 'admin23', 'label' => 'admin6','href' => 'zfaces=list&form=group', 'img' => 'groups.gif');
 $menus['paymentadmin']=array('type' => 'apps', 'grouping' => 'settings', 'group' => 'admin23', 'label' => 'admin21','href' => 'zfaces=list&form=payment', 'img' => 'paymentadmin.gif');
 $menus['shippingadmin']=array('group' => 'admin23', 'grouping' => 'settings', 'label' => 'admin18','href' => 'page=shippingadmin', 'img' => 'shippingadmin.gif');
@@ -27,12 +28,14 @@ $menus['errorlogadmin']=array('grouping' => 'info', 'group' => 'admin25', 'label
 $menus['accesslogadmin']=array('grouping' => 'info', 'group' => 'admin25', 'label' => 'admin31','href' => 'page=accesslogadmin', 'img' => 'accesslog.gif');
 $menus['bannedip']=array('grouping' => 'files', 'type' => 'apps', 'group' => 'admin24', 'label' => 'banned1','href' => 'zfaces=list&form=bannedip', 'img' => 'banned.gif');
 $menus['admin']=array('grouping' => 'info', 'group' => 'admin25', 'label' => 'admin7','href' => 'page=admin&adminaction=optimize_tables', 'img' => 'optimize.gif');
+$menus['task']=array('grouping' => 'files', 'type' => 'apps', 'group' => 'admin24', 'label' => 'task1','href' => 'zfaces=list&form=task', 'img' => '');
 
-$menus['advancedsettings']=array('hide' => true, 'grouping' => 'settings', 'type' => 'apps', 'group' => 'admin23', 'label' => 'editsettings93','href' => 'zfaces=form&form=settings&action=edit&no_redirect=1&id=1', 'img' => 'pc.gif');
+$menus['runtask']=array('hide' => true, 'group' => 'admin24', 'label' => 'task1','href' => 'page=runtask');
 $menus['customer']=array('type' => 'apps','hide' => true, 'group' => 'my5', 'label' => 'my7','href' => 'page=customer&action=show', 'img' => 'customers.gif');
 $menus['orders']=array('hide' => true, 'group' => 'my5', 'label' => 'my8','href' => 'page=orders&id='.$customerid, 'img' => 'orders.gif');
 $menus['cart']=array('hide' => true, 'group' => 'my5', 'label' => 'my9','href' => 'page=cart&action=show', 'img' => 'carticon.gif');
 $menus['products']=array('hide' => true, 'group' => 'my5', 'label' => 'admin5','href' => 'page=products&action=show', 'img' => 'products.gif');
 $menus['readorder']=array('page' => 'readorder', 'hide' => true, 'group' => 'admin23', 'label' => 'details7','href' => 'page=orderadmin', 'img' => 'orders.gif', 'func' => 'CountAllOrders');
+$menus['printorder']=array('page' => 'printorder', 'hide' => true, 'group' => 'admin23', 'label' => 'readorder1','href' => 'page=printorder', 'img' => 'orders.gif', 'func' => 'CountAllOrders');
 $menus['customeradmin']=array('hide' => true,'page' => 'customeradmin', 'group' => 'menu9', 'label' => 'admin3','href' => 'page=customeradmin&action=showcustomers', 'img' => 'customers.gif', 'func' => 'CountCustomers','param' => 'CUSTOMER');
 ?>

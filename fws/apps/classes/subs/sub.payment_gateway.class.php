@@ -23,6 +23,20 @@
 <?php
 class payment_gatewayZfSubElement extends zfSubElement {
 
+	function output($mode="edit",$input="")
+	{
+		$g=explode('-',$this->int);
+		if (empty($g[0])) $this->ext=$g[0];
+		elseif (isset($g[1])) {
+			require(ZING_LOC."extensions/gateways/".$g[0]."/config/".$g[1].".php");
+			$this->ext=$aSettings['GATEWAY_NAME'];
+		} else {
+			require(ZING_LOC."extensions/gateways/".$g[0]."/config.php");
+			$this->ext=$aSettings['GATEWAY_NAME'];
+		}
+		return $this->ext;
+	}
+	
 	function display(&$field_markup,&$subscript_markup) {
 		$e=$this->element;
 		$i=$this->subid;
@@ -34,12 +48,25 @@ class payment_gatewayZfSubElement extends zfSubElement {
 
 		$files=faces_directory(ZING_LOC."extensions/gateways","",true);
 		foreach ($files as $file) {
-			if(trim($e->populated_value['element_'.$e->id.'_'.$i]) == $file){
-				$selected = 'selected="selected"';
-			} elseif ($e->default_value == $file) {
-				$selected = 'selected="selected"';
-			} else $selected='';
-			if (!$e->readonly || ($e->readonly && $selected)) $option_markup .= "<option value=\"".$file."\" {$selected}>".$file."</option>";
+			if (file_exists(ZING_LOC."extensions/gateways/".$file."/config")) {
+				$option_markup.='<optgroup label="'.$file.'">';
+				$files2=faces_directory(ZING_LOC."extensions/gateways/".$file."/config","",false);
+				foreach ($files2 as $file2) {
+					require(ZING_LOC."extensions/gateways/".$file."/config/".$file2);
+					$value2=$file.'-'.str_replace('.php','',$file2);
+					if(trim($e->populated_value['element_'.$e->id.'_'.$i]) == $value2) $selected = 'selected="selected"';
+					elseif ($e->default_value == $value2) $selected = 'selected="selected"';
+					else $selected='';
+					$option_markup .= '<option style="padding-left: 20px;" value="'.$value2.'" '.$selected.'>'.$aSettings['GATEWAY_NAME'].'</option>';
+				}
+				$option_markup.='</optgroup>';
+			} else {	
+				require(ZING_LOC."extensions/gateways/".$file."/config.php");
+				if(trim($e->populated_value['element_'.$e->id.'_'.$i]) == $file) $selected = 'selected="selected"';
+				elseif ($e->default_value == $file) $selected = 'selected="selected"';
+				else $selected='';
+				if (!$e->readonly || ($e->readonly && $selected)) $option_markup .= "<option value=\"".$file."\" {$selected}>".$aSettings['GATEWAY_NAME']."</option>";
+			}
 		}
 		if (get_option('zing_webshop_pro')) {
 			$files=faces_directory(ZING_WS_PRO_DIR."../extensions/gateways","",true);

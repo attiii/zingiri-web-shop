@@ -59,50 +59,15 @@
 }
 
 /**** Guidelines and Error Highlight ****/
-#main_body form li.highlighted {
+.zfaces-form form li.highlighted {
 	background-color: #fff7c0;
 }
 
-#main_body form .guidelines {
-	background: #f5f5f5;
-	border: 1px solid #e6e6e6;
-	color: #444;
-	font-size: 80%;
-	left: 100%;
-	line-height: 130%;
-	margin: 0 0 0 8px !important;
-	padding: 8px 10px 9px;
-	position: absolute;
-	top: 0;
-	visibility: hidden;
-	width: 42%;
-	z-index: 1000;
-}
-
-#main_body form .guidelines small {
-	font-size: 105%;
-}
-
-#main_body form li.highlighted .guidelines {
-	visibility: visible;
-}
-
-#main_body form li:hover .guidelines {
-	visibility: visible;
-}
-
-.no_guidelines .guidelines {
-	display: none !important;
-}
-
-.no_guidelines form li {
-	width: 97%;
-}
-
-.no_guidelines li.section {
-	padding-left: 9px;
-}
-
+.zfaces-form p.guidelines {
+	padding: 0;
+	margin: 0;
+	font-size: smaller;
+} 
 /*** Success Message ****/
 .form_success {
 	clear: both;
@@ -458,6 +423,7 @@ div.calendar {
 .zfclear {
 	clear: both;
 	height: 0px;
+	background-color:red;
 }
 
 .zfsub label {
@@ -479,7 +445,7 @@ div.calendar {
 .zfaces {
 	border: 1px;
 	/*background-color:red;*/ /*min-height:500px;*/ /*position:relative;*/
-	width: 80%;
+	/*width: 80%;*/
 }
 
 .zfli {
@@ -506,10 +472,13 @@ div.calendar {
 	padding: 0px;
 }
 
-.zfelement { /*align:center;*/ /*FIXME*/
-	/*remove-background: white;*/
-	margin-bottom:4px;
-	/*margin:3px auto;*/ /*padding:5px;*/
+.zfelement { 
+	padding-bottom:4px;
+	padding-top: 10px;
+}
+
+.zfli input:focus {
+	background-color: bisque;
 }
 
 .zfsubelements {
@@ -603,4 +572,14 @@ div.faces ul,div#zfaces ul,ul#zfaces,ul.zfaces {
 	list-style-image: none;
 	margin-left: 0px;
   	padding-left: 0px
+}
+
+li.zfacestab {
+	float:left;
+	padding-left:5px;
+	padding-right:5px;
+	margin-left:1px;
+	margin-right:1px;
+	background: #ddd;
+	//border: 1px dotted red;
 }

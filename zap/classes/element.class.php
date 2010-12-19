@@ -3,20 +3,20 @@
  Copyright 2008,2009 Erik Bogaerts
  Support site: http://www.zingiri.com
 
- This file is part of Zingiri Apps.
+ This file is part of APhPS.
 
- Zingiri Apps is free software; you can redistribute it and/or modify
+ APhPS is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation; either version 2 of the License, or
  (at your option) any later version.
 
- Zingiri Apps is distributed in the hope that it will be useful,
+ APhPS is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
 
  You should have received a copy of the GNU General Public License
- along with Zingiri Apps; if not, write to the Free Software
+ along with APhPS; if not, write to the Free Software
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 ?>
@@ -190,7 +190,7 @@ class element {
 			$this->name[$i]=(string)$this->xmlf->fields->{'field'.$i}->name;
 			if (class_exists($type."ZfSubElement"))	{ $c=$type."ZfSubElement"; }
 			else { $c="zfSubElement"; }
-			
+				
 			$subelement=new $c($int,$ext,$this->xmlf->fields->{'field'.$i},$this,$i);
 			$ext=$subelement->output($mode,$input);
 
@@ -258,11 +258,6 @@ class element {
 			$span_required = "<span id=\"required_{$this->id}\" class=\"zfrequired\">*</span>";
 		}
 
-		//check for guidelines
-		if(!empty($this->guidelines)){
-			$guidelines = "<p class=\"guidelines\" id=\"guide_{$this->id}\"><small>{$this->guidelines}</small></p>";
-		}
-
 		if ($this->readonly) $this->readonly="READONLY";
 		if ($mode!="edit" && $mode!="add" && $mode!="search") $this->readonly="READONLY";
 
@@ -279,13 +274,41 @@ class element {
 		if (!empty($_POST['zf_label'])) $label=$_POST['zf_label'];
 		elseif (!empty($this->title)) $label=$this->title;
 		else $label=$xmlf->name;
+		
+		//check for guidelines
+		if(empty($this->attributes['zfguidelines']) && $label && function_exists('h_')){
+			$this->guidelines=h_($label);
+		}
+		if(!empty($this->attributes['zfguidelines'])){
+			$guidelines = "<p class=\"guidelines\" id=\"guide_{$this->id}\"><small>{$this->attributes['zfguidelines']}</small></p>";
+		}
+		
 		if (defined("ZING_APPS_TRANSLATE")) {
 			$tempfunc=ZING_APPS_TRANSLATE;
 			$label=$tempfunc($label);
 		}
 
+		if (count($this->rules) > 0) {
+			foreach ($this->rules as $rule) {
+				if ($rule['type']=='rule_formfield') {
+					$ruleFields=explode(',',$rule['parameters'][0]);
+					if (!isset($ruleFields[1])) $ruleFields[1]=1;
+					$ruleParameters['action']=$rule['parameters'][5];
+					$ruleParameters['field']=$ruleFields[0];
+					$ruleParameters['subField']=$ruleFields[1];
+					$aParams=explode(",",$rule['parameters'][2],2);
+					$fnct=$ruleParameters['fnct']=$aParams[0];
+					$ruleParameters['params']=$aParams[1];
+					$ruleParameters['condition']=$rule['parameters'][3];
+					$ruleParameters['compare']=$rule['parameters'][4];
+					
+					$jsRule=array($ruleParameters,$this->id);
+				}
+			}
+		}
+
 		if ($this->hidden) $hidden='display:none;'; else $hidden="";
-		$element_markup.= '<div id="zf_'.$this->id.'" class="zfelement '.$error_class.'" style="'.$position.$hidden.'">';
+		$element_markup.= '<div data-field="'.$this->column[$this->id].'" id="zf_'.$this->id.'" class="zfelement '.$error_class.'" style="'.$position.$hidden.'">';
 		if ($xmlf->attributes()->header == "none") { $label=""; }
 		$element_markup.= '<label id="zf_'.$this->id.'_name" class="zfelabel">'.$label.' '.$span_required.'</label>';
 		$element_markup.='<div class="zfsubelements" id="zf_'.$this->id.'_sf">';
@@ -307,7 +330,9 @@ class element {
 				else $c="zfSubElement";
 				$e=new $c("","",$xmlf,$this,$i,$ai);
 				if (method_exists($e,"display")) {
+					$e->mode=$this->mode;
 					$e->display($field_markup,$subscript_markup);
+					$this->divider=$e->divider;
 				}
 				if ($ac > 1) $field_markup.='<br />';
 				if ($ac > 1 && $ai!=$ac-1) $subscript_markup='';
@@ -336,10 +361,11 @@ class element {
 				$this->includeJavascript($this->id);
 			}
 			$element_markup.='<div class="zfclear"></div>';
-			$element_markup.='</div>'.$error_message.'<div class="zfclear"></div>';
+			$element_markup.='</div>'.$error_message;
+			$element_markup.='<div class="zfclear"></div>';
 
-			$element_markup.='&nbsp;'.$guidelines.'</div>';
-			return $element_markup;
+			$element_markup.=$guidelines.'</div>';
+			return array('markup' => $element_markup,'jsrule' => $jsRule);
 		}
 
 		function includeJavaScript($id) {

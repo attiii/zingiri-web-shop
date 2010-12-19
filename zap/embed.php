@@ -3,20 +3,20 @@
  Copyright 2008,2009,2010 Erik Bogaerts
  Support site: http://www.zingiri.com
 
- This file is part of Zingiri Apps.
+ This file is part of APhPS.
 
- Zingiri Apps is free software; you can redistribute it and/or modify
+ APhPS is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation; either version 2 of the License, or
  (at your option) any later version.
 
- Zingiri Apps is distributed in the hope that it will be useful,
+ APhPS is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
 
  You should have received a copy of the GNU General Public License
- along with Zingiri Apps; if not, write to the Free Software
+ along with APhPS; if not, write to the Free Software
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 ?>
@@ -257,10 +257,12 @@ function zing_apps_player_header_cp() {
 function zing_apps_player_init()
 {
 	if (!defined("ZING_PROTOTYPE") || ZING_PROTOTYPE) {
-		wp_enqueue_script('prototype');
-		wp_enqueue_script('scriptaculous');
+		//wp_enqueue_script('prototype');
+		//wp_enqueue_script('scriptaculous');
 	}
-
+	wp_enqueue_script('jquery');
+	wp_enqueue_script('jquery-ui-tabs');
+	
 	ob_start();
 	session_start();
 
@@ -302,7 +304,7 @@ if (!function_exists('zing_apps_error_handler')) {
 }
 
 function zing_apps_cp_submenus() {
-	$name='Zingiri Apps';
+	$name='APhPS';
 	//add_options_page($name." Options", "$name", 8, 'zingiri-apps', 'zing_apps_editor');
 
 
@@ -404,5 +406,29 @@ function zing_apps_settings() {
 		}
 	}
 	require(dirname(__FILE__).'/includes/controlpanel.inc.php');
+}
+
+function zVars() {
+	$v=array();
+	$v['zfAppsUrl']=ZING_APPS_PLAYER_URL;
+	
+	return $v;
+}
+
+function zScripts() {
+	$v=array();
+	$v[]=ZING_APPS_PLAYER_URL . 'js/sortlist.jquery.js';
+	$v[]=ZING_APPS_PLAYER_URL . 'js/repeatable.jquery.js';
+	$v[]=ZING_APPS_PLAYER_URL . 'js/formfield.jquery.js';
+	$v[]=ZING_APPS_PLAYER_URL . 'js/core.jquery.js';
+	
+	return $v;
+}
+
+function zStyleSheets() {
+	$v=array();
+	$v[]=ZING_APPS_PLAYER_URL . 'css/integrated_view.css';
+	
+	return $v;
 }
 ?>

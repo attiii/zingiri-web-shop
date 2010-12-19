@@ -1,26 +1,4 @@
 <?php
-/*  zing.readcookie.inc.php
- Copyright 2008,2009 Erik Bogaerts
- Support site: http://www.zingiri.com
-
- This file is part of Zingiri Web Shop.
-
- Zingiri Web Shop is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
-
- Zingiri Web Shop is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with FreeWebshop.org; if not, write to the Free Software
- Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
-?>
-<?php
 // open the cookie and read the fortune ;-)
 if (isset($_COOKIE['fws_cust'])) {
 	$fws_cust = explode("-", $_COOKIE['fws_cust']);
@@ -29,16 +7,27 @@ if (isset($_COOKIE['fws_cust'])) {
 	$md5pass = $fws_cust[2];
 }
 else {
+	/*
+	if (isset($_REQUEST['wsliveuserid']) && $_REQUEST['wsliveuserid']) {
+		$db=new db();
+		if ($db->select('select id from ##customer where id='.intval($_REQUEST['wsliveuserid']))) {
+			echo 'here';
+			$db->next();
+			setcookie ("fws_guest", "", time() - 3600, '/');
+			$cookie_data = $db->get('loginname').'-'.$db->get('id').'-'.md5($db->get('password'));
+			setcookie ("fws_cust",$cookie_data, 0, '/');
+			$db->update("UPDATE `##customer` SET `IP` = '".GetUserIP()."' WHERE `ID`=".intval($_REQUEST['wsliveuserid']));
+		}
+	}
+	*/
+}
+if (!isset($_COOKIE['fws_cust'])) {
 	// you're not logged in, so you're a guest. let's see if you already have a session id
 	if (!isset($_COOKIE['fws_guest'])) {
 		$fws_guest = create_sessionid(8); // create a sessionid of 8 numbers, assuming a shop will never get 10.000.000 customers it's always a non existing customer id
 		setcookie ("fws_guest", $fws_guest, time()+3600, '/');
 		$customerid = $fws_guest;
-
-	}
-	else {
-			
+	} else {
 		$customerid = $_COOKIE['fws_guest'];
 	}
 }
-?>

@@ -21,17 +21,17 @@ function zfCreateColumns($entity,$data)
 	$allfields=array('ID','DATE_CREATED','DATE_UPDATED');
 
 	$newtable=new db();
-	if (is_new_field($entity,'ID')) {
+	if (is_new_field($entity,'ID')==1) {
 		$query="ALTER TABLE `".DB_PREFIX.$entity."`";
 		$query.="ADD COLUMN `ID` int(11) NOT NULL auto_increment PRIMARY KEY";
 		$newtable->update($query);
 	}
-	if (is_new_field($entity,'DATE_CREATED')) {
+	if (is_new_field($entity,'DATE_CREATED')==1) {
 		$query="ALTER TABLE `".DB_PREFIX.$entity."`";
 		$query.="ADD COLUMN `DATE_CREATED` datetime NOT NULL default '0000-00-00 00:00:00'";
 		$newtable->update($query);
 	}
-	if (is_new_field($entity,'DATE_UPDATED')) {
+	if (is_new_field($entity,'DATE_UPDATED')==1) {
 		$query="ALTER TABLE `".DB_PREFIX.$entity."`";
 		$query.="ADD `DATE_UPDATED` datetime default NULL";
 		$newtable->update($query);
@@ -39,13 +39,15 @@ function zfCreateColumns($entity,$data)
 	$jdata=zf_json_decode($data,true);
 	foreach ($jdata as $element) {
 		if ($element['column']!='ID' && $element['column']!='DATE_CREATED' && $element['column']!='DATE_UPDATED') {
-			if ($element['attributes']['zfrepeatable'] || $element['type']=='system_subformproxy') faces_add_repeatable_element($element['column'],$element['type'],$entity,$element['attributes']['zfmaxlength']);
-			else faces_add_element($element['column'],$element['type'],$entity,$element['attributes']['zfmaxlength']);
+			$zfrepeatable=isset($element['attributes']['zfrepeatable']) ? $element['attributes']['zfrepeatable'] : '';
+			$zfmaxlength=isset($element['attributes']['zfmaxlength']) ? $element['attributes']['zfmaxlength'] : '';
+			if ($zfrepeatable || $element['type']=='system_subformproxy') faces_add_repeatable_element($element['column'],$element['type'],$entity,$zfmaxlength);
+			else faces_add_element($element['column'],$element['type'],$entity,$zfmaxlength);
 		}
 	}
 
-	$fieldsInDb=zfShowColumns($entity);
-	$fieldsToDelete=array_diff($fieldsInDb,$allfields); //nothing is done with this for now
+	//$fieldsInDb=zfShowColumns($entity);
+	//$fieldsToDelete=array_diff($fieldsInDb,$allfields); //nothing is done with this for now
 
 }
 /**
@@ -58,9 +60,10 @@ function zfCreateColumns($entity,$data)
  */
 function faces_add_element($fieldname,$multiformat,$form_dbtable,$maxlength) {
 	global $allfields;
+	
 	$xmlf=faces_get_xml($multiformat);
 	$fields=$xmlf->fields->attributes()->count;
-
+	
 	//check how many database fields are present
 	$realfields=0;
 	for ($i=1; $i <= $fields; $i++) {
@@ -88,15 +91,16 @@ function faces_add_element($fieldname,$multiformat,$form_dbtable,$maxlength) {
 		}
 		if ($maxlength > 0) $format=preg_replace('/varchar(.*)/','varchar('.$maxlength.')',$format);
 		if (!empty($format) && $format != "none") {
-			if (!$isfirst) {
-				$query.= ", ";
-			}
-			if (is_new_field($form_dbtable,$fieldname)) { //new field
+			$isNewField=is_new_field($form_dbtable,$fieldname,$format);
+			if ($isNewField==1) { //new field
+				if (!$isfirst) $query.= ", ";
 				$query.="ADD COLUMN `{$fieldname}` {$format} NULL";
-			} else { //updated field
+				$isfirst=FALSE;
+			} elseif ($isNewField==2) { //updated field
+				if (!$isfirst) $query.= ", ";
 				$query.="CHANGE `{$fieldname}` `{$fieldname}` {$format} NULL";
+				$isfirst=FALSE;
 			}
-			$isfirst=FALSE;
 		}
 		$allfields[]=$fieldname;
 	}
@@ -128,23 +132,23 @@ function zfShowColumns($form_dbtable) {
 	$columns=mysql_num_rows($result);
 	while ($row = mysql_fetch_row($result))
 	{
-		$field_array[] = strtoupper($row[0]);
+		$field_array[strtoupper($row[0])] = array('type' => strtoupper($row[1]));
+
 	}
 
 	return $field_array;
 }
-function is_new_field($form_dbtable,$fieldname)
+function is_new_field($form_dbtable,$fieldname,$format='')
 {
 	$field_array = zfShowColumns($form_dbtable);
 
-	if (!in_array($fieldname,$field_array))
-	{
-		return TRUE;
+	if (isset($field_array[strtoupper($fieldname)])) {
+		if (!$format) return 2; //update field
+		if ($field_array[strtoupper($fieldname)]['type']== strtoupper($format)) return 0; //no change
+		else return 2; //update field
+		
 	}
-	else
-	{
-		return FALSE;
-	}
+	return 1; //new field
 }
 
 function zfCreate($name,$elementcount,$entity,$type,$data,$label,$project,$id=false,$remote=false) {

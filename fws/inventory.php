@@ -38,9 +38,7 @@ if (IsAdmin() == false) {
 
 	if ($_GET['includesearch']) $includesearch=$_GET['includesearch'];
 	elseif ($_POST['includesearch']) $includesearch=$_POST['includesearch'];
-	if ($includesearch) {
-		require(dirname(__FILE__).'/search.php');
-	}
+	require(dirname(__FILE__).'/inventory.search.php');
 	$searchmethod = "AND"; //default
 
 	if (!empty($_POST['searchmethod'])) {
@@ -87,7 +85,8 @@ if (IsAdmin() == false) {
 	}
 	else { $limit = ""; }
 	if (IsAdmin()) {
-		echo "<br /><a href=\"".zurl("?page=product&zfaces=form&form=product&action=add&zfp=62")."\"><img src=\"".ZING_APPS_PLAYER_URL."images/add.png\" height=\"16px\" />".$txt['productadmin16']."</a>";
+		echo "<br /><a href=\"".zurl("?page=product&zfaces=form&form=product&action=add&zfp=62")."\"><img src=\"".ZING_APPS_PLAYER_URL."images/add.png\" height=\"16px\" />"."</a>";
+		echo "<a href=\"".zurl("?page=product&zfaces=form&form=product&action=add&zfp=62")."\">".$txt['productadmin16']."</a>";
 		echo '<br />';
 	}
 
@@ -108,18 +107,24 @@ if (IsAdmin() == false) {
 	}
 	else {
 		//search on the given terms
-		if ($searchfor != "") {
-			$searchitem = explode (" ", $searchfor);
-			if ($stock_enabled == 1) { $searchquery = "WHERE `STOCK` > 0 AND ("; }
-			else $searchquery = "WHERE (";
-
-			$counter = 0;
-			while (!$searchitem[$counter] == NULL){
-				$searchquery .= "((DESCRIPTION LIKE '%" . $searchitem[$counter] . "%') OR (PRODUCTID LIKE '%" . $searchitem[$counter] . "%'))";
-				$counter += 1;
-				if (!$searchitem[$counter] == NULL) { $searchquery .= " ".$searchmethod." "; }
+		if ($searchfor || $searchCategory || $searchGroup) {
+			if ($stock_enabled == 1) { $searchquery = "WHERE `STOCK` > 0"; }
+			else $searchquery = "WHERE 1=1";
+				
+			if ($searchfor) {
+				$searchForQuery='';
+				$searchitem = explode (" ", $searchfor);
+				$counter = 0;
+				while (!$searchitem[$counter] == NULL){
+					$searchForQuery .= "((DESCRIPTION LIKE '%" . $searchitem[$counter] . "%') OR (PRODUCTID LIKE '%" . $searchitem[$counter] . "%'))";
+					$counter += 1;
+					if (!$searchitem[$counter] == NULL) { $searchForQuery .= " ".$searchmethod." "; }
+				}
+				$searchquery.=' AND ('.$searchForQuery.')';
 			}
-			$searchquery .= ")";
+			if ($searchCategory) $searchquery.=' AND (`CATID`='.$searchCategory.')'; 
+			elseif ($searchGroup) $searchquery.=" AND (`CATID` IN (SELECT `ID` FROM `".$dbtablesprefix."category` WHERE `GROUPID`=".$searchGroup."))"; 
+			//$searchquery .= ")";
 		}
 		else {
 			//$searchquery = "WHERE (DESCRIPTION = 'never_find_me')";

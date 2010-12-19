@@ -28,7 +28,7 @@ $wsPageSearch=($page=='search') ? 'browse' : $page;
   <table summary="search form" class="datatable" width="60%">
 	  <tr>
 	    <td>
-	      <form method="get" action="?page=<?php echo $wsPageSearch;?>">
+	      <form method="get" action="<?php zurl('?page='.$wsPageSearch,true);?>">
 	       <?php echo $txt['search2'] ?>
 	       <input type="hidden" name="page" value="<?php echo $wsPageSearch;?>">
 	       <input type="text" name="searchfor" size="40">

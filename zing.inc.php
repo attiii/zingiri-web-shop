@@ -102,7 +102,7 @@ function zing_check() {
 		$dirs[]=BLOGUPLOADDIR.'zingiri-web-shop/prodgfx';
 		$dirs[]=BLOGUPLOADDIR.'zingiri-web-shop/cats';
 		$dirs[]=BLOGUPLOADDIR.'zingiri-web-shop/orders';
-		$dirs[]=BLOGUPLOADDIR.ZING_SLUG.'/cache';
+		$dirs[]=BLOGUPLOADDIR.'zingiri-web-shop/cache';
 		$dirs[]=BLOGUPLOADDIR.'zingiri-web-shop/digital-'.get_option('zing_webshop_dig');
 
 		foreach ($dirs as $file) {
@@ -460,9 +460,9 @@ function zing_main($process,$content="") {
 	}
 	elseif ($to_include) {
 		echo $prefix;
-		if ($process=='content') echo '<div class="zing_ws_page" id="zing_ws_'.$_GET['page'].'">';
+		if ($process=='content' && $page!='ajax') echo '<div class="zing_ws_page" id="zing_ws_'.$_GET['page'].'">';
 		include($scripts_dir.$to_include);
-		if ($process=='content') echo '</div>';
+		if ($process=='content' && $page!='ajax') echo '</div>';
 		echo $postfix;
 		if (!wsIsAdminPage() && $process=='content' && get_option('zing_ws_logo')=='pf') zing_display_logo();
 		//stop logging
@@ -522,5 +522,40 @@ function wsVersion() {
 	if (!get_option('zing_webshop_pro') || (get_option('zing_ws_pro_version') == ZING_WS_PRO_VERSION)) $p=true;
 	if ($s && $p) return true;
 	else return false;
+}
+
+function jsVars() {
+	$v=array();
+	$v['wsURL']=ZING_URL."fws/ajax/";
+	$v['wpabspath']=str_replace('\\','/',ABSPATH);
+	$v['wsAnimateImage']=wsSetting('animateimage');
+	$v['wsCms']=ZING_CMS;
+	$v['wsLive']=isset($_REQUEST['wslive']) ? 1 : 0; 
+	
+	return $v;
+}
+
+function jsScripts() {
+	$v=array();
+	$v[]=ZING_URL . 'fws/js/jquery-ui-1.7.3.custom.min.js';
+	$v[]=ZING_URL . 'fws/js/lib.jquery.js';
+	$v[]=ZING_URL . 'fws/js/cookie.jquery.js';
+	$v[]=ZING_URL . 'fws/js/checkout.jquery.js';
+	$v[]=ZING_URL . 'fws/js/cart.jquery.js';
+	$v[]=ZING_URL . 'fws/js/search.jquery.js';
+	if (wsIsAdminPage()) {
+		$v[]=ZING_URL . 'fws/js/admin.jquery.js';
+	}
+	$v[]=ZING_URL . 'fws/addons/lightbox/lightbox.js';
+	
+	return $v;
+}
+
+function jsStyleSheets() {
+	$v=array();
+	$v[]=ZING_URL . 'zing.css';
+	$v[]=ZING_URL . 'fws/addons/lightbox/lightbox.css';
+	
+	return $v;
 }
 ?>

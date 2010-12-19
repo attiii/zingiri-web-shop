@@ -103,11 +103,6 @@ else {
 
 		// show extra admin options?
 		$admin_edit = "";
-		if (IsAdmin() && wsIsAdminPage()) {
-			$admin_edit = "<br />";
-			$admin_edit = $admin_edit."<a href=\"?page=productadmin&action=edit_product&pcat=".$cat."&prodid=".$row[0]."\">".$txt['browse7']."</a>";
-			$admin_edit = $admin_edit."&nbsp;|&nbsp;<a href=\"?page=productadmin&action=delete_product&pcat=".$cat."&prodid=".$row[0]."\">".$txt['browse8']."</a>";
-		}
 		?> <br />
 		<table class="borderless" width="90%">
 			<tr>
@@ -134,7 +129,7 @@ else {
 			}
 			else {
 				echo "<big><strong>" . $txt['details5'] . ": ".$currency_symbol_pre.'<span class="wspricein" id="wsprice'.$row[0].'">'.$tax->inFtd.'</span>'.$currency_symbol_post."</strong></big>";
-				echo "<br /><small>(".$currency_symbol_pre.'<span class="wspriceex" id="wsprice'.$row[0].'">'.$tax->exFtd.'</span>'.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>";
+				if (wsSetting('show_tax_breakdown')) echo "<br /><small>(".$currency_symbol_pre.'<span class="wspriceex" id="wsprice'.$row[0].'">'.$tax->exFtd.'</span>'.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>";
 			}
 		}
 

@@ -410,7 +410,7 @@ $txt['editsettings53'] = 'Pricelist format <a href=# class=info>(?)<span>This se
 $txt['editsettings54'] = 'Product ID';
 $txt['editsettings55'] = 'Description';
 $txt['editsettings56'] = 'Product ID and description';
-$txt['editsettings57'] = 'Date format <a href=# class=info>(?)<span><strong>d-m-Y @ G:i</strong> for dd-mm-jjjj @ 23:59<br /><strong>m-d-Y @ G:i</strong> for mm-dd-jjjj @ 23:59<br /></span></a>';
+$txt['editsettings57'] = 'Date format';
 $txt['editsettings58'] = 'Search gfx in pricelist <a href=# class=info>(?)<span>Search for pictures of the various products during loading of the pricelists. If a picture is found, an icon will appear behind the product, so the visitor knows there is a picture. <br /><br />To descrease loading times, or if you have the pictures on a remote host, you-d better disable this option</span></a>';
 $txt['editsettings59'] = 'Use pictures <a href=# class=info>(?)<span>If you do not have pictures for your products, you-d better turn this option off</span></a>';
 $txt['editsettings69'] = 'Use thumbnails in pricelist <a href=# class=info>(?)<span>Shows (if found) a small preview of the product picture in front of the description</span></a>';
@@ -481,8 +481,8 @@ $txt['productadmin24'] = 'Delete this picture';
 $txt['productadmin25'] = 'Picture succesfully removed';
 $txt['productadmin26'] = 'Product was succesfully removed';
 $txt['productadmin27'] = 'Extra options';
-$txt['productadmin28'] = 'Make thumbnail for all pictures (could take a while)';
-$txt['productadmin29'] = 'All thumbnails are created (where needed)..';
+$txt['productadmin28'] = 'Make thumbnails for all pictures';
+$txt['productadmin29'] = 'All thumbnails are created';
 $txt['productadmin30'] = 'Features <a href=# class=info>(?)<span>Feature1:Red,White,Blue|Feature2:Small,Medium,Large<br />No spaces!</span></a>';
 $txt['productadmin31'] = 'Weight <a href=# class=info>(?)<span>The weight is used is the shipping rate is calculated using the total weight of the order</span></a>';
 
@@ -685,7 +685,7 @@ $txt['editsettings13'] = 'Prices in DB are incl. taxes';
 
 //v1.3.0 - added
 $txt['admin101'] = 'Prompts & labels';
-$txt['editsettings112'] = 'Product ID & full description';
+$txt['editsettings112'] = 'Product ID and full description';
 $txt['prompt1'] = 'Language';
 $txt['prompt2'] = 'Standard text';
 $txt['prompt3'] = 'Custom text';
@@ -747,7 +747,7 @@ $txt['productadmin102'] = 'Short description';
 //1.6.0 - added
 $txt['editsettings113'] = 'Animate image when ordering';
 $txt['editsettings114'] = 'Short description';
-$txt['editsettings115'] = 'Product ID and short description';
+$txt['editsettings117'] = 'Product ID and short description';
 $txt['banned1'] = 'Banned IP addresses';
 $txt['banned2'] = 'IP address';
 $txt['customeradmin100'] = 'Customer ID';
@@ -782,9 +782,39 @@ $txt['apps12'] = 'High';
 $txt['apps13'] = 'Amount';
 $txt['apps14'] = 'Password is too long!';
 
-//1.7.0 - added
+//1.6.9 - added
 $txt['taxes2'] = 'Tax categories';
 $txt['taxes3'] = 'Tax category';
 $txt['general106'] = 'ID';
 
+//1.7.0 - added
+$txt['pay1'] = 'Invalid issuer request.';
+$txt['pay2'] = 'Transaction already completed';
+$txt['pay3'] = 'Executing IssuerRequest on ';
+$txt['pay4'] = 'Invalid transaction request.';
+$txt['pay5'] = 'Executing TransactionRequest on ';
+$txt['pay6'] = 'Invalid return request.';
+$txt['pay7'] = 'Executing StatusRequest on ';
+$txt['pay8'] = 'Choose your bank';
+$txt['pay9'] = 'Your payment is not complete yet';
+$txt['pay10'] = 'Continue';
+$txt['pay11'] = 'Your payment was cancelled. Please try again.';
+$txt['pay12'] = 'Your payment failed. Please try again.';
+$txt['pay13'] = 'Choose another payment method';
+$txt['pay14'] = "I can't pay via iDEAL";
+$txt['pay15'] = 'Invalid report request.';
+$txt['pay16'] = 'The transaction has been updated.';
+$txt['pay17'] = 'Verification of outstanding transactions.';
+$txt['pay18'] = 'Updated all outstanding transactions';
+$txt['pay19'] = 'No outstanding transactions could be found.';
+$txt['pay20'] = 'Close window';
+$txt['pay21'] = 'for';
+$txt['pay22'] = 'Received';
+$txt['task1'] = 'Tasks & maintenance';
+$txt['task2'] = 'Tasks';
+$txt['general106'] = 'Go';
+$txt['order100'] = 'Email customer';
+$txt['order101'] = 'Email shop administrator';
+$txt['checkout105'] = 'Copy of the order confirmation email sent to';
+$txt['checkout106'] = 'Continue without registration';
 ?>

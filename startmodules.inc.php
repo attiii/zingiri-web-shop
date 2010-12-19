@@ -23,7 +23,6 @@
 <?php
 //correction for parameter 'cat' used by Wordpress for categories
 if (isset($_GET['kat'])) { $_GET['cat']=$_GET['kat']; }
-
 include (ZING_DIR."./includes/readvals.inc.php");        // get and post values
 include (ZING_DIR."./includes/readsettings.inc.php");    // read shop settigns
 include( ZING_DIR."./includes/setfolders.inc.php");      // set appropriate folders

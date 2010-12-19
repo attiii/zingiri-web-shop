@@ -18,7 +18,6 @@ class paymentCode {
 			$gateway = $row['GATEWAY'];
 			$this->merchantid=$row['MERCHANTID'];
 			$this->secret=$row['SECRET'];
-			$this->email=$row['EMAIL'];
 			
 			//common variables
 			$this->returnUrl=$shopurl . '/index.php?page=checkout&status=1&webid='.urlencode($webid).'&gateway='.$gateway;

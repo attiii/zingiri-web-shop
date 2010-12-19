@@ -543,7 +543,7 @@ else {
                           <OPTION VALUE="4" <?php if ($pricelist_format == 4) echo 'selected="SELECTED"'?>><?php echo $txt['editsettings114'] ?>
                           <OPTION VALUE="2" <?php if ($pricelist_format == 2) echo 'selected="SELECTED"'?>><?php echo $txt['editsettings56'] ?>
                           <OPTION VALUE="3" <?php if ($pricelist_format == 3) echo 'selected="SELECTED"'?>><?php echo $txt['editsettings112'] ?>
-                          <OPTION VALUE="5" <?php if ($pricelist_format == 5) echo 'selected="SELECTED"'?>><?php echo $txt['editsettings115'] ?>
+                          <OPTION VALUE="5" <?php if ($pricelist_format == 5) echo 'selected="SELECTED"'?>><?php echo $txt['editsettings117'] ?>
                         </SELECT>  
 	                  </td>
         	      </tr>

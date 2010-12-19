@@ -90,14 +90,29 @@ class zingPrompts {
 			$$var='$'.$var;
 		}
 		require(ZING_DIR.'langs/'.$lang.'/lang.txt');
-		foreach ($zing->paths as $wsPath) if (file_exists($wsPath.'langs/'.$lang.'/lang.php')) include($wsPath.'langs/'.$lang.'/lang.php'); 
+		foreach ($zing->paths as $wsPath) if (file_exists($wsPath.'langs/'.$lang.'/lang.php')) include($wsPath.'langs/'.$lang.'/lang.php');
 		foreach ($txt as $label => $text) {
+			$a=explode('<a href=# class=info>(?)<span>',$text);
+			if (count($a) > 1) {
+				$text=trim($a[0]);
+			}
 			if ($row=$db->readRecord('prompt',array('lang' => $lang,'label' => $label))) {
 				if ($row['STANDARD'] != $text) {
 					$db->updateRecord('prompt',array('lang' => $lang,'label' => $label),array('standard' => $text));
 				}
 			} else {
 				$db->insertRecord('prompt',"",array('lang' => $lang,'standard' => $text,'label' => $label));
+			}
+			if (count($a) > 1) {
+				$helpLabel='help_'.$label;
+				$helpText=trim(str_replace('</span></a>','',$a[1]));
+				if ($row=$db->readRecord('prompt',array('lang' => $lang,'label' => $helpLabel))) {
+					if ($row['STANDARD'] != $helpText) {
+						$db->updateRecord('prompt',array('lang' => $lang,'label' => $helpLabel),array('standard' => $helpText));
+					}
+				} else {
+					$db->insertRecord('prompt',"",array('lang' => $lang,'standard' => $helpText,'label' => $helpLabel));
+				}
 			}
 		}
 		foreach (array('main','conditions') as $file) {
@@ -145,7 +160,7 @@ class zingPrompts {
 			$txt[$db->get('label')]=$db->get('standard');
 			if (isset($old[$db->get('label')]) && trim($old[$db->get('label')]) != trim($db->get('standard'))) {
 				if (trim($db->get('custom')) == "") {
-					$this->set($db->get('label'),trim($old[$db->get('label')]));
+					//$this->set($db->get('label'),trim($old[$db->get('label')]));
 				}
 			}
 			if ($db->get('custom') != "") $txt[$db->get('label')]=$db->get('custom');
@@ -171,7 +186,7 @@ class zingPrompts {
 			$$var='$'.$var;
 		}
 		require(ZING_DIR.'langs/'.$lang.'/lang.txt');
-		foreach ($zing->paths as $wsPath) if (file_exists($wsPath.'langs/'.$lang.'/lang.php')) include($wsPath.'langs/'.$lang.'/lang.php'); 
+		foreach ($zing->paths as $wsPath) if (file_exists($wsPath.'langs/'.$lang.'/lang.php')) include($wsPath.'langs/'.$lang.'/lang.php');
 		return $txt;
 	}
 
@@ -197,7 +212,7 @@ class zingPrompts {
 		}
 		$deflang=$this->currentLanguage();
 		//if (!in_array($deflang,$langs)) $langs[]=$deflang;
-		//if (!in_array('en',$langs)) $langs[]='en';
+		if (!in_array('en',$langs)) $langs[]='en';
 		$this->activeLanguages=$langs;
 	}
 

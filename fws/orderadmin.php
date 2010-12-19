@@ -290,7 +290,7 @@ else {
 				if ($num_pages == $num_page) {
 					echo "<b>[$num_pages]</b>";
 				}
-				else { echo "<a href=\"index.php?page=orderadmin&action=$action&status=$status&num_page=$num_pages\">[$num_pages]</a>"; }
+				else { echo "<a href=\"".zurl('index.php?page=orderadmin&action='.$action.'&status='.$status.'&num_page='.$num_pages)."\">[$num_pages]</a>"; }
 				echo " ";
 			}
 		}
@@ -300,7 +300,7 @@ else {
 			if ($num_pages == $num_page) {
 				echo "<b>[$num_pages]</b>";
 			}
-			else { echo "<a href=\"index.php?page=orderadmin&action=$action&status=$status&num_page=$num_pages\">[$num_pages]</a>"; }
+			else { echo "<a href=\"".zurl('index.php?page=orderadmin&action='.$action.'&status='.$status.'&num_page='.$num_pages)."\">[$num_pages]</a>"; }
 		}
 		echo "</h4>";
 	}

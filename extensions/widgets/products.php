@@ -72,7 +72,7 @@ class widget_sidebar_products {
 						}
 						while ($row_cat = mysql_fetch_row($sql_cat)) {
 							if ($cat==$row_cat[0]) $active='id="active"'; else $active="";
-							$ahref = "\"index.php?page=browse&action=list&orderby=DESCRIPTION&group=".$row[0]."&cat=".$row_cat[0]."\"";
+							$ahref = "\"index.php?page=browse&action=list&orderby=DESCRIPTION&group=".$row[0]."&kat=".$row_cat[0]."\"";
 							echo "<li ".$active."><a href=".$ahref.">" . $row_cat[1] . "</a>";
 						}
 						echo '</ul>';

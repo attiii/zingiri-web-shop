@@ -1,31 +1,35 @@
 <?php
-if ($zing_version) {
+if (ZING_AJAX) {
 	add_action("init","zing_init");
-	add_filter('wp_footer','zing_footer');
-	add_filter('get_pages','zing_exclude_pages');
-	add_action("plugins_loaded", "zing_sidebar_init");
 	add_filter('the_content', 'zing_content', 10, 3);
-	add_action('wp_head','zing_header');
-	add_action('wp_head','zing_ws_header_custom',100);
-	add_filter('wp_title','zing_ws_title');
-	add_filter('the_title','zing_ws_page_title',10,2);
-	if ($integrator->wpCustomer) {
-		add_action('wp_login','zing_login');
-		add_action('wp_logout','zing_logout');
-		add_filter('check_password','zing_check_password',10,4);
-		//add_action('personal_options_update','zing_profile_pre'); //before wp error check and update
-		//add_action('edit_user_profile_update','zing_profile_pre'); //before wp error check and update
-		//add_action('user_profile_update_errors','zing_profile_check_errors',10,3); //check errors after wp checks done
-		add_action('profile_update','zing_profile'); //post wp update
-		add_action('user_register','zing_profile'); //post wp update
-		//add_action('show_user_profile','zing_profile_show');
-		//add_action('edit_user_profile','zing_profile_edit');
-		add_action('delete_user','zing_delete_user');
+} else {
+	if ($zing_version) {
+		add_action("init","zing_init");
+		add_filter('wp_footer','zing_footer');
+		add_filter('get_pages','zing_exclude_pages');
+		add_action("plugins_loaded", "zing_sidebar_init");
+		add_filter('the_content', 'zing_content', 10, 3);
+		add_action('wp_head','zing_header');
+		add_action('wp_head','zing_ws_header_custom',100);
+		add_filter('wp_title','zing_ws_title');
+		add_filter('the_title','zing_ws_page_title',10,2);
+		if ($integrator->wpCustomer) {
+			add_action('wp_login','zing_login');
+			add_action('wp_logout','zing_logout');
+			add_filter('check_password','zing_check_password',10,4);
+			//add_action('personal_options_update','zing_profile_pre'); //before wp error check and update
+			//add_action('edit_user_profile_update','zing_profile_pre'); //before wp error check and update
+			//add_action('user_profile_update_errors','zing_profile_check_errors',10,3); //check errors after wp checks done
+			add_action('profile_update','zing_profile'); //post wp update
+			add_action('user_register','zing_profile'); //post wp update
+			//add_action('show_user_profile','zing_profile_show');
+			//add_action('edit_user_profile','zing_profile_edit');
+			add_action('delete_user','zing_delete_user');
+		}
 	}
+	add_action("init","zing_init_uninstall");
+	add_action('admin_notices','zing_admin_notices');
 }
-add_action("init","zing_init_uninstall");
-add_action('admin_notices','zing_admin_notices');
-
 function zing_ws_install_roles() {
 	global $current_user;
 	get_currentuserinfo();
@@ -140,33 +144,37 @@ function zing_ws_uninstall_delete_pages() {
  */
 function zing_header()
 {
-	echo '<script type="text/javascript" language="javascript">';
-	echo "var wsURL='".ZING_URL."fws/ajax/';";
-	echo "var wpabspath='".str_replace('\\','/',ABSPATH)."';";	
-	echo "var wsAnimateImage='".wsSetting('animateimage')."';";
-	echo "var wsCms='".ZING_CMS."';";
-	echo '</script>';
-
-	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/jquery-ui-1.7.3.custom.min.js"></script>';
-	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/lib.jquery.js"></script>';
-	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/cookie.jquery.js"></script>';
-	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/checkout.jquery.js"></script>';
-	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/cart.jquery.js"></script>';
-	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/search.jquery.js"></script>';
-	if (wsIsAdminPage()) {
-		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/admin.jquery.js"></script>';
+	if ($seo=wsSeo($_REQUEST['page'],$_REQUEST['kat'],$_REQUEST['prod'])) {
+		if (isset($seo['description'])) printf("<meta name=\"description\" content=\"%s\" />", $seo['description']);
+		if (isset($seo['keywords'])) printf("<meta name=\"keywords\" content=\"%s\" />", $seo['keywords']);
 	}
-	echo '<link rel="stylesheet" type="text/css" href="' . ZING_URL . 'zing.css" media="screen" />';
 
-	echo '<link rel="stylesheet" href="' . ZING_URL . 'fws/addons/lightbox/lightbox.css" type="text/css" media="screen" />';
-	echo '<script type="text/javascript" src="' . ZING_URL . 'fws/addons/lightbox/lightbox.js"></script>';
-	
+	$wsVars=jsVars();
+	$ret='';
+	$ret.='<script type="text/javascript" language="javascript">';
+	foreach ($wsVars as $v => $c) {
+		$ret.="var ".$v."='".$c."';";
+	}
+	$ret.='</script>';
+
+	$wsScripts=jsScripts();
+	foreach ($wsScripts as $s) {
+		$ret.='<script type="text/javascript" src="' . $s . '"></script>';
+	}
+
+	$wsStyleSheets=jsStyleSheets();
+	foreach ($wsStyleSheets as $s) {
+		$ret.='<link rel="stylesheet" type="text/css" href="' . $s . '" media="screen" />';
+	}
+
 	if (function_exists('zing_ws_pro_header')) zing_ws_pro_header();
+
+	echo $ret;
 }
 
 function zing_ws_header_custom()
 {
-	echo '<link rel="stylesheet" type="text/css" href="' . BLOGUPLOADURL . 'zingiri-web-shop/custom.css" media="screen" />';
+	if (file_exists(BLOGUPLOADDIR . 'zingiri-web-shop/custom.css')) echo '<link rel="stylesheet" type="text/css" href="' . BLOGUPLOADURL . 'zingiri-web-shop/custom.css" media="screen" />';
 }
 
 /**
@@ -175,12 +183,6 @@ function zing_ws_header_custom()
  */
 function zing_init()
 {
-	session_start();
-
-	wp_enqueue_script('jquery');
-
-	ob_start();
-
 	global $dbtablesprefix;
 	global $dblocation;
 	global $dbname;
@@ -198,29 +200,33 @@ function zing_init()
 	global $name;
 	global $customerid;
 	global $integrator;
-
-	$bail_out = ( ( defined( 'WP_ADMIN' ) && WP_ADMIN == true ) || ( strpos( $_SERVER[ 'PHP_SELF' ], 'wp-admin' ) !== false ) );
-	if ( $bail_out ) { return $pages; }
-
 	global $zing_page_id_to_page, $zing_page_to_page_id, $wpdb;
 	global $name;
 	global $customerid;
 
+	if (!isset($_REQUEST['wslive'])) {
+		session_start();
+		wp_enqueue_script('jquery');
+		ob_start();
+		$bail_out = ( ( defined( 'WP_ADMIN' ) && WP_ADMIN == true ) || ( strpos( $_SERVER[ 'PHP_SELF' ], 'wp-admin' ) !== false ) );
+		if ( $bail_out ) { return $pages; }
+	}
+
 	$zing_page_id_to_page=array();
 	$zing_page_to_page_id=array();
 
-	$sql = "SELECT post_id,meta_value FROM $wpdb->postmeta WHERE meta_key = 'zing_page'";
+	$sql = "SELECT post_id,meta_value FROM $wpdb->postmeta,$wpdb->posts WHERE $wpdb->postmeta.post_id=$wpdb->posts.id AND $wpdb->posts.post_type='page' AND meta_key = 'zing_page'";
 	$a = $wpdb->get_results( $sql );
 
 	foreach ($a as $i => $o )
 	{
-		$zing_page_id_to_page[$o->post_id][0]=$o->meta_value;
+		if (!isset($zing_page_id_to_page[$o->post_id])) $zing_page_id_to_page[$o->post_id][0]=$o->meta_value;
 	}
 	$sql = "SELECT post_id,meta_value FROM $wpdb->postmeta WHERE meta_key = 'zing_action'";
 	$a = $wpdb->get_results( $sql );
 	foreach ($a as $i => $o )
 	{
-		$zing_page_id_to_page[$o->post_id][1]=$o->meta_value;
+		if (!isset($zing_page_id_to_page[$o->post_id][1])) $zing_page_id_to_page[$o->post_id][1]=$o->meta_value;
 	}
 
 	$zing_page_to_page_id=array();
@@ -251,14 +257,19 @@ function zing_init()
 		exit;
 	}
 
-	if (!isset($_GET['page_id']) && isset($_GET['page']))
-	{
-		//cat is a parameter used by Wordpress for categories
-		if (isset($_GET['cat']) && isset($_GET['page'])) {
-			$_GET['kat']=$_GET['cat'];
-			unset($_GET['cat']);
-		}
+	if (isset($_REQUEST['wslive'])) {
 		$_GET['page_id']=zing_page_id("main");
+	} elseif ((!isset($_GET['page_id']) || empty($_GET['page_id'])) && isset($_GET['page'])) {
+		$pageId='';
+		$pageId=zing_page_id($_GET['page']);
+		if ($pageId) $_GET['page_id']=$pageId;
+		else $_GET['page_id']=zing_page_id("main");
+	}
+
+	//cat is a parameter used by Wordpress for categories
+	if (isset($_GET['cat']) && isset($_GET['page'])) {
+		$_GET['kat']=$_GET['cat'];
+		unset($_GET['cat']);
 	}
 
 }
@@ -294,9 +305,6 @@ function zing_page_id($page,$action="*")
 	}
 	elseif (isset($zing_page_to_page_id[$page]))
 	{
-		echo $page;
-		echo $action;
-		echo "this case";die();
 		return $zing_page_to_page_id[$page];
 	}
 	return "";
@@ -342,25 +350,25 @@ function zing_exclude_pages( $pages )
 		if ($security == 0) {
 			$show=true;
 		}
-		elseif ($security == "1" && !$loggedin) {
+		elseif ($security == "1" && !$loggedin==1) {
 			$show=true;
 		}
-		elseif ($security == "2" && $loggedin && $iscustomer) {
+		elseif ($security == "2" && $loggedin==1 && $iscustomer) {
 			$show=true;
 		}
-		elseif ($security == "3" && $loggedin) {
+		elseif ($security == "3" && $loggedin==1) {
 			$show=true;
 		}
-		elseif ($security == "4" && (!$loggedin || $iscustomer)) {
+		elseif ($security == "4" && (!$loggedin==1 || $iscustomer)) {
 			$show=true;
 		}
-		elseif ($security == "5" && $loggedin && !$isadmin && ($isuser || $iscustomer)) {
+		elseif ($security == "5" && $loggedin==1 && !$isadmin && ($isuser || $iscustomer)) {
 			$show=true;
 		}
 		elseif ($security == "6" && ($iscustomer || $isadmin)) { //should really be shown only if something in cart
 			$show=true;
 		}
-		elseif ($security == "9" && $loggedin && $isadmin) {
+		elseif ($security == "9" && $loggedin==1 && $isadmin) {
 			$show=true;
 		}
 		if (!$show || get_option("zing_ws_show_menu_".$page->ID)=="No")
@@ -371,20 +379,6 @@ function zing_exclude_pages( $pages )
 	}
 
 	return $pages;
-
-	/*
-	 $l=count($pages);
-	 for ( $i=0; $i<$l; $i++ ) {
-		$page = & $pages[$i];
-		$parent=$page->post_parent;
-		if (isset($unsetpages[$parent]))
-		{
-		unset($pages[$i]);
-		}
-		}
-
-		return $pages;
-		*/
 }
 
 /**
@@ -407,15 +401,7 @@ function zing_sidebar_init()
 }
 
 function zing_ws_title($title) {
-	if ($_GET['prod']) {
-		$prodid=$_GET['prod'];
-		$db=new db();
-		//echo 'select product from ##product,##category where ##product.catid=##category.id and ##product.id='.qs($prodid);
-		$db->select('select `productid`,`desc` from `##product`,`##category` where ##product.catid=##category.id and ##product.id='.qs($prodid));
-		if ($db->next()) {
-			return $db->get('desc').' &raquo; '.$db->get('productid');
-		}
-	}
+	if ($seo=wsSeo($_REQUEST['page'],$_REQUEST['kat'],$_REQUEST['prod'])) return $seo['title'];
 	return $title;
 }
 
@@ -435,11 +421,17 @@ function zing_ws_page_title($pageTitle,$id=0) {
 	}
 
 	if ($_GET['prod']) {
-		$prodid=$_GET['prod'];
+		$prodid=intval($_GET['prod']);
 		$db=new db();
 		$db->select('select `productid`,`desc` from `##product`,`##category` where ##product.catid=##category.id and ##product.id='.qs($prodid));
 		if ($db->next()) {
 			$pageTitle=$db->get('productid');
+		}
+	} elseif ($_GET['page']=='browse' && isset($_GET['kat'])) {
+		$db=new db();
+		$db->select('select `##group`.`name`,`##category`.`desc` from `##group`,`##category` where ##group.id=##category.groupid and ##category.id='.qs(intval($_GET['kat'])));
+		if ($db->next()) {
+			$pageTitle=$db->get('name').' - '.$db->get('desc');
 		}
 	} elseif ($p=$_GET['page']) {
 		if (isset($wsPages[$p])) $pageTitle=$txt[$wsPages[$p]];

@@ -1,21 +1,38 @@
 appsLanguageControl={
+	i : 0,
+	editor : Array(),
+	control : Array(),
+	textTag : Array(),
+	helperTag : Array(),
+	node : Array(),
+	content : Array(),
+	lang : Array(),
 	init: function(control,helper,field,editor) {
 
-		this.editor=editor;
-		this.control=jQuery('#'+control);
-		this.textTag=jQuery('#'+field);
-		this.helperTag=jQuery('#'+helper);
-		lang=this.control.attr('value');
-		this.content=new Object();
+	//alert(control+'/'+helper+'/'+field+'/');
+	//issue to solve is storage of multi lingual fields
+		this.i++;
+		this.editor[this.i]=editor;
+		this.control[this.i]=jQuery('#'+control);
+		this.textTag[this.i]=jQuery('#'+field);
+		this.helperTag[this.i]=jQuery('#'+helper);
+		lang=this.control[this.i].attr('value');
+		this.content[this.i]=new Object();
 
-		this.node=jQuery('<div></div>');
-		this.node.append(this.textTag.val());
+		this.node[this.i]=jQuery('<div></div>');
+		this.node[this.i].append(this.textTag[this.i].val());
 		
 		that=this;
-		this.helperTag.children('div').each(function(i,lang) {
-			that.content[lang.id]=jQuery('#'+lang.id).html();
-//			alert(lang.id+'='+that.content[lang.id]);
-		});
+		//alert(this.helperTag[this.i].attr('id'));
+		if (this.helperTag[this.i].children('div').size()>0) { //or length()
+			this.helperTag[this.i].children('div').each(function(j,lang) {
+				that.content[that.i][lang.id]=jQuery('#'+lang.id).html();
+				//alert(lang.id+'='+that.content[lang.id]);
+			});
+		} else {
+			this.content[this.i][lang]=this.textTag[this.i].html();
+			alert('content='+lang+'/'+this.textTag[this.i].html());
+		}
 		//alert(this.content.en);
 		//alert(this.node.find('#en').html());
 		/*
@@ -29,7 +46,7 @@ appsLanguageControl={
 			*/
 		//alert(this.textTag.text());
 
-		this.refresh(lang);
+		this.refresh(lang,this.i);
 		
 		jQuery('#appscommit').bind('click',this,function(e) {
 			e.data.refresh('');
@@ -48,30 +65,29 @@ appsLanguageControl={
 			if (e.data.editor==1) e.data.textTag.parent().find('iframe').contents().find('body').html(that.helperTag.html());
 		});
 		
-		jQuery('#'+control).bind('change',this,function(e) {
-			e.data.refresh(e.data.control.attr('value')); 
+		jQuery('#'+control).bind('change',{that:this,i:this.i},function(e) {
+			e.data.that.refresh(e.data.that.control[e.data.i].attr('value'),e.data.i); 
 		});
 	},
 	
-	refresh: function(newLang) {
+	refresh: function(newLang,i) {
 		that=this;
-		if (this.editor==0) newContent=this.textTag.val();
-		else newContent=this.textTag.parent().find('iframe').contents().find('body').html();
-		if (this.lang && that.content[this.lang]==null) that.content[this.lang]='';
-		jQuery.each(this.content, function (lang,text) {
-			if (lang==that.lang) {
-				that.content[lang]=newContent;
+		if (this.editor[i]==0) newContent=this.textTag[i].val();
+		else newContent=this.textTag[i].parent().find('iframe').contents().find('body').html();
+		if (this.lang[i] && this.content[i][this.lang[i]]==null) this.content[i][this.lang[i]]='';
+		jQuery.each(this.content[i], function (lang,text) {
+			if (lang==that.lang[i]) {
+				that.content[i][lang]=newContent;
 			}
 		});
-		//if (!this.editor) {
-			if (that.content[newLang]) that.textTag.val(that.content[newLang]);
-			else that.textTag.val('');
-		//} 
-		if (this.editor==1) {
-			//alert('here:'+newLang+'/'+that.content[newLang]);
-			if (that.content[newLang]) this.textTag.parent().find('iframe').contents().find('body').html(that.content[newLang]);
-			else this.textTag.parent().find('iframe').contents().find('body').html('');
+		if (this.editor[i]==1) {
+			//alert(i+'/'+this.editor[i]+newLang+that.content[i][newLang]);
+			if (that.content[i][newLang]) this.textTag[i].parent().find('iframe').contents().find('body').html(that.content[i][newLang]);
+			else this.textTag[i].parent().find('iframe').contents().find('body').html('');
+		} else {
+			if (that.content[i][newLang]) that.textTag[i].val(that.content[i][newLang]);
+			else that.textTag[i].val('');
 		}
-		this.lang=newLang;
+		this.lang[i]=newLang;
 	}
 };

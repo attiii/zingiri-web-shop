@@ -89,7 +89,7 @@ function wsShowProductRow($row) {
 				}
 				else {
 					$output.= "<big><strong>".$currency_symbol_pre.'<span class="wspricein" id="wsprice'.$row[0].'">'.$tax->inFtd.'</span>'.$currency_symbol_post."</strong></big>";
-					$output.= "<br /><small>(".$currency_symbol_pre.'<span class="wspriceex" id="wsprice'.$row[0].'">'.$tax->exFtd.'</span>'.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>";
+					if (wsSetting('show_tax_breakdown')) $output.= "<br /><small>(".$currency_symbol_pre.'<span class="wspriceex" id="wsprice'.$row[0].'">'.$tax->exFtd.'</span>'.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>";
 				}
 
 				// product features
@@ -151,8 +151,8 @@ function wsShowProductCell($row,$row_count,$prods_per_row) {
 
 		list($thumb,$height,$width)=wsDefaultProductImageUrl($picture,$row['DEFAULTIMAGE']);
 		$size = getimagesize(str_replace($product_url,$product_dir,$thumb));
-		$max_height = 100;
-		$max_width = 100;
+		$max_height = wsSetting('grid_thumb_height');
+		$max_width = wsSetting('grid_thumb_width');
 		$percent = min($max_height / $size[1], $max_width / $size[0]);
 		$height = intval($size[1] * $percent);
 		$width = intval($size[0] * $percent);
@@ -169,11 +169,11 @@ function wsShowProductCell($row,$row_count,$prods_per_row) {
 	if (!$row[4] == 0) {
 		$tax=new wsTax($row[4],$row['TAXCATEGORYID']);
 		if ($no_vat == 1) {
-			$output.="<normal>" . $txt['details5'] . ": ". $currency_symbol_pre.$tax->inFtd.$currency_symbol_post."</normal>";
+			$output.="<normal>" . $currency_symbol_pre.$tax->inFtd.$currency_symbol_post."</normal>";
 		}
 		else {
-			$output.="<strong>" . $txt['details5'] . ": ".$currency_symbol_pre.$tax->inFtd.$currency_symbol_post."</strong>";
-			$output.="<br /><small>(".$currency_symbol_pre.$tax->exFtd.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>";
+			$output.="<strong>" .$currency_symbol_pre.$tax->inFtd.$currency_symbol_post."</strong>";
+			if (wsSetting('show_tax_breakdown')) $output.="<br /><small>(".$currency_symbol_pre.$tax->exFtd.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>";
 		}
 	}
 

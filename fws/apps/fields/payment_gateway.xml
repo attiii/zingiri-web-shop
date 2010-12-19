@@ -3,9 +3,10 @@
 	<name>Payment gateway</name>
 	<fields count="1">
 		<field1>
+			<name>gateway</name>
 			<size>12</size>
-			<maxlength>30</maxlength>
-			<format>varchar(30)</format>
+			<maxlength>40</maxlength>
+			<format>varchar(60)</format>
 			<type>payment_gateway</type>
 		</field1>
 	</fields>

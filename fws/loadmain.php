@@ -37,6 +37,12 @@ else {
 	if (file_exists(dirname(__FILE__)."/$page.php")) {
 		echo actionCompleteMessage();
 		include (dirname(__FILE__)."/$page.php");
+	} elseif (file_exists(dirname(__FILE__)."/pages-front/$page.php")) {
+		echo actionCompleteMessage();
+		include (dirname(__FILE__)."/pages-front/$page.php");
+	} elseif (file_exists(dirname(__FILE__)."/pages-back/$page.php")) {
+		echo actionCompleteMessage();
+		include (dirname(__FILE__)."/pages-back/$page.php");
 	} elseif (get_option('zing_webshop_pro') && file_exists(ZING_WS_PRO_DIR."txn/".$page.".php")) {
 		echo actionCompleteMessage();
 		include (ZING_WS_PRO_DIR."txn/".$page.".php");

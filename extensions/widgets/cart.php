@@ -53,10 +53,10 @@ class widget_sidebar_cart {
 				$cart.='<input type="hidden" name="basketid" value="'.$row[0].'"/>';
 				$cart.='<input type="input" size="2" id="numprod" name="numprod" value="'.$row['QTY'].'" READONLY/> ';
 				if (ZING_JQUERY) {
-					$cart.='<a style="display:inline" href="javascript:void(0);" onClick="sidebarcart.updateCart('.$row['ID'].',1);">';
+					$cart.='<a style="display:inline" href="javascript:void(0);" onClick="wsCart.updateCart('.$row['ID'].',1);">';
 					$cart.='&#x25B4;';
 					$cart.='</a>';
-					$cart.='<a style="display:inline" href="javascript:void(0);" onClick="sidebarcart.updateCart('.$row['ID'].',-1);">';
+					$cart.='<a style="display:inline" href="javascript:void(0);" onClick="wsCart.updateCart('.$row['ID'].',-1);">';
 					$cart.='&#x25BE;';
 					$cart.='</a>';
 				}
@@ -67,7 +67,7 @@ class widget_sidebar_cart {
 					$cart.='<input type="hidden" name="prodid" value="'.$row_details[0].'"/>';
 					$cart.='<input type="hidden" name="basketid" value="'.$row[0].'"/>';
 					$cart.='<input type="hidden" name="numprod" value="0" />';
-					$cart.='<a style="display:inline" href="javascript:void(0);" onClick="sidebarcart.removeFromCart('.$row['ID'].');">';
+					$cart.='<a style="display:inline" href="javascript:void(0);" onClick="wsCart.removeFromCart('.$row['ID'].');">';
 					$cart.='<img align="absmiddle" src="'.ZING_URL.'fws/templates/default/images/warning.gif" height="16px" />';
 					$cart.='</a>';
 					$cart.='</form>';

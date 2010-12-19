@@ -3,20 +3,20 @@
  Copyright 2008,2009 Erik Bogaerts
  Support site: http://www.zingiri.com
 
- This file is part of Zingiri Apps.
+ This file is part of APhPS.
 
- Zingiri Apps is free software; you can redistribute it and/or modify
+ APhPS is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation; either version 2 of the License, or
  (at your option) any later version.
 
- Zingiri Apps is distributed in the hope that it will be useful,
+ APhPS is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
 
  You should have received a copy of the GNU General Public License
- along with Zingiri Apps; if not, write to the Free Software
+ along with APhPS; if not, write to the Free Software
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 ?>
@@ -78,7 +78,7 @@ class zfForm {
 			$this->elementcount=$row['ELEMENTCOUNT'];
 			$this->type=$row['TYPE'];
 			$this->entity=$row['ENTITY'];
-			
+				
 			//check if form has a sub form to include
 			$this->includeSubForm();
 
@@ -151,7 +151,7 @@ class zfForm {
 						$dbValue=$db->get($getField);
 					}
 					//echo '<br />'.$linkedElement.'-'.$dbField.'-'.$dbKey.'-'.$dbTable;
-					
+						
 					if (is_numeric($dbValue)) {
 						$dbField=$value['subelements'][2]['populate'];
 						$dbKey=$this->json[$linkedElement]['subelements'][2]['populate'];
@@ -271,7 +271,7 @@ class zfForm {
 				{
 					if ($this->elements['format'][$key1][$key2] != 'none') {
 						if ($all || !$value2['hide']) {
-							
+								
 							if ($count > 1) {
 								$f[$key1*100+$key2]=strtoupper('`'.$value['column'].'_'.$this->elements['name'][$key1][$key2].'`');
 								if (defined("ZING_APPS_TRANSLATE")) {
@@ -324,18 +324,24 @@ class zfForm {
 
 	function Render($mode="edit",$prefix="")
 	{
+		$jsRules=array();
+		$ret='';
+		$js='';
+		$tabs='';
+		$dividers=array();
+		$numDiv=0;
+
 		$populated_value=array();
 		$populated_column=array();
-		$ret="";
 		if ($a=$this->json)
 		{
+			$isFirst=true;
 			foreach ($a as $i => $value)
 			{
 				$key=$value['id'];
 				$element=new element($value['type']);
 				$element->isRepeatable=$value['attributes']['zfrepeatable'];
 				$element->title=$value['label'];
-				//$element->id=$key;
 				$element->id=$value['id'];
 				$element->is_error=$this->elements['is_error'][$key];
 				$element->error_message=$this->elements['error_message'][$key];
@@ -361,26 +367,76 @@ class zfForm {
 				}
 
 				//if (!$element->isRepeatable || $ca==0) {
-				if (1==1) {
+				//if (1==1) {
+				foreach ($value['subelements'] as $key2 => $sub)
+				{
+					if (isset($this->elements['cat'][$key][$key2]) && $this->elements['cat'][$key][$key2]=='parameter') {
+						$populated_value['element_'.$key.'_'.$key2]=$sub['populate'];
+					}
+					elseif (isset($sub['populate']) && empty($this->input))
+					{
+						$populated_value['element_'.$key.'_'.$key2]=$sub['populate'];
+					}
+					elseif (!empty($this->input))
+					{
+						$populated_value['element_'.$key.'_'.$key2]=$this->input['element_'.$key.'_'.$key2];
+					}
+					if ($c > 1) {
+						$f=strtoupper($this->column[$key]."_".$element->xmlf->fields->{'field'.$key2}->name);
+					} else {
+						$f=$this->column[$key];
+					}
+					$populated_column[$f]=$populated_value['element_'.$key.'_'.$key2];
+				}
+				if ($isFirst) {
+					$ret.='<ul id="zfaces'.$numDiv.'" class="zfaces">';
+					$numDiv++;
+				}
+				elseif ($element->constraint=='system_divider') {
+					$ret.='</ul>';
+					$ret.='<ul id="zfaces'.$numDiv.'" class="zfaces">';
+					$numDiv++;
+				}
+				$element_markup='<li class="zfli" style="background-image:none;">';
+				$element->populated_value=$populated_value;
+				$element->populated_column=$populated_column;
+				$element->column=$this->column;
+				$element->prepare();
+				$retDisplay=$element->display($mode);
+				if (count($retDisplay['jsrule']) > 0) $jsRules[]=$retDisplay['jsrule'];
+				if ($prefix) $element_markup.=str_replace('element_',$prefix.'_element_',$retDisplay['markup']);
+				else $element_markup.=$retDisplay['markup'];
+				$element_markup.='</li>';
+				if ($element->constraint=='system_divider') {
+					$dividers[]=$element->divider;
+				} else {
+					$ret.=$element_markup;
+				}
+				$isFirst=false;
+				/*
+				 } else {
+					for ($a=0; $a<$ca; $a++) {
+					if ($a<$ca-1) $element->showSubscript=false;
+					else $element->showSubscript=true;
 					foreach ($value['subelements'] as $key2 => $sub)
 					{
-						if (isset($this->elements['cat'][$key][$key2]) && $this->elements['cat'][$key][$key2]=='parameter') {
-							$populated_value['element_'.$key.'_'.$key2]=$sub['populate'];
-						}
-						elseif (isset($sub['populate']) && empty($this->input))
-						{
-							$populated_value['element_'.$key.'_'.$key2]=$sub['populate'];
-						}
-						elseif (!empty($this->input))
-						{
-							$populated_value['element_'.$key.'_'.$key2]=$this->input['element_'.$key.'_'.$key2];
-						}
-						if ($c > 1) {
-							$f=strtoupper($this->column[$key]."_".$element->xmlf->fields->{'field'.$key2}->name);
-						} else {
-							$f=$this->column[$key];
-						}
-						$populated_column[$f]=$populated_value['element_'.$key.'_'.$key2];
+					if (isset($this->elements['cat'][$key][$key2]) && $this->elements['cat'][$key][$key2]=='parameter') {
+					$populated_value['element_'.$key.'_'.$key2]=$sub['populate'];
+					}
+					elseif (isset($sub['populate']) && empty($this->input))
+					{
+					$populated_value['element_'.$key.'_'.$key2]=$sub['populate'];
+					}
+					elseif (!empty($this->input))
+					{
+					$populated_value['element_'.$key.'_'.$key2]=$this->input['element_'.$key.'_'.$key2][$a];
+					}
+					if ($c > 1) {
+					$f=strtoupper($this->column[$key]."_".$element->xmlf->fields->{'field'.$key2}->name);
+					} else {
+					$f=$this->column[$key];
+					}
+					$populated_column[$f]=$populated_value['element_'.$key.'_'.$key2];
 					}
 					$ret.='<li class="zfli" style="background-image:none;">';
 					$element->populated_value=$populated_value;
@@ -390,45 +446,52 @@ class zfForm {
 					if ($prefix) $ret.=str_replace('element_',$prefix.'_element_',$element->display($mode));
 					else $ret.=$element->display($mode);
 					$ret.='</li>';
-				} else {
-					for ($a=0; $a<$ca; $a++) {
-						if ($a<$ca-1) $element->showSubscript=false;
-						else $element->showSubscript=true;
-						foreach ($value['subelements'] as $key2 => $sub)
-						{
-							if (isset($this->elements['cat'][$key][$key2]) && $this->elements['cat'][$key][$key2]=='parameter') {
-								$populated_value['element_'.$key.'_'.$key2]=$sub['populate'];
-							}
-							elseif (isset($sub['populate']) && empty($this->input))
-							{
-								$populated_value['element_'.$key.'_'.$key2]=$sub['populate'];
-							}
-							elseif (!empty($this->input))
-							{
-								$populated_value['element_'.$key.'_'.$key2]=$this->input['element_'.$key.'_'.$key2][$a];
-							}
-							if ($c > 1) {
-								$f=strtoupper($this->column[$key]."_".$element->xmlf->fields->{'field'.$key2}->name);
-							} else {
-								$f=$this->column[$key];
-							}
-							$populated_column[$f]=$populated_value['element_'.$key.'_'.$key2];
-						}
-						$ret.='<li class="zfli" style="background-image:none;">';
-						$element->populated_value=$populated_value;
-						$element->populated_column=$populated_column;
-						$element->column=$this->column;
-						$element->prepare();
-						if ($prefix) $ret.=str_replace('element_',$prefix.'_element_',$element->display($mode));
-						else $ret.=$element->display($mode);
-						$ret.='</li>';
 					}
-				}
+					}
+					*/
 
 				$this->elements[$key]=$element->name;
 
 			}
 		}
+		$ret.='</ul>';
+		if (count($dividers) > 0) {
+			$tabs='<ul>';
+			foreach ($dividers as $id => $divider) {
+				$tabs.='<li class="zfacestab"><a href="#zfaces'.$id.'">';
+				$tabs.=$divider;
+				$tabs.='</a></li>';
+			}
+			$tabs.='<ul>';
+			$js='<script type="text/javascript" language="javascript">';
+			$js.='//<![CDATA['.chr(13);
+			$js.='jQuery(document).ready(function() {';
+			$js.="jQuery('#zfacestabs').tabs();";
+			$js.="});";
+			$js.=chr(13)." //]]>";
+			$js.="</script>";
+		}
+		$ret=$tabs.$ret;
+		error_reporting(E_ALL & ~E_NOTICE);
+		ini_set('display_errors', '1');
+		
+		$ret='<div id="zfacestabs">'.$ret.'</div>'.$js;
+		if (count($jsRules) > 0) {
+			$js_markup='<script type="text/javascript">';
+			$js_markup.='jQuery(document).ready(function() {';
+			foreach ($jsRules as $jsRule) {
+				$data=$jsRule[0];
+				if (isset($data['fnct']) && function_exists($data['fnct'])) {
+					$fnct=$data['fnct'];
+					$data['value']=$this->input['element_'.$data['field'].'_'.$data['subField']];
+					$r=$fnct($data);
+				}
+				$js_markup.="wsFormField.add(".json_encode($data,JSON_FORCE_OBJECT).",".$jsRule[1].",".$r['result'].");";
+			}
+			$js_markup.='});';
+			$js_markup.='</script>';
+		}
+		$ret.=$js_markup;
 		echo $ret;
 		return $ret;
 	}
@@ -661,7 +724,7 @@ class zfForm {
 			$element->action=$this->action;
 			$element->type=$this->type;
 			$element->entity=$this->entity;
-			
+				
 			$sv=$element->postSave($this->input,$this->output,$this->recid);
 			$success=$success && $sv;
 			$this->elements['name'][$key]=$element->name;
@@ -675,7 +738,7 @@ class zfForm {
 	function sanitize($input,$escape_mysql=false,$sanitize_html=false,$sanitize_special_chars=false,$allowable_tags=''){
 		//FIXME: check this
 		//	unset($input['submit']); //we use 'submit' variable for all of our form
-		
+
 		$input_array = $input;
 		//array is not referenced when passed into foreach
 		//this is why we create another exact array

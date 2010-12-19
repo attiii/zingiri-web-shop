@@ -158,7 +158,7 @@ function zing_ws_settings() {
 	
 	zing_main('content');
 	if ((isset($menus[$page]['type']) && $menus[$page]['type']=="apps") || ZING_CMS!='wp') {
-		echo '<link rel="stylesheet" type="text/css" href="'.ZING_APPS_PLAYER_URL.'css/integrated_view.css" />';
+		//echo '<link rel="stylesheet" type="text/css" href="'.ZING_APPS_PLAYER_URL.'css/apps_wp_admin.css" />';
 		zing_apps_player_content('content');
 	}
 	echo '</div>';

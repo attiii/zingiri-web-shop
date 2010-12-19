@@ -21,6 +21,7 @@
  */
 ?>
 <?php
+echo 'here';
 require(dirname(__FILE__).'/init.inc.php');
 
 /** Display cart */

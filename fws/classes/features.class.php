@@ -106,15 +106,11 @@ class wsFeaturesCore {
 		if (!empty($this->features) && !empty($this->definition)) {
 			$productfeatures='';
 			$features = explode(",", $this->features);
-			//echo '<br />val=';print_r($features);
 			$definitions = explode("|", $this->definition);
-			//echo '<br />def=';print_r($definitions);
 			$counter1 = 0;
 			while (isset($features[$counter1])){
 				$feature = explode(":", $features[$counter1]);
 				$definition = explode(":", $definitions[$counter1]);
-				//echo '<br />';print_r($feature);
-				//echo '<br />';print_r($definition);
 				$counter1 += 1;
 				if ($definition[1]=='file' && trim($feature[1])) {
 					$productfeatures .= $definition[0].': <a href="'.ZING_UPLOADS_URL.'orders/'.trim($feature[1]).'">'.trim($feature[1]).'</a>';

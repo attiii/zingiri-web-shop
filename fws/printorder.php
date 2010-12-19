@@ -22,13 +22,6 @@
  */
 ?>
 <?php
-/** Loads the WordPress Environment */
-//require(dirname(__FILE__).'/../../../../wp-blog-header.php');
-
-/** Load Zingiri Web Shop */
-//require(dirname(__FILE__).'/../zing.readcookie.inc.php');
-//require(dirname(__FILE__).'/../startmodules.inc.php');
-
 if ($index_refer <> 1) { exit(); }
 
 if (!LoggedIn()) { exit(); }
@@ -56,11 +49,21 @@ else {
 	// in version 2.1 we switched to html orders, but included the html header. that is wrong
 	// from version 2.2 the orders are saved in html, but without the header. the part below
 	// is to be compatible with 2.1
-	ob_end_clean();
 	if (substr ($order, 0, 6) == "<html>") {
+		ob_end_clean();
 		$order = str_replace("<body>", "<body onLoad=\"javascript:window.print()\">", $order);
 		echo $order;
+		die();
+	} elseif ($_REQUEST['wslive']) {
+?><table width="80%" class="datatable">
+	<caption><?php echo $webid; ?></caption>
+	<tr>
+		<td><?php echo $order; ?></td>
+	</tr>
+</table>
+<?php 
 	} else {
+		ob_end_clean();
 		// if there are linebreaks, then we have a new order. if not, then it's an old one that needs nl2br
 		$pos = strpos ($order, "<br />");
 		if ($pos === false) { $order = nl2br($order); }
@@ -80,7 +83,7 @@ else {
 </body>
 </html>
 		<?php
+		die();
 	}
-	die();
 }
 ?>

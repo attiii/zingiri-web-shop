@@ -355,12 +355,12 @@ else {
 		$sql = mysql_query($query) or die(mysql_error());
 		if ($row = mysql_fetch_row($sql)) $sendcosts = $row[4]; else $sendcosts = 0;
 	}
-
+	
 	if ($sendcosts != 0) {
 		echo '<tr><td>'.$txt['checkout16'].'</td><td>'.$shipping_descr.'</td><td style="text-align: right">'.$currency_symbol_pre.myNumberFormat($sendcosts,$number_format).$currency_symbol_post.'</td></tr>';
 		$totaal += $sendcosts;
 	}
-
+	
 	//calculate and display taxes
 	//$tax = new wsTax($totaal);
 	$totaal_ex = myNumberFormat($tax->exSum);
@@ -397,7 +397,7 @@ else {
 		<div style="text-align: right;"><strong><?php echo $txt['cart7']; ?></strong></div>
 		</td>
 		<td>
-		<div style="text-align: right;"><?php echo $currency_symbol_pre.$totaal_in.$currency_symbol_post; ?><br />
+		<div style="text-align: right;"><?php echo $currency_symbol_pre.myNumberFormat($totaal).$currency_symbol_post; ?><br />
 		<?php if ($no_vat == 0) { echo "<small>(".$currency_symbol_pre.$totaal_ex.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>"; } ?></div>
 		</td>
 	</tr>

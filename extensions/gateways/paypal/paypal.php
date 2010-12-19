@@ -13,7 +13,7 @@ class paypalGateway {
 		global $sales_mail;
 		
 		$payment_code = str_replace("%ipn%", ZING_URL.'extensions/gateways/paypal/ipn.php', $payment_code);
-		if (!empty($this->payment->email)) $payment_code = str_replace("%paypal_email%", $this->payment->email, $payment_code);
+		if (!empty($this->payment->merchantid)) $payment_code = str_replace("%paypal_email%", $this->payment->merchantid, $payment_code);
 		else $payment_code = str_replace("%paypal_email%", $sales_mail, $payment_code);
 		return $payment_code;
 	}

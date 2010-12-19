@@ -23,9 +23,9 @@
 ?>
 <?php if ($index_refer <> 1) { exit(); } ?>
 <?php include ("includes/checklogin.inc.php"); ?>
-
 <?php
-if (LoggedIn() == true) {
+echo 'loggedin='.LoggedIn();
+if (LoggedIn() == 1) {
     PutWindow($gfx_dir, $txt['my3'], $txt['my4'], "personal.jpg", "80");
 ?>
      <br />

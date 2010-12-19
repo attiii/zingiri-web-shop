@@ -122,9 +122,17 @@ function quote_smart($value)
 			$value = '';
 		}
 		if( !is_numeric($value) || $value[0] == '0' ) {
-			$value = "'".mysql_escape_string($value)."'";
+			$value = "'".wsEscapeString($value)."'";
 		}
 		return $value;
+	}
+}
+
+function wsEscapeString($value) {
+	if (version_compare(phpversion(),"4.3.0")=="-1") {
+		return mysql_escape_string($value);
+	} else {
+		return mysql_real_escape_string($value);
 	}
 }
 
@@ -226,7 +234,7 @@ Function IsAdmin() {
 	if ($integrator->isAdmin()) return true;
 	//joomla
 	if (wsCurrentCmsUserIsShopAdmin()) return true;
-	
+
 	if (!isset($_COOKIE['fws_cust'])) { return false; }
 	$fws_cust = explode("-", $_COOKIE['fws_cust']);
 	$customerid = $fws_cust[1];
@@ -268,33 +276,7 @@ Function ShowFlags($lang_dir,$gfx_dir) {
 	}
 }
 
-// is the visitor logged in?
-Function LoggedIn() {
-	Global $dbtablesprefix,$integrator;
 
-	if ($integrator->loggedIn()) return true;
-
-	if (!isset($_COOKIE['fws_cust'])) { return false; }
-	$fws_cust = explode("-", $_COOKIE['fws_cust']);
-	$customerid = $fws_cust[1];
-	$md5pass = $fws_cust[2];
-	if (is_null($customerid)) { return false; }
-	$f_query = "SELECT * FROM ".$dbtablesprefix."customer WHERE ID = " . $customerid;
-	$f_sql = mysql_query($f_query) or die(mysql_error());
-	while ($f_row = mysql_fetch_row($f_sql)) {
-		if (md5($f_row[2]) == $md5pass)
-		{
-			if ($f_row[6] == GetUserIP()) {
-				return true; }
-				else {
-					return false; }
-		} else
-		{
-			return false;
-		}
-	}
-	return false;
-}
 
 // print the username
 Function PrintUsername($guestname) {
@@ -516,14 +498,6 @@ function IsBanned() {
 	$db=new db();
 	$query="select * from `##bannedip` where `ip` in (".qs($ip).",".qs($userip).")";
 	if ($db->select($query)) return true;
-	/*
-	 $file = file(dirname(__FILE__).'/../banned.txt');
-	 @array_walk($file, 'file_trim');
-	 while (list($key, $val) = each($file)) {
-		if ($ip == $val) { return true; }
-		if ($userip == $val) { return true; }
-		}
-		*/
 	return false;
 }
 function isvalid_email_address($email) {
@@ -721,52 +695,35 @@ Function ActiveDiscounts() {
 if (!function_exists('zurl')) {
 	function zurl($url,$printurl=false,$interface='') {
 
-		if (ZING_CMS=='wp') {
-			if (wsIsAdminPage() && ($interface!='front')) $url=str_replace('index.php','admin.php',$url);
-			else {
-				if (strstr($url,ZING_HOME)===false) $url=str_replace('index.php',ZING_HOME.'/index.php',$url);
+		if ($_REQUEST['wslive']=='dp') {
+			if (ZING_CMS=='wp') {
+				//return $url;
+				list($p,$u)=explode('?',$url);
+				$url=$_REQUEST['wsliveurl'].'/?';
+				if (strstr($u,'q=webshop')===false) $url.='q=webshop&';
+				$url.=$u;
 			}
-		} elseif (ZING_CMS=='jl') {
-			if ($url=='index.php') $url='index.php?option=com_zingiriwebshop';
-			if (wsIsAdminPage() && !strstr($url,'option=com_zingiriwebshop')) $url=str_replace('?','?option=com_zingiriwebshop&',$url);
-			if (!wsIsAdminPage() && !strstr($url,'option=com_zingiriwebshop')) $url=str_replace('?','?option=com_zingiriwebshop&',$url);
-		} elseif (ZING_CMS=='dp') {
-			//if ($url=='index.php') $url='index.php?q=webshop';
-			//if (!wsIsAdminPage() && !strstr($url,'webshop')) $url=str_replace('?','?q=webshop&',$url);
-			//if (!wsIsAdminPage() && !strstr($url,'q=webshop')) $url=str_replace('?','?q=webshop&',$url);
-			//if (wsIsAdminPage()) $url=str_replace("index.php","",$url);
+		} else {
+			if (ZING_CMS=='wp') {
+				if (wsIsAdminPage() && ($interface!='front')) $url=str_replace('index.php','admin.php',$url);
+				else {
+					if (strstr($url,ZING_HOME)===false) $url=str_replace('index.php',ZING_HOME.'/index.php',$url);
+				}
+			} elseif (ZING_CMS=='jl') {
+				if ($url=='index.php') $url='index.php?option=com_zingiriwebshop';
+				if (wsIsAdminPage() && !strstr($url,'option=com_zingiriwebshop')) $url=str_replace('?','?option=com_zingiriwebshop&',$url);
+				if (!wsIsAdminPage() && !strstr($url,'option=com_zingiriwebshop')) $url=str_replace('?','?option=com_zingiriwebshop&',$url);
+			} elseif (ZING_CMS=='dp') {
+				//if ($url=='index.php') $url='index.php?q=webshop';
+				//if (!wsIsAdminPage() && !strstr($url,'webshop')) $url=str_replace('?','?q=webshop&',$url);
+				//if (!wsIsAdminPage() && !strstr($url,'q=webshop')) $url=str_replace('?','?q=webshop&',$url);
+				//if (wsIsAdminPage()) $url=str_replace("index.php","",$url);
+			}
 		}
 
 		if ($printurl) echo $url;
 		else return $url;
 	}
-}
-
-function z_($label) {
-	global $txt,$txt2;
-
-	$label=trim($label);
-	if (isset($txt[$label])) return $txt[$label];
-
-	if (count($txt2)==0) {
-		$txt2=reorder_txt();
-	}
-
-	if (isset($txt2[$label])) {
-		$key=$txt2[$label];
-		if (isset($txt[$key])) return $txt[$key];
-	}
-	return $label;
-	//return '<strong style="color:red">'.$label.'</strong>';
-}
-
-function reorder_txt() {
-	global $lang_dir,$zing;
-
-	include($lang_dir."/en/lang.txt");
-	foreach ($zing->paths as $wsPath) if (file_exists($wsPath.'langs/'.$lang.'/lang.php')) include($wsPath.'langs/'.$lang.'/lang.php');
-
-	return array_flip($txt);
 }
 
 function similarProducts($productid,$catid) {
@@ -892,21 +849,20 @@ function wsCurrentPageURL($encode=false)
 	else return $pageURL;
 }
 
-Function actionCompleteMessage() {
-	global $gfx_dir,$txt;
-	$msg='';
-	if ($_REQUEST['zmsg']) {
-		$title=$txt['general13'];
-		$message=$txt['adminedit2'];
-		$picture="notify.gif";
-		$msg ="<table width=\"".$width."%\" class=\"datatable\">";
-		//$msg.="<caption>".$title."</caption>";
-		//$msg.="<tr><td><img src=\"".$gfx_dir."/".$picture."\" alt=\"".$picture."\" height=\"32px\"></td>";
-		//$msg.="<td>".$message."</td></tr></table>";
-		$msg.="<tr><td><img src=\"".$gfx_dir."/".$picture."\" alt=\"".$picture."\" height=\"24px\">";
-		$msg.='<strong>'.$message.'</strong>'."</td></tr></table>";
-		$msg.="<br /><br />";
+if (!function_exists('actionCompleteMessage')) {
+	function actionCompleteMessage() {
+		global $gfx_dir,$txt;
+		$msg='';
+		if ($_REQUEST['zmsg']) {
+			$title=$txt['general13'];
+			$message=$txt['adminedit2'];
+			$picture="notify.gif";
+			$msg ="<table width=\"".$width."%\" class=\"datatable\">";
+			$msg.="<tr><td><img src=\"".$gfx_dir."/".$picture."\" alt=\"".$picture."\" height=\"24px\">";
+			$msg.='<strong>'.$message.'</strong>'."</td></tr></table>";
+			$msg.="<br /><br />";
+		}
+		return $msg;
 	}
-	return $msg;
 }
 ?>

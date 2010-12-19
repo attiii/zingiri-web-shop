@@ -150,7 +150,7 @@ if ($allowed && $success && $showform == "edit") {
 	if (is_admin()) echo '<p class="zfaces-form-label">'.$zfform->label.'</p>';
 	echo '<div class="zfaces-form">';
 	if (defined("ZING_APPS_BUILDER") && ZingAppsIsAdmin()) {
-		echo '<a href="'.get_option('home').'/index.php?page=appsbuilder&zfaces=edit&form='.$form.'" >'.z_('Edit form').'</a>';
+		echo '<a href="'.zurl('?page=apps_edit&zfaces=edit&form='.$form).'" >'.z_('Edit form').'</a>';
 	}
 	if (!$noForm && !isset($formURL)) {
 		$aurl='?page='.$page.'&zfaces=form&form='.$form.'&action='.$action;
@@ -169,9 +169,7 @@ if ($allowed && $success && $showform == "edit") {
 	} elseif (!$noForm && isset($formURL)) {
 		echo '<form enctype="multipart/form-data" name="faces" method="POST" action="'.zurl($formURL).'" >';
 	}
-	echo '<ul id="zfaces" class="zfaces">';
 	$zfform->Render($action);
-	echo '</ul>';
 	if (count($_POST) > 0) {
 		foreach ($_POST as $name => $value) {
 			if (!strstr($name,"element_"))

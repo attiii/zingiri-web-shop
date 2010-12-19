@@ -4,11 +4,11 @@ function ws_upgrade_1_5_7_set_templates() {
 	if ($db->select('select id from ##template') > 0) return;
 	$prompts=new zingPrompts();
 	foreach ($prompts->langs as $lang => $label) {
-		if ($prompts->isLanguageActive($lang)) {
-			$txt=$prompts->loadlang($lang,true);
-		} else {
+		//if ($prompts->isLanguageActive($lang)) {
+		//	$txt=$prompts->loadlang($lang,true);
+		//} else {
 			$txt=$prompts->loadOldLangFile($lang);
-		}
+		//}
 		$title = $txt['checkout10'];
 		$message = $txt['checkout3'];
 		$message.= "<table width=\"100%\" class=\"borderless\">";
