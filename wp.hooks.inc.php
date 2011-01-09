@@ -17,13 +17,8 @@ if (ZING_AJAX) {
 			add_action('wp_login','zing_login');
 			add_action('wp_logout','zing_logout');
 			add_filter('check_password','zing_check_password',10,4);
-			//add_action('personal_options_update','zing_profile_pre'); //before wp error check and update
-			//add_action('edit_user_profile_update','zing_profile_pre'); //before wp error check and update
-			//add_action('user_profile_update_errors','zing_profile_check_errors',10,3); //check errors after wp checks done
 			add_action('profile_update','zing_profile'); //post wp update
 			add_action('user_register','zing_profile'); //post wp update
-			//add_action('show_user_profile','zing_profile_show');
-			//add_action('edit_user_profile','zing_profile_edit');
 			add_action('delete_user','zing_delete_user');
 		}
 	}
@@ -410,16 +405,16 @@ function zing_ws_page_title($pageTitle,$id=0) {
 	global $post;
 
 	if (!in_the_loop()) return $pageTitle;
-
+	
 	if (!zing_ws_is_shop_page($post->ID) || $id==0 || ($id != $post->ID)) return $pageTitle;
-
+	
 	if (!$zing_loaded)	{
 		require (ZING_LOC."./startmodules.inc.php");
 		$zing_loaded=TRUE;
 	} else {
 		require (ZING_DIR."./includes/readvals.inc.php");        // get and post values
 	}
-
+	
 	if ($_GET['prod']) {
 		$prodid=intval($_GET['prod']);
 		$db=new db();

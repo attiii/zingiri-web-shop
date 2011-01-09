@@ -30,9 +30,11 @@ class payment_gatewayZfSubElement extends zfSubElement {
 		elseif (isset($g[1])) {
 			require(ZING_LOC."extensions/gateways/".$g[0]."/config/".$g[1].".php");
 			$this->ext=$aSettings['GATEWAY_NAME'];
-		} else {
+		} elseif (!empty($g[0])) {
 			require(ZING_LOC."extensions/gateways/".$g[0]."/config.php");
 			$this->ext=$aSettings['GATEWAY_NAME'];
+		} else {
+			$this->ext='';
 		}
 		return $this->ext;
 	}

@@ -460,6 +460,9 @@ function zing_main($process,$content="") {
 	}
 	elseif ($to_include) {
 		echo $prefix;
+//		global $post;
+//		echo 'here:'.$post->post_content;
+//		echo 'here:'.$content;
 		if ($process=='content' && $page!='ajax') echo '<div class="zing_ws_page" id="zing_ws_'.$_GET['page'].'">';
 		include($scripts_dir.$to_include);
 		if ($process=='content' && $page!='ajax') echo '</div>';

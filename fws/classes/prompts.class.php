@@ -12,7 +12,7 @@ class zingPrompts {
 				"de" => "German",
 				"es" => "Spanish",
 				"br" => "Brazilian",
-				"dk" => "Danish",
+				"da" => "Danish",
 				"ee" => "Estonian",
 				"fi" => "Finish",
 				"gr" => "Greek",
