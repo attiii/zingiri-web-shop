@@ -259,7 +259,7 @@ class element {
 		}
 
 		if ($this->readonly) $this->readonly="READONLY";
-		if ($mode!="edit" && $mode!="add" && $mode!="search") $this->readonly="READONLY";
+		if ($mode!="edit" && $mode!="add" && $mode!="search" && $mode!="build") $this->readonly="READONLY";
 
 		if (is_numeric($xmlf->width)) { $width=$xmlf->width; } else { $width="100%"; }
 		$width="width:".$width.";";

@@ -403,7 +403,9 @@ class zfForm {
 				$element->column=$this->column;
 				$element->prepare();
 				$retDisplay=$element->display($mode);
-				if (count($retDisplay['jsrule']) > 0) $jsRules[]=$retDisplay['jsrule'];
+				if (is_array($retDisplay['jsrule']) && count($retDisplay['jsrule']) > 0) {
+					$jsRules[]=$retDisplay['jsrule'];
+				}
 				if ($prefix) $element_markup.=str_replace('element_',$prefix.'_element_',$retDisplay['markup']);
 				else $element_markup.=$retDisplay['markup'];
 				$element_markup.='</li>';
@@ -472,9 +474,8 @@ class zfForm {
 			$js.="</script>";
 		}
 		$ret=$tabs.$ret;
-		error_reporting(E_ALL & ~E_NOTICE);
-		ini_set('display_errors', '1');
-		
+		//error_reporting(E_ALL & ~E_NOTICE);
+		//ini_set('display_errors', '1');
 		$ret='<div id="zfacestabs">'.$ret.'</div>'.$js;
 		if (count($jsRules) > 0) {
 			$js_markup='<script type="text/javascript">';

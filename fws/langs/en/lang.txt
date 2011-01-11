@@ -817,4 +817,8 @@ $txt['order100'] = 'Email customer';
 $txt['order101'] = 'Email shop administrator';
 $txt['checkout105'] = 'Copy of the order confirmation email sent to';
 $txt['checkout106'] = 'Continue without registration';
+
+//1.7.2 - added
+$txt['paymentadmin103'] = 'Sub ID';
+$txt['paymentadmin104'] = 'Test mode';
 ?>

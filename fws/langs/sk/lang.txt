@@ -1,4 +1,4 @@
-﻿<?php
+<?php 
 // The character set we should use for this language. If you are unsure, use ISO-8859-1
 $charset = "UTF-8";
 
