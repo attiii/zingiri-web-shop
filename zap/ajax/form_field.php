@@ -1,6 +1,6 @@
 <?php
-error_reporting(E_ALL & ~E_NOTICE);
-ini_set('display_errors', '1');
+//error_reporting(E_ALL & ~E_NOTICE);
+//ini_set('display_errors', '1');
 
 //print_r($_REQUEST);
 require(dirname(__FILE__).'/init.inc.php');

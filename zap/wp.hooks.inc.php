@@ -30,7 +30,7 @@ function zing_apps_player_header()
 
 	$wsScripts=zScripts();
 	foreach ($wsScripts as $s) {
-		$ret.='<script type="text/javascript" src="' . $s . '"></script>';
+		$ret.='<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . $s . '"></script>';
 	}
 
 	$wsStyleSheets=zStyleSheets();
@@ -40,7 +40,6 @@ function zing_apps_player_header()
 	
 	echo $ret;
 	echo '<script type="text/javascript" language="javascript">';
-//	echo "var zfAppsUrl='".ZING_APPS_PLAYER_URL."';";
 	if (defined("ZING_APPS_BUILDER")) {
 		echo "var zfurl='".ZING_APPS_BUILDER_URL."ajax/';";
 		if (defined("ZING_APPS_CUSTOM")) echo "var zfAppsCustom='".ZING_APPS_CUSTOM."';";
@@ -49,7 +48,6 @@ function zing_apps_player_header()
 	}
 	echo '</script>';
 	
-	//echo '<link rel="stylesheet" href="' . ZING_APPS_PLAYER_URL . 'css/integrated_view.css" type="text/css" media="screen" />';
 	if (wsIsAdminPage()) echo '<link rel="stylesheet" href="' . ZING_APPS_PLAYER_URL . 'css/apps_wp_admin.css" type="text/css" media="screen" />';
 	if (defined("ZING_APPS_BUILDER") && (!defined("ZING_PROTOTYPE") || ZING_PROTOTYPE)) {
 		echo '<script type="text/javascript" src="' . ZING_APPS_BUILDER_URL . 'js/form.js"></script>';
@@ -57,10 +55,5 @@ function zing_apps_player_header()
 		echo '<script type="text/javascript" src="' . ZING_APPS_BUILDER_URL . 'js/dragtable.js"></script>';
 		echo '<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/sorttable.js"></script>';
 	}
-
-	//echo '<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/sortlist.jquery.js"></script>';
-	//echo '<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/repeatable.jquery.js"></script>';
-	//echo '<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/formfield.jquery.js"></script>';
-	//echo '<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/core.jquery.js"></script>';
 }
 ?>

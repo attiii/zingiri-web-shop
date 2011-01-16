@@ -417,10 +417,10 @@ function zVars() {
 
 function zScripts() {
 	$v=array();
-	$v[]=ZING_APPS_PLAYER_URL . 'js/sortlist.jquery.js';
-	$v[]=ZING_APPS_PLAYER_URL . 'js/repeatable.jquery.js';
-	$v[]=ZING_APPS_PLAYER_URL . 'js/formfield.jquery.js';
-	$v[]=ZING_APPS_PLAYER_URL . 'js/core.jquery.js';
+	$v[]='js/sortlist.jquery.js';
+	$v[]='js/repeatable.jquery.js';
+	$v[]='js/formfield.jquery.js';
+	$v[]='js/core.jquery.js';
 	
 	return $v;
 }

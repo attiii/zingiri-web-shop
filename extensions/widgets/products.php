@@ -54,7 +54,7 @@ class widget_sidebar_products {
 				// if there are more categories in the group, then show the category list
 				if (mysql_num_rows($sql_cat) > 1) {
 					if (SHOWCAT && (ZING_JQUERY)) {
-						$ahref = "\"index.php?page=browse&action=list&orderby=DESCRIPTION&group=".$row[0]."\"";
+						$ahref = zurl("\"index.php?page=browse&action=list&orderby=DESCRIPTION&group=".$row[0]."\"");
 						if (!$wsCatCollapse) {
 							echo '<li>'.$row[1];
 							echo '<ul id="group'.$row[0].'">';
@@ -72,14 +72,14 @@ class widget_sidebar_products {
 						}
 						while ($row_cat = mysql_fetch_row($sql_cat)) {
 							if ($cat==$row_cat[0]) $active='id="active"'; else $active="";
-							$ahref = "\"index.php?page=browse&action=list&orderby=DESCRIPTION&group=".$row[0]."&kat=".$row_cat[0]."\"";
+							$ahref = zurl("\"index.php?page=browse&action=list&orderby=DESCRIPTION&group=".$row[0]."&kat=".$row_cat[0]."\"");
 							echo "<li ".$active."><a href=".$ahref.">" . $row_cat[1] . "</a>";
 						}
 						echo '</ul>';
 						echo '</li>';
 					} else {
 						if ($row_cat = mysql_fetch_row($sql_cat)) {
-							$ahref = "\"index.php?page=categories&group=".$row[0]."\"";
+							$ahref = zurl("\"index.php?page=categories&group=".$row[0]."\"");
 						}
 						// now show the menu link, if ahref is not empty
 						if ($ahref != "") {

@@ -63,10 +63,13 @@ class parse_upload {
 	var $messages=array();
 	var $line=1;
 	var $oldDigitalFile;
+	var $productFields=array();
 
 	//function to parse Excel XML file
 	function parse_upload($url) {
 		global $dbtablesprefix;
+		$db=new db();
+		$this->productFields=$db->allFields('product');
 		$this->prefix=$dbtablesprefix;
 		if ($this->xml=simplexml_load_file($url)) {
 			$parsed=false;
@@ -322,20 +325,15 @@ class parse_upload {
 				$this->values[]="'".$link."'";
 				$this->pairs[]="`link`='".$link."'";
 				break;
-			case 'features':
-			case 'price':
-			case 'stock':
-			case 'description':
-			case 'frontpage':
-			case 'new':
-			case 'weight':
-				$this->fields[]="`".$field."`";
-				$this->values[]="'".$data."'";
-				$this->pairs[]="`".$field."`='".$data."'";
-				break;
 			default:
-				$this->error=true;
-				$this->messages[]=$txt['uploadadmin103'].' '.$field.' '.$txt['uploadadmin102'].' '.$this->line;
+				if (in_array($field,$this->productFields)) {
+					$this->fields[]="`".$field."`";
+					$this->values[]="'".$data."'";
+					$this->pairs[]="`".$field."`='".$data."'";
+				} else {				
+					$this->error=true;
+					$this->messages[]=$txt['uploadadmin103'].' '.$field.' '.$txt['uploadadmin102'].' '.$this->line;
+				}
 				break;
 		}
 	}

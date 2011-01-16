@@ -20,10 +20,25 @@ if (ZING_AJAX) {
 			add_action('profile_update','zing_profile'); //post wp update
 			add_action('user_register','zing_profile'); //post wp update
 			add_action('delete_user','zing_delete_user');
+			add_filter('login_errors','zing_ws_login_errors');
+			add_filter('login_head','zing_ws_login_head');
 		}
+
 	}
 	add_action("init","zing_init_uninstall");
 	add_action('admin_notices','zing_admin_notices');
+}
+function zing_ws_login_errors() {
+	if ($_REQUEST['redirect_to']) {
+		header('Location: '.$_REQUEST['redirect_to']);
+		die();
+	}
+}
+function zing_ws_login_head() {
+	if ($_REQUEST['redirect_to'] && empty($_REQUEST['log']) && empty($_REQUEST['pwd'])) {
+		header('Location: '.$_REQUEST['redirect_to']);
+		die();
+	}
 }
 function zing_ws_install_roles() {
 	global $current_user;
@@ -42,16 +57,19 @@ function zing_init_uninstall() {
 }
 
 function zing_ws_install_default_pages($zing_version) {
+	global $wpdb;
+	
+	$pages=array();
+	$pages[]=array("Shop","main","*",0);
+	$pages[]=array("Cart","cart","",0);
+	$pages[]=array("Checkout","conditions","checkout",6);
+	$pages[]=array("Admin","admin","",9);
+	$pages[]=array("Personal","my","",3);
+	$pages[]=array("Login","my","login",1);
+	$pages[]=array("Logout","logout","*",3);
+	$pages[]=array("Register","customer","add",1);
+
 	if ($zing_version < '0.9.15') {
-		$pages=array();
-		$pages[]=array("Shop","main","*",0);
-		$pages[]=array("Cart","cart","",0);
-		$pages[]=array("Checkout","conditions","checkout",6);
-		$pages[]=array("Admin","admin","",9);
-		$pages[]=array("Personal","my","",3);
-		$pages[]=array("Login","my","login",1);
-		$pages[]=array("Logout","logout","*",3);
-		$pages[]=array("Register","customer","add",1);
 
 		$ids="";
 		foreach ($pages as $i =>$p)
@@ -88,8 +106,33 @@ function zing_ws_install_default_pages($zing_version) {
 			$my_post['comment_status'] = 'closed';
 			wp_update_post($my_post);
 		}
+	} else {
+		$ids=get_option("zing_webshop_pages");
+		$ida=explode(",",$ids);
+		$i=0;
+		foreach ($ida as $id) {
+			if (count($wpdb->get_results( "SELECT post_title FROM ".$wpdb->prefix."posts WHERE post_status<>'trash' and id='".$id."'" ))==0) {
+				$p=$pages[$i];
+				print_r($p);
+				$my_post = array();
+				$my_post['post_title'] = $p['0'];
+				$my_post['post_content'] = 'Do not delete this page unless you know what you are doing';
+				$my_post['post_status'] = 'publish';
+				$my_post['post_author'] = 1;
+				$my_post['post_type'] = 'page';
+				$my_post['comment_status'] = 'closed';
+				$my_post['menu_order'] = 100+$i;
+				$newId=wp_insert_post( $my_post );
+				$ida[$i]=$newId;
+				if (!empty($p[1])) add_post_meta($id,'zing_page',$p[1]);
+				if (!empty($p[2])) add_post_meta($id,'zing_action',$p[2]);
+				if (!empty($p[3])) add_post_meta($id,'zing_security',$p[3]);
+			}
+			$i++;
+		}
+		$ids=implode(",",$ida);
+		update_option("zing_webshop_pages",$ids);
 	}
-
 	//Update registration page
 	$ids=get_option("zing_webshop_pages");
 	$ida=explode(",",$ids);
@@ -405,16 +448,16 @@ function zing_ws_page_title($pageTitle,$id=0) {
 	global $post;
 
 	if (!in_the_loop()) return $pageTitle;
-	
+
 	if (!zing_ws_is_shop_page($post->ID) || $id==0 || ($id != $post->ID)) return $pageTitle;
-	
+
 	if (!$zing_loaded)	{
 		require (ZING_LOC."./startmodules.inc.php");
 		$zing_loaded=TRUE;
 	} else {
 		require (ZING_DIR."./includes/readvals.inc.php");        // get and post values
 	}
-	
+
 	if ($_GET['prod']) {
 		$prodid=intval($_GET['prod']);
 		$db=new db();

@@ -38,7 +38,8 @@ if ($wsSearchfor) {
 	$firstItem=true;
 	foreach ($searchitems as $searchitem){
 		if (!$firstItem) $searchquery .= " ".$searchmethod." ";
-		$searchquery .= "((`DESCRIPTION` LIKE '%" . $searchitem . "%') OR (`PRODUCTID` LIKE '%" . $searchitem . "%'))";
+		if (wsExtension('ml')) $searchquery .= wsMultiLingualQuery('search');
+		else $searchquery .= "((`DESCRIPTION` LIKE '%" . $searchitem . "%') OR (`PRODUCTID` LIKE '%" . $searchitem . "%'))";
 		$firstItem=false;
 	}
 	$searchquery .= ")";

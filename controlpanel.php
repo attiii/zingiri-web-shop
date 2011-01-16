@@ -41,7 +41,7 @@ function zing_set_options() {
 	if ($ids=get_option("zing_webshop_pages")) {
 		$ida=explode(",",$ids);
 		foreach ($ida as $i) {
-			$p = $wpdb->get_results( "SELECT post_title FROM ".$wpdb->prefix."posts WHERE id='".$i."'" );
+			$p = $wpdb->get_results( "SELECT post_title FROM ".$wpdb->prefix."posts WHERE post_status<>'trash' and id='".$i."'" );
 			$zing_ws_options[]=array(	"name" => $p[0]->post_title." page",
 			"desc" => "Display ".$p[0]->post_title." page in the menus.",
 			"id" => $zing_ws_shortname."_show_menu_".$i,

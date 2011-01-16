@@ -59,7 +59,7 @@ if ($shop_disabled == 1 && IsAdmin() == true) {
 
 			while ($f_row = mysql_fetch_array($f_sql)) {
 				$row_count++;
-				include ("frontpage.php");
+				echo wsShowProductCell($f_row,$row_count,$prods_per_row);
 				if ($row_count == $prods_per_row) { $row_count = 0; }
 			}
 			echo "</table></div>";

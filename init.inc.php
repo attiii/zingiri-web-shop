@@ -7,7 +7,7 @@ if (!get_option('zing_webshop_pro')) {
 	define("ZING_WS_PRO_URL",'');
 	define('ZING_WS_PRO',false);
 }
-define("ZING_VERSION","1.7.2");
+define("ZING_VERSION","1.7.3");
 @include(dirname(__FILE__)."/source.inc.php");
 @include(dirname(__FILE__)."/fixme.php");
 require(dirname(__FILE__)."/load.php");
@@ -30,4 +30,5 @@ require(dirname(__FILE__)."/extensions/index.php");
 
 define("ZING_APPS_CAPTCHA",BLOGUPLOADDIR.'zingiri-web-shop/cache/');
 
+if (!function_exists('wsHooks')) require(dirname(__FILE__)."/hooks.inc.php");
 ?>

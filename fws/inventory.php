@@ -110,13 +110,13 @@ if (IsAdmin() == false) {
 		if ($searchfor || $searchCategory || $searchGroup) {
 			if ($stock_enabled == 1) { $searchquery = "WHERE `STOCK` > 0"; }
 			else $searchquery = "WHERE 1=1";
-				
 			if ($searchfor) {
 				$searchForQuery='';
 				$searchitem = explode (" ", $searchfor);
 				$counter = 0;
 				while (!$searchitem[$counter] == NULL){
-					$searchForQuery .= "((DESCRIPTION LIKE '%" . $searchitem[$counter] . "%') OR (PRODUCTID LIKE '%" . $searchitem[$counter] . "%'))";
+					if (wsExtension('ml')) $searchForQuery.=wsMultiLingualQuery('search');
+					else $searchForQuery .= "((DESCRIPTION LIKE '%" . $searchitem[$counter] . "%') OR (PRODUCTID LIKE '%" . $searchitem[$counter] . "%'))";
 					$counter += 1;
 					if (!$searchitem[$counter] == NULL) { $searchForQuery .= " ".$searchmethod." "; }
 				}

@@ -61,6 +61,18 @@ if (!class_exists('db')) {
 			return false;
 		}
 			
+		function allFields($table) {
+			global $dbtablesprefix;
+			$fields=array();
+			$query = "SHOW COLUMNS FROM `".$dbtablesprefix.$table."` ";
+			if ($result=mysql_query($query)) {
+				while ($row = mysql_fetch_row($result)) {
+					$fields[]=strtolower($row[0]);
+				}
+			}
+			return $fields;
+		}
+		
 		function update($query) {
 			global $dbtablesprefix;
 			$query=str_replace("##",$dbtablesprefix,$query);

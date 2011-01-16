@@ -729,7 +729,8 @@ if (!function_exists('zurl')) {
 function similarProducts($productid,$catid) {
 	global $dbtablesprefix;
 	$s=array();
-	$query = sprintf("SELECT `ID`,`CATID` FROM `".$dbtablesprefix."product` where `PRODUCTID`=%s AND `CATID`!=%s", quote_smart($productid),quote_smart($catid));
+	if (wsExtension('ml')) $query=wsMultiLingualQuery('similar');
+	else $query = sprintf("SELECT `ID`,`CATID` FROM `".$dbtablesprefix."product` where `PRODUCTID`=%s AND `CATID`!=%s", quote_smart($productid),quote_smart($catid));
 	$sql = mysql_query($query) or die(mysql_error());
 	while ($row = mysql_fetch_array($sql)) {
 		$query = sprintf("SELECT `DESC` FROM `".$dbtablesprefix."category` where `ID`=%s", quote_smart($row['CATID']));
@@ -865,4 +866,11 @@ if (!function_exists('actionCompleteMessage')) {
 		return $msg;
 	}
 }
+
+function wsExtension($ext) {
+	if (get_option('zing_ws_extension_'.$ext)) return true; 
+	else return false;	
+}
+
+
 ?>
