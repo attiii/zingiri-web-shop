@@ -68,9 +68,17 @@ class zfSubElement {
 
 	function verifyall()
 	{
-		if ($this->element->is_required && trim($this->ext)=="")
-		{
+		if ($this->element->is_required && trim($this->ext)=="") {
 			return $this->error("Field is mandatory!");
+		} elseif ($this->element->unique) {
+			if ($this->element->entityType == 'DB') {
+				$key='element_'.$this->elementid.'_'.$this->subid;
+				$field=$this->element->column_map[$key];
+				$db=new db();
+				if ($db->select('select id from ##'.$this->element->entityName.' where '.$field."=".qs($this->int))) {
+					return $this->error("Value not allowed!");
+				}
+			}
 		}
 		return $this->verify();
 	}

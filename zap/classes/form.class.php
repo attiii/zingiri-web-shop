@@ -538,7 +538,11 @@ class zfForm {
 					$f=$this->column[$key];
 				}
 				$populated_column[$f]=$this->input['element_'.$key.'_'.$key2];
+				$column_map['element_'.$key.'_'.$key2]=$f;
 			}
+			$element->entityName=$this->entity;
+			$element->entityType=$this->type;
+			$element->column_map=$column_map;
 			$element->populated_value=$populated_value;
 			$element->populated_column=$populated_column;
 			$sv=$element->Verify($this->input,$this->output);

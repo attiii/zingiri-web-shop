@@ -36,7 +36,7 @@ $quality = preg_replace( "/[^0-9]+/", "", get_request( '9', 80 ) );
 
 // set path to cache directory (default is ./cache)
 // this can be changed to a different location
-$cache_dir = isset($_REQUEST["src"]) ? $_REQUEST["src"] : './cache';
+$cache_dir = isset($_REQUEST["dir"]) ? $_REQUEST["dir"] : './cache';
 
 // get mime type of src
 $mime_type = mime_type($src);

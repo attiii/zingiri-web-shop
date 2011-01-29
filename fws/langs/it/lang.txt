@@ -1,5 +1,10 @@
 <?php
 // The character set we should use for this language. If you are unsure, use ISO-8859-1
+
+// Translated by: Giuseppe M. Corsano - www.microcodice.it
+
+// Info, Comments and Contact to: gmcorsano@microcodice.it
+
 $charset = "ISO-8859-1";
 
 // first some values that can also be used further along in this lang file
@@ -155,7 +160,7 @@ $txt['shipping10'] = 'Selezionare un metodo di pagamento';
 // checkout.php
 $txt['checkout1'] = 'Codice di sconto non valido. Se ritenete sia un errore, per favore vi preghiamo di contattarci prima di procedere con il pagamento alla cassa';
 $txt['checkout2'] = 'La pagina &egrave; scaduta. Tornate indietro al carrello e cliccate sul pulsante Vai alla Cassa';
-$txt['checkout3'] = "Gentile sig./sig.ra $lastname,<br /><br /><br />Questo messaggio &egrave; per confermare il suo ordine su <strong>$shopname</strong><br /><br />Codice d&#39;Ordine: $webid<br />Codice Cliente: $customerid<br /><br />Di seguito i dettagli del vostro ordine:<br />";
+$txt['checkout3'] = "Gentile Sig./Sig.ra $lastname,<br /><br /><br />Questo messaggio &egrave; per confermare il suo ordine su <strong>$shopname</strong><br /><br />Codice d&#39;Ordine: $webid<br />Codice Cliente: $customerid<br /><br />Di seguito i dettagli del vostro ordine:<br />";
 $txt['checkout4'] = ' x prodotto ';
 $txt['checkout5'] = ' unitario';
 $txt['checkout6'] = "<br />";
@@ -338,8 +343,8 @@ $txt['customer15'] = 'Nome Utente';
 $txt['customer16'] = 'Password';
 $txt['customer17'] = 'Ripeti Password';
 $txt['customer18'] = 'Cognome';
-$txt['customer19'] = 'Prefisso';
-$txt['customer20'] = 'Iniziali';
+$txt['customer19'] = 'Titolo (Sig.,Sig.ra)';
+$txt['customer20'] = 'Nome';
 $txt['customer21'] = 'Indirizzo';
 $txt['customer22'] = 'C.A.P.';
 $txt['customer23'] = 'Citt&agrave;';
@@ -462,7 +467,7 @@ $txt['productadmin5'] = 'Torna al listino prodotti';
 $txt['productadmin6'] = 'Aggiungi un prodotto';
 $txt['productadmin7'] = 'Aggiorna un prodotto';
 $txt['productadmin8'] = 'Aggiungi dei gruppi prima';
-$txt['productadmin9'] = 'ID';
+$txt['productadmin9'] = 'ID (Codice)';
 $txt['productadmin10'] = 'Descrizione <a href=# class=info>(?)<span>Il codice HTML &egrave; consentito</span></a>';
 $txt['productadmin11'] = 'Prezzo <a href=# class=info>(?)<span>formato: 123456.78</span></a>';
 $txt['productadmin12'] = 'Quantit&agrave Disponibile';
@@ -476,7 +481,7 @@ $txt['productadmin19'] = 'Seleziona un file jpg, png o gif';
 $txt['productadmin20'] = 'Carica';
 $txt['productadmin21'] = 'Carica un&#39;immagine';
 $txt['productadmin22'] = 'Aggiungi alcune categorie prima';
-$txt['productadmin23'] = 'Non &egrave; possibile caricare un&#39; immagine perch&eacute; il prodotto non ha un ID';
+$txt['productadmin23'] = 'Non &egrave; possibile caricare un&#39; immagine perch&eacute; il prodotto non ha un ID (Codice)';
 $txt['productadmin24'] = 'Cancella questa immagine';
 $txt['productadmin25'] = 'Immagine rimossa con successo';
 $txt['productadmin26'] = 'Prodotto rimosso con successo';
@@ -665,12 +670,12 @@ $txt['uploadadmin105'] = 'Utilizzare i collegamenti simbolici per i prodotti dig
 $txt['details100'] = 'Altri prodotti';
 
 //v1.2.7 - new
-$txt['admin100'] = 'Imposte';
+$txt['admin100'] = 'Aliquote IVA';
 $txt['general100'] = 'Rate';
 $txt['general101'] = 'Etichetta';
 $txt['taxes1'] = 'Cascading';
 $txt['checkout25'] = "iva inclusa";
-$txt['checkout102'] = "Imposte";
+$txt['checkout102'] = "Aliquote IVA";
 $txt['checkout103'] = "Per favore accettare le condizioni prima di proseguire";
 $txt['checkout104'] = "Ora sarete reindirizzati al portale di pagamento per completare l&#39;ordine";
 $txt['editsettings110'] = 'Attiva cassa veloce';
@@ -711,8 +716,8 @@ $txt['paymentadmin101'] = 'Segreto';
 $txt['editsettings8'] = 'Valuta <a href=# class=info>(?)<span>Assicurarsi di usare i codici ISO per le valute, ad esempio EUR, USD, GBP, ...</span></a>';
 
 //1.4.9 - new
-$txt['address1'] = 'Primo';
-$txt['address2'] = 'Ultimo';
+$txt['address1'] = 'Nome';
+$txt['address2'] = 'Cognome';
 $txt['address3'] = 'Via';
 $txt['address4'] = 'Nome';
 $txt['address5'] = 'Linea 2';
@@ -733,7 +738,7 @@ $txt['productadmin13'] = 'Magazzino';
 //1.5.1 - added
 $txt['dashboard7'] = 'Nessun record disponibile';
 $txt['apps4'] = 'Nessun record disponibile';
-$txt['my10'] = 'Altri indirizzi';
+$txt['my10'] = 'Altri Indirizzi di Spedizione';
 $txt['address6'] = 'Nome';
 $txt['groupadmin105'] = 'Questa catgoria contiene ancora dei prodotti';
 $txt['template1'] = 'Contenuto';
@@ -782,9 +787,44 @@ $txt['apps12'] = 'Alto';
 $txt['apps13'] = 'Importo';
 $txt['apps14'] = 'La password &egrave; troppo lunga!';
 
-//1.7.0 - added
+//1.6.9 - added
 $txt['taxes2'] = 'Categorie Fiscali';
 $txt['taxes3'] = 'Categoria Fiscale';
 $txt['general106'] = 'ID';
+
+//1.7.0 - added
+$txt['pay1'] = 'Richiesta emittente non valida.';
+$txt['pay2'] = 'La transazione &egrave; gi&agrave; stata completata';
+$txt['pay3'] = 'Esecuzione Richiesta Emittente su ';
+$txt['pay4'] = 'Richiesta di transazione non valida.';
+$txt['pay5'] = 'Esecuzione della Richiesta di Transazione su ';
+$txt['pay6'] = 'Richiesta di ritorno non valida.';
+$txt['pay7'] = 'Esecuzione Stato della Richiesta su ';
+$txt['pay8'] = 'Scegliete la vostra banca';
+$txt['pay9'] = 'Il vostro pagamento non &egrave; stato ancora completato';
+$txt['pay10'] = 'Continua';
+$txt['pay11'] = 'Il vostro pagamento &egrave; stato cancellato. Riprovare.';
+$txt['pay12'] = 'Il vostro pagamento non &egrave; andato a buon fine. Riprovare.';
+$txt['pay13'] = 'Scegliere un diverso metodo di pagamento';
+$txt['pay14'] = "Non &egrave; possibile pagare tramite iDEAL";
+$txt['pay15'] = 'Report richiesta non valido.';
+$txt['pay16'] = 'La transazione &egrave; stata aggiornata.';
+$txt['pay17'] = 'Verifica delle transazioni in sospeso.';
+$txt['pay18'] = 'Tutte le transazioni in sospeso sono state aggiornate';
+$txt['pay19'] = 'Non sono state trovate transazioni in sospeso.';
+$txt['pay20'] = 'Chiudi finestra';
+$txt['pay21'] = 'per';
+$txt['pay22'] = 'Ricevuto';
+$txt['task1'] = 'Attivit&agrave; & Manutenzione';
+$txt['task2'] = 'Attivit&agrave;';
+$txt['general106'] = 'Avvia';
+$txt['order100'] = 'Email Cliente';
+$txt['order101'] = 'Email Amministratore Negozio';
+$txt['checkout105'] = 'Copia della mail di conferma dell&#39;ordine inviata a';
+$txt['checkout106'] = 'Continua senza registrazione';
+
+//1.7.2 - added
+$txt['paymentadmin103'] = 'Sotto ID';
+$txt['paymentadmin104'] = 'Modalit&agrave; Test';
 
 ?>

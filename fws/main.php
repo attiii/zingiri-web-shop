@@ -49,6 +49,9 @@ if ($shop_disabled == 1 && IsAdmin() == true) {
 		if ($prods_per_row = wsSetting('productsperrow')); else $prods_per_row=3;
 		$row_count = 0;
 		$f_query = "SELECT * FROM `".$dbtablesprefix."product` WHERE `FRONTPAGE` = '1'";
+		if ($hide_outofstock == 1) { // filter out products with stock lower than 1
+			$f_query.= " AND `STOCK` > 0";
+		}
 		$f_sql = mysql_query($f_query) or die(mysql_error());
 		if (mysql_num_rows($f_sql) != 0) {
 			if (mysql_num_rows($f_sql) < $prods_per_row) { $prods_per_row = mysql_num_rows($f_sql); }

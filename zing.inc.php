@@ -561,4 +561,9 @@ function jsStyleSheets() {
 	
 	return $v;
 }
-?>
+
+function zing_ws_default_page() {
+	$ids=get_option("zing_webshop_pages");
+	$ida=explode(",",$ids);
+	return $ida[0];
+}

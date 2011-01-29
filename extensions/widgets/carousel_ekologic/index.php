@@ -14,7 +14,6 @@ jQuery(document).ready(function() {
 </script>
 
 <div id="slidearea">
-
 <div id="gallerycover">
 <div class="mygallery">
 
@@ -31,10 +30,12 @@ while ($f_row = mysql_fetch_array($f_sql)) {
 	<h2><a href="?page=details&prod=<?php echo $f_row['ID']; ?>" rel="bookmark"
 		title="Permanent Link to <?php echo $f_row['ID']; ?>"
 	><?php echo $f_row['PRODUCTID']; ?></a></h2>
-	<?php  ?>
+	<?php  
+		list($thumb,$height,$width,$resized)=wsDefaultProductImageUrl($f_row['ID'],str_replace('tn_','',$f_row['DEFAULTIMAGE']),false);
+	?>
 	<p><?php echo $f_row['DESCRIPTION'] ?></p>
 	<?php  ?> <?php if (1==1) { ?> <img class="slidim"
-		src="<?php echo ZING_URL; ?>fws/addons/timthumb/timthumb.php?src=<?php echo urlencode(ZING_UPLOADS_URL.'prodgfx/'.$f_row['DEFAULTIMAGE']); ?>&dir=<?php echo urlencode(BLOGUPLOADDIR.'zingiri-web-shop/cache')?>&amp;h=180&amp;w=400&amp;zc=1"
+		src="<?php echo ZING_URL; ?>fws/addons/timthumb/timthumb.php?src=<?php echo urlencode($thumb); ?>&dir=<?php echo urlencode(BLOGUPLOADDIR.'zingiri-web-shop/cache')?>&amp;h=180&amp;w=400&amp;zc=1"
 		alt=""
 	/> <?php } else { ?> <img src="<?php ZING_CAROUSEL_URL; ?>images/place1.jpg" alt="" /> <?php } ?></div>
 	</li>

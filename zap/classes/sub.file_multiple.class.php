@@ -5,38 +5,8 @@ class file_multipleZfSubElement extends zfSubElement {
 	{
 		$prefix=$this->element->input['upload_file_key'];
 		$product_dir=@constant($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+1)]);
-		//$product_url=@constant($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+2)]);
-
+		$totalFiles=count($this->element->input['loaded_files'])+count($this->element->input['new_images'])-count($this->element->input['delimage']);
 		$picid=$id;
-
-		//set default image
-		//if (isset($this->element->input['image_default'])) $defaultImage=$this->element->input['image_default'];
-
-		// move the multiple uploaded images to the correct folder
-		/*
-		if ($this->element->input['upload_file_keyxxx']!='') {
-			$key=$this->element->input['upload_file_key'];
-			$imgs=$this->element->input['new_images'];
-			if (count($imgs) > 0) {
-				foreach ($imgs as $img) {
-					foreach (array("") as $tn) {
-						$ext = strtolower(substr(strrchr($img, '.'), 1));
-						if (isset($this->element->input['lastimg'])) $i=$this->element->input['lastimg'];
-						else $i=1;
-						$newimg=$tn.$picid.'__'.sprintf('%03d',$i).'.'.$ext;
-						while (file_exists($product_dir.'/'.$newimg)) {
-							$i++;
-							$newimg=$tn.$picid.'__'.sprintf('%03d',$i).'.'.$ext;
-						}
-						copy($product_dir.'/'.$img,$product_dir.'/'.$newimg);
-						unlink($product_dir.'/'.$tn.$img);
-						if ($tn.$img==$defaultImage) $defaultImage=$newimg;
-					}
-				}
-				if (empty($defaultImage)) $defaultImage=$newimg;
-			}
-		}
-		*/
 
 		//delete images if required
 		if (count($this->element->input['delimage'])>0) {
@@ -46,11 +16,13 @@ class file_multipleZfSubElement extends zfSubElement {
 		}
 
 		//set default image
+		if ($totalFiles > 0) $link=$prefix;
+		else $link='';
 		$column=$this->element->elementToColumn['element_'.$this->elementid.'_'.$this->subid];
 		$db=new db();
-		$db->updateRecord($this->element->entity,array('ID' => $id),array($column => $prefix));
-		$this->ext=$this->int=$prefix;
-
+		$db->updateRecord($this->element->entity,array('ID' => $id),array($column => $link));
+		$this->ext=$this->int=$link;
+		
 		return true;
 	}
 
@@ -61,7 +33,6 @@ class file_multipleZfSubElement extends zfSubElement {
 
 		$constant_dir=$this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+1)];
 		$product_dir=@constant($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+1)]);
-		//$product_url=@constant($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+2)]);
 		list($filePrefix,$fileName)=explode('__',$this->element->populated_value['element_'.$this->elementid.'_'.$this->subid]);
 		if (empty($filePrefix)) $filePrefix=create_sessionid(16,1,36);
 
@@ -90,15 +61,12 @@ class file_multipleZfSubElement extends zfSubElement {
 			foreach ($imgs as $img) {
 				$field_markup.='<li id="'.$img.'" style="position:relative;clear:both">';
 				$field_markup.='<p>'.$img.'</p>';
-				$field_markup.='<a href="javascript:wsDeleteFile(\''.$img.'\');">';
+				$field_markup.='<a onclick="wsDeleteFile(\''.$img.'\');">';
 				$field_markup.='<img style="position:absolute;right:-16px;top:0px;" src="'.ZING_APPS_PLAYER_URL.'images/delete.png" height="16px" width="16px" />';
 				$field_markup.="</a>";
+				$field_markup.='<input name="loaded_files[]" type="hidden" value="'.$img.'" />';
 				$field_markup.='</li>';
-				//				preg_match('/tn_(.*)__(.*)\./',$img,$matches);
-				//				if (count($matches) == 3) $lastimg=$matches[2]+1;
-				//				else $lastimg=1;
 			}
-			//			$field_markup.='<input type="hidden" name="lastimg" id="lastimg" value="'.$lastimg.'">';
 		}
 		$field_markup.='</ul><div style="clear:both"></div>';
 

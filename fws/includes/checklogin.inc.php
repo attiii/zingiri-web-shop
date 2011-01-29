@@ -3,6 +3,8 @@
 //Check if cookie is set
 if (LoggedIn() == false) {
 	$pagetoload = $_SERVER['QUERY_STRING'];
+	echo '<div>';
+	
 	if ($integrator->wpCustomer) { ?>
 	<div id="wslogin">
 	<p><?php echo $txt['checklogin1'] ?></p>
@@ -77,7 +79,8 @@ if (LoggedIn() == false) {
 
 <?php 
 	
-	echo '<div style="float:left;clear:both;margin-top:30px">';
+	echo '</div>';
+	echo '<div id="wsloginwelcome">';
 	PutWindow($gfx_dir, $txt['checklogin6'], $txt['checklogin7'], "personal.jpg", "90");
 	echo '</div>';
 }

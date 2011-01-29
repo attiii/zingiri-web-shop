@@ -117,7 +117,7 @@ class image_multipleZfSubElement extends zfSubElement {
 			foreach ($imgs as $img) {
 				$field_markup.='<div id="'.$img.'" style="position:relative;float:left">';
 				$field_markup.="<img src=\"".$product_url."/".$img."\" class=\"borderimg\" /><br />";
-				$field_markup.='<a href="javascript:wsDeleteImage(\''.$img.'\');">';
+				$field_markup.='<a onclick="wsDeleteImage(\''.$img.'\');">';
 				$field_markup.='<img style="position:absolute;right:0px;top:0px;" src="'.ZING_APPS_PLAYER_URL.'images/delete.png" height="16px" width="16px" />';
 				$field_markup.="</a>";
 				if ($img == $defaultImage) $checked='checked'; else $checked='';

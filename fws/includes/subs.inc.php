@@ -707,7 +707,14 @@ if (!function_exists('zurl')) {
 			if (ZING_CMS=='wp') {
 				if (wsIsAdminPage() && ($interface!='front')) $url=str_replace('index.php','admin.php',$url);
 				else {
-					if (strstr($url,ZING_HOME)===false) $url=str_replace('index.php',ZING_HOME.'/index.php',$url);
+					if (strstr($url,ZING_HOME)===false) {
+						$url=str_replace('index.php',ZING_HOME.'/index.php',$url);
+						if (strstr($url,'?')) {
+							$url.='&page_id='.zing_ws_default_page();
+						} else {
+							$url.='?page_id='.zing_ws_default_page();
+						}
+					}
 				}
 			} elseif (ZING_CMS=='jl') {
 				if ($url=='index.php') $url='index.php?option=com_zingiriwebshop';

@@ -281,3 +281,7 @@ table.wsfeaturestable,table.wsfeaturestable tr,table.wsfeaturestable td {
 	width:30%;
 	text-align:left;
 }
+#wsloginwelcome {
+	padding-top:30px;
+	clear:both;
+}

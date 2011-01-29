@@ -1,4 +1,5 @@
 = 0.9.6 =
+* Added field uniqueness condition test
 * Fixed display of checkboxes in list views
 * Added field help
 * Added project identification on form level

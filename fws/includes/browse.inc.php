@@ -41,9 +41,7 @@ function wsShowProductRow($row) {
 		$admin_edit = "<br /><br />";
 		if ($stock_enabled == 1) { $admin_edit .= $txt['productadmin12'].": ".$row[5]."<br />"; }
 		if (wsIsAdminPage()) {
-			//$admin_edit .= "<a href=\"".zurl("?page=product&zfaces=form&form=product&action=edit&id=".$row[0]."&redirect=".wsCurrentPageURL(true))."\">".$txt['browse7']."</a>";
 			$admin_edit .= "<a href=\"".zurl("?page=product&zfaces=form&form=product&action=edit&zfp=62&id=".$row[0])."\">".$txt['browse7']."</a>";
-			//$admin_edit .= " | <a href=\"".zurl("?page=product&zfaces=form&form=product&action=delete&id=".$row[0]."&redirect=".wsCurrentPageURL(true))."\" >".$txt['browse8']."</a>";
 			$admin_edit .= " | <a href=\"".zurl("?page=product&zfaces=form&form=product&action=delete&zfp=62&id=".$row[0])."\" >".$txt['browse8']."</a>";
 			$admin_edit .= " | ".$txt['productadmin14'].' <input id="wsfp'.$row[0].'" type="checkbox" class="wsfrontpage" onclick="wsFrontPage('.$row[0].',this.checked);"';
 			if ($row['FRONTPAGE']) $admin_edit.=" checked";

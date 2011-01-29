@@ -90,8 +90,7 @@ var wsCart = {
 	addToCart : function(v) {
 		var t=this;
 		var e = jQuery(v.target);
-		if (wsFrontPage) var image = e.closest('td').find('img');
-		else var image = e.closest('tr').find('img');
+		var image = e.closest('td').find('img');
 		form = e.closest('form');
 		data=form.serialize(true);
 		data+='&cms='+wsCms+'&wpabspath='+wpabspath;
@@ -111,8 +110,7 @@ var wsCart = {
 	addToWishlist : function(v) {
 		var t=this;
 		var e = jQuery(v.target);
-		if (wsFrontPage) var image = e.closest('td').find('img');
-		else var image = e.closest('tr').find('img');
+		var image = e.closest('td').find('img');
 		form = e.closest('form');
 		data=form.serialize(true);
 		data+='&cms='+wsCms+'&wpabspath='+wpabspath;
