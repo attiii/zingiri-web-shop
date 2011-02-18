@@ -57,6 +57,8 @@ class zfrule_function extends zfrule {
 			$this->error_message=$message;
 		} elseif (($compareResult && $action=='disable')) {
 			$this->action($e,$action);
+		} elseif (($compareResult && $action=='unique')) {
+			$this->action($e,$action);
 		}
 		
 		return $this->result;

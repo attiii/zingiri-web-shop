@@ -32,6 +32,7 @@
 				<option value="required">Required</option>
 				<option value="notallowed">Not allowed</option>
 				<option value="disable">Disable</option>
+				<option value="unique">Unique</option>
 			</values>
 		</field4>
 	</fields>

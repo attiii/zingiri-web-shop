@@ -41,6 +41,9 @@ class zfrule {
 			case 'disable':
 				$e->disabled=true;
 				break;
+			case 'unique':
+				$e->unique=true;
+				break;
 		}
 	}
 

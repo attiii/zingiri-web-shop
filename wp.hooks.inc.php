@@ -35,7 +35,7 @@ function zing_ws_login_errors() {
 	}
 }
 function zing_ws_login_head() {
-	if ($_REQUEST['redirect_to'] && empty($_REQUEST['log']) && empty($_REQUEST['pwd'])) {
+	if ($_REQUEST['redirect_to'] && empty($_REQUEST['log']) && empty($_REQUEST['pwd']) && empty($_REQUEST['reauth'])) {
 		header('Location: '.$_REQUEST['redirect_to']);
 		die();
 	}

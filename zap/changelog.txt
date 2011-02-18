@@ -1,5 +1,6 @@
 = 0.9.6 =
 * Added field uniqueness condition test
+* Added possibility to enfore field uniqueness in function rule
 * Fixed display of checkboxes in list views
 * Added field help
 * Added project identification on form level
