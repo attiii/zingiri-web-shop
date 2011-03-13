@@ -548,6 +548,7 @@ function jsScripts() {
 	$v[]=ZING_URL . 'fws/js/search.jquery.js';
 	if (wsIsAdminPage()) {
 		$v[]=ZING_URL . 'fws/js/admin.jquery.js';
+		$v[]='http://connect.facebook.net/en_US/all.js#xfbml=1';
 	}
 	$v[]=ZING_URL . 'fws/addons/lightbox/lightbox.js';
 	

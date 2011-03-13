@@ -22,7 +22,7 @@
 ?>
 <?php if ($index_refer <> 1) { exit(); } ?>
 <?php
-require(dirname(__FILE__).'/../zap/includes/faces.inc.php');
+require(dirname(__FILE__).'/../fwkfor/includes/faces.inc.php');
 
 if (IsAdmin()) {
 	//start here

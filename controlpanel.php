@@ -163,8 +163,27 @@ function zing_ws_settings() {
 	}
 	echo '</div>';
 	
+	//share and donate
+	echo '<div style="width:20%;float:right;position:relative">';
+	echo '<div class="updated" style="">';
+	echo '<h3>Support Us</h3>';
+	echo '<p>If you like this plugin, please share it with your friends and help us out with a small token of appreciation</p>';
+	echo '<form style="margin-bottom:15px;text-align:center;" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+		  <input type="hidden" name="cmd" value="_s-xclick">
+		  <input type="hidden" name="hosted_button_id" value="ZK6CCBG2TPTXQ">
+		  <input align="middle" type="image" src="https://www.paypal.com/en_GB/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online.">
+		  <img alt="" border="0" src="https://www.paypal.com/en_GB/i/scr/pixel.gif" width="1" height="1">
+		  </form>';
+	echo '<div style="align:center;margin-bottom:15px;text-align:center">';
+	echo '<a style="margin-bottom:15px;" href="http://www.twitter.com/zingiri"><img align="middle" src="http://twitter-badges.s3.amazonaws.com/follow_us-a.png" alt="Follow Zingiri on Twitter"/></a>';
+	echo '</div>';
+	echo '<div style="margin-bottom:15px;text-align:center">';
+	echo '<fb:share-button href="http://www.zingiri.com" type="button" >';
+	echo '</div>';
+	echo '</div>';
+
 	//news
-	echo '<div class="updated" style="width:15%;float:right;position:relative">';
+	echo '<div class="updated" style="">';
 	global $current_user;
 	get_currentuserinfo();
 	$query="SELECT count(*) as oc FROM ".$dbtablesprefix."order";
@@ -181,10 +200,9 @@ function zing_ws_settings() {
 	echo '<h3>Latest news</h3>';
 	if (ZING_CMS=='jl') echo urldecode(get_option('zing_ws_news'));
 	else echo get_option('zing_ws_news');
-
 	echo '</div>';
 
-
+	echo '</div>';
 }
 
 function zing_ws_admin() {
