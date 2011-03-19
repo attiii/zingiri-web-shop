@@ -515,7 +515,7 @@ function zing_login($loginname) {
 			setcookie ("fws_guest", "", time() - 3600, '/');
 		}
 
-		$cookie_data = $name.'-'.$id.'-'.md5($pass); //name userid and encrypted password
+		$cookie_data = $name.'#'.$id.'#'.md5($pass); //name userid and encrypted password
 			
 		// store IP
 		$query = "UPDATE `".$dbtablesprefix."customer` SET `IP` = '".GetUserIP()."' WHERE `ID`=".$id;

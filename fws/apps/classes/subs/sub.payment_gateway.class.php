@@ -25,9 +25,6 @@ class payment_gatewayZfSubElement extends zfSubElement {
 
 	function output($mode="edit",$input="")
 	{
-		//global $zing;
-		//$zing->paths
-
 		$g=explode('-',$this->int);
 		if (empty($g[0])) $this->ext=$g[0];
 		elseif (isset($g[1])) {

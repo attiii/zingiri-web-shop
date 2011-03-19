@@ -1,13 +1,14 @@
 <?php
-global $aphps_builder_projects;
-$aphps_builder_projects['fws']=array('label'=>'Web Shop','dir'=>ZING_DIR,'url'=>ZING_URL.'fws/');
-
 if (!get_option('zing_webshop_pro')) {
 	define("ZING_WS_PRO_DIR",'');
 	define("ZING_WS_PRO_URL",'');
 	define('ZING_WS_PRO',false);
 }
-define("ZING_VERSION","1.8.0");
+define("ZING_VERSION","1.7.6");
+define('APHPS_JSDIR','src');
+global $aphps_projects;
+$aphps_projects['fws']=array('label'=>'Web Shop','dir'=>ZING_LOC.'fws/apps/','url'=>ZING_URL.'fws/apps/');
+
 @include(dirname(__FILE__)."/source.inc.php");
 @include(dirname(__FILE__)."/fixme.php");
 require(dirname(__FILE__)."/load.php");

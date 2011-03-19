@@ -21,5 +21,5 @@
  */
 ?>
 <?php
-require(dirname(__FILE__).'/../../fwkfor/classes/db.class.php');
+require(dirname(__FILE__).'/../../fwktec/classes/db.class.php');
 ?>

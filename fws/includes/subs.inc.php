@@ -236,7 +236,7 @@ Function IsAdmin() {
 	if (wsCurrentCmsUserIsShopAdmin()) return true;
 
 	if (!isset($_COOKIE['fws_cust'])) { return false; }
-	$fws_cust = explode("-", $_COOKIE['fws_cust']);
+	$fws_cust = explode("#", $_COOKIE['fws_cust']);
 	$customerid = $fws_cust[1];
 	$md5pass = $fws_cust[2];
 	if (is_null($customerid)) { return false; }
@@ -284,7 +284,7 @@ Function PrintUsername($guestname) {
 		echo $guestname;
 	}
 	else {
-		$fws_cust = explode("-", $_COOKIE['fws_cust']);
+		$fws_cust = explode("#", $_COOKIE['fws_cust']);
 		echo $fws_cust[0];
 	}
 }
@@ -403,7 +403,7 @@ Function PutSingleWindow($title,$message,$width) {
 Function IsCustomerFromDefaultSendCountry($f_send_default_country) {
 	// determine sendcosts depending on the country of origin
 	Global $dbtablesprefix;
-	$fws_cust = explode("-", $_COOKIE['fws_cust']);
+	$fws_cust = explode("#", $_COOKIE['fws_cust']);
 	$customerid = $fws_cust[1];
 
 	$f_query="SELECT * FROM `".$dbtablesprefix."customer` WHERE `ID` = " . $customerid;
@@ -483,7 +483,7 @@ function IsBanned() {
 	// check ip from database
 	Global $dbtablesprefix;
 	if (!isset($_COOKIE['fws_cust'])) { return false; }
-	$fws_cust = explode("-", $_COOKIE['fws_cust']);
+	$fws_cust = explode("#", $_COOKIE['fws_cust']);
 	$customerid = $fws_cust[1];
 	if (is_null($customerid)) { return false; }
 	$f_query = "SELECT * FROM ".$dbtablesprefix."customer WHERE ID = " . $customerid;

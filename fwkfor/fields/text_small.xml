@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="module" version="1.5.0">
+	<name>Text small</name>
+	<fields count="1">
+		<field1>
+			<name>smalltext</name>
+			<format>varchar(20)</format>
+			<size>20</size>
+			<maxlength>20</maxlength>
+		</field1>
+	</fields>
+</config>

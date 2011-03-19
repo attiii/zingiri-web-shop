@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="rule" version="1.5.0">
+	<name>Function</name>
+	<fields count="4">
+		<field1>
+			<name>function</name>
+			<label>ID</label>
+			<size>12</size>
+			<maxlength>60</maxlength>
+		</field1>
+		<field2>
+			<name>condition</name>
+			<label>Condition</label>
+			<type>select</type>
+			<values type="multi">
+				<option value="EQ">equals</option>
+				<option value="ST">smaller</option>
+				<option value="GT">greater</option>
+			</values>
+		</field2>
+		<field3>
+			<name>value</name>
+			<label>Value</label>
+			<size>10</size>
+			<maxlength>10</maxlength>
+		</field3>
+		<field4>
+			<name>action</name>
+			<label>Action</label>
+			<type>select</type>
+			<values type="multi">
+				<option value="required">Required</option>
+				<option value="notallowed">Not allowed</option>
+				<option value="disable">Disable</option>
+				<option value="unique">Unique</option>
+			</values>
+		</field4>
+	</fields>
+</config>

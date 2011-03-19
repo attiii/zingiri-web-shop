@@ -1,0 +1,1 @@
+(function(){escape_re=/[#;&,\.\+\*~':"!\^\$\[\]\(\)=>|\/\\]/;jQuery.escape=function a(b){var c=b.split(escape_re,1)[0];if(c==b){return b}return c+"\\"+b.substr(c.length,1)+jQuery.escape(b.substr(c.length+1))}})();

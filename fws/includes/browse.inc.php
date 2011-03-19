@@ -161,9 +161,10 @@ function wsShowProductCell($row,$row_count,$prods_per_row) {
 	if ($row_count == 1) { $output.="<tr>"; }
 	$output.='<td width="'.(intval(100/$prods_per_row)).'%" style="text-align:center;">
 			       '."<a class=\"plain\" href=\"".zurl("index.php?page=details&prod=".$row[0]."&cat=".$row[2])."\"><h5 style=\"text-align:center\">".$row[1].'</h5>'.$screenshot.'</a><br />
-				   <br />
-                  <form id="order'.$row[0].'" method="post" action="?page=cart&action=add">
-                       <input type="hidden" name="prodid" value="'.$row[0].'">';
+				   <br />';
+	if ($row['FEATURES']) $output.='<form id="order'.$row[0].'" method="post" action="'.zurl('?page=details&prod='.$row[0]."&cat=".$row[2]).'">';
+	else $output.='<form id="order'.$row[0].'" method="post" action="?page=cart&action=add">';
+	$output.='<input type="hidden" name="prodid" value="'.$row[0].'">';
 	if (!$row[4] == 0) {
 		$tax=new wsTax($row[4],$row['TAXCATEGORYID']);
 		if ($no_vat == 1) {
@@ -176,9 +177,9 @@ function wsShowProductCell($row,$row_count,$prods_per_row) {
 	}
 
 	$output.='<br /><input name="sub" ';
-	if (ZING_JQUERY) $output.='type="button"';
-	else $output.='type="submit"';
-	$output.=' class="addtocart" id="addtocart" value="'.$txt['details7'].'" />
+	if (!$row['FEATURES']) $output.='type="button" class="addtocart" ';
+	else $output.='type="submit" class="gotoproductpage" ';
+	$output.='id="addtocart" value="'.$txt['details7'].'" />
                    </form></td>';
 	if ($row_count == $prods_per_row) { $output.="</tr>"; }
 	return $output;

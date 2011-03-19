@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="rule" version="1.5.0">
+	<name>DB Field</name>
+	<fields count="5">
+		<field1>
+			<name>table</name>
+			<label>TABLE</label>
+			<type>dbtable</type>
+		</field1>
+		<field2>
+			<name>field</name>
+			<label>FIELD</label>
+		</field2>
+		<field3>
+			<name>condition</name>
+			<label>Condition</label>
+			<type>select</type>
+			<values type="multi">
+				<option value="EQ">equals</option>
+				<option value="ST">smaller</option>
+				<option value="GT">greater</option>
+				<option value="NE">not equal</option>
+			</values>
+		</field3>
+		<field4>
+			<name>value</name>
+			<label>Value</label>
+			<size>10</size>
+			<maxlength>10</maxlength>
+		</field4>
+		<field5>
+			<name>action</name>
+			<label>Action</label>
+			<type>select</type>
+			<values type="multi">
+				<option value="disable">Disable</option>
+			</values>
+		</field5>
+	</fields>
+</config>

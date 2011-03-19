@@ -34,7 +34,7 @@ function LoggedIn() {
 	if ($integrator->loggedIn()) return true;
 
 	if (!isset($_COOKIE['fws_cust'])) { return false; }
-	$fws_cust = explode("-", $_COOKIE['fws_cust']);
+	$fws_cust = explode("#", $_COOKIE['fws_cust']);
 	$customerid = $fws_cust[1];
 	$md5pass = $fws_cust[2];
 	if (is_null($customerid)) { return false; }

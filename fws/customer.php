@@ -51,7 +51,7 @@ if ($action=="add" && $_GET['step']=="save" && $custForm->success && $custForm->
 			mymail($webmaster_mail, $email, $txt['customer11'], $txt['customer12'], $charset);
 			PutWindow($gfx_dir, $txt['general13'], $txt['customer13'], "notify.gif", "50"); // succesfully saved
 			setcookie ("fws_guest", "", time() - 3600, '/');
-			$cookie_data = $login.'-'.$newcustomerid.'-'.md5(md5($pass1)); //name userid and encrypted password
+			$cookie_data = $login.'#'.$newcustomerid.'#'.md5(md5($pass1)); //name userid and encrypted password
 			setcookie ("fws_cust",$cookie_data, 0, '/')==TRUE;
 			$update_query = "UPDATE `".$dbtablesprefix."customer` SET `IP` = '".GetUserIP()."',`GROUP` = 'CUSTOMER' WHERE `ID` = '".$newcustomerid."'";
 			$update_sql = mysql_query($update_query) or die(mysql_error());
@@ -77,7 +77,7 @@ if ($action=="add" && $_GET['step']=="save" && $custForm->success && $custForm->
 			$newcustomerid=$custForm->recid;
 			$pass1=CreateRandomCode(15);
 			setcookie ("fws_guest", "", time() - 3600, '/');
-			$cookie_data = $login.'-'.$newcustomerid.'-'.md5(md5($pass1)); //name userid and encrypted password
+			$cookie_data = $login.'#'.$newcustomerid.'#'.md5(md5($pass1)); //name userid and encrypted password
 			setcookie ("fws_cust",$cookie_data, 0, '/')==TRUE;
 			$update_query = "UPDATE `".$dbtablesprefix."customer` SET `IP` = '".GetUserIP()."',`GROUP` = 'GUEST' WHERE `ID` = '".$newcustomerid."'";
 			$update_sql = mysql_query($update_query) or die(mysql_error());

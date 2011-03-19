@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="rule" version="1.5.0">
+	<name>Constant</name>
+	<fields count="4">
+		<field1>
+			<name>constant</name>
+			<label>Constant</label>
+			<size>15</size>
+			<maxlength>80</maxlength>
+		</field1>
+		<field2>
+			<name>condition</name>
+			<label>Condition</label>
+			<type>select</type>
+			<values type="multi">
+				<option value="EQ">equals</option>
+				<option value="ST">smaller</option>
+				<option value="GT">greater</option>
+				<option value="NE">different</option>
+			</values>
+		</field2>
+		<field3>
+			<name>value</name>
+			<label>Value</label>
+			<size>10</size>
+			<maxlength>10</maxlength>
+		</field3>
+		<field4>
+			<name>action</name>
+			<label>Action</label>
+			<type>select</type>
+			<values type="multi">
+				<option value="disable">Disable</option>
+			</values>
+		</field4>
+	</fields>
+</config>
