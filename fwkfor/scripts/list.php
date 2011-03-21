@@ -28,7 +28,7 @@ if (ZING_CMS=='gn') echo '<h2 class="zfaces-form-label">'.z_($zflist->label).'</
 elseif (is_admin()) echo '<p class="zfaces-form-label">'.z_($zflist->label).'</p>';
 $map=$zflist->filter($map);
 if (!$zflist->allowAccess()) {
-	echo $zflist->errorMessage;
+	if (function_exists('fwktecError')) fwktecError($zflist->errorMessage); else echo $zflist->errorMessage;
 	return false;
 }
 if (file_exists(ZING_APPS_CUSTOM.'apps.'.$formname.'.php')) require(ZING_APPS_CUSTOM.'apps.'.$formname.'.php');
@@ -136,15 +136,15 @@ if ($zflist)
 			}
 			echo '</td>';
 			if (!empty($span)) {
-				if (ZING_PROTOTYPE) {
-					$script.="var zelt = $('foo_".$line."');";
-					$script.="zelt.observe('mouseover', function() { $('fox_".$line."').setStyle({ display : 'block', backgroundColor : '#ccdd4f'}); });";
-					$script.="zelt.observe('mouseout', function() { $('fox_".$line."').setStyle({ display : 'none'});});";
-				} elseif (ZING_JQUERY) {
+//				if (ZING_PROTOTYPE) {
+//					$script.="var zelt = $('foo_".$line."');";
+//					$script.="zelt.observe('mouseover', function() { $('fox_".$line."').setStyle({ display : 'block', backgroundColor : '#ccdd4f'}); });";
+//					$script.="zelt.observe('mouseout', function() { $('fox_".$line."').setStyle({ display : 'none'});});";
+//				} elseif (ZING_JQUERY) {
 					$script.="var zelt = jQuery('#foo_".$line."');";
 					$script.="zelt.bind('mouseover', this, function() { jQuery('#fox_".$line."').css('display','block');jQuery('#fox_".$line."').css('backgroundColor','#ccdd4f'); });";
 					$script.="zelt.bind('mouseout', this, function() { jQuery('#fox_".$line."').css('display','none'); });";
-				}
+//				}
 			}
 			$line++;
 		}
@@ -157,13 +157,13 @@ if ($zflist)
 	echo '</tbody>';
 	echo '</table>';
 	echo '<script type="text/javascript">';
-	if (ZING_PROTOTYPE) {
-		echo 'document.observe("dom:loaded", function() {';
-		echo $script;
-	} elseif (ZING_JQUERY) {
+//	if (ZING_PROTOTYPE) {
+//		echo 'document.observe("dom:loaded", function() {';
+//		echo $script;
+//	} elseif (ZING_JQUERY) {
 		echo 'jQuery(document).ready(function() {';
 		echo $script;
-	}
+//	}
 	echo '});';
 	echo '</script>';
 	if ($stack->getPrevious()) echo '<a href="'.$stack->getPrevious().'">Back</a>';

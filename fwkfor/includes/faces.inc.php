@@ -63,7 +63,7 @@ function faces_get_xml($type,$dir="") {
 		}
 	}
 
-	if ($zing) {
+	if (count($aphps_projects) > 0) {
 		//foreach ($zing->paths as $path) {
 		//	$url_details=$path.'apps/fields/'.$type.".xml";
 		foreach ($aphps_projects as $id => $project) {

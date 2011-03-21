@@ -159,8 +159,13 @@ if ($action == "add" && ($step == "" || $step == "poll")) {
 	}
 }
 
+if (!$allowed) {
+	if (function_exists('fwktecError')) fwktecError($zfform->errorMessage); else echo $zfform->errorMessage; 	
+}
 if (!$success || !$allowed) {
-	echo (empty($zfform->errorMessage) ? z_('Record not found') : $zfform->errorMessage);
+	if (empty($zfform->errorMessage)) {
+		if (function_exists('fwktecError')) fwktecError($zfform->errorMessage); else echo z_('Record not found');
+	}
 }
 
 if ($allowed && $success && $showform == "edit") {
@@ -234,8 +239,11 @@ if ($allowed && $success && $showform == "edit") {
 		$redirect2='?page='.$page.'&zfaces=form&form='.$form.'&zft='.$zft.'&zfp='.$zfp.'&action='.$action.'&id='.$id;
 	}
 	if (!$noRedirect && !$redirect && (!defined("ZING_SAAS") || !ZING_SAAS)) {
-		header('Location: '.zurl($redirect2.'&zmsg=complete'));
-		exit;
+		if (header('Location: '.zurl($redirect2.'&zmsg=complete'))) {
+			exit;
+		} else {
+			echo '<a href="'.zurl($redirect2).'" class="button">'.z_('Continue').'</a>';
+		}
 	} else {
 		echo '<a href="'.zurl($redirect2).'" class="button">'.z_('Back').'</a>';
 	}

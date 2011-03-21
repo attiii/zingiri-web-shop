@@ -7,7 +7,7 @@
 			<format>int(11)</format>
 			<type>sql</type>
 			<values type="sql">
-				<query>(select id,`name` from ##faces) union (select '0','*' from ##faces) order by `name`</query>
+				<query>(select id,`label`,`project` from ##faces) union (select '0','*','*' from ##faces) order by `project`,`label`</query>
 			</values>
 		</field1>
 	</fields>

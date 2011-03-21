@@ -32,7 +32,7 @@ class zfLink {
 		$this->escape_quote=$escape_quote;
 		$a=array();
 		$links=new db();
-		$sql="select * from ##flink where formin='".$id."' and displayin=".zfqs($type);
+		$sql="select * from ##flink where formin='".$id."' and displayin=".qs($type);
 		if ($position=='R') $sql.=' and (position="R" or position="" or position is null)';
 		else $sql.=' and position='.qs($position);
 		if ($links->select($sql)) {

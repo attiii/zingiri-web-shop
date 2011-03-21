@@ -64,8 +64,8 @@ class zfForm {
 		$this->form=$form;
 		$this->maxRows=ZING_APPS_MAX_ROWS;
 		$table=new db();
-		if ($form) $query="select * from `".DB_PREFIX."faces` WHERE `NAME`=".zfqs($form);
-		else $query="select * from `".DB_PREFIX."faces` WHERE `ID`=".zfqs($id);
+		if ($form) $query="select * from `".DB_PREFIX."faces` WHERE `NAME`=".qs($form);
+		else $query="select * from `".DB_PREFIX."faces` WHERE `ID`=".qs($id);
 		$table->select($query);
 		if ($row=$table->next())
 		{
@@ -177,7 +177,7 @@ class zfForm {
 				if ($value['type']=='system_subformproxy') {
 					//$setsOnly[$i]=$value;
 					$db=new db();
-					$db->select("select * from `".DB_PREFIX."faces` WHERE `ID`=".zfqs($this->setId));
+					$db->select("select * from `".DB_PREFIX."faces` WHERE `ID`=".qs($this->setId));
 					if ($row=$db->next()) {
 						if ($row['CUSTOM']!='') $json_set=zf_json_decode($row['CUSTOM'],true); //form data
 						else $json_set=zf_json_decode($row['DATA'],true);
@@ -502,7 +502,7 @@ class zfForm {
 	function Verify($input,$id=0)
 	{
 		if ($id) { //get image of record before update
-			$query="select * from `".DB_PREFIX.$this->entity."` where `ID`=".zfqs($id);
+			$query="select * from `".DB_PREFIX.$this->entity."` where `ID`=".qs($id);
 			$db=new db();
 			$db->select($query);
 			$this->before=$db->next();
@@ -566,7 +566,7 @@ class zfForm {
 	function Delete($id)
 	{
 		//get image of record before update
-		$query="select * from `".DB_PREFIX.$this->entity."` where `ID`=".zfqs($id);
+		$query="select * from `".DB_PREFIX.$this->entity."` where `ID`=".qs($id);
 		$db=new db();
 		$db->select($query);
 		$this->before=$db->next();
@@ -819,7 +819,7 @@ class zfForm {
 				if (is_array($value)) {
 					$qwhere.=empty($qwhere) ? " where " :  " and ";
 					if ($value[0]=='like') $qwhere.="`".$field."` LIKE '%".$value[1]."%'";
-					else $qwhere.="`".$field."`=".zfqs($value[1]);
+					else $qwhere.="`".$field."`=".qs($value[1]);
 				} else {
 					$v=false;
 					if (function_exists($value)) $v=$value();
@@ -828,7 +828,7 @@ class zfForm {
 					else $v=$value;
 					if ($v !== false) {
 						$qwhere.=empty($qwhere) ? " where " :  " and ";
-						$qwhere.="`".$field."`=".zfqs($v);
+						$qwhere.="`".$field."`=".qs($v);
 					}
 				}
 			}
@@ -930,14 +930,14 @@ class zfForm {
 			}
 		} else {
 
-			$this->query="select * from `".DB_PREFIX.$this->entity."` where `ID`=".zfqs($id);
+			$this->query="select * from `".DB_PREFIX.$this->entity."` where `ID`=".qs($id);
 			if (count($this->post)) {
 				foreach ($this->post as $f => $value) {
 					if (function_exists($value)) $v=$value();
 					elseif (isset($_GET[$value])) $v=$_GET[$value];
 					elseif (isset($_POST[$value])) $v=$_POST[$value];
 					else $v=$value;
-					$this->query.=' AND '.$f.'='.zfqs($v);
+					$this->query.=' AND '.$f.'='.qs($v);
 				}
 			}
 			$this->db=new db();
@@ -963,7 +963,7 @@ class zfForm {
 			foreach ($this->allFieldAttributes as $key => $column)
 			{
 				zfKeys($key,$key1,$key2);
-				$query="select * from `".DB_PREFIX.$this->entity."_attributes` where `PARENTID`=".zfqs($id)." AND `NAME`=".zfqs(str_replace('`','',$column))." ORDER BY `SET`";
+				$query="select * from `".DB_PREFIX.$this->entity."_attributes` where `PARENTID`=".qs($id)." AND `NAME`=".qs(str_replace('`','',$column))." ORDER BY `SET`";
 				$db->select($query);
 				while ($r=$db->next()) {
 					foreach ($r as $field => $value) {

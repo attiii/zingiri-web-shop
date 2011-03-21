@@ -33,7 +33,7 @@ function zfReadRecord($table,$keys,$action="")
 
 		if ($first)	{ $query.="WHERE "; } else { $query.=" AND "; }
 		$first=FALSE;
-		$query.="`".$field."`=".zfqs($val);
+		$query.="`".$field."`=".qs($val);
 
 	}
 
@@ -65,7 +65,7 @@ function UpdateRecord($table,$keys,$row,$action="")
 		{
 			if ($first)	{ $query.="SET "; } else { $query.=","; }
 			$first=FALSE;
-			$query.="`".$field."`=".zfqs($val);
+			$query.="`".$field."`=".qs($val);
 		}
 	}
 	$first=TRUE;
@@ -73,7 +73,7 @@ function UpdateRecord($table,$keys,$row,$action="")
 	{
 		if ($first){ $query.=" WHERE "; } else { $query.=" AND "; }
 		$first=FALSE;
-		$query.= "`".$keyfield."`=".zfqs($keyval);
+		$query.= "`".$keyfield."`=".qs($keyval);
 	}
 
 	if (function_exists('zfDumpQuery')) zfDumpQuery($query,$table);
@@ -120,7 +120,7 @@ function InsertRecord($table,$keys,$row,$action="")
 		{
 			if ($first)	{ $query.="("; } else { $query.=","; }
 			$first=FALSE;
-			$query.=zfqs($val);
+			$query.=qs($val);
 		}
 	}
 	$query.=")";
@@ -145,7 +145,7 @@ function DeleteRecord($table,$keys,$action="")
 	{
 		if ($first)	{ $query.="WHERE "; } else { $query.=" AND "; }
 		$first=FALSE;
-		$query.="`".$field."`=".zfqs($val);
+		$query.="`".$field."`=".qs($val);
 	}
 
 	//	echo $query."<br />";

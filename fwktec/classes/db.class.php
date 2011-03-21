@@ -280,22 +280,30 @@ if (!class_exists('db')) {
 
 		function export($tables)
 		{
+			$this->exported='';
 			foreach($tables as $t)
 			{
-				$this->table = $t;
-				$header = $this->create_header();
-				$data = $this->get_data();
-				$this->$exported .= "###################\n# Dumping table $t\n###################\n\n$header" . $data . "\n";
+				$this->table = $t['name'];
+				$this->exported .= "--\n"; 
+				if ($t['definition']) {
+					$header = $this->create_header();
+					$this->exported .= "-- Table structure for table {$this->table}\n--\n\n" . $header . "\n";
+				}
+				if ($t['data']) {
+					$data = $this->get_data($t['filter']);
+					$this->exported .= "--\n-- Dumping data for table {$this->table}\n--\n\n" . $data . "\n";
+				}
 			}
 
-			return($this->$exported);
+			return($this->exported);
 		}
 
 		function create_header()
 		{
-			global $dblocation;
-			$fields = mysql_list_fields($dblocation, $this->table);
-			$h = "CREATE TABLE `" . $this->table . "` (";
+			global $dbname,$dbtablesprefix;
+			
+			$fields = mysql_list_fields($dbname, $dbtablesprefix.$this->table);
+			$h = "CREATE TABLE `##" . $this->table . "` (";
 
 			for($i=0; $i<mysql_num_fields($fields); $i++)
 			{
@@ -303,6 +311,7 @@ if (!class_exists('db')) {
 				$flags = mysql_field_flags($fields, $i);
 				$len = mysql_field_len($fields, $i);
 				$type = mysql_field_type($fields, $i);
+				//mysql_field_colllation($fields, $i);
 
 				$h .= "`$name` $type($len) $flags,";
 
@@ -312,18 +321,21 @@ if (!class_exists('db')) {
 			}
 
 			$h = substr($h, 0, strlen($d) - 1);
-			$h .= "$pkey) TYPE=MyISAM;\n\n";
+			$h .= "$pkey) ENGINE=InnoDB  DEFAULT CHARSET=utf8;\n\n";
 			return($h);
 		}
 
-		function get_data()
+		function get_data($filter='')
 		{
+			global $dbtablesprefix;
+			
 			$d = null;
-			$data = mysql_query("SELECT * FROM `" . $this->table . "` WHERE 1") or $this->error();
+			if ($filter) $data = mysql_query("SELECT * FROM `" . $dbtablesprefix.$this->table . "` WHERE ".$filter) or $this->error();
+			else $data = mysql_query("SELECT * FROM `" . $dbtablesprefix.$this->table . "` WHERE 1") or $this->error();
 
 			while($cr = mysql_fetch_array($data, MYSQL_NUM))
 			{
-				$d .= "INSERT INTO `" . $this->table . "` VALUES (";
+				$d .= "INSERT INTO `##" . $this->table . "` VALUES (";
 
 				for($i=0; $i<sizeof($cr); $i++)
 				{

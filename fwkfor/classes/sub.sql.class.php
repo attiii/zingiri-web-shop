@@ -68,7 +68,7 @@ class sqlZfSubElement extends zfSubElement {
 				}
 				//check if function
 				if (empty($wherevalue) && function_exists($wherefield)) {
-					$wherevalue=zfqs($wherefield());
+					$wherevalue=qs($wherefield());
 				}
 				if (empty($wherevalue)) { $wherevalue=0; }
 				$query=str_replace("$".$wherefield,$wherevalue,$query);

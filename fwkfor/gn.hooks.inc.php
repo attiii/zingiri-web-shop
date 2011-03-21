@@ -1,4 +1,7 @@
 <?php
+function get_post_custom() {
+}
+
 function is_admin() {
 	return IsAdmin();
 }
