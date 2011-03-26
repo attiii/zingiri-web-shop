@@ -547,7 +547,7 @@ class zfForm {
 			$element->column_map=$column_map;
 			$element->populated_value=$populated_value;
 			$element->populated_column=$populated_column;
-			$sv=$element->Verify($this->input,$this->output,$this->action);
+			$sv=$element->Verify($this->input,$this->output,$this->action,$this->before);
 			$success=$success && $sv;
 			$this->elements['name'][$key]=$element->name;
 			$this->elements['is_error'][$key]=$element->is_error;
@@ -595,7 +595,7 @@ class zfForm {
 		if ($this->type=="DB") $id=$this->SaveDB($id);
 		$this->recid=$id;
 		$this->postSaveElements();
-		$this->postSave();
+		$success=$this->postSave($success);
 		$this->alert("Save successfull!");
 		return $success;
 	}
@@ -645,11 +645,16 @@ class zfForm {
 		$this->grid=$grid;
 	}
 
+	function preSaveDB() {
+		return true;	
+	}
+	
 	function SaveDB($id=0)
 	{
 		$db=new db();
 
 		$this->makeRow($id);
+		$this->preSaveDB();
 		$row=$this->rec;
 
 		//insert or update main record

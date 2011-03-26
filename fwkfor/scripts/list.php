@@ -46,24 +46,28 @@ echo '</form>';
 
 $tlink=new zfLink($zflist->id,false,'list','T');
 $links=$tlink->getLinks();
+$topspan='';
 if ($links) {
-	$span='';
+	$topspan='';
 	foreach ($links as $i => $link) {
-		if ($link['FORMOUTALT']) $span.='<a href="'.zurl('?'.$link['FORMOUTALT'].'&id='.$id.'&map='.$link['MAP'].'&orderkeys='.urlencode($_REQUEST['orderkeys']).$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION']).'">'.ucfirst($link['ACTION']).'</a>';
-		else $span.='<a href="'.zurl('?page='.$page.'&zfaces='.$link['DISPLAYOUT'].'&action='.$link['ACTIONOUT'].'&formid='.$link['FORMOUT'].'&id='.$id.'&map='.$link['MAP'].'&orderkeys='.urlencode($_REQUEST['orderkeys']).$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION']).'">'.ucfirst($link['ACTION']).'</a>';
-		$span.='&nbsp';
+		if ($link['FORMOUTALT']) $topspan.='<a class="art-button" href="'.zurl('?'.$link['FORMOUTALT'].'&id='.$id.'&map='.$link['MAP'].'&orderkeys='.urlencode($_REQUEST['orderkeys']).$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION']).'">'.ucfirst($link['ACTION']).'</a>';
+		else $topspan.='<a class="art-button" href="'.zurl('?page='.$page.'&zfaces='.$link['DISPLAYOUT'].'&action='.$link['ACTIONOUT'].'&formid='.$link['FORMOUT'].'&id='.$id.'&map='.$link['MAP'].'&orderkeys='.urlencode($_REQUEST['orderkeys']).$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION']).'">'.ucfirst($link['ACTION']).'</a>';
+		$topspan.='&nbsp';
 	}
-	echo $span;
 }
 
 $alink=new zfLink($zflist->id,false,'list','R');
 ?>
 <div id="<?php echo $formname;?>">
+<div style="float:left;position:relative;padding-left:1%;margin-bottom:10px;">
 <?php if ($alink->canAdd) {
-echo '<a href="'.zurl('?page='.$page.'&zfaces=form&form='.$formname.'&action=add&zft=list&zfp='.$formid.'&map='.urlencode($mapflat)).'"><img class="zfimg" src="'.ZING_APPS_PLAYER_URL.'images/add.png"></a>';
-echo '<a href="'.zurl('?page='.$page.'&zfaces=form&form='.$formname.'&action=add&zft=list&zfp='.$formid.'&map='.urlencode($mapflat)).'">'.z_('Add').'</a>';
+//echo '<a class="art-button" href="'.zurl('?page='.$page.'&zfaces=form&form='.$formname.'&action=add&zft=list&zfp='.$formid.'&map='.urlencode($mapflat)).'"><img class="zfimg" src="'.ZING_APPS_PLAYER_URL.'images/add.png"></a>';
+echo '<a class="art-button" href="'.zurl('?page='.$page.'&zfaces=form&form='.$formname.'&action=add&zft=list&zfp='.$formid.'&map='.urlencode($mapflat)).'">'.z_('Add').'</a>';
 } 
+echo $topspan;
 ?>
+</div>
+<div style="float:right;position:relative;padding-right:1%;padding-bottom:10px;">
 <?php if (defined("ZING_APPS_BUILDER") && ZingAppsIsAdmin()) {?>
 <select id="zfheader">
 	<option value="none" selected="selected">Add column</option>
@@ -73,7 +77,10 @@ echo '<a href="'.zurl('?page='.$page.'&zfaces=form&form='.$formname.'&action=add
 		echo '<option value="'.$key.'">'.$value.'</option>';
 	}
 	?>
-</select> <?php }
+</select>
+</div>
+<div style="clear:both;"></div>
+<?php }
 
 if ($zflist)
 {

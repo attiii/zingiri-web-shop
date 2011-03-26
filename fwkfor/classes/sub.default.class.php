@@ -66,8 +66,11 @@ class zfSubElement {
 		return $this->ext;
 	}
 
-	function verifyall($mode)
+	function verifyall($mode,$before)
 	{
+		$this->mode=$mode;
+		$this->before=$before;
+		
 		if ($this->element->is_required && trim($this->ext)=="") {
 			return $this->error("Field is mandatory!");
 		} elseif ($this->element->unique && $mode=='add') {

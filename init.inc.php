@@ -4,7 +4,7 @@ if (!get_option('zing_webshop_pro')) {
 	define("ZING_WS_PRO_URL",'');
 	define('ZING_WS_PRO',false);
 }
-define("ZING_VERSION","1.7.7");
+define("ZING_VERSION","1.7.8");
 define('APHPS_JSDIR','src');
 global $aphps_projects;
 $aphps_projects['fws']=array('label'=>'Web Shop','dir'=>ZING_LOC.'fws/apps/','url'=>ZING_URL.'fws/apps/');

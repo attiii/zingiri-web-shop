@@ -236,25 +236,6 @@ function showList() {
 	require(dirname(__FILE__).'/../scripts/list.php');
 }
 
-if (!function_exists('qs')) {
-	function qs($value) {
-		if( is_array($value) ) {
-			return array_map("quote_smart", $value);
-		} else {
-			if( get_magic_quotes_gpc() ) {
-				$value = stripslashes($value);
-			}
-			if( $value == '' ) {
-				$value = '';
-			}
-			if( !is_numeric($value) || $value[0] == '0' ) {
-				$value = "'".mysql_escape_string($value)."'";
-			}
-			return $value;
-		}
-	}
-}
-
 if (!function_exists('zurl')) {
 	function zurl($url,$printurl=false,$interface='') {
 		if (ZING_CMS=='wp') {

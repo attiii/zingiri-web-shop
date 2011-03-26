@@ -81,7 +81,7 @@ class element {
 		}
 	}
 
-	function verify($input,&$output,$mode) {
+	function verify($input,&$output,$mode,$before) {
 
 		$success=true;
 		$this->is_error=false;
@@ -104,7 +104,7 @@ class element {
 			if (is_array($int)) {
 				foreach ($int as $s => $v) {
 					$subelement=new $c($int[$s],$ext[$s],$this->xmlf->fields->{'field'.$i},$this,$i);
-					if (!$subelement->verifyall($this->mode))
+					if (!$subelement->verifyall($this->mode,$before))
 					{
 						$success=false;
 						$this->error_message=$subelement->error_message;
@@ -114,7 +114,7 @@ class element {
 				}
 			} else {
 				$subelement=new $c($int,$ext,$this->xmlf->fields->{'field'.$i},$this,$i);
-				if (!$subelement->verifyall($this->mode))
+				if (!$subelement->verifyall($this->mode,$before))
 				{
 					$success=false;
 					$this->error_message=$subelement->error_message;

@@ -169,7 +169,7 @@ if (!$success || !$allowed) {
 }
 
 if ($allowed && $success && $showform == "edit") {
-	if (is_admin() || ZING_CMS=='gn') echo '<p class="zfaces-form-label">'.$zfform->label.'</p>';
+	if (is_admin() || ZING_CMS=='gn') echo '<h2 class="zfaces-form-label">'.$zfform->label.'</h2>';
 	echo '<div class="zfaces-form">';
 	if (defined("ZING_APPS_BUILDER") && ZingAppsIsAdmin()) {
 		echo '<a href="'.zurl('?page=apps_edit&zfaces=edit&form='.$form).'" >'.z_('Edit form').'</a>';
@@ -239,8 +239,10 @@ if ($allowed && $success && $showform == "edit") {
 		$redirect2='?page='.$page.'&zfaces=form&form='.$form.'&zft='.$zft.'&zfp='.$zfp.'&action='.$action.'&id='.$id;
 	}
 	if (!$noRedirect && !$redirect && (!defined("ZING_SAAS") || !ZING_SAAS)) {
-		if (header('Location: '.zurl($redirect2.'&zmsg=complete'))) {
-			exit;
+	
+		if (url_exists(zurl($redirect2))) {
+			header('Location: '.zurl($redirect2.'&zmsg=complete'));
+			die();
 		} else {
 			echo '<a href="'.zurl($redirect2).'" class="button">'.z_('Continue').'</a>';
 		}

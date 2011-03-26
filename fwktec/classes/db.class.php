@@ -280,62 +280,73 @@ if (!class_exists('db')) {
 
 		function export($tables)
 		{
+			global $dbtablesprefix;
+				
 			$this->exported='';
 			foreach($tables as $t)
 			{
 				$this->table = $t['name'];
-				$this->exported .= "--\n"; 
+				$this->fields='';
+				$query="SHOW FULL COLUMNS FROM `".$dbtablesprefix.$this->table."`";
+				$sql = mysql_query($query) or die($this->error($query));
+				while ($row=mysql_fetch_assoc($sql)) {
+					$this->fields[$row['Field']]=$row;
+				}
+				$this->exported .= "--\n";
 				if ($t['definition']) {
-					$header = $this->create_header();
-					$this->exported .= "-- Table structure for table {$this->table}\n--\n\n" . $header . "\n";
+					$header = $this->create_header($t['auto']);
+					$this->exported .= "-- Table structure for table {$this->table}\n--\n\n" . $header . "\n\n";
 				}
 				if ($t['data']) {
-					$data = $this->get_data($t['filter']);
-					$this->exported .= "--\n-- Dumping data for table {$this->table}\n--\n\n" . $data . "\n";
+					$data = $this->get_data($t['filter'],$t['fields']);
+					$this->exported .= "--\n-- Dumping data for table {$this->table}\n--\n\n" . $data . "\n\n";
 				}
 			}
 
 			return($this->exported);
 		}
 
-		function create_header()
+		function create_header($auto)
 		{
 			global $dbname,$dbtablesprefix;
+
+			$query="SHOW CREATE TABLE `".$dbtablesprefix.$this->table."`";
+			$sql = mysql_query($query) or die($this->error($query));
+			$row=mysql_fetch_array($sql);
+			$h=str_replace("`".$row[0]."`","`##".$this->table."`",$row[1]);
 			
-			$fields = mysql_list_fields($dbname, $dbtablesprefix.$this->table);
-			$h = "CREATE TABLE `##" . $this->table . "` (";
+			if ($auto === false) $h=preg_replace('/AUTO_INCREMENT\=[0-9]* / ','',$h);
 
-			for($i=0; $i<mysql_num_fields($fields); $i++)
-			{
-				$name = mysql_field_name($fields, $i);
-				$flags = mysql_field_flags($fields, $i);
-				$len = mysql_field_len($fields, $i);
-				$type = mysql_field_type($fields, $i);
-				//mysql_field_colllation($fields, $i);
-
-				$h .= "`$name` $type($len) $flags,";
-
-				if(strpos($flags, "primary_key")) {
-					$pkey = " PRIMARY KEY (`$name`)";
-				}
-			}
-
-			$h = substr($h, 0, strlen($d) - 1);
-			$h .= "$pkey) ENGINE=InnoDB  DEFAULT CHARSET=utf8;\n\n";
 			return($h);
 		}
 
-		function get_data($filter='')
+		function get_data($filter='',$afields='*')
 		{
-			global $dbtablesprefix;
-			
-			$d = null;
-			if ($filter) $data = mysql_query("SELECT * FROM `" . $dbtablesprefix.$this->table . "` WHERE ".$filter) or $this->error();
-			else $data = mysql_query("SELECT * FROM `" . $dbtablesprefix.$this->table . "` WHERE 1") or $this->error();
+			global $dbname,$dbtablesprefix;
 
+			if (is_array($afields)) {
+				$a=$this->fields;
+				foreach ($a as $field => $data) {
+					if (!in_array($field,$afields)) {
+						unset($this->fields[$field]);
+					}
+				}
+			}
+
+			$fields='';
+			foreach ($this->fields as $field) {
+				$name = $field['Field'];
+				if ($fields) $fields.=',';
+				$fields .= "`$name`";
+			}
+				
+			$d = null;
+			if ($filter) $sql="SELECT " . $fields . " FROM `" . $dbtablesprefix.$this->table . "` WHERE ".$filter;
+			else $sql = "SELECT " . $fields . " FROM `" . $dbtablesprefix.$this->table . "` WHERE 1";
+			$data = mysql_query($sql) or $this->error();
 			while($cr = mysql_fetch_array($data, MYSQL_NUM))
 			{
-				$d .= "INSERT INTO `##" . $this->table . "` VALUES (";
+				$d .= "INSERT INTO `##" . $this->table . "` (".$fields.") VALUES (";
 
 				for($i=0; $i<sizeof($cr); $i++)
 				{

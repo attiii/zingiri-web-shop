@@ -40,7 +40,7 @@ class dateZfSubElement extends zfSubElement {
 			$this->is_error=true;
 		} else {
 			if ($this->ext!='') {
-				$this->int=date("Ymd",strtotime($this->ext));
+				$this->int=date("Y-m-d",strtotime($this->ext));
 				$this->ext=date("d-m-Y",strtotime($this->ext));
 			} else {
 				$this->int='';
@@ -60,10 +60,11 @@ class dateZfSubElement extends zfSubElement {
 			$e->populated_value['element_'.$e->id.'_'.$i] = $xmlf->fields->{'field'.$i}->default;
 		}
 		if ($e->populated_value['element_'.$e->id.'_'.$i]=='0000-00-00') $e->populated_value['element_'.$e->id.'_'.$i]='';
+		else $e->populated_value['element_'.$e->id.'_'.$i]=date('d-m-Y',strtotime($e->populated_value['element_'.$e->id.'_'.$i]));
 		$field_markup.="<input id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" size=\"{$this->size}\" value=\"{$e->populated_value['element_'.$e->id.'_'.$i]}\" maxlength=\"{$this->maxlength}\" type=\"text\" {$e->readonly}/>";
 		$field_markup.='<script type="text/javascript" language="javascript">';
 		$field_markup.='jQuery(document).ready(function() {';
-	    $field_markup.='jQuery("#'.$element.'").datepicker({disabled:true,dateFormat:\'yy-mm-dd\',buttonImage:\''.ZING_APPS_PLAYER_URL.'images/calendar.gif\',buttonImageOnly:true,showOn:\'button\'});';
+	    $field_markup.='jQuery("#'.$element.'").datepicker({disabled:true,dateFormat:\'dd-mm-yy\',buttonImage:\''.ZING_APPS_PLAYER_URL.'images/calendar.gif\',buttonImageOnly:true,showOn:\'button\'});';
 	    $field_markup.='})';
 		$field_markup.='</script>';
 		$subscript_markup.="<label id=\"label_{$e->id}_{$i}\"for=\"element_{$e->id}_{$i}\">".z_($xmlf->fields->{'field'.$i}->label)."</label>";

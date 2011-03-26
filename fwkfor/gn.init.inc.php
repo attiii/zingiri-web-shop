@@ -30,4 +30,3 @@ if (!defined("FACES_DIR")) {
 	define("FACES_DIR", BASE_URL . ZING_APPS_PLAYER_PLUGIN."/fields/");
 }
 
-define("DB_PREFIX",$dbtablesprefix);
