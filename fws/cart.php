@@ -265,11 +265,12 @@ else {
 		</td>
 		<td nowrap><?php
 		// if the conditions page is disabled, then we might as well skip it ;)
-		if ($conditions_page == 1) { echo "<form method=\"post\" action=\"".zurl("index.php?page=conditions&action=checkout")."\">"; }
-		else { echo "<form method=\"post\" action=\"".zurl("index.php?page=shipping")."\">"; }
-		if ($ordering_enabled == 1) { echo "<input type=\"submit\" value=\"".$txt['cart9']."\">"; }
+		if ($ordering_enabled == 1) { 
+			echo "<form method=\"post\" action=\"".zurl("index.php?page=onecheckout")."\">"; 
+		 	echo "<input type=\"submit\" value=\"".$txt['cart9']."\">"; 
+		 	echo '<form>'; 
+		}
 		?>
-		</form>
 		</td>
 		<?php
 		if ($action=="add") {

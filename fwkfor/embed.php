@@ -21,7 +21,7 @@
  */
 ?>
 <?php
-define("ZING_APPS_PLAYER_VERSION","1.0.3");
+define("ZING_APPS_PLAYER_VERSION","1.0.7");
 
 if (!defined('APHPS_JS')) define('APHPS_JSDIR','min');
 

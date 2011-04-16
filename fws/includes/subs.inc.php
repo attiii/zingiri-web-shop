@@ -703,6 +703,17 @@ if (!function_exists('zurl')) {
 				if (strstr($u,'q=webshop')===false) $url.='q=webshop&';
 				$url.=$u;
 			}
+		} elseif ($_REQUEST['wslive']=='wp') {
+			if (ZING_CMS=='wp') {
+				if (strstr($url,ZING_HOME)===false) {
+					$url=str_replace('index.php',$_REQUEST['wsliveurl'].'/index.php',$url);
+					if (strstr($url,'?')) {
+						$url.='&page_id='.intval($_GET['wslivepage_id']);
+					} else {
+						$url.='?page_id='.intval($_GET['wslivepage_id']);
+					}
+				}
+			}
 		} else {
 			if (ZING_CMS=='wp') {
 				if (wsIsAdminPage() && ($interface!='front')) $url=str_replace('index.php','admin.php',$url);
@@ -875,8 +886,8 @@ if (!function_exists('actionCompleteMessage')) {
 }
 
 function wsExtension($ext) {
-	if (get_option('zing_ws_extension_'.$ext)) return true; 
-	else return false;	
+	if (get_option('zing_ws_extension_'.$ext)) return true;
+	else return false;
 }
 
 

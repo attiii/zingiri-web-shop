@@ -61,14 +61,13 @@ $alink=new zfLink($zflist->id,false,'list','R');
 <div id="<?php echo $formname;?>">
 <div style="float:left;position:relative;padding-left:1%;margin-bottom:10px;">
 <?php if ($alink->canAdd) {
-//echo '<a class="art-button" href="'.zurl('?page='.$page.'&zfaces=form&form='.$formname.'&action=add&zft=list&zfp='.$formid.'&map='.urlencode($mapflat)).'"><img class="zfimg" src="'.ZING_APPS_PLAYER_URL.'images/add.png"></a>';
 echo '<a class="art-button" href="'.zurl('?page='.$page.'&zfaces=form&form='.$formname.'&action=add&zft=list&zfp='.$formid.'&map='.urlencode($mapflat)).'">'.z_('Add').'</a>';
 } 
 echo $topspan;
 ?>
 </div>
 <div style="float:right;position:relative;padding-right:1%;padding-bottom:10px;">
-<?php if (defined("ZING_APPS_BUILDER") && ZingAppsIsAdmin()) {?>
+<?php if (defined("ZING_APPS_BUILDER") && ZING_APPS_BUILDER && ZingAppsIsAdmin()) {?>
 <select id="zfheader">
 	<option value="none" selected="selected">Add column</option>
 	<?php
@@ -78,10 +77,10 @@ echo $topspan;
 	}
 	?>
 </select>
+<?php } ?>
 </div>
 <div style="clear:both;"></div>
-<?php }
-
+<?php 
 if ($zflist)
 {
 

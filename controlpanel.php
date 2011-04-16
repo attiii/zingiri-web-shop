@@ -14,21 +14,21 @@ function zing_set_options() {
 	)
 	);
 
-	if (ZING_CMS=='wp') { 
+	if (ZING_CMS=='wp') {
 		$zing_ws_options[]=	array(	"name" => "User management",
 			"desc" => "Select whether you want to use full integration with Wordpress user management or Zingiri's stand alone user management.",
 			"id" => $zing_ws_shortname."_login",
 			"std" => "WP",
 			"type" => "select",
 			"options" => array("WP","Zingiri"));
-	} elseif (ZING_CMS=='dp') { 
+	} elseif (ZING_CMS=='dp') {
 		$zing_ws_options[]=	array(	"name" => "User management",
 			"desc" => "Select whether you want to use full integration with Drupal user management (not yet implemented) or Zingiri's stand alone user management.",
 			"id" => $zing_ws_shortname."_login",
 			"std" => "Zingiri",
 			"type" => "select",
 			"options" => array("Zingiri"));
-	
+
 	} else {
 		$zing_ws_options[]=	array(	"name" => "User management",
 			"desc" => "Select whether you want to use full integration with Joomla user management (not yet implemented) or Zingiri's stand alone user management.",
@@ -67,11 +67,11 @@ function zing_set_options() {
 			"options" => $install_type);
 }
 function zing_ws_add_admin() {
-	
+
 	global $zing_ws_name, $zing_ws_shortname, $zing_ws_options, $menus, $txt, $wpdb, $zing_version, $integrator;
 	global $dbtablesprefix;
 	if ($zing_version) require(dirname(__FILE__).'/startmodules.inc.php');
-	
+
 	zing_set_options();
 	if ((ZING_CMS=='dp' && strstr($_GET['q'],'admin/webshop')) || (ZING_CMS=='wp' && $_GET['page']=='zingiri-web-shop') || (ZING_CMS=='jl' && $_REQUEST['option'] == "com_zingiriwebshop") ) {
 		if( isset($_REQUEST['sync']) ) {
@@ -96,7 +96,7 @@ function zing_ws_add_admin() {
 			$integrator->sync();
 
 			if (ZING_CMS=="dp") { menu_router_build(TRUE); menu_cache_clear_all(); }
-						
+
 			if (ZING_CMS=='wp') header("Location: admin.php?page=zingiri-web-shop&installed=true");
 			elseif (ZING_CMS=='jl') header("Location: index.php?option=com_zingiriwebshop&installed=true");
 			elseif (ZING_CMS=='dp') header("Location: index.php?q=admin/webshop/integration&installed=true");
@@ -110,7 +110,7 @@ function zing_ws_add_admin() {
 			}
 
 			if (ZING_CMS=="dp") { $zing_version=''; menu_router_build(TRUE); menu_cache_clear_all(); }
-						
+
 			if (ZING_CMS=='wp') header("Location: admin.php?page=zingiri-web-shop&uninstalled=true");
 			elseif (ZING_CMS=='jl') header("Location: index.php?option=com_zingiriwebshop&uninstalled=true");
 			elseif (ZING_CMS=='dp') header("Location: index.php?q=admin/webshop/integration&uninstalled=true");
@@ -130,7 +130,7 @@ function zing_ws_add_admin() {
 function zing_ws_settings() {
 	global $menus,$txt,$wpdb,$dbtablesprefix,$action;
 
-//	if ($action=='app_head') $action='';
+	//	if ($action=='app_head') $action='';
 	zing_header();
 	zing_apps_player_header_cp();
 
@@ -155,32 +155,35 @@ function zing_ws_settings() {
 		require(dirname(__FILE__).'/fws/includes/pages.inc.php');
 		echo '<h1>'.$txt[$wsPages[$page]].'</h1>';
 	}
-	
+
 	zing_main('content');
 	if ((isset($menus[$page]['type']) && $menus[$page]['type']=="apps") || ZING_CMS!='wp') {
 		//echo '<link rel="stylesheet" type="text/css" href="'.ZING_APPS_PLAYER_URL.'css/apps_wp_admin.css" />';
 		zing_apps_player_content('content');
 	}
 	echo '</div>';
+
+	echo '<div style="width:20%;float:right;position:relative">';
 	
 	//share and donate
-	echo '<div style="width:20%;float:right;position:relative">';
-	echo '<div class="updated" style="">';
-	echo '<h3>Support Us</h3>';
-	echo '<p>If you like this plugin, please share it with your friends and help us out with a small token of appreciation</p>';
-	echo '<form style="margin-bottom:15px;text-align:center;" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+	if (!defined('WP_ZINGIRI_LIVE')) {
+		echo '<div class="updated" style="">';
+		echo '<h3>Support Us</h3>';
+		echo '<p>If you like this plugin, please share it with your friends and help us out with a small token of appreciation</p>';
+		echo '<form style="margin-bottom:15px;text-align:center;" action="https://www.paypal.com/cgi-bin/webscr" method="post">
 		  <input type="hidden" name="cmd" value="_s-xclick">
 		  <input type="hidden" name="hosted_button_id" value="ZK6CCBG2TPTXQ">
 		  <input align="middle" type="image" src="https://www.paypal.com/en_GB/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online.">
 		  <img alt="" border="0" src="https://www.paypal.com/en_GB/i/scr/pixel.gif" width="1" height="1">
 		  </form>';
-	echo '<div style="align:center;margin-bottom:15px;text-align:center">';
-	echo '<a style="margin-bottom:15px;" href="http://www.twitter.com/zingiri"><img align="middle" src="http://twitter-badges.s3.amazonaws.com/follow_us-a.png" alt="Follow Zingiri on Twitter"/></a>';
-	echo '</div>';
-	echo '<div style="margin-bottom:15px;text-align:center">';
-	echo '<fb:share-button href="http://www.zingiri.com" type="button" >';
-	echo '</div>';
-	echo '</div>';
+		echo '<div style="align:center;margin-bottom:15px;text-align:center">';
+		echo '<a style="margin-bottom:15px;" href="http://www.twitter.com/zingiri"><img align="middle" src="http://twitter-badges.s3.amazonaws.com/follow_us-a.png" alt="Follow Zingiri on Twitter"/></a>';
+		echo '</div>';
+		echo '<div style="margin-bottom:15px;text-align:center">';
+		echo '<fb:share-button href="http://www.zingiri.com" type="button" >';
+		echo '</div>';
+		echo '</div>';
+	}
 
 	//news
 	echo '<div class="updated" style="">';
@@ -189,7 +192,7 @@ function zing_ws_settings() {
 	$query="SELECT count(*) as oc FROM ".$dbtablesprefix."order";
 	$sql = mysql_query($query) or die(mysql_error());
 	$row = mysql_fetch_array($sql);
-	
+
 	require(dirname(__FILE__).'/fws/includes/httpclass.inc.php');
 	$news = new wsNewsRequest('http://www.zingiri.com/news.php?e='.urlencode(isset($current_user->user_email) ? $current_user->user_email : $sales_mail).'&w='.urlencode(ZING_HOME).'&a='.get_option("zing_ws_install").'&v='.urlencode(ZING_VERSION).'&oc='.(string)$row['oc']);
 	if ($news->live() && !$_SESSION['zing_session']['news']) {
@@ -243,8 +246,7 @@ function zing_ws_admin() {
 	//elseif (!$zing_errors && !$zing_warnings)	echo 'Your version is up to date!';
 
 	?>
-<form method="post">
-<?php if (ZING_CMS=='jl') echo '<input type="hidden" name="option" value="com_zingiriwebshop" />';?>
+<form method="post"><?php if (ZING_CMS=='jl') echo '<input type="hidden" name="option" value="com_zingiriwebshop" />';?>
 <table class="optiontable">
 
 <?php if ($zing_ws_options) foreach ($zing_ws_options as $value) {
@@ -350,16 +352,16 @@ are given the Web Shop administrator rights.
 <?php if (wsVersion() && !$integrator->wpAdmin) { ?>
 <hr />
 <p>Please note that you have selected to use the user administration in the Zingiri Webshop.<br />
-If you wish you can use your own CMS user administration instead by selecting the appropriate
-option above.<br />
+If you wish you can use your own CMS user administration instead by selecting the appropriate option
+above.<br />
 <br />
-If it's your first time logging in, you can use user <strong>admin</strong> with password <strong>admin_1234</strong> to login to the web shop.</p>
+If it's your first time logging in, you can use user <strong>admin</strong> with password <strong>admin_1234</strong>
+to login to the web shop.</p>
 <?php if (ZING_CMS=="wp") {?>
 <form method="post" action="<?php echo get_option("home");?>/index.php?page=admin">
 <p class="submit"><input name="admin" type="submit" value="Admin" /></p>
 </form>
-<?php }?>
-<?php } if ($zing_version) {?>
+<?php }?> <?php } if ($zing_version) {?>
 <hr />
 <form method="post">
 <p class="submit"><input name="uninstall" type="submit" value="Uninstall" /> <input type="hidden"

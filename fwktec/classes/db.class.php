@@ -77,7 +77,11 @@ if (!class_exists('db')) {
 		function update($query) {
 			global $dbtablesprefix;
 			$query=str_replace("##",$dbtablesprefix,$query);
-			$sql = mysql_query($query) or die($this->error($query));
+			if ($sql = mysql_query($query)) {
+	//			if (function_exists('zfDumpQuery')) zfDumpQuery($table,$query);
+			} else {
+				die($this->error($query));
+			}
 			return $sql;
 		}
 
@@ -156,8 +160,13 @@ if (!class_exists('db')) {
 
 
 			//zing_ws_error_handler(0,$query);
-
-			$sql_update = mysql_query($query) or die($this->error($query));
+			
+			if ($sql_update = mysql_query($query)) {
+				if (function_exists('zfDumpQuery')) zfDumpQuery($query,$table);
+			} else {
+				die($this->error($query));
+			}
+							
 		}
 
 		function insertRecord($table,$keys="",$row,$action="")
@@ -317,6 +326,7 @@ if (!class_exists('db')) {
 			
 			if ($auto === false) $h=preg_replace('/AUTO_INCREMENT\=[0-9]* / ','',$h);
 
+			$h=$h.';';
 			return($h);
 		}
 
@@ -353,7 +363,7 @@ if (!class_exists('db')) {
 					if($cr[$i] == '') {
 						$d .= 'NULL,';
 					} else {
-						$d .= "'$cr[$i]',";
+						$d .= '"'.mysql_real_escape_string($cr[$i]).'",';
 					}
 				}
 

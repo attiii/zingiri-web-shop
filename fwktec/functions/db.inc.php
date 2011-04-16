@@ -75,7 +75,6 @@ function UpdateRecord($table,$keys,$row,$action="")
 		$first=FALSE;
 		$query.= "`".$keyfield."`=".qs($keyval);
 	}
-
 	if (function_exists('zfDumpQuery')) zfDumpQuery($query,$table);
 	
 	$sql_update = mysql_query($query) or die(dbError(1,$query,"substax.inc.php",$action));

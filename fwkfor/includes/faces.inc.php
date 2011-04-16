@@ -190,23 +190,27 @@ function zf_json_encode($a) {
 }
 
 function zfDumpQuery($query,$table="") {
-	$include=array("frole","faccess","flink");
-	if (!defined("ZING_APPS_BUILDER")) return true;
+	
+	$include=array("frole","faccess","flink","menugroup","menucategory");
+	if (!defined("ZING_APPS_BUILDER") || !ZING_APPS_BUILDER) return true;
 	if (!empty($table) && !in_array($table,$include)) return true;
 	$query=str_replace(DB_PREFIX,"##",$query);
-	if (defined("ZING_APPS_CUSTOM")) $dir=ZING_APPS_CUSTOM.'../tmp/';
+	if (defined("ZING_APPS_CUSTOM")) $dir=ZING_APPS_CUSTOM.'../db/';
 	else $dir=ZING_APPS_PLAYER_DIR.'db/';
-	$file=$dir."apps.db.sql";
-	if ($handle = fopen($file, "a")) {
+	$file="dbc";
+	if (defined("VERSION")) $file.='-'.VERSION;
+	$file.=".sql";
+	/*
+	if ($handle = fopen($dir.$file, "a")) {
 		if (!fwrite($handle, $query.";\r\n"))
 		{
 			return false;
 		}
 		fclose($handle);
 	}
-
+*/
 	if (defined("APHPS_DATADUMP_DIR")) {
-		if ($handle = fopen (APHPS_DATADUMP_DIR.'/apps.db.sql', "a")) {
+		if ($handle = fopen (APHPS_DATADUMP_DIR."/$file", "a")) {
 			if (fwrite($handle, $query.";\r\n")) fclose($handle);
 		}
 	}
@@ -271,7 +275,7 @@ if (!function_exists('actionCompleteMessage')) {
 		$msg='';
 		if ($_REQUEST['zmsg']) {
 			$title=$txt['general13'];
-			$message=$txt['adminedit2'];
+			$message=z_('Changes are saved');
 			$picture="notify.gif";
 			$msg ="<table width=\"".$width."%\" class=\"datatable\">";
 			$msg.="<tr><td><img src=\"".$gfx_dir."/".$picture."\" alt=\"".$picture."\" height=\"24px\">";

@@ -8,7 +8,6 @@ function is_admin() {
 
 if (!function_exists("ZingAppsIsAdmin")) {
 	function ZingAppsIsAdmin() {
-		if (function_exists('current_user_can') && current_user_can('manage_options')) return true;
 		if (function_exists("IsAdmin")) { return IsAdmin(); }
 		return false;
 	}

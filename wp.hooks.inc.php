@@ -142,6 +142,13 @@ function zing_ws_install_default_pages($zing_version) {
 	add_post_meta($id,'zing_page','customer');
 	add_post_meta($id,'zing_action','add');
 
+	//Update checkout page
+	$ids=get_option("zing_webshop_pages");
+	$ida=explode(",",$ids);
+	$id=$ida[2];
+	delete_post_meta($id,'zing_page');
+	add_post_meta($id,'zing_page','onecheckout');
+	
 	//default Apps page
 	$ps=explode(",",get_option("zing_webshop_pages"));
 	update_option("zing_apps_player_page",$ps[0]);
@@ -153,6 +160,8 @@ function zing_ws_install_default_pages($zing_version) {
  */
 function zing_activate() {
 	//nothing happening here
+	//if (defined('WP_ZINGIRI_LIVE')) 
+	//zing_install();
 }
 
 /**
@@ -241,13 +250,16 @@ function zing_init()
 	global $zing_page_id_to_page, $zing_page_to_page_id, $wpdb;
 	global $name;
 	global $customerid;
-
+	
 	if (!isset($_REQUEST['wslive'])) {
+		define("ZING_LIVE",false);
 		session_start();
 		wp_enqueue_script('jquery');
 		ob_start();
 		$bail_out = ( ( defined( 'WP_ADMIN' ) && WP_ADMIN == true ) || ( strpos( $_SERVER[ 'PHP_SELF' ], 'wp-admin' ) !== false ) );
 		if ( $bail_out ) { return $pages; }
+	} else {
+		define("ZING_LIVE",true);
 	}
 
 	$zing_page_id_to_page=array();
@@ -281,14 +293,14 @@ function zing_init()
 			$zing_page_to_page_id[$page]['*']=$i;
 		}
 	}
-
-	if ($_POST['page']=="login")
+	
+	if (!ZING_LIVE && $_POST['page']=="login")
 	{
 		include (ZING_LOC."./startmodules.inc.php");
 		require(ZING_DIR."login.php");
 		exit;
 	}
-	if ((!empty($_GET['page_id'])) && ($_GET['page_id']==zing_page_id("logout")) || (!empty($_GET['page']) && $_GET['page']=="logout"))
+	if (!ZING_LIVE && (!empty($_GET['page_id'])) && ($_GET['page_id']==zing_page_id("logout")))
 	{
 		include (ZING_LOC."./startmodules.inc.php");
 		require(ZING_DIR."logout.php");
@@ -309,7 +321,7 @@ function zing_init()
 		$_GET['kat']=$_GET['cat'];
 		unset($_GET['cat']);
 	}
-
+	
 }
 
 /**

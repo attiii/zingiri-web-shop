@@ -36,7 +36,10 @@ function zing_admin_notices() {
 	$zing_version=get_option("zing_webshop_version");
 	$zing_version_pro=get_option("zing_ws_pro_version");
 
-	if (!$zing_version) {
+	if (defined('WP_ZINGIRI_LIVE') && $zing_version != ZING_VERSION && get_current_blog_id() != 1) {
+		zing_install();
+		$message='Zingiri Web Shop has been installed! Click <a href="'.get_option('home').'">here</a> to continue ...';
+	} elseif (!$zing_version) {
 		if ($_GET['page']!='zingiri-web-shop' && ZING_CMS=="wp")
 		$message='Zingiri Web Shop is almost ready. You need to launch the <a href="admin.php?page=zingiri-web-shop">installation</a> from the integration page.';
 		else
@@ -451,7 +454,7 @@ function zing_main($process,$content="") {
 		require (ZING_DIR."./includes/readvals.inc.php");        // get and post values
 	}
 
-	if ($to_include=="loadmain.php" && ($page=='logout' || ($page=='login' && !$_GET['lostlogin']))) {
+	if (!ZING_LIVE && $to_include=="loadmain.php" && ($page=='logout' || ($page=='login' && !$_GET['lostlogin']))) {
 		//stop logging
 		restore_error_handler();
 		error_reporting($wsper);

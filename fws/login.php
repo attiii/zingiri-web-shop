@@ -1,27 +1,4 @@
 <?php
-/*  login.php
- Copyright 2006, 2007, 2008 Elmar Wenners
- Support site: http://www.chaozz.nl
-
- This file is part of FreeWebshop.org.
-
- FreeWebshop.org is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
-
- FreeWebshop.org is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with FreeWebshop.org; if not, write to the Free Software
- Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-
- */
-?>
-<?php
 $lostlogin = 0;
 if (!empty($_GET['lostlogin'])) {
 	$lostlogin=$_GET['lostlogin'];
@@ -36,6 +13,7 @@ if ($email == "") { $email = "--"; }
 if ($lostlogin == 0) {
 
 	if ($_POST['loginname'] == NULL) {
+		if (!ZING_LIVE) {
 		?>
 <html>
 <head>
@@ -54,6 +32,13 @@ if ($lostlogin == 0) {
 </html>
 		<?php
 		exit;
+		} else {
+			//header('Location:index.php?'.$pagetoload);
+			echo $txt['login1'];
+			global $saasRet;
+			$saasRet['status']='loginfailed';
+			$saasRet['redirect']=$_REQUEST['pagetoload'];
+		}
 	}
 	$post_name = $_POST['loginname'];
 	$post_pass = $_POST['pass'];
@@ -68,7 +53,7 @@ if ($lostlogin == 0) {
 		$pass = $row[2];
 		$group = $row[13];
 	}
-
+	
 	if ($count == 1) // one customer found, ok
 	{
 		// if a cookie already exists, then the user was logged in as a guest. so let's check if he has stuff in his cart
@@ -96,7 +81,6 @@ if ($lostlogin == 0) {
 		$query = sprintf("INSERT INTO ".$dbtablesprefix."accesslog (login, time, succeeded) VALUES(%s, '".date("F j, Y, g:i a")."', '1')", quote_smart($_POST['loginname']));
 		$sql = mysql_query($query) or die(mysql_error());
 			
-
 		if(setcookie ("fws_cust",$cookie_data, 0, '/')==TRUE) //time()+3600
 		{
 			if (!empty($_POST['pagetoload'])) {
@@ -107,16 +91,27 @@ if ($lostlogin == 0) {
 			}
 			else { $pagetoload = "page=my"; }
 
-			header('Location:index.php?'.$pagetoload);
-			die();
+			if (!ZING_LIVE) {
+				header('Location:index.php?'.$pagetoload);
+				die();
+			} else {
+				echo $txt['login3'];
+				global $saasRet;
+				$saasRet['status']='loginsuccess';
+				$saasRet['redirect']=$pagetoload;
+			}
 		}
 	}
 	else
 	{
 		$query = sprintf("INSERT INTO ".$dbtablesprefix."accesslog (login, time, succeeded) VALUES(%s, '".date("F j, Y, g:i a")."', '0')", quote_smart($_POST['loginname']));
 		$sql = mysql_query($query) or die(mysql_error());
-		if (isset($_REQUEST['wslive'])) {
-			header('Location:'.zurl('index.php?page=my'));
+		if (ZING_LIVE) {
+				echo $txt['login1'];
+				global $saasRet;
+				$saasRet['status']='loginfailed';
+				$saasRet['redirect']=$pagetoload;
+			//header('Location:'.zurl('index.php?page=my'));
 			//echo $txt['login1'].'<a href="index.php?page=my">'.$txt['login2'].'</a>';
 		} else {
 		?>
