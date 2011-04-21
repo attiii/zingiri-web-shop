@@ -1,1 +1,0 @@
-appsSortList={container:null,id:null,init:function(a){elts=$$(".sortlist");elts.each(function(b){this.id=b.id;this.container=$(b);that=this;Sortable.create(this.container,{tag:"tr",onChange:function(){new Ajax.Request(a,{method:"post",parameters:{abspath:wpabspath,cms:wsCms,sortorder:Sortable.serialize(that.container)},onComplete:function(c){}.bind(this)})}})})}};

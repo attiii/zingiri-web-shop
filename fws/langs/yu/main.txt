@@ -1,9 +1,0 @@
-Dobrodosli na demo shop od FreeWebshop.org. 
-Besplatan shopping cart script, pisan u PHP / MySQL. Ovaj program je u osnovi Engleski (English), 
-ali podrzava mnoge jezike kao sto je Holandski (Dutch). The advantages of 
-FreeWebshop.org: <ul><li><strong>Jednostavna</strong> instalacija </li><li><strong>Laka</strong> 
-konfiguracija </li><li>Mnogo <strong>korisnih novosti</strong> koje pojednostavljuju vas 
-rad </li><li><strong>Kompletan</strong> modul za menadzment narudzbina i korisnika 
-</li><li><strong>Besplatna</strong> podrska  i update-ovi </li><li>Podrzava 
-payment portale kao sto su <strong>Paywalker i iDEAL</strong> 
-<img src="gfx/businessman.gif" alt="" width="187" height="275" align="right" />(dodajte svoj!) </li></ul>

@@ -1,1 +1,0 @@
-UPDATE `settings` SET `default_lang` = 'en' ;
