@@ -22,7 +22,8 @@ The main feaures are:
 * Support for payment portals like Paypal, Worldpay, Google Checkout and iDEAL and possibility to add your own
 * Multilingual support: English, Dutch, French, German, Spanish, ... 
 * Easily migrate your current web shop by uploading your products via an XML file
-* Free support and updates
+* Easy support and updates
+
 
 == Installation ==
 
