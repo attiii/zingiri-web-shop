@@ -309,7 +309,10 @@ if (!class_exists('db')) {
 				if ($t['data']) {
 					$data = $this->get_data($t['filter'],$t['fields']);
 					$this->exported .= "--\n-- Dumping data for table {$this->table}\n--\n\n" . $data . "\n\n";
-				}
+				} elseif ($t['data_flat']) {
+					$data = $this->get_data_flat($t['filter'],$t['fields']);
+					$this->exported .= "--\n-- Dumping data for table {$this->table}\n--\n\n" . $data . "\n\n";
+				} 
 			}
 
 			return($this->exported);
@@ -369,6 +372,41 @@ if (!class_exists('db')) {
 
 				$d = substr($d, 0, strlen($d) - 1);
 				$d .= ");\n";
+			}
+
+			return($d);
+		}
+
+		function get_data_flat($filter='',$afields='*')
+		{
+			global $dbname,$dbtablesprefix;
+
+			if (is_array($afields)) {
+				$a=$this->fields;
+				foreach ($a as $field => $data) {
+					if (!in_array($field,$afields)) {
+						unset($this->fields[$field]);
+					}
+				}
+			}
+
+			$fields='';
+			foreach ($this->fields as $field) {
+				$name = $field['Field'];
+				if ($fields) $fields.=',';
+				$fields .= "`$name`";
+			}
+				
+			$d = '';
+			if ($filter) $sql="SELECT " . $fields . " FROM `" . $dbtablesprefix.$this->table . "` WHERE ".$filter;
+			else $sql = "SELECT " . $fields . " FROM `" . $dbtablesprefix.$this->table . "` WHERE 1";
+			$data = mysql_query($sql) or $this->error();
+			while($cr = mysql_fetch_array($data, MYSQL_ASSOC))
+			{
+				$cr['TABLE']=$this->table;
+				$d .= '++';
+				$d .= serialize($cr);
+				$d .= "++\n";
 			}
 
 			return($d);

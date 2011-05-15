@@ -1,24 +1,4 @@
 <?php
-/*
-function wsCurrentCmsUserIsShopAdmin() {
-	if (current_user_can('administer_web_shop')) return true;
-	else return false;
-}
-
-function wsIsAdminPage() {
-	return is_admin();
-}
-*/
-//require(dirname(__FILE__).'/fws/globals.php');
-global $zing_version;
-
-/*
-$dbtablesprefix = $wpdb->prefix."zing_";
-$dblocation = DB_HOST;
-$dbname = DB_NAME;
-$dbuser = DB_USER;
-$dbpass = DB_PASSWORD;
-*/
 // Pre-2.6 compatibility for wp-content folder location
 if (!defined("WP_CONTENT_URL")) {
 	define("WP_CONTENT_URL", get_option("siteurl") . "/wp-content");

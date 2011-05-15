@@ -170,9 +170,11 @@ if (!class_exists('HTTPRequest')) {
 
 			$data = curl_exec($ch); // run the whole process
 			if (curl_errno($ch)) {
-				$this->errno=curl_errno($ch);
-				$this->error=curl_error($ch);
-				echo $this->errno.'-'.$this->error;
+				$errno=curl_errno($ch);
+				$error=curl_error($ch);
+				if ($errno == 22 && strstr($error,'410')) $this->error='suspended';
+				else $this->error='unknown error:'.$errno.'-'.$error;
+				return;
 			}
 			$info=curl_getinfo($ch);
 				

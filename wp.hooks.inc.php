@@ -1,24 +1,24 @@
 <?php
-if (get_option('zing_webshop_version')) {
+if (get_option("zing_ws_baseurl") && get_option("zing_ws_accname")) {
 	add_action("init","zing_init");
 	//		add_filter('wp_footer','zing_footer');
 	add_filter('get_pages','zing_exclude_pages');
 	//add_action("plugins_loaded", "zing_sidebar_init");
 	add_filter('the_content', 'zing_content', 10, 3);
 	add_action('wp_head','zing_header');
-	//		add_action('wp_head','zing_ws_header_custom',100);
-			add_filter('wp_title','zing_ws_title');
-			add_filter('the_title','zing_ws_page_title',10,2);
+	add_action('wp_head','zing_ws_header_custom',100);
+	add_filter('wp_title','zing_ws_title');
+	add_filter('the_title','zing_ws_page_title',10,2);
 	/*
-	if ($integrator->wpCustomer) {
-	add_action('wp_login','zing_login');
-	add_action('wp_logout','zing_logout');
-	add_filter('check_password','zing_check_password',10,4);
-	add_action('profile_update','zing_profile'); //post wp update
-	add_action('user_register','zing_profile'); //post wp update
-	add_action('delete_user','zing_delete_user');
-	}
-	*/
+	 if ($integrator->wpCustomer) {
+	 add_action('wp_login','zing_login');
+	 add_action('wp_logout','zing_logout');
+	 add_filter('check_password','zing_check_password',10,4);
+	 add_action('profile_update','zing_profile'); //post wp update
+	 add_action('user_register','zing_profile'); //post wp update
+	 add_action('delete_user','zing_delete_user');
+	 }
+	 */
 }
 //	add_action("init","zing_init_uninstall");
 //	add_action('admin_notices','zing_admin_notices');
@@ -26,12 +26,12 @@ add_action('admin_menu', 'zing_ws_add_admin');
 
 function zing_ws_add_admin() {
 
-	global $zing_ws_name, $zing_ws_shortname, $zing_ws_options, $menus, $txt, $wpdb, $zing_version, $integrator;
+	global $zing_ws_name, $zing_ws_shortname, $zing_ws_options, $menus, $txt, $wpdb, $integrator;
 	global $dbtablesprefix;
 
 
 	zing_set_options();
-	if (strstr($_GET['page'],'zing-ws-admin')) {
+	if (strstr($_GET['page'],'zingiri-web-shop')) {
 
 		if ( 'install' == $_REQUEST['action'] ) {
 			update_option('zing_ws_installed',1);
@@ -44,29 +44,34 @@ function zing_ws_add_admin() {
 					update_option( $value['id'], $_REQUEST[ $value['id'] ]  );
 				} else { delete_option( $value['id'] ); }
 			}
-			
+				
 			zing_ws_install();
-			
-			header("Location: "."options-general.php?page=zing-ws-admin&installed=true");
+				
+			header("Location: "."options-general.php?page=zingiri-web-shop&installed=true");
 			die;
 		}
 	}
-	add_options_page('Web shop live', 'Web shop live', 'administrator', 'zing-ws-admin','zing_ws_admin');
+	//add_options_page('Web shop live', 'Web shop live', 'administrator', 'zing-ws-admin','zing_ws_admin');
+	add_menu_page($zing_ws_name, 'Web Shop', 'administrator', 'zingiri-web-shop','zing_ws_admin',ZING_URL.'images/menu_webshop.png');
+	add_submenu_page('zingiri-web-shop', $zing_ws_name.'- Configuration', 'Configuration', 'administrator', 'zingiri-web-shop', 'zing_ws_admin');
+	//add_submenu_page('zingiri-web-shop', $zing_ws_name.'- Export', 'Export', 'administrator', 'zingiri-ws-export', 'zing_ws_export');
+
 }
-function zing_content() {
-	global $remoteMsg;
+function zing_content($content) {
+	global $remoteMsg,$showPage;
 
 	//print_r($remoteMsg['seo']);
-	echo $remoteMsg['main'];
 	if ($remoteMsg['status'] == 'loginfailed') {
 		echo '<a href="'.get_option('home').'/?'.$remoteMsg['redirect'].'">'.'Back'.'</a>';
 	} elseif ($remoteMsg['status'] == 'loginsuccess') {
 		echo '<a href="'.get_option('home').'/?'.$remoteMsg['redirect'].'">'.'Success'.'</a>';
 		header('Location: '.get_option('home').'/?'.$remoteMsg['redirect']);
+		die();
 	} elseif ($remoteMsg['status'] == 'logoutsuccess') {
 		echo '<a href="'.get_option('home').'/?'.$remoteMsg['redirect'].'">'.'Success'.'</a>';
 		header('Location:'.get_option('home'));
-	}
+	} elseif ($showPage) return $remoteMsg['main'];
+	else return $content;
 	//print_r($remoteMsg['widgets']);
 	/*
 	foreach ($remoteMsg as $a => $b) {
@@ -89,18 +94,12 @@ function zing_ws_install_roles() {
 	$current_user->add_role('administer_web_shop');
 }
 
-function zing_init_uninstall() {
-	if (current_user_can('edit_plugins') && $_GET['zingiri']=='uninstall') {
-		zing_uninstall();
-		zing_apps_player_uninstall();
-		header("Location: options-general.php?page=zingiri-web-shop&uninstalled=true");
-	}
-}
-
 function zing_ws_install() {
-	$zing_version=get_option("zing_webshop_version");
-
-	if (!$zing_version) {
+	if (get_option("zing_webshop_version")) {
+		wp_clear_scheduled_hook('zing_ws_cron_hook');
+	}
+	
+	if (!get_option("zing_webshop_pages")) {
 		$pages=array();
 		$pages[]=array("Shop","main","*",0);
 		$pages[]=array("Cart","cart","",0);
@@ -128,17 +127,11 @@ function zing_ws_install() {
 			if (!empty($p[2])) add_post_meta($id,'zing_action',$p[2]);
 			if (!empty($p[3])) add_post_meta($id,'zing_security',$p[3]);
 		}
-		if (get_option("zing_webshop_pages"))
-		{
-			update_option("zing_webshop_pages",$ids);
-		}
-		else {
-			add_option("zing_webshop_pages",$ids);
-		}
+		update_option("zing_webshop_pages",$ids);
 	}
 	mkdir(get_option('zing_ws_cache'));
-	update_option("zing_webshop_version",ZING_VERSION);
-
+	update_option("zing_webshop_live_version",ZING_VERSION);
+	
 }
 
 /**
@@ -161,9 +154,7 @@ function zing_deactivate() {
 	foreach ($zing_ws_options as $value) {
 		delete_option( $value['id'] );
 	}
-	delete_option("zing_webshop_version");
-
-	//wp_clear_scheduled_hook('zing_ws_cron_hook');
+	delete_option("zing_webshop_live_version");
 }
 
 function zing_ws_uninstall_delete_pages() {
@@ -192,7 +183,7 @@ function zing_header()
 
 	if (isset($remoteMsg['seo']['description'])) $ret.=sprintf("<meta name=\"description\" content=\"%s\" />", $remoteMsg['seo']['description']);
 	if (isset($remoteMsg['seo']['keywords'])) $ret.=sprintf("<meta name=\"keywords\" content=\"%s\" />", $remoteMsg['seo']['keywords']);
-	
+
 	if (count($remoteMsg['vars'])>0) {
 		foreach ($remoteMsg['vars'] as $v => $c) {
 			if ($v == 'wsURL') $x=get_option('home').'/index.php?page=ajax&wscr=';
@@ -254,7 +245,7 @@ function zing_init()
 	wp_enqueue_script('jquery');
 
 	//get pages
-	/*
+
 	$zing_page_id_to_page=array();
 	$zing_page_to_page_id=array();
 
@@ -263,30 +254,30 @@ function zing_init()
 
 	foreach ($a as $i => $o )
 	{
-	if (!isset($zing_page_id_to_page[$o->post_id])) $zing_page_id_to_page[$o->post_id][0]=$o->meta_value;
+		if (!isset($zing_page_id_to_page[$o->post_id])) $zing_page_id_to_page[$o->post_id][0]=$o->meta_value;
 	}
 	$sql = "SELECT post_id,meta_value FROM $wpdb->postmeta WHERE meta_key = 'zing_action'";
 	$a = $wpdb->get_results( $sql );
 	foreach ($a as $i => $o )
 	{
-	if (!isset($zing_page_id_to_page[$o->post_id][1])) $zing_page_id_to_page[$o->post_id][1]=$o->meta_value;
+		if (!isset($zing_page_id_to_page[$o->post_id][1])) $zing_page_id_to_page[$o->post_id][1]=$o->meta_value;
 	}
 
 	$zing_page_to_page_id=array();
 	foreach ($zing_page_id_to_page as $i => $a)
 	{
-	$page=$a[0];
-	$action=$a[1];
-	if (isset($a[0]) && isset($a[1]))
-	{
-	$zing_page_to_page_id[$page][$action]=$i;
+		$page=$a[0];
+		$action=$a[1];
+		if (isset($a[0]) && isset($a[1]))
+		{
+			$zing_page_to_page_id[$page][$action]=$i;
+		}
+		if (isset($a[0]) && !isset($a[1]))
+		{
+			$zing_page_to_page_id[$page]['*']=$i;
+		}
 	}
-	if (isset($a[0]) && !isset($a[1]))
-	{
-	$zing_page_to_page_id[$page]['*']=$i;
-	}
-	}
-	*/
+
 	//end get pages
 
 	/*
@@ -459,13 +450,13 @@ function zing_ws_page_title($pageTitle,$id=0) {
 	global $remoteMsg;
 
 	if (!in_the_loop()) return $pageTitle;
-	
+
 	if ($remoteMsg['title']) return ($remoteMsg['title']);
 	else return $pageTitle;
 
-	
+
 	//if (!zing_ws_is_shop_page($post->ID) || $id==0 || ($id != $post->ID)) return $pageTitle;
-	
+
 }
 
 function zing_login($loginname) {
@@ -609,7 +600,8 @@ function zing_ws_widget($args, $i) {
 	global $remoteMsg;
 	extract( $args );
 	echo $before_widget;
-	echo $remoteMsg['widgets'][$i]['content'];
+	if ($remoteMsg['status']=='maintenance') echo $remoteMsg['main'];
+	else echo $remoteMsg['widgets'][$i]['content'];
 	echo $after_widget;
 }
 

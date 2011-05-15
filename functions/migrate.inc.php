@@ -14,7 +14,7 @@ class Zipper extends ZipArchive {
 				$this->zipFilesCounter++;
 				$this->addFile($node,str_replace(ZING_UPLOADS_DIR,'',$node));
 			}
-			if ($this->zipFilesCounter % 10 == 0) {
+			if ($this->zipFilesCounter % 500 == 0) {
 				$this->close();
 				$this->open(ZING_UPLOADS_DIR.'migrate'.$this->zipFilesCounter.'.zip',ZIPARCHIVE::OVERWRITE);
 				//echo '<br />create new dir:'.ZING_UPLOADS_DIR.'migrate'.$this->zipFiles.'.zip';
@@ -31,7 +31,15 @@ function zing_ws_migrate() {
 	$files=array();
 	$success=true;
 
+	update_option('zing_ws_dumpfile',md5(time().get_option('home')));
+	
 	if (($error=$zip->open(ZING_UPLOADS_DIR.'migrate.zip',ZIPARCHIVE::OVERWRITE)) === TRUE) {
+		$zip->addDir(ZING_UPLOADS_DIR.'cats');
+		$zip->addDir(ZING_UPLOADS_DIR.'orders');
+		$zip->addDir(ZING_UPLOADS_DIR.'prodgfx');
+		$zip->addDir(ZING_UPLOADS_DIR.'digital-'.get_option('zing_webshop_dig'));
+
+		/*
 		if ($handle = opendir(ZING_UPLOADS_DIR)) {
 			while (false !== ($file = readdir($handle))) {
 				$dir=ZING_UPLOADS_DIR.$file;
@@ -40,7 +48,15 @@ function zing_ws_migrate() {
 				}
 			}
 		}
+		*/
 		$zip->addFromString('db.sql',zing_ws_database_dump());
+		
+		$params=array();
+		$params['digital']=get_option('zing_webshop_dig');
+		$params['version']=get_option('zing_webshop_version');
+		$params['apps_version']=get_option('zing_apps_player_version');
+		
+		$zip->addFromString('config.ini',json_encode($params));
 		
 		$zip->close();
 	} else {
@@ -48,7 +64,7 @@ function zing_ws_migrate() {
 		echo '<br />Failed zip file creation of migrate.zip with error '.$error;
 	}
 
-	if (($error=$zip->open(ZING_UPLOADS_DIR.'zingiri-web-shop.zip',ZIPARCHIVE::OVERWRITE)) === TRUE) {
+	if (($error=$zip->open(ZING_UPLOADS_DIR.get_option('zing_ws_dumpfile').'.zip',ZIPARCHIVE::OVERWRITE)) === TRUE) {
 		if ($handle = opendir(ZING_UPLOADS_DIR)) {
 			while (false !== ($file = readdir($handle))) {
 				$dir=ZING_UPLOADS_DIR.$file;
@@ -81,34 +97,34 @@ function zing_ws_database_dump() {
 	$tables[]=array('name' => 'errorlog', 'definition' => true, 'data' => false, 'auto' => false);
 
 	//definitions and data
-	$tables[]=array('name' => 'address', 'definition' => true, 'data' => true);
-	$tables[]=array('name' => 'bannedip', 'definition' => true, 'data' => false, 'auto' => false);
-	$tables[]=array('name' => 'basket', 'definition' => true, 'data' => false, 'auto' => false);
-	$tables[]=array('name' => 'category', 'definition' => true, 'data' => true);
-	$tables[]=array('name' => 'customer', 'definition' => true, 'data' => true);
-	$tables[]=array('name' => 'discount', 'definition' => true, 'data' => true);
-	$tables[]=array('name' => 'faccess', 'definition' => true, 'data' => true);
-	$tables[]=array('name' => 'faces', 'definition' => true, 'data' => true);
-	$tables[]=array('name' => 'flink', 'definition' => true, 'data' => true);
-	$tables[]=array('name' => 'frole', 'definition' => true, 'data' => true);
-	$tables[]=array('name' => 'group', 'definition' => true, 'data' => true);
-	$tables[]=array('name' => 'order', 'definition' => true, 'data' => true);
-	$tables[]=array('name' => 'payment', 'definition' => true, 'data' => true);
-	$tables[]=array('name' => 'paypal_cart_info', 'definition' => true, 'data' => true);
-	$tables[]=array('name' => 'paypal_payment_info', 'definition' => true, 'data' => true);
-	$tables[]=array('name' => 'paypal_subscription', 'definition' => true, 'data' => true);
-	$tables[]=array('name' => 'product', 'definition' => true, 'data' => true);
-	$tables[]=array('name' => 'prompt', 'definition' => true, 'data' => true);
-	$tables[]=array('name' => 'settings', 'definition' => true, 'data' => true);
-	$tables[]=array('name' => 'shipping', 'definition' => true, 'data' => true);
-	$tables[]=array('name' => 'shipping_payment', 'definition' => true, 'data' => true);
-	$tables[]=array('name' => 'shipping_weight', 'definition' => true, 'data' => true);
-	$tables[]=array('name' => 'task', 'definition' => true, 'data' => true);
-	$tables[]=array('name' => 'taxcategory', 'definition' => true, 'data' => true);
-	$tables[]=array('name' => 'taxes', 'definition' => true, 'data' => true);
-	$tables[]=array('name' => 'taxrates', 'definition' => true, 'data' => true);
-	$tables[]=array('name' => 'template', 'definition' => true, 'data' => true);
-	$tables[]=array('name' => 'transactions', 'definition' => true, 'data' => true);
+	$tables[]=array('name' => 'address', 'definition' => true, 'data_flat' => true);
+	$tables[]=array('name' => 'bannedip', 'definition' => true, 'data_flat' => false, 'auto' => false);
+	$tables[]=array('name' => 'basket', 'definition' => true, 'data_flat' => false, 'auto' => false);
+	$tables[]=array('name' => 'category', 'definition' => true, 'data_flat' => true);
+	$tables[]=array('name' => 'customer', 'definition' => true, 'data_flat' => true);
+	$tables[]=array('name' => 'discount', 'definition' => true, 'data_flat' => true);
+	$tables[]=array('name' => 'faccess', 'definition' => true, 'data_flat' => true);
+	$tables[]=array('name' => 'faces', 'definition' => true, 'data_flat' => true);
+	$tables[]=array('name' => 'flink', 'definition' => true, 'data_flat' => true);
+	$tables[]=array('name' => 'frole', 'definition' => true, 'data_flat' => true);
+	$tables[]=array('name' => 'group', 'definition' => true, 'data_flat' => true);
+	$tables[]=array('name' => 'order', 'definition' => true, 'data_flat' => true);
+	$tables[]=array('name' => 'payment', 'definition' => true, 'data_flat' => true);
+	$tables[]=array('name' => 'paypal_cart_info', 'definition' => true, 'data_flat' => true);
+	$tables[]=array('name' => 'paypal_payment_info', 'definition' => true, 'data_flat' => true);
+	$tables[]=array('name' => 'paypal_subscription_info', 'definition' => true, 'data_flat' => true);
+	$tables[]=array('name' => 'product', 'definition' => true, 'data_flat' => true);
+	$tables[]=array('name' => 'prompt', 'definition' => true, 'data_flat' => true);
+	$tables[]=array('name' => 'settings', 'definition' => true, 'data_flat' => true);
+	$tables[]=array('name' => 'shipping', 'definition' => true, 'data_flat' => true);
+	$tables[]=array('name' => 'shipping_payment', 'definition' => true, 'data_flat' => true);
+	$tables[]=array('name' => 'shipping_weight', 'definition' => true, 'data_flat' => true);
+	$tables[]=array('name' => 'task', 'definition' => true, 'data_flat' => true);
+	$tables[]=array('name' => 'taxcategory', 'definition' => true, 'data_flat' => true);
+	$tables[]=array('name' => 'taxes', 'definition' => true, 'data_flat' => true);
+	$tables[]=array('name' => 'taxrates', 'definition' => true, 'data_flat' => true);
+	$tables[]=array('name' => 'template', 'definition' => true, 'data_flat' => true);
+	$tables[]=array('name' => 'transactions', 'definition' => true, 'data_flat' => true);
 	
 	//definitions and selected data
 	//$tables[]=array('name' => 'user', 'definition' => true, 'data' => true, 'filter' => 'id=1', 'fields' => array('ID','LOGINNAME','PASSWORD','LASTNAME','EMAIL','GROUP'));
@@ -117,14 +133,6 @@ function zing_ws_database_dump() {
 	$dump=$db->export($tables);
 
 	return $dump;
-	/*
-	$dbfile=ZING_UPLOADS_DIR."db-".get_option("zing_webshop_version").".sql";
-
-	$fhandle=fopen($dbfile, "w") or Print("Could not open the file");
-	fwrite($fhandle, $dump);
-	fclose ($fhandle);
-	echo 'Created database dump file '.$dbfile;
-	*/
 }
 
 function zing_ws_active_install() {

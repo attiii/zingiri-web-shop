@@ -31,13 +31,17 @@ function zing_check() {
  */
 function zing_main($process,$content="") {
 	//require(ZING_GLOBALS);
-	global $remoteMsg;
-
+	global $remoteMsg,$showPage;
+	
+	$showPage=true;
+	
+	$pageId=url_to_postid($_SERVER['REQUEST_URI']);
+	
 	$ret='';
 	$matches=array();
 
 	$to_include="";
-
+	
 	switch ($process)
 	{
 		case "content":
@@ -50,10 +54,10 @@ function zing_main($process,$content="") {
 				//return $content;
 			}
 
-			$cf=get_post_custom($_GET['page_id']);
-			
-//			print_r($cf);
-//			$page=zing_page($_GET['page_id']);
+			$cf=get_post_custom($pageId);
+			//print_r($cf);
+			//$page=zing_page($_GET['page_id']);
+			//echo 'page='.$_GET['page_id'].$page;
 			if (isset($_GET['page'])) {
 				$pg=$_GET['page'];
 			} elseif (isset($_POST['page'])) {
@@ -74,7 +78,10 @@ function zing_main($process,$content="") {
 				$pg=$matches[1];
 			} elseif (preg_match('/\[zing-ws-(.*):(.*)\]/',$content,$matches)==1) { //[zing-ws:page]
 				$pg='parse';
-			} else return $content;
+			} else {
+				$pg='main';//return $content;
+				$showPage=false;
+			}
 			if (isset($cf['cat'])) {
 				$_GET['cat']=$cf['cat'][0];
 			}
@@ -87,7 +94,9 @@ function zing_main($process,$content="") {
 		case "init":
 			break;
 	}
-
+	
+	//die($to_include.'-'.$pg);
+	/*
 	if ($to_include=="loadmain.php" && ($page=='logout' || ($page=='login' && !$_GET['lostlogin']))) {
 		//stop logging
 		restore_error_handler();
@@ -95,15 +104,27 @@ function zing_main($process,$content="") {
 		header('Location:'.ZING_HOME.'/index.php?page='.$page);
 		exit;
 	}
-	elseif ($to_include) {
+	*/
+	if ($showPage && $to_include) {
 		$ret.=$prefix;
 		if ($process=='content') $ret.='<div class="zing_ws_page" id="zing_ws_'.$pg.'">';
 		wsConnectURL($pg);
 		$ret.=$remoteMsg['main'];
-		//print_r($remoteMsg);die('RET=');
+//		print_r($remoteMsg);die('RET=');
 		if ($process=='content') $ret.='</div>';
 		$ret.=$postfix;
+		/*
+		print_r($remoteMsg);
+		die();
+		if ($pg=='login' && $remoteMsg['status']=='loginsuccess') {
+			header(get_option('home'));
+			die();
+		}
+		*/		
 		return $ret;
+	} elseif (!$showPage && $to_include) {
+		wsConnectURL($pg);
+		return $content;
 	}
 }
 
