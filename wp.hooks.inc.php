@@ -21,8 +21,13 @@ if (get_option("zing_ws_baseurl") && get_option("zing_ws_accname")) {
 	 */
 }
 //	add_action("init","zing_init_uninstall");
-//	add_action('admin_notices','zing_admin_notices');
+add_action('admin_notices','zing_admin_notices');
 add_action('admin_menu', 'zing_ws_add_admin');
+
+function zing_admin_notices() {
+	if (!class_exists('ZipArchive')) $message='To use the Zingiri Web Shop migrate functionality you need to have at least PHP 5.2 installed as well as the ZipArchive extension. Please ask your hosting company to upgrade to PHP 5.2 or higher.';
+	if ($message) echo "<div id='zing-warning' style='background-color:greenyellow' class='updated fade'><p><strong>".$message."</strong> "."</p></div>";
+}
 
 function zing_ws_add_admin() {
 

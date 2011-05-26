@@ -1,30 +1,32 @@
 <?php
-class Zipper extends ZipArchive {
-	var $zipFilesCounter=0;
+if (class_exists('ZipArchive')) {
+	class Zipper extends ZipArchive {
+		var $zipFilesCounter=0;
 
-	function addDir($path) {
-		//print '<br />adding ' . $path . ' => '.str_replace(ZING_UPLOADS_DIR,'',$path);
-		$this->addEmptyDir(str_replace(ZING_UPLOADS_DIR,'',$path));
-		$nodes = glob($path . '/*');
-		foreach ($nodes as $node) {
-			//print '<br>'.$node . ' => '.str_replace(ZING_UPLOADS_DIR,'',$node);
-			if (is_dir($node)) {
-				$this->addDir($node);
-			} else if (is_file($node))  {
-				$this->zipFilesCounter++;
-				$this->addFile($node,str_replace(ZING_UPLOADS_DIR,'',$node));
-			}
-			if ($this->zipFilesCounter % 500 == 0) {
-				$this->close();
-				$this->open(ZING_UPLOADS_DIR.'migrate'.$this->zipFilesCounter.'.zip',ZIPARCHIVE::OVERWRITE);
-				//echo '<br />create new dir:'.ZING_UPLOADS_DIR.'migrate'.$this->zipFiles.'.zip';
-				//print '<br />adding ' . $path . ' => '.str_replace(ZING_UPLOADS_DIR,'',$path);
-				$this->addEmptyDir(str_replace(ZING_UPLOADS_DIR,'',$path));
+		function addDir($path) {
+			//print '<br />adding ' . $path . ' => '.str_replace(ZING_UPLOADS_DIR,'',$path);
+			$this->addEmptyDir(str_replace(ZING_UPLOADS_DIR,'',$path));
+			$nodes = glob($path . '/*');
+			foreach ($nodes as $node) {
+				//print '<br>'.$node . ' => '.str_replace(ZING_UPLOADS_DIR,'',$node);
+				if (is_dir($node)) {
+					$this->addDir($node);
+				} else if (is_file($node))  {
+					$this->zipFilesCounter++;
+					$this->addFile($node,str_replace(ZING_UPLOADS_DIR,'',$node));
+				}
+				if ($this->zipFilesCounter % 500 == 0) {
+					$this->close();
+					$this->open(ZING_UPLOADS_DIR.'migrate'.$this->zipFilesCounter.'.zip',ZIPARCHIVE::OVERWRITE);
+					//echo '<br />create new dir:'.ZING_UPLOADS_DIR.'migrate'.$this->zipFiles.'.zip';
+					//print '<br />adding ' . $path . ' => '.str_replace(ZING_UPLOADS_DIR,'',$path);
+					$this->addEmptyDir(str_replace(ZING_UPLOADS_DIR,'',$path));
+				}
 			}
 		}
-	}
 
-} // class Zipper
+	} // class Zipper
+}
 
 function zing_ws_migrate() {
 	$zip = new Zipper;
@@ -32,32 +34,22 @@ function zing_ws_migrate() {
 	$success=true;
 
 	update_option('zing_ws_dumpfile',md5(time().get_option('home')));
-	
+
 	if (($error=$zip->open(ZING_UPLOADS_DIR.'migrate.zip',ZIPARCHIVE::OVERWRITE)) === TRUE) {
 		$zip->addDir(ZING_UPLOADS_DIR.'cats');
 		$zip->addDir(ZING_UPLOADS_DIR.'orders');
 		$zip->addDir(ZING_UPLOADS_DIR.'prodgfx');
 		$zip->addDir(ZING_UPLOADS_DIR.'digital-'.get_option('zing_webshop_dig'));
 
-		/*
-		if ($handle = opendir(ZING_UPLOADS_DIR)) {
-			while (false !== ($file = readdir($handle))) {
-				$dir=ZING_UPLOADS_DIR.$file;
-				if ($file != 'cache' && $file != '.' && $file != '..' && is_dir($dir)) {
-					$zip->addDir($dir);
-				}
-			}
-		}
-		*/
 		$zip->addFromString('db.sql',zing_ws_database_dump());
-		
+
 		$params=array();
 		$params['digital']=get_option('zing_webshop_dig');
 		$params['version']=get_option('zing_webshop_version');
 		$params['apps_version']=get_option('zing_apps_player_version');
-		
+
 		$zip->addFromString('config.ini',json_encode($params));
-		
+
 		$zip->close();
 	} else {
 		$success=false;
@@ -125,7 +117,7 @@ function zing_ws_database_dump() {
 	$tables[]=array('name' => 'taxrates', 'definition' => true, 'data_flat' => true);
 	$tables[]=array('name' => 'template', 'definition' => true, 'data_flat' => true);
 	$tables[]=array('name' => 'transactions', 'definition' => true, 'data_flat' => true);
-	
+
 	//definitions and selected data
 	//$tables[]=array('name' => 'user', 'definition' => true, 'data' => true, 'filter' => 'id=1', 'fields' => array('ID','LOGINNAME','PASSWORD','LASTNAME','EMAIL','GROUP'));
 

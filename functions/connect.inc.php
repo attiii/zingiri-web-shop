@@ -41,7 +41,7 @@ function wsConnectURL($page='') {
 	//var_dump($cf);
 	//die('URL:'.$url);
 	//echo '<br />Calling:'.$url.'<br />';
-	$news = new HTTPRequest($url);
+	$news = new wsHTTPRequest($url);
 	if ($news->live()) {
 		$msg=$news->DownloadToString(true);
 		if ($news->redirect) {
