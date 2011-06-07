@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="module" version="1.5.0">
+	<name>Text multi-lingual</name>
+	<fields count="4">
+		<field1>
+			<label>Language</label>
+			<format>none</format>
+			<type>language_control</type>
+			<values type="multi">
+				<option value="en">English</option>
+				<option value="nl">Dutch</option>
+			</values>
+		</field1>
+		<field2>
+			<name>textarea</name>
+			<type>language_text</type>
+			<size>40</size>
+			<maxlength>40</maxlength>
+			<format>mediumtext</format>
+		</field2>
+		<field3>
+			<type>checkbox</type>
+			<label>Show editor?</label>
+			<format>none</format>
+			<cat>parameter</cat>
+		</field3>
+		<field4>
+			<type>checkbox</type>
+			<label>Single line?</label>
+			<format>none</format>
+			<cat>parameter</cat>
+		</field4>
+	</fields>
+</config>

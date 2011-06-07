@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="module" version="1.5.0">
+	<name>Date of birth</name>
+	<fields count="3">
+		<field1>
+			<name>year</name>
+			<label>Year</label>
+			<format>varchar(4)</format>
+			<type>select</type>
+			<default>1951</default>
+			<values type="range" start="1930" end="2010">
+			</values>
+		</field1>
+		<field2>
+			<name>month</name>
+			<label>Month</label>
+			<format>varchar(2)</format>
+			<type>select</type>
+			<values type="range" start="01" end="12">
+			</values>
+		</field2>
+		<field3>
+			<name>day</name>
+			<label>Day</label>
+			<format>varchar(2)</format>
+			<type>select</type>
+			<values type="range" start="01" end="31">
+			</values>
+		</field3>
+	</fields>
+</config>

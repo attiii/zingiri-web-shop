@@ -1,0 +1,1 @@
+appsSortList={container:null,id:null,init:function(a){jQuery(".sortlist").each(function(b,c){item=jQuery("#"+c.id);this.id=item.attr("id");this.container=item;that=this;element=c;this.container.sortable({stop:function(){new jQuery.ajax({url:a,type:"post",data:{abspath:wpabspath,cms:wsCms,sortorder:that.container.sortable("serialize")},success:function(d){}})}})})}};

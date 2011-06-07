@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="rule" version="1.5.0">
+	<name>Variable</name>
+	<fields count="4">
+		<field1>
+			<name>id</name>
+			<label>ID</label>
+			<type>select</type>
+			<values type="multi">
+				<option value="action">Action</option>
+			</values>
+		</field1>
+		<field2>
+			<name>condition</name>
+			<label>Condition</label>
+			<type>select</type>
+			<values type="multi">
+				<option value="EQ">equals</option>
+				<option value="ST">smaller</option>
+				<option value="GT">greater</option>
+				<option value="NE">different</option>
+			</values>
+		</field2>
+		<field3>
+			<name>value</name>
+			<label>Value</label>
+			<size>10</size>
+			<maxlength>10</maxlength>
+		</field3>
+		<field4>
+			<name>action</name>
+			<label>Action</label>
+			<type>select</type>
+			<values type="multi">
+				<option value="disable">Disable</option>
+			</values>
+		</field4>
+	</fields>
+</config>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="module" version="1.5.0">
+	<name>Tiered amount</name>
+	<fields count="3">
+		<field1>
+			<label>Low</label>
+			<name>low</name>
+			<type>number</type>
+			<size>5</size>
+			<format>int(11)</format>
+		</field1>
+		<field2>
+			<label>High</label>
+			<name>high</name>
+			<type>number</type>
+			<size>5</size>
+			<format>int(11)</format>
+		</field2>
+		<field3>
+			<label>Amount</label>
+			<name>amount</name>
+			<type>amount</type>
+			<format>decimal(12,2)</format>
+		</field3>
+	</fields>
+</config>

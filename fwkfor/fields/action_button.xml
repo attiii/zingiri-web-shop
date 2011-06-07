@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="module" version="1.5.0">
+	<name>Action button</name>
+	<fields count="1">
+		<field1>
+			<name>URL</name>
+			<format>varchar(128)</format>
+			<size>40</size>
+			<type>action_button</type>
+			<maxlength>128</maxlength>
+		</field1>
+	</fields>
+</config>

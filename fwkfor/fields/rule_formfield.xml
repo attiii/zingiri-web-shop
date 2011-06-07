@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="rule" version="1.5.0">
+	<name>Form field</name>
+	<fields count="6">
+		<field1>
+			<name>id</name>
+			<label>Field ID</label>
+			<size>3</size>
+			<maxlength>3</maxlength>
+		</field1>
+		<field2>
+			<name>type</name>
+			<label>Type</label>
+			<type>select</type>
+			<values type="multi">
+				<option value="value">Field value</option>
+				<option value="function">Function</option>
+			</values>
+		</field2>
+		<field3>
+			<name>function</name>
+			<label>Function</label>
+			<size>20</size>
+			<maxlength>100</maxlength>
+		</field3>
+		<field4>
+			<name>condition</name>
+			<label>Condition</label>
+			<type>select</type>
+			<values type="multi">
+				<option value="EQ">equals</option>
+				<option value="ST">smaller</option>
+				<option value="GT">greater</option>
+			</values>
+		</field4>
+		<field5>
+			<name>value</name>
+			<label>Value</label>
+			<size>10</size>
+			<maxlength>10</maxlength>
+		</field5>
+		<field6>
+			<name>action</name>
+			<label>Action</label>
+			<type>select</type>
+			<values type="multi">
+				<option value="hide">Hide</option>
+				<option value="show">Show</option>
+			</values>
+		</field6>
+	</fields>
+</config>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="system" version="1.5.0">
+	<name>Role name</name>
+	<fields count="1">
+		<field1>
+			<name>rolename</name>
+			<format>varchar(15)</format>
+			<type>sql</type>
+			<values type="sql">
+				<query>(select `name`,`name` from ##frole) order by `name`</query>
+			</values>
+		</field1>
+	</fields>
+</config>

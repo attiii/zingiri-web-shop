@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="module" version="1.5.0">
+	<name>Phone</name>
+	<fields count="1">
+		<field1>
+			<name>phone</name>
+			<maxlength>30</maxlength>
+			<type>phone</type>
+			<format>varchar(30)</format>
+		</field1>
+	</fields>
+</config>
