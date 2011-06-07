@@ -1,7 +1,7 @@
 <?php
 $menus=array();
 $menus['dashboard']=array('group' => 'admin102', 'grouping' => 'dashboard', 'single' => true, 'label' => 'admin102','href' => 'page=dashboard', 'img' => 'dashboard.png');
-$menus['migrate']=array('group' => 'admin102', 'grouping' => 'dashboard', 'single' => true, 'label' => 'migrate1','href' => 'page=migrate', 'img' => 'dashboard.png');
+if (file_exists(ZING_LOC.'fws/pages-back/migrate.php')) $menus['migrate']=array('group' => 'admin102', 'grouping' => 'dashboard', 'single' => true, 'label' => 'migrate1','href' => 'page=migrate', 'img' => 'dashboard.png');
 $menus['orderadmin']=array('group' => 'admin2', 'grouping' => 'orders', 'label' => 'admin2','href' => 'page=orderadmin', 'img' => 'orders.jpg', 'func' => 'CountAllOrders');
 //$menus['showcustomers']=array('page' => 'customeradmin', 'grouping' => 'customers', 'group' => 'admin3', 'label' => 'admin3','href' => 'page=customeradmin&action=showcustomers', 'img' => 'customers.gif', 'func' => 'CountCustomers','param' => 'CUSTOMER');
 $menus['showcustomers']=array('type' => 'apps', 'grouping' => 'customers', 'group' => 'admin3', 'label' => 'admin3','href' => 'zfaces=list&form=customer', 'img' => 'customers.gif');

@@ -6,7 +6,7 @@ class filesHash {
 
 	function makeFilesHash($dir=ZING_LOC,$files="") {
 		if (substr($dir,-1)!='/') $dir.='/';
-		$exclude=array('pack.wordpress.xml','.externalToolBuilders','source.inc.php','dompdf_font_family_cache','.ufm','.afm','.ttf','.TTF','gc_counter.ajax.php','gc_log.ajax.php','log.txt','pack.php','apps.db.sql','.svn','.DS_Store','.buildpath','.project','.settings','.jsdtscope','org.eclipse','.key','fileshash.txt');
+		$exclude=array('migrate.php','pack.wordpress.xml','.externalToolBuilders','source.inc.php','dompdf_font_family_cache','.ufm','.afm','.ttf','.TTF','gc_counter.ajax.php','gc_log.ajax.php','log.txt','pack.php','apps.db.sql','.svn','.DS_Store','.buildpath','.project','.settings','.jsdtscope','org.eclipse','.key','fileshash.txt');
 		if (empty($files)) $files=array();
 		//echo '<br />'.$dir;
 		if ($handle = opendir($dir)) {

@@ -822,7 +822,7 @@ $txt['checkout106'] = 'Continue without registration';
 $txt['paymentadmin103'] = 'Sub ID';
 $txt['paymentadmin104'] = 'Test mode';
 
-//2.0.0 -added
+//1.8.0 -added
 $txt['migrate1'] = 'Migrate';
 $txt['migrate2'] = 'Migrate from Web Shop 1.x';
 $txt['migrate3'] = 'Incorrect file format';
