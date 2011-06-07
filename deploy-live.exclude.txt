@@ -1,0 +1,9 @@
+.svn
+.settings
+.buildpath
+.project
+tmp/
+pack.php
+pack.wordpress.xml
+deploy-live.exclude.txt
+deploy-live.xml

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Zingiri Live deploy" basedir="." default="sync">
+
+	<property name="myhost" value="live.zingiri.com" />
+	<property name="myuser" value="zingiri" />
+	<property name="mypassword" value="zingiri-live-wsTj30pX6Ek" />
+	<property name="myport" value="888" />
+	<property name="mydir" value="/var/www/html/live/wp-content/plugins/zingiri-web-shop/" />
+
+	<target name="sync" description="sync">
+
+		<ssh username="${myuser}" pubkeyfile="/Users/ebo/.ssh/zingirilive.pub" privkeyfile="/Users/ebo/.ssh/zingirilive" port="${myport}" host="${myhost}" command="touch ${mydir}../maintenance" />
+
+		<!-- 
+		<ssh username="${myuser}" pubkeyfile="/Users/ebo/.ssh/zingirilive.pub" privkeyfile="/Users/ebo/.ssh/zingirilive" port="${myport}" host="${myhost}" command="chown zingirilive:nobody /home/zingirilive/public_html/hostergo/undermaintenance" />
+ -->
+		<!-- sync files -->
+		<sync sourcedir="${project.basedir}/."
+			destinationdir="zingiri@live.zingiri.com:${mydir}"
+			excludefile="${project.basedir}/deploy-live.exclude.txt" delete="true"
+			verbose="true" />
+
+		<ssh username="${myuser}" pubkeyfile="/Users/ebo/.ssh/zingirilive.pub" privkeyfile="/Users/ebo/.ssh/zingirilive" port="${myport}" host="${myhost}" command="chown -R zingiri:apache ${mydir}" />
+		<ssh username="${myuser}" pubkeyfile="/Users/ebo/.ssh/zingirilive.pub" privkeyfile="/Users/ebo/.ssh/zingirilive" port="${myport}" host="${myhost}" command="chmod -R g+w ${mydir}" />
+ <!-- 
+		<ssh username="${myuser}" pubkeyfile="/Users/ebo/.ssh/zingirilive.pub" privkeyfile="/Users/ebo/.ssh/zingirilive" port="${myport}" host="${myhost}" command="chmod 666 /home/zingirilive/public_html/hostergo/error.txt" />
+		<ssh username="${myuser}" pubkeyfile="/Users/ebo/.ssh/zingirilive.pub" privkeyfile="/Users/ebo/.ssh/zingirilive" port="${myport}" host="${myhost}" command="chmod 666 /home/zingirilive/public_html/hostergo/notice.txt" />
+		<ssh username="${myuser}" pubkeyfile="/Users/ebo/.ssh/zingirilive.pub" privkeyfile="/Users/ebo/.ssh/zingirilive" port="${myport}" host="${myhost}" command="chmod 666 /home/zingirilive/public_html/hostergo/warning.txt" />
+		<ssh username="${myuser}" pubkeyfile="/Users/ebo/.ssh/zingirilive.pub" privkeyfile="/Users/ebo/.ssh/zingirilive" port="${myport}" host="${myhost}" command="rm -f /home/zingirilive/public_html/hostergo/undermaintenance" />
+  -->
+
+		<ssh username="${myuser}" pubkeyfile="/Users/ebo/.ssh/zingirilive.pub" privkeyfile="/Users/ebo/.ssh/zingirilive" port="${myport}" host="${myhost}" command="rm -f ${mydir}../maintenance" />
+
+	</target>
+
+</project>

@@ -1,6 +1,6 @@
 <?php
 /*  zingiri_webshop.php
- Copyright 2008-2011 Erik Bogaerts
+ Copyright 2008,2009 Erik Bogaerts
  Support site: http://www.zingiri.com
 
  This file is part of Zingiri Web Shop.
@@ -22,18 +22,27 @@
 ?>
 <?php
 /*
- Plugin Name: Zingiri Web Shop Live
+ Plugin Name: Zingiri Web Shop
  Plugin URI: http://www.zingiri.com/web-shop
  Description: Zingiri Web Shop is a full featured software package that allows you to set up your own online webshop within minutes.
  Author: EBO
- Version: 2.0.2
+ Version: 2.0.3
  Author URI: http://www.zingiri.com/
  */
 
+error_reporting(E_ALL & ~E_NOTICE);
+ini_set('display_errors', '1');
+
 define('ZING_CMS','wp');
+if (isset($_REQUEST['wscr'])) define('ZING_AJAX',true);
+else define('ZING_AJAX',false);
 
-require(dirname(__FILE__).'/live/bootstrap.php');
-
-register_activation_hook(__FILE__,'zing_activate');
-register_deactivation_hook(__FILE__,'zing_deactivate');
+if (file_exists(dirname(__FILE__).'/../maintenance')) {
+	define('ZING_MAINTENANCE',1);
+} else {
+	define('ZING_MAINTENANCE',0);
+	require(dirname(__FILE__).'/local/bootstrap.php');
+	register_activation_hook(__FILE__,'zing_activate');
+	register_deactivation_hook(__FILE__,'zing_deactivate');
+}
 ?>
