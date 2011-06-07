@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="system" version="1.5.0">
+	<name>Payment gateway</name>
+	<fields count="1">
+		<field1>
+			<name>gateway</name>
+			<size>12</size>
+			<maxlength>40</maxlength>
+			<format>varchar(60)</format>
+			<type>payment_gateway</type>
+		</field1>
+	</fields>
+</config>

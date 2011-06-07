@@ -1,0 +1,9 @@
+-- Dashboard functionality
+ALTER TABLE `##settings` ADD `dashboard` VARCHAR( 255 ) NOT NULL;
+
+-- IDEAL Lite & Mollie.nl
+INSERT INTO `##payment` (`description`, `code`, `system`, `DATE_CREATED`, `DATE_UPDATED`) VALUES('Mollie.nl', '<FORM name="autosubmit" target="_new" METHOD="post" ACTION="https://secure.mollie.nl/xml/idealAcquirer/lite/" id=form1><INPUT type="hidden" NAME="merchantID" value="%merchantid%"><INPUT type="hidden" NAME="hash" value="%idealhash%"><INPUT type="hidden" NAME="subID" value="0"><INPUT type="hidden" NAME="amount" VALUE="%total_nodecimals%"><INPUT type="hidden" NAME="purchaseID" VALUE="%webid%"><INPUT type="hidden" NAME="language" VALUE="nl"><INPUT type="hidden" NAME="currency" VALUE="EUR"><INPUT type="hidden" NAME="description" VALUE="iDeal Betaling"><INPUT type="hidden" NAME="itemNumber1" VALUE="12345"><INPUT type="hidden" NAME="itemDescription1" VALUE="%webid%"><INPUT type="hidden" NAME="itemQuantity1" VALUE="1"><INPUT type="hidden" NAME="itemPrice1" VALUE="%total_nodecimals%"><INPUT type="hidden" NAME="paymentType" VALUE="ideal"><INPUT type="hidden" NAME="validUntil" VALUE="%validity%"><INPUT type="hidden" NAME="urlCancel" VALUE="%shopurl%"><INPUT type="hidden" NAME="urlSuccess" VALUE="%shopurl%"><INPUT type="hidden" NAME="urlError" VALUE="%shopurl%"><INPUT type="submit" NAME="submit2" VALUE="Betaal nu met iDeal" id="submit2"></FORM>', NULL, '0000-00-00 00:00:00', '2010-04-26 17:23:39');
+INSERT INTO `##flink` (`FORMIN`,`FORMOUT`,`DISPLAYIN`,`DISPLAYOUT`,`ACTION`,`ACTIONOUT`,`ICON`) VALUES (60,60,'list','form','edit','edit','edit.png');
+INSERT INTO `##flink` (`FORMIN`,`FORMOUT`,`DISPLAYIN`,`DISPLAYOUT`,`ACTION`,`ACTIONOUT`,`ICON`) VALUES (60,60,'list','form','delete','delete','delete.png');
+INSERT INTO `##flink` (`FORMIN`,`FORMOUT`,`DISPLAYIN`,`DISPLAYOUT`,`ACTION`,`ACTIONOUT`,`ICON`) VALUES (60,60,'list','form','view','view','view.png');
+ 

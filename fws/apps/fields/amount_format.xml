@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="module" version="1.5.0">
+	<name>Amount format</name>
+	<fields count="1">
+		<field1>
+			<name>format</name>
+			<format>varchar(15)</format>
+			<type>select</type>
+			<values type="multi">
+				<option VALUE="1234.56">1234.56</option>
+				<option VALUE="1,234.56">1,234.56</option>
+				<option VALUE="1234,56">1234,56</option>
+				<option VALUE="1.234,56">1.234,56</option>
+				<option VALUE="1.234">1.234</option>
+				<option VALUE="1,234">1,234</option>
+				<option VALUE="1234">1234</option>
+			</values>
+		</field1>
+	</fields>
+</config>
