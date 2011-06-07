@@ -1,6 +1,4 @@
 zingiri-web-shop/controlpanel.php,f33778353d2ee8fdc196103a28546448
-zingiri-web-shop/deploy-live.exclude.txt,c36bd20f580f0d5286e23397d3f0ea42
-zingiri-web-shop/deploy-live.xml,a56fc8d310a64840fb8a20f254f1eed5
 zingiri-web-shop/extensions/dashboard/dashboard.php,35f83456f290471c6a2fc68fc24e5d23
 zingiri-web-shop/extensions/dashboard/errorlog.php,e722bc4c883c19e3885e8ef7388f4eae
 zingiri-web-shop/extensions/dashboard/index.php,b3587a7198c26552ee40bd866db10455
@@ -1089,7 +1087,7 @@ zingiri-web-shop/fws/classes/customer.class.php,77ab9c327ec7d1c52a417e48004ec3f3
 zingiri-web-shop/fws/classes/db.class.php,519e2485a530beb12fcc964f0494b66f
 zingiri-web-shop/fws/classes/discount.class.php,bfcd5dc20fb862af319381a3f5089823
 zingiri-web-shop/fws/classes/features.class.php,29aa865ec6194b02be7c2a6675737f1b
-zingiri-web-shop/fws/classes/files_hash.class.php,88d96bfc079dc8fe3fe226301687c942
+zingiri-web-shop/fws/classes/files_hash.class.php,5c1692399505064441770503d8279433
 zingiri-web-shop/fws/classes/index.php,ca3b5dc320de8f97e53e684d7c120e2c
 zingiri-web-shop/fws/classes/invoice.class.php,b6c528d726510e7042633919c21f7e10
 zingiri-web-shop/fws/classes/payment_code.class.php,34de852a34ea946f283cc20412a1e5dc
