@@ -1,0 +1,617 @@
+<?php
+// The character set we should use for this language. If you are unsure, use ISO-8859-1
+$charset = "UTF-8";
+
+// first some values that can also be used further along in this lang file
+// database values for orders
+$txt['db_shipping1'] = 'Hae tuotteet itse ajanvarauksella, ei toimituskuluja';
+
+// database values for payments
+$txt['db_payment1'] = 'Maksu pankkiin';
+$txt['db_payment2'] = 'Maksu kauppaan (ainoastaan haettaessa)';
+$txt['db_payment3'] = 'Maksu PayPaliin';
+$txt['db_payment4'] = 'Maksu vastaanottaessa';
+
+// order status
+$txt['db_status1'] = 'Tilaus vastaanotettu';
+$txt['db_status2'] = 'Odottaa maksua';
+$txt['db_status3'] = 'Odottaa tapaamista';
+$txt['db_status4'] = 'Tilausta käsitellään';
+$txt['db_status5'] = 'Tuote lähetetty';
+$txt['db_status6'] = 'Tuote noudettu';
+$txt['db_status7'] = 'Tilaus peruutettu';
+$txt['db_status8'] = 'Poista tilaus';
+
+$txt['db_status10'] = 'Tilan selitykset';
+$txt['db_status11'] = 'Tilaus on vastaanotettu, mutta ei vielä vahvistettu';
+$txt['db_status12'] = 'Tilaus on vahvistettu. Odotamme maksun siirtymistä tilillemme';
+$txt['db_status13'] = 'Maksu on vastaanotettu. Olemme lähettäneet teille sähköpostia ilmoittaaksemme että tilauksenne on valmis haettavaksi. Ottakaa meihin yhteyttä sopiaksenne ajanvarauksesta';
+$txt['db_status14'] = 'Maksu on vastaanotettu. Tilausta käsitellään. Tämä tarkoittaa että olette saamassa tuotteen, tai se ollaan lähettämässä teille pian';
+$txt['db_status15'] = 'Tilaus on lähetetty postiin. Tilaus on valmis';
+$txt['db_status16'] = 'Tuote on haettu. Tilaus on valmis';
+$txt['db_status17'] = 'Tilaus on peruutettu joko teidän, tai meidän toimesta';
+
+// database values for stock
+$txt['db_stock1'] = 'Varastossa';
+$txt['db_stock2'] = 'Ei varastossa';
+$txt['db_stock3'] = 'Jälkitoimituksena';
+
+$txt['db_stock10'] = 'Varastotilan selitykset';
+$txt['db_stock11'] = 'Tuotetta on varastossa. Mikäli jätätte tilauksen, toimitetaan se teille piakkoin';
+$txt['db_stock12'] = 'Tuotetta ei ole varastossa';
+$txt['db_stock13'] = 'Tuotetta ei ole varastossa, toimitetaan jälkitoimituksena';
+
+// general values
+$txt['general1'] = 'Pääsy kielletty!';
+$txt['general2'] = 'IP osoitteesi on talletettu ehkäistäksemme väärinkäytöksiä';
+$txt['general3'] = 'uusi';
+$txt['general4'] = 'Takaisin ylläpitoon';
+$txt['general5'] = 'ALV';
+$txt['general6'] = 'ilman';
+$txt['general7'] = 'sisältää';
+$txt['general8'] = 'HUOM: Verkkokauppa on suljettu! Asiakkaat eivät voi selata tai tilata tuotteita';
+$txt['general9'] = '404 virhe. Sivua ei löydy!';
+$txt['general10'] = 'Sinut on kielletty tästä verkkokaupasta';
+$txt['general11'] = 'Tietoa yrityksestä';
+$txt['general12'] = 'Virhe';
+$txt['general13'] = 'Ilmoitus';
+$txt['general14'] = 'Takaisin';
+$txt['general15'] = 'Näppäile tämä koodi';
+$txt['general16'] = 'Koodi oli väärä. Yritä uudelleen';
+
+// header.php
+$txt['header1'] = 'Tietoturva riski';
+$txt['header2'] = 'Tervetuloa';
+$txt['header3'] = 'vieras';
+$txt['header4'] = '<font color=red><strong>install.php</strong></font> löydetty. Sinun pitää poistaa/nimetä uudelleen tämä tiedosto ennenkuin voit jatkaa!';
+
+// menu.php
+$txt['menu1'] = 'Etusivu';
+$txt['menu2'] = 'Ostoskori';
+$txt['menu3'] = 'Kassalle';
+$txt['menu4'] = 'Haku';
+$txt['menu5'] = 'Yleiset ehdot';
+$txt['menu6'] = 'Toimitusehdot';
+$txt['menu7'] = 'Takuuehdot';
+$txt['menu8'] = 'Yhteydenotto';
+$txt['menu9'] = 'Ylläpito';
+$txt['menu10'] = 'Henkilökohtainen sivu';
+$txt['menu11'] = 'Kirjaudu ulos';
+$txt['menu12'] = 'Kirjaudu sisään';
+$txt['menu13'] = 'Rekisteröidy';
+$txt['menu14'] = 'Informaatio';
+$txt['menu15'] = 'Tuotteet';
+$txt['menu16'] = '<font color=red><strong>Uudet</strong></font> tuotteet';
+$txt['menu17'] = 'Ei tuotteita';
+$txt['menu18'] = 'Tietoa yrityksestä';
+$txt['menu19'] = 'Extra';
+
+// sendprocedure.php
+$txt['send1'] = 'Toimitustapa';
+
+// cart.php
+$txt['cart1'] = 'Ostoskori';
+$txt['cart2'] = 'Ostoskorisi on tyhjä.';
+$txt['cart3'] = 'Tuotekuvaus';
+$txt['cart4'] = 'Hinta';
+$txt['cart5'] = 'Kpl';
+$txt['cart6'] = 'Poista';
+$txt['cart7'] = 'Yhteensä';
+$txt['cart8'] = 'Tyhjennä';
+$txt['cart9'] = 'Kassalle';
+$txt['cart10'] = 'Päivitä';
+$txt['cart11'] = 'Ostoskorin sisältö';
+$txt['cart12'] = 'Jatka ostoksia';
+
+// browse.php
+$txt['browse1'] = 'Haun tulokset';
+$txt['browse2'] = 'Tuotteen kuvaus';
+$txt['browse3'] = 'Hinta';
+$txt['browse4'] = 'Lajittele';
+$txt['browse5'] = 'Tuotteita ei löytynyt';
+$txt['browse6'] = 'HUOMIO:Oikeudet hinnanmuutoksiin varataan';
+$txt['browse7'] = 'muokkaa';
+$txt['browse8'] = 'poista';
+$txt['browse9'] = 'Tuotelista';
+$txt['browse10'] = 'vaihda kuva';
+$txt['browse11'] = 'Sivut';
+
+// submenu.php
+$txt['submenu1'] = 'Kategoriat tässä ryhmässä';
+$txt['submenu2'] = 'Tässä ryhmässä ei ole yhtään kategoriaa';
+
+// main.php
+$txt['main1'] = 'Tervetuloa';
+$txt['main2'] = 'Erikoistarjoukset';
+
+// details.php
+$txt['details1'] = 'Tuotetiedot';
+$txt['details2'] = 'Tuotetunnus';
+$txt['details4'] = 'Tuotekuvaus';
+$txt['details5'] = 'Hinta/kpl';
+$txt['details6'] = 'Kpl';
+$txt['details7'] = 'Tilaa';
+$txt['details8'] = 'Takaisin tuotelistaan';
+$txt['details9'] = 'Klikkaa täyteen kokoon';
+
+// conditions.php
+$txt['conditions1'] = 'Hyväksyn yleiset ehdot';
+$txt['conditions2'] = 'En hyväksy yleisiä ehtoja';
+$txt['conditions3'] = 'Ei mahdollista';
+$txt['conditions4'] = 'Tilaaminen ei tällä hetkellä ole mahdollista';
+$txt['conditions5'] = 'Yleiset ehdot';
+
+// shipping.php
+$txt['shipping1'] = 'Toimitus ja maksutapa';
+$txt['shipping2'] = 'Valitse toimitustapa';
+$txt['shipping3'] = 'Kommentti/kysymys';
+$txt['shipping9'] = 'Hyväksy tilaus';
+$txt['shipping10'] = 'Valitse maksutapa';
+
+// checkout.php
+$txt['checkout2'] = 'Sivu on vanhentunut. Mene takaisin ostoskoriin ja valitse kassalle painike';
+$txt['checkout3'] = "Hyvä mr/mrs $lastname,<br /><br /><br />Tämä viesti on vahvistus tilauksestanne <strong>$shopname</strong><br /><br />Tilaustunnus: $webid<br />Asiakastunnus: $customerid<br /><br />Tilasitte seuraavat tuotteet:<br />";
+$txt['checkout4'] = ' x tuote ';
+$txt['checkout5'] = ' a kpl';
+$txt['checkout6'] = "<br />";
+$txt['checkout7'] = 'Yritit tilata:';
+$txt['checkout8'] = 'Varastossa:';
+$txt['checkout9'] = "<br /><br />Voitte seurata tilaustanne koska vain klikkaamalla $shopurl/index.php?page=orders&id=$customerid<br /><br />Kiitos tilauksestanne.<br />Jos teillä on kysyttävää ottakaa yhteyttä (Yhteystiedot löytyy websivultamme)";
+$txt['checkout10'] = 'Vahvistus tilauksestanne '.$shopname;
+$txt['checkout11'] = 'Tilauksenne on valmis. Tilausvahvistus on lähetetty teille.';
+$txt['checkout12'] = 'Tilausvahvistusta ei voitu lähettää. Voit tulostaa tilausvahvistuksen.';
+$txt['checkout13'] = 'Alla on tilausvahvistuksenne, tulostakaa se!';
+$txt['checkout15'] = 'Varastossa ei ole tarpeeksi tuotetta jota yritit tilata:';
+$txt['checkout16'] = "Toimitustapa: ";
+$txt['checkout17'] = "Toimitusosoite:<br />$company<br />$address<br />$zipcode  $city<br />$state<br />$country";
+$txt['checkout19'] = "Maksutapa: ";
+$txt['checkout20'] = "Pankkitiedot:<br />Tilinumero: $bankaccount<br />Tilinomistaja: $bankaccountowner<br />Paikkakunta: $bankcity<br />Maa: $bankcountry<br />Pankki: $bankname<br />IBAN: $bankiban<br />BIC: $bankbic<br />Aihe/Viite: $webid";
+$txt['checkout21'] = "Kun tuotteet ovat varastossa, lähetämme sähköpostia sinulle sopiammeksemme ajanvarauksesta.";
+$txt['checkout22'] = "Käytä PayPal tiliä siirtääksesi maksu meille.";
+$txt['checkout23'] = "Sinun on maksettava postiin kun vastaanotat paketin.";
+$txt['checkout24'] = "Tilauksenne kokonaissumma on: $currency_symbol_pre $totalprint $currency_symbol_post (sisältää $currency_symbol $print_sendcosts toimituskuluja)";
+$txt['checkout25'] = "sisältää $show_vat ".$txt['general5'];
+$txt['checkout26'] = "Olkaa hyvä ja siirtäkää summa tilillemme $paymentdays päivän sisällä. Heti kun olemme vastaanottaneet maksun, käsittelemme tilauksenne, ja lähetämme sen teille niin nopeasti kuin mahdollista.";
+$txt['checkout27'] = 'PayPal siirto';
+
+// search.php
+$txt['search1'] = 'Hae tuotteita';
+$txt['search2'] = 'Haettava tuote';
+$txt['search3'] = 'Haku menetelmä';
+$txt['search4'] = 'Kaikilla sanoilla';
+$txt['search5'] = 'Millä sanoilla tahansa';
+$txt['search6'] = 'Hae';
+
+// guarantee.php
+$txt['guarantee1'] = 'Takuu';
+
+// contact.php
+$txt['contact1'] = 'Yhteydenotto '. $shopurl;
+$txt['contact2'] = 'Viesti lähetetty';
+$txt['contact3'] = 'Viestisi on lähetetty, vastaamme viestiin mahdollisemman nopeasti';
+$txt['contact5'] = 'Sinun on täytettävä kaikki kentät.<br /><a href="javascript:history.go(-1)"><strong>Klikkaa tästä</strong></a> mennäksesi takaisin.';
+$txt['contact6'] = 'Yhteydenotto';
+$txt['contact7'] = 'Ota yhteyttä';
+$txt['contact8'] = 'Sähköposti';
+$txt['contact9'] = 'Puhelin';
+$txt['contact10'] = 'Fax';
+$txt['contact11'] = 'Voit ottaa yhteyttä allaolevalla lomakkeella:';
+$txt['contact12'] = 'Lähetä';
+$txt['contact13'] = 'Nimesi';
+$txt['contact14'] = 'Sähköpostiosoitteesi';
+$txt['contact15'] = 'Viestisi';
+
+// checklogin.php
+$txt['checklogin1'] = 'Kirjaudu sisään';
+$txt['checklogin2'] = 'Käyttäjätunnus';
+$txt['checklogin3'] = 'Salasana';
+$txt['checklogin4'] = 'Kirjaudu';
+$txt['checklogin5'] = 'Mikäli sinulla ei ole käyttäjätunnusta, klikkaa tästä';
+$txt['checklogin6'] = 'Miksi liittyä jäseneksi?';
+$txt['checklogin7'] = 'Tilataksesi tuotteita kaupastamme teidän täytyy liittyä jäseneksi. Rekisteröinnissä tarvitsemme nimesi, osoitteesi , sähköpostisi, jne. Nämä tiedot tarvitaan jotta voimme käsitellä tilauksenne oikein.<br /><br /><strong>Tietojasi käytetään ainoastaan tilausten toimittamiseen, eikä niitä luovuteta ulkopuolisille.</strong><br /><br /><br />Liittymisen jälkeen voitte:<ul><li>Kirjautua kauppaan mistä tahansa tietokoneelta<li>Tilata tuotteita<li>Seurata tilauksia<li>Hallita ostoskoriasi</ul>';
+$txt['checklogin8'] = 'Unohtuneet kirjautumistiedot';
+$txt['checklogin9'] = 'Kirjoita tilisi sähköpostiosoite, kirjautumistietosi lähetetään siihen osoitteeseen.';
+$txt['checklogin10'] = 'Lähetä';
+$txt['checklogin11'] = 'Unohditko kirjautumistietosi?';
+$txt['checklogin12'] = 'Kirjautumistietosi on lähtetetty';
+$txt['checklogin13'] = 'Kirjautumistietosi '. $shopurl;
+$txt['checklogin14'] = "Tämä viesti lähetettiin sinulle, koska pyysit kirjautumistietosi verkkokauppaamme (<a href=\"$shopurl\">$shopurl</a>)";
+$txt['checklogin15'] = 'Asiakasta ei löytynyt antamallasi sähköpostiosoiteella.';
+$txt['checklogin18'] = 'Takaisin';
+
+// login.php
+$txt['login1'] = 'Virhe kirjauduttaessa.. ole hyvä ja odota';
+$txt['login2'] = 'tai klikkaa tästä';
+$txt['login3'] = 'Kirjaudutaan sisään.. ole hyvä ja odota';
+
+// logout.php
+$txt['logout1'] = 'Olet kirjautunut ulos..';
+
+// my.php
+$txt['my3'] = 'Tietoa henkilökohtaisesta sivusta';
+$txt['my4'] = 'Tämä on sinun henkilökohtainen sivusi. Vain sinulla on pääsy tälle sivulle kun olet kirjautunut sisään käyttäjätunnuksellasi ja salasanallasi.<br /><br />Tältä sivulta voit katsoa omia tietojasi, tilauksia sekä ostoskoria. Kaikkiin pääsy samalta sivulta.';
+$txt['my5'] = 'Hekilökohtaiset valinnat';
+$txt['my6'] = 'Asiakasnumero';
+$txt['my7'] = 'Muokkaa tietoja';
+$txt['my8'] = 'Näytä tilaukset';
+$txt['my9'] = 'Näytä ostoskori';
+
+// admin.php
+$txt['admin1'] = 'Kaupan ylläpito';
+$txt['admin2'] = 'Tilaukset';
+$txt['admin3'] = 'Asiakkaat';
+$txt['admin4'] = 'Kauppa';
+$txt['admin5'] = 'Tuotteet';
+$txt['admin6'] = 'Ryhmät &<br />Kategoriat';
+$txt['admin7'] = 'Optimoi tietokanta';
+$txt['admin8'] = 'Asetukset';
+$txt['admin9'] = 'Lisää hinnasto';
+$txt['admin10'] = 'Optimoidaan kaikki tietokannat taulut..';
+$txt['admin11'] = 'Optimoidaan';
+$txt['admin12'] = 'Optimointi valmis!';
+$txt['admin13'] = 'Info ja tuki';
+$txt['admin14'] = 'Tarkista päivitykset';
+$txt['admin15'] = 'Yleiset ehdot';
+$txt['admin16'] = 'Toimitusehdot';
+$txt['admin17'] = 'Takuuehdot';
+$txt['admin18'] = 'Toimitustavat';
+$txt['admin19'] = 'Kiellettyjen lista';
+$txt['admin20'] = 'Yritystiedot';
+$txt['admin21'] = 'Maksutavat';
+$txt['admin22'] = 'Etusivu';
+$txt['admin23'] = 'Muokkaa asetuksia';
+$txt['admin24'] = 'Muokkaa tiedostoja';
+$txt['admin25'] = 'Info';
+$txt['admin26'] = 'Virheloki';
+$txt['admin27'] = 'Varmuuskopioi tietokanta';
+$txt['admin28'] = 'Varmuuskopiointi valmis. Lataa varmuuskopio, klikkaa allaolevaa linkkiä';
+$txt['admin29'] = 'Ylläpitäjät';
+$txt['admin30'] = 'Ylimääräiset sivut';
+$txt['admin31'] = 'Käsittelyloki';
+$txt['admin32'] = 'Varaston hallinta';
+$txt['admin33'] = 'Tuotemäärä (';
+$txt['admin34'] = ') on alle varaston minimimäärän!';
+$txt['admin35'] = 'Postituslista';
+$txt['admin36'] = '<strong><font color="red">Uutisia FreeWebshop.org</font></strong><br /><br />Päivityksiä, uusi versio tai muita tärkeitä uutisia. Tarkista allaolevasta tai vieraile sivullamme <a href="http://www.freewebshop.org">FreeWebshop.org</a>!<br /><br />(saat ainoastaan kerran tämän ilmoituksen uusista uutisista)';
+
+// customeradmin.php
+$txt['customeradmin1'] = 'Sukunimi';
+$txt['customeradmin2'] = 'Liittymispäivämäärä';
+$txt['customeradmin3'] = 'Sähköposti';
+$txt['customeradmin4'] = 'Puhelin';
+$txt['customeradmin5'] = 'Valinnat';
+$txt['customeradmin6'] = 'Asiakkaitten ylläpito';
+$txt['customeradmin7'] = 'Henkilö on nyt jäsen ylläpitoryhmässä';
+$txt['customeradmin8'] = 'Henkilö on nyt jäsen asiakasryhmässä';
+$txt['customeradmin9'] = 'Asiakasta ei löytynyt';
+$txt['customeradmin10'] = 'Etsi';
+
+// orderadmin.php
+$txt['orderadmin1'] = 'Tilauksesi tila ';
+$txt['orderadmin2'] = ' on muuttunut'; 
+$txt['orderadmin3'] = 'Tilaus on poistettu';
+$txt['orderadmin4'] = "<br /><br /><a href=\"$shopurl/index.php?page=orders&id=";
+$txt['orderadmin5'] = '">Klikkaa tästä</a> nykyisen tilauksen tila';
+$txt['orderadmin6'] = 'Sähköposti lähetetty';
+$txt['orderadmin7'] = 'sähköposti asiakas?';
+$txt['orderadmin8'] = 'Päivitä';
+$txt['orderadmin9'] = 'kaikki tilaukset';
+$txt['orderadmin10'] = 'Ei voimassaolevia tilauksia';
+$txt['orderadmin11'] = 'Näytä';
+$txt['orderadmin12'] = 'HUOM: Asiakas lisännyt kommentin/kysymyksen!';
+$txt['orderadmin13'] = 'Tilauksien ylläpito';
+$txt['orderadmin14'] = 'Vaihda tila';
+$txt['orderadmin15'] = 'Tilauksen tila on muuttunut';
+
+// orders.php
+$txt['orders3'] = 'Tilauksesi <a href=# class=info>(?)<span>Alhaalla on lista tilauksistasi ja niitten tilasta<br />Klikkaa tuotteen tunnusta nähdäksesi yksityiskohdat</span></a>';
+$txt['orders4'] = 'Tilaustunnus';
+$txt['orders5'] = 'Toimitus & Maksu';
+$txt['orders6'] = 'Tilauksen summa';
+$txt['orders7'] = 'Tilauksen päivämäärä';
+$txt['orders8'] = 'Tilauksen tila';
+$txt['orders9'] = 'Et ole tilannut vielä mitään';
+
+// customer.php
+$txt['customer1'] = 'Valtio';
+$txt['customer2'] = 'Asiakas poistettu';
+$txt['customer3'] = 'Takaisin';
+$txt['customer5'] = 'Sinun on ratkaistava virheet ennen jatkamista';
+$txt['customer6'] = 'Kaikki (*) on täytettävä';
+$txt['customer7'] = 'Kirjaumisnimessä ei saa olla välimerkkiä';
+$txt['customer8'] = 'Salasanat eivät täsmää';
+$txt['customer9'] = 'Salasanasi pitää olla vähintää 5 merkkiä pitkä';
+$txt['customer10'] = 'Annoit väärän sähköpostiosoitteen';
+$txt['customer11'] = 'Tervetuloa '.$shopname;
+$txt['customer12'] = "Hyvä mr/mrs $tussenvoegsels $naam,<br /><br />Kiitos liittymisestäsi $shopname verkkokauppaan (<a href=\"$shopurl\">$shopurl</a>).<br /><br />Voit nyt kirjautua sisään verkkokauppaamme ja tilata tuotteita<br />tai seurata tekemäsi tilauksien tilaa.<br /><br />Tässä ovat kirjautumistietosi:<br />Kirjautumisnimesi:  $login<br />Salasanasi: $pass1<br /><br />Pidä tämä tieto tallessa!<br /><br />Nähdään pian <a href=\"$shopurl\">$shopurl</a><br /><br />Ystävällisin terveisin,<br /><br /><br />Webmaster";
+$txt['customer13'] = 'Tietosi on onnistuneesti tallennettu.';
+$txt['customer14'] = 'Ole hyvä ja täytä allaolevat kentät';
+$txt['customer15'] = 'Käyttäjätunnus';
+$txt['customer16'] = 'Salasana';
+$txt['customer17'] = 'Salasana uudestaan';
+$txt['customer18'] = 'Sukunimi';
+$txt['customer19'] = 'Titteli';
+$txt['customer20'] = 'Etunimi';
+$txt['customer21'] = 'Osoite';
+$txt['customer22'] = 'Postinumero';
+$txt['customer23'] = 'Paikkakunta';
+$txt['customer24'] = 'Maa';
+$txt['customer25'] = 'Puhelin';
+$txt['customer26'] = 'sähköposti';
+$txt['customer27'] = '* = Pakollisia kenttiä';
+$txt['customer28'] = 'Tallenna';
+$txt['customer29'] = 'Käyttäjätunnus on jo käytössä';
+$txt['customer30'] = 'Yritys';
+$txt['customer32'] = 'Yritit poistaa Admin tiliä. Tämä estäisi sinua kirjautumasta verkkokauppaan. Pyyntösi on hylätty.';
+$txt['customer33'] = '(5 - 10 merkkiä)';
+$txt['customer34'] = 'Sähköposti jonka annoit on jo käytössä';
+$txt['customer35'] = 'Klikkaa tästä kirjautuaksesi';
+$txt['customer36'] = 'Uusi asiakas';
+$txt['customer37'] = 'Asiakas on rekisteröitynyt verkkokauppaanne. Kopio heille lähetetystä postista alla:';
+$txt['customer38'] = 'Uutiskirje?';
+
+// readorder.php
+$txt['readorder1'] = 'Tulosta tilaus';
+$txt['readorder2'] = 'Takaisin tilauksiin';
+
+// editsettings.php
+$txt['editsettings1'] = 'Vaihda asetuksia';
+$txt['editsettings2'] = 'Tallenna asetukset';
+$txt['editsettings4'] = 'Ensisijainen toimitusmaa <a href=# class=info>(?)<span>Yleensä maa jossa yrityksesi sijaitsee</span></a>';
+$txt['editsettings7'] = 'Ylimääräiset toimituskulut postiennakolla <a href=# class=info>(?)<span>lisättynä normaaliin toimituskuluun, maksaa enemmän. Muoto: 12.34</span></a>';
+$txt['editsettings8'] = 'Valuutta';
+$txt['editsettings9'] = 'Valuutan symboli <a href=# class=info>(?)<span>Sinun tapauksessa luultavasti: </span></a>';
+$txt['editsettings10'] = 'Maksu xx päivässä <a href=# class=info>(?)<span>Kuinka monen päivän aikana maksu pitäisi suorittaa tilille?</span></a>';
+$txt['editsettings11'] = 'Sisältää ALVin <a href=# class=info>(?)<span>Jos ALV on 22% tässä pitäisi olla: 1.22</span></a>';
+$txt['editsettings12'] = 'ALV prosentti <a href=# class=info>(?)<span>Jos ALV on 22% tässä pitäisi olla: 22%</span></a>';
+$txt['editsettings13'] = 'Hinnat sisältää ALV:n';
+$txt['editsettings14'] = 'Myynnin sähköpostiosoite <a href=# class=info>(?)<span>Tähän osoitteeseen saapuvat kaikki tilaukset, esimerkiksi: myynti@yourdomain.com</span></a>';
+$txt['editsettings15'] = 'Kaupan nimi';
+$txt['editsettings16'] = 'Kaupan URL <a href=# class=info>(?)<span>URL alkaen http://, mutta ilman loppuosaa /, esimerkiksi: http://www.yourdomain.com/shop</span></a>';
+$txt['editsettings17'] = 'Ensisijainen kieli';
+$txt['editsettings18'] = 'Tilauksen etuliite (valinnainen)  <a href=# class=info>(?)<span>Jokaisen tilauksen edessä on alkuliite, esimerkiksi: WEB-</span></a>';
+$txt['editsettings19'] = 'Tilauksen jälkiliite (valinnainen)  <a href=# class=info>(?)<span>Jokaisen tilauksen perässä on jälkiliite, esimerkiksi tämänhetkinen vuosi: -08</span></a>';
+$txt['editsettings20'] = 'Käytä varastomääriä <a href=# class=info>(?)<span><strong>sallittu:</strong> käytät varastomääriä<br /><br /><strong>ei sallittu:</strong> käytät varastontilaa (varastossa/jälkitilaus/ei varastossa)</span></a>';
+$txt['editsettings21'] = 'Salli tilaus-moduuli';
+$txt['editsettings22'] = 'Kauppa suljettu';
+$txt['editsettings23'] = 'Suljetun kaupan otsikko';
+$txt['editsettings24'] = 'Suljetun kaupan viesti';
+$txt['editsettings25'] = 'Webmasterin sähköposti';
+$txt['editsettings26'] = 'Puhelinnumero (valinnainen) ';
+$txt['editsettings27'] = 'Faxin numero (valinnainen) ';
+$txt['editsettings28'] = 'Tilinumero';
+$txt['editsettings29'] = 'Tilinomistaja';
+$txt['editsettings30'] = 'Paikkakunta';
+$txt['editsettings31'] = 'Maa';
+$txt['editsettings32'] = 'IBAN';
+$txt['editsettings33'] = 'BIC';
+$txt['editsettings34'] = 'Aloitusvuosi <a href=# class=info>(?)<span>Vuosi jolloin aloitit yrityksen</span></a>';
+$txt['editsettings35'] = 'Kaupan logo <a href=# class=info>(?)<span>Kuvatiedosto jossa on logosi. Tämän pitää sijaita kansiossa <strong>'.$gfx_dir.'</strong></span></a>';
+$txt['editsettings37'] = 'Yrityksen iskulause (valinnainen)  <a href=# class=info>(?)<span>Iskulause näkyy logon alapuolella</span></a>';
+$txt['editsettings38'] = 'Sivun otsikko <a href=# class=info>(?)<span>Otsikko joka näkyy selaimen ikkunassa jossa kauppasi on näkyvissä</span></a>';
+$txt['editsettings39'] = 'Teksi sivun alalaitaan';
+$txt['editsettings44'] = 'Asetukset talletettu tietokantaan';
+$txt['editsettings45'] = 'Pankki';
+$txt['editsettings46'] = 'Ulkoasu';
+$txt['editsettings47'] = 'Kauppa';
+$txt['editsettings48'] = 'Rahoitus';
+$txt['editsettings49'] = 'Numeromuoto';
+$txt['editsettings50'] = 'Maksimi tuotekuvauksen pituus <a href=# class=info>(?)<span>Tuotekuvauksen pituus. <br /><strong>0 = älä lyhennä<br />1-99 = lyhennä xx merkkiin</strong></span></a>';
+$txt['editsettings51'] = 'Ei ALVia <a href=# class=info>(?)<span>Mikäli et halua käyttää ALVia kaupan hinnoissa, esimerkiksi jos kauppa on henkilökohtaisessa käytössä</span></a>';
+$txt['editsettings52'] = 'Pankin nimi';
+$txt['editsettings53'] = 'Hinnaston muoto <a href=# class=info>(?)<span>Tätä asetusta käytetään hinnastossa, ostoskorissa sekä tilausvahvistuksen sähköpostissa</span></a>';
+$txt['editsettings54'] = 'Tuote';
+$txt['editsettings55'] = 'Kuvaus';
+$txt['editsettings56'] = 'Tuote ja Kuvaus';
+$txt['editsettings57'] = 'Päivämäärän muoto <a href=# class=info>(?)<span><strong>d-m-Y @ G:i</strong> for dd-mm-jjjj @ 23:59<br /><strong>m-d-Y @ G:i</strong> for mm-dd-jjjj @ 23:59<br /></span></a>';
+$txt['editsettings58'] = 'Etsi hintalistaan kuvat (gfx) <a href=# class=info>(?)<span>Etsi kuvia tuotteisiin hintalistan latautuessa. Jos kuva löytyy, pienoiskuva ilmestyy tuotteeseen, näin asiakas tietää että tuotteella on kuva. <br /><br />Jos haluat nopeuttaa latausaikoja, poista tämä vaihtoehto käytöstä</span></a>';
+$txt['editsettings59'] = 'Käytä kuvia <a href=# class=info>(?)<span>Mikäli tuotteissa ei ole kuvia, sinun on parempi ruksata tämä pois</span></a>';
+$txt['editsettings69'] = 'Käytä pienoiskuvia hinnastossa <a href=# class=info>(?)<span>Näyttää (jos löytyy) pienen esikatselukuvan tuotteen edessä</span></a>';
+$txt['editsettings70'] = 'Hakusanat (erota pilkulla) <a href=# class=info>(?)<span>Sanat joilla haluat löytyä hakukoneissa</span></a>';
+$txt['editsettings71'] = 'Käytettävä oletusmerkistö <a href=# class=info>(?)<span>Jotkut kielet tarvitsevat eri merkistön, sinun on luultavasti ISO-8859-1</span></a>';
+$txt['editsettings72'] = 'Näytä yleiset ehdot';
+$txt['editsettings73'] = 'Näytä takuuehdot';
+$txt['editsettings74'] = 'Näytä toimitusehdot';
+$txt['editsettings75'] = 'Kuvien tiedostonimi <a href=# class=info>(?)<span>Joillakin kielillä on merkkejä joita ei ole sallittu tiedoston nimenä. On suositeltavaa käyttää tietokantatunnusta</span></a>';
+$txt['editsettings76'] = 'Tietokantatunnus (suositeltavaa)';
+$txt['editsettings77'] = 'Tuotetunnus';
+$txt['editsettings78'] = 'Näytä tietoja yrityksestä';
+$txt['editsettings79'] = 'Salli Live Uutiset <a href=# class=info>(?)<span>Tämä sallii live uutiset FreeWebshop.orgista, joka ilmoittaa päivityksistä sekä muista uutisista. Poista tämä käytöstä vain jos sinulla on ongelmia kyseisen toiminnon kanssa</span></a>';
+$txt['editsettings80'] = 'Hinnaston pienoiskuvan lev. <a href=# class=info>(?)<span>Leveys pikseleinä.<br />oletus=50<br/>0=normaalikoko</span></a>';
+$txt['editsettings81'] = 'Hinnaston pienoiskuvan kork. <a href=# class=info>(?)<span>Korkeus pikseleinä.<br />oletus=50<br />0=normaalikoko</span></a>';
+$txt['editsettings82'] = 'Kategorian pienoiskuvan lev. <a href=# class=info>(?)<span>Leveys pikseleinä.<br />oletus=50<br />0=normaalikoko</span></a>';
+$txt['editsettings83'] = 'Kategorian pienoiskuvan kork. <a href=# class=info>(?)<span>Korkeus pikseleinä.<br />oletus=50<br />0=normaalikoko</span></a>';
+$txt['editsettings84'] = 'Tuotekuvan maksimi lev. <a href=# class=info>(?)<span>Maksimi leveys pikseleinä.<br />oletus=450<br />9999=ei maksimikokoa</span></a>';
+$txt['editsettings85'] = 'Tuotekuvan maksimi kork. <a href=# class=info>(?)<span>Maksimi korkeus pikseleinä.<br />oletus=350<br />9999=ei maksimikokoa</span></a>';
+$txt['editsettings86'] = 'Kaikki';
+$txt['editsettings87'] = 'Näytä uusien tuotteiden linkki';
+$txt['editsettings88'] = 'Käytä WYSIWYG editoria';
+$txt['editsettings89'] = 'Autom. pienoiskuvien luonti <a href=# class=info>(?)<span>Automaattinen pienoiskuvan luonti tuotteen kuvaa ladattaessa.<br />Vaatii <strong>GD laajennuksen</strong> käyttöön</span></a>';
+$txt['editsettings90'] = 'Kaupan kuvaus <a href=# class=info>(?)<span>kuvausta käytetään hakukoneen indeksoidessa kauppaasi</span></a>';
+$txt['editsettings91'] = 'Tuotteita/sivu <a href=# class=info>(?)<span>tuotteiden määrä sivulla.<br />0 = ei tuotteita</span></a>';
+$txt['editsettings92'] = 'poissa käytöstä';
+$txt['editsettings93'] = 'Edistyksellinen';
+$txt['editsettings94'] = 'Yksinkertainen';
+$txt['editsettings95'] = 'Käytä Captchaa <a href=# class=info>(?)<span>Käytä Captchaa (anti-spambot) yhteydenotoissa ja asiakasrekisteröinnissä</span></a>';
+$txt['editsettings96'] = 'Käytä kuvaponnahdusvalikkoa <a href=# class=info>(?)<span>käyttää parempaa kuvien ponnahdusvalikkoa<br />Javascript vaaditaan</span></a>';
+$txt['editsettings97'] = 'Valuuttasymbolin sijainti';
+$txt['editsettings98'] = 'Käytä tätä mallia';
+$txt['editsettings99'] = 'Käytä varastovaroitusta';
+$txt['editsettings100'] = 'Minimi varastomäärä';
+$txt['editsettings101'] = 'Painoluokka <a href=# class=info>(?)<span>Luultavasti <strong>KG</strong></span></a>';
+$txt['editsettings102'] = 'Tilaus hintalistasta';
+$txt['editsettings103'] = 'Käytä päiväyskorjausta <a href=# class=info>(?)<span>Ainoastaan jos virheloki täyttyy päiväysvaroituksista</span></a>';
+$txt['editsettings104'] = 'Hinnaston lajittelu';
+$txt['editsettings105'] = 'Kuvaus';
+$txt['editsettings106'] = 'Hinta';
+$txt['editsettings107'] = 'Aktivoi Autosubmit <a href=# class=info>(?)<span>Jos autosubmit valittu ja maksutapa on tuettu, asiakas ohjataan automaattisesti valitulle maksusivustolle</span></a>';
+$txt['editsettings108'] = 'Luo PDF <a href=# class=info>(?)<span>Jos valittu, kun asiakas on tehnyt tilauksen, tilausvahvistus käännetään PDF-dokumentiksi ja lähetetään sähköpostin liitetiedostona</span></a>';
+
+// productadmin.php
+$txt['productadmin1'] = ' on lisätty ';
+$txt['productadmin2'] = 'Virhe lisättäessä tiedostoa, ole hyvä ja yritä uudelleen!';
+$txt['productadmin3'] = 'Lisää vain .jpg, .png tai .gif tiedostoja';
+$txt['productadmin4'] = 'Lisää uusi tuote';
+$txt['productadmin5'] = 'Takaisin tuotelistaan';
+$txt['productadmin6'] = 'Lisää tuote';
+$txt['productadmin7'] = 'Päivitä tuote';
+$txt['productadmin8'] = 'Lisää ryhmä ensin';
+$txt['productadmin9'] = 'Tuotetunnus';
+$txt['productadmin10'] = 'Tuotekuvaus <a href=# class=info>(?)<span>HTML koodi on sallittu</span></a>';
+$txt['productadmin11'] = 'Hinta <a href=# class=info>(?)<span>muotoa: 123456.78</span></a>';
+$txt['productadmin12'] = 'Varastomäärä';
+$txt['productadmin13'] = 'Varasto (0|1|2) <a href=# class=info>(?)<span>0=Ei varastossa<br />1=Varastossa<br />2=Jälkitoimitus</span></a>';
+$txt['productadmin14'] = 'Etusivulla';
+$txt['productadmin15'] = 'Uusi';
+$txt['productadmin16'] = 'Lisää tuote';
+$txt['productadmin17'] = 'Päivitä tuote';
+$txt['productadmin18'] = 'Ryhmä/Kategoria';
+$txt['productadmin19'] = 'Valitse jpg, png tai gif tiedosto';
+$txt['productadmin20'] = 'Lisää';
+$txt['productadmin21'] = 'Lisää kuva';
+$txt['productadmin22'] = 'Lisää kategoria ensin';
+$txt['productadmin23'] = 'Et voi lisätä kuvaa, koska tuotteellasi ei ole tuotetunnusta';
+$txt['productadmin24'] = 'Poista kuva';
+$txt['productadmin25'] = 'Kuva onnistuneesti poistettu';
+$txt['productadmin26'] = 'Tuote onnistuneesti poistettu';
+$txt['productadmin27'] = 'Lisävaihtoehdot';
+$txt['productadmin28'] = 'Tee pienoiskuvakkeet kaikille kuville (vie aikaa)';
+$txt['productadmin29'] = 'Kaikki pienoiskuvakkeet on luotu (missä tarvittu)..';
+$txt['productadmin30'] = 'Ominaisuudet <a href=# class=info>(?)<span>Ominaisuus1:Punainen,Valkoinen,Sininen|Ominaisuus2:Pieni,Keskikokoinen,Iso<br />Ei väliä!</span></a>';
+$txt['productadmin31'] = 'Paino <a href=# class=info>(?)<span>Painoa käytetään jos toimituskulut on laskettu tilauksen kokonaispainon mukaan</span></a>';
+
+
+// groupadmin.php
+$txt['groupadmin1'] = ' on lisätty ';
+$txt['groupadmin2'] = 'Virhe tiedoston lisäämisessä, ole hyvä ja yritä uudelleen!';
+$txt['groupadmin3'] = 'Lisää vain .jpg, png tai .gif tiedostoja';
+$txt['groupadmin4'] = 'Ryhmä lisätty..';
+$txt['groupadmin5'] = 'Ryhmä päivitetty..';
+$txt['groupadmin6'] = 'Ryhmä (ja siinä olevat kategoriat sekä tuotteet) poistettu..';
+$txt['groupadmin7'] = 'Kategoria lisätty..';
+$txt['groupadmin8'] = 'Kategoria päivitetty..';
+$txt['groupadmin9'] = 'Kategoria siirretty..';
+$txt['groupadmin10'] = 'Kategoria (ja siinä olevat tuotteet) poistettu..';
+$txt['groupadmin11'] = 'Ryhmän nimi';
+$txt['groupadmin12'] = 'Lisää ryhmä';
+$txt['groupadmin13'] = 'Ei ole yhtään ryhmää vielä';
+$txt['groupadmin14'] = 'Ryhmä';
+$txt['groupadmin15'] = 'Uuden ryhmän nimi';
+$txt['groupadmin16'] = 'Päivitä ryhmä';
+$txt['groupadmin17'] = 'Poista ryhmä';
+$txt['groupadmin18'] = 'Ryhmän valinnat';
+$txt['groupadmin19'] = 'Kategorian valinnat';
+$txt['groupadmin20'] = 'Kategorian nimi';
+$txt['groupadmin21'] = 'Lisää kategoria';
+$txt['groupadmin22'] = 'Kategoria';
+$txt['groupadmin23'] = 'Uuden kategorian nimi';
+$txt['groupadmin24'] = 'Päivitä kategoria';
+$txt['groupadmin25'] = 'Siirrä kategoria';
+$txt['groupadmin26'] = 'Poista kategoria';
+$txt['groupadmin27'] = 'Valitse -jpg, -png tai -gif kuva';
+$txt['groupadmin28'] = 'Lisää';
+$txt['groupadmin29'] = 'Lisää kuva';
+$txt['groupadmin30'] = 'Yleiset valinnat';
+$txt['groupadmin31'] = 'Poista tyhjät kategoriat ja ryhmät';
+$txt['groupadmin32'] = 'kategorioita poistettu';
+$txt['groupadmin33'] = 'ryhmiä poistettu0';
+$txt['groupadmin34'] = 'Ryhmä nimeltään '.$gname.' on jo olemassa. Valitse toinen nimi';
+$txt['groupadmin35'] = 'Ryhmän nimi on tyhjä';
+$txt['groupadmin36'] = 'Et ole antanut uutta ryhmänimeä';
+$txt['groupadmin37'] = 'Kategoria nimeltään '.$cname.' on jo olemassa. Valitse toinen nimi';
+$txt['groupadmin38'] = 'Et ole antanut uutta kategorianimeä';
+$txt['groupadmin39'] = 'Kategorian nimi on tyhjä';
+
+// uploadadmin.php
+$txt['uploadadmin1'] = ' on lisätty ';
+$txt['uploadadmin2'] = 'Virhe tiedoston lisäämisessä, ole hyvä ja yritä uudelleen!';
+$txt['uploadadmin3'] = 'Lisää vain .sql tiedostoja';
+$txt['uploadadmin4'] = 'Lisää hinnasto (.SQL)';
+$txt['uploadadmin5'] = 'Valitse SQL tiedosto';
+$txt['uploadadmin6'] = 'Lisää SQL';
+$txt['uploadadmin7'] = 'SQL tiedosto lisätty tietokantaan';
+
+// adminedit.php
+$txt['adminedit1'] = 'Tallenna muutokset';
+$txt['adminedit2'] = 'Muutokset on tallennettu...';
+$txt['adminedit3'] = 'Muokataan tiedostoa';
+
+// shippingadmin.php
+$txt['shippingadmin1'] = 'Toimitustapa lisätty';
+$txt['shippingadmin2'] = 'Toimitustapa poistettu';
+$txt['shippingadmin3'] = 'Toimitustapaa muokattu';
+$txt['shippingadmin4'] = 'Tuetut toimitustavat';
+$txt['shippingadmin5'] = 'Kuvaus';
+$txt['shippingadmin6'] = 'Kulut';
+$txt['shippingadmin7'] = "Pelkästään $send_default_country?";
+$txt['shippingadmin8'] = 'Muokkaa';
+$txt['shippingadmin9'] = 'Poista';
+$txt['shippingadmin10'] = 'Lisää';
+$txt['shippingadmin11'] = 'Muokkaa toimitusmaita';
+$txt['shippingadmin12'] = 'Valinnat';
+$txt['shippingadmin13'] = 'Maksuvalinnat';
+$txt['shippingadmin14'] = 'Muokkaa toimitustapaa';
+$txt['shippingadmin15'] = 'HUOM: Olet aikeissa muokata toimitustapaa. Tämä voi vaikuttaa muihin osiin verkkokaupassa. Vaihda vain kuvaus mieleiseksesi, mutta älä välttämättä ydinkoodia';
+$txt['shippingadmin16'] = 'Muokkaa ensisijaista toimitusmaata';
+$txt['shippingadmin17'] = 'Muut kohteet';
+$txt['shippingadmin18'] = 'Mistä';
+$txt['shippingadmin19'] = 'Mihin';
+$txt['shippingadmin20'] = 'Kustannus';
+$txt['shippingadmin21'] = 'Toimituskustannus/paino sääntö onnistuneesti poistettu';
+
+// paymentadmin.php
+$txt['paymentadmin1'] = 'Maksutapa lisätty';
+$txt['paymentadmin2'] = 'Maksutapa poistettu';
+$txt['paymentadmin3'] = 'Maksutapaa muokattu';
+$txt['paymentadmin4'] = 'Tuetut maksutavat';
+$txt['paymentadmin5'] = 'Kuvaus';
+$txt['paymentadmin6'] = 'Vaihda maksutapaa';
+$txt['paymentadmin7'] = 'HTML koodi';
+$txt['paymentadmin8'] = 'Muokkaa';
+$txt['paymentadmin9'] = 'Poista';
+$txt['paymentadmin10'] = 'Lisää';
+$txt['paymentadmin11'] = 'Valinnat';
+$txt['paymentadmin12'] = 'HUOM: Olet aikeissa muokata maksutapaa. Tämä voi vaikuttaa muihin osiin verkkokaupassa. Vaihda vain kuvaus mieleiseksesi, mutta älä välttämättä ydinkoodia';
+
+// errorlogadmin.php
+$txt['errorlogadmin1'] = 'Virheloki';
+$txt['errorlogadmin2'] = 'Vakavuus';
+$txt['errorlogadmin3'] = 'Virhe';
+$txt['errorlogadmin4'] = 'Tiedosto';
+$txt['errorlogadmin5'] = 'Rivi';
+$txt['errorlogadmin6'] = 'Päiväys';
+$txt['errorlogadmin7'] = 'Kirjattuja virheitä ei löytynyt';
+$txt['errorlogadmin8'] = 'Tyhjennä loki';
+$txt['errorlogadmin9'] = 'Loki tyhjennetty onnistuneesti';
+
+// pagesadmin.php
+$txt['pagesadmin1'] = 'Lisäsivut';
+$txt['pagesadmin2'] = 'Sivun nimi';
+$txt['pagesadmin3'] = 'Valinnat';
+$txt['pagesadmin4'] = 'Nimeä uudelleen';
+$txt['pagesadmin5'] = 'Lisää';
+$txt['pagesadmin6'] = 'Sivu uudelleen nimetty';
+$txt['pagesadmin7'] = 'Sivu poistettu';
+$txt['pagesadmin8'] = 'Epäonnistunut';
+$txt['pagesadmin9'] = 'sivu lisätty';
+$txt['pagesadmin10'] = 'Lisää henkilökohtainen sivu';
+$txt['pagesadmin11'] = 'Piilotettu';
+
+// accessadmin.php
+$txt['accesslogadmin1'] = 'Kirjautumisloki';
+$txt['accesslogadmin2'] = 'Sisäänkirjautuja';
+$txt['accesslogadmin3'] = 'Salasana';
+$txt['accesslogadmin4'] = 'Aika';
+$txt['accesslogadmin5'] = 'Onnistunut';
+//$txt['accesslogadmin6'] = 'Päiväys';
+$txt['accesslogadmin7'] = 'Kirjautumislokitietoja ei löydy';
+$txt['accesslogadmin8'] = 'Tyhjennä loki';
+$txt['accesslogadmin9'] = 'Kirjautumisloki tyhjennetty onnistuneesti';
+
+// stockadmin.php
+$txt['stockadmin2'] = 'Näytä';
+$txt['stockadmin3'] = 'Varastohallinta';
+
+// mailinglist.php
+$txt['mailinglist1'] = 'Kopioi/Liitä tämä suosikki-massapostitusohjelmalle';
+?>

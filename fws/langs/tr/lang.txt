@@ -1,0 +1,572 @@
+<?php
+// The character set we should use for this language. If you are unsure, use ISO-8859-1
+$charset = "UTF-8";
+
+// first some values that can also be used further along in this lang file
+// database values for orders
+$txt['db_shipping1'] = 'Ürünü elden alabilirsiniz, bu sayede gönderim için ek ücret ödemezsiniz';
+
+// database values for payments
+$txt['db_payment1'] = 'Banka yoluyla öde';
+$txt['db_payment2'] = 'Mağazamıza elden ödeyin (isteğe bağlı)';
+$txt['db_payment3'] = 'Paypal ile öde';
+$txt['db_payment4'] = 'Alımda öde';
+
+// order status
+$txt['db_status1'] = 'Müşteriden sipariş';
+$txt['db_status2'] = 'Ödeme için bekleniyor';
+$txt['db_status3'] = 'Randevu için bekleniyor';
+$txt['db_status4'] = 'Sipariş işleme konuluyor';
+$txt['db_status5'] = 'Müşteriye gönderildi (tamamlandı)';
+$txt['db_status6'] = 'müşteri tarafından alındı (tamamlandı)';
+$txt['db_status7'] = 'İptal edildi';
+
+$txt['db_status10'] = 'Durum izahı';
+$txt['db_status11'] = 'Siparişiniz gönderildi; lâkin şu anda yetkişi kişi tarafından onaylanmadı';
+$txt['db_status12'] = 'Siparişiniz onaylandı. Yapmanız gereken bizimle iletişim kurup istenilen ücreti gereken yollarla ödemenizdir.';
+$txt['db_status13'] = 'Ödemeniz elimize ulaştı. Siparişinizin hazırlanmasıyla ilgili bir e-posta alacaksınız. Randevu için lütfen bizi arayınız.';
+$txt['db_status14'] = 'Ödemeniz elimize ulaştı. Siparişiniz işleme kondu. Bu mesajı okuduğunuzda siparişiniz size gönderilmiş veya gönderilmekte olabilir';
+$txt['db_status15'] = 'Siparişiniz kargo ile size gönderildi. Sipariş tamamlandı. Alışveriş işlemi başarılı. Lütfen sonucu bize iletiniz.';
+$txt['db_status16'] = 'Siparişiniz elinize ulaştı. Alışveriş işlemi başarılı. Lütfen sonucu bize iletiniz.';
+$txt['db_status17'] = 'Sipariş işlemi sizin iptal etmeniz veya bizim geri çevirmemiz yüzünden iptal edildi';
+
+// database values for stock
+$txt['db_stock1'] = 'Stoklarda var';
+$txt['db_stock2'] = 'Stoklarda yok';
+$txt['db_stock3'] = 'Siparişe göre temin edilir.';
+
+$txt['db_stock10'] = 'Stok açıklaması';
+$txt['db_stock11'] = 'Bu ürün stoklarımızda mevcut.';
+$txt['db_stock12'] = 'Bu ürün stoklarımızda mevcut değil';
+$txt['db_stock13'] = 'Bu ürün siparişe göre temin edilebilir veya temin edilmesi için bir süre beklemeniz gerekmektedir';
+
+// general values
+$txt['general1'] = 'Giriş yasaklandı!';
+$txt['general2'] = 'IP adresiniz kaydedildi';
+$txt['general3'] = 'yeni';
+$txt['general4'] = 'yönetici seçeneklerine dön';
+$txt['general5'] = 'KDV';
+$txt['general6'] = 'içermeyen';
+$txt['general7'] = 'içeren';
+$txt['general8'] = 'NOT: Satış işlemlerimiz bir süreliğine durdurulmuştur. Bu süre zarfında müşterilerimizin site ile ilişkileri kesilmiştir.';
+$txt['general9'] = 'Sayfa bulunamamaktadır! (404)';
+$txt['general10'] = 'Bu sistemden engellendiniz';
+$txt['general11'] = 'Hakkımızda';
+$txt['general12'] = 'Hata';
+$txt['general13'] = 'Hatırlata';
+$txt['general14'] = 'Geri';
+$txt['general15'] = 'Kodu giriniz';
+$txt['general16'] = 'Kod hatalı. Lütfen tekrar deneyin.';
+
+// header.php
+$txt['header1'] = 'Güvenlik riski';
+$txt['header2'] = 'Hoşgeldiniz';
+$txt['header3'] = 'ziyaretçi';
+$txt['header4'] = '<font color=red><strong>install.php</strong></font> bulundu.Bu dosyayı silmelisiniz!';
+
+// menu.php
+$txt['menu1'] = 'Anasayfa';
+$txt['menu2'] = 'alışveriş sepeti';
+$txt['menu3'] = 'İşleme koy';
+$txt['menu4'] = 'Ara';
+$txt['menu5'] = 'Genel Şartlar';
+$txt['menu6'] = 'Sipariş prosedürleri';
+$txt['menu7'] = 'Garanti';
+$txt['menu8'] = 'İletişim';
+$txt['menu9'] = 'Site yönetimi';
+$txt['menu10'] = 'Kişisel sayfa';
+$txt['menu11'] = 'Çıkış';
+$txt['menu12'] = 'Giriş';
+$txt['menu13'] = 'Kayıt';
+$txt['menu14'] = 'Bilgi';
+$txt['menu15'] = 'Ürünler';
+$txt['menu16'] = '<font color=red><strong>Yeni</strong></font> ürünler';
+$txt['menu17'] = 'Ürün yok';
+$txt['menu18'] = 'Hakkımızda';
+$txt['menu19'] = 'Ekstra';
+
+// sendprocedure.php
+$txt['send1'] = 'Sipariş yöntemi';
+
+// cart.php
+$txt['cart1'] = 'Alışveriş sepetiniz';
+$txt['cart2'] = 'Sepetiniz boş<br /><br />';
+$txt['cart3'] = 'Tanımlama';
+$txt['cart4'] = 'Fiyat';
+$txt['cart5'] = 'Nicelik';
+$txt['cart6'] = 'Sil';
+$txt['cart7'] = 'Toplam';
+$txt['cart8'] = 'Boş';
+$txt['cart9'] = 'İşleme koy';
+$txt['cart10'] = 'Güncelle';
+$txt['cart11'] = 'Sepettekiler';
+$txt['cart12'] = 'Alışverişe devam';
+
+// browse.php
+$txt['browse1'] = 'Arama sonuçları';
+$txt['browse2'] = 'Ürün detayı';
+$txt['browse3'] = 'Fiyat';
+$txt['browse4'] = 'Sırala';
+$txt['browse5'] = 'Ürün bulunamadı';
+$txt['browse6'] = 'NOT: Resimler hak içermeyebilir. Ürünler stoklardakine göredir.';
+$txt['browse7'] = 'düzenle';
+$txt['browse8'] = 'sil';
+$txt['browse9'] = 'Ürün listesi';
+$txt['browse10'] = 'resmi değiştir';
+$txt['browse11'] = 'Sayfalar';
+
+// submenu.php
+$txt['submenu1'] = 'Bu gruptaki kategoriler';
+$txt['submenu2'] = 'Bu grupta kategori bulunamadı';
+
+// main.php
+$txt['main1'] = 'Hoşgeldiniz';
+$txt['main2'] = 'Özel tavsiye';
+
+// details.php
+$txt['details1'] = 'Ürün detayları';
+$txt['details2'] = 'Ürün kodu';
+$txt['details4'] = 'Tanımlama';
+$txt['details5'] = 'Fiyat/Adet';
+$txt['details6'] = 'Nicelik';
+$txt['details7'] = 'Sipariş';
+$txt['details8'] = 'Listeye geri dön';
+$txt['details9'] = 'Tam boyut için tıklayın';
+
+// conditions.php
+$txt['conditions1'] = 'Genel kullanım şartlarını kabul ediyorum';
+$txt['conditions2'] = 'Genel kullanım şartlarını kabul etmiyorum';
+$txt['conditions3'] = 'Etkinsizleştirildi';
+$txt['conditions4'] = 'Siparişiniz etkinsizleştirildi';
+
+// shipping.php
+$txt['shipping1'] = 'Sipariş ve ödeme';
+$txt['shipping2'] = 'Sipariş yöntemi seçiniz';
+$txt['shipping3'] = 'ilave yorum ve/ya sorularınız';
+$txt['shipping9'] = 'Siparişi tamamla';
+$txt['shipping10'] = 'Ödeme yöntemi seçiniz';
+
+// checkout.php
+$txt['checkout2'] = 'Sayfa süre aşımına uğradı. Sepetinize dönün ve işleme koyma tuşuna basın';
+$txt['checkout3'] = "Değerli üyemiz $lastname,<br /><br /><br /><a href=$shopurl>$shopname</a> ile sipariş işleminiz bulunmaktadır<br /><br />Sipariş numaranız: $webid<br />Müşteri numaranız: $customerid<br /><br />Aşağıdaki ürünler sipariş listenizde:<br />";
+$txt['checkout4'] = ' x ürün ';
+$txt['checkout5'] = ' bir adet';
+$txt['checkout6'] = "<br />";
+$txt['checkout7'] = 'Sipariş vermeyi denediniz:';
+$txt['checkout8'] = 'Stoklarda:';
+$txt['checkout9'] = "<br /><br />Siparişinizin durumunu herhangi bir zamanda <a href=$shopurl/index.php?page=orders&id=$customerid>buraya tıklayarak</a> takip edebilirsiniz<br /><br />İşlemleriniz için teşekkürler.<br />Sormak istediklerinizi iletişim bilgilerimizi kullanarak veya site iletişim formu yoluyla bize iletebilirsiniz";
+$txt['checkout10'] = 'Sipariş doğrulaması '.$shopname;
+$txt['checkout11'] = 'Sipariş verme işlemi tamamlandı. Bizden bir doğrulama e-postası alacaksınız. Lütfen E-Posta adresinizi kontrol edin';
+$txt['checkout12'] = 'Doğrulama e-postası gönderilemedi. O yüzden bu doğrulama işleminin çıktısını alınız.';
+$txt['checkout13'] = 'Doğrulama e-postasının bir kopyası:';
+$txt['checkout15'] = 'Ürün, istediğiniz adette stoklarımızda bulunmamaktadır:';
+$txt['checkout16'] = "Sipariş yöntemi: ";
+$txt['checkout17'] = "Sipariş adresi:<br />$company<br />$address<br />$zipcode $city<br />$country";
+$txt['checkout19'] = "Ödeme yöntemi: ";
+$txt['checkout20'] = "Banka bilgisi:<br />Hesap numarası: $bankaccount<br />Hesap sahibi: $bankaccountowner<br />Şehir: $bankcity<br />Şube: $bankcountry<br />Banka İsmi: $bankname<br />IBAN: $bankiban<br />BIC: $bankbic<br />Konu/Referans: $webid";
+$txt['checkout21'] = "Ürünler stoklarımıza girdiği anda sizi e-posta yoluyla bilgilendireceğiz.";
+$txt['checkout22'] = "Para gönderimi için PayPal kullanın";
+$txt['checkout23'] = "Siparişiniz için havale yolunu kullanın";
+$txt['checkout24'] = "Toplam fatura miktarı: $currency_symbol $totalprint ($currency_symbol $print_sendcosts shipping rate)";
+$txt['checkout25'] = "$show_vat içerir".$txt['general5'];
+$txt['checkout26'] = "Lütfen ödeme işlemini $paymentdays gün içinde gerçekleştiriniz. Ödemeyi aldığımızda, sipariş işleminizi tamamlayacağız.";
+$txt['checkout27'] = 'PayPal transferi';
+
+// search.php
+$txt['search1'] = 'Ürün bul';
+$txt['search2'] = 'Ara ';
+$txt['search3'] = 'Arama yöntemi';
+$txt['search4'] = 'Tüm kelimeleri eşleştir';
+$txt['search5'] = 'Herhangi bir kelimeyi eşleştir';
+$txt['search6'] = 'Ara';
+
+// guarantee.php
+$txt['guarantee1'] = 'Garanti Kapsamı';
+
+// contact.php
+$txt['contact1'] = 'Form ile iletişim '. $shopurl;
+$txt['contact2'] = 'Mesaj gönderildi';
+$txt['contact3'] = 'Mesajınız başarıyla gönderildi. Gerekirse kısa zamanda cevap alacaksınız';
+$txt['contact5'] = 'Formdaki bütün bilgileri girmek zorundasınız<br /><a href="javascript:history.go(-1)">Geri dönmek için <strong>Buraya tıklayın</strong></a>';
+$txt['contact6'] = 'İletişim';
+$txt['contact7'] = 'Nasıl iletişim kurarım';
+$txt['contact8'] = 'E-Posta';
+$txt['contact9'] = 'Telefon';
+$txt['contact10'] = 'Faks';
+$txt['contact11'] = 'Bizimle iletişime geçmek için aşağıdaki formu kullanın:';
+$txt['contact12'] = 'Gönderildi: ';
+$txt['contact13'] = 'İsminiz';
+$txt['contact14'] = 'E-Posta adresiniz';
+$txt['contact15'] = 'Mesajınız';
+
+// checklogin.php
+$txt['checklogin1'] = 'Kişisel numaranızı giriş yapmak için kullanın';
+$txt['checklogin2'] = 'Kullanıcı adı';
+$txt['checklogin3'] = 'Şifre';
+$txt['checklogin4'] = 'Giriş';
+$txt['checklogin5'] = 'Kullanıcı numaranız yoksa buraya tıklayın';
+$txt['checklogin6'] = 'Neden üyelik gerekli?';
+$txt['checklogin7'] = 'Sitemizdeki ürünlere sipariş verebilmek için üye girişi yapmanız gerekmektedir.<br />Kayıt esnasında sizden aldığımız bilgilerin doğruluğunu teyit edersiniz ve bu bilgiler 3. şahıslar tarafından görülmez.</strong><br /><br /><br />Sitemize üye olduktan sonra yapabilecekleriniz:<ul><li>Herhangi bir bilgisayardan hesabınıza giriş yapabilirsiniz<li>Ürünlere sipariş verebilirsiniz<li>Sipariş listenizdeki ürünlerin anlık durumunu takip edebilirsiniz<li>Alışveriş sepetinizi düzenleyebilirsiniz</ul>';
+$txt['checklogin8'] = 'Yasaklanmış giriş bilgisi';
+$txt['checklogin9'] = 'Kayıt esnasındaki e-posta adresinizi giriniz. Gerekli bilgiler e-posta adresinize gönderilecektir';
+$txt['checklogin10'] = 'E-Posta gönder';
+$txt['checklogin11'] = 'Bilgilerinizi mi unuttunuz?';
+$txt['checklogin12'] = 'Bilgileriniz gönderildi: ';
+$txt['checklogin13'] = 'Kayıp giriş bilgisi '. $shopurl;
+$txt['checklogin14'] = "Bu e-postayı, sitemizden yapmış olduğunuz bilgi istemi sebebiyle aldınız. (<a href=\"$shopurl\">$shopurl</a>)";
+$txt['checklogin15'] = 'Mevcut e-posta adresine sahip müşteri yok';
+$txt['checklogin18'] = 'Geri dön';
+
+// login.php
+$txt['login1'] = 'Hata.. Lütfen bekleyin..';
+$txt['login2'] = 'veya buraya tıklayın';
+$txt['login3'] = 'Giriş işlemi başarılı...';
+
+// logout.php
+$txt['logout1'] = 'Çıkış işlemi başarılı...';
+
+// my.php
+$txt['my3'] = 'Kişisel sayfanız hakkında';
+$txt['my4'] = 'Burası sizin kişisel sayfanızdır. Sadece kullanıcı girişi yaparsanız burayı görebilirsiniz.<br /><br />Genel olarak tüm bilgileri buradan takip edebilirsiniz.';
+$txt['my5'] = 'Kişisel sayfa ayarları';
+$txt['my6'] = 'Kullanıcı numaranız';
+$txt['my7'] = 'Bilgileri değiştir';
+$txt['my8'] = 'Siparişleri görüntüle';
+$txt['my9'] = 'Kartı görüntüle';
+
+// admin.php
+$txt['admin1'] = 'Mağaza yönetimi';
+$txt['admin2'] = 'Siparişler';
+$txt['admin3'] = 'Müşteriler';
+$txt['admin4'] = 'Mağaza';
+$txt['admin5'] = 'Ürünler';
+$txt['admin6'] = 'Gruplar&<br />Kategoriler';
+$txt['admin7'] = 'Veritabanı optimize';
+$txt['admin8'] = 'Ayarlar';
+$txt['admin9'] = 'Fiyat listesi yükle';
+$txt['admin10'] = 'Veritabanı optimize ediliyor..';
+$txt['admin11'] = 'optimize ediliyor';
+$txt['admin12'] = 'Optimize işlemi bitti!';
+$txt['admin13'] = 'Bilgi ve destek';
+$txt['admin14'] = 'Güncelleştirmeleri denetle';
+$txt['admin15'] = 'Genel Şartlar';
+$txt['admin16'] = 'Sipariş sayfası';
+$txt['admin17'] = 'Garanti sayfası';
+$txt['admin18'] = 'Sipariş seçenekleri';
+$txt['admin19'] = 'Engelli listesi';
+$txt['admin20'] = 'Hakkımızda';
+$txt['admin21'] = 'Ödeme seçenekleri';
+$txt['admin22'] = 'Ana sayfa';
+$txt['admin23'] = 'Ayarları değiştir';
+$txt['admin24'] = 'Dosyaları düzenle';
+$txt['admin25'] = 'Bilgi';
+$txt['admin26'] = 'Hata kaydı';
+$txt['admin27'] = 'Veritabanını yedekle';
+$txt['admin28'] = 'Yedekleme tamamlandı, indirmek için aşağıdaki linke tıklayın';
+$txt['admin29'] = 'Yöneticiler';
+$txt['admin30'] = 'Ekstra sayfalar';
+
+// customeradmin.php
+$txt['customeradmin1'] = 'Soyadı';
+$txt['customeradmin2'] = 'Katılma zamanı';
+$txt['customeradmin3'] = 'E-Posta';
+$txt['customeradmin4'] = 'Telefone';
+$txt['customeradmin5'] = 'Seçenekler';
+$txt['customeradmin6'] = 'Müşteri yönetimi';
+$txt['customeradmin7'] = 'Bu kişi yönetici grubu üyesi oldu';
+$txt['customeradmin8'] = 'Bu kişi müşteri grubu üyesi oldu';
+$txt['customeradmin9'] = 'Müşteri bulunamadı';
+
+// orderadmin.php
+$txt['orderadmin1'] = 'Siparişinizin durumu ';
+$txt['orderadmin2'] = ' değişti';
+$txt['orderadmin3'] = 'Sipariş silindi';
+$txt['orderadmin4'] = "<br /><a href=\"$shopurl/index.php?page=orders&id=";
+$txt['orderadmin5'] = '">Buraya</a> sipariş durumu için tıklayın';
+$txt['orderadmin6'] = 'E-Posta gönderildi:';
+$txt['orderadmin7'] = 'E-Posta müşterisi';
+$txt['orderadmin8'] = 'Güncelle';
+$txt['orderadmin9'] = 'Tüm siparişler';
+$txt['orderadmin10'] = 'Belirlediğiniz koşullarda sipariş bulunmamakta';
+$txt['orderadmin11'] = 'Göster';
+$txt['orderadmin12'] = 'NOT: Müşteri ekstra yazı gönderdi';
+$txt['orderadmin13'] = 'Sipariş yönetimi';
+$txt['orderadmin14'] = 'Durumu değiştir';
+$txt['orderadmin15'] = 'Durum değiştirildi';
+
+// orders.php
+$txt['orders3'] = 'Kayıtlı siparişleriniz <a href=# class=info>(?)<span>Siparişlerinizin güncel durumu aşağıdadır.<br />Detayları görmek için sipariş numarasına tıklayın</span></a>';
+$txt['orders4'] = 'Sipariş No';
+$txt['orders5'] = 'Sipariş&Ödeme';
+$txt['orders6'] = 'Fatura miktarı';
+$txt['orders7'] = 'Sipariş zamanı';
+$txt['orders8'] = 'Durum';
+$txt['orders9'] = 'Kayıtlı siparişiniz bulunmamakta';
+
+// customer.php
+$txt['customer1'] = 'Durum';
+$txt['customer2'] = 'Kullanıcı silindi';
+$txt['customer3'] = 'Geri dön';
+$txt['customer5'] = 'Devam edebilmek için sorunları çözmelisiniz';
+$txt['customer6'] = 'Yıldızlı alanların doldurulması zorunludur';
+$txt['customer7'] = 'kullanıcı giriş isminizde boşluk kullanmayın';
+$txt['customer8'] = 'Girdiğiniz şifreler uyuşmuyor';
+$txt['customer9'] = 'Şifreniz en az 5 karakter içermeli';
+$txt['customer10'] = 'Geçersiz e-posta adresi girdiniz';
+$txt['customer11'] = "Hoşgeldiniz. $shopname";
+$txt['customer12'] = "Değerli müşterimiz $tussenvoegsels $naam,<br />Sitemize kaydolduğunuz için teşekkür ederiz (<a href=\"$shopurl\">$shopurl</a>).<br />Artık sisteme giriş yapabilirsiniz<br /><br />Giriş bilgileriniz:<br />Kullanıcı adı:  $login<br />Şifre: $pass1<br /><br />Güvenliğiniz için bu bilgileri saklayınız<br />Tekrar görüşmek üzere <a href=\"$shopurl\">$shopurl</a><br /><br />Site yönetimi";
+$txt['customer13'] = 'Bilgileriniz kaydedildi';
+$txt['customer14'] = 'Lütfen tüm bilgileri girin';
+$txt['customer15'] = 'Kullanıcı adı';
+$txt['customer16'] = 'Şifre';
+$txt['customer17'] = 'Şifre (tekrar)';
+$txt['customer18'] = 'isminiz';
+$txt['customer19'] = 'Pozisyonunuz';
+$txt['customer20'] = 'İmzanız';
+$txt['customer21'] = 'Adresiniz';
+$txt['customer22'] = 'Posta kodu';
+$txt['customer23'] = 'İlçeniz';
+$txt['customer24'] = 'Şehriniz';
+$txt['customer25'] = 'Telefon';
+$txt['customer26'] = 'E-Posta';
+$txt['customer27'] = '* = doldurmak zorunlu';
+$txt['customer28'] = 'Bilgileri kaydet';
+$txt['customer29'] = 'Seçtiğiniz kullanıcı adı sistemde mevcut';
+$txt['customer30'] = 'Firma';
+$txt['customer32'] = 'Yönetici hesabını silmeyi denediniz. Geçersiz işlem yürüttünüz şimdi bu site kendini 5dk içinde imha edecek :)';
+$txt['customer33'] = '(5-10 karakter)';
+$txt['customer34'] = 'Girdiğiniz E-Posta sistemde mevcut';
+$txt['customer35'] = 'Giriş için tıklayın';
+$txt['customer36'] = 'Yeni müşteri';
+$txt['customer37'] = 'Müşteri kendisi sisteme kaydoldu. Gönderilen mailin kopyası aşağıdadır:';
+
+// readorder.php
+$txt['readorder1'] = 'Siparişinizi yazdırın';
+$txt['readorder2'] = 'Siparişlerinize geri dönün';
+
+// editsettings.php
+$txt['editsettings1'] = 'Ayarları değiştir';
+$txt['editsettings2'] = 'Ayarları kaydet';
+$txt['editsettings4'] = 'Varsayılan sipariş şehri <a href=# class=info>(?)<span>Genellikle firmanızın bulunduğu şehirdir</span></a>';
+$txt['editsettings7'] = 'Alımda ekstra sipariş vergisi öde <a href=# class=info>(?)<span>Normal sipariş vergisine göre ekstra ücret ödenir. Format: 12.34</span></a>';
+$txt['editsettings8'] = 'Para';
+$txt['editsettings9'] = 'Para sembolü <a href=# class=info>(?)<span>Varsayılan: YTL</span></a>';
+$txt['editsettings10'] = 'xx gün içinde ödeme yapılsın <a href=# class=info>(?)<span>Kaç gün içinde ödemenin yapılacağını yazın</span></a>';
+$txt['editsettings11'] = 'KDV <a href=# class=info>(?)<span>KDV %18 ise şu şekilde görünür: 1.18</span></a>';
+$txt['editsettings12'] = 'KDV yazısı <a href=# class=info>(?)<span>KDV: 19%</span></a>';
+$txt['editsettings13'] = 'Veritabanındaki KDV içeren fiyatlar';
+$txt['editsettings14'] = 'E-Posta adresiniz <a href=# class=info>(?)<span>Bu adrese siparişler gelecek</span></a>';
+$txt['editsettings15'] = 'Firma adı';
+$txt['editsettings16'] = 'Mağaza Adresi <a href=# class=info>(?)<span>örnek: http://www.siteadresi.com</span></a>';
+$txt['editsettings17'] = 'Varsayılan dil';
+$txt['editsettings18'] = 'Sipariş ön adı (seçmeli) <a href=# class=info>(?)<span>Tüm siparişlerin başında yer alır ( örnek: WEB-sipariş adı )</span></a>';
+$txt['editsettings19'] = 'Sipariş son adı (seçmeli) <a href=# class=info>(?)<span>Tüm siparişlerin sonunda yer alır ( örnek sipariş adı-07 )</span></a>';
+$txt['editsettings20'] = 'Stok miktarını kullan<a href=# class=info>(?)<span><strong>etkinleştirildi:</strong> Stok miktarını kullanın<br /><br /><strong>etkinsizleştirildi:</strong> stok durumu (stokta/stokta değil/siparişe göre stoklanır)</span></a>';
+$txt['editsettings21'] = 'Sipariş modülünü etkinleştir';
+$txt['editsettings22'] = 'Mağaza etkinsizleştir';
+$txt['editsettings23'] = 'Mağaza ismini etkinsizleştir';
+$txt['editsettings24'] = 'Mağaza mesajını etkinsizleştir';
+$txt['editsettings25'] = 'Yönetici E-Postası';
+$txt['editsettings26'] = 'Telefon No (seçmeli)';
+$txt['editsettings27'] = 'Faks No (seçmeli)';
+$txt['editsettings28'] = 'Banka hesabı';
+$txt['editsettings29'] = 'Banka hesap sahibi';
+$txt['editsettings30'] = 'Banka şehri';
+$txt['editsettings31'] = 'Banka şubesi';
+$txt['editsettings32'] = 'Bank IBAN';
+$txt['editsettings33'] = 'Bank BIC';
+$txt['editsettings34'] = 'Başlangıç yılı <a href=# class=info>(?)<span>Firmanızın açılış yılı</span></a>';
+$txt['editsettings35'] = 'Logo <a href=# class=info>(?)<span>Firmanızın logosu <strong>'.$gfx_dir.'</strong> klasöründe olmalı</span></a>';
+$txt['editsettings37'] = 'Firma sloganınız (seçmeli) <a href=# class=info>(?)<span>Slogan logo altında belirecek</span></a>';
+$txt['editsettings38'] = 'Sayfa başlığı<a href=# class=info>(?)<span>Sitenizin gösterildiği tarayıcı başlığında görüntülenecek</span></a>';
+$txt['editsettings39'] = 'Alt kısım';
+$txt['editsettings44'] = 'Ayarlar veritabanına kaydedildi';
+$txt['editsettings45'] = 'Banka detayları';
+$txt['editsettings46'] = 'Yerleşim';
+$txt['editsettings47'] = 'Mağaza';
+$txt['editsettings48'] = 'Finans';
+$txt['editsettings49'] = 'Sayı formatı';
+$txt['editsettings50'] = 'Azamî tanımlama uzunluğu <a href=# class=info>(?)<span>Fiyat listesindeki kısaltmalar <br /><strong>0 = kısaltma<br />1-99 = xx karaktere kes</strong></span></a>';
+$txt['editsettings51'] = 'KDV kullanma <a href=# class=info>(?)<span>Fiyatlarınızda KDV istemiyorsanız etkinleştirin</span></a>';
+$txt['editsettings52'] = 'Banka adı';
+$txt['editsettings53'] = 'Fiyat listesi formatı <a href=# class=info>(?)<span>Bu ayar fiyat listelerine uygulanır, Sepet ve doğrulama e-postası</span></a>';
+$txt['editsettings54'] = 'Ürün kodu';
+$txt['editsettings55'] = 'Tanımlama';
+$txt['editsettings56'] = 'Ürün kodu ve tanımlaması';
+$txt['editsettings57'] = 'Tarih formatı <a href=# class=info>(?)<span><strong>d-m-Y @ G:i</strong> gün-ay-yıl ve saat:dakika için<br /><strong>m-d-Y @ G:i</strong> ay-gün-yıl saat:dakika için<br /></span></a>';
+$txt['editsettings58'] = 'Fiyat listesinde grafik ara <a href=# class=info>(?)<span>Çeşitli ürünlerin yüklenme resimleri.Eğer resim bulunursa, ürünün arkasında bir simge belirecek ve ziyaretçiler de bir resim olduğunu anlayacaklar <br /><br /> Uzak bilgisayarda resimlerini varsa bunu pasifleştirin</span></a>';
+$txt['editsettings59'] = 'Resimleri kullan <a href=# class=info>(?)<span>Ürününüz için resminiz yoksa bu seçeneği pasifleştirebilirsiniz</span></a>';
+$txt['editsettings69'] = 'Fiyat listesinde önizleme resimlerini kullan <a href=# class=info>(?)<span>Ürün detaylarında ( varsa ) küçük ön izleme resimlerini gösterir</span></a>';
+$txt['editsettings70'] = 'Meta kelimeler (virgülle ayırın) <a href=# class=info>(?)<span>Arama motorları tarafından sitenizin indekslenmesini sağlar</span></a>';
+$txt['editsettings71'] = 'Kullanılan karakter kodlaması<a href=# class=info>(?)<span>ISO-8859-9 varsayılandır..</span></a>';
+$txt['editsettings72'] = 'Genel Kullanım Şartları linkini göster';
+$txt['editsettings73'] = 'Garanti linkini göster';
+$txt['editsettings74'] = 'Sipariş verme linkini göster';
+$txt['editsettings75'] = 'Resimlerin dosya isimleri <a href=# class=info>(?)<span>Bu ne işe yarıyor ben de bilmiyorum :)</span></a>';
+$txt['editsettings76'] = 'Veritabanı ID (tavsiye edilir)';
+$txt['editsettings77'] = 'Ürün kodu';
+$txt['editsettings78'] = 'Hakkında linkini göster';
+$txt['editsettings79'] = 'Canlı haberleri göster <a href=# class=info>(?)<span>Bu portalın anasayfasındaki haberleri gösterir</span></a>';
+$txt['editsettings80'] = 'Fiyat listesi ön resmi genişlik <a href=# class=info>(?)<span>Varsayılan=50<br/>0=yeniden boyutlandırmayı etkinsizleştir</span></a>';
+$txt['editsettings81'] = 'Fiyat listesi ön resmi uzunluk <a href=# class=info>(?)<span>Varsayılan=50<br />0=yeniden boyutlandırmayı etkinsizleştir</span></a>';
+$txt['editsettings82'] = 'Kategori ön resmi genişlik <a href=# class=info>(?)<span>>Varsayılan=50<br />0=yeniden boyutlandırmayı etkinsizleştir</span></a>';
+$txt['editsettings83'] = 'Kategori ön resmi uzunluk <a href=# class=info>(?)<span>Varsayılan=50<br />0=yeniden boyutlandırmayı etkinsizleştir</span></a>';
+$txt['editsettings84'] = 'Ürün resmi azamî genişlikh <a href=# class=info>(?)<span>Varsayılan=450<br />9999=en yükseği etkinsizleştir</span></a>';
+$txt['editsettings85'] = 'Ürün resmi azamî uzunluk <a href=# class=info>(?)<span>Varsayılan=350<br />9999=en yükseği etkinsizleştirx</span></a>';
+$txt['editsettings86'] = 'Tümü';
+$txt['editsettings87'] = 'Yeni ürünler linkini göster';
+$txt['editsettings88'] = 'Gelişmiş yazı editörünü kullan';
+$txt['editsettings89'] = 'Otomatik ön resimler oluştur <a href=# class=info>(?)<span>Ürün resmi yüklenince otomatik oluşturulur.</span></a>';
+$txt['editsettings90'] = 'Detayları göster <a href=# class=info>(?)<span>Detaylar arama motorları tarafından indekslenir</span></a>';
+$txt['editsettings91'] = 'Sayfa başına ürün <a href=# class=info>(?)<span>Sayda başına gösterilecek ürünü yazın<br />0 = limitsiz</span></a>';
+$txt['editsettings92'] = 'Etkinsizleştir';
+$txt['editsettings93'] = 'Gelişmiş';
+$txt['editsettings94'] = 'Basit';
+$txt['editsettings95'] = 'Captcha kullan<a href=# class=info>(?)<span>Kayıt için resim doğrulaması getirir. Spamlardan sitenizi korumak için etkilidir</span></a>';
+$txt['editsettings96'] = 'Pop-up resim kullan <a href=# class=info>(?)<span>En iyi resim görünümü sağlar<br />Javascript gerekir</span></a>';
+$txt['editsettings97'] = 'Barabirimi sembolünün yerleşimi';
+$txt['editsettings98'] = 'Bu temayı kullan';
+
+// productadmin.php
+$txt['productadmin1'] = ', şuraya yüklendi: ';
+$txt['productadmin2'] = 'Dosya yükleme işlemi başarısız. Lütfen tekrar deneyin!';
+$txt['productadmin3'] = 'Lütfen sadece .jpg, png veya .gif dosyalarından birini yükleyiniz';
+$txt['productadmin4'] = 'Başka ürün ekle';
+$txt['productadmin5'] = 'Ürün listesine geri dön';
+$txt['productadmin6'] = 'Ürün ekle';
+$txt['productadmin7'] = 'Ürün güncelle';
+$txt['productadmin8'] = 'İlk önce grup ekleyiniz';
+$txt['productadmin9'] = 'Ürün kodu';
+$txt['productadmin10'] = 'Tanımlama <a href=# class=info>(?)<span>HTML izinli</span></a>';
+$txt['productadmin11'] = 'Fiyat <a href=# class=info>(?)<span>format: 123456.78</span></a>';
+$txt['productadmin12'] = 'Stok miktarı';
+$txt['productadmin13'] = 'Stok (0|1|2) <a href=# class=info>(?)<span>0=Stoklarda yok<br />1=Stoklarda var<br />2=Siparişe göre stoklanır</span></a>';
+$txt['productadmin14'] = 'Anasayfada';
+$txt['productadmin15'] = 'Yeni';
+$txt['productadmin16'] = 'Ürün ekle';
+$txt['productadmin17'] = 'Ürün güncelle';
+$txt['productadmin18'] = 'Grup/Kategori';
+$txt['productadmin19'] = 'Lütfen .jpg, png veya .gif dosyalarından birini seçiniz';
+$txt['productadmin20'] = 'Yükle';
+$txt['productadmin21'] = 'Resim yükle';
+$txt['productadmin22'] = 'İlk önce kategori ekleyiniz';
+$txt['productadmin23'] = 'Resim yükleyemezsiniz çünkü ürün kodunuz yok';
+$txt['productadmin24'] = 'Resmi sil';
+$txt['productadmin25'] = 'Resim başarıyla silindi';
+$txt['productadmin26'] = 'Ürün başarıyla silindi';
+$txt['productadmin27'] = 'Diğer seçenekler';
+$txt['productadmin28'] = 'Resim önizlemesi ekle (Biraz zaman alabilir)';
+$txt['productadmin29'] = 'Tüm önizlemeler eklendi (Gerektiği yerlere)..';
+$txt['productadmin30'] = 'Özellikler <a href=# class=info>(?)<span>Kullanım için kullanım kılavuzunu okuyun</span></a>';
+
+
+// groupadmin.php
+$txt['groupadmin1'] = ', şuraya yüklendi: ';
+$txt['groupadmin2'] = 'Dosya yükleme işlemi başarısız. Lütfen tekrar deneyin!';
+$txt['groupadmin3'] = 'Lütfen sadece .jpg, png veya .gif dosyalarından birini yükleyiniz';
+$txt['groupadmin4'] = 'Grup eklendi..';
+$txt['groupadmin5'] = 'Grup güncellendi..';
+$txt['groupadmin6'] = 'Seçilen grup ve altındaki herşey silindi..';
+$txt['groupadmin7'] = 'Kategori eklendi..';
+$txt['groupadmin8'] = 'Kategori güncellendi..';
+$txt['groupadmin9'] = 'Kategori taşındı..';
+$txt['groupadmin10'] = 'Seçilen kategori ve altındaki tüm ürünler silindi..';
+$txt['groupadmin11'] = 'Grup adı';
+$txt['groupadmin12'] = 'Grup ekle';
+$txt['groupadmin13'] = 'Şimdilik kayıtlı grup yok';
+$txt['groupadmin14'] = 'Grup';
+$txt['groupadmin15'] = 'Yeni grup ismi';
+$txt['groupadmin16'] = 'Grubu güncelle';
+$txt['groupadmin17'] = 'Grubu sil';
+$txt['groupadmin18'] = 'Grup seçenekleri';
+$txt['groupadmin19'] = 'Kategori seçenekleri';
+$txt['groupadmin20'] = 'Kategori ismi';
+$txt['groupadmin21'] = 'Kategori ekle';
+$txt['groupadmin22'] = 'Kategori';
+$txt['groupadmin23'] = 'Yeni kategori ismi';
+$txt['groupadmin24'] = 'Kategoriyi güncelle';
+$txt['groupadmin25'] = 'Kategoriyi taşı';
+$txt['groupadmin26'] = 'Kategoriyi sil';
+$txt['groupadmin27'] = 'Lütfen jpg, png veya gif dosyası seçiniz';
+$txt['groupadmin28'] = 'Yükle';
+$txt['groupadmin29'] = 'Resim yükle';
+$txt['groupadmin30'] = 'Genel seçenekler';
+$txt['groupadmin31'] = 'Boş grup ve kategorileri sil';
+$txt['groupadmin32'] = 'adet kategori silindi';
+$txt['groupadmin33'] = 'adet grup silindi';
+$txt['groupadmin34'] = ''.$gname.' isimli grup mevcut. Lütfen başka bir isim seçiniz';
+$txt['groupadmin35'] = 'Grup adı boş';
+$txt['groupadmin36'] = 'Yeni grup adı girmediniz';
+$txt['groupadmin37'] = ''.$cname.' isimli kategori mevcut. Lütfen başka bir isim seçiniz';
+$txt['groupadmin38'] = 'Yeni kategori adı girmediniz';
+$txt['groupadmin39'] = 'Kategori adı boş';
+
+// uploadadmin.php
+$txt['uploadadmin1'] = ', şuraya yüklendi: ';
+$txt['uploadadmin2'] = 'Dosya yükleme işlemi başarısız. Lütfen tekrar deneyin!';
+$txt['uploadadmin3'] = 'Lütfen sadece .sql dosyası gönderiniz';
+$txt['uploadadmin4'] = 'Fiyat listesi yükle (.SQL)';
+$txt['uploadadmin5'] = 'SQL Dosyası seçiniz';
+$txt['uploadadmin6'] = 'SQL gönder';
+$txt['uploadadmin7'] = 'SQL Dosyası veritabanına eklendi';
+
+// adminedit.php
+$txt['adminedit1'] = 'Değişiklikleri kaydet';
+$txt['adminedit2'] = 'Değişiklikler kaydedildi...';
+$txt['adminedit3'] = 'An itibariyle düzenlenmekte';
+
+// shippingadmin.php
+$txt['shippingadmin1'] = 'Sipariş yöntemi eklendi';
+$txt['shippingadmin2'] = 'Sipariş yöntemi silindi';
+$txt['shippingadmin3'] = 'Sipariş yöntemi güncellendi';
+$txt['shippingadmin4'] = 'Desteklenen sipariş yöntemleri';
+$txt['shippingadmin5'] = 'Tanımlama';
+$txt['shippingadmin6'] = 'Ücretler';
+$txt['shippingadmin7'] = "Sadece burada: $send_default_country?";
+$txt['shippingadmin8'] = 'Düzenle';
+$txt['shippingadmin9'] = 'Dil';
+$txt['shippingadmin10'] = 'Ekle';
+$txt['shippingadmin11'] = 'Sipariş verilebilecek şehirleri seç';
+$txt['shippingadmin12'] = 'Seçenekler';
+$txt['shippingadmin13'] = 'Ödeme seçenekleri';
+$txt['shippingadmin14'] = 'Sipariş verme yöntemini değiştir';
+$txt['shippingadmin15'] = 'NOT: Sistem sipariş verme yöntemini değiştirmek üzeresiniz. Bunu yapmanız, sitenizin diğer belirli bölümlerini inflâk ettirebilir :) Sadece tanımlamayı değiştirmenizi öneririz; lâkin yöntemin kendisini değil';
+$txt['shippingadmin16'] = 'Varsayılan sipariş verme şehrini düzenle';
+$txt['shippingadmin17'] = 'Diğer seçenekler';
+
+// paymentadmin.php
+$txt['paymentadmin1'] = 'Ödeme yöntemi eklendi';
+$txt['paymentadmin2'] = 'Ödeme yöntemi silindi';
+$txt['paymentadmin3'] = 'Ödeme yöntemi güncellendi';
+$txt['paymentadmin4'] = 'Desteklenen ödeme yöntemleri';
+$txt['paymentadmin5'] = 'Tanımlama';
+$txt['paymentadmin6'] = 'Ödeme yöntemini değiştir';
+$txt['paymentadmin7'] = 'Ödeme HTML Kodu';
+$txt['paymentadmin8'] = 'Düzenle';
+$txt['paymentadmin9'] = 'Sil';
+$txt['paymentadmin10'] = 'Ekle';
+$txt['paymentadmin11'] = 'Seçenekler';
+$txt['paymentadmin12'] = 'NOT: Sistem ödeme yöntemini değiştirmek üzeresiniz. Bunu yapmanız, sitenizin diğer belirli bölümlerini inflâk ettirebilir :) Sadece tanımlamayı değiştirmenizi öneririz; lâkin yöntemin kendisini değil';
+
+// errorlogadmin.php
+$txt['errorlogadmin1'] = 'Hata Kayıtları';
+$txt['errorlogadmin2'] = 'Katılık';
+$txt['errorlogadmin3'] = 'Hata';
+$txt['errorlogadmin4'] = 'Dosya';
+$txt['errorlogadmin5'] = 'Hat';
+$txt['errorlogadmin6'] = 'Tarih';
+$txt['errorlogadmin7'] = 'Kayıtlı hata bulunamadı';
+$txt['errorlogadmin8'] = 'Kayıtları temizle';
+$txt['errorlogadmin9'] = 'Hata kayıtları başarıyla temizlendi';
+
+// pagesadmin.php
+$txt['pagesadmin1'] = 'Ekstra sayfalar';
+$txt['pagesadmin2'] = 'Sayfa adı';
+$txt['pagesadmin3'] = 'Seçenekler';
+$txt['pagesadmin4'] = 'Yeniden adlandır';
+$txt['pagesadmin5'] = 'Ekle';
+$txt['pagesadmin6'] = 'Sayfa yeniden adlandırıldı';
+$txt['pagesadmin7'] = 'Sayfa silindi';
+$txt['pagesadmin8'] = 'Başarısız';
+$txt['pagesadmin9'] = 'Sayfa eklendi';
+?>

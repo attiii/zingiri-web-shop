@@ -1,0 +1,550 @@
+<?php
+// The character set we should use for this language. If you are unsure, use ISO-8859-1
+$charset = "UTF-8";
+
+// first some values that can also be used further along in this lang file
+// database values for orders
+$txt['db_shipping1'] = 'Preuzimate proizvode sami u zakazano vreme, nema troškova isporuke';
+
+// database values for payments
+$txt['db_payment1'] = 'Placanje preko banke';
+$txt['db_payment2'] = 'Placanje u prodavnici (dostupno ako licno preuzimate)';
+$txt['db_payment3'] = 'Placanje preko PayPal';
+$txt['db_payment4'] = 'Placanje prilikom prijema';
+
+// order status
+$txt['db_status1'] = 'Porudžbina primljena od kupca';
+$txt['db_status2'] = 'Ceka placanje';
+$txt['db_status3'] = 'Ceka sastanak za preuzimanje';
+$txt['db_status4'] = 'Isporuka je u toku';
+$txt['db_status5'] = 'Poslato je kupcu (kompletirano)';
+$txt['db_status6'] = 'preuzeto os strane kupca (kompletirano)';
+$txt['db_status7'] = 'Otkazano';
+
+$txt['db_status10'] = 'Objašnjenje statusa';
+$txt['db_status11'] = 'Vaša porudžbina je primljena, ali je još nepotvrdjena od strane prodavca';
+$txt['db_status12'] = 'Vaša porudžbina je potvrdjena. Trebate preneti potreban novac na naš bankovni racun';
+$txt['db_status13'] = 'Vaša uplata je primljena. Poslat vam je e-mail koji vas obaveštava da je vaša porudžbina spremna za preuzimanje. Pozovite nas radi sastanka';
+$txt['db_status14'] = 'Vaša uplata je primljena. Porudžbina se obradjuje. Ovo može znaciti da mi treba da primimo proizvod, ili, se pripremamo da ga pošaljemo';
+$txt['db_status15'] = 'Porudžbina je poslata preko PostExpress servisa. Porudžbina je kompletirana';
+$txt['db_status16'] = 'Porudžbina je isporucena na ruke vama licno. Porudžbina je kompletirana';
+$txt['db_status17'] = 'Porudžbina je otkazana, sa naše ili vaše strane';
+
+// database values for stock
+$txt['db_stock1'] = 'Na lageru';
+$txt['db_stock2'] = 'Nema ga na lageru';
+$txt['db_stock3'] = 'U magacinu';
+
+$txt['db_stock10'] = 'Objašnjenje lagera';
+$txt['db_stock11'] = 'Proizvod je na lageru. Ako porucite sada, dobicete proizvod(e) veoma brzo';
+$txt['db_stock12'] = 'Proizvod nemamo na lageru';
+$txt['db_stock13'] = 'Proizvod je u magacinu, tako da ce biti na lageru vrlo skoro';
+
+// general values
+$txt['general1'] = 'Pristup je zabranjen!';
+$txt['general2'] = 'Vaša IP adresa je zapisana da bi sprecili zloupotrebu';
+$txt['general3'] = 'novo';
+$txt['general4'] = 'Nazad ka admin opcijama';
+$txt['general5'] = 'PDV';
+$txt['general6'] = 'excl.';
+$txt['general7'] = 'incl.';
+$txt['general8'] = 'NOTE: Ovaj webshop je disabled! Posetioci ne mogu pregledati ili narucivati proizvode';
+$txt['general9'] = '404 greška. Stranica nije pronadjena!';
+$txt['general10'] = 'Vi ste blokirani (banned) sa ovog webshopa';
+$txt['general11'] = 'O nama';
+$txt['general12'] = 'Greška';
+$txt['general13'] = 'Obaveštenje';
+$txt['general14'] = 'Nazad';
+$txt['general15'] = 'Unesite ovaj kod';
+$txt['general16'] = 'Kod je nepravilan. Molimo probajte ponovo';
+
+// header.php
+$txt['header1'] = 'Security risk';
+$txt['header2'] = 'Dobrodošli';
+$txt['header3'] = 'gost';
+$txt['header4'] = '<font color=red><strong>install.php</strong></font> pronadjen. Morate obrisati/preimenovati ovaj fajl pre nego nastavite!';
+
+// menu.php
+$txt['menu1'] = 'Pocetna';
+$txt['menu2'] = 'Shopping cart';
+$txt['menu3'] = 'Checkout';
+$txt['menu4'] = 'Pretraga';
+$txt['menu5'] = 'Generalni uslovi';
+$txt['menu6'] = 'Procedure isporuke';
+$txt['menu7'] = 'Garancije';
+$txt['menu8'] = 'Kontakt';
+$txt['menu9'] = 'Administracija';
+$txt['menu10'] = 'Licna stranica';
+$txt['menu11'] = 'Logout';
+$txt['menu12'] = 'Login';
+$txt['menu13'] = 'Registracija';
+$txt['menu14'] = 'Informacija';
+$txt['menu15'] = 'Proizvodi';
+$txt['menu16'] = '<font color=red><strong>Novi</strong></font> proizvodi';
+$txt['menu17'] = 'Nema proizvoda';
+$txt['menu18'] = 'O nama';
+
+// sendprocedure.php
+$txt['send1'] = 'Metoda isporuke';
+
+// cart.php
+$txt['cart1'] = 'Shopping cart';
+$txt['cart2'] = 'Vasa korpica je prazna.<br /><br />';
+$txt['cart3'] = 'Opis';
+$txt['cart4'] = 'Cena';
+$txt['cart5'] = 'Kolicina';
+$txt['cart6'] = 'Obriši';
+$txt['cart7'] = 'Total';
+$txt['cart8'] = 'Isprazni';
+$txt['cart9'] = 'Checkout';
+$txt['cart10'] = 'Ažuriraj';
+$txt['cart11'] = 'Šta je u vašoj korpici';
+
+// browse.php
+$txt['browse1'] = 'Rezultati pretrage';
+$txt['browse2'] = 'Opis proizvoda';
+$txt['browse3'] = 'Cena';
+$txt['browse4'] = 'Raspored';
+$txt['browse5'] = 'Nije pronadjen niti jedan proizvod';
+$txt['browse6'] = 'NOTE: Cene su sa rezervom';
+$txt['browse7'] = 'edit';
+$txt['browse8'] = 'brisanje';
+$txt['browse9'] = 'Lista proizvoda';
+$txt['browse10'] = 'promeni sliku';
+$txt['browse11'] = 'Stranice';
+
+// submenu.php
+$txt['submenu1'] = 'Kategorije u ovoj grupi';
+$txt['submenu2'] = 'Nema kategorija u ovoj grupi';
+
+// main.php
+$txt['main1'] = 'Dobrodošli';
+$txt['main2'] = 'Specijalne ponude';
+
+// details.php
+$txt['details1'] = 'Detalji o proizvodu';
+$txt['details2'] = 'ID proizvoda';
+$txt['details4'] = 'Opis';
+$txt['details5'] = 'Cena/komad';
+$txt['details6'] = 'Kolicina';
+$txt['details7'] = 'Poruci';
+$txt['details8'] = 'Povratak na listu';
+$txt['details9'] = 'Kliknite za punu velicinu';
+
+// conditions.php
+$txt['conditions1'] = 'Slažem se sa generalnim uslovima';
+$txt['conditions2'] = 'Ne slažem se sa generalnim uslovima';
+$txt['conditions3'] = 'Onemogucen';
+$txt['conditions4'] = 'Porucivanje je trenutno nedostupno';
+
+// shipping.php
+$txt['shipping1'] = 'Isporuka i placanje';
+$txt['shipping2'] = 'Odaberite nacin isporuke';
+$txt['shipping3'] = 'Dodatni komentari/pitanja';
+$txt['shipping9'] = 'Kompletiraj porudžbinu';
+$txt['shipping10'] = 'Odaberite nacin placanja';
+
+// checkout.php
+$txt['checkout2'] = 'Stranica je istekla. Vratite se nazad u vašu korpicu i kliknite na checkout taster';
+$txt['checkout3'] = "Dragi/a g-dine/g-djo $lastname,<br /><br /><br />Ova poruka je poslata da potvrdi prijem vaših porudžbina na <a href=$shopurl>$shopname</a><br /><br />Id vaše porudžbine je: $webid<br />Vaš ID kupca je: $customerid<br /><br />Narucili ste sledece prooizvode:<br />";
+$txt['checkout4'] = ' x proizvod ';
+$txt['checkout5'] = '  komad';
+$txt['checkout6'] = "<br />";
+$txt['checkout7'] = 'Pokušali ste naruciti:';
+$txt['checkout8'] = 'Trenutno na lageru:';
+$txt['checkout9'] = "<br /><br />Mozete videti status vase porudzbine bilo kada, klikom na <a href=$shopurl/index.php?page=orders&id=$customerid>here</a><br /><br />Hvala na vasoj porudzbini.<br />Ako imate bilo kakvih pitanja, kontaktirajte nas (kontakt detalji su na sajtu)";
+$txt['checkout10'] = 'Potvrda vase porudzbine na '.$shopname;
+$txt['checkout11'] = 'Vasa porudzbina je kompletirana. Potvrdni mail je poslat vas e-mail.';
+$txt['checkout12'] = 'Potvrdni mail nije mogao biti poslat. S toga odstampajte potvrdu dole.';
+$txt['checkout13'] = 'Ispod je kopija potvrdnog mail-a:';
+$txt['checkout15'] = 'Nemamo na lageru dovoljno predmeta kojeg ste zeleli poruciti:';
+$txt['checkout16'] = "Metod isporuke: ";
+$txt['checkout17'] = "Adresa za isporuku:<br />$company<br />$address<br />$zipcode $city<br />$country";
+$txt['checkout19'] = "Nacin placanja: ";
+$txt['checkout20'] = "Info o banci:<br />Broj racuna: $bankaccount<br />Vlasnik racuna: $bankaccountowner<br />Mesto, Grad: $bankcity<br />Drzava: $bankcountry<br />Ime banke: $bankname<br />IBAN: $bankiban<br />BIC: $bankbic<br />Subject/Reference: $webid";
+$txt['checkout21'] = "Kada proizvod bude na lageru, poslacemo vam e-mail da zakazemo sastanak.";
+$txt['checkout22'] = "Koristite vas PayWalker nalog za transfer novca.";
+$txt['checkout23'] = "Morate platiti postanski servis kada primite paket.";
+$txt['checkout24'] = "Totalni iznos vase narudzbine je: $currency_symbol $totalprint (including $currency_symbol $print_sendcosts shipping rate)";
+$txt['checkout25'] = "ukljucujuci $show_vat ".$txt['general5'];
+$txt['checkout26'] = "Molimo vas da prenesete celi iznos u roku od $paymentdays dana. Kada budemo primili vasu uplatu, ova porudzbina ce biti procesirana i isporucena u najkrace mogucem roku.";
+$txt['checkout27'] = 'PayWalker transfer';
+
+// search.php
+$txt['search1'] = 'Pronadji proizvod';
+$txt['search2'] = 'Traziti';
+$txt['search3'] = 'Metod pretrage';
+$txt['search4'] = 'Uporedi tacne reci';
+$txt['search5'] = 'Uporedi bilo koje reci';
+$txt['search6'] = 'Trazi';
+
+// guarantee.php
+$txt['guarantee1'] = 'Garancije';
+
+// contact.php
+$txt['contact1'] = 'Pitanje preko formulara '. $shopurl;
+$txt['contact2'] = 'Poruka poslata';
+$txt['contact3'] = 'vasa poruka je poslata. Ako bude potrebno mi cemo odgovoriti na mail vrlo brzo';
+$txt['contact5'] = 'Morate popuniti sva polja u formularu.<br /><a href="javascript:history.go(-1)"><strong>Klik ovde</strong></a> za korak nazad.';
+$txt['contact6'] = 'Kontakt';
+$txt['contact7'] = 'Kako stupiti u kontakt';
+$txt['contact8'] = 'E-mail';
+$txt['contact9'] = 'Telefon';
+$txt['contact10'] = 'Fax';
+$txt['contact11'] = 'Za kontakt preko websajta, koristite formular dole:';
+$txt['contact12'] = 'Poslati kome';
+$txt['contact13'] = 'Vase ime';
+$txt['contact14'] = 'Vasa e-mail adresa';
+$txt['contact15'] = 'Vasa poruka';
+
+// checklogin.php
+$txt['checklogin1'] = 'Koristite vas personal code za login';
+$txt['checklogin2'] = 'Login ime';
+$txt['checklogin3'] = 'Password';
+$txt['checklogin4'] = 'Login';
+$txt['checklogin5'] = 'ako nemate customer ID jos, kliknite ovde';
+$txt['checklogin6'] = 'Zasto postati clan?';
+$txt['checklogin7'] = 'Da bi mogli poruciti proizvod sa webshop-a morate postati clan. Tokom registracije trebamo vase ime, postansku adresu , e-mail adresu, itd. Trebaju nam ove informacije da bi ispravno tretirali vase porudzbine.<br /><br /><strong>Vasi podaci ce korisceni samo od strane shop-a.</strong><br /><br /><br />Kada postanete clan dodatno mozete:<ul><li>Logovati se na webshop sa bilo kojeg PC<li>Poruciti proizvode<li>Pratiti status vasih porucenih proizvoda<li>Manipulisati vasom korpicom</ul>';
+$txt['checklogin8'] = 'Zaboravljeni login podaci';
+$txt['checklogin9'] = 'Popunite email adresu koju koristite u vasem nalogu. Vasi login podaci bice poslati na tu adresu.';
+$txt['checklogin10'] = 'Salji mail';
+$txt['checklogin11'] = 'Izgubili ste vase login podatke?';
+$txt['checklogin12'] = 'Vasi login podaci su poslati ';
+$txt['checklogin13'] = 'Izbugljeni login podaci '. $shopurl;
+$txt['checklogin14'] = "Ovaj email vam je poslat, jer ste zatrazili vase login podatke na nasem webshop-u (<a href=\"$shopurl\">$shopurl</a>)";
+$txt['checklogin15'] = 'Ne postoji clan sa email adresom koju ste uneli';
+$txt['checklogin18'] = 'Korak nazad';
+
+// login.php
+$txt['login1'] = 'Greska pri logovanju.. molimo sacekajte';
+$txt['login2'] = 'ili kliknite ovde';
+$txt['login3'] = 'Vi ste ulogovani.. molimo sacekajte';
+
+// logout.php
+$txt['logout1'] = 'Vi ste se odjavili..';
+
+// my.php
+$txt['my3'] = 'O vasoj personalnoj strani';
+$txt['my4'] = 'Ovo je vasa personalna strana. Samo vi imate pristup ovoj strnici ako ste se propisno ulogovali u webshop sa vasim login imenom i password-om.<br /><br />U ovom delu mozete videti vase licne podatke, porudzbine i vasu korpicu. Sve je dostupno sa jednog mesta.';
+$txt['my5'] = 'Opcije Personal strane';
+$txt['my6'] = 'Vas customer-ID';
+$txt['my7'] = 'Promena podataka';
+$txt['my8'] = 'Prikazi porudzbine';
+$txt['my9'] = 'Pokazi korpu';
+
+// admin.php
+$txt['admin1'] = 'Shop Administracija';
+$txt['admin2'] = 'Porudzbine';
+$txt['admin3'] = 'Kupci';
+$txt['admin4'] = 'Prodavnica';
+$txt['admin5'] = 'Proizvodi';
+$txt['admin6'] = 'Grupe&<br />Kategorije';
+$txt['admin7'] = 'Optimizuj bazu podataka';
+$txt['admin8'] = 'Podesavanja';
+$txt['admin9'] = 'Upload cenovnika';
+$txt['admin10'] = 'Optimizacija svih tabela baze..';
+$txt['admin11'] = 'Optimizacija';
+$txt['admin12'] = 'Optimizacija je zavrsena!';
+$txt['admin13'] = 'Info i podrska';
+$txt['admin14'] = 'Provera update-a';
+$txt['admin15'] = 'Generalni uslovi';
+$txt['admin16'] = 'Strana isporuke';
+$txt['admin17'] = 'Strana Garancija';
+$txt['admin18'] = 'Opcija isporuka';
+$txt['admin19'] = 'Ban list';
+$txt['admin20'] = 'O nama';
+$txt['admin21'] = 'Opcija placanja';
+$txt['admin22'] = 'Naslovna strana';
+$txt['admin23'] = 'Promeni podesavanja';
+$txt['admin24'] = 'Edit fajlova';
+$txt['admin25'] = 'Informacija';
+$txt['admin26'] = 'Error log';
+
+// customeradmin.php
+$txt['customeradmin1'] = 'Prezime';
+$txt['customeradmin2'] = 'Datum uclanjenja';
+$txt['customeradmin3'] = 'E-mail';
+$txt['customeradmin4'] = 'Telefon';
+$txt['customeradmin5'] = 'Opcije';
+$txt['customeradmin6'] = 'Administracija clanova';
+
+// orderadmin.php
+$txt['orderadmin1'] = 'Status vase porudzbine ';
+$txt['orderadmin2'] = ' je promenjen';
+$txt['orderadmin3'] = 'Porudzbina je uklonjena';
+$txt['orderadmin4'] = "<br /><br /><a href=\"$shopurl/index.php?page=orders&id=";
+$txt['orderadmin5'] = '">Klik ovde</a> za trenutni status porudzbine';
+$txt['orderadmin6'] = 'E-mail postal ';
+$txt['orderadmin7'] = 'e-mail clana?';
+$txt['orderadmin8'] = 'Update';
+$txt['orderadmin9'] = 'sve porudzbine';
+$txt['orderadmin10'] = 'Ne postoje porudzbine sa statusom koji ste naveli';
+$txt['orderadmin11'] = 'Prikazi';
+$txt['orderadmin12'] = 'Napomena: Trenutan kupac je dodao extra napomenu!';
+$txt['orderadmin13'] = 'Administracija porudzbina';
+$txt['orderadmin14'] = 'Promeni status';
+$txt['orderadmin15'] = 'Status porudzbine je promenjen';
+
+// orders.php
+$txt['orders3'] = 'Vi ste narucili <a href=# class=info>(?)<span>Below is a list of your orders and their current status<br />Click on an order ID to view the details</span></a>';
+$txt['orders4'] = 'ID porudzbine';
+$txt['orders5'] = 'Isporuka&Placanje';
+$txt['orders6'] = 'Ukupan iznos';
+$txt['orders7'] = 'Datum porudzbine';
+$txt['orders8'] = 'Status';
+$txt['orders9'] = 'Vi niste porucili jos nista u nasem webshop-u';
+
+// customer.php
+$txt['customer2'] = 'Korisnik je uklonjen';
+$txt['customer3'] = 'Nazad';
+$txt['customer5'] = 'Morate popraviti greske u porudzbini da bi nastavili';
+$txt['customer6'] = 'Sva polja oznacena sa (*) moraju biti popunjena';
+$txt['customer7'] = 'Razmaci nisu dozvoljeni u vasem login imenu';
+$txt['customer8'] = 'Dva passworda se ne poklapaju';
+$txt['customer9'] = 'Vas password treba biti bar 5 karaktera dug';
+$txt['customer10'] = 'Uneli ste nevalidnu e-mail adresu';
+$txt['customer11'] = "Dobrodosli na $shopname";
+$txt['customer12'] = "Dragi G-dine, G-djo $tussenvoegsels $naam,<br /><br />Hvala vam sto se uclanili na $shopname Webshop (<a href=\"$shopurl\">$shopurl</a>).<br /><br />Sada se mozete ulogovati na nas webshop i naruciti proizvode<br />ili videti status vasih porudzbina.<br /><br />Slede vasi login podaci:<br />Login ime:  $login<br />Lozinka-Password: $pass1<br /><br />Cuvajte ove podatke na sigurnom mestu!<br /><br />Vidimo se na <a href=\"$shopurl\">$shopurl</a><br /><br />Sve najbolje,<br /><br /><br />Webmaster";
+$txt['customer13'] = 'Vasa informacija je uspesno sacuvana.';
+$txt['customer14'] = 'Molimo vas da dostavite sto vise informacija';
+$txt['customer15'] = 'Login ime';
+$txt['customer16'] = 'Password';
+$txt['customer17'] = 'Password opet';
+$txt['customer18'] = 'Prezime';
+$txt['customer19'] = 'Prefiks';
+$txt['customer20'] = 'Inicijali';
+$txt['customer21'] = 'Adresa';
+$txt['customer22'] = 'Postanski broj';
+$txt['customer23'] = 'Grad,Mesto';
+$txt['customer24'] = 'Drzava';
+$txt['customer25'] = 'Telefon';
+$txt['customer26'] = 'E-mail';
+$txt['customer27'] = '* = mora biti popunjeno';
+$txt['customer28'] = 'Snimi podatke';
+$txt['customer29'] = 'Korisnicko ime koje zelite vec neko koristi';
+$txt['customer30'] = 'Kompanija';
+$txt['customer32'] = 'Vi ste pokusali obrisati administratorski nalog. Ovo moze onemoguciti logovanje u webshop. Vas zahtev je odbijen.';
+$txt['customer33'] = '(izmedju 5 i 10 karaktera)';
+$txt['customer34'] = 'Email adresa koju ste uneli koristi neko od vec registrovanih korisnika';
+$txt['customer35'] = 'Kliknite ovde za login';
+$txt['customer36'] = 'Nov korisnik';
+$txt['customer37'] = 'Korisnik se registrovao na vasem webshopu. Kopija mail-a koji je poslat istom sledi:';
+
+// readorder.php
+$txt['readorder1'] = 'Odstampaj ovu narudzbinu';
+$txt['readorder2'] = 'Nazad na vase narudzbine';
+
+// editsettings.php
+$txt['edits0ettings1'] = 'Promeni podesavanja';
+$txt['editsettings2'] = 'Sacuvaj podesavanja';
+$txt['editsettings4'] = 'Standardna drzava isporuke <a href=# class=info>(?)<span>Ovo je uglavnom drzava u kojoj se vasa firma nalazi</span></a>';
+$txt['editsettings7'] = 'Dodatna cena isporuke kod placanja prilikom same isporuke <a href=# class=info>(?)<span>Kao dodatna vrsta isporuke, ova cena isporuke ima posebnu cenu. Format: 12.34</span></a>';
+$txt['editsettings8'] = 'Valuta';
+$txt['editsettings9'] = 'Simbol valute <a href=# class=info>(?)<span>U vasem slucaju verovatno: $</span></a>';
+$txt['editsettings10'] = 'Plati u roku od xx dana <a href=# class=info>(?)<span>Koliko dana porudzbina treba biti na vasem nalogu?</span></a>';
+$txt['editsettings11'] = 'Ukljucujuci PDV <a href=# class=info>(?)<span>If the VAT is 19% this number should read: 1.19</span></a>';
+$txt['editsettings12'] = 'VAT text <a href=# class=info>(?)<span>U slucaju da je PDV 18% ovo treba iznositi: 18%</span></a>';
+$txt['editsettings13'] = 'Cene u DB ukljucujuci PDV';
+$txt['editsettings14'] = 'Email adresa prodajnog odeljenja <a href=# class=info>(?)<span>Na ovu adresu vi cete primati porudzbine, na primer: sales@vasdomen.com</span></a>';
+$txt['editsettings15'] = 'Ime prodavnice';
+$txt['editsettings16'] = 'Webshop URL <a href=# class=info>(?)<span>URL pocinje sa http://, ali bez prateceg /, na primer: http://www.vasdomen.com/shop</span></a>';
+$txt['editsettings17'] = 'Standardni jezik';
+$txt['editsettings18'] = 'Prefiks porudzbine (opcija) <a href=# class=info>(?)<span>Svaki id porudzbine pocinje sa prefiksom, na primer: WEB-</span></a>';
+$txt['editsettings19'] = 'Sufiks porudzbine (opcija) <a href=# class=info>(?)<span>Svaki id porudzbine zavrsava sa sufiksom, na primer za tekucu godinu: -07</span></a>';
+$txt['editsettings20'] = 'Koristi kolicinu sa lagera <a href=# class=info>(?)<span><strong>omoguceno:</strong> koristite kolicine sa lagera<br /><br /><strong>onemugoceno:</strong> koristite status lagera (na lageru/u magacinu/nemate na lageru)</span></a>';
+$txt['editsettings21'] = 'Omoguci Order-modul';
+$txt['editsettings22'] = 'Onemoguci prodavnicu';
+$txt['editsettings23'] = 'Onemoguci naslov prodavnice';
+$txt['editsettings24'] = 'Onemoguci poruke prodavnice';
+$txt['editsettings25'] = 'Email adresa webmastera';
+$txt['editsettings26'] = 'Telefonski broj (opcija)';
+$txt['editsettings27'] = 'Fax broj (opcija)';
+$txt['editsettings28'] = 'Broj bankovnog racuna';
+$txt['editsettings29'] = 'Vlasnik bankovnog racuna';
+$txt['editsettings30'] = 'Mesto banke';
+$txt['editsettings31'] = 'Drzava banke';
+$txt['editsettings32'] = 'IBAN banke';
+$txt['editsettings33'] = 'BIC banke';
+$txt['editsettings34'] = 'Startna godina <a href=# class=info>(?)<span>Godina kada ste pokrenuli vasu firmu</span></a>';
+$txt['editsettings35'] = 'Logo <a href=# class=info>(?)<span>Slika koja sadrzi vas logo. Ona treba biti u folderu <strong>'.$gfx_dir.'</strong></span></a>';
+$txt['editsettings37'] = 'Slogan kompanije (optional) <a href=# class=info>(?)<span>Slogan ce biti prikazan ispod logoa</span></a>';
+$txt['editsettings38'] = 'Naslov stranice <a href=# class=info>(?)<span>Naslov prikazan na prozoru brouzera u kojem je vas webshop prikazan</span></a>';
+$txt['editsettings39'] = 'Futer';
+$txt['editsettings44'] = 'Podesavanja su sacuvana u bazi podataka';
+$txt['editsettings45'] = 'Detalji o banci';
+$txt['editsettings46'] = 'Izgled';
+$txt['editsettings47'] = 'Prodavnica';
+$txt['editsettings48'] = 'Finansije';
+$txt['editsettings49'] = 'Format broja';
+$txt['editsettings50'] = 'Maksimalna duzina opisa <a href=# class=info>(?)<span>Ovo je skracen opis u listi cena. <br /><strong>0 = ne skracivati<br />1-99 = wordwrap na xx karaktera</strong></span></a>';
+$txt['editsettings51'] = 'Bez PDV <a href=# class=info>(?)<span>Omogucite ovo ako NE zelite koristiti PDV u vasem cenovniku, na primer ako je vas webshop prodaje licne proizvode</span></a>';
+$txt['editsettings52'] = 'Naziv banke';
+$txt['editsettings53'] = 'Format cenovnika <a href=# class=info>(?)<span>Ova podesavanja se odnose na cenovnike, korpice i email koji potvrdjuje narudzbine</span></a>';
+$txt['editsettings54'] = 'ID Proizvoda';
+$txt['editsettings55'] = 'Opis';
+$txt['editsettings56'] = 'ID proizvoda i opis';
+$txt['editsettings57'] = 'Format datuma <a href=# class=info>(?)<span><strong>d-m-Y @ G:i</strong> za dd-mm-gggg @ 23:59<br /><strong>m-d-Y @ G:i</strong> za mm-dd-gggg @ 23:59<br /></span></a>';
+$txt['editsettings58'] = 'Nadji slike u cenovniku <a href=# class=info>(?)<span>Traziti slike raznih proizvoda tokom ucitavanja cenovnika. Ako je slika pronadjena, ikonica ce se pojaviti pored proizvoda, tako da ce posetilac znati da postoji slika. <br /><br />Da bi smanjili vreme ucitavanja strana, ili ako imate slike na udaljenom mestu, bolje je da onemogucite ovu opciju</span></a>';
+$txt['editsettings59'] = 'Koristi slike <a href=# class=info>(?)<span>Ako nemate slike vasih proizvoda, preporucujemo da onemogucite ovu opciju</span></a>';
+$txt['editsettings69'] = 'Koristi thumbnails u cenovniku <a href=# class=info>(?)<span>Prikazuje (ako je pronadjena) umanjenu sliku proizvoda ispred opisa proizvoda</span></a>';
+$txt['editsettings70'] = 'Kljucne reci (comma seperated) <a href=# class=info>(?)<span>Reci na osnovu kojih zelite biti pronadjeni od strane internet pretrazivaca</span></a>';
+$txt['editsettings71'] = 'Korisceni set karaktera <a href=# class=info>(?)<span>Neki jezici trebaju razlicite setove karaktera. Za vas je to verovatno ISO-8859-1 ili UTF-8</span></a>';
+$txt['editsettings72'] = 'Prikazi link Generalnih uslova koriscenja prodavnice';
+$txt['editsettings73'] = 'Prikazi link Garancija prodavnice';
+$txt['editsettings74'] = 'Prikazi link Uslova Isporuka prodavnice';
+$txt['editsettings75'] = 'Imena slika <a href=# class=info>(?)<span>Neki jezici imaju karaktere koji nisu dozvoljeni u imenima datoteka. Najbolje koriscenje database id kao ID slike u tom (i mnogim drugim) slucajevima</span></a>';
+$txt['editsettings76'] = 'ID baze podataka (preporuceno)';
+$txt['editsettings77'] = 'ID proizvoda';
+$txt['editsettings78'] = 'Prikazi link O Nama';
+$txt['editsettings79'] = 'Omoguci Live News <a href=# class=info>(?)<span>Ovim omogucavate live news feed od FreeWebshop.org, koji vas informise o update-ovima i drugim vestima. Onemogucite ovo samo u slucaju da imate problema sa ovom opcijom</span></a>';
+$txt['editsettings80'] = 'Thumb sirina u cenovniku <a href=# class=info>(?)<span>Sirina u pixelima.<br />default=50<br/>0=onemuguci resize</span></a>';
+$txt['editsettings81'] = 'Thumb visina u cenovniku <a href=# class=info>(?)<span>Visina u pixelima.<br />default=50<br />0=onemoguci resize</span></a>';
+$txt['editsettings82'] = 'Thumb sirina u kategoriji <a href=# class=info>(?)<span>Sirina u pixelima.<br />default=50<br />0=onemoguci resize</span></a>';
+$txt['editsettings83'] = 'Thumb visina u kategoriji <a href=# class=info>(?)<span>Visina u pixelima.<br />default=50<br />0=onemoguci resize</span></a>';
+$txt['editsettings84'] = 'Maksimalna sirina slike proizvoda <a href=# class=info>(?)<span>Maksimalna sirina u pixelima.<br />default=450<br />9999=onemoguci max</span></a>';
+$txt['editsettings85'] = 'Maksimalna visina slike proizvoda <a href=# class=info>(?)<span>Maksimalna visina u pixelima.<br />default=350<br />9999=onemoguci max</span></a>';
+$txt['editsettings86'] = 'Sve';
+$txt['editsettings87'] = 'Prikazi link Prikazi Nove Proizvode';
+$txt['editsettings88'] = 'Koristi WYSIWYG editor';
+$txt['editsettings89'] = 'Automatski kreiraj thumbnaile <a href=# class=info>(?)<span>Automatski kreira thumbnaile kada uploadujete sliku proizvoda.<br />Zahteva <strong>GD ekstenziju</strong> za rad</span></a>';
+$txt['editsettings90'] = 'Opis vase online prodavnice <a href=# class=info>(?)<span>Opis koji koriste internet pretrazivaci da bi indeksirali vasu online prodavnicu</span></a>';
+$txt['editsettings91'] = 'Broj proizvoda po stranici <a href=# class=info>(?)<span>Koliko proizvoda zelite prikazivati na jednoj stranici sajta.<br />0 = no limit</span></a>';
+$txt['editsettings92'] = 'Onemogucen';
+$txt['editsettings93'] = 'Napredno';
+$txt['editsettings94'] = 'Jednostavno';
+$txt['editsettings95'] = 'Koristi Captcha <a href=# class=info>(?)<span>Koristi Captcha (anti-spambot) sa kontakt formularom  i registracijom korisnika</span></a>';
+$txt['editsettings96'] = 'Koristi image popup <a href=# class=info>(?)<span>Koristi bolji izgled image popup-a<br />Javascript potreban</span></a>';
+
+
+// productadmin.php
+$txt['productadmin1'] = ' je uploadovan u ';
+$txt['productadmin2'] = 'Doslo je do greske prilikom uploadovanja datoteke, molimo probajte ponovo!';
+$txt['productadmin3'] = 'Molimo vas da uploadujete samo .jpg, .png ili .gif tip datoteka';
+$txt['productadmin4'] = 'Dodaj nov proizvod';
+$txt['productadmin5'] = 'Nazad ka listi proizvoda';
+$txt['productadmin6'] = 'Dodaj proizvod';
+$txt['productadmin7'] = 'Azuriraj proizvod';
+$txt['productadmin8'] = 'Dodajte neku grupu prvo';
+$txt['productadmin9'] = 'ID';
+$txt['productadmin10'] = 'Opis <a href=# class=info>(?)<span>HTML kod je dozvoljen</span></a>';
+$txt['productadmin11'] = 'Cena <a href=# class=info>(?)<span>format: 123456.78</span></a>';
+$txt['productadmin12'] = 'Kolicina na lageru';
+$txt['productadmin13'] = 'Na lageru (0|1|2) <a href=# class=info>(?)<span>0=Nema na lageru<br />1=Na lageru<br />2=U magacinu</span></a>';
+$txt['productadmin14'] = 'Na naslovnoj strani';
+$txt['productadmin15'] = 'Novo';
+$txt['productadmin16'] = 'Dodaj proizvod';
+$txt['productadmin17'] = 'Azuriraj proizvod';
+$txt['productadmin18'] = 'Grupa/Kategorija';
+$txt['productadmin19'] = 'Selektuj jpg, png ili gif fajl';
+$txt['productadmin20'] = 'Upload';
+$txt['productadmin21'] = 'Uploaduj sliku';
+$txt['productadmin22'] = 'Dodajte neku kategoriju prvo';
+$txt['productadmin23'] = 'Ne mozete uploadovati sliku, jer vas proizvod nema ID';
+$txt['productadmin24'] = 'Oobrisi ovu sliku';
+$txt['productadmin25'] = 'Slika uspesno uklonjena';
+$txt['productadmin26'] = 'Proizvod je uspesno uklonjen';
+$txt['productadmin27'] = 'Extra opcije';
+$txt['productadmin28'] = 'Napravi thumbnaile za sve slike (moze potrajati)';
+$txt['productadmin29'] = 'Svi thumbnaili su kreirani (gde je potrebno)..';
+$txt['productadmin30'] = 'Predstavlja <a href=# class=info>(?)<span>Citajte docs/manual.txt sa uputstvom</span></a>';
+
+
+// groupadmin.php
+$txt['groupadmin1'] = ' je uploadovan u ';
+$txt['groupadmin2'] = 'Doslo je do greske prilikom uploadovanja datoteke, molimo probajte ponovo!';
+$txt['groupadmin3'] = 'Molimo vas da uploadujete samo .jpg, .png ili .gif tip datoteka';
+$txt['groupadmin4'] = 'Grupa dodata..';
+$txt['groupadmin5'] = 'Grupa je azurirana..';
+$txt['groupadmin6'] = 'Grupa (i podkategorije i proizvodi) obrisani..';
+$txt['groupadmin7'] = 'Kategorija dodata..';
+$txt['groupadmin8'] = 'Kategorija azurirana..';
+$txt['groupadmin9'] = 'Kategorija pomerena..';
+$txt['groupadmin10'] = 'Kategorijay (i proizvodi u njoj) obrisani..';
+$txt['groupadmin11'] = 'Naziv grupe';
+$txt['groupadmin12'] = 'Dadaj grupu';
+$txt['groupadmin13'] = 'Ne postoje grupe jos uvek';
+$txt['groupadmin14'] = 'Gropa';
+$txt['groupadmin15'] = 'Naziv nove grupe';
+$txt['groupadmin16'] = 'Azuriraj grupu';
+$txt['groupadmin17'] = 'Ukloni grupu';
+$txt['groupadmin18'] = 'Opcije grupe';
+$txt['groupadmin19'] = 'Opcihje kategorije';
+$txt['groupadmin20'] = 'Naziv kategorije';
+$txt['groupadmin21'] = 'Dodaj kategoriju';
+$txt['groupadmin22'] = 'Kategorija';
+$txt['groupadmin23'] = 'Naziv nove kategorije';
+$txt['groupadmin24'] = 'Azuriraj kategoriju';
+$txt['groupadmin25'] = 'Pomeri kategoriju';
+$txt['groupadmin26'] = 'Ukloni kategoriju';
+$txt['groupadmin27'] = 'Selektuj jpg, png ili gif fajl';
+$txt['groupadmin28'] = 'Upload';
+$txt['groupadmin29'] = 'Uploaduj sliku';
+$txt['groupadmin30'] = 'Generalne opcije';
+$txt['groupadmin31'] = 'Ukloni prazne kategorije i grupe';
+$txt['groupadmin32'] = 'broj kategorija obrisano';
+$txt['groupadmin33'] = 'broj grupa obrisano';
+$txt['groupadmin34'] = 'Grupa nazvana '.$gname.' vec postoji. Molimo odaberite drugaciji naziv';
+$txt['groupadmin35'] = 'Polje Naziv grupe je prazno';
+$txt['groupadmin36'] = 'Niste uneli naslov nove grupe';
+$txt['groupadmin37'] = 'Kategorija nazvana '.$cname.' vec postoji. Odaberite drugaciji naziv';
+$txt['groupadmin38'] = 'Niste uneli naziv nove kategorije';
+$txt['groupadmin39'] = 'Polje naziva kategorije je prazno';
+
+// uploadadmin.php
+$txt['uploadadmin1'] = ' je uploadovan u ';
+$txt['uploadadmin2'] = 'Doslo je do greske prilikom uploadovanja datoteke, molimo probajte ponovo!';
+$txt['uploadadmin3'] = 'Molimo vas da uploadujete samo .sql fajlove';
+$txt['uploadadmin4'] = 'Uploaduj cenovnik (.SQL)';
+$txt['uploadadmin5'] = 'Selektujte SQL fajl';
+$txt['uploadadmin6'] = 'Upload SQL';
+$txt['uploadadmin7'] = 'SQL fajl je insertovan u bazu podataka';
+
+// adminedit.php
+$txt['adminedit1'] = 'Sacuvaj promene';
+$txt['adminedit2'] = 'Promene su sacuvane...';
+$txt['adminedit3'] = 'Trenutno editujem ';
+
+// shippingadmin.php
+$txt['shippingadmin1'] = 'Nacin isporuke dodat';
+$txt['shippingadmin2'] = 'Nacin isporuke uklonjen';
+$txt['shippingadmin3'] = 'Nacin isporuke editovan';
+$txt['shippingadmin4'] = 'Podrzane metode isporuke';
+$txt['shippingadmin5'] = 'Opis';
+$txt['shippingadmin6'] = 'Cene';
+$txt['shippingadmin7'] = "Samo u $send_default_country?";
+$txt['shippingadmin8'] = 'Edituj';
+$txt['shippingadmin9'] = 'Ukloni';
+$txt['shippingadmin10'] = 'Dodaj';
+$txt['shippingadmin11'] = 'Edituj drzave isporuke';
+$txt['shippingadmin12'] = 'Opcije';
+$txt['shippingadmin13'] = 'Opcije placanja';
+$txt['shippingadmin14'] = 'Edituj metode isporuke';
+$txt['shippingadmin15'] = 'NOTE: Vi cete izmenitit system-shipping metod. Ova metoda utice na odredjene druge delove webshopa. Samo menjajte opis po zelji, ali nemojte srz samih metoda';
+$txt['shippingadmin16'] = 'Edituj default drzavu isporuke';
+$txt['shippingadmin17'] = 'Druge opcije';
+
+// paymentadmin.php
+$txt['paymentadmin1'] = 'Metod placanja dodat';
+$txt['paymentadmin2'] = 'Metod placanja uklonjen';
+$txt['paymentadmin3'] = 'Metod placanja je editovan';
+$txt['paymentadmin4'] = 'Podrzani nacini placanja';
+$txt['paymentadmin5'] = 'Opis';
+$txt['paymentadmin6'] = 'Promeni nacin placanja';
+$txt['paymentadmin7'] = 'HTML kod placanja';
+$txt['paymentadmin8'] = 'Edituj';
+$txt['paymentadmin9'] = 'Ukloni';
+$txt['paymentadmin10'] = 'Dodaj';
+$txt['paymentadmin11'] = 'Opcije';
+$txt['paymentadmin12'] = 'NOTE: Vi cete izmeniti system-payment metod. Ovaj metod utice na odredjene druge delove webshopa. Samo menjajte opis po zelji, ali nemojte srz samih metoda';
+
+// errorlogadmin.php
+$txt['errorlogadmin1'] = 'Error log';
+$txt['errorlogadmin2'] = 'Severity';
+$txt['errorlogadmin3'] = 'Error';
+$txt['errorlogadmin4'] = 'File';
+$txt['errorlogadmin5'] = 'Line';
+$txt['errorlogadmin6'] = 'Datum';
+$txt['errorlogadmin7'] = 'No logged errors found';
+$txt['errorlogadmin8'] = 'Clear log';
+$txt['errorlogadmin9'] = 'The error log was cleared succesfully';
+?>

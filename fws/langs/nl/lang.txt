@@ -1,0 +1,656 @@
+<?php
+// The character set we should use for this language. If you are unsure, use ISO-8859-1
+$charset = "UTF-8";
+
+// first some values that can also be used further along in this lang file
+// database values for shipping
+$txt['frontpage1'] = 'Meer informatie';
+
+$txt['db_shipping1'] = 'Zelf ophalen op afspraak, geen verzendkosten';
+
+// database values for payments
+$txt['db_payment1'] = 'Betalen via overschrijving bank/giro';
+$txt['db_payment2'] = 'Betalen bij afhalen (alleen van toepassing bij Zelf ophalen)';
+$txt['db_payment3'] = 'Betalen via PayPal';
+$txt['db_payment4'] = 'Betalen bij ontvangst';
+
+// order status
+$txt['db_status1'] = 'Bestelling van klant ontvangen';
+$txt['db_status2'] = 'Wacht op betaling';
+$txt['db_status3'] = 'Wacht op afhaalafspraak';
+$txt['db_status4'] = 'In behandeling';
+$txt['db_status5'] = 'Verzonden naar klant (voltooid)';
+$txt['db_status6'] = 'Opgehaald door klant (voltooid)';
+$txt['db_status7'] = 'Geannuleerd';
+
+$txt['db_status10'] = 'Verklaring statussen';
+$txt['db_status11'] = 'Uw bestelling is door ons ontvangen, maar nog niet bevestigd door een medewerker';
+$txt['db_status12'] = 'Uw bestelling is bevestigd. U dient het openstaande bedrag te voldoen voordat de order verder wordt verwerkt';
+$txt['db_status13'] = 'Uw bestelling is betaald. U heeft een e-mail ontvangen waarin staat dat uw goederen klaar liggen. U dient ons te bellen om een ophaalafspraak met ons te maken';
+$txt['db_status14'] = 'Uw betaling is ontvangen. De order wordt intern verwerkt. Dit kan betekenen dat we uw artikelen nog moeten binnen krijgen, of we zijn uw order verzendklaar aan het maken';
+$txt['db_status15'] = 'De bestelling is verstuurd naar de klant. De order is voltooid';
+$txt['db_status16'] = 'De bestelling is door u opgehaald. De order is voltooid';
+$txt['db_status17'] = 'De bestelling is geannuleerd door u of ons';
+
+// database values for stock
+$txt['db_stock1'] = 'In voorraad';
+$txt['db_stock2'] = 'Niet in voorraad';
+$txt['db_stock3'] = 'In bestelling';
+
+$txt['db_stock10'] = 'Verklaring voorraad';
+$txt['db_stock11'] = 'Het artikel is in voorraad. Als u uw bestelling snel afhandelt heeft u het artikel snel in huis';
+$txt['db_stock12'] = 'Het artikel is niet in voorraad';
+$txt['db_stock13'] = 'Het artikel is in bestelling, en is dus snel weer in voorraad';
+
+// general values
+$txt['general1'] = 'Toegang Geweigerd!';
+$txt['general2'] = 'Uw ip adres is vastgelegd om misbruik te voorkomen';
+$txt['general3'] = 'nieuw';
+$txt['general4'] = 'Terug naar admin opties';
+$txt['general5'] = 'BTW';
+$txt['general6'] = 'excl.';
+$txt['general7'] = 'incl.';
+$txt['general8'] = 'LET OP: De webwinkel is uitgeschakeld! Klanten kunnen geen producten bekijken of bestellen';
+$txt['general9'] = '404 fout. Pagina niet gevonden!';
+$txt['general10'] = 'U bent verbannen van deze webwinkel';
+$txt['general11'] = 'Over ons';
+$txt['general12'] = 'Fout';
+$txt['general13'] = 'Notificatie';
+$txt['general14'] = 'Terug';
+$txt['general15'] = 'Type deze code over';
+$txt['general16'] = 'U heeft de code niet juist overgenomen. Probeer het opnieuw';
+
+// header.php
+$txt['header1'] = 'Beveiligingsrisico';
+$txt['header2'] = 'Welkom';
+$txt['header3'] = 'gast';
+$txt['header4'] = '<font color=red><strong>install.php</strong></font> is gevonden. U dient dit bestand te verwijderen/hernoemen voordat u verder gaat!';
+
+// menu.php
+$txt['menu1'] = 'Home';
+$txt['menu2'] = 'Winkelwagen';
+$txt['menu3'] = 'Afrekenen';
+$txt['menu4'] = 'Zoeken';
+$txt['menu5'] = 'Algemene Voorwaarden';
+$txt['menu6'] = 'Verzendprocedure';
+$txt['menu7'] = 'Garantie';
+$txt['menu8'] = 'Contact';
+$txt['menu9'] = 'Administratie';
+$txt['menu10'] = 'Persoonlijke pagina';
+$txt['menu11'] = 'Uitloggen';
+$txt['menu12'] = 'Inloggen';
+$txt['menu13'] = 'Registeren';
+$txt['menu14'] = 'Informatie';
+$txt['menu15'] = 'Producten';
+$txt['menu16'] = '<font color=red><strong>Nieuwe</strong></font> producten';
+$txt['menu17'] = 'Geen producten';
+$txt['menu18'] = 'Over ons';
+$txt['menu19'] = 'Extra';
+
+// sendprocedure.php
+$txt['send1'] = 'Verzendprocedure';
+
+// cart.php
+$txt['cart1'] = 'Winkelwagen';
+$txt['cart2'] = 'Er zit nog niets in uw winkelwagen.';
+$txt['cart3'] = 'Omschrijving';
+$txt['cart4'] = 'Prijs';
+$txt['cart5'] = 'Aantal';
+$txt['cart6'] = 'Verwijder';
+$txt['cart7'] = 'Totaal';
+$txt['cart8'] = 'Leeg maken';
+$txt['cart9'] = 'Afrekenen';
+$txt['cart10'] = 'Bijwerken';
+$txt['cart11'] = 'Wat zit er in uw winkelwagen';
+$txt['cart12'] = 'Verder winkelen';
+
+// browse.php
+$txt['browse1'] = 'Zoekresultaat';
+$txt['browse2'] = 'Productomschrijving';
+$txt['browse3'] = 'Prijs';
+$txt['browse4'] = 'Sorteer';
+$txt['browse5'] = 'Geen artikelen gevonden';
+$txt['browse6'] = 'LET OP: Aan de afbeeldingen kunnen geen rechten worden ontleend. Prijzen zijn onder voorbehoud';
+$txt['browse7'] = 'wijzig';
+$txt['browse8'] = 'verwijder';
+$txt['browse9'] = 'Product lijst';
+$txt['browse10'] = 'verander afbeelding';
+$txt['browse11'] = 'Pagina\'s';
+$txt['browse12'] = 'Uitverkocht';
+$txt['browse13'] = 'In voorraad';
+
+// submenu.php
+$txt['submenu1'] = 'De categorieën in deze groep';
+$txt['submenu2'] = 'Geen categorieën gevonden in deze groep';
+
+// main.php
+$txt['main1'] = 'Welkom';
+$txt['main2'] = 'Aanbiedingen';
+
+// details.php
+$txt['details1'] = 'Product details';
+$txt['details2'] = 'Product ID';
+$txt['details4'] = 'Omschrijving';
+$txt['details5'] = 'Prijs/stuk';
+$txt['details6'] = 'Aantal';
+$txt['details7'] = 'Bestellen';
+$txt['details8'] = 'Terug naar het overzicht';
+$txt['details9'] = 'Klik voor orginele grootte';
+
+// conditions.php
+$txt['conditions1'] = 'Ik ga akkoord met de algemene voorwaarden';
+$txt['conditions2'] = 'Ik ga niet akkoord met de algemene voorwaarden';
+$txt['conditions3'] = 'Uitgeschakeld';
+$txt['conditions4'] = 'Bestellen is momenteel niet mogelijk';
+$txt['conditions5'] = 'Algemene voorwaarden';
+
+// shipping.php
+$txt['shipping1'] = 'Verzending en betaling';
+$txt['shipping2'] = 'Selecteer een verzendmethode';
+$txt['shipping3'] = 'Eventuele vragen/opmerkingen';
+$txt['shipping4'] = 'Kortingscode';
+$txt['shipping5'] = 'Als je een kortingscode hebt kun je die hier intypen';
+$txt['shipping9'] = 'Volgende stap';
+$txt['shipping10'] = 'Selecteer een betaalwijze';
+
+// checkout.php
+$txt['checkout1'] = 'Ongeldige kortingscode. Als dit volgens u niet correct is, neem dan contact met ons op voordat u verder gaat met bestellen';
+$txt['checkout2'] = 'De pagina is verlopen. Ga terug naar uw winkelwagen en klik daar op Afrekenen';
+$txt['checkout3'] = "Geachte heer/mevrouw $surname $lastname,<br /><br /><br />Dit bericht is een bevestiging van uw order bij <strong>$shopname</strong><br /><br />Uw ordernummer is: $webid<br />Uw klantnummer is: $customerid<br /><br />De volgende artikelen zijn door u besteld:<br />";
+$txt['checkout4'] = ' x artikel ';
+$txt['checkout5'] = ' p/stuk';
+$txt['checkout6'] = '<br />';
+$txt['checkout7'] = 'U probeerde het volgende te bestellen:';
+$txt['checkout8'] = 'Momenteel in voorraad:';
+$txt['checkout9'] = "<br /><br />U kunt de status van uw bestelling online volgen door op de volgende link te klikken: <a href=\"$shopurl/index.php?page=orders&id=$customerid\">$shopurl/index.php?page=orders&id=$customerid</a><br /><br />Bedankt voor uw bestelling en hopelijk tot snel<br />Heeft u vragen? Neem dan snel contact met ons op (contact gegevens staan op de website).";
+$txt['checkout10'] = 'Bevestiging van uw order bij '.$shopname;
+$txt['checkout11'] = 'De bestelling is voltooid. Er is een bevestigings email naar u onderweg.';
+$txt['checkout12'] = 'Het versturen van de bevestigings email is mislukt! Print daarom de onderstaande bevestiging uit';
+$txt['checkout13'] = 'Hieronder vindt u de orderbevestiging. Print deze uit!';
+$txt['checkout14'] = 'Korting';
+$txt['checkout15'] = 'Er is niet genoeg voorraad van het artikel dat u bestelde.';
+$txt['checkout16'] = "Verzendmethode";
+$txt['checkout17'] = "<strong>Verzendadres:</strong><br />$company<br />$initials $middlename $lastname<br />$address<br />$zipcode $city<br />$state<br />$country<br />$phone";
+$txt['checkout18'] = 'Kortingscode';
+$txt['checkout19'] = "<strong>Betaalwijze:</strong> ";
+$txt['checkout20'] = "<strong>Bank informatie:</strong><br />Rekeningnummer: $bankaccount<br />Rekeninghouder: $bankaccountowner<br />Stad: $bankcity<br />Land: $bankcountry<br />Bank naam: $bankname<br />IBAN: $bankiban<br />BIC: $bankbic<br />Betalingskenmerk: $webid";
+$txt['checkout21'] = "Zodra de artikelen voorradig zijn, zullen we via email contact met u opnemen om een afhaalafspraak te maken.";
+$txt['checkout24'] = "Het totaalbedrag";
+$txt['checkout25'] = "inclusief $show_vat ".$txt['general5'];
+$txt['checkout26'] = "Maakt u aub het bedrag binnen $paymentdays dag(en) naar ons over. Zodra wij uw betaling hebben ontvangen wordt de order verder verwerkt en zo snel mogelijk naar u opgestuurd.";
+$txt['checkout27'] = "of download de order in PDF";
+
+// search.php
+$txt['search1'] = 'Zoek een product';
+$txt['search2'] = 'Zoek naar';
+$txt['search3'] = 'Zoek methode';
+$txt['search4'] = 'Zoek alle woorden';
+$txt['search5'] = 'Zoek een van de woorden';
+$txt['search6'] = 'Zoek';
+
+// guarantee.php
+$txt['guarantee1'] = 'Garantie';
+
+// contact.php
+$txt['contact1'] = 'Vraag via formulier '. $shopurl;
+$txt['contact2'] = 'Bericht verstuurd';
+$txt['contact3'] = 'Uw bericht is verstuurd. U krijgt zo spoedig mogelijk antwoord.';
+$txt['contact5'] = 'U dient alle velden van het formulier in te vullen.<br /><a href="javascript:history.go(-1)"><strong>Klik hier</strong></a> om dit te verbeteren.';
+$txt['contact6'] = 'Contact';
+$txt['contact7'] = 'U kunt op verschillende manieren in contact komen met';
+$txt['contact8'] = 'E-mail';
+$txt['contact9'] = 'Telefoon';
+$txt['contact10'] = 'Fax';
+$txt['contact11'] = 'Om via de site contact met ons op te nemen vult u onderstaan formulier in:';
+$txt['contact12'] = 'Stuur naar';
+$txt['contact13'] = 'Uw naam';
+$txt['contact14'] = 'Uw e-mail adres';
+$txt['contact15'] = 'Uw bericht';
+
+// checklogin.php
+$txt['checklogin1'] = 'Log hier in met uw persoonlijke code';
+$txt['checklogin2'] = 'Login naam';
+$txt['checklogin3'] = 'Wachtwoord';
+$txt['checklogin4'] = 'Log in';
+$txt['checklogin5'] = 'Heeft u nog geen klantnummer? Klik dan hier..';
+$txt['checklogin6'] = 'Waarom moet ik lid worden?';
+$txt['checklogin7'] = 'Om producten te kunnen bestellen dient u lid te worden. U geeft daarbij uw NAW gegevens, e-mail adres, etc op. Deze informatie hebben wij nodig om voor een goeie verzending te kunnen zorgdragen.<br /><br /><strong>Uw gegevens worden alleen door ons gebruikt.</strong><br /><br /><br />Nadat u lid bent geworden kunt u onder andere:<ul><li>vanaf iedere pc inloggen op de site<li>producten bestellen<li>de status van uw bestelling online volgen<li>uw winkelwagen beheren</ul>';
+$txt['checklogin8'] = 'Logingegevens vergeten';
+$txt['checklogin9'] = 'Vul het email adres in van uw account, dan worden uw logingegevens daar naartoe gestuurd.';
+$txt['checklogin10'] = 'Verstuur mail';
+$txt['checklogin11'] = 'Uw logingegevens kwijt?';
+$txt['checklogin12'] = 'Uw logingegevens zijn gestuurd naar';
+$txt['checklogin13'] = 'Verloren logingegevens '. $shopurl;
+$txt['checklogin14'] = "U ontvangt deze email, omdat u op onze website (<a href=\"$shopurl\">$shopurl</a>) heeft aangegeven dat u uw gegevens bent vergeten. Hieronder vindt u uw loginggegevens voor onze webwinkel.";
+$txt['checklogin15'] = 'Er bestaat geen klant met het door u opgegeven email adres';
+$txt['checklogin18'] = 'Ga terug';
+
+// login.php
+$txt['login1'] = 'login onjuist.. een moment aub';
+$txt['login2'] = 'of klik hier';
+$txt['login3'] = 'Je bent ingelogd. 1 moment aub..';
+
+// logout.php
+$txt['logout1'] = 'U bent uitgelogd..';
+
+// my.php
+$txt['my3'] = 'Info over uw persoonlijke pagina';
+$txt['my4'] = 'Dit is uw eigen persoonlijke pagina. Alleen u heeft toegang tot deze pagina mits u bent ingelogd op de website met uw persoonlijke gebruikersnaam en wachtwoord.<br /><br />Hier vanuit kunt u uw persoonlijke gegevens, geplaatste orders en uw winkelwagen raadplegen. Alles handig gesorteerd in 1 overzichtelijk scherm.';
+$txt['my5'] = 'Persoonlijke pagina';
+$txt['my6'] = 'Uw klantnummer';
+$txt['my7'] = 'Wijzig gegevens';
+$txt['my8'] = 'Toon orders';
+$txt['my9'] = 'Toon winkelwagen';
+
+// admin.php
+$txt['admin1'] = 'Winkel Administratie';
+$txt['admin2'] = 'Orders';
+$txt['admin3'] = 'Klanten';
+$txt['admin4'] = 'Winkel';
+$txt['admin5'] = 'Producten';
+$txt['admin6'] = 'Groepen&<br />Categorieën';
+$txt['admin7'] = 'Optimaliseer database';
+$txt['admin8'] = 'Instellingen';
+$txt['admin9'] = 'SQL uploaden';
+$txt['admin10'] = 'Bezig met het optimaliseren van alle database tabellen..';
+$txt['admin11'] = 'Bezig met het optimaliseren van';
+$txt['admin12'] = 'Optimalisatie volooid!';
+$txt['admin13'] = 'Info en ondersteuning';
+$txt['admin14'] = 'Controleer updates';
+$txt['admin15'] = 'Algemene voorwaarden';
+$txt['admin16'] = 'Verzendpagina';
+$txt['admin17'] = 'Garantie pagina';
+$txt['admin18'] = 'Verzend opties';
+$txt['admin19'] = 'Ban lijst';
+$txt['admin20'] = 'Over ons';
+$txt['admin21'] = 'Betalings opties';
+$txt['admin22'] = 'Beginpagina';
+$txt['admin23'] = 'Wijzig instellingen';
+$txt['admin24'] = 'Wijzig bestanden';
+$txt['admin25'] = 'Informatie';
+$txt['admin26'] = 'Error log';
+$txt['admin27'] = 'Backup Database';
+$txt['admin28'] = 'Backup gereed. Om de backup te downloaden, klik op de onderstaande link';
+$txt['admin29'] = 'Admins';
+$txt['admin30'] = 'Extra pagina\'s';
+$txt['admin31'] = 'Toegangs log';
+$txt['admin32'] = 'Voorraad beheer';
+$txt['admin33'] = 'Een aantal producten (';
+$txt['admin34'] = ') zit onder het minimum voorraadniveau!';
+$txt['admin35'] = 'Mailinglijst';
+$txt['admin36'] = '<strong><font color="red">Er is nieuws van FreeWebshop.org</font></strong><br /><br />Het kan een beveiligingsupdate, een nieuwe versie of ander belangrijk nieuws bevatten. Lees het onderaan deze pagina of bezoek <a href="http://www.freewebshop.org">FreeWebshop.org</a>!<br /><br />(u krijgt deze melding eenmalig bij nieuw nieuws)';
+$txt['admin37'] = 'Verzendlanden';
+$txt['admin38'] = 'Korting';
+
+// customeradmin.php
+$txt['customeradmin1'] = 'Achternaam';
+$txt['customeradmin2'] = 'Datum lid';
+$txt['customeradmin3'] = 'E-mail';
+$txt['customeradmin4'] = 'Telefoon';
+$txt['customeradmin5'] = 'Opties';
+$txt['customeradmin6'] = 'Leden administratie';
+$txt['customeradmin7'] = 'Deze persoon is nu lid van de groep Administrators';
+$txt['customeradmin8'] = 'Deze persoon is nu lid van de groep Klanten';
+$txt['customeradmin9'] = 'Geen klanten gevonden';
+$txt['customeradmin10'] = 'Zoek';
+
+// orderadmin.php
+$txt['orderadmin1'] = 'De status van uw order ';
+$txt['orderadmin2'] = ' is gewijzigd';
+$txt['orderadmin3'] = 'De order is verwijderd';
+$txt['orderadmin4'] = "<br /><br /><a href=\"$shopurl/index.php?page=orders&id=";
+$txt['orderadmin5'] = '">Klik hier</a> voor de actuele status';
+$txt['orderadmin6'] = 'E-mail verzonden naar ';
+$txt['orderadmin7'] = 'Klant e-mailen?';
+$txt['orderadmin8'] = 'Update';
+$txt['orderadmin9'] = 'alle orders';
+$txt['orderadmin10'] = 'Er zijn geen orders met de door u opgegeven status.';
+$txt['orderadmin11'] = 'Toon';
+$txt['orderadmin13'] = 'Order administratie';
+$txt['orderadmin14'] = 'Wijzig status';
+$txt['orderadmin15'] = 'Order status is gewijzigd';
+
+// orders.php
+$txt['orders3'] = 'Uw geplaatste orders <a href=# class=info>(?)<span>Hieronder vindt u een lijst met uw orders en hun actuele status<br />Klik op het ID van een order om de details te zien</span></a>';
+$txt['orders4'] = 'Order ID';
+$txt['orders5'] = 'Verzend- en betaalwijze';
+$txt['orders6'] = 'Factuurbedrag';
+$txt['orders7'] = 'Orderdatum';
+$txt['orders8'] = 'Status';
+$txt['orders9'] = 'U heeft nog geen orders via onze webwinkel geplaatst.';
+
+// customer.php
+$txt['customer1'] = 'Provincie';
+$txt['customer2'] = 'Klant verwijderd';
+$txt['customer3'] = 'Ga terug';
+$txt['customer5'] = 'U moet de fouten verbeteren om verder te gaan';
+$txt['customer6'] = 'Alle velden die met een (*) zijn verplicht';
+$txt['customer7'] = 'Een loginnaam mag alleen uit letters en/of cijfers bestaan';
+$txt['customer8'] = 'De 2 wachtwoorden komen niet overeen';
+$txt['customer9'] = 'Je wachtwoord moet minimaal 5 karakters zijn.';
+$txt['customer10'] = 'U heeft een ongeldig email adres ingevuld';
+$txt['customer11'] = "Welkom bij $shopname";
+$txt['customer12'] = "Geachte heer, mevrouw $tussenvoegsels $naam,<br /><br />U bent klant geworden van $shopname (<a href=\"$shopurl\">$shopurl</a>)<br /><br />Vanaf nu kunt u op de site inloggen en meteen producten bestellen<br />of de status van uw geplaatste orders controleren.<br /><br />Uw login gegevens zijn:<br />Loginnaam: $login<br />Wachtwoord: $pass1<br /><br />Bewaar deze mail goed!<br /><br />Tot ziens op <a href=\"$shopurl\">$shopurl</a><br /><br />Met vriendelijke groet,<br /><br />De webmaster";
+$txt['customer13'] = 'Uw informatie is succesvol opgeslagen.';
+$txt['customer14'] = 'Vul uw gegevens zo volledig mogelijk in';
+$txt['customer15'] = 'Login Naam';
+$txt['customer16'] = 'Wachtwoord';
+$txt['customer17'] = 'Nogmaals wachtwoord</i?';
+$txt['customer18'] = 'Achternaam';
+$txt['customer19'] = 'Tussenvoegsels';
+$txt['customer20'] = 'Voorletters';
+$txt['customer21'] = 'Adres';
+$txt['customer22'] = 'Postcode';
+$txt['customer23'] = 'Plaats';
+$txt['customer24'] = 'Land';
+$txt['customer25'] = 'Telefoon';
+$txt['customer26'] = 'E-mail';
+$txt['customer27'] = '* = verplicht veld';
+$txt['customer28'] = 'Gegevens opslaan';
+$txt['customer29'] = 'Er bestaat al een klant met de loginnaam die u heeft opgegeven';
+$txt['customer30'] = 'Bedrijfsnaam';
+$txt['customer32'] = 'U probeerde het administrator account te verwijderen. Dit zou er voor zorgen dat u niet meer kon inloggen om de shop te beheren. Uw verzoek is geweigerd.';
+$txt['customer33'] = '(tussen 5 en 10 karakters)';
+$txt['customer34'] = 'Er bestaat al een klant met het emailadres dat u hebt opgegeven';
+$txt['customer35'] = 'Klik hier om in te loggen';
+$txt['customer36'] = 'Nieuwe klant';
+$txt['customer37'] = 'Een nieuwe klant heeft zichzelf geregistreerd op je webwinkel. De welkomst mail die naar de klant is gestuurd vind je hieronder:';
+$txt['customer38'] = 'Nieuwsbrief?';
+
+// readorder.php
+$txt['readorder1'] = 'Print deze order';
+$txt['readorder2'] = 'Ga terug naar uw order overzicht';
+
+// editsettings.php
+$txt['editsettings1'] = 'Wijzig instellingen';
+$txt['editsettings2'] = 'Sla wijzigingen op';
+$txt['editsettings3'] = 'Verberg producten met voorraad 0';
+$txt['editsettings4'] = 'Standaard verzendland <a href=# class=info>(?)<span>Dit is meestal het land waar uw bedrijf is gevestigd</span></a>';
+$txt['editsettings5'] = 'Toon voorraad niveau';
+$txt['editsettings7'] = 'Bijkomende kosten rembours <a href=# class=info>(?)<span>De extra kosten bovenop de normale verzendkosten als een klant kiest voor rembours. Format: 12.34</span></a>';
+$txt['editsettings8'] = 'Valuta';
+$txt['editsettings9'] = 'Valuta symbool <a href=# class=info>(?)<span>In uw geval waarschijnlijk: </span></a>';
+$txt['editsettings10'] = 'Betalingstermijn <a href=# class=info>(?)<span>Binnen hoeveel dagen moet het verschuldigde bedrag op uw rekening staan?</span></a>';
+$txt['editsettings11'] = 'Inclusief BTW <a href=# class=info>(?)<span>In uw geval waarschijnlijk: 1.19</span></a>';
+$txt['editsettings12'] = 'BTW tekst <a href=# class=info>(?)<span>In uw geval waarschijnlijk: 19%</span></a>';
+$txt['editsettings13'] = 'Prijzen in DB zijn incl. BTW?';
+$txt['editsettings14'] = 'Email adres verkoopafdeling <a href=# class=info>(?)<span>Op dit adres komen de orders van de webshop binnen, bijv: sales@yourdomain.com</span></a>';
+$txt['editsettings15'] = 'Winkelnaam';
+$txt['editsettings16'] = 'Webshop URL <a href=# class=info>(?)<span>URL beginnend met http://, maar zonder laatste /, bijv: http://www.yourdomain.com/shop</span></a>';
+$txt['editsettings17'] = 'Standaard taal';
+$txt['editsettings18'] = 'Order prefix (optioneel) <a href=# class=info>(?)<span>Elk order id begint met de prefix, bijv: WEB-</span></a>';
+$txt['editsettings19'] = 'Order suffix (optioneel) <a href=# class=info>(?)<span>Elk order id eindigt met de suffix, bijv het huidige jaar: -06</span></a>';
+$txt['editsettings20'] = 'Gebruik voorraad niveau <a href=# class=info>(?)<span><strong>aangevinkt:</strong> u gebruikt voorraad aantallen<br /><br /><strong>uitgevinkt:</strong> u gebruikt voorraad statussen (in voorraad/in bestelling/uit voorraad)</span></a>';
+$txt['editsettings21'] = 'Bestel-module aanzetten';
+$txt['editsettings22'] = 'Winkel uitschakelen';
+$txt['editsettings23'] = 'Winkel uitgeschakeld titel';
+$txt['editsettings24'] = 'Winkel uitgeschakeld bericht';
+$txt['editsettings25'] = 'Email adres info <a href=# class=info>(?)<span>Op dit adres komen vragen via het contact formulier binnen, bijv: info@yourdomain.com</span></a>';
+$txt['editsettings26'] = 'Telefoonnummer (optioneel)';
+$txt['editsettings27'] = 'Fax-nummer (optioneel)';
+$txt['editsettings28'] = 'Bankrekening';
+$txt['editsettings29'] = 'Bankrekening eigenaar';
+$txt['editsettings30'] = 'Bank stad';
+$txt['editsettings31'] = 'Bank land';
+$txt['editsettings32'] = 'Bank IBAN';
+$txt['editsettings33'] = 'Bank BIC';
+$txt['editsettings34'] = 'Startjaar <a href=# class=info>(?)<span>Het jaar dat u bent gestart met uw bedrijf</span></a>';
+$txt['editsettings35'] = 'Logo <a href=# class=info>(?)<span>Het plaatje van uw logo. Deze moet in de map <strong>'.$gfx_dir.'</strong> staan</span></a>';
+$txt['editsettings37'] = 'Bedrijfsslogan (optioneel) <a href=# class=info>(?)<span>De slogan wordt afgedrukt onder het logo</span></a>';
+$txt['editsettings38'] = 'Pagina titel <a href=# class=info>(?)<span>De titel van het browser-ventster waarin uw webwinkel wordt getoond</span></a>';
+$txt['editsettings39'] = 'Voettekst';
+$txt['editsettings44'] = 'De waarden zijn succesvol opgeslagen in de database';
+$txt['editsettings45'] = 'Bankgegevens';
+$txt['editsettings46'] = 'Opmaak';
+$txt['editsettings47'] = 'Winkel';
+$txt['editsettings48'] = 'Financiën';
+$txt['editsettings49'] = 'Nummer format';
+$txt['editsettings50'] = 'Maximale omschrijvingslengte <a href=# class=info>(?)<span>Dit is om de lengte van de omschrijvingen in de prijslijst in te korten. <br /><strong>0 = niet afkorten<br />1-99 = Afbreken op xx karakters</strong></span></a>';
+$txt['editsettings51'] = 'Geen BTW <a href=# class=info>(?)<span>Vink dit aan als u niet met BTW werkt, bijvoorbeeld omdat het een webwinkel met privé artikelen is</span></a>';
+$txt['editsettings52'] = 'Bank naam';
+$txt['editsettings53'] = 'Prijslijst format <a href=# class=info>(?)<span>Deze setting geldt voor de prijslijst, winkelwagen en orderbevestigings-email</span></a>';
+$txt['editsettings54'] = 'Product ID';
+$txt['editsettings55'] = 'Omschrijving';
+$txt['editsettings56'] = 'Product ID en omschrijving';
+$txt['editsettings57'] = 'Datum format <a href=# class=info>(?)<span><strong>d-m-Y @ G:i</strong> voor dd-mm-jjjj @ 23:59<br /><strong>m-d-Y @ G:i</strong> voor mm-dd-jjjj @ 23:59<br /></span></a>';
+$txt['editsettings58'] = 'Zoek afbeeldingen in prijslijst <a href=# class=info>(?)<span>Zoek naar afbeeldingen van de verschillende artikelen bij het laden van de prijslijst. Als er een afbeelding is gevonden wordt er een icoon achter het artikel gezet, zodat de bezoeker weet dat er een afbeelding bij staat.<br /><br />Om het laden te versnellen, of als je de plaatjes niet lokaal hebt staan kun je deze optie uitzetten</span></a>';
+$txt['editsettings59'] = 'Gebruik afbeeldingen <a href=# class=info>(?)<span>Als je geen plaatjes van je artikelen hebt, doe je er verstandig aan deze optie uit te zetten</span></a>';
+$txt['editsettings69'] = 'Gebruik thumbnails in prijslijst <a href=# class=info>(?)<span>Toont (indien aanwezig) een kleine preview afbeelding van het artikel voor de omschijving</span></a>';
+$txt['editsettings70'] = 'Kernwoorden (komma gescheiden) <a href=# class=info>(?)<span>De woorden waarop u wilt worden gevonden door zoekmachines</span></a>';
+$txt['editsettings71'] = 'Gebruikte karakterset <a href=# class=info>(?)<span>Sommige talen gebruiken afwijkende karaktersets. Voor u is het waarschijnlijk ISO-8859-1</span></a>';
+$txt['editsettings72'] = 'Toon Algemene voorwaarden link';
+$txt['editsettings73'] = 'Toon Garantie link';
+$txt['editsettings74'] = 'Toon Verzendprocedure link';
+$txt['editsettings75'] = 'Afbeelding bestandsnaam <a href=# class=info>(?)<span>Sommige talen hebben karakters die niet in een bestandsnaam mogen voorkomen. Het is in dat geval (in de meeste andere gevallen) het beste om het Database ID als bestandsnaam te gebruiken</span></a>';
+$txt['editsettings76'] = 'Database ID (recommended)';
+$txt['editsettings77'] = 'Product ID';
+$txt['editsettings78'] = 'Toon Over ons link';
+$txt['editsettings79'] = 'Activeer Live Nieuws <a href=# class=info>(?)<span>Dit activeert de live nieuws feed van FreeWebshop.org, met nieuws, updates en andere berichten. Schakel deze optie alleen uit als u er problemen mee ondervindt</span></a>';
+$txt['editsettings80'] = 'Prijslijst thumb breedte <a href=# class=info>(?)<span>Breedte in pixels.<br />standaar=30<br/>0=geen resize</span></a>';
+$txt['editsettings81'] = 'Prijslijst thumb hoogte <a href=# class=info>(?)<span>Hoogte in pixels.<br />standaard=30<br />0=geen resize</span></a>';
+$txt['editsettings82'] = 'Categorie thumb breedte <a href=# class=info>(?)<span>Breedte in pixels.<br />standaard=30<br />0=geen resize</span></a>';
+$txt['editsettings83'] = 'Categorie thumb hoogte <a href=# class=info>(?)<span>Hoogte in pixels.<br />standaard=30<br />0=geen resize</span></a>';
+$txt['editsettings84'] = 'Product pic. max. breedte <a href=# class=info>(?)<span>Maximum Breedte in pixels.<br />standaard=450<br />9999=geen max</span></a>';
+$txt['editsettings85'] = 'Product pic. max. hoogte <a href=# class=info>(?)<span>Maximum Hoogte in pixels.<br />standaard=350<br />9999=geen max</span></a>';
+$txt['editsettings86'] = 'Alles';
+$txt['editsettings87'] = 'Toon Nieuwe producten link';
+$txt['editsettings88'] = 'Use WYSIWYG editor';
+$txt['editsettings89'] = 'Automatisch thumbnails maken <a href=# class=info>(?)<span>Automatisch een thumbnail maken bij het uploaden van een product afbeelding.<br />Heeft de <strong>GD extension</strong> nodig om te werken</span></a>';
+$txt['editsettings90'] = 'Winkel omschrijving <a href=# class=info>(?)<span>De omschrijving die zoekmachines gebruiken om u te indexeren</span></a>';
+$txt['editsettings91'] = 'Producten per pagina <a href=# class=info>(?)<span>Het aantal producten per pagina.<br />0 = geen limiet</span></a>';
+$txt['editsettings92'] = 'Uitgeschakeld';
+$txt['editsettings93'] = 'Geavanceerd';
+$txt['editsettings94'] = 'Eenvoudig';
+$txt['editsettings95'] = 'Gebruik Captcha <a href=# class=info>(?)<span>Gebruik Captcha (anti-spambot) bij contact formulier en klantregistratie</span></a>';
+$txt['editsettings96'] = 'Gebruik afbeelding popup <a href=# class=info>(?)<span>Gebruik de mooiere afbeelding popup<br />Javascript vereist</span></a>';
+$txt['editsettings97'] = 'Plaats valuta symbool';
+$txt['editsettings98'] = 'Gebruik deze template';
+$txt['editsettings99'] = 'Gebruikt voorraadniveau waarschuwing';
+$txt['editsettings100'] = 'Minimum voorraadniveau';
+$txt['editsettings101'] = 'Gewichtsklasse <a href=# class=info>(?)<span>Voor u waarschijnlijk <strong>KG</strong></span></a>';
+$txt['editsettings102'] = 'Bestellen vanuit prijslijst';
+$txt['editsettings103'] = 'Gebruik datefix <a href=# class=info>(?)<span>Gebruik dit alleen als je errorlog volstaat met datum waarschuwingen</span></a>';
+$txt['editsettings104'] = 'Prijslijst volgorde';
+$txt['editsettings105'] = 'Omschrijving';
+$txt['editsettings106'] = 'Prijs';
+$txt['editsettings107'] = 'Activeer Autosubmit <a href=# class=info>(?)<span>Als dit aanstaat EN de betaalmethode ondersteund het, wordt de klant na het bestellen automatisch doorgestuurd naar de betaal portal van de gekozen betaalmethode</span></a>';
+$txt['editsettings108'] = 'Maak PDF\'s <a href=# class=info>(?)<span>Indien ingeschakeld, maakt dit een PDF van de orderbevestiging en stuurt deze als bijlage mee met de orderbevestigings mail</span></a>';
+$txt['editsettings109'] = 'Gebruik PHP Mail() <a href=# class=info>(?)<span>Gebruik PHP Mail() om mail te verzenden</span></a>';
+
+// productadmin.php
+$txt['productadmin1'] = ' is geupload naar ';
+$txt['productadmin2'] = 'Er is een fout opgetreden tijdens het uploaden. Probeer het opnieuw!';
+$txt['productadmin3'] = 'Upload aub alleen .jpg, .png of .gif bestanden';
+$txt['productadmin4'] = 'Voeg nog een product toe';
+$txt['productadmin5'] = 'Terug naar de productlijst';
+$txt['productadmin6'] = 'Voeg een product toe';
+$txt['productadmin7'] = 'Werk een product bij';
+$txt['productadmin8'] = 'Voeg eerst wat groepen toe';
+$txt['productadmin9'] = 'ID';
+$txt['productadmin10'] = 'Omschrijving <a href=# class=info>(?)<span>HTML code is toegestaan</span></a>';
+$txt['productadmin11'] = 'Prijs <a href=# class=info>(?)<span>format: 123456.78</span></a>';
+$txt['productadmin12'] = 'Voorraad aantal';
+$txt['productadmin13'] = 'Voorraad (0|1|2) <a href=# class=info>(?)<span>0=Uit voorraad<br />1=In voorraad<br />2=In backorder</span></a>';
+$txt['productadmin14'] = 'Op beginpagina';
+$txt['productadmin15'] = 'Nieuw';
+$txt['productadmin16'] = 'Voeg product toe';
+$txt['productadmin17'] = 'Werk product bij';
+$txt['productadmin18'] = 'Groep/Categorie';
+$txt['productadmin19'] = 'Selecteer een jpg, png of gif bestand';
+$txt['productadmin20'] = 'Upload';
+$txt['productadmin21'] = 'Upload een afbeelding';
+$txt['productadmin22'] = 'Voeg eerst wat categorieën toe';
+$txt['productadmin23'] = 'Je kunt geen screenshot uploaden, omdat je product geen ID heeft';
+$txt['productadmin24'] = 'Verwijder deze afbeelding';
+$txt['productadmin25'] = 'Afbeelding succesvol verwijderd';
+$txt['productadmin26'] = 'Product is succesvol verwijderd';
+$txt['productadmin27'] = 'Extra opties';
+$txt['productadmin28'] = 'Maak thumbnail voor alle afbeeldingen (kan even duren)';
+$txt['productadmin29'] = 'Alle thumbnails zijn (waar nodig) aangemaakt..';
+$txt['productadmin29'] = 'Alle thumbnails zijn (waar nodig) aangemaakt..';
+$txt['productadmin30'] = 'Kenmerken <a href=# class=info>(?)<span>Kenmerk1:Rood,Wit,Blauw|Kenmerk2:Klein,Middel,Groot<br />Geen spaties!</span></a>';
+$txt['productadmin31'] = 'Gewicht <a href=# class=info>(?)<span>Het gewicht wordt gebruikt indien verzendkosten dmv het gewicht wordt berekend</span></a>';
+
+
+// groupadmin.php
+$txt['groupadmin1'] = ' is geupload naar ';
+$txt['groupadmin2'] = 'Er is een fout opgetreden tijdens het uploaden. Probeer het opnieuw!';
+$txt['groupadmin3'] = 'Upload aub alleen .jpg, .png of .gif bestanden';
+$txt['groupadmin4'] = 'Groep toegevoegd..';
+$txt['groupadmin5'] = 'Groep bijgewerkt..';
+$txt['groupadmin6'] = 'Groep (en onderliggende categorieën en producten) verwijderd..';
+$txt['groupadmin7'] = 'Categorie toegevoegd..';
+$txt['groupadmin8'] = 'Categorie bijgewerkt..';
+$txt['groupadmin9'] = 'Categorie verplaatst..';
+$txt['groupadmin10'] = 'Categorie (en onderliggende producten) verwijderd..';
+$txt['groupadmin11'] = 'Groep naam';
+$txt['groupadmin12'] = 'Voeg groep toe';
+$txt['groupadmin13'] = 'Er zijn nog geen groepen';
+$txt['groupadmin14'] = 'Groep';
+$txt['groupadmin15'] = 'Nieuwe groep naam';
+$txt['groupadmin16'] = 'Werk groep bij';
+$txt['groupadmin17'] = 'Verwijder groep';
+$txt['groupadmin18'] = 'Groep opties';
+$txt['groupadmin19'] = 'Categorie opties';
+$txt['groupadmin20'] = 'Categorie naam';
+$txt['groupadmin21'] = 'Voeg categorie toe';
+$txt['groupadmin22'] = 'Categorie';
+$txt['groupadmin23'] = 'Nieuwe categorie naam';
+$txt['groupadmin24'] = 'Werk categorie bij';
+$txt['groupadmin25'] = 'Verplaats categorie';
+$txt['groupadmin26'] = 'Verwijder categorie';
+$txt['groupadmin27'] = 'Selecteer een jpg, png of gif bestand';
+$txt['groupadmin28'] = 'Upload';
+$txt['groupadmin29'] = 'Upload een afbeelding';
+$txt['groupadmin30'] = 'Algemene opties';
+$txt['groupadmin31'] = 'Verwijder lege categorieën en groepen';
+$txt['groupadmin32'] = 'aantal categorieën verwijderd';
+$txt['groupadmin33'] = 'aantal groepen verwijderd';
+$txt['groupadmin34'] = 'Er bestaat al een groep met de naam '.$gname.'. Kies een andere naam';
+$txt['groupadmin35'] = 'De groepnaam is leeg';
+$txt['groupadmin36'] = 'Je hebt geen nieuwe groepnaam ingevoerd';
+$txt['groupadmin37'] = 'Er bestaat al een categorie met de naam '.$cname.'. Kies een andere naam';
+$txt['groupadmin38'] = 'Je hebt geen nieuwe categorienaam ingevoerd';
+$txt['groupadmin39'] = 'De categorienaam is leeg';
+
+// uploadadmin.php
+$txt['uploadadmin1'] = ' is geupload naar ';
+$txt['uploadadmin2'] = 'Er is een fout opgetreden tijdens het uploaden. Probeer het opnieuw!';
+$txt['uploadadmin3'] = 'Upload aub alleen .sql bestanden';
+$txt['uploadadmin4'] = 'Importeer een SQL bestand (update, prijslijst, etc)';
+$txt['uploadadmin5'] = 'Selecteer een SQL bestand';
+$txt['uploadadmin6'] = 'Importeer SQL';
+$txt['uploadadmin7'] = 'SQL bestand in de database ingelezen';
+
+// adminedit.php
+$txt['adminedit1'] = 'Sla wijzigingen op';
+$txt['adminedit2'] = 'Wijzigingen opgeslagen...';
+$txt['adminedit3'] = 'Bezig met wijzigen van ';
+
+// shippingadmin.php
+$txt['shippingadmin1'] = 'Verzendmethode toegevoegd';
+$txt['shippingadmin2'] = 'Verzendmethode verwijderd';
+$txt['shippingadmin3'] = 'Verzendmethode bijgewerkt';
+$txt['shippingadmin4'] = 'Ondersteunde verzendmethodes';
+$txt['shippingadmin5'] = 'Omschrijving';
+$txt['shippingadmin6'] = 'Kosten';
+$txt['shippingadmin7'] = "Alleen in $send_default_country?";
+$txt['shippingadmin8'] = 'Bijwerken';
+$txt['shippingadmin9'] = 'Verwijder';
+$txt['shippingadmin10'] = 'Toevoegen';
+$txt['shippingadmin11'] = 'Verzendlanden bijwerken';
+$txt['shippingadmin12'] = 'Opties';
+$txt['shippingadmin13'] = 'Betaal opties';
+$txt['shippingadmin14'] = 'Wijzig verzendmethode';
+$txt['shippingadmin15'] = 'LET OP: U staat op het punt een systeem-verzendmethode te wijzigen. Deze methode triggert bepaalde delen van deze webshop. Beschrijf de omschrijving hooguit anders, maar verander niet de essentie ervan.';
+$txt['shippingadmin16'] = 'Wijzig standaard verzendland';
+$txt['shippingadmin17'] = 'Andere options';
+$txt['shippingadmin18'] = 'Van';
+$txt['shippingadmin19'] = 'Tot';
+$txt['shippingadmin20'] = 'Kosten';
+$txt['shippingadmin21'] = 'Verzendkosten/gewicht regel met succes verwijderd';
+$txt['shippingadmin22'] = 'Geen verzending (ophalen)';
+
+// paymentadmin.php
+$txt['paymentadmin1'] = 'Betaalmethode toegevoegd';
+$txt['paymentadmin2'] = 'Betaalmethode verwijderd';
+$txt['paymentadmin3'] = 'Betaalmethode bijgewerkt';
+$txt['paymentadmin4'] = 'Ondersteunde Betaalmethodes';
+$txt['paymentadmin5'] = 'Omschrijving';
+$txt['paymentadmin6'] = 'Wijzig betaalmethode';
+$txt['paymentadmin7'] = 'Betaal HTML code';
+$txt['paymentadmin8'] = 'Bijwerken';
+$txt['paymentadmin9'] = 'Verwijder';
+$txt['paymentadmin10'] = 'Toevoegen';
+$txt['paymentadmin11'] = 'Opties';
+$txt['paymentadmin12'] = 'LET OP: U staat op het punt een systeem-betaalmethode te wijzigen. Deze methode triggert bepaalde delen van deze webshop.  Beschrijf de omschrijving hooguit anders, maar verander niet de essentie ervan.';
+
+// errorlogadmin.php
+$txt['errorlogadmin1'] = 'Fouten log';
+$txt['errorlogadmin2'] = 'Ernst';
+$txt['errorlogadmin3'] = 'Fout';
+$txt['errorlogadmin4'] = 'Bestand';
+$txt['errorlogadmin5'] = 'Regel';
+$txt['errorlogadmin6'] = 'Datum';
+$txt['errorlogadmin7'] = 'Geen errors gevonden';
+$txt['errorlogadmin8'] = 'Leeg log';
+$txt['errorlogadmin9'] = 'Het fouten log is succesvol geleegd';
+
+// pagesadmin.php
+$txt['pagesadmin1'] = 'Extra pagina\'s';
+$txt['pagesadmin2'] = 'Pagina naam';
+$txt['pagesadmin3'] = 'Opties';
+$txt['pagesadmin4'] = 'Hernoem';
+$txt['pagesadmin5'] = 'Voeg normale pagina toe';
+$txt['pagesadmin6'] = 'Pagina hernoemt';
+$txt['pagesadmin7'] = 'Pagina verwijderd';
+$txt['pagesadmin8'] = 'Mislukt';
+$txt['pagesadmin9'] = 'Pagina toegevoegd';
+$txt['pagesadmin10'] = 'Voeg privé pagina toe';
+$txt['pagesadmin11'] = 'Verborgen';
+
+// accessadmin.php
+$txt['accesslogadmin1'] = 'Toegangs log';
+$txt['accesslogadmin2'] = 'Login';
+$txt['accesslogadmin3'] = 'Wachtwoord';
+$txt['accesslogadmin4'] = 'Tijd';
+$txt['accesslogadmin5'] = 'Gelukt';
+//$txt['accesslogadmin6'] = 'Datum';
+$txt['accesslogadmin7'] = 'Geen toegangs log gegevens gevonden';
+$txt['accesslogadmin8'] = 'Leeg log';
+$txt['accesslogadmin9'] = 'Het toegangs log is succesvol geleegd';
+
+// stockadmin.php
+$txt['stockadmin2'] = 'Toon';
+$txt['stockadmin3'] = 'Voorraad beheer';
+
+// mailinglist.php
+$txt['mailinglist1'] = 'Copy/paste dit naar uw Mass mailer software';
+
+// discountadmin.php
+$txt['discountadmin2'] = 'Aantal codes';
+$txt['discountadmin3'] = 'Kortingsbedrag';
+$txt['discountadmin4'] = 'Percentage? <a href=# class=info>(?)<span>Als je bijvoorbeeld 25% wilt geven, vul je bij bedrag 25 in en vink je dit veld aan. Als je een vast bedrag korting wilt geven vink je dit veld niet aan</span></a>';
+$txt['discountadmin5'] = 'Maak codes';
+$txt['discountadmin6'] = 'Alle ongebruikte codes';
+$txt['discountadmin7'] = 'Kortingscode';
+$txt['discountadmin8'] = 'Geen ongebruikte codes';
+$txt['discountadmin9'] = 'Aanmaak datum';
+
+//1.5.1 - added
+$txt['dashboard7'] = 'Geen data beschikbaar';
+$txt['apps4'] = 'Geen data beschikbaar';
+$txt['my10'] = 'Andere adressen';
+$txt['address1'] = 'Voornaam';
+$txt['address2'] = 'Achternaam';
+$txt['address3'] = 'Straat';
+$txt['address5'] = 'Vervolg';
+$txt['address6'] = 'Naam';
+$txt['apps1'] = 'Opslaan';
+$txt['apps2'] = 'Verwijderen';
+$txt['apps3'] = 'Terug';
+
+//1.6.5 - added
+$txt['general104'] = 'Type';
+$txt['general105'] = 'Definitie';
+?>

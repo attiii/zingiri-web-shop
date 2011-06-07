@@ -1,0 +1,746 @@
+<?php 
+// The character set we should use for this language. If you are unsure, use ISO-8859-1
+$charset = "UTF-8";
+
+// first some values that can also be used further along in this lang file
+// database values for orders
+$txt['frontpage1'] = 'Viac informácií';
+
+$txt['db_shipping1'] = 'Vyzdvihnite si výrobky sami na mieste a neplatíte žiadne poštovné';
+
+// database values for payments
+$txt['db_payment1'] = 'Platba bankovým prevodom';
+$txt['db_payment2'] = 'Platba v hotovosti (iba v prípade, že si tovar vyzdvihnete)';
+$txt['db_payment3'] = 'Platba cez PayPal';
+$txt['db_payment4'] = 'Platba na dobierku';
+
+// order status
+$txt['db_status1'] = 'Objednávka od zákazníka prijatá';
+$txt['db_status2'] = 'Čakajúca na zaplatenie';
+$txt['db_status3'] = 'Čakajúca na vyzdvihnutie';
+$txt['db_status4'] = 'Čakajúca na spracovanie';
+$txt['db_status5'] = 'Odoslaná zákazníkovi (vybavená)';
+$txt['db_status6'] = 'Zákazník si ju vyzdvihol (vybavená)';
+$txt['db_status7'] = 'Zrušená';
+
+$txt['db_status10'] = 'Vysvetlenie stavu';
+$txt['db_status11'] = 'Vaša objednávka bola prijatá, ale naše oddelenie predaja ju ešte nepotvrdilo.';
+$txt['db_status12'] = 'Vaša objednávka bola potvrdená. Musíte previesť sumu uvedenú na objednávke na náš bankový účet.';
+$txt['db_status13'] = 'Vaša platba bola prijatá. Poslali sme vám informačný e-mail, že si ju môžete prísť vyzdvihnúť. Dohodnite si s nami termín vyzdvihnutia.';
+$txt['db_status14'] = 'Vaša platba bola prijatá. Objednávka sa práve spracováva. To znamená, že objednávame tovar alebo že ho pripravujeme na odoslanie';
+$txt['db_status15'] = 'Objednávka bola odoslaná pomocou zásielkovej služby. Objednávka je vybavená';
+$txt['db_status16'] = 'Vyzdvihli ste si objednávku. Objednávka je vybavená';
+$txt['db_status17'] = 'Objednávka bola zrušená z vašej (našej) strany.';
+
+// database values for orders
+$txt['db_stock1'] = 'Na sklade';
+$txt['db_stock2'] = 'Nie je na sklade';
+$txt['db_stock3'] = 'Objednávame';
+
+$txt['db_stock10'] = 'Vysvetlenie stavu skladových zásob';
+$txt['db_stock11'] = 'Výrobok je na sklade. Ak podáte objednávku teraz, výrobok dostanete čoskoro';
+$txt['db_stock12'] = 'Výrobok nie je na sklade';
+$txt['db_stock13'] = 'Výrobok sme objednali, čoskoro bude na sklade';
+
+// general values
+$txt['general1'] = 'Prístup zakázaný!';
+$txt['general2'] = 'Vaša IP adresa bola zaznamenaná, aby sa zabránilo akémukoľvek zneužitiu';
+$txt['general3'] = 'nový';
+$txt['general4'] = 'Vrátiť na voľby admin';
+$txt['general6'] = 'bez';
+$txt['general7'] = 'vrátane';
+$txt['general8'] = 'POZNÁMKA: Obchod je deaktivovaný! Zákazníci si nemôžu prezerať alebo objednávať tovar';
+$txt['general9'] = '404 chyba. Stránka nenájdená!';
+$txt['general10'] = 'Boli ste vyradený z tohto obchodu';
+$txt['general11'] = 'O nás';
+$txt['general12'] = 'Chyba';
+$txt['general13'] = 'Oznam';
+$txt['general14'] = 'Späť';
+$txt['general15'] = 'Zadajte tento kód';
+$txt['general16'] = 'Nesprávny kód. Skúste znova';
+
+// header.php
+$txt['header1'] = 'Bezpečnostné riziko';
+$txt['header2'] = '';
+$txt['header3'] = 'Užívateľ';
+$txt['header4'] = 'Nájdený <font color=red><strong>install.php</strong></font>. Musíte zmazať/premenovať tento súbor, ak chcete pokračovať!';
+
+// menu.php
+$txt['menu1'] = 'Úvod';
+$txt['menu2'] = 'Košík';
+$txt['menu3'] = 'Objednať';
+$txt['menu4'] = 'Hľadať';
+$txt['menu5'] = 'Všeobecné obchodné podmienky';
+$txt['menu6'] = 'Doručenie';
+$txt['menu7'] = 'Záruka';
+$txt['menu8'] = 'Kontakt';
+$txt['menu9'] = 'Správa';
+$txt['menu10'] = 'Profil zákazníka';
+$txt['menu11'] = 'Odhlásiť';
+$txt['menu12'] = 'Prihlásiť';
+$txt['menu13'] = 'Registrovať';
+$txt['menu14'] = 'Info';
+$txt['menu15'] = 'Výrobky';
+$txt['menu16'] = '<font color=red><strong>Nové výrobky</strong></font> ';
+$txt['menu17'] = 'Žiadne výrobky';
+$txt['menu18'] = 'O nás';
+$txt['menu19'] = 'Extra';
+
+// sendprocedure.php
+$txt['send1'] = 'Spôsob doručenia';
+
+// cart.php
+$txt['cart1'] = 'Košík';
+$txt['cart2'] = 'Váš košík je prázdny.';
+$txt['cart3'] = 'Popis';
+$txt['cart4'] = 'Cena';
+$txt['cart5'] = 'Množstvo';
+$txt['cart6'] = 'Zmazať';
+$txt['cart7'] = 'Spolu';
+$txt['cart8'] = 'Vyprázdniť';
+$txt['cart5'] = 'Množstvo';
+$txt['cart10'] = 'Aktualizovať';
+$txt['cart11'] = 'Obsah košíka';
+$txt['cart12'] = 'Pokračovať v nákupe';
+
+// browse.php
+$txt['browse1'] = 'Výsledky hľadania';
+$txt['browse2'] = 'Popis výrobku';
+$txt['browse3'] = 'Cena';
+$txt['browse4'] = 'Zoradiť';
+$txt['browse5'] = 'Nenájdený žiadny výrobok';
+$txt['browse6'] = 'POZNÁMKA: Z obrázkov nie je možné odvodiť žiadne práva. Zmena cien je vyhradená';
+$txt['browse7'] = 'upraviť';
+$txt['browse8'] = 'zmazať';
+$txt['browse9'] = 'Zoznam výrobkov';
+$txt['browse10'] = 'zmeniť obrázok';
+$txt['browse11'] = 'Stránky';
+$txt['browse12'] = 'Vypredané';
+$txt['browse13'] = 'Na sklade';
+
+// submenu.php
+$txt['submenu1'] = 'Kategórie v tejto skupine';
+$txt['submenu2'] = 'V tejto skupine nie je žiadna kategória';
+
+// main.php
+$txt['main1'] = '';
+$txt['main2'] = 'Akcie';
+
+// details.php
+$txt['details1'] = 'Podrobnosti o výrobku';
+$txt['details2'] = 'ID výrobku';
+$txt['details4'] = 'Názov';
+$txt['details5'] = 'Cena/kus';
+$txt['details6'] = 'Množstvo';
+$txt['details7'] = 'Objednať';
+$txt['details8'] = 'Späť na zoznam';
+$txt['details9'] = 'Kliknite tu pre zväčšenie';
+
+// conditions.php
+$txt['conditions1'] = 'Súhlasím so všeobecnými obchodnými podmienkami';
+$txt['conditions2'] = 'Nesúhlasím so všeobecnými obchodnými podmienkami';
+$txt['conditions3'] = 'Vypnuté';
+$txt['conditions4'] = 'Momentálne nie je možné posielať objednávky';
+$txt['conditions5'] = 'Všeobecné obchodné podmienky';
+
+// shipping.php
+$txt['shipping1'] = 'Doručenie a spôsob platby';
+$txt['shipping2'] = 'Zvoľte spôsob doručenia';
+$txt['shipping3'] = 'Ďalšie otázky alebo komentáre';
+$txt['shipping4'] = 'Kód zľavy';
+$txt['shipping5'] = 'Ak máte kód zľavy, môžete ho zadať tu';
+$txt['shipping9'] = 'Ďalej';
+$txt['shipping10'] = 'Zvoľte spôsob platby';
+
+// checkout.php
+$txt['checkout1'] = 'Neplatný kód zľavy. Ak sa vám zdá, že ide o omyl, kontaktujte nás pred ešte pred potvrdením objednávky';
+$txt['checkout2'] = 'Vypršala platnosť stránky. Vráťte sa do košíka a kliknite na tlačidlo objednať';
+$txt['checkout3'] = "Vážená/vážený $lastname,<br /><br /><br />Táto správa potvrdzuje vašu bjednávku v <strong>$shopname</strong><br /><br />ID vašej objednávky: $webid<br />ID zákazníka: $customerid<br /><br />Objednali ste si nasledujúce výrobky:<br />";
+$txt['checkout4'] = ' x výrobok ';
+$txt['checkout5'] = ' kus';
+$txt['checkout6'] = "<br />";
+$txt['checkout7'] = 'Pokúsili ste sa objednať si:';
+$txt['checkout8'] = 'Aktuálne na sklade:';
+$txt['checkout9'] = "<br /><br />Kedykoľvek môžete vidieť stav vašej objednávky, ak kliknete na: <a href=\"$shopurl/index.php?page=orders&id=$customerid\">$shopurl/index.php?page=orders&id=$customerid</a><br /><br />Vďaka za vašu objednávku.<br />Ak máte nejaké otázky, kontaktujte nás (kontaktné údaje sú na našej stránke)";
+$txt['checkout10'] = 'Potvrdenie vašej objednávky v '.$shopname;
+$txt['checkout11'] = 'Vaša objednávka je vybavená. E-mailom vám bolo odoslané potvrdenie.';
+$txt['checkout12'] = 'Nebolo možné poslať potvrdenie pomocou e-mailu. Vytlačte si preto potvrdenie z odkazu nižšie.';
+$txt['checkout13'] = 'Nižšie je potvrdenie vašej objednávky. Vytlačte si ho!';
+$txt['checkout14'] = 'Zľava';
+$txt['checkout15'] = 'Na sklade nie je dostatok zásob pre výrobok, ktorý sa pokúšate objednať.';
+$txt['checkout16'] = "Spôsob doručenia";
+$txt['checkout17'] = "<strong>Adresa doručenia:</strong><br />$company<br />$initials $middlename $lastname<br />$address<br />$zipcode  $city<br />$state<br />$country<br />$phone";
+$txt['checkout18'] = 'Kód zľavy';
+$txt['checkout19'] = "<strong>Spôsob platby:</strong> ";
+$txt['checkout20'] = "<strong>Bankové údaje:</strong><br />Číslo účtu: $bankaccount<br />Majiteľ účtu: $bankaccountowner<br />Mesto: $bankcity<br />Krajina: $bankcountry<br />Meno banky: $bankname<br />IBAN: $bankiban<br />BIC: $bankbic<br />Predmet/Odkaz: $webid";
+$txt['checkout21'] = "Ak je tovar na sklade, pošleme vám e-mail pre dohodnutie termínu.";
+$txt['checkout22'] = "Použite váš účet PayPal na prevod peňazí.";
+$txt['checkout23'] = "Ak dostanete balík, musíte zaplatiť poštovné.";
+$txt['checkout24'] = "Celková suma";
+$txt['checkout26'] = "Preveďte prosím celú fakturovanú sumu do $paymentdays dní. Keď dostaneme vašu platbu, vaša objednávka sa spracuje a zašleme vám tovar čo najskôr.";
+$txt['checkout27'] = "alebo si stiahnite objednávku v PDF";
+
+// search.php
+$txt['search1'] = 'Hľadať výrobok';
+$txt['search2'] = 'Hľadať';
+$txt['search3'] = 'Metóda hľadania';
+$txt['search4'] = 'Zhoda všetkých slov';
+$txt['search5'] = 'Zhoduje sa nejaké slovo';
+$txt['search6'] = 'Hľadať';
+
+// guarantee.php
+$txt['guarantee1'] = 'Záruka';
+
+// contact.php
+$txt['contact1'] = 'Otázka cez formulár'. $shopurl;
+$txt['contact2'] = 'Správa odoslaná';
+$txt['contact3'] = 'Vaša správa je odoslaná. Ak je to potrebné, odpovieme na vašu otázku čo najskôr';
+$txt['contact5'] = 'Musíte vyplniť všetky polia formulára.<br /><a href="javascript:history.go(-1)"><strong>Kliknite tu,</strong></a> ak sa chcete vrátiť.';
+$txt['contact6'] = 'Kontakt';
+$txt['contact7'] = 'Ako nás kontaktovať';
+$txt['contact8'] = 'E-mail';
+$txt['contact9'] = 'Telefón';
+$txt['contact10'] = 'Fax';
+$txt['contact11'] = 'Ak nás chcete kontaktovať cez webovú stránku, požite formulár, ktorý je nižšie:';
+$txt['contact12'] = 'Príjemca';
+$txt['contact13'] = 'Vaše meno';
+$txt['contact14'] = 'Vaša e-mailová adresa';
+$txt['contact15'] = 'Vaša správa';
+
+// checklogin.php
+$txt['checklogin1'] = 'Použite vaše osobné heslo pre prihlásenie';
+$txt['checklogin2'] = 'Meno užívateľa';
+$txt['checklogin3'] = 'Heslo';
+$txt['checklogin4'] = 'Prihlásiť';
+$txt['checklogin5'] = 'Ak ešte nemáte ID zákazníka, kliknite tu';
+$txt['checklogin6'] = 'Prečo sa stať členom?';
+$txt['checklogin7'] = 'Ak chcete objednávať výrobky z nášho webového obchodu, potrebujete sa stať členom. Pri registrácii potrebujeme vaše meno, adresu pre doručenie, e-mailovú adresu, atď. Tieto informácie potrebujeme preto, aby sme mohli správne vybaviť vašu zákazku.<br /><br /><strong>Vaše údaje budeme používať iba my.</strong><br /><br /><br />Keď sa stanete členom, môžete tiež:<ul><li>Prihlásiť sa do obchodu z akéhokoľvek PC<li>Objednávať výrobky<li>Sledovať stav objednaného tovaru<li>Spravovať váš košík</ul>';
+$txt['checklogin8'] = 'Zabudli ste vaše prihalsovacie údaje?';
+$txt['checklogin9'] = 'Vyplňte e-mailovú adresu, ktorú ste použili pri registrácii. Vaše prihlasovacie údaje vám zašleme na túto adresu.';
+$txt['checklogin10'] = 'Poslať e-mail';
+$txt['checklogin11'] = 'Stratili ste vaše prihlasovacie údaje?';
+$txt['checklogin12'] = 'Vaše prihlasovacie údaje boli odoslané na';
+$txt['checklogin13'] = 'Stratené prihlasovacie údaje '. $shopurl;
+$txt['checklogin14'] = "Tetno e-mail vám bol doručený, pretože ste žiadali vaše prihlasovacie údaje do nášho obchodu (<a href=\"$shopurl\">$shopurl</a>)";
+$txt['checklogin15'] = 'Neexistuje žiadny zákazník s e-mailovou adresou, ktorú ste zadali';
+$txt['checklogin18'] = 'Späť';
+
+// login.php
+$txt['login1'] = 'Chyba pri prihlasovaní.. prosím čakajte';
+$txt['login2'] = 'alebo kliknite tu';
+$txt['login3'] = 'Ste prihlásený.. prosím čakajte';
+
+// logout.php
+$txt['logout1'] = 'Boli ste odhlásený.';
+
+// my.php
+$txt['my3'] = 'Vaša osobná stránka';
+$txt['my4'] = 'Toto je vaša osobná stránka. Na túto stránku máte prístup iba vtedy, ak ste správne prihlásený do obchodu pomocou vášho užívateľského mena a hesla.<br /><br />Na tejto obrazovke môžete vidieť vaše osobné údaje, objednávky a košík. Všetko je dostupné z 1 obrazovky.';
+$txt['my5'] = 'Možnosti osobnej stránky';
+$txt['my6'] = 'Vaše ID zákazníka';
+$txt['my7'] = 'Zmeniť údaje';
+$txt['my8'] = 'Zobraziť objednávky';
+$txt['my9'] = 'Zobraziť košík';
+
+// admin.php
+$txt['admin1'] = 'Správa obchodu';
+$txt['admin2'] = 'Objednávky';
+$txt['admin3'] = 'Zákazníci';
+$txt['admin4'] = 'Obchod';
+$txt['admin5'] = 'Výrobky';
+$txt['admin6'] = 'Skupiny&<br />Kategórie';
+$txt['admin7'] = 'Optimalizovať databázu';
+$txt['admin8'] = 'Nastavenia';
+$txt['admin10'] = 'Optimalizujem všetky tabuľky databázy..';
+$txt['admin11'] = 'Optimalizujem';
+$txt['admin12'] = 'Optimalizácia dokončená!';
+$txt['admin13'] = 'Info a podpora';
+$txt['admin14'] = 'Kontrolovať aktualizácie';
+$txt['admin15'] = 'Všeobecné obchdné podmienky';
+$txt['admin16'] = 'Stránka doručovania';
+$txt['admin17'] = 'Stránka záruky';
+$txt['admin18'] = 'Možnosti doručovania';
+$txt['admin19'] = 'Zoznam vylúčených';
+$txt['admin20'] = 'O nás';
+$txt['admin21'] = 'Možnosti platieb';
+$txt['admin22'] = 'Čelná stránka';
+$txt['admin23'] = 'Zmeniť nastavenia';
+$txt['admin24'] = 'Upraviť súbory';
+$txt['admin25'] = 'Informácia';
+$txt['admin26'] = 'Záznam chýb';
+$txt['admin27'] = 'Zálohovať databázu';
+$txt['admin28'] = 'Zálohovanie ukončené. Ak chcete stiahnuť zálohu, kliknite na odkaz nižšie';
+$txt['admin29'] = 'Administrátori';
+$txt['admin30'] = 'Extra stránky';
+$txt['admin31'] = 'Záznam prístupov';
+$txt['admin32'] = 'Správa zásob';
+$txt['admin33'] = 'Počet výrobkov (';
+$txt['admin34'] = ') je pod minimálnou hladinou skladových zásob!';
+$txt['admin35'] = 'Zoznam mailových adries';
+$txt['admin36'] = '<strong><font color="red">Sú dostupné správy z FreeWebshop.org</font></strong><br /><br />Môže to byť bezpečnostná záplata, nová verzia alebo inú dôležité informácie. Vyhľadajte ich nižšie alebo navštívte <a href="http://www.freewebshop.org">FreeWebshop.org</a>!<br /><br />(tento oznam dostanete iba raz, keď je k dispozícii nová správa)';
+$txt['admin37'] = 'Krajiny doručenia';
+$txt['admin38'] = 'Zľava';
+
+
+// customeradmin.php
+$txt['customeradmin1'] = 'Priezvisko';
+$txt['customeradmin2'] = 'Dátum pridania';
+$txt['customeradmin3'] = 'E-mail';
+$txt['customeradmin4'] = 'Telefón';
+$txt['customeradmin5'] = 'Možnosti';
+$txt['customeradmin6'] = 'Správa členov';
+$txt['customeradmin7'] = 'Táto osoba je teraz členom skupiny Administrátori';
+$txt['customeradmin8'] = 'Táto osoba je teraz členom skupiny Zákazníci';
+$txt['customeradmin9'] = 'Neboli nájdení žiadni zákazníci';
+$txt['customeradmin10'] = 'Hľadať';
+
+// orderadmin.php
+$txt['orderadmin1'] = 'Stav vašej objednávky ';
+$txt['orderadmin2'] = ' sa zmenil';
+$txt['orderadmin3'] = 'Objednávka je odstránená';
+$txt['orderadmin4'] = "<br /><br /><a href=\"$shopurl/index.php?page=orders&id=";
+$txt['orderadmin5'] = '">Kliknite tu</a> pre aktuálny stav objednávky';
+$txt['orderadmin6'] = 'E-mail odoslaný na';
+$txt['orderadmin7'] = 'e-mail zákazníkovi?';
+$txt['orderadmin8'] = 'Aktualizovať';
+$txt['orderadmin9'] = 'všetky objednávky';
+$txt['orderadmin10'] = 'Nie sú žiadne objednávky so stavom, ktorý ste zadali';
+$txt['orderadmin11'] = 'Zobraziť';
+$txt['orderadmin12'] = 'POZNÁMKA: Zákazník pridal zvláštne poznámky!';
+$txt['orderadmin13'] = 'Správa objednávky';
+$txt['orderadmin14'] = 'Zmeniť stav';
+$txt['orderadmin15'] = 'Stav objednávky je zmenený';
+
+// orders.php
+$txt['orders3'] = 'Vaše podané objednávky <a href=# class=info>(?)<span>Nižšie je zoznam vašich objednávok a ich aktuálny stav<br />Kliknite na ID objednávky, aby ste podrobnosti</span></a>';
+$txt['orders4'] = 'ID objednávky';
+$txt['orders5'] = 'Doručenie&Platba';
+$txt['orders6'] = 'Fakturovaná suma';
+$txt['orders7'] = 'Dátum objednávky';
+$txt['orders8'] = 'Stav';
+$txt['orders9'] = 'Ešte ste nezadali žiadnu objednávku cez náš obchod';
+
+// customer.php
+$txt['customer1'] = 'Stav';
+$txt['customer2'] = 'Zakazník odstránený';
+$txt['customer3'] = 'Späť';
+$txt['customer5'] = 'Musíte odstrániť chyby, aby ste mohli pokračovať';
+$txt['customer6'] = 'Všetky polia, označené (*) musia byť vyplnené';
+$txt['customer7'] = 'V mene užívateľa môžete používať iba písmena a/alebo čísla';
+$txt['customer8'] = 'Tieto dve heslá sa nezhodujú';
+$txt['customer9'] = 'Vaše heslo by malo byť dlhé aspoň 5 znakov';
+$txt['customer10'] = 'Zadali ste neplatnú e-mailovú adresu';
+$txt['customer11'] = "Vítame vás v $shopname";
+$txt['customer12'] = "Vážená, vážený $tussenvoegsels $naam,<br /><br />Vďaka za to, že ste sa zaregistrovali v $shopname internetovom obchode (<a href=\"$shopurl\">$shopurl</a>).<br /><br />Teraz sa môžete prihlásiť do nášho obchodu a objednávať výrobky<br />alebo prezerať stav objednávok, ktoré ste podali.<br /><br />Tu sú vaše prístupové údaje:<br />Meno užívateľa:  $login<br />heslo: $pass1<br /><br />Uchovávajte tieto údaje v bezpečí!<br /><br />Tešíme sa na vás v <a href=\"$shopurl\">$shopurl</a><br /><br />S pozdravom,<br /><br /><br />webmaster";
+$txt['customer13'] = 'Vaša informácia bola úspešne uložená.';
+$txt['customer14'] = 'Poskytnite prosím, čo najviac informácií';
+$txt['customer15'] = 'Meno užívateľa';
+$txt['customer16'] = 'Heslo';
+$txt['customer17'] = 'Zopakovať heslo';
+$txt['customer18'] = 'Priezvisko';
+$txt['customer19'] = 'Predpona';
+$txt['customer20'] = 'Iniciály';
+$txt['customer21'] = 'Adresa';
+$txt['customer22'] = 'PSČ';
+$txt['customer23'] = 'Mesto';
+$txt['customer24'] = 'Štát';
+$txt['customer25'] = 'Telefón';
+$txt['customer26'] = 'E-mail';
+$txt['customer27'] = '* = musí byť vyplnené';
+$txt['customer28'] = 'Uložiť údaje';
+$txt['customer29'] = 'Meno užívateľa, ktoré ste si zvolili, už používa iný užívateľ';
+$txt['customer30'] = 'Spoločnosť';
+$txt['customer32'] = 'Pokúsili ste sa vymazať správcovský účet. To by vám zabránilo prihlásiť sa do internetového obchodu. Vaša požiadavka bola zamietnutá.';
+$txt['customer33'] = '(od 5 do 10 znakov)';
+$txt['customer34'] = 'E-mailovú adresu, ktorú ste si vybrali, už používa iný užívateľ';
+$txt['customer35'] = 'Tu sa prihlásite';
+$txt['customer36'] = 'Nový zákazník';
+$txt['customer37'] = 'Do vášho obchodu sa zaregistroval zákazník. Kópiu e-mailu, ktorý mu bol zaslaný, nájdete nižšie:';
+$txt['customer38'] = 'Zasielať Novinky?';
+
+// readorder.php
+$txt['readorder1'] = 'Vytlačiť túto objednávku';
+$txt['readorder2'] = 'Naspäť na objednávky';
+
+// editsettings.php
+$txt['editsettings1'] = 'Zmeniť nastavenia';
+$txt['editsettings2'] = 'Uložiť nastavenia';
+$txt['editsettings3'] = 'Skryť skladové zásoby tovaru';
+$txt['editsettings4'] = 'Štandardná krajina doručenia <a href=# class=info>(?)<span>To je obvykle krajina, kde sídli vaša spoločnosť</span></a>';
+$txt['editsettings5'] = 'Zobraziť skladové zásoby';
+$txt['editsettings7'] = 'Ďalšie poštovné poplatky zaplatené pri prevzatí <a href=# class=info>(?)<span>Ako doplnok k bežnému poštovnému, ktoré táto forma zasielania stojí navyše. Formát: 12.34</span></a>';
+$txt['editsettings9'] = 'Symbol meny <a href=# class=info>(?)<span>Vo vašom prípade pravdepodobne: $</span></a>';
+$txt['editsettings10'] = 'Zapltiť do xx dní <a href=# class=info>(?)<span>Do koľkých dní je nutné uhradiť sumu objednávky?</span></a>';
+$txt['editsettings11'] = 'Vrátane DPH <a href=# class=info>(?)<span>Ak je DPH 19% toto číslo by sa malo čítať: 1.19</span></a>';
+$txt['editsettings12'] = 'DPH text <a href=# class=info>(?)<span>V prípade 19% DPH by to malo znieť: 19%</span></a>';
+$txt['editsettings14'] = 'E-mailová adresa obchodného oddelenia <a href=# class=info>(?)<span>Na túto adresu budete dostávať objednávky, napríklad: sales@yourdomain.com</span></a>';
+$txt['editsettings15'] = 'Meno obchodu';
+$txt['editsettings16'] = 'URL internetového obchodu <a href=# class=info>(?)<span>URL začínajúca s http://, ale bez /, napríklad: http://www.yourdomain.com/shop</span></a>';
+$txt['editsettings17'] = 'Štandardný jazyk';
+$txt['editsettings18'] = 'Predpona objednávky (voliteľné) <a href=# class=info>(?)<span>Každé id objednávky začína s predponou, napríklad: WEB-</span></a>';
+$txt['editsettings19'] = 'Prípona objednávky (voliteľné) <a href=# class=info>(?)<span>Každé id objednávky končí príponou, napríklad aktuálny rok: -06</span></a>';
+$txt['editsettings20'] = 'Použiť množstvo skladových zásob <a href=# class=info>(?)<span><strong>aktivované:</strong> používate množstvo skladových zásob<br /><strong>stav:</strong> používate stav skladových zásob (na sklade/objednané/vypredané)<br /><strong>vypnuté:</strong> nepoužíva sa</span></a>';
+$txt['editsettings21'] = 'Aktivovať modul objednávky';
+$txt['editsettings22'] = 'Vypnúť internetový obchod';
+$txt['editsettings23'] = 'Vypnúť názov obchodu';
+$txt['editsettings24'] = 'Vypnúť hlásenie obchodu';
+$txt['editsettings25'] = 'E-mailová adresa webmastera';
+$txt['editsettings26'] = 'Telefónne číslo (voliteľné)';
+$txt['editsettings27'] = 'Fax (voliteľné)';
+$txt['editsettings28'] = 'Bankový účet';
+$txt['editsettings29'] = 'Majiteľ bankového účtu';
+$txt['editsettings30'] = 'Mesto sídla banky';
+$txt['editsettings31'] = 'Štát banky';
+$txt['editsettings32'] = 'IBAN banky';
+$txt['editsettings33'] = 'BIC banky';
+$txt['editsettings34'] = 'Rok začatia <a href=# class=info>(?)<span>Rok, kedy ste začali s vašou činnosťou</span></a>';
+$txt['editsettings35'] = 'Logo <a href=# class=info>(?)<span>Obrázok vášho loga. Mal by byť v priečinku <strong>'.$gfx_dir.'</strong></span></a>';
+$txt['editsettings37'] = 'Slogan spoločnosti (voliteľné) <a href=# class=info>(?)<span>Slogan sa zobrazí pod logom</span></a>';
+$txt['editsettings38'] = 'Názov stránky <a href=# class=info>(?)<span>Názov, ktorý sa zobrazí v okne prehliadača, na ktorom sa zobrazí váš internetový obchod</span></a>';
+$txt['editsettings39'] = 'Päta';
+$txt['editsettings44'] = 'Nastavenia boli uložené do databázy';
+$txt['editsettings45'] = 'Bankové údaje';
+$txt['editsettings46'] = 'Rozloženie stránky';
+$txt['editsettings47'] = 'Obchod';
+$txt['editsettings48'] = 'Financie';
+$txt['editsettings49'] = 'Formát čísel';
+$txt['editsettings50'] = 'Maximálna dĺžka popisu <a href=# class=info>(?)<span>Je to na skrátenie popisu v cenníkoch. <br /><strong>0 = neskracovať<br />1-99 = zalamovať po xx znakoch</strong></span></a>';
+$txt['editsettings52'] = 'Meno banky';
+$txt['editsettings53'] = 'Formát cenníka <a href=# class=info>(?)<span>Toto nastavenie sa používa na cenníky, košík a e-mail potvrdenia objednávky</span></a>';
+$txt['editsettings54'] = 'ID výrobku';
+$txt['editsettings55'] = 'Názov';
+$txt['editsettings56'] = 'ID výrobku a názov';
+$txt['editsettings57'] = 'Formát dátumu <a href=# class=info>(?)<span><strong>d-m-R @ G:i</strong> pre dd-mm-rrrr @ 23:59<br /><strong>m-d-R @ G:i</strong> pre mm-dd-rrrr @ 23:59<br /></span></a>';
+$txt['editsettings58'] = 'Hľadať gfx v cenníku <a href=# class=info>(?)<span>Hľadanie obrázkov jednotlivých výrobkov pri načítavaní cenníkov. Ak sa obrázok nájde, objaví sa ikona za výrobkom, takže návštevník vie, že je tam obrázok. <br /><br />Pre zmenšenie času načítania, alebo ak máte obrázky na vzdialenom hostovi, je lepšie vypnúť túto voľbu</span></a>';
+$txt['editsettings59'] = 'Použiť obrázky <a href=# class=info>(?)<span>Ak nemáte obrázky, radšej túto možnosť vypnite</span></a>';
+$txt['editsettings69'] = 'Použiť ikony v cenníku <a href=# class=info>(?)<span>Zobrazuje (ak nájde) malý náhľad obrázku výrobku na začiatku popisu</span></a>';
+$txt['editsettings70'] = 'Kľúčové slová (oddelené čiarkou) <a href=# class=info>(?)<span>Slová, ktoré chcete, aby ich našiel internetový prehľadávač</span></a>';
+$txt['editsettings71'] = 'Použitá znaková sada <a href=# class=info>(?)<span>Niektoré jazyky potrebujú inú znakovú sadu. Pre vás je to pravdepodobne ISO-8859-1</span></a>';
+$txt['editsettings73'] = 'Zobraziť prepojenie na Záruku';
+$txt['editsettings75'] = 'Názov obrázkového súboru <a href=# class=info>(?)<span>Niektoré jazyky majú znaky, ktoré nie sú povolené v názvoch súborov. Najlepšie je použiť id databázy ako ID obrázku v týchto (a mnohých ďalších) prípadoch</span></a>';
+$txt['editsettings76'] = 'ID databázy (odporúčané)';
+$txt['editsettings77'] = 'ID výrobku';
+$txt['editsettings78'] = 'Zobraziť prepojenie O nás';
+$txt['editsettings79'] = 'Aktivovať Live News <a href=# class=info>(?)<span>Toto aktivuje zasielanie noviniek z FreeWebshop.org, ktoré vás informujú o aktualizáciách a iných zaujímavých novinkách. Vypnite, aby ak máte problémy s touto možnosťou</span></a>';
+$txt['editsettings80'] = 'Šírka ikony cenníka <a href=# class=info>(?)<span>Šírka v pixloch.<br />default=50<br/>0=vypína zmenu veľkosti</span></a>';
+$txt['editsettings81'] = 'Výška ikony cenníka <a href=# class=info>(?)<span>Výška v pixloch.<br />default=50<br />0=vypína zmenu veľkosti</span></a>';
+$txt['editsettings82'] = 'Šírka ikony kategórie <a href=# class=info>(?)<span>Šírka v pixloch.<br />default=50<br/>0=vypína zmenu veľkosti</span></a>';
+$txt['editsettings83'] = 'Výška ikony kategórie <a href=# class=info>(?)<span>Výška v pixloch.<br />default=50<br />0=vypína zmenu veľkosti</span></a>';
+$txt['editsettings84'] = 'Max. šírka obr. výrobku <a href=# class=info>(?)<span>Maximálna šírka v pixloch.<br />default=50<br/>9999=vypína max</span></a>';
+$txt['editsettings85'] = 'Max. výška obr. výrobku <a href=# class=info>(?)<span>Maximálna výška v pixloch.<br />default=50<br/>9999=vypína max</span></a>';
+$txt['editsettings86'] = 'Všetko';
+$txt['editsettings87'] = 'Zobraziť prepojenie Nové výrobky';
+$txt['editsettings88'] = 'Použiť WYSIWYG editor';
+$txt['editsettings89'] = 'Automatická tvorba ikoniek <a href=# class=info>(?)<span>Iknky sa tvoria automaticky pri načítaní obrázku výrobku.<br />Pre správnu činnosť sa vyžaduje <strong>GD rozšírenie</strong></span></a>';
+$txt['editsettings90'] = 'Popis obchodu <a href=# class=info>(?)<span>Popis, ktorý používajú vyhľadávacie stroje pre indexovanie vášho obchodu</span></a>';
+$txt['editsettings91'] = 'Výrobky na stránku <a href=# class=info>(?)<span>Počet výrobkov na stránku.<br />0 = neobmedzený</span></a>';
+$txt['editsettings92'] = 'Vypnuté';
+$txt['editsettings93'] = 'Pokročilé';
+$txt['editsettings94'] = 'Jednoduché';
+$txt['editsettings95'] = 'Použiť Captcha <a href=# class=info>(?)<span>Použiť Captcha (anti-spambot) s kontaktovým formulárom a registráciou užívateľa</span></a>';
+$txt['editsettings96'] = 'Použiť popup (vyskakovanie) obrázku <a href=# class=info>(?)<span>Použiť lepšie vyzerajúce popup (vyskakovanie) obrázku <br />Vyžaduje sa javascript</span></a>';
+$txt['editsettings97'] = 'Poloha symbolu meny';
+$txt['editsettings98'] = 'Použiť túto šablónu';
+$txt['editsettings99'] = 'Použiť upozornenie na stav skladových zásob';
+$txt['editsettings100'] = 'Minimálna hladina skladových zásob';
+$txt['editsettings101'] = 'Jednotka hmotnosti <a href=# class=info>(?)<span>Pre vás pravdepodobne <strong>LB</strong></span></a>';
+$txt['editsettings102'] = 'Objednať z cenníka';
+$txt['editsettings103'] = 'Použiť fixovanie dátumu <a href=# class=info>(?)<span>Použite to iba vtedy, ak váš chybový záznam je naplnený vyrovaniami s dátumom</span></a>';
+$txt['editsettings104'] = 'Zoradenie cenníka';
+$txt['editsettings105'] = 'Popis';
+$txt['editsettings106'] = 'Cena';
+$txt['editsettings107'] = 'Aktivovať automatické potvrdenie <a href=# class=info>(?)<span>Ak je zapnuté A spôsob platby to podporuje, zákazník bude automaticky presmerovaný na platobný portál podľa zvoleného spôsobu platby</span></a>';
+$txt['editsettings108'] = 'Vytvoriť PDF\'s <a href=# class=info>(?)<span>Ak je to zapnuté, keď zákazník podáva objednávku, potvrdenie objednávky sa konvertuje na PDF a posiela e-mailom ako príloha</span></a>';
+$txt['editsettings109'] = 'Spôsob mailovania <a href=# class=info>(?)<span>Použiť PHP Mail() pre odoslanie alebo vybrať jednu z ostatných možností</span></a>';
+
+// productadmin.php
+$txt['productadmin1'] = ' bol načítaný do ';
+$txt['productadmin2'] = 'Počas načítavania súboru došlo k chybe, skúste znova!';
+$txt['productadmin3'] = 'Načítavajte iba .jpg, .png alebo .gif súbory';
+$txt['productadmin4'] = 'Pridať ďalší výrobok';
+$txt['productadmin5'] = 'Späť na zoznam výrobkov';
+$txt['productadmin6'] = 'Pridať výrobok';
+$txt['productadmin7'] = 'Aktualizovať výrobok';
+$txt['productadmin8'] = 'Pridajte najprv nejaké skupiny';
+$txt['productadmin9'] = 'ID';
+$txt['productadmin10'] = 'Popis <a href=# class=info>(?)<span>je dovolený HTML kód</span></a>';
+$txt['productadmin11'] = 'Cena <a href=# class=info>(?)<span>formát: 123456.78</span></a>';
+$txt['productadmin12'] = 'Množstvo skladových zásob';
+$txt['productadmin13'] = 'Skladové zásoby (0|1|2) <a href=# class=info>(?)<span>0=vypredané<br />1=na sklade<br />2=objednané</span></a>';
+$txt['productadmin14'] = 'Na hlavnej stránke';
+$txt['productadmin15'] = 'Nový';
+$txt['productadmin16'] = 'Pridať výrobok';
+$txt['productadmin17'] = 'Aktualizovať výrobok';
+$txt['productadmin18'] = 'Skupina/Kategória';
+$txt['productadmin19'] = 'Vyberte jpg, png alebo gif súbor';
+$txt['productadmin20'] = 'Načítať';
+$txt['productadmin21'] = 'Načítať obrázok';
+$txt['productadmin22'] = 'Najprv pridajte nejaké kategórie';
+$txt['productadmin23'] = 'Nemôžete načítať obrázok, pretože váš výrobok nemá žiadne ID';
+$txt['productadmin24'] = 'Vymazať tento obrázok';
+$txt['productadmin25'] = 'Obrázok úspešne vymazaný';
+$txt['productadmin26'] = 'Výrobok bol úspešne vymazaný';
+$txt['productadmin27'] = 'Extra možnosti';
+$txt['productadmin28'] = 'Urobiť ikonu pre všetky obrázky (môže to chvíľu trvať)';
+$txt['productadmin29'] = 'Všetky ikony sú vytvorené (ak je to potrebné)..';
+$txt['productadmin30'] = 'Charakteristiky <a href=# class=info>(?)<span>Charakteristika1:Červená,Biela,Modrá|Charakteristika2:Malé,Stredné,Veľké<br />Žiaden priestor!</span></a>';
+$txt['productadmin31'] = 'Hmotnosť <a href=# class=info>(?)<span>Keď sa používa hmotnosť, vypočítava sa poštovné pomocou celkovej hmotnosti objednávky</span></a>';
+
+
+// groupadmin.php
+$txt['groupadmin1'] = ' bol načítaný do ';
+$txt['groupadmin2'] = 'Počas načítavania súboru došlo k chybe, skúste znova!';
+$txt['groupadmin3'] = 'Načítavajte iba .jpg, .png alebo .gif súbory';
+$txt['groupadmin4'] = 'Skupina pridaná..';
+$txt['groupadmin5'] = 'Skupina aktualizovaná..';
+$txt['groupadmin6'] = 'Skupina (a podriadené kategórie a výrobky) vymazaná..';
+$txt['groupadmin7'] = 'Kategória pridaná..';
+$txt['groupadmin8'] = 'Kategória aktualizovaná..';
+$txt['groupadmin9'] = 'Kategória presunutá..';
+$txt['groupadmin10'] = 'Kategória (a podriadené výrobky) vymazaná..';
+$txt['groupadmin11'] = 'Názov skupiny';
+$txt['groupadmin12'] = 'Pridať skupinu';
+$txt['groupadmin13'] = 'Zatiaľ neexistujú žiadne skupiny';
+$txt['groupadmin14'] = 'Skupina';
+$txt['groupadmin15'] = 'Názov novej skupiny';
+$txt['groupadmin16'] = 'Aktualizovať skupinu';
+$txt['groupadmin17'] = 'Vymazať skupinu';
+$txt['groupadmin18'] = 'Možnosti skupiny';
+$txt['groupadmin19'] = 'Možnosti kategórie';
+$txt['groupadmin20'] = 'Názov kategórie';
+$txt['groupadmin21'] = 'Pridať kategóriu';
+$txt['groupadmin22'] = 'Kategória';
+$txt['groupadmin23'] = 'Názov novej kategórie';
+$txt['groupadmin24'] = 'Aktualizovať kategóriu';
+$txt['groupadmin25'] = 'Presunúť kategóriu';
+$txt['groupadmin26'] = 'Vymazať kategóriu';
+$txt['groupadmin27'] = 'Vyberte jpg, png alebo gif súbor';
+$txt['groupadmin28'] = 'Načítať';
+$txt['groupadmin29'] = 'Načítať obrázok';
+$txt['groupadmin30'] = 'Všeobecné možnosti';
+$txt['groupadmin31'] = 'Vymazať prázdne kategórie a skupiny';
+$txt['groupadmin32'] = 'počet vymazaných kategórií';
+$txt['groupadmin33'] = 'počet vymazaných skupín';
+$txt['groupadmin34'] = 'Skupina s názvom '.$gname.' už existuje. Zvoľte prosím iný názov';
+$txt['groupadmin35'] = 'Názov skupiny je prázdny';
+$txt['groupadmin36'] = 'Nezadali ste názov novej skupiny';
+$txt['groupadmin37'] = 'Kategória s názvom '.$cname.' už existuje. Zvoľte prosím iný názov';
+$txt['groupadmin38'] = 'Nezadali ste názov novej kategórie';
+$txt['groupadmin39'] = 'Názov kategórie je prázdny';
+
+// uploadadmin.php
+$txt['uploadadmin1'] = ' bol načítaný do ';
+$txt['uploadadmin2'] = 'Počas načítavania súboru došlo k chybe, skúste znova!';
+
+// adminedit.php
+$txt['adminedit1'] = 'Uložiť zmeny';
+$txt['adminedit2'] = 'Zmeny uložené...';
+$txt['adminedit3'] = 'Práve sa upravuje ';
+
+// shippingadmin.php
+$txt['shippingadmin1'] = 'Spôsob doručenia pridaný';
+$txt['shippingadmin2'] = 'Spôsob doručenia odstránený';
+$txt['shippingadmin3'] = 'Spôsob doručenia upravený';
+$txt['shippingadmin4'] = 'Podporované spôsoby doručenia';
+$txt['shippingadmin5'] = 'Popis';
+$txt['shippingadmin6'] = 'Náklady';
+$txt['shippingadmin7'] = "Iba v $send_default_country?";
+$txt['shippingadmin8'] = 'Upraviť';
+$txt['shippingadmin9'] = 'Odstrániť';
+$txt['shippingadmin10'] = 'Pridať';
+$txt['shippingadmin11'] = 'Upraviť krajiny doručovania';
+$txt['shippingadmin12'] = 'Možnosti';
+$txt['shippingadmin13'] = 'Možnosti platieb';
+$txt['shippingadmin14'] = 'Upraviť spôsob doručenia';
+$txt['shippingadmin15'] = 'POZNÁMKA: Pokúšate sa zmeniť systémový spôsob doručovania. Tento spúšťač metódy zabezpečuje iné časti tohto obchodu. Zmeňte iba popis podľa vášho želania, ale nie podstatu metódy';
+$txt['shippingadmin16'] = 'Upraviť štandardnú krajinu doručovania';
+$txt['shippingadmin17'] = 'Ostatné možnosti';
+$txt['shippingadmin18'] = 'Od';
+$txt['shippingadmin19'] = 'Kam';
+$txt['shippingadmin20'] = 'Náklady';
+$txt['shippingadmin21'] = 'Náklady na poštovné/výpočet podľa hmotnosti úspešne odtránené';
+$txt['shippingadmin22'] = 'Žiadne doručovanie (vyzdvihnutie)';
+
+// paymentadmin.php
+$txt['paymentadmin1'] = 'Spôsob platby pridaný';
+$txt['paymentadmin2'] = 'Spôsob platby odstránený';
+$txt['paymentadmin3'] = 'Spôsob platby upravený';
+$txt['paymentadmin4'] = 'Podporované spôsoby platby';
+$txt['paymentadmin5'] = 'Popis';
+$txt['paymentadmin6'] = 'Zmeniť spôsob platby';
+$txt['paymentadmin7'] = 'Platba HTML kód';
+$txt['paymentadmin8'] = 'Upraviť';
+$txt['paymentadmin9'] = 'Odstrániť';
+$txt['paymentadmin10'] = 'Pridať';
+$txt['paymentadmin11'] = 'Možnosti';
+$txt['paymentadmin12'] = 'POZNÁMKA: Pokúšate sa zmeniť systémový spôsob platby. Tento spúšťač metódy zabezpečuje iné časti tohto obchodu. Zmeňte iba popis podľa vášho želania, ale nie podstatu metódy';
+
+// errorlogadmin.php
+$txt['errorlogadmin1'] = 'Záznam chýb';
+$txt['errorlogadmin2'] = 'Závažnosť';
+$txt['errorlogadmin3'] = 'Chyba';
+$txt['errorlogadmin4'] = 'Súbor';
+$txt['errorlogadmin5'] = 'Riadok';
+$txt['errorlogadmin6'] = 'Dátum';
+$txt['errorlogadmin7'] = 'Neboli nájdené žiadne zaznamenané chyby';
+$txt['errorlogadmin8'] = 'Vyčistiť záznam';
+$txt['errorlogadmin9'] = 'Záznam chýb bol úspešne vyčistený';
+
+// pagesadmin.php
+$txt['pagesadmin1'] = 'Extra stránky';
+$txt['pagesadmin2'] = 'Názov stránky';
+$txt['pagesadmin3'] = 'Možnosti';
+$txt['pagesadmin4'] = 'Premenovať';
+$txt['pagesadmin5'] = 'Pridať normálnu stránku';
+$txt['pagesadmin6'] = 'Stránka premenovaná';
+$txt['pagesadmin7'] = 'Stránka vymazaná';
+$txt['pagesadmin8'] = 'Neúspešné';
+$txt['pagesadmin9'] = 'Stránka pridaná';
+$txt['pagesadmin10'] = 'Pridať súkromnú stránku';
+$txt['pagesadmin11'] = 'Skrytá';
+
+// accessadmin.php
+$txt['accesslogadmin1'] = 'Záznam o prístupoch';
+$txt['accesslogadmin2'] = 'Prihlásiť';
+$txt['accesslogadmin3'] = 'Heslo';
+$txt['accesslogadmin4'] = 'Čas';
+$txt['accesslogadmin5'] = 'Úspešne';
+//$txt['accesslogadmin6'] = 'Dátum';
+$txt['accesslogadmin7'] = 'Nenašli sa žiadne záznamy o prístupe';
+$txt['accesslogadmin8'] = 'Vyčistiť záznam';
+$txt['accesslogadmin9'] = 'Záznam o prístupoch bol úspešne vyčistený';
+
+// stockadmin.php
+$txt['stockadmin2'] = 'Zobraziť';
+$txt['stockadmin3'] = 'Správa skladových zásob';
+
+// mailinglist.php
+$txt['mailinglist1'] = 'Kopírovať/vložiť toto do vášho obľúbeného softvéru Hromadného zasielania správ';
+
+// discountadmin.php
+$txt['discountadmin2'] = 'Počet kódov';
+$txt['discountadmin3'] = 'Suma zľavy';
+$txt['discountadmin4'] = 'Percento zľavy';
+$txt['discountadmin5'] = 'Vytvoriť kód';
+$txt['discountadmin6'] = 'Všetky nepoužívané kódy';
+$txt['discountadmin7'] = 'Kód zľavy';
+$txt['discountadmin8'] = 'Žiadne nepoužívané kódy';
+$txt['discountadmin9'] = 'Vytvorené dňa';
+
+//v1.1.0 - new
+$txt['groupadmin100'] = 'Typ kategórie';
+$txt['groupadmin101'] = 'Fyzická';
+$txt['groupadmin102'] = 'Digitálna';
+$txt['groupadmin103'] = 'Typ novej kategórie';
+$txt['productadmin100'] = 'Digitálny zdroj? <a href=# class=info>(?)<span>Ak ide o digitálny výrobok, môžete načítať súbor hudby, videa, e-knihy, ... tu</span></a>';
+$txt['readorder100'] = 'Vaše sťahovania';
+$txt['products1'] = 'Stiahnuť';
+
+//v1.2.0 - modified
+$txt['editsettings73'] = 'Zobraziť stránku Všeobecných obchodných podmienok';
+$txt['editsettings74'] = 'Zobraziť Stránku doručovania';
+
+//v1.2.2 - added
+$txt['generic1'] = 'Vymazať';
+
+//v1.2.4 - added
+$txt['checkout100'] = "Vaša platba bola úspešne spracovaná";
+$txt['checkout101'] = "Vaša platba nemohla byť spracovaná";
+
+//v1.2.4 - modified
+$txt['uploadadmin3'] = 'Načítavajte iba .xml alebo .sql súbory';
+$txt['uploadadmin4'] = 'Importovať údaje (výrobok, cenník, atď)';
+$txt['uploadadmin5'] = 'Vyberte XML alebo SQL súbor';
+$txt['uploadadmin6'] = 'Importovať súbor';
+$txt['uploadadmin7'] = 'Údaje vložené do databázy';
+$txt['uploadadmin100'] = "Nie je možné načítať súbor:";
+$txt['uploadadmin101'] = "Chýba pole:";
+$txt['uploadadmin102'] = "on line";
+$txt['uploadadmin103'] = "Výstraha: vynechať nerozpoznané pole ";
+$txt['admin9'] = 'Načítať výrobky';
+
+//v1.2.5
+$txt['uploadadmin104'] = 'Maximálna veľkosť súboru v bajtoch <a href=# class=info>(?)<span>Toto je maximálna veľkosť súboru, ktorá je nastavená vo vašom systéme. Ak ju chcete zväčšiť, musíte upraviť váš php.ini súbor.</span></a>';
+$txt['uploadadmin105'] = 'Použiť symlinks pre digitálne výrobky <a href=# class=info>(?)<span>Namiesto kopírovania digitálnych výrobkov sa vytvorí symlink k digitálnemu výrobku.</span></a>';
+$txt['details100'] = 'Ostatné výrobky';
+
+//v1.2.7 - new
+$txt['admin100'] = 'Dane';
+$txt['general100'] = 'Suma';
+$txt['general101'] = 'Názov';
+$txt['taxes1'] = 'Kaskádový';
+$txt['checkout25'] = "vrátene dane";
+$txt['checkout102'] = "Dane";
+$txt['checkout103'] = "Skôr ako budete pokračovať musíte súhlasiť s Podmienkami";
+$txt['checkout104'] = "Teraz budete presmerovaný na platobný portál, aby ste dokončili svoju objednávku";
+$txt['editsettings110'] = 'Aktivovať rýchle potvrdenie';
+$txt['cart100'] = 'zobraziť';
+$txt['cart101'] = 'skryť';
+$txt['editsettings111'] = 'Dátum narodenia v registračnom formulári';
+
+//v1.2.7 - modified
+$txt['general5'] = 'dane';
+$txt['editsettings51'] = 'Žiadne dane <a href=# class=info>(?)<span>Aktivujte to, ak nechcete používať DPH v cenách vášho obchodu, napríklad, keď je to obchod s osobnými výrobkami</span></a>';
+$txt['editsettings13'] = 'Ceny v DB sú vrátane daní';
+
+//v1.3.0 - added
+$txt['admin101'] = 'Výstrahy & štítky';
+$txt['editsettings112'] = 'ID výrobku & celý popis';
+$txt['prompt1'] = 'Jazyk';
+$txt['prompt2'] = 'Štandardný text';
+$txt['prompt3'] = 'Vlastný text';
+
+//v1.3.7 - added
+$txt['discountadmin100'] = 'Dátum platnosti';
+$txt['discountadmin101'] = 'Množstvo platnosti ???';
+
+//v1.4.0 - added
+$txt['admin102'] = 'Ovládací panel';
+$txt['dashboard1'] = 'Mesačné prihlášky';
+$txt['dashboard2'] = 'Mesiac';
+$txt['dashboard3'] = 'Štatistiky';
+$txt['dashboard4'] = 'Predaje za celú dobu';
+$txt['dashboard5'] = 'Predaje priemerne';
+$txt['dashboard6'] = 'Posledných 5 objednávok';
+
+//v1.4.1 - added
+$txt['paymentadmin100'] = 'ID obchodníka';
+$txt['paymentadmin101'] = 'Tajné';
+
+//v1.4.8 - changed
+$txt['editsettings8'] = 'Mena <a href=# class=info>(?)<span>Skontrolujte, či používate ISO kódovanie pre menu, takže napríklad EUR, USD, GBP, ...</span></a>';
+
+//1.4.9 - new
+$txt['address1'] = 'Prvý';
+$txt['address2'] = 'Posledný';
+$txt['address3'] = 'Ulica';
+$txt['address4'] = 'Meno';
+$txt['address5'] = 'Riadok 2';
+$txt['apps1'] = 'Uložiť';
+$txt['apps2'] = 'Zmazať';
+$txt['apps3'] = 'Späť';
+
+//1.5.0 - added
+$txt['general102'] = "Zapnuté";
+$txt['general103'] = "Vypnuté";
+$txt['stockadmin100'] = "Iba stav";
+$txt['groupadmin104'] = 'Táto skupina ešte obsahuje kategórie';
+
+
+//1.5.0 - modified
+$txt['productadmin13'] = 'Sklad';
+
+//1.5.1 - added
+$txt['dashboard7'] = 'Nedostupné žiadne záznamy';
+$txt['apps4'] = 'Nedostupné žiadne záznamy';
+$txt['my10'] = 'Iné adresy';
+$txt['address6'] = 'Meno';
+$txt['groupadmin105'] = 'Táto kategória ešte obsahuje výrobky';
+$txt['template1'] = 'Obsah';
+$txt['template2'] = 'Názov';
+$txt['template3'] = 'Šablóny';
+
+//1.5.5 - added
+$txt['productadmin101'] = 'SKU';
+$txt['productadmin102'] = 'Krátky popis';
+?>

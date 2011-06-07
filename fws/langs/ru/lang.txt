@@ -1,0 +1,611 @@
+<?php
+// The character set we should use for this language. If you are unsure, use ISO-8859-1
+$charset = "UTF-8";
+
+// first some values that can also be used further along in this lang file
+// database values for orders
+$txt['db_shipping1'] = 'Самовывоз со склада. Стоимость доставки не включена в заказ.';
+
+// database values for payments
+$txt['db_payment1'] = 'Безналичный расчет';
+$txt['db_payment2'] = 'Оплата наличными на складе при получении';
+$txt['db_payment3'] = 'Оплата через PayPal';
+$txt['db_payment4'] = 'Оплата наличными при получении';
+
+// order status
+$txt['db_status1'] = 'Заказ ожидает обработки';
+$txt['db_status2'] = 'Ожидание оплаты';
+$txt['db_status3'] = 'Можно забирать';
+$txt['db_status4'] = 'Заказ обрабатывается';
+$txt['db_status5'] = 'Отправлено покупателю';
+$txt['db_status6'] = 'Получено покупателем';
+$txt['db_status7'] = 'Отменен';
+
+$txt['db_status10'] = 'Расшифровка статусов';
+$txt['db_status11'] = 'Ваш заказ получен и обрабатывается менеджером';
+$txt['db_status12'] = 'Ваш заказ подтвержден. Ожидаем оплаты';
+$txt['db_status13'] = 'Ваша оплата получена. Вам было выслано уведомление, что ваш заказ готов и ожидает получения. Пожалуйста свяжитесь с нами любым удобным для Вас способом и уточните время получения товара';
+$txt['db_status14'] = 'Ваша оплата получена. Заказ в процессе выполнения. Это означает, что мы либо ожидаем поступления товара, либо готовим его к отправке';
+$txt['db_status15'] = 'Заказ выслан почтовым сервисом.';
+$txt['db_status16'] = 'Заказ выполнен';
+$txt['db_status17'] = 'Заказ отменен';
+
+// database values for stock
+$txt['db_stock1'] = 'на складе';
+$txt['db_stock2'] = 'отсутствует';
+$txt['db_stock3'] = 'на заказ';
+
+$txt['db_stock10'] = 'Расшифровка состояния склада';
+$txt['db_stock11'] = 'есть на складе';
+$txt['db_stock12'] = 'нет на складе';
+$txt['db_stock13'] = 'доступно для заказа, ожидается поступление в ближайшее время';
+
+// general values
+$txt['general1'] = 'Доступ запрещен';
+$txt['general2'] = 'Ваш IP адрес был заблокирован по соображениям безопасности';
+$txt['general3'] = 'новый';
+$txt['general4'] = 'назад к административным настройкам';
+$txt['general5'] = 'НДС';
+$txt['general6'] = 'не вкл.';
+$txt['general7'] = 'вкл.';
+$txt['general8'] = 'Магазин не работает.';
+$txt['general9'] = 'Ошибка 404. Страница не найдена.';
+$txt['general10'] = 'Вы забанены';
+$txt['general11'] = 'О нас';
+$txt['general12'] = 'Ошибка';
+$txt['general13'] = 'Уведомление';
+$txt['general14'] = 'Назад';
+$txt['general15'] = 'Введите код';
+$txt['general16'] = 'Код введен не правильно. Пожалуйста введите еще раз';
+
+// header.php
+$txt['header1'] = 'Безопасность';
+$txt['header2'] = 'Добро пожаловать';
+$txt['header3'] = 'Гость';
+$txt['header4'] = 'Обнаружен <font color=red><strong>install.php</strong></font>. Перед продолжением Вы должны удалить или переименовать этот файл';
+
+// menu.php
+$txt['menu1'] = 'Главная';
+$txt['menu2'] = 'Корзина';
+$txt['menu3'] = 'Купить';
+$txt['menu4'] = 'Поиск';
+$txt['menu5'] = 'Общие положения';
+$txt['menu6'] = 'Доставка';
+$txt['menu7'] = 'Гарантии';
+$txt['menu8'] = 'Контакты';
+$txt['menu9'] = 'Администрация';
+$txt['menu10'] = 'Личный кабинет';
+$txt['menu11'] = 'Выход';
+$txt['menu12'] = 'Вход';
+$txt['menu13'] = 'Регистрация';
+$txt['menu14'] = 'Информация';
+$txt['menu15'] = 'Каталог продуктов';
+$txt['menu16'] = '<font color=red><strong>Новые</strong></font> поступления';
+$txt['menu17'] = 'Продуктов нет';
+$txt['menu18'] = 'О нас';
+$txt['menu19'] = 'Дополнительно';
+
+// sendprocedure.php
+$txt['send1'] = 'Метод доставки';
+
+// cart.php
+$txt['cart1'] = 'Корзина покупателя';
+$txt['cart2'] = 'Ваша корзина пуста.<br /><br />';
+$txt['cart3'] = 'Описание';
+$txt['cart4'] = 'Цена';
+$txt['cart5'] = 'Кол-во';
+$txt['cart6'] = 'Удалить';
+$txt['cart7'] = 'Всего';
+$txt['cart8'] = 'Очистить';
+$txt['cart9'] = 'Купить';
+$txt['cart10'] = 'Обновить';
+$txt['cart11'] = 'Вы выбрали:';
+$txt['cart12'] = 'Вернуться к каталогу';
+
+// browse.php
+$txt['browse1'] = 'Результаты поиска';
+$txt['browse2'] = 'Описание';
+$txt['browse3'] = 'Цена';
+$txt['browse4'] = 'Сортировка';
+$txt['browse5'] = 'Товар не найден';
+$txt['browse6'] = 'ВНИМАНИЕ: Изображения получены из открытых источников и не могут быть объектом авторских прав. <br />Цены не включают доставку';
+$txt['browse7'] = 'редактировать';
+$txt['browse8'] = 'удалить';
+$txt['browse9'] = 'Список товаров';
+$txt['browse10'] = 'Поменять изображение';
+$txt['browse11'] = 'Стр.';
+
+// submenu.php
+$txt['submenu1'] = 'Категории в этой группе';
+$txt['submenu2'] = 'В этой группе нет категорий';
+
+// main.php
+$txt['main1'] = 'Добро пожаловать';
+$txt['main2'] = 'Специальные предложения';
+
+// details.php
+$txt['details1'] = 'Детали';
+$txt['details2'] = 'ID продукта';
+$txt['details4'] = 'Описание';
+$txt['details5'] = 'за 1 шт.';
+$txt['details6'] = 'Кол-во';
+$txt['details7'] = 'Заказ';
+$txt['details8'] = 'Назад к списку';
+$txt['details9'] = 'Щелкните чтобы увеличить';
+
+// conditions.php
+$txt['conditions1'] = 'Я согласен с общими положениями';
+$txt['conditions2'] = 'Я не согласен с общими положениями';
+$txt['conditions3'] = 'Не доступен';
+$txt['conditions4'] = 'Заказ в настоящее время не доступен';
+$txt['conditions5'] = 'Общие условия';
+
+// shipping.php
+$txt['shipping1'] = 'Отгрузка и оплата';
+$txt['shipping2'] = 'Выберите метод отгрузки';
+$txt['shipping3'] = 'Дополнительные комментарии/вопросы';
+$txt['shipping9'] = 'Выполнить';
+$txt['shipping10'] = 'Выберите метод оплаты';
+
+// checkout.php
+$txt['checkout2'] = 'Время ожидания истекло. Вернитесь к Вашей корзине для продолжения';
+$txt['checkout3'] = "Уважаемый(ая) $lastname,<br /><br /><br />Это сообщение должно подтвердить Ваш заказ на <a href=$shopurl>$shopname</a><br /><br />Номер Вашего заказа: $webid<br />Ваш идентификационный номер: $customerid<br /><br />Вы заказали следующие продукты:<br />";
+$txt['checkout4'] = ' x товар ';
+$txt['checkout5'] = ' за шт.';
+$txt['checkout6'] = "<br />";
+$txt['checkout7'] = 'Вы заказывали:';
+$txt['checkout8'] = 'Сейчас на складе:';
+$txt['checkout9'] = "<br /><br />Вы можете в любое время проверить статус заказа, нажав <a href=$shopurl/index.php?page=orders&id=$customerid>здесь</a><br /><br />Спасибо за Ваш заказ.<br />Если у Вас есть вопросы, свяжитесь с нами (Контактная информация указана на главной странице в разделе <font color=red><strong>Контакты</strong></font>)";
+$txt['checkout10'] = 'Подтверждение Вашего заказа на '.$shopname;
+$txt['checkout11'] = 'Ваш заказ принят. Вам выслано подтверждение по электронной почте.';
+$txt['checkout12'] = 'Подтверждение по электронной почте не может быть выслано.';
+$txt['checkout13'] = 'Копия подтверждения по электронной почте:';
+$txt['checkout15'] = 'Товара, который Вы заказываете, в таком количестве на складе нет.';
+$txt['checkout16'] = "Метод доставки: ";
+$txt['checkout17'] = "Адрес доставки:<br />$company<br />$address<br />$zipcode  $city<br />$state<br />$country";
+$txt['checkout19'] = "Метод оплаты: ";
+$txt['checkout20'] = "Банковская информация:<br />Account number: $bankaccount<br />Account owner: $bankaccountowner<br />City: $bankcity<br />Country: $bankcountry<br />Bank name: $bankname<br />IBAN: $bankiban<br />BIC: $bankbic<br />Subject/Reference: $webid";
+$txt['checkout21'] = "Когда товар поступит на склад, мы вышлем Вам уведомление по электронной почте";
+$txt['checkout22'] = "Используйте Ваш счет в системе PayPal, чтобы отправить нам оплату.";
+$txt['checkout23'] = "При получении товара Вы должны будете оплатить почтовые расходы перевозчику";
+$txt['checkout24'] = "Общая сумма счета: $currency_symbol_pre $totalprint $currency_symbol_post (including $currency_symbol $print_sendcosts shipping rate)";
+$txt['checkout25'] = "включая $show_vat ".$txt['general5'];
+$txt['checkout26'] = "Пожалуйста оплатите полную сумму счета в течение $paymentdays дней. После получения нами оплаты Ваш заказ будет немедленно обработан и выслан Вам.";
+$txt['checkout27'] = 'Перечисление через PayPal';
+
+// search.php
+$txt['search1'] = 'Поиск товара';
+$txt['search2'] = 'Искать';
+$txt['search3'] = 'Метод поиска';
+$txt['search4'] = 'Соответствие всех слов';
+$txt['search5'] = 'Соответствие любому из слов';
+$txt['search6'] = 'Поиск';
+
+// guarantee.php
+$txt['guarantee1'] = 'Гарантии';
+
+// contact.php
+$txt['contact1'] = 'Вопрос'. $shopurl;
+$txt['contact2'] = 'Сообщение отправлено';
+$txt['contact3'] = 'Ваше сообщение отправлено. Мы ответим Вам в ближайшее время';
+$txt['contact5'] = 'Вы должны заполнить все поля формы.<br /><a href="javascript:history.go(-1)"><strong>Назад</strong></a>';
+$txt['contact6'] = 'Контакты';
+$txt['contact7'] = 'Как войти в контакт с';
+$txt['contact8'] = 'E-mail';
+$txt['contact9'] = 'Телефон';
+$txt['contact10'] = 'Факс';
+$txt['contact11'] = 'Для контакта с нами через веб-сайт используйте эту форму::';
+$txt['contact12'] = 'Послать сообщение';
+$txt['contact13'] = 'Ваше имя';
+$txt['contact14'] = 'Ваш e-mail';
+$txt['contact15'] = 'Текст сообщения';
+
+// checklogin.php
+$txt['checklogin1'] = 'Используйте Ваш личный код доступа';
+$txt['checklogin2'] = 'Login';
+$txt['checklogin3'] = 'Password';
+$txt['checklogin4'] = 'Войти';
+$txt['checklogin5'] = 'Если Вы не зарегистрированы, нажмите здесь';
+$txt['checklogin6'] = 'Зачем нужна регистрация?';
+$txt['checklogin7'] = 'Для совершения покупок Вы должны пройти процедуру регистрации. Информация из регистрационной формы необходима для нашего взаимодействия с Вами.<br /><br /><strong>Мы гарантируем, что информация, полученная нами будет использована только для нашего с Вами взаимодействия, и ни на каких условиях не будет передана третьим лицам.</strong><br /><br /><br />После регистрации Вы сможете:<ul><li>Заходить в наш магазин с любого компьютера<li>Заказывать товар<li>Контролировать статус заказа<li>Управлять Вашей картой покупок</ul>';
+$txt['checklogin8'] = 'Восстановление кода доступа';
+$txt['checklogin9'] = 'Укажите e-mail, указанный Вами при регистрации. Ваш логин и пароль будут высланы на этот адрес.';
+$txt['checklogin10'] = 'ОК';
+$txt['checklogin11'] = 'Восстановление кода доступа';
+$txt['checklogin12'] = 'Данные высланы на Ваш e-mail';
+$txt['checklogin13'] = 'Код доступа на '. $shopurl;
+$txt['checklogin14'] = "Это сообщение получено Вами, потому что вы выполнили процедуру восстановления пароля в нашем Веб-магазина (<a href=\"$shopurl\">$shopurl</a>)";
+$txt['checklogin15'] = 'Покупателя с таким адресом не зарегистрировано';
+$txt['checklogin18'] = 'Назад';
+
+// login.php
+$txt['login1'] = 'Неправильный код доступа.. пожалуйста подождите';
+$txt['login2'] = 'или нажмите здесь';
+$txt['login3'] = 'Вход.. пожалуйста подождите';
+
+// logout.php
+$txt['logout1'] = 'Выход..';
+
+// my.php
+$txt['my3'] = 'Ваш личный кабинет';
+$txt['my4'] = 'Это Ваш личный кабинет. Только Вы имеете доступ к этой странице, если вы должным образом зарегистрированы в нашем магазине с вашим логином и паролем.<br /><br />На этом экране вы можете видеть Ваши персональные данные, текущие заказы и содержимое корзины.';
+$txt['my5'] = 'Настройки личного кабинета';
+$txt['my6'] = 'Ваш идентификационный номер (ID)';
+$txt['my7'] = 'Изменить персональные данные';
+$txt['my8'] = 'Показать заказы';
+$txt['my9'] = 'Показать корзину';
+
+// admin.php
+$txt['admin1'] = 'Администрация';
+$txt['admin2'] = 'Заказы';
+$txt['admin3'] = 'Покупатели';
+$txt['admin4'] = 'Склад';
+$txt['admin5'] = 'Товары';
+$txt['admin6'] = 'Группы и<br />Категории';
+$txt['admin7'] = 'Оптимизация базы';
+$txt['admin8'] = 'Настройки';
+$txt['admin9'] = 'Загрузить прайс-лист';
+$txt['admin10'] = 'Оптимизировать все таблицы базы..';
+$txt['admin11'] = 'Оптимизация...';
+$txt['admin12'] = 'Оптимизация закончена!';
+$txt['admin13'] = 'Информация и поддержка';
+$txt['admin14'] = 'Проверить обновления';
+$txt['admin15'] = 'Общие условия';
+$txt['admin16'] = 'Страница отгрузок';
+$txt['admin17'] = 'Гарантии';
+$txt['admin18'] = 'Опции отгрузки';
+$txt['admin19'] = 'Бан-лист';
+$txt['admin20'] = 'О нас';
+$txt['admin21'] = 'Опции оплаты';
+$txt['admin22'] = 'Начальная страница';
+$txt['admin23'] = 'Изменить настройки';
+$txt['admin24'] = 'Редактировать файлы';
+$txt['admin25'] = 'Информация';
+$txt['admin26'] = 'Журнал ошибок';
+$txt['admin27'] = 'Бэкап базы';
+$txt['admin28'] = 'Бэкап закончен. Для загрузки файла бэкапа нажмите на ссылку:';
+$txt['admin29'] = 'Администраторы';
+$txt['admin30'] = 'Дополнительные страницы';
+$txt['admin31'] = 'Журнал доступа';
+$txt['admin32'] = 'Управление складом';
+$txt['admin33'] = 'Количество товаров (';
+$txt['admin34'] = ') ниже минимального уровня!';
+$txt['admin35'] = 'Лист рассылки';
+$txt['admin36'] = '<strong><font color="red">Новости от FreeWebshop.org</font></strong><br /><br />It might be a security fix, new version or other important news. Check it out below or visit <a href="http://www.freewebshop.org">FreeWebshop.org</a>!<br /><br />(you only get this notification once when there is new news)';
+
+
+// customeradmin.php
+$txt['customeradmin1'] = 'Фамилия';
+$txt['customeradmin2'] = 'Дата регистрации';
+$txt['customeradmin3'] = 'E-mail';
+$txt['customeradmin4'] = 'Телефон';
+$txt['customeradmin5'] = 'Опции';
+$txt['customeradmin6'] = 'Группа администраторов';
+$txt['customeradmin7'] = 'Теперь этот пользователь в группе администраторов';
+$txt['customeradmin8'] = 'Теперь этот пользователь в группе покупателей';
+$txt['customeradmin9'] = 'Покупателей не найдено';
+$txt['customeradmin10'] = 'Найти';
+
+// orderadmin.php
+$txt['orderadmin1'] = 'Статус Вашего заказа ';
+$txt['orderadmin2'] = ' был изменен';
+$txt['orderadmin3'] = 'Заказ удален';
+$txt['orderadmin4'] = "<br /><br /><a href=\"$shopurl/index.php?page=orders&id=";
+$txt['orderadmin5'] = '">Нажмите здесь</a> для просмотра статуса заказа';
+$txt['orderadmin6'] = 'E-mail отправлен';
+$txt['orderadmin7'] = 'отправить e-mail покупателю?';
+$txt['orderadmin8'] = 'Обновить';
+$txt['orderadmin9'] = 'все заказы';
+$txt['orderadmin10'] = 'Нет заказов с таким статусом';
+$txt['orderadmin11'] = 'Показать';
+$txt['orderadmin12'] = 'ОБРАТИТЕ ВНИМАНИЕ: клиент добавил дополнительные примечания!';
+$txt['orderadmin13'] = 'Администрация заказов';
+$txt['orderadmin14'] = 'Изменить статус';
+$txt['orderadmin15'] = 'Статус заказа изменен';
+
+// orders.php
+$txt['orders3'] = 'Ваши размещенные заказы <a href=# class=info>(?)<span>Здесь перечислены Ваши заказы и их текущий статус<br />Нажмите на номер заказа для просмотра</span></a>';
+$txt['orders4'] = 'Номер заказа';
+$txt['orders5'] = 'Отгрузка и оплата';
+$txt['orders6'] = 'Сумма по счету';
+$txt['orders7'] = 'Дата заказа';
+$txt['orders8'] = 'Статус';
+$txt['orders9'] = 'Вы не размещали заказы в нашем магазине';
+
+// customer.php
+$txt['customer1'] = 'Область';
+$txt['customer2'] = 'Покупатель удален';
+$txt['customer3'] = 'Назад';
+$txt['customer5'] = 'Вы должны исправить ошибки в форме регистрации для продолжения';
+$txt['customer6'] = 'Все поля, помеченные (*) должны быть заполнены';
+$txt['customer7'] = 'Нельзя использовать пробелы в логине';
+$txt['customer8'] = 'Несовпадение паролей в основном и проверочном полях';
+$txt['customer9'] = 'Пароль должен быть не менее 5 символов';
+$txt['customer10'] = 'Вы ввели неправильный e-mail';
+$txt['customer11'] = "Добро пожаловать в $shopname";
+$txt['customer12'] = "Уважаемый(ая) $tussenvoegsels $naam,<br /><br />Мы рады видеть Вас в нашем $shopname магазине (<a href=\"$shopurl\">$shopurl</a>).<br /><br />Пожалуйста войдите, используя логин и пароль, указанный при регистрации.<br /><br />Ваш код доступа:<br />Login:  $login<br />Password: $pass1<br /><br />Для предупреждения несанкционированного использования Ваших данных храните их в безопасном месте.<br /><br />До встречи на <a href=\"$shopurl\">$shopurl</a><br /><br />С уважением,<br /><br /><br />Администрация сайта";
+$txt['customer13'] = 'Ваша информация успешно сохранена.';
+$txt['customer14'] = 'Регистрационная информация:';
+$txt['customer15'] = 'Login';
+$txt['customer16'] = 'Password';
+$txt['customer17'] = 'Password еще раз';
+$txt['customer18'] = 'Фамилия';
+$txt['customer19'] = 'Префикс';
+$txt['customer20'] = 'Инициалы';
+$txt['customer21'] = 'Адрес';
+$txt['customer22'] = 'Почтовый индекс';
+$txt['customer23'] = 'Город';
+$txt['customer24'] = 'Страна';
+$txt['customer25'] = 'Телефон';
+$txt['customer26'] = 'E-mail';
+$txt['customer27'] = '* = должны быть заполнены';
+$txt['customer28'] = 'ОК';
+$txt['customer29'] = 'Login, выбранный Вами уже используется. Попробуйте другой. ';
+$txt['customer30'] = 'Компания';
+$txt['customer32'] = 'Вы попытались удалить учетную запись администратора. Это может сделать невозможным использование магазина. Ваш запрос отклонен.';
+$txt['customer33'] = '(от 5 до 10 символов)';
+$txt['customer34'] = 'E-mail, указанный Вами уже используется';
+$txt['customer35'] = 'Нажмите здесь для входа';
+$txt['customer36'] = 'Новый покупатель';
+$txt['customer37'] = 'Был зарегистрирован новый покупатель. Копия сообщения, отправленная покупателю::';
+$txt['customer38'] = 'Новости';
+
+// readorder.php
+$txt['readorder1'] = 'Распечатать на принтере';
+$txt['readorder2'] = 'Назад к списку заказов';
+
+// editsettings.php
+$txt['editsettings1'] = 'Изменить настройки';
+$txt['editsettings2'] = 'Сохранить настройки';
+$txt['editsettings4'] = 'Страна доставки по умолчанию <a href=# class=info>(?)<span>Обычно это страна размещения Вашей компании</span></a>';
+$txt['editsettings7'] = 'Оплата доставки при получении <a href=# class=info>(?)<span>Это форма дополнительных затрат на доставку, в дополнение к общей стоимости. Формат: 12.34</span></a>';
+$txt['editsettings8'] = 'Валюта';
+$txt['editsettings9'] = 'Символ валюты <a href=# class=info>(?)<span>В вашем случае вероятно: $</span></a>';
+$txt['editsettings10'] = 'Оплата в течение xx дней <a href=# class=info>(?)<span>В течение какого времени действителен выписанный счет?</span></a>';
+$txt['editsettings11'] = 'Включая НДС <a href=# class=info>(?)<span>Если НДС составляет 19%, число должно выглядеть как: 1.19</span></a>';
+$txt['editsettings12'] = 'Написание НДС <a href=# class=info>(?)<span>Если НДС составляет 19%, число должно выглядеть как: 19%</span></a>';
+$txt['editsettings13'] = 'Цены включают НДС';
+$txt['editsettings14'] = 'Email отдела продаж <a href=# class=info>(?)<span>На этот адрес Вы будете получать заказы, например: sales@yourdomain.com</span></a>';
+$txt['editsettings15'] = 'Название магазина';
+$txt['editsettings16'] = 'URL магазина <a href=# class=info>(?)<span>Стартовый адрес магазина, например: http://www.yourdomain.com/shop</span></a>';
+$txt['editsettings17'] = 'Язык по умолчанию';
+$txt['editsettings18'] = 'Префикс заказа (не обязательно) <a href=# class=info>(?)<span>Каждый заказ будет начинаться с префикса, например: WEB-</span></a>';
+$txt['editsettings19'] = 'Суффикс заказа (не обязательно) <a href=# class=info>(?)<span>Каждый заказ будет заканчиваться суффиксом, например, текущий год: -06</span></a>';
+$txt['editsettings20'] = 'Показывать остатки на складе <a href=# class=info>(?)<span><strong>Вкл.:</strong> показывать остатки<br /><br /><strong>Выкл.:</strong> не показывать остатки, состояние будет выводиться в виде (есть на складе/на заказ/нет на складе)</span></a>';
+$txt['editsettings21'] = 'Включить модуль заказов';
+$txt['editsettings22'] = 'Выключить магазин';
+$txt['editsettings23'] = 'Заголовок при выключенном магазине';
+$txt['editsettings24'] = 'Сообщение при выключенном магазине';
+$txt['editsettings25'] = 'Email вебмастера';
+$txt['editsettings26'] = 'Номер телефона (не обязательно)';
+$txt['editsettings27'] = 'Номер факса (не обязательно)';
+$txt['editsettings28'] = 'Номер счета';
+$txt['editsettings29'] = 'Владелец счета';
+$txt['editsettings30'] = 'Город банка';
+$txt['editsettings31'] = 'Страна банка';
+$txt['editsettings32'] = 'РНН банка';
+$txt['editsettings33'] = 'БИК банка';
+$txt['editsettings34'] = 'Год открытия магазина';
+$txt['editsettings35'] = 'Logo <a href=# class=info>(?)<span>Логотип компании. Файл должен быть помещен в папку <strong>'.$gfx_dir.'</strong></span></a>';
+$txt['editsettings37'] = 'Слоган компании (не обязательно) <a href=# class=info>(?)<span>Слоган, расположенный под логотипом</span></a>';
+$txt['editsettings38'] = 'Заголовок страницы <a href=# class=info>(?)<span>Заголовок в окне браузера</span></a>';
+$txt['editsettings39'] = 'Нижняя сноска';
+$txt['editsettings44'] = 'Настройки сохранены';
+$txt['editsettings45'] = 'Банковские реквизиты';
+$txt['editsettings46'] = 'Расположение';
+$txt['editsettings47'] = 'Склад';
+$txt['editsettings48'] = 'Финансы';
+$txt['editsettings49'] = 'Формат чисел';
+$txt['editsettings50'] = 'Максимальная длина описания товара <a href=# class=info>(?)<span>Это должно сократить описания товара. <br /><strong>0 = не сокращать<br />1-99 = сворачивать до xx символов</strong></span></a>';
+$txt['editsettings51'] = 'Цены без НДС <a href=# class=info>(?)<span>Включите, если Вы не хотите добавлять НДС к ценам в магазине</span></a>';
+$txt['editsettings52'] = 'Название банка';
+$txt['editsettings53'] = 'Формат прайс-листа <a href=# class=info>(?)<span>Эти настройки применяются к прайс-листу, корзине и при подтверждении заказа</span></a>';
+$txt['editsettings54'] = 'ID товара';
+$txt['editsettings55'] = 'Описание';
+$txt['editsettings56'] = 'ID товара и описание';
+$txt['editsettings57'] = 'Формат даты <a href=# class=info>(?)<span><strong>d-m-Y @ G:i</strong> for dd-mm-jjjj @ 23:59<br /><strong>m-d-Y @ G:i</strong> for mm-dd-jjjj @ 23:59<br /></span></a>';
+$txt['editsettings58'] = 'Поиск gfx в прайсе <a href=# class=info>(?)<span>Поиск изображений товаров при загрузке прайс-листа. Если изображения найдены, позади товара появится иконка, чтобы посетитель сразу видел, что товар имеет изображение. <br /><br />Для уменьшения времени загрузки, или если изображения хранятся на удаленном хосте, лучше отключить эту опцию</span></a>';
+$txt['editsettings59'] = 'Использовать изображения <a href=# class=info>(?)<span>Если Вы не планируете загружать изображения товаров, лучше отключить эту опцию</span></a>';
+$txt['editsettings69'] = 'Использовать предпросмотр изображений <a href=# class=info>(?)<span>Показывает (если есть) небольшие изображения товаров в начале описания товаров</span></a>';
+$txt['editsettings70'] = 'Ключевые слова (разделенные запятыми) <a href=# class=info>(?)<span>Ключевые слова для поиска поисковыми машинами</span></a>';
+$txt['editsettings71'] = 'Используемые наборы символов (charset) <a href=# class=info>(?)<span>Некоторые языки используют иные наборы символов. Если Вы не уверены, используйте ISO-8859-1</span></a>';
+$txt['editsettings72'] = 'Показывать ссылку Общие условия';
+$txt['editsettings73'] = 'Показывать ссылку Гарантии';
+$txt['editsettings74'] = 'Показывать ссылку Доставка';
+$txt['editsettings75'] = 'Имена файлов для изображений товаров <a href=# class=info>(?)<span>Некоторые языки содержат символы, недопустимые для имен файлов. Лучше всего использовать database id как ID изображений в этом (и многих других) случае</span></a>';
+$txt['editsettings76'] = 'Database ID (recommended)';
+$txt['editsettings77'] = 'Product ID';
+$txt['editsettings78'] = 'Показывать ссылку О нас';
+$txt['editsettings79'] = 'Включить Live News <a href=# class=info>(?)<span>Включает live news FreeWebshop.org, для получения информации об обновлениях и других новостях с FreeWebshop.org. Отключите, если Вы испытываете проблемы с этой настройкой</span></a>';
+$txt['editsettings80'] = 'Ширина полосы позиции в прайс-листе <a href=# class=info>(?)<span>Ширина в пикселях.<br />50 по умолчанию<br/>0 отключает масштабирование</span></a>';
+$txt['editsettings81'] = 'Высота полосы позиции в прайс-листе <a href=# class=info>(?)<span>Высота в пикселях.<br />50 по умолчанию<br/>0 отключает масштабирование</span></a>';
+$txt['editsettings82'] = 'Ширина полосы позиции категории <a href=# class=info>(?)<span>Ширина в пикселях.<br />50 по умолчанию<br/>0 отключает масштабирование</span></a>';
+$txt['editsettings83'] = 'Высота полосы позиции категории <a href=# class=info>(?)<span>Высота в пикселях.<br />50 по умолчанию<br/>0 отключает масштабирование</span></a>';
+$txt['editsettings84'] = 'Макс.ширина рисунка товара <a href=# class=info>(?)<span>Максимальная ширина в пикселях.<br />450 по умолчанию<br />9999 отключает максимизацию</span></a>';
+$txt['editsettings85'] = 'Макс.высота рисунка товара <a href=# class=info>(?)<span>Максимальная высота в пикселях.<br />350 по умолчанию<br />9999 отключает максимизацию</span></a>';
+$txt['editsettings86'] = 'Все';
+$txt['editsettings87'] = 'Показывать ссылку Новые продукты';
+$txt['editsettings88'] = 'использовать WYSIWYG редактор';
+$txt['editsettings89'] = 'Автоматическое создание эскизов изображений<a href=# class=info>(?)<span>Автоматически создает эскизы при загрузке изображений.<br />Требует наличия <strong>GD extension</strong></span></a>';
+$txt['editsettings90'] = 'Описание магазина <a href=# class=info>(?)<span>Описание используется поисковыми машинами для индексирования сайта</span></a>';
+$txt['editsettings91'] = 'Товаров на странице <a href=# class=info>(?)<span>Кол-во отображаемых товаров на странице.<br/>0 = no limit</span></a>';
+$txt['editsettings92'] = 'Отключено';
+$txt['editsettings93'] = 'Продвинутый';
+$txt['editsettings94'] = 'Простой';
+$txt['editsettings95'] = 'Использовать Captcha <a href=# class=info>(?)<span>Использовать Captcha (антиспам-бот) для контактной формы и процедуры регистрации</span></a>';
+$txt['editsettings96'] = 'Использовать всплывающее изображение <a href=# class=info>(?)<span>Всплывающее изображение выглядит более привлекательно<br/>требует наличия Javascript</span></a>';
+$txt['editsettings97'] = 'Позиция символа валюты';
+$txt['editsettings98'] = 'Стиль';
+$txt['editsettings99'] = 'Предупреждение, если заканчивается товар';
+$txt['editsettings100'] = 'Минимальный уровень товара на складе';
+$txt['editsettings101'] = 'Весовая категория <a href=# class=info>(?)<span>For you probably <strong>LB</strong></span></a>';
+$txt['editsettings102'] = 'Заказ из Прайс-листа';
+$txt['editsettings103'] = 'Использовать datefix <a href=# class=info>(?)<span>Используйте, если ваш журнал доступа переполняется предупреждениями о несовпадении дат.</span></a>';
+
+
+// productadmin.php
+$txt['productadmin1'] = ' был загружен в ';
+$txt['productadmin2'] = 'Ошибка загрузки файла, пожалуйста попробуйте снова!';
+$txt['productadmin3'] = 'Для загрузки разрешены только файлы .jpg, .png или .gif';
+$txt['productadmin4'] = 'Добавить товар';
+$txt['productadmin5'] = 'Назад к списку товаров';
+$txt['productadmin6'] = 'Добавить товар';
+$txt['productadmin7'] = 'Обновить товар';
+$txt['productadmin8'] = 'Сначала добавьте группы';
+$txt['productadmin9'] = 'ID';
+$txt['productadmin10'] = 'Описание <a href=# class=info>(?)<span>HTML код разрешен</span></a>';
+$txt['productadmin11'] = 'Цена <a href=# class=info>(?)<span>формат: 123456.78</span></a>';
+$txt['productadmin12'] = 'Кол-во на складе';
+$txt['productadmin13'] = 'Склад (0|1|2) <a href=# class=info>(?)<span>0=нет на складе<br />1=есть на складе<br />2=под заказ</span></a>';
+$txt['productadmin14'] = 'На главную страницу';
+$txt['productadmin15'] = 'Новый';
+$txt['productadmin16'] = 'Добавить товар';
+$txt['productadmin17'] = 'Обновить товар';
+$txt['productadmin18'] = 'Группа/категория';
+$txt['productadmin19'] = 'Выберите файл jpg, png или gif';
+$txt['productadmin20'] = 'Загрузка';
+$txt['productadmin21'] = 'Загрузка изображения';
+$txt['productadmin22'] = 'Сначала добавьте категории';
+$txt['productadmin23'] = 'Вы не можете загрузить изображение, т.к. ваш товар не имеет ID';
+$txt['productadmin24'] = 'Удалить изображение';
+$txt['productadmin25'] = 'Изображение удалено';
+$txt['productadmin26'] = 'Товарная позиция удалена';
+$txt['productadmin27'] = 'Дополнительные настройки';
+$txt['productadmin28'] = 'Сделать эскизы для изображений (может потребоваться значительное время)';
+$txt['productadmin29'] = 'Все эскизы созданы (где необходимо)..';
+$txt['productadmin30'] = 'Особенности <a href=# class=info>(?)<span>Тип1:Red,White,Blue|Тип2:Small,Medium,Large<br />Без пробелов</span></a>';
+$txt['productadmin31'] = 'Вес <a href=# class=info>(?)<span>Может быть использован для рассчета доставки</span></a>';
+
+
+// groupadmin.php
+$txt['groupadmin1'] = ' был загружен в ';
+$txt['groupadmin2'] = 'Ошибка загрузки файла, пожалуйста попробуйте снова!';
+$txt['groupadmin3'] = 'Для загрузки разрешены только файлы .jpg, .png или .gif';
+$txt['groupadmin4'] = 'Группа добавлена..';
+$txt['groupadmin5'] = 'Группа обновлена..';
+$txt['groupadmin6'] = 'Группа (и включенные в нее категории и товарные позиции) удалена..';
+$txt['groupadmin7'] = 'Категория добавлена..';
+$txt['groupadmin8'] = 'Котегория обновлена..';
+$txt['groupadmin9'] = 'Категория перемещена..';
+$txt['groupadmin10'] = 'Категория (и включенные в нее товарные позиции) удалена..';
+$txt['groupadmin11'] = 'Название группы';
+$txt['groupadmin12'] = 'Добавить группу';
+$txt['groupadmin13'] = 'Группы отсутствуют';
+$txt['groupadmin14'] = 'Группа';
+$txt['groupadmin15'] = 'Новое название группы';
+$txt['groupadmin16'] = 'Обновить группу';
+$txt['groupadmin17'] = 'Удалить группу';
+$txt['groupadmin18'] = 'Настройки группы';
+$txt['groupadmin19'] = 'Настройки категории';
+$txt['groupadmin20'] = 'Название категории';
+$txt['groupadmin21'] = 'Добавить категорию';
+$txt['groupadmin22'] = 'Категория';
+$txt['groupadmin23'] = 'Название новой категории';
+$txt['groupadmin24'] = 'Обновить категорию';
+$txt['groupadmin25'] = 'Переместить категорию';
+$txt['groupadmin26'] = 'Удалить категорию';
+$txt['groupadmin27'] = 'Выберите файл jpg, png или gif';
+$txt['groupadmin28'] = 'Загрузка';
+$txt['groupadmin29'] = 'Загрузка изображения';
+$txt['groupadmin30'] = 'Общие настройки';
+$txt['groupadmin31'] = 'Удалить пустые категории и группы';
+$txt['groupadmin32'] = 'кол-во удаленных категорий';
+$txt['groupadmin33'] = 'кол-во удаленных групп';
+$txt['groupadmin34'] = 'Группа с именем '.$gname.' уже существует. Выберите другое имя';
+$txt['groupadmin35'] = 'Название группы не может быть пустым';
+$txt['groupadmin36'] = 'Вы не ввели название новой группы';
+$txt['groupadmin37'] = 'Категория с именем '.$cname.' уже существует. Выберите другое имя';
+$txt['groupadmin38'] = 'Вы не ввели название новой категории';
+$txt['groupadmin39'] = 'Название категории не может быть пустым';
+
+// uploadadmin.php
+$txt['uploadadmin1'] = ' был загружен в ';
+$txt['uploadadmin2'] = 'Ошибка загрузки файла, пожалуйста попробуйте снова!';
+$txt['uploadadmin3'] = 'Возможна загрузка только .sql файла';
+$txt['uploadadmin4'] = 'Загрузка прайс-листа (.SQL)';
+$txt['uploadadmin5'] = 'Выберите SQL файл';
+$txt['uploadadmin6'] = 'Загрузка SQL';
+$txt['uploadadmin7'] = 'информация из SQL-файла вставлена в базу';
+
+// adminedit.php
+$txt['adminedit1'] = 'Сохранить изменения';
+$txt['adminedit2'] = 'Изменения сохранены...';
+$txt['adminedit3'] = 'Редактируется в настоящее время';
+
+// shippingadmin.php
+$txt['shippingadmin1'] = 'Добавлен метод отгрузки';
+$txt['shippingadmin2'] = 'Метод отгрузки удален';
+$txt['shippingadmin3'] = 'Метод отгрузки изменен';
+$txt['shippingadmin4'] = 'Поддерживаемые методы отгрузки';
+$txt['shippingadmin5'] = 'Описания';
+$txt['shippingadmin6'] = 'Цены';
+$txt['shippingadmin7'] = "Только по $send_default_country?";
+$txt['shippingadmin8'] = 'Редактировать';
+$txt['shippingadmin9'] = 'Удалить';
+$txt['shippingadmin10'] = 'Добавить';
+$txt['shippingadmin11'] = 'Редактировать страны отгрузки';
+$txt['shippingadmin12'] = 'Настройки';
+$txt['shippingadmin13'] = 'Настройки оплаты';
+$txt['shippingadmin14'] = 'Редактировать метод доставки';
+$txt['shippingadmin15'] = 'ВНИМАНИЕ: Вы хотели изменить встроенный в систему метод доставки. Этот метод влияет на некоторые другие элементы магазина. Изменяйте описания на ваше усмотрение, но не меняйте суть метода';
+$txt['shippingadmin16'] = 'Редактировать страну отгрузки по умолчанию';
+$txt['shippingadmin17'] = 'Прочие настройки';
+$txt['shippingadmin18'] = 'Отправитель';
+$txt['shippingadmin19'] = 'Куда';
+$txt['shippingadmin20'] = 'Стоимость';
+$txt['shippingadmin21'] = 'Правило стоимости доставки/веса удалено';
+
+// paymentadmin.php
+$txt['paymentadmin1'] = 'Метод оплаты добавлен';
+$txt['paymentadmin2'] = 'Метод оплаты удален';
+$txt['paymentadmin3'] = 'Метод оплаты изменен';
+$txt['paymentadmin4'] = 'Поддерживаемые методы оплаты';
+$txt['paymentadmin5'] = 'Описание';
+$txt['paymentadmin6'] = 'Изменить метод оплаты';
+$txt['paymentadmin7'] = 'HTML код оплаты';
+$txt['paymentadmin8'] = 'Редактировать';
+$txt['paymentadmin9'] = 'Удалить';
+$txt['paymentadmin10'] = 'Добавить';
+$txt['paymentadmin11'] = 'OНастройки';
+$txt['paymentadmin12'] = 'ВНИМАНИЕ: Вы хотели изменить встроенный в систему метод оплаты. Этот метод влияет на некоторые другие элементы магазина. Изменяйте описания на ваше усмотрение, но не меняйте суть метода';
+
+// errorlogadmin.php
+$txt['errorlogadmin1'] = 'Журнал ошибок';
+$txt['errorlogadmin2'] = 'Степень опасности';
+$txt['errorlogadmin3'] = 'Ошибка';
+$txt['errorlogadmin4'] = 'Файл';
+$txt['errorlogadmin5'] = 'Строка';
+$txt['errorlogadmin6'] = 'Дата';
+$txt['errorlogadmin7'] = 'Ошибок не найдено';
+$txt['errorlogadmin8'] = 'Очистить журнал';
+$txt['errorlogadmin9'] = 'Журнал ошибок очищен';
+
+// pagesadmin.php
+$txt['pagesadmin1'] = 'Дополнительные страницы';
+$txt['pagesadmin2'] = 'Имя страницы';
+$txt['pagesadmin3'] = 'Настройки';
+$txt['pagesadmin4'] = 'Переименовать';
+$txt['pagesadmin5'] = 'Добавить';
+$txt['pagesadmin6'] = 'Страница переименована';
+$txt['pagesadmin7'] = 'Страница удалена';
+$txt['pagesadmin8'] = 'Не удалось';
+$txt['pagesadmin9'] = 'Страница добавлена';
+
+// accessadmin.php
+$txt['accesslogadmin1'] = 'Журнал доступа';
+$txt['accesslogadmin2'] = 'Логин';
+$txt['accesslogadmin3'] = 'Пароль';
+$txt['accesslogadmin4'] = 'Время';
+$txt['accesslogadmin5'] = 'Успешно';
+//$txt['accesslogadmin6'] = 'Дата';
+$txt['accesslogadmin7'] = 'Записи не найдены';
+$txt['accesslogadmin8'] = 'Очистить журнал';
+$txt['accesslogadmin9'] = 'Журнал доступа очищен';
+
+// stockadmin.php
+$txt['stockadmin2'] = 'Показать';
+$txt['stockadmin3'] = 'Управление складом';
+
+// mailinglist.php
+$txt['mailinglist1'] = 'Скопируйте это в ваш любимый Mass mailer ;)';
+?>

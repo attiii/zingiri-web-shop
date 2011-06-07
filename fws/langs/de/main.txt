@@ -1,0 +1,11 @@
+Herzlichen Gl&uuml;chwunsch!<br>
+Sie haben soeben erfolgreich Ihren eigenen Webshop installiert. <img src="templates/default/images/businessman.gif" alt="" width="187" height="275" align="right" />Diese Software ist komplett in englischer Sprache und hat zus&auml;tzliche Sprachpakete, z. B. niederl&auml;ndisch.<br><br>
+Die Vorteile von FreeWebshop.org:
+<ul>
+<li><strong>einfache</strong> Installation </li>
+<li><strong>einfache</strong> Konfiguration </li>
+<li>Viele <strong>n&uuml;tzliche Features</strong> welche Ihre Arbeit vereinfachen </li>
+<li><strong>Komplettes</strong> Auftrags- und Kundenverwaltungs Modul </li>
+<li><strong>Gratis</strong> Support und Updates </li>
+<li>Untersttzung von Bezahlportalen wie z. B. <strong>Paypal und iDEAL</strong> (f&uuml;gen Sie Ihre eigenen einfach hinzu!) </li>
+</ul>

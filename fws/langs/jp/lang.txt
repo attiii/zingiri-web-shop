@@ -1,0 +1,708 @@
+<?php
+//Ç±ÇÃåæåÍÇÃï∂éöê›íËÇ™ïsñæÇÃèÍçáÅAISO-8859-1ÇÇ≤óòópÇµÇƒÇ≠ÇæÇ≥Ç¢ÅB
+$charset = "ISO-8859-1";
+
+//Ç±ÇÃåæåÍÉtÉ@ÉCÉãÇ≈Ç‹Ç∏ÅAóòópâ¬Ç»íl
+// íçï∂ÇÃà◊ÇÃÉfÅ[É^Å[ÉxÅ[ÉXíl
+$txt['frontpage1'] = 'Ç‡Ç¡Ç∆è⁄ÇµÇ¢èÓïÒ';
+
+$txt['db_shipping1'] = 'è§ïià¯Ç´éÊÇËÅAîzëóóøã‡ñ≥Çµ';
+
+// database values for payments
+$txt['db_payment1'] = 'ã‚çsêUçû';
+$txt['db_payment2'] = 'ìXì™éxï•Ç¢ÅiÇ®à¯éÊÇËí∏ÇØÇÈèÍçáÇÃÇ›Åj';
+$txt['db_payment3'] = 'PayPalÅiÉNÉåÉWÉbÉgÉJÅ[ÉhÅjï•Ç¢';
+$txt['db_payment4'] = 'ë„ã‡à¯ä∑';
+
+// order status
+$txt['db_status1'] = 'Ç®ãqólÇ©ÇÁÇÃíçï∂ÇéÛït';
+$txt['db_status2'] = 'Ç®éxï•Ç¢ë“Çø';
+$txt['db_status3'] = 'ó\ñÒë“Çø';
+$txt['db_status4'] = 'íçï∂èàóùíÜ';
+$txt['db_status5'] = 'ëóïtçœÅiäÆóπÅj';
+$txt['db_status6'] = 'Ç®ãqólÇ…ÇÊÇËà¯éÊçœ';
+$txt['db_status7'] = 'ÉLÉÉÉìÉZÉã';
+
+$txt['db_status10'] = 'èÛãµÇÃê‡ñæ';
+$txt['db_status11'] = 'Ç†Ç»ÇΩólÇÃÇ≤íçï∂Çè≥ÇËÇ‹ÇµÇΩÇ™ÅAè]ã∆àıÇ…ÇÊÇ¡ÇƒämîFÇ™Ç≥ÇÍÇƒÇ¢Ç‹ÇπÇÒ';
+$txt['db_status12'] = 'Ç†Ç»ÇΩólÇÃÇ≤íçï∂Ç™ämîFÇ≥ÇÍÇ‹ÇµÇΩÅBÇ≤íçï∂ÇÃóøã‡Çã‚çsêUçûÇ…ÇƒÇ®äËÇ¢ívÇµÇ‹Ç∑';
+$txt['db_status13'] = 'Ç†Ç»ÇΩólÇÃÇ®éxï•Ç¢ÇéÛóÃívÇµÇ‹ÇµÇΩÅBÇ®à¯éÊÇËí∏Ç≠èÄîıÇ™Ç≈Ç´ÇΩéñÇÇ®ímÇÁÇπÇ∑ÇÈÉÅÅ[ÉãÇÇ®ëóÇËívÇµÇ‹ÇµÇΩÅBÇ≤ó\ñÒÇÇ®éÊÇËÇ¢ÇΩÇæÇ≠à◊ÅAìdòbÇ…ÇƒÇ≤òAóçÇÇ®äËÇ¢ívÇµÇ‹Ç∑';
+$txt['db_status14'] = 'Ç†Ç»ÇΩólÇÃÇ®éxï•Ç¢ÇéÛóÃívÇµÇ‹ÇµÇΩÅB 'Ç≤íçï∂ÇèàóùíÜÇ≈Ç∑ÅBî≠ëóèÄîıíÜÇ‡ÇµÇ≠ÇÕÅAè§ïiÇÃämï€Ç™èoÇ´Ç¡ÇΩéñÇï\ÇµÇƒÇ¢Ç‹Ç∑';
+$txt['db_status15'] = 'è§ïiÇÕTPG Postal serviceÇ…Çƒî≠ëóçœÇ≈Ç∑ÅBÇ≤íçï∂äÆóπ';
+$txt['db_status16'] = 'è§ïiÇÕÇ†Ç»ÇΩólÇ…ÇÊÇËÅAÇ®éÛÇØéÊÇËí∏Ç´Ç‹ÇµÇΩÅBÇ≤íçï∂äÆóπ';
+$txt['db_status17'] = 'è§ïiÇÕÇ†Ç»ÇΩólÇ‡ÇµÇ≠ÇÕÅAìñìXÇ…ÇÊÇËÉLÉÉÉìÉZÉãÇ≥ÇÍÇ‹ÇµÇΩ';
+
+// database values for stock
+$txt['db_stock1'] = 'ç›å…Ç†ÇË';
+$txt['db_stock2'] = 'ç›å…ñ≥Çµ';
+$txt['db_stock3'] = 'ì¸â◊ë“Çø';
+$txt['db_stock10'] = 'ç›å…èÛãµÇÃê‡ñæ';
+$txt['db_stock11'] = 'è§ïiç›å…Ç†ÇËÅFÇ≤íçï∂å„ÅAè§ïiÇÇ®éÛÇØéÊÇËí∏ÇØÇ‹Ç∑';
+$txt['db_stock12'] = 'è§ïiç›å…ñ≥Çµ'
+$txt['db_stock13'] = 'è§ïiì¸â◊ë“ÇøÇÃà◊ÅAÇµÇŒÇÁÇ≠Ç®ë“Çøâ∫Ç≥Ç¢';
+
+// general values
+$txt['general1'] = 'ÉAÉNÉZÉXãëî€ÅI';
+$txt['general2'] = 'Ç†Ç»ÇΩÇÃIPÉAÉhÉåÉXÇÕÇ≥ÇÁÇ»ÇÈïsê≥égópñhé~ÇÃà◊ÅAãLò^Ç≥ÇÍÇ‹ÇµÇΩ';
+$txt['general3'] = 'êV';
+$txt['general4'] = 'ÉAÉhÉ~ÉìÉIÉvÉVÉáÉìÇ…ñﬂÇÈ';
+$txt['general6'] = 'èú';
+$txt['general7'] = 'ä‹.';
+$txt['general8'] = îıçlÅFÇ±ÇÃÉEÉFÉuÉVÉáÉbÉvÇÕégópïsî\èÛë‘Ç≈Ç∑ÅBÉEÉFÉuÉyÅ[ÉWÇå©ÇÈéñÇ‚è§ïiÇÃíçï∂Ç™Ç≈Ç´Ç‹ÇπÇÒ';
+$txt['general9'] = '404ÉGÉâÅ[ ÉyÅ[ÉWÇ™å©Ç¬Ç©ÇËÇ‹ÇπÇÒÅI';
+$txt['general10'] = 'Ç±ÇÃÉEÉFÉuÉVÉáÉbÉvÇ©ÇÁí«ï˙Ç≥ÇÍÇƒÇ¢Ç‹Ç∑';
+$txt['general11'] = 'ìñìXÇ…Ç¬Ç¢Çƒ';
+$txt['general12'] = 'ÉGÉâÅ[';
+$txt['general13'] = 'Ç®ímÇÁÇπ';
+$txt['general14'] = 'ñﬂÇÈ';
+$txt['general15'] = 'Ç±ÇÃÉRÅ[ÉhÇì¸óÕ';
+$txt['general16'] = 'ÉRÅ[ÉhÇ™ê≥ÇµÇ≠Ç†ÇËÇ‹ÇπÇÒÅBÇπÇ¢ì¸óÕÇÇµÇƒâ∫Ç≥Ç¢';
+
+// header.php
+$txt['header1'] = 'ÉZÉLÉÖÉäÉeÉBÇÃäÎåØê´';
+$txt['header2'] = ÇÊÇ§Ç±Çª';
+$txt['header3'] = 'ÉQÉXÉg';
+$txt['header4'] = '<font color=red><strong>install.php</strong></font> å©Ç¬Ç©ÇËÇ‹ÇµÇΩÅBëÄçÏÇë±ÇØÇÈëOÇ…Ç±ÇÃÉtÉ@ÉCÉãÇÃçÌèú/ñºëOÇÃïœçXÇ™ïKóvÇ≈Ç∑';
+
+// menu.php
+$txt['menu1'] = 'ÉzÅ[ÉÄ';
+$txt['menu2'] = 'îÉÇ¢ï®Ç©Ç≤';
+$txt['menu3'] = 'É`ÉFÉbÉNÉAÉEÉg';
+$txt['menu4'] = 'åüçı';
+$txt['menu5'] = 'àÍî èåè';
+$txt['menu6'] = 'î≠ëó';
+$txt['menu7'] = 'ï€èÿ';
+$txt['menu8'] = 'Ç®ñ‚çáÇπ';
+$txt['menu9'] = 'ä«óù';
+$txt['menu10'] = 'å¬êlÉyÅ[ÉW';
+$txt['menu11'] = 'ÉçÉOÉAÉEÉg';
+$txt['menu12'] = 'ÉçÉOÉCÉì';
+$txt['menu13'] = 'ìoò^';
+$txt['menu14'] = 'èÓïÒ';
+$txt['menu15'] = 'è§ïi';
+$txt['menu16'] = '<font color=red><strong>New</strong></font>è§ïi';
+$txt['menu17'] = 'è§ïiÇ™Ç†ÇËÇ‹ÇπÇÒ';
+$txt['menu18'] = 'ìñìXÇ…Ç¬Ç¢Çƒ';
+$txt['menu19'] = 'í«â¡';
+
+// sendprocedure.php
+$txt['send1'] = 'î≠ëóï˚ñ@';
+
+// cart.php
+$txt['cart1'] = 'îÉÇ¢ï®Ç©Ç≤';
+$txt['cart2'] = 'îÉÇ¢ï®Ç©Ç≤ÇÕãÛÇ≈Ç∑';
+$txt['cart3'] = 'ê‡ñæ';
+$txt['cart4'] = 'óøã‡';
+$txt['cart5'] = 'êîó ';
+$txt['cart6'] = 'çÌèú';
+$txt['cart7'] = 'çáåv';
+$txt['cart8'] = 'ãÛ';
+$txt['cart9'] = 'É`ÉFÉbÉNÉAÉEÉg';
+$txt['cart10'] = 'çXêV';
+$txt['cart11'] = 'îÉÇ¢ï®Ç©Ç≤ÇÃì‡óe';
+$txt['cart12'] = 'çwì¸Çë±ÇØÇÈ';
+
+// browse.php
+$txt['browse1'] = 'åüçıåãâ ';
+$txt['browse2'] = 'è§ïiê‡ñæ';
+$txt['browse3'] = 'óøã‡';
+$txt['browse4'] = 'ï™óﬁ';
+$txt['browse5'] = 'è§ïiÇ™å©Ç¬Ç©ÇËÇ‹ÇπÇÒ';
+$txt['browse6'] = 'îıçlÅFàÍêÿÇÃå†óòÇÇ±ÇÃÉCÉÅÅ[ÉWÇ©ÇÁìæÇÁÇÍÇ‹ÇπÇÒÅBóøã‡ÇÕïœìÆÇµÇ‹Ç∑';
+$txt['browse7'] = 'ï“èW';
+$txt['browse8'] = 'çÌèú';
+$txt['browse9'] = 'è§ïiàÍóó';
+$txt['browse10'] = 'é ê^ïœçX';
+$txt['browse11'] = 'ÉyÅ[ÉW';
+$txt['browse12'] = 'îÑêÿÇÍ';
+$txt['browse13'] = 'ç›å…Ç†ÇË';
+
+// submenu.php
+$txt['submenu1'] = 'Ç±ÇÃÉOÉãÅ[ÉvÇÃÉJÉeÉSÉäÅ[';
+$txt['submenu2'] = 'Ç±ÇÃÉOÉãÅ[Évì‡Ç…ÉJÉeÉSÉäÅ[ÇÕå©Ç¬Ç©ÇËÇ‹ÇπÇÒ';
+
+// main.php
+$txt['main1'] = 'ÇÊÇ§Ç±Çª';
+$txt['main2'] = 'ÉLÉÉÉìÉyÅ[Éì';
+
+// details.php
+$txt['details1'] = 'è§ïiè⁄ç◊';
+$txt['details2'] = 'è§ïiID';
+$txt['details4'] = 'ê‡ñæ';
+$txt['details5'] = 'óøã‡/íPâø';
+$txt['details6'] = 'êîó ';
+$txt['details7'] = 'íçï∂';
+$txt['details8'] = 'àÍóóÇ…ñﬂÇÈ';
+$txt['details9'] = 'ÉtÉãÉTÉCÉYÇÕÉNÉäÉbÉN';
+
+// conditions.php
+$txt['conditions1'] = 'èåèÇ…ìØà”ÇµÇ‹Ç∑';
+$txt['conditions2'] = 'èåèÇ…ìØà”ÇµÇ‹ÇπÇÒ';
+$txt['conditions3'] = 'è·äQ';
+$txt['conditions4'] = 'íçï∂ÇÕåªç›íÜé~ÇµÇƒÇ¢Ç‹Ç∑';
+$txt['conditions5'] = 'àÍî éÊà¯èåè';
+
+// shipping.php
+$txt['shipping1'] = 'îzëóÇ∆éxï•Ç¢';
+$txt['shipping2'] = 'îzëóï˚ñ@ÇÃëIë';
+$txt['shipping3'] = 'í«â¡ÇÃÉRÉÅÉìÉgÅ^éøñ‚';
+$txt['shipping4'] = 'ílà¯ÉRÅ[Éh';
+$txt['shipping5'] = 'ílà¯ÉRÅ[ÉhÇÇ®éùÇøÇÃèÍçáÅAÇ±ÇøÇÁÇ…ì¸óÕÇµÇƒâ∫Ç≥Ç¢';
+$txt['shipping9'] = 'éüÇÃéËèá';
+$txt['shipping10'] = 'Ç®éxï•Ç¢ï˚ñ@ÇÃëIë';
+
+// checkout.php
+$txt['checkout1'] = 'ñ≥å¯Ç»ílà¯ÉRÅ[ÉhÇ≈Ç∑ÅBÇ±ÇÃï\é¶Ç™ÉGÉâÅ[ÇæÇ∆çlÇ¶ÇÁÇÍÇÈèÍçáÇÕÅAÇ≤çwì¸éËë±Ç´ÇêiÇﬂÇÈëOÇ…ìñìXÇ…Ç≤òAóçÇÇµÇƒâ∫Ç≥Ç¢';
+$txt['checkout2'] = 'ÉyÅ[ÉWÇ™é∏å¯ÇµÇ‹ÇµÇΩÅBÇ®îÉÇ¢ï®Ç©Ç≤Ç…ñﬂÇËÅAÉ`ÉFÉbÉNÉAÉEÉgÉ{É^ÉìÇÉNÉäÉbÉNÇµÇƒÇ≠ÇæÇ≥Ç¢';
+$txt['checkout3'] = " $lastname ól<br /><br /><br />Ç±ÇÃÉÅÉbÉZÅ[ÉWÇÕÇ†Ç»ÇΩólÇÃíçï∂ÇämîFÇ∑ÇÈ<strong>$shopname</strong><br /><br />Ç†Ç»ÇΩÇÃíçï∂ID: $webid<br />Ç®ãqólID: $customerid<br /><br />Ç±ÇøÇÁÇÃè§ïiÇíçï∂ÇµÇ‹ÇµÇΩ:<br />";
+$txt['checkout4'] = ' x è§ïi ';
+$txt['checkout5'] = ' óøã‡';
+$txt['checkout6'] = "<br />";
+$txt['checkout7'] = 'íçï∂ÇééÇ›Ç‹ÇµÇΩ:';
+$txt['checkout8'] = 'åªç›ç›å…Ç†ÇË:';
+$txt['checkout9'] = "<br /><br />Ç±ÇÃÉäÉìÉNÇÉNÉäÉbÉNÇ∑ÇÈéñÇ≈ÅAÇ†Ç»ÇΩÇÃíçï∂èÛãµÇÃï\é¶Ç¢Ç¬Ç≈Ç‡Ç≈Ç´Ç‹Ç∑: <a href=\"$shopurl/index.php?page=orders&id=$customerid\">$shopurl/index.php?page=orders&id=$customerid</a><br /><br />Ç≤íçï∂Ç†ÇËÇ™Ç∆Ç§Ç≤Ç¥Ç¢Ç‹Ç∑ÅB<br />Ç≤ïsñæÇ»ì_ÇÕÉEÉFÉuÉTÉCÉgÇ»Ç¢ÇÃÇ®ñ‚çáÇπÇ©ÇÁÇ®äËÇ¢ívÇµÇ‹Ç∑ÅB";
+$txt['checkout10'] = íçï∂ÇÃämíË'.$shopname;
+$txt['checkout11'] = 'íçï∂Ç™äÆóπÇµÇ‹ÇµÇΩÅBämîFÉÅÅ[ÉãÇ™ëóêMÇ≥ÇÍÇ‹ÇµÇΩÅB';
+$txt['checkout12'] = 'ämîFÉÅÅ[ÉãÇ™ëóêMÇ≈Ç´Ç‹ÇπÇÒÇ≈ÇµÇΩÇÃÇ≈ÅAâ∫ãLÇÃÇàÛç¸ÇµÇƒâ∫Ç≥Ç¢';
+$txt['checkout13'] = 'â∫ãLÇ…íçï∂ÇÃì‡óeÇ≈Ç∑ÅBàÛç¸ÇµÇƒâ∫Ç≥Ç¢ÅI';
+$txt['checkout14'] = 'äÑà¯';
+$txt['checkout15'] = 'Ç†Ç»ÇΩólÇ™íçï∂ÇµÇΩêîó Ç…ç›å…Ç™ë´ÇËÇ‹ÇπÇÒÅB';
+$txt['checkout16'] = "îzëóï˚ñ@";
+$txt['checkout17'] = "<strong>îzëóêÊèZèä:</strong><br />$company<br />$initials $middlename $lastname<br />$address<br />$zipcode  $city<br />$state<br />$country<br />$phone";
+$txt['checkout18'] = 'äÑà¯ÉRÅ[Éh';
+$txt['checkout19'] = "<strong>Ç®éxï•Ç¢ï˚ñ@:</strong> ";
+$txt['checkout20'] = "<strong>ã‚çsèÓïÒ:</strong><br />å˚ç¿î‘çÜ: $bankaccount<br />å˚ç¿ñºã`êl: $bankaccountowner<br />City: $bankcity<br />çë: $bankcountry<br />ã‚çsñº: $bankname<br />IBAN: $bankiban<br />BIC: $bankbic<br />åèñºÅ^éQè∆: $webid";
+$txt['checkout21'] = "è§ïiÇì¸â◊ÇµÇ‹ÇµÇΩÇÁÅAÉÅÅ[ÉãÇ…ÇƒÇ®ímÇÁÇπívÇµÇ‹Ç∑ÅB";
+$txt['checkout22'] = "PaypalÉAÉJÉEÉìÉgÇ©ÇÁìñìXÇ÷ëóã‡ÇµÇƒâ∫Ç≥Ç¢ÅB";
+$txt['checkout23'] = "â◊ï®ÇéÛÇØéÊÇÈç€Ç…ÅAóXï÷óøã‡ÇÇ®éxï•Ç¢í∏Ç≠ïKóvÇ™Ç†ÇËÇ‹Ç∑ÅB";
+$txt['checkout24'] = "çáåv";
+$txt['checkout26'] = "Ç≤êøãÅëSäzÇ$paymentdaysì˙à»ì‡Ç…Ç®éxï•Ç¢â∫Ç≥Ç¢ÅB ìñìXÇ™Ç®éxï•Ç¢ÇéÛóÃÇµÇ‹ÇµÇΩÇÁÅAíºÇøÇ…Ç≤íçï∂ÇèàóùÇµî≠ëóÇ¢ÇΩÇµÇ‹Ç∑ÅB";
+$txt['checkout27'] = "Ç‹ÇΩÇÕÅAÇ≤íçï∂ÇPDFÇ≈É_ÉEÉìÉçÅ[ÉhÇµÇƒâ∫Ç≥Ç¢";
+
+// search.php
+$txt['search1'] = 'è§ïiÇå©Ç¬ÇØÇÈ';
+$txt['search2'] = 'åüçı';
+$txt['search3'] = 'åüçıï˚ñ@';
+$txt['search4'] = 'ëSÇƒÇÃåÍãÂÉ}ÉbÉ`';
+$txt['search5'] = 'Ç¢Ç∏ÇÍÇ©ÇÃåÍãÂÉ}ÉbÉ`';
+$txt['search6'] = 'åüçı';
+
+// guarantee.php
+$txt['guarantee1'] = 'ï€èÿ';
+
+// contact.php
+$txt['contact1'] = 'éøñ‚ÉtÉHÅ[ÉÄ'. $shopurl;
+$txt['contact2'] = 'ÉÅÉbÉZÅ[ÉWëóêM';
+$txt['contact3'] = 'ÉÅÉbÉZÅ[ÉWÇ™ëóêMÇ≥ÇÍÇ‹ÇµÇΩÅBïKóvÇ™Ç†ÇÍÇŒÅAíºÇÆÇ…ï‘êMÇ¢ÇΩÇµÇ‹Ç∑ÅB';
+$txt['contact5'] = 'ÉtÉHÅ[ÉÄçÄñ⁄ëSÇƒÇì¸óÕÇ∑ÇÈïKóvÇ™Ç†ÇËÇ‹Ç∑ÅB<br /><a href="javascript:history.go(-1)"><strong>Ç±ÇøÇÁÇÉNÉäÉbÉN</strong></a> ñﬂÇÈÇ…ÇÕ';
+$txt['contact6'] = 'Ç®ñ‚çáÇπ';
+$txt['contact7'] = 'Ç«ÇÃólÇ…òAóçÇÇ∆ÇÈÇÃÇ©';
+$txt['contact8'] = 'EÉÅÅ[Éã';
+$txt['contact9'] = 'ìdòb';
+$txt['contact10'] = 'ÉtÉ@ÉbÉNÉX';
+$txt['contact11'] = 'ÉEÉFÉuÉTÉCÉgè„Ç≈Ç®ñ‚çáÇπí∏Ç≠Ç…ÇÕÅAâ∫ÇÃÉtÉHÅ[ÉÄÇ©ÇÁÇ®ñ‚çáÇπÇµÇƒÇ≠ÇæÇ≥Ç¢:';
+$txt['contact12'] = 'ëóÇËêÊ';
+$txt['contact13'] = 'Ç†Ç»ÇΩÇÃñºëO';
+$txt['contact14'] = 'ÉÅÅ[ÉãÉAÉhÉåÉX';
+$txt['contact15'] = 'ÉÅÉbÉZÅ[ÉW';
+
+// checklogin.php
+$txt['checklogin1'] = ÉçÉOÉCÉìÇ…å¬êlÉRÅ[ÉhÇÇ≤égópÇµÇƒâ∫Ç≥Ç¢';
+$txt['checklogin2'] = 'ÉçÉOÉCÉìñº';
+$txt['checklogin3'] = 'ÉpÉXÉèÅ[Éh';
+$txt['checklogin4'] = 'ÉçÉOÉCÉì';
+$txt['checklogin5'] = 'Ç‹ÇæÅAÇ®ãqólIDÇÇ®éùÇøÇ≈ÇÕÇ»Ç¢ï˚ÇÕÇ±ÇøÇÁÇÉNÉäÉbÉNÇµÇƒâ∫Ç≥Ç¢';
+$txt['checklogin6'] = 'ÉÅÉìÉoÅ[Ç…Ç»ÇÈóùóR';
+$txt['checklogin7'] = 'ìñìXÇ≈è§ïiÇÇ®îÉÇ¢ãÅÇﬂí∏Ç≠Ç…ÇÕÅAÉÅÉìÉoÅ[ìoò^Ç™ïKóvÇ≈Ç∑ÅBìoò^Ç…ÇÕñºëOÅAëóïtêÊèZèäÅAÉÅÅ[ÉãÉAÉhÉåÉXÇ»Ç«Çì¸óÕÇµÇ‹Ç∑ÅBÇ±ÇÍÇÁÇÃèÓïÒÇ™è§ïiÇê≥ÇµÇ≠èàóùÇ∑ÇÈÇΩÇﬂÇ…ïKóvÇ≈Ç∑ÅB<br /><br /><strong>Ç†Ç»ÇΩÇÃèÓïÒÇÕìñìXÇÃÇ›Ç≈égópÇ¢ÇΩÇµÇ‹Ç∑ÅB</strong><br /><br /><br />ÉÅÉìÉoÅ[ìoò^å„Ç…â¬î\Ç»ëÄçÏ:<ul><li>Ç«ÇÃPCÇ©ÇÁÇ≈Ç‡ÉçÉOÉCÉì<li>è§ïiÇÃíçï∂<li>íçï∂ÇµÇΩè§ïiÇÃèàóùèÛãµÇämîF<li>Ç®îÉÇ¢ï®Ç©Ç≤ÇÃä«óù</ul>';
+$txt['checklogin8'] = 'ÉçÉOÉCÉìèÓïÒÇñYÇÍÇΩ';
+$txt['checklogin9'] = 'Ç†Ç»ÇΩÇ®ÉAÉJÉEÉìÉgÇ≈óòópÇ∑ÇÈÉÅÅ[ÉãÉAÉhÉåÉXÇì¸óÕÇµÇƒâ∫Ç≥Ç¢ÅBÉçÉOÉCÉìèÓïÒÇ™ì¸óÕÇ≥ÇÍÇΩÉAÉhÉåÉXÇ…ëóêMÇ≥ÇÍÇ‹Ç∑ÅB';
+$txt['checklogin10'] = 'ÉÅÅ[ÉãëóêM';
+$txt['checklogin11'] = 'ÉçÉOÉCÉìèÓïÒÇé∏Ç≠ÇµÇΩ';
+$txt['checklogin12'] = 'ÉçÉOÉCÉìèÓïÒÇ™ëóêMÇ≥ÇÍÇΩÉAÉhÉåÉX';
+$txt['checklogin13'] = 'ÉçÉOÉCÉìè„ÇÇé∏Ç≠ÇµÇΩ'. $shopurl;
+$txt['checklogin14'] = "Ç†ÇΩÇ»ÇÃÉäÉNÉGÉXÉgÇ…ÇÊÇËÅAÉçÉOÉCÉìèÓïÒÇ™ëóêMÇ≥ÇÍÇ‹ÇµÇΩÅB(<a href=\"$shopurl\">$shopurl</a>)";
+$txt['checklogin15'] = 'Ç†Ç»ÇΩÇ™ì¸óÕÇµÇΩÉÅÅ[ÉãÉAÉhÉåÉXÇ…äYìñÇ∑ÇÈÇ®ãqólÇ™å©Ç¬Ç©ÇËÇ‹ÇπÇÒÅB';
+$txt['checklogin18'] = 'ñﬂÇÈ';
+
+// login.php
+$txt['login1'] = 'ÉçÉOÉCÉìÇ≈ÉGÉâÅ[Ç™î≠ê∂ÇµÇ‹ÇµÇΩÅEÅEÅEÇµÇŒÇÁÇ≠Ç®ë“Çøâ∫Ç≥Ç¢ÅB';
+$txt['login2'] = 'Ç‹ÇΩÇÕÅAÇ±ÇøÇÁÇÉNÉäÉbÉN';
+$txt['login3'] = 'ÉçÉOÉCÉìÇµÇƒÇ¢Ç‹Ç∑ÅBÇµÇŒÇÁÇ≠Ç®ë“Çøâ∫Ç≥Ç¢ÅB';
+
+// logout.php
+$txt['logout1'] = 'ÉçÉOÉIÉtÇµÇƒÇ¢Ç‹Ç∑ÅB';
+
+// my.php
+$txt['my3'] = 'Ç†Ç»ÇΩÇÃÉpÅ[É\ÉiÉãÉyÅ[ÉWÇ…Ç¬Ç¢Çƒ';
+$txt['my4'] = 'Ç†Ç»ÇΩÇÃÉpÅ[É\ÉiÉãÉyÅ[ÉWÇ≈Ç∑ÅBê≥ÇµÇ≠ÉçÉOÉCÉìÇµÇΩèÍçáÅAÇ†Ç»ÇΩÇÃÇ›ÉAÉNÉZÉXâ¬î\Ç≈Ç∑ÅB.<br /><br />Ç±ÇøÇÁÇÃâÊñ Ç≈Ç†Ç»ÇΩÇÃèÓïÒÅAîÉÇ¢ï®Ç©Ç≤Ç»Ç«Çï\é¶Ç≈Ç´Ç‹Ç∑ÅB';
+$txt['my5'] = 'ÉpÅ[É\ÉiÉãÉyÅ[ÉWÉIÉvÉVÉáÉì';
+$txt['my6'] = 'Ç®ãqólID';
+$txt['my7'] = 'èÓïÒÇÃïœçX';
+$txt['my8'] = 'íçï∂ÇÃï\é¶';
+$txt['my9'] = 'Ç®îÉÇ¢ï®Ç©Ç≤ï\é¶';
+
+// admin.php
+$txt['admin1'] = 'ÉVÉáÉbÉvä«óù';
+$txt['admin2'] = 'ÇªÇÃëº';
+$txt['admin3'] = 'å⁄ãq';
+$txt['admin4'] = 'ìXï‹';
+$txt['admin5'] = 'è§ïi';
+$txt['admin6'] = 'ÉOÉãÅ[ÉvÅï<br />ÉJÉeÉSÉäÅ[';
+$txt['admin7'] = 'ÉfÅ[É^Å[ÉxÅ[ÉXç≈ìKâª';
+$txt['admin8'] = 'ê›íË';
+$txt['admin10'] = 'ëSÉfÅ[É^Å[ÉxÅ[ÉXÉeÅ[ÉuÉãç≈ìKâª';
+$txt['admin11'] = 'ç≈ìKâªíÜÅEÅE';
+$txt['admin12'] = 'ç≈ìKâªäÆóπÅI';
+$txt['admin13'] = 'èÓïÒÇ∆ÉTÉ|Å[Ég';
+$txt['admin14'] = 'ÉAÉbÉvÉfÅ[ÉgÉ`ÉFÉbÉN';
+$txt['admin15'] = 'àÍî èåè';
+$txt['admin16'] = 'îzëóÉyÅ[ÉW';
+$txt['admin17'] = 'ï€èÿÉyÅ[ÉW';
+$txt['admin18'] = 'îzëóÉIÉvÉVÉáÉì';
+$txt['admin19'] = 'ã÷é~ÉäÉXÉg';
+$txt['admin20'] = 'ìñìXÇ…Ç¬Ç¢Çƒ';
+$txt['admin21'] = 'Ç®éxï•Ç¢ÉIÉvÉVÉáÉì';
+$txt['admin22'] = 'ÉtÉçÉìÉgÉyÅ[ÉW';
+$txt['admin23'] = 'ê›íËïœçX';
+$txt['admin24'] = 'ÉtÉ@ÉCÉãïœçX';
+$txt['admin25'] = 'ÉCÉìÉtÉHÉÅÅ[ÉVÉáÉì';
+$txt['admin26'] = 'ÉGÉâÅ[ÉçÉO';
+$txt['admin27'] = 'ÉoÉbÉNÉAÉbÉvÉfÅ[É^Å[ÉxÅ[ÉX';
+$txt['admin28'] = 'ÉoÉbÉNÉAÉbÉväÆóπÅBÉoÉbÉNÉAÉbÉvÇÉ_ÉEÉìÉçÅ[ÉhÇ∑ÇÈÇ…ÇÕÅAâ∫ÇÃÉäÉXÉgÇÉNÉäÉbÉN';
+$txt['admin29'] = 'ä«óù';
+$txt['admin30'] = 'í«â¡ÉyÅ[ÉW';
+$txt['admin31'] = 'ÉAÉNÉZÉXÉçÉO';
+$txt['admin32'] = 'ç›å…ä«óù';
+$txt['admin33'] = 'è§ïiêî(';
+$txt['admin34'] = ') ÇÕâ∫ãLÇ™ç≈è¨ç›å…ÉåÉxÉãÇ≈Ç∑';
+$txt['admin35'] = 'ÉÅÅ[ÉãÉäÉXÉg';
+$txt['admin36'] = '<strong><font color="red">FreeWebshop.orgÇ©ÇÁÇÃÉjÉÖÅ[ÉXÇ™Ç†ÇËÇ‹Ç∑</font></strong><br /><br />ÉZÉLÉÖÉäÉeÉBÅ[èCïúÇ™Ç≥ÇÍÇ‹ÇµÇΩÅAêVÉoÅ[ÉWÉáÉìÇ©èdóvÇ»ÉjÉÖÅ[ÉXÅB â∫ãLÇÉNÉäÉbÉNÇ∑ÇÈÇ©ÅAÇ±Ç±ÇñKñ‚<a href="http://www.freewebshop.org">FreeWebshop.org</a>!<br /><br />(Ç±ÇÃÇ®ímÇÁÇπÇÕÅAêVÇµÇ¢ÉjÉÖÅ[ÉXÇ™Ç†ÇÈéûÇÃÇ›éÛÇØéÊÇËÇ‹Ç∑)';
+$txt['admin37'] = 'îzëóçë';
+$txt['admin38'] = 'äÑà¯';
+
+// customeradmin.php
+$txt['customeradmin1'] = 'ê©';
+$txt['customeradmin2'] = 'ìoò^ì˙ït';
+$txt['customeradmin3'] = 'ÉÅÅ[Éã';
+$txt['customeradmin4'] = 'ìdòb';
+$txt['customeradmin5'] = 'ÉIÉvÉVÉáÉì';
+$txt['customeradmin6'] = 'ÉÅÉìÉoÅ[ä«óù';
+$txt['customeradmin7'] = 'Ç±ÇÃï˚ÇÕåªç›ÉOÉãÅ[ÉvÇÃä«óùé“Ç≈Ç∑';
+$txt['customeradmin8'] = 'Ç±ÇÃï˚ÇÕåªç›ÅAå⁄ãqÉÅÉìÉoÅ[ÉOÉãÅ[ÉvÇ≈Ç∑';
+$txt['customeradmin9'] = 'äYìñÇÃå⁄ãqÇÕå©Ç¬Ç©ÇËÇ‹ÇπÇÒ';
+$txt['customeradmin10'] = 'åüçı';
+
+// orderadmin.php
+$txt['orderadmin1'] = 'Ç†Ç»ÇΩÇÃíçï∂èÛãµ';
+$txt['orderadmin2'] = 'ïœçXÇ≥ÇÍÇ‹ÇµÇΩ';
+$txt['orderadmin3'] = 'íçï∂ÇÕà⁄ìÆÇ≥ÇÍÇ‹ÇµÇΩ';
+$txt['orderadmin4'] = "<br /><br /><a href=\"$shopurl/index.php?page=orders&id=";
+$txt['orderadmin5'] = '">Ç±ÇøÇÁÇÉNÉäÉbÉN</a> ÇÇµåªç›ÇÃíçï∂èÛãµÇÃämîF';
+$txt['orderadmin6'] = 'ÉÅÅ[ÉãÇëóÇÈ';
+$txt['orderadmin7'] = 'å⁄ãqÇ÷ÉÅÅ[ÉãëóêM';
+$txt['orderadmin8'] = 'ÉAÉbÉvÉfÅ[Ég';
+$txt['orderadmin9'] = 'ëSÇƒÇÃíçï∂';
+$txt['orderadmin10'] = 'Ç†Ç»ÇΩÇÃì¡íËÇµÇΩíçï∂ÇÕÇ†ÇËÇ‹ÇπÇÒ';
+$txt['orderadmin11'] = 'ï\é¶';
+$txt['orderadmin12'] = 'îıçl: Ç®ãqólÇ™ÉÅÉÇÇí«â¡ÇµÇ‹ÇµÇΩ';
+$txt['orderadmin13'] = 'íçï∂ä«óù';
+$txt['orderadmin14'] = 'èÛãµïœçX';
+$txt['orderadmin15'] = 'íçï∂èÛãµÇïœçXÇµÇ‹ÇµÇΩ';
+
+// orders.php
+$txt['orders3'] = 'Ç≤íçï∂ì‡óe<a href=# class=info>(?)<span>â∫ãLÇÕÇ†Ç»ÇΩÇÃíçï∂Ç∆ÇªÇÍÇÁÇÃèÛãµÇ≈Ç∑ÅB<br />è⁄ç◊ÇÃï\é¶ÇÕíçï∂IDÇÉNÉäÉbÉNÇµÇƒâ∫Ç≥Ç¢ÅB</span></a>';
+$txt['orders4'] = 'íçï∂ID';
+$txt['orders5'] = 'îzëóÅïÇ®éxï•Ç¢';
+$txt['orders6'] = 'Ç≤êøãÅã‡äz';
+$txt['orders7'] = 'íçï∂ì˙ït';
+$txt['orders8'] = 'èÛãµ';
+$txt['orders9'] = 'Ç±ÇøÇÁÇÃÉVÉáÉbÉvÇ≈Ç‹ÇæÅAÇ≤íçï∂ÇÇ≥ÇÍÇƒÇ¢Ç‹ÇπÇÒ';
+
+// customer.php
+$txt['customer1'] = 'èÛë‘';
+$txt['customer2'] = 'Ç®ãqólà⁄ìÆ';
+$txt['customer3'] = 'ñﬂÇÈ';
+$txt['customer5'] = 'ë±ÇØÇÈÇ…ÇÕÉGÉâÅ[ÇâåàÇµÇƒÇ≠ÇæÇ≥Ç¢';
+$txt['customer6'] = '(*)Ç™ïtÇ¢ÇƒÇ¢ÇÈçÄñ⁄ÇÕëSÇƒì¸óÕÇµÇƒâ∫Ç≥Ç¢';
+$txt['customer7'] = 'ÉÜÅ[ÉUÅ[ñºÇÕâpêîéöÇ≈ì¸óÕÇµÇƒâ∫Ç≥Ç¢';
+$txt['customer8'] = 'ÇQÇ¬ÇÃÉpÉXÉèÅ[ÉhÇ™àÍívÇµÇƒÇ¢Ç‹ÇπÇÒ';
+$txt['customer9'] = '5ï∂éöà»è„Ç≈ÉpÉXÉèÅ[ÉhÇì¸óÕÇµÇƒâ∫Ç≥Ç¢';
+$txt['customer10'] = 'óLå¯Ç≈ÇÕÇ»Ç¢ÉÅÅ[ÉãÉAÉhÉåÉXÇ™ì¸óÕÇ≥ÇÍÇ‹ÇµÇΩ';
+$txt['customer11'] = "ÇÊÇ§Ç±Çª $shopname";
+$txt['customer12'] = "$tussenvoegsels $naamÅ@ól,<br /><br />$shopname WebshopÅ@Ç÷ìoò^Ç†ÇËÇ™Ç∆Ç§Ç≤Ç¥Ç¢Ç‹Ç∑ (<a href=\"$shopurl\">$shopurl</a>).<br /><br />ÉVÉáÉbÉvÇ…ÉçÉOÉCÉìÇµÇ‹ÇµÇΩÅBè§ïiÇÃçwì¸ÇÇµÇƒâ∫Ç≥Ç¢<br />Ç‹ÇΩÇÕÅAíçï∂ì‡óeÇï\é¶ÇµÇƒÇ≠ÇæÇ≥Ç¢ÅB<br /><br />Ç†Ç»ÇΩÇÃÉçÉOÉCÉìèÓïÒ:<br />ÉçÉOÉCÉìñº:  $login<br />ÉpÉXÉèÅ[Éh: $pass1<br /><br />ëÂêÿÇ…Ç±ÇÃèÓïÒÇï€ä«ÇµÇƒâ∫Ç≥Ç¢ÅB<br /><br /><a href=\"$shopurl\">$shopurl</a>Ç≈Ç®âÔÇ¢Ç¢ÇΩÇµÇ‹ÇµÇÂÇ§ÅB<br /><br />åhãÔÅA<br /><br /><br />ä«óùé“";
+$txt['customer13'] = 'Ç†Ç»ÇΩÇÃèÓïÒÇÕê≥ÇµÇ≠ìoò^Ç≥ÇÍÇ‹ÇµÇΩÅB';
+$txt['customer14'] = 'Ç≈Ç´ÇÈÇæÇØê≥ämÇ»èÓïÒÇíÒãüÇµÇƒÇ≠ÇæÇ≥Ç¢ÅB';
+$txt['customer15'] = 'ÉçÉOÉCÉìñº';
+$txt['customer16'] = 'ÉpÉXÉèÅ[Éh';
+$txt['customer17'] = 'ÉpÉXÉèÅ[Éhçƒì¸óÕ';
+$txt['customer18'] = 'ê©';
+$txt['customer19'] = 'åhèÃ';
+$txt['customer20'] = 'ÉCÉjÉVÉÉÉã';
+$txt['customer21'] = 'èZèä';
+$txt['customer22'] = 'óXï÷î‘çÜ';
+$txt['customer23'] = 'ésí¨ë∫';
+$txt['customer24'] = 'çë';
+$txt['customer25'] = 'ìdòb';
+$txt['customer26'] = 'ÉÅÅ[Éã';
+$txt['customer27'] = '* = ì¸óÕïKê{';
+$txt['customer28'] = 'ï€ë∂';
+$txt['customer29'] = 'ì¸óÕÇµÇƒí∏Ç¢ÇΩÉÜÅ[ÉUÅ[ñºÇÕä˘Ç…ÅAëºÇÃÇ®ãqólÇ…ÇÊÇËÇ≤óòópÇ≥ÇÍÇƒÇ¢Ç‹Ç∑';
+$txt['customer30'] = 'âÔé–';
+$txt['customer32'] = 'ä«óùÉAÉJÉEçÌèúÇµÇÊÇ§Ç∆ÇµÇƒÇ¢Ç‹Ç∑ÅBÇ±ÇÃëÄçÏÇÕÉVÉáÉbÉvÇ÷ÉçÉOÉCÉìÇ™èoóàÇ»Ç≠Ç»ÇÈà◊ÅAãëî€Ç≥ÇÍÇ‹ÇµÇΩ';
+$txt['customer33'] = '(5ï∂éöà»è„10ï∂éöà»ì‡)';
+$txt['customer34'] = 'ì¸óÕÇ≥ÇÍÇΩÉÅÅ[ÉãÉAÉhÉåÉXÇÕä˘Ç…ÅAëºÇÃÇ®ãqólÇ™ìoò^Ç≥ÇÍÇƒÇ¢Ç‹Ç∑';
+$txt['customer35'] = 'ÉçÉOÉCÉìÇÕÇ±ÇøÇÁÇÉNÉäÉbÉN';
+$txt['customer36'] = 'êVãKÇ®ãqól';
+$txt['customer37'] = 'Ç®ãqólÇ™ÉVÉáÉbÉvÇ÷ìoò^Ç≥ÇÍÇ‹ÇµÇΩÅBÇ®ãqólÇ÷ëóêMÇµÇΩÉÅÅ[ÉãÇÃÉRÉsÅ[ÇÕâ∫ãLÇ…ï\é¶:';
+$txt['customer38'] = 'ÉjÉÖÅ[ÉXÉåÉ^Å[';
+
+// readorder.php
+$txt['readorder1'] = 'íçï∂ì‡óeÇÃàÛç¸';
+$txt['readorder2'] = 'íçï∂Ç…ñﬂÇÈ';
+
+// editsettings.php
+$txt['editsettings1'] = 'ê›íËïœçX';
+$txt['editsettings2'] = 'ê›íËï€ë∂';
+$txt['editsettings3'] = 'è§ïiç›å…ÇâBÇ∑';
+$txt['editsettings4'] = 'äÓñ{îzëóçë<a href=# class=info>(?)<span>í èÌÇÕÇ†Ç»ÇΩÇÃâÔé–ÇÃíìç›çëÇ≈Ç∑</span></a>';
+$txt['editsettings5'] = 'ç›å…êîÇï\é¶';
+$txt['editsettings7'] = 'éÛÇØéÊÇÈç€ÇÃí«â¡îzëóóøã‡ÉåÅ[Ég<a href=# class=info>(?)<span>í èÌÇÃîzëóóøã‡ÉåÅ[ÉgÅAí«â¡óøã‡ÇÃÉtÉHÅ[ÉÄÅ@ÉtÉHÅ[É}ÉbÉg: 12.34</span></a>';
+$txt['editsettings8'] = 'í â›';
+$txt['editsettings9'] = 'í â›ï∂éö <a href=# class=info>(?)<span>Ç†Ç»ÇΩÇÃèÍçá: $</span></a>';
+$txt['editsettings10'] = 'ÇòÇòà»ì‡Ç…Ç®éxï•Ç¢ÇµÇƒâ∫Ç≥Ç¢<a href=# class=info>(?)<span>Ç≤íçï∂êîÇ™âΩì˙Ç≈Ç†Ç»ÇΩÇÃÉAÉJÉEÉìÉgÇ…îΩâfÇ≥ÇÍÇÈÇ©ÅH</span></a>';
+$txt['editsettings11'] = 'ê≈çûÇ›<a href=# class=info>(?)<span>è¡îÔê≈Ç™ÇTÅìÇÃèÍçáÇÃï\é¶ÅF1.05</span></a>';
+$txt['editsettings12'] = 'è¡îÔê≈<a href=# class=info>(?)<span>5ÅìÇÃè¡îÔê≈ÇÃï\é¶ÅF5Åì</span></a>';
+$txt['editsettings14'] = 'âcã∆ïîÇÃÉÅÅ[ÉãÉAÉhÉåÉX<a href=# class=info>(?)<span>Ç±ÇÃÉÅÅ[ÉãÉAÉhÉåÉXÇ…Ç≤íçï∂ì‡óeÇ™ëóêMÇ≥ÇÍÇ‹Ç∑ÅBó·Ç¶: sales@yourdomain.com</span></a>';
+$txt['editsettings15'] = 'ìXï‹ñº';
+$txt['editsettings16'] = 'ÉEÉFÉuÉVÉáÉbÉvURL <a href=# class=info>(?)<span>URLÇÕhttp://Ç©ÇÁénÇ‹ÇËÅA ññîˆ/ÇÕïtÇØÇ»Ç¢ÅBó·Ç¶: http://www.yourdomain.com/shop</span></a>';
+$txt['editsettings17'] = 'äÓñ{åæåÍ';
+$txt['editsettings18'] = 'íçï∂éØï î‘çÜ (ÉIÉvÉVÉáÉì) <a href=# class=info>(?)<span>ëSÇƒÇÃíçï∂î‘çÜÇÕéØï î‘çÜÇ≈énÇ‹ÇËÇ‹Ç∑ÅBó·: WEB-</span></a>';
+$txt['editsettings19'] = 'íçï∂ññîˆ î‘çÜ(ÉIÉvÉVÉáÉì) <a href=# class=info>(?)<span>ëSÇƒÇÃíçï∂î‘çÜÇÕññîˆî‘çÜÇ≈èIÇÌÇËÇ‹Ç∑ÅBó·ÅFåªç›ÇÃîN -06</span></a>';
+$txt['editsettings20'] = 'ç›å…êîÇégópÇ∑ÇÈa href=# class=info>(?)<span><strong>óL:</strong> ç›å…êîÇégópÇ∑ÇÈ<br /><br /><strong>ñ≥:</strong> ç›å…èÛãµÇégópÇ∑ÇÈ(ç›å…óLÇË/Ç®éÊÇËäÒÇπ/îÑÇËêÿÇÍ)</span></a>';
+$txt['editsettings21'] = 'óòópÇ≈Ç´ÇÈíçï∂ÉÇÉWÉÖÅ[Éã';
+$txt['editsettings22'] = 'óLå¯Ç≈Ç»Ç¢ÉEÉFÉuÉVÉáÉbÉv';
+$txt['editsettings23'] = 'óLå¯Ç≈Ç»Ç¢ÉEÉFÉuÉVÉáÉbÉvÉ^ÉCÉgÉã';
+$txt['editsettings24'] = 'óLå¯Ç≈Ç»Ç¢ÉEÉFÉuÉVÉáÉbÉvÉÅÉbÉZÅ[ÉW';
+$txt['editsettings25'] = 'ÉEÉFÉuÉ}ÉXÉ^Å[ÉÅÅ[ÉãÉAÉhÉåÉX';
+$txt['editsettings26'] = 'ìdòbî‘çÜÅiÉIÉvÉVÉáÉìÅj';
+$txt['editsettings27'] = 'ÉtÉ@ÉbÉNÉXî‘çÜÅiÉIÉvÉVÉáÉìÅj';
+$txt['editsettings28'] = 'ã‚çs'å˚ç¿';
+$txt['editsettings29'] = 'ñºã`êl';
+$txt['editsettings30'] = 'ã‚çsèäç›(ésí¨ë∫Åj';
+$txt['editsettings31'] = 'ã‚çsèäç›çë';
+$txt['editsettings32'] = 'ã‚çsIBAN';
+$txt['editsettings33'] = 'ã‚çs BIC';
+$txt['editsettings34'] = 'äJénîN<a href=# class=info>(?)<span>Ç†Ç»ÇΩÇ™âÔé–ÇénÇﬂÇΩîN</span></a>';
+$txt['editsettings35'] = 'ÉçÉS <a href=# class=info>(?)<span>Ç†Ç»ÇΩÇ™éùÇ¡ÇƒÇ¢ÇÈÉçÉSÅBÇ±ÇÍÇÕÉtÉHÉãÉ_Å[Ç…ï€ë∂Ç≥ÇÍÇƒÇ¢ÇÈïKóvÇ™Ç†ÇËÇ‹Ç∑ÅB<strong>'.$gfx_dir.'</strong></span></a>';
+$txt['editsettings37'] = 'âÔé–ÉXÉçÅ[ÉKÉìÅiÉIÉvÉVÉáÉìÅj <a href=# class=info>(?)<span>ÉXÉçÅ[ÉKÉìÇÕÉçÉSÇÃâ∫Ç…ÉvÉäÉìÉgÇ≈Ç´Ç‹Ç∑</span></a>';
+$txt['editsettings38'] = 'ÉyÅ[ÉWÉ^ÉCÉgÉã <a href=# class=info>(?)<span>É^ÉCÉgÉãÇÕÉEÉFÉuÉVÉáÉbÉvÇ™ï\é¶Ç≥ÇÍÇÈÉuÉâÉEÉUÅ[Ç…ï\é¶Ç≥ÇÍÇ‹Ç∑</span></a>';
+$txt['editsettings39'] = 'ÉtÉbÉ^Å[';
+$txt['editsettings44'] = 'ê›íËÇÕÉfÅ[É^Å[ÉxÅ[ÉXÇ…ï€ë∂Ç≥ÇÍÇ‹ÇµÇΩ';
+$txt['editsettings45'] = 'ã‚çsè⁄ç◊';
+$txt['editsettings46'] = 'ÉåÉCÉAÉEÉg';
+$txt['editsettings47'] = 'ìXï‹';
+$txt['editsettings48'] = 'ÉtÉ@ÉCÉiÉìÉX';
+$txt['editsettings49'] = 'ÉiÉìÉoÅ[ÉtÉHÉ}ÉbÉg';
+$txt['editsettings50'] = 'ç≈ëÂÇÃê‡ñæï∂éöêî <a href=# class=info>(?)<span>óøã‡àÍóóÇ≈ÇÕê‡ñæï∂Ç™íZÇ≠Ç»ÇËÇ‹Ç∑ÅB<br /><strong>0 = è»ó™ÇÕÇµÇ»Ç¢Ç≈â∫Ç≥Ç¢<br />1-99 = ÉèÅ[ÉhÉâÉbÉv xxï∂éö</strong></span></a>';
+$txt['editsettings52'] = 'ã‚çsñº';
+$txt['editsettings53'] = 'óøã‡àÍóóÉtÉHÅ[É}ÉbÉg<a href=# class=info>(?)<span>Ç±ÇÃê›íËÇÕóøã‡ÉäÉXÉgÇ…ìKópÇ≥ÇÍÅAîÉÇ¢ï®Ç©Ç≤Ç∆íçï∂ämîFÉÅÅ[ÉãÇ…égópÇ≥ÇÍÇ‹Ç∑</span></a>';
+$txt['editsettings54'] = 'è§ïiID';
+$txt['editsettings55'] = 'ê‡ñæ';
+$txt['editsettings56'] = 'è§ïiID Ç∆ê‡ñæ';
+$txt['editsettings57'] = 'ì˙ïtÉtÉHÅ[É}ÉbÉg<a href=# class=info>(?)<span><strong>d-m-Y @ G:i</strong> dd-mm-jjjj @ 23:59<br /><strong>m-d-Y @ G:i</strong> mm-dd-jjjj @ 23:59<br /></span></a>';
+$txt['editsettings58'] = 'gfxÇóøã‡ÉäÉXÉgì‡Ç≈åüçı<a href=# class=info>(?)<span>óøã‡ÉäÉXÉgÇÉçÅ[ÉfÉBÉìÉOÇµÇƒÇ¢ÇÈä‘Ç…ÅAólÅXÇ»è§ïiÇÃé ê^ÇåüçıÅBé ê^Ç™å©Ç¬Ç©ÇÈÇ∆ÉAÉCÉRÉìÇ™è§ïiÇÃå„ÇÎÇ…ï\é¶Ç≥ÇÍÇÈà◊ÅAÇ®ãqólÇÕé ê^Ç™Ç†ÇÈÇ±Ç∆Ç™ï™Ç©ÇËÇ‹Ç∑ÅB<br /><br />ÉçÅ[ÉfÉBÉìÉOéûä‘ÇíZÇ≠Ç∑ÇÈÅAÇ‹ÇΩÇÕé ê^Ç™ÉäÉÇÅ[ÉgÉzÉXÉgÇ…Ç†ÇÈèÍçáÅAÇ±ÇÃÉIÉvÉVÉáÉìÇñ≥å¯Ç…Ç∑ÇÈÇ◊Ç´Ç≈Ç∑</span></a>';
+$txt['editsettings59'] = 'é ê^ÇégópÇ∑ÇÈ<a href=# class=info>(?)<span>è§ïiÇ…é ê^Ç™Ç»Ç¢èÍçáÇÕÅAÇ±ÇÃÉIÉvÉVÉáÉìÇñ≥å¯Ç…Ç∑ÇÈÇ◊Ç´Ç≈Ç∑</span></a>';
+$txt['editsettings69'] = 'èkè¨ÉTÉCÉYÇóøã‡ÉäÉXÉgÇ…égópÇ∑ÇÈ<a href=# class=info>(?)<span>ï\é¶(å©Ç¬Ç©Ç¡ÇΩèÍçá)ê‡ñæï™ÇÃëOÇ…è¨Ç≥Ç»è§ïiÇï\é¶Ç∑ÇÈÉvÉåÉrÉÖÅ[</span></a>';
+$txt['editsettings70'] = 'ÉLÅ[ÉèÅ[Éh(,Ç≈ãÊêÿÇÈ) <a href=# class=info>(?)<span>åüçıÉGÉìÉWÉìÇ≈å©Ç¬ÇØÇƒÇ‡ÇÁÇ¢ÇΩÇ¢íPåÍ</span></a>';
+$txt['editsettings71'] = 'ÉRÉìÉsÉÖÅ[É^Å[ÇÃï∂éöÉRÅ[ÉhÇégópÇ∑ÇÈ'<a href=# class=info>(?)<span>åæåÍÇ…ÇÊÇ¡ÇƒàŸÇ»Ç¡ÇΩï∂éöê›íËÇ™ïKóvÇ≈Ç∑ÅBISO-8859-1</span></a>';
+$txt['editsettings73'] = 'ï€èÿÉäÉìÉNï\é¶';
+$txt['editsettings75'] = 'é ê^ÉtÉ@ÉCÉãñº<a href=# class=info>(?)<span>åæåÍÇ…ÇÊÇ¡ÇƒÉtÉ@ÉCÉãñºÇ…ãñâ¬Ç≥ÇÍÇ»Ç¢ï∂éöÇ™Ç†ÇËÇ‹Ç∑ÅBëÂëÃÇÃÉPÅ[ÉXÇ≈ÉfÅ[É^Å[ÉxÅ[ÉXIDÇégópÇ∑ÇÈÇ∆ÇÊÇ¢ÅB</span></a>';
+$txt['editsettings76'] = 'ÉfÅ[É^Å[ÉxÅ[ÉXID (êÑèß)';
+$txt['editsettings77'] = 'è§ïiID';
+$txt['editsettings78'] = 'ìñìXÇ…Ç¬Ç¢ÇƒÉäÉìÉNï\é¶';
+$txt['editsettings79'] = 'ÉâÉCÉuÉjÉÖÅ[ÉXÇóLå¯Ç…Ç∑ÇÈ<a href=# class=info>(?)<span>óLå¯Ç…Ç∑ÇÈÇ±Ç∆Ç≈FreeWebshop.orgÇ©ÇÁÇÃçXêVÇ≥ÇÍÇΩèÓïÒÇ‚ÇªÇÃëºÇÃÉjÉÖÅ[ÉXÇÇ®ímÇÁÇπÇµÇ‹Ç∑ÅB Ç±ÇÃÉIÉvÉVÉáÉìÇÃàµÇ¢Ç™ç¢ìÔÇ»èÍçáÇÃÇ›ñ≥å¯Ç…ÇµÇƒâ∫Ç≥Ç¢</span></a>';
+$txt['editsettings80'] = 'óøã‡ÉäÉXÉgèkè¨â°ÉTÉCÉY<a href=# class=info>(?)<span>â°pixels.<br />ÉfÉtÉHÉãÉg=50<br/>0=ÉäÉTÉCÉYñ≥å¯</span></a>';
+$txt['editsettings81'] = 'óøã‡ÉäÉXÉgèkè¨ècÉTÉCÉY<a href=# class=info>(?)<span>èc pixels.<br />ÉfÉtÉHÉãÉg=50<br />0=ÉäÉTÉCÉYñ≥å¯</span></a>';
+$txt['editsettings82'] = 'ÉJÉeÉSÉäÅ[èkè¨â°ÉTÉCÉY<a href=# class=info>(?)<span>â° pixels.<br />ÉfÉtÉHÉãÉg=50<br />0=ÉäÉTÉCÉYñ≥å¯</span></a>';
+$txt['editsettings83'] = 'ÉJÉeÉSÉäÅ[èkè¨ècÉTÉCÉY<a href=# class=info>(?)<span>èc pixels.<br />ÉfÉtÉHÉãÉg=50<br />0=ÉäÉTÉCÉYñ≥å¯</span></a>';
+$txt['editsettings84'] = 'è§ïié ê^ç≈ëÂâ°ÉTÉCÉY <a href=# class=info>(?)<span>â°ç≈ëÂ pixels.<br />ÉfÉtÉHÉãÉg=450<br />9999=ñ≥å¯</span></a>';
+$txt['editsettings85'] = 'è§ïié ê^ç≈ëÂècÉTÉCÉY <a href=# class=info>(?)<span>ècç≈ëÂ pixels.<br />ÉfÉtÉHÉãÉg=350<br />9999=ñ≥å¯</span></a>';
+$txt['editsettings86'] = 'ëSÇƒ';
+$txt['editsettings87'] = 'êVè§ïiÉäÉìÉNï\é¶';
+$txt['editsettings88'] = 'WYSIWYGï“èWÇégópÇ∑ÇÈ';
+$txt['editsettings89'] = 'é©ìÆèkè¨çÏê¨ <a href=# class=info>(?)<span>è§ïié ê^ÇÉAÉbÉvÉçÅ[ÉhÇ∑ÇÈéûÇ…é©ìÆèkè¨çÏê¨Ç™ã@î\Ç∑ÇÈÇΩÇﬂÇ…ÇÕ <br /><strong>GD extension</strong>Ç≤óòópâ∫Ç≥Ç¢</span></a>';
+$txt['editsettings90'] = 'ÉVÉáÉbÉvê‡ñæ <a href=# class=info>(?)<span>åüçıÉGÉìÉWÉìÇÃÉVÉáÉbÉvÇÃÉCÉìÉfÉbÉNÉXÇ…égÇÌÇÍÇ‹Ç∑</span></a>';
+$txt['editsettings91'] = 'ÇPÉyÅ[ÉWï”ÇËÇÃè§ïi <a href=# class=info>(?)<span>ÇPÉyÅ[ÉWÇÃè§ïiêî<br />0 = ñ≥å¿</span></a>';
+$txt['editsettings92'] = 'ñ≥å¯';
+$txt['editsettings93'] = 'êiçs';
+$txt['editsettings94'] = 'ÉVÉìÉvÉã';
+$txt['editsettings95'] = 'ÉLÉÉÉvÉ`ÉÉégóp <a href=# class=info>(?)<span>ÉLÉÉÉvÉ`ÉÉégóp(antiÉXÉpÉÄ)Ç®ñ‚çáÇπÉtÉHÅ[ÉÄÇ∆Ç®ãqólìoò^</span></a>';
+$txt['editsettings96'] = 'ÉCÉÅÅ[ÉWÉ|ÉbÉvÉAÉbÉvégóp <a href=# class=info>(?)<span>å©ÇΩñ⁄Ç™ÉCÉÅÅ[ÉWÇégópÇ∑ÇÈ<br />JapaÉXÉNÉäÉbÉvóvãÅÇ≥ÇÍÇ‹Ç∑</span></a>';
+$txt['editsettings97'] = 'í â›ãLçÜ';
+$txt['editsettings98'] = 'Ç±ÇÃÉeÉìÉvÉåÅ[ÉgÇégóp';
+$txt['editsettings99'] = 'ç›å…ÉåÉxÉãÇÃåxçê';
+$txt['editsettings100'] = 'ç≈è¨ç›å…ÉåÉxÉã';
+$txt['editsettings101'] = 'èdó ÉNÉâÉX <a href=# class=info>(?)<span>êÑë™ <strong>LB</strong></span></a>';
+$txt['editsettings102'] = 'óøã‡ÉäÉXÉgÇ©ÇÁíçï∂';
+$txt['editsettings103'] = 'ÉfÅ[É^Å[èCê≥égóp <a href=# class=info>(?)<span>ÉGÉâÅ[ÉçÉOÇ™ÉfÅ[É^Å[åxçêÇ≈ÉtÉãÇ…Ç»Ç¡ÇΩéûÇÃÇ›Ç…égópÇ∑ÇÈ</span></a>';
+$txt['editsettings104'] = 'óøã‡ÉäÉXÉgÉ\Å[Ég';
+$txt['editsettings105'] = 'ê‡ñæ';
+$txt['editsettings106'] = 'óøã‡';
+$txt['editsettings107'] = 'é©ìÆé¿çsÇóLå¯Ç…Ç∑ÇÈ <a href=# class=info>(?)<span>óLå¯Ç…ÇµÇ®éxï•Ç¢ï˚ñ@Ç™ÉTÉ|Å[ÉgÇ≥ÇÍÇƒÇ¢ÇÈèÍçáÅAÇ®ãqólÇ™ëIëÇ≥ÇÍÇΩÇ®éxï•Ç¢É|Å[É^ÉãÇ÷à⁄ìÆÇµÇ‹Ç∑</span></a>';
+$txt['editsettings108'] = 'PDFçÏê¨ \'s <a href=# class=info>(?)<span>óLå¯Ç…Ç»Ç¡ÇƒÇ¢ÇÈèÍçáÇÕÅAÇ®ãqólÇÃÇ≤íçï∂ämîFÇ™PDFÇ≈ìYïtÇ≥ÇÍÉÅÅ[ÉãÇ…ÇƒëóêMÇ≥ÇÍÇ‹Ç∑</span></a>';
+$txt['editsettings109'] = 'ÉÅÅ[Éãï˚ñ@ <a href=# class=info>(?)<span>PHPÉÅÅ[Éãégóp() ÉÅÅ[ÉãÇëóêMÇ‹ÇΩÇÕÅAÇªÇÃëºÇÃÉIÉvÉVÉáÉìÇëIë</span></a>';
+
+// productadmin.php
+$txt['productadmin1'] = 'ÉAÉbÉvÉçÅ[ÉhÇ≥ÇÍÇ‹ÇµÇΩ ';
+$txt['productadmin2'] = 'ÉAÉbÉvÉçÅ[ÉhÉtÉ@ÉCÉãÇ≈ÉGÉâÅ[Ç™î≠ê∂ÇµÇ‹ÇµÇΩÅBçƒééçsÇµÇƒÇ≠ÇæÇ≥Ç¢ÅB';
+$txt['productadmin3'] = '.jpg, .png or .gif ÉtÉ@ÉCÉãÇ≈ÉAÉbÉvÉçÅ[ÉhÇµÇƒâ∫Ç≥Ç¢';
+$txt['productadmin4'] = 'ëºÇÃè§ïiÇí«â¡';
+$txt['productadmin5'] = 'è§ïiÉäÉXÉgÇ…ñﬂÇÈ';
+$txt['productadmin6'] = 'è§ïií«â¡';
+$txt['productadmin7'] = 'è§ïiÉAÉbÉvÉçÅ[Éh';
+$txt['productadmin8'] = 'êÊÇ…ÉOÉãÅ[ÉvÇí«â¡Ç∑ÇÈ';
+$txt['productadmin9'] = 'ID';
+$txt['productadmin10'] = 'ê‡ñæ <a href=# class=info>(?)<span>HTMLÉRÅ[ÉhÇ™ãñâ¬Ç≥ÇÍÇ‹ÇµÇΩ</span></a>';
+$txt['productadmin11'] = 'óøã‡ <a href=# class=info>(?)<span>ÉtÉHÅ[É}ÉbÉg: 123456.78</span></a>';
+$txt['productadmin12'] = 'ç›å…êî';
+$txt['productadmin13'] = 'ç›å… (0|1|2) <a href=# class=info>(?)<span>0=ç›å…Ç»Çµ<br />1=ç›å…óLÇË<br />2=Ç®éÊÇËäÒÇπ</span></a>';
+$txt['productadmin14'] = 'ÉtÉçÉìÉgÉyÅ[ÉW';
+$txt['productadmin15'] = 'êV';
+$txt['productadmin16'] = 'è§ïií«â¡';
+$txt['productadmin17'] = 'è§ïiÉAÉbÉvÉçÅ[Éh';
+$txt['productadmin18'] = 'ÉOÉãÅ[Év/ÉJÉeÉSÉäÅ[';
+$txt['productadmin19'] = 'jpg, png or gif ÉtÉ@ÉCÉãÇëIëÇµÇƒÇ≠ÇæÇ≥Ç¢';
+$txt['productadmin20'] = 'ÉAÉbÉvÉçÅ[Éh';
+$txt['productadmin21'] = 'óøã‡ÉAÉbÉvÉçÅ[Éh';
+$txt['productadmin22'] = 'êÊÇ…ÉJÉeÉSÉäÅ[Çí«â¡';
+$txt['productadmin23'] = 'è§ïiIDÇ™Ç»Ç¢à◊ÅAé ê^Ç™ÉAÉbÉvÉçÅ[ÉhÇ≈Ç´Ç‹ÇπÇÒ';
+$txt['productadmin24'] = 'Ç±ÇÃé ê^ÇçÌèú';
+$txt['productadmin25'] = 'é ê^çÌèúÇ…ê¨å˜ÇµÇ‹ÇµÇΩ';
+$txt['productadmin26'] = 'è§ïiçÌèúÇ…ê¨å˜ÇµÇ‹ÇµÇΩ';
+$txt['productadmin27'] = 'í«â¡ÉIÉvÉVÉáÉì';
+$txt['productadmin28'] = 'ëSÇƒÇÃé ê^èkè¨(ÇµÇŒÇÁÇ≠éûä‘Ç™Ç©Ç©ÇËÇ‹Ç∑)';
+$txt['productadmin29'] = 'ëSÇƒÇÃèkè¨é ê^Ç™çÏê¨Ç≥ÇÍÇ‹ÇµÇΩ(ïKóvÇ»èÍèäÇ≈)..';
+$txt['productadmin30'] = 'ã@î\ <a href=# class=info>(?)<span>ã@î\ÇP:ê‘ÅAîíÅAê¬|ã@î\ÇQ:è¨ÅAíÜÅAëÂ<br />ÉXÉyÅ[ÉXÇ»Çµ</span></a>';
+$txt['productadmin31'] = 'èdó  <a href=# class=info>(?)<span>Ç≤íçï∂çáåvÇÃèdÇ≥Ç™åvéZÇ≥ÇÍÇΩèdó </span></a>';
+
+// groupadmin.php
+$txt['groupadmin1'] = ' ÉAÉbÉvÉçÅ[ÉhÇÕäÆóπÇµÇ‹ÇµÇΩ';
+$txt['groupadmin2'] = 'ÉAÉbÉvÉçÅ[ÉhíÜÇ…ÉGÉâÅ[Ç™î≠ê∂ÇµÇ‹ÇµÇΩÅAçƒééçsÇµÇƒÇ≠ÇæÇ≥Ç¢ÅB';
+$txt['groupadmin3'] = '.jpg, png or .gif ÉtÉ@ÉCÉãÇ≈ÉAÉbÉvÉçÅ[ÉhÇµÇƒÇ≠ÇæÇ≥Ç¢ÅB';
+$txt['groupadmin4'] = 'ÉOÉãÅ[ÉvÇ™í«â¡Ç≥ÇÍÇ‹ÇµÇΩÅB';
+$txt['groupadmin5'] = 'ÉOÉãÅ[ÉvÉAÉbÉvÉfÅ[ÉgÇ≥ÇÍÇ‹ÇµÇΩÅB';
+$txt['groupadmin6'] = 'ÉOÉãÅ[ÉvÅiÉJÉeÉSÉäÅ[Ç∆è§ïiÇÃâ∫ÅjçÌèúÇ≥ÇÍÇ‹ÇµÇΩÅB';
+$txt['groupadmin7'] = 'ÉJÉeÉSÉäÅ[Ç™í«â¡Ç≥ÇÍÇ‹ÇµÇΩÅB';
+$txt['groupadmin8'] = 'ÉJÉeÉSÉäÅ[ÉAÉbÉvÉçÅ[ÉhÇ≥ÇÍÇ‹ÇµÇΩÅB';
+$txt['groupadmin9'] = 'ÉJÉeÉSÉäÅ[à⁄ìÆÇµÇ‹ÇµÇΩÅB';
+$txt['groupadmin10'] = 'ÉJÉeÉSÉäÅ[Åiè§ïiâ∫ÅjçÌèúÇ≥ÇÍÇ‹ÇµÇΩÅB';
+$txt['groupadmin11'] = 'ÉOÉãÅ[Évñº';
+$txt['groupadmin12'] = 'ÉOÉãÅ[Éví«â¡';
+$txt['groupadmin13'] = 'Ç‹ÇæÅAÉOÉãÅ[ÉvÇÕÇ†ÇËÇ‹ÇπÇÒ';
+$txt['groupadmin14'] = 'ÉOÉãÅ[Év';
+$txt['groupadmin15'] = 'êVÉOÉãÅ[Évñº';
+$txt['groupadmin16'] = 'ÉOÉãÅ[ÉvÉAÉbÉvÉfÅ[Ég';
+$txt['groupadmin17'] = 'ÉOÉãÅ[ÉvçÌèú';
+$txt['groupadmin18'] = 'ÉOÉãÅ[ÉvÉIÉvÉVÉáÉì';
+$txt['groupadmin19'] = 'ÉJÉeÉSÉäÅ[ÉIÉvÉVÉáÉì';
+$txt['groupadmin20'] = 'ÉJÉeÉSÉäÅ[ñº';
+$txt['groupadmin21'] = 'ÉJÉeÉSÉäÅ[í«â¡';
+$txt['groupadmin22'] = 'ÉJÉeÉSÉäÅ[';
+$txt['groupadmin23'] = 'êVÉJÉeÉSÉäÅ[ñº';
+$txt['groupadmin24'] = 'ÉAÉbÉvÉfÅ[ÉgÉJÉeÉSÉäÅ[';
+$txt['groupadmin25'] = 'ÉJÉeÉSÉäÅ[à⁄ìÆ';
+$txt['groupadmin26'] = 'ÉJÉeÉSÉäÅ[çÌèú';
+$txt['groupadmin27'] = 'jpg, png or gifÉtÉ@ÉCÉãÇëIë';
+$txt['groupadmin28'] = 'ÉAÉbÉvÉçÅ[Éh';
+$txt['groupadmin29'] = 'é ê^ÉAÉbÉvÉçÅ[Éh';
+$txt['groupadmin30'] = 'àÍî ÉIÉvÉVÉáÉì';
+$txt['groupadmin31'] = 'ãÛÇÃÉJÉeÉSÉäÅ[Ç∆ÉOÉãÅ[ÉvçÌèú';
+$txt['groupadmin32'] = 'ï°êîÇÃÉJÉeÉSÉäÅ[çÌèú';
+$txt['groupadmin33'] = 'ï°êîÇÃÉOÉãÅ[ÉvçÌèú';
+$txt['groupadmin34'] = 'Ç±ÇÃñºëOÇÃÉOÉãÅ[Év'.$gname.'ÇÕä˘Ç…ë∂ç›ÇµÇ‹Ç∑ÅBàŸÇ»ÇÈñºëOÇëIëÇµÇƒâ∫Ç≥Ç¢';
+$txt['groupadmin35'] = 'Ç±ÇÃÉOÉãÅ[ÉvñºÇÕãÛÇ≈Ç∑';
+$txt['groupadmin36'] = 'êVÉOÉãÅ[ÉvÇÃñºëOÇ™ì¸óÕÇ≥ÇÍÇƒÇ¢Ç‹ÇπÇÒ';
+$txt['groupadmin37'] = 'Ç±ÇÃÉOÉãÅ[Évñº'.$cname.'ÇÕä˘Ç…ë∂ç›ÇµÇ‹Ç∑ÅBàŸÇ»ÇÈñºëOÇëIëÇµÇƒâ∫Ç≥Ç¢';
+$txt['groupadmin38'] = 'êVÇµÇ¢ÉJÉeÉSÉäÅ[ñºÇì¸óÕÇµÇƒÇ¢Ç‹ÇπÇÒ';
+$txt['groupadmin39'] = 'ÉJÉeÉSÉäÅ[ñºÇ™ãÛÇ≈Ç∑';
+
+// uploadadmin.php
+$txt['uploadadmin1'] = 'ÉAÉbÉvÉçÅ[ÉhÇµÇ‹ÇµÇΩ';
+$txt['uploadadmin2'] = 'ÉAÉbÉvÉçÅ[ÉhÉtÉ@ÉCÉãÇ≈ÉGÉâÅ[Ç™î≠ê∂ÇµÇ‹ÇµÇΩÅBçƒééçsÇµÇƒÇ≠ÇæÇ≥Ç¢';
+
+// adminedit.php
+$txt['adminedit1'] = 'ïœçXÇï€ë∂';
+$txt['adminedit2'] = 'ïœçXÇï€ë∂Ç≥ÇÍÇ‹ÇµÇΩ.';
+$txt['adminedit3'] = 'åªç›ÇÃï“èW';
+
+// shippingadmin.php
+$txt['shippingadmin1'] = 'îzëóï˚ñ@Ç™í«â¡Ç≥ÇÍÇ‹ÇµÇΩ';
+$txt['shippingadmin2'] = 'îzëóï˚ñ@ÇçÌèúÇµÇ‹ÇµÇΩ';
+$txt['shippingadmin3'] = 'îzëóï˚ñ@Çï“èW';
+$txt['shippingadmin4'] = 'ÉTÉ|Å[ÉgÇ≥ÇÍÇΩîzëóï˚ñ@';
+$txt['shippingadmin5'] = 'ê‡ñæ';
+$txt['shippingadmin6'] = 'ÉRÉXÉg';
+
+$txt['shippingadmin7'] = "â¬î\ínàÊ $send_default_country?";
+$txt['shippingadmin8'] = 'ï“èW';
+$txt['shippingadmin9'] = 'ìÆÇ©Ç∑';
+$txt['shippingadmin10'] = 'í«â¡';
+$txt['shippingadmin11'] = 'îzëóçëï“èW';
+$txt['shippingadmin12'] = 'ÉIÉvÉVÉáÉì';
+$txt['shippingadmin13'] = 'Ç®éxï•Ç¢ï˚ñ@';
+$txt['shippingadmin14'] = 'îzëóï˚ñ@ï“èW';
+$txt['shippingadmin15'] = 'îıçl: îzëóï˚ñ@ÇÃÉVÉXÉeÉÄÇïœçXÇµÇÊÇ§Ç∆ÇµÇƒÇ¢Ç‹Ç∑ Ç±ÇÃéËíiÇÕëºÇÃÇ±ÇÃÉEÉFÉuÉVÉáÉbÉvÇóUî≠ÇµÇ‹Ç∑ÅBÇ®éxï•Ç¢ï˚ñ@ÇÃñ{éøÇÕïœÇ¶Ç∏ÅAê‡ñæÇïœçXÇµÇƒâ∫Ç≥Ç¢';
+$txt['shippingadmin16'] = 'ÉfÉtÉHÉãÉgîzëóçëÇï“èW';
+$txt['shippingadmin17'] = 'ÇªÇÃëºÇÃÉIÉvÉVÉáÉì';
+$txt['shippingadmin18'] = 'ÉtÉHÅ[ÉÄ';
+$txt['shippingadmin19'] = 'à∂Çƒ';
+$txt['shippingadmin20'] = 'ÉRÉXÉg';
+$txt['shippingadmin21'] = 'îzëóÉRÉXÉg/èdÇ≥ãKë•ÇÕê≥ÇµÇ≠çÌèúÇ≥ÇÍÇ‹ÇµÇΩ';
+$txt['shippingadmin22'] = 'îzëóÇ»ÇµÅiéÛÇØéÊÇË)';
+
+// paymentadmin.php
+$txt['paymentadmin1'] = 'Ç®éxï•Ç¢ï˚ñ@Çí«â¡ÇµÇ‹ÇµÇΩ';
+$txt['paymentadmin2'] = 'Ç®éxï•Ç¢ï˚ñ@ÇçÌèú';
+$txt['paymentadmin3'] = 'Ç®éxï•Ç¢ï˚ñ@ï“èW';
+$txt['paymentadmin4'] = 'ÉTÉ|Å[ÉgÇ≥ÇÍÇΩÇ®éxï•Ç¢ï˚ñ@';
+$txt['paymentadmin5'] = 'ê‡ñæ';
+$txt['paymentadmin6'] = 'Ç®éxï•Ç¢ï˚ñ@ïœçX';
+$txt['paymentadmin7'] = 'Ç®éxï•Ç¢HTMLÉRÅ[Éh';
+$txt['paymentadmin8'] = 'ï“èW';
+$txt['paymentadmin9'] = 'çÌèú';
+$txt['paymentadmin10'] = 'í«â¡';
+$txt['paymentadmin11'] = 'ÉIÉvÉVÉáÉì';
+$txt['paymentadmin12'] = 'îıçl: Ç®éxï•Ç¢ï˚ñ@ÇÃÉVÉXÉeÉÄÇïœçXÇµÇÊÇ§Ç∆ÇµÇƒÇ¢Ç‹Ç∑ Ç±ÇÃéËíiÇÕëºÇÃÇ±ÇÃÉEÉFÉuÉVÉáÉbÉvÇóUî≠ÇµÇ‹Ç∑ÅBÇ®éxï•Ç¢ï˚ñ@ÇÃñ{éøÇÕïœÇ¶Ç∏ÅAê‡ñæÇïœçXÇµÇƒâ∫Ç≥Ç¢';
+
+// errorlogadmin.php
+$txt['errorlogadmin1'] = 'ÉGÉâÅ[ÉçÉO';
+$txt['errorlogadmin2'] = 'èdëÂê´';
+$txt['errorlogadmin3'] = 'ÉGÉâÅ[';
+$txt['errorlogadmin4'] = 'ÉtÉ@ÉCÉã';
+$txt['errorlogadmin5'] = 'ÉâÉCÉì';
+$txt['errorlogadmin6'] = 'ì˙ït';
+$txt['errorlogadmin7'] = 'ÉGÉâÅ[ÇÕÇ›Ç¬Ç©ÇËÇ‹ÇπÇÒ';
+$txt['errorlogadmin8'] = 'ÉçÉOÇÉNÉäÉA';
+$txt['errorlogadmin9'] = 'ÉGÉâÅ[ÉçÉOÇÕê≥ÇµÇ≠ÉNÉäÉAÇ≥ÇÍÇ‹ÇµÇΩ';
+
+// pagesadmin.php
+$txt['pagesadmin1'] = 'í«â¡ÉyÅ[ÉW';
+$txt['pagesadmin2'] = 'ÉyÅ[ÉWñº';
+$txt['pagesadmin3'] = 'ÉIÉvÉVÉáÉì';
+$txt['pagesadmin4'] = 'ñºëOÇÃïœçX';
+$txt['pagesadmin5'] = 'ÉmÅ[É}ÉãÉyÅ[ÉWí«â¡';
+$txt['pagesadmin6'] = 'ÉyÅ[ÉWñºÇïœçXÇµÇ‹ÇµÇΩ';
+$txt['pagesadmin7'] = 'ÉyÅ[ÉWçÌèú';
+$txt['pagesadmin8'] = 'é∏îsÇµÇ‹ÇµÇΩ';
+$txt['pagesadmin9'] = 'ÉyÅ[ÉWÇ™í«â¡Ç≥ÇÍÇ‹ÇµÇΩ';
+$txt['pagesadmin10'] = 'ÉvÉâÉCÉxÅ[ÉgÉyÅ[ÉWí«â¡';
+$txt['pagesadmin11'] = 'âBÇ≥ÇÍÇ‹ÇµÇΩ';
+
+// accessadmin.php
+$txt['accesslogadmin1'] = 'ÉAÉNÉZÉXÉçÉO';
+$txt['accesslogadmin2'] = 'ÉçÉOÉCÉì';
+$txt['accesslogadmin3'] = 'ÉpÉXÉèÅ[Éh';
+$txt['accesslogadmin4'] = 'É^ÉCÉÄ';
+$txt['accesslogadmin5'] = 'ê¨å˜';
+//$txt['accesslogadmin6'] = 'ì˙ït';
+$txt['accesslogadmin7'] = 'ÉAÉNÉZÉXÉçÉOÉfÅ[É^Å[ÇÕÇ›Ç¬Ç©ÇËÇ‹ÇπÇÒ';
+$txt['accesslogadmin8'] = 'ÉçÉOÉNÉäÉA';
+$txt['accesslogadmin9'] = 'ÉAÉNÉZÉXÉçÉOÇÕê≥ÇµÇ≠ÉNÉäÉAÇ≥ÇÍÇ‹ÇµÇΩ';
+
+// stockadmin.php
+$txt['stockadmin2'] = 'ï\é¶';
+$txt['stockadmin3'] = 'ç›å…ä«óù';
+
+// mailinglist.php
+$txt['mailinglist1'] = 'çDÇ´Ç»É}ÉXÉÅÅ[ÉâÅ[É\ÉtÉgÉEÉFÉAÇ…ÉRÉsÅ[Å^ì\ÇËïtÇØ';
+
+// discountadmin.php
+$txt['discountadmin2'] = 'ÉRÅ[ÉhÉiÉìÉoÅ[';
+$txt['discountadmin3'] = 'äÑà¯äz';
+$txt['discountadmin4'] = 'äÑà¯ÉpÅ[ÉZÉìÉeÅ[ÉW';
+$txt['discountadmin5'] = 'ÉRÅ[ÉhÇçÏÇÈ';
+$txt['discountadmin6'] = 'ëSÇƒÇÃñ¢égópÉRÅ[Éh';
+$txt['discountadmin7'] = 'äÑà¯ÉRÅ[Éh';
+$txt['discountadmin8'] = 'ñ¢égópÉRÅ[ÉhÇ»Çµ';
+$txt['discountadmin9'] = 'çÏê¨';
+
+//v1.1.0 - new
+$txt['groupadmin100'] = 'ÉJÉeÉSÉäÅ[';
+$txt['groupadmin101'] = 'ÉtÉBÉWÉJÉã';
+$txt['groupadmin102'] = 'ÉfÉWÉ^Éã';
+$txt['groupadmin103'] = 'êVÉJÉeÉSÉäÅ[É^ÉCÉv';
+$txt['productadmin100'] = 'ÉfÉWÉ^Éãåπ? <a href=# class=info>(?)<span>Ç±ÇÍÇ™ÉfÉWÉ^ÉãêªïièoÇÍÇŒÅAâπäyÅAÉrÉfÉIÅAeÉuÉbÉNÇÉAÉbÉvÉçÅ[ÉhÇ≈Ç´Ç‹Ç∑ÅBÉtÉBÉãÇÕÇ±Ç±</span></a>';
+$txt['readorder100'] = 'Ç†Ç»ÇΩÉ_ÉEÉìÉçÅ[Éh';
+$txt['products1'] = 'É_ÉEÉìÉçÅ[Éh';
+
+//v1.2.0 - modified
+$txt['editsettings72'] = 'àÍî èåèÇï\é¶Ç∑ÇÈ';
+$txt['editsettings74'] = 'îzëóÉyÅ[ÉWÇï\é¶Ç∑ÇÈ';
+
+//v1.2.2 - added
+$txt['generic1'] = 'çÌèú';
+
+//v1.2.4 - added
+$txt['checkout100'] = "Ç®éxï•Ç¢ÇÕê≥ÇµÇ≠èàóùÇ≥ÇÍÇ‹ÇµÇΩ";
+$txt['checkout101'] = "Ç®éxï•Ç¢Çé¿çsÇ≈Ç´Ç‹ÇπÇÒ";
+
+//v1.2.4 - modified
+$txt['uploadadmin3'] = '.xml Ç© .sql filesÇÃÇ›Ç≈ÉAÉbÉvÉçÅ[ÉhÇµÇƒâ∫Ç≥Ç¢';
+$txt['uploadadmin4'] = 'ÉfÅ[É^ÉCÉìÉ|Å[Åiè§ïiÅAóøã‡ï\Ç»Ç«Åj';
+$txt['uploadadmin5'] = 'XML Ç©SQL ÉtÉ@ÉCÉãÇëIëÇµÇƒÇ≠ÇæÇ≥Ç¢';
+$txt['uploadadmin6'] = 'ÉtÉ@ÉCÉãÉCÉìÉ|Å[Ég';
+$txt['uploadadmin7'] = 'ÉfÅ[É^Ç™ÉfÅ[É^ÉxÅ[ÉXÇ…ë}ì¸Ç≥ÇÍÇ‹ÇµÇΩ';
+$txt['uploadadmin100'] = "ÉtÉ@ÉCÉãÇÉAÉbÉvÉçÅ[ÉhÇ≈Ç´Ç‹ÇπÇÒÇ≈ÇµÇΩ:";
+$txt['uploadadmin101'] = "ÉtÉ@ÉCÉãÇ™ïsñæÇ≈Ç∑:";
+$txt['uploadadmin102'] = "ÉIÉìÉâÉCÉì";
+$txt['uploadadmin103'] = "ë“ã@íÜ: ïsñæÇ»ÉtÉ@ÉCÉãÇÉXÉLÉbÉvÇµÇƒÇ¢Ç‹Ç∑";
+$txt['admin9'] = 'è§ïiÉAÉbÉvÉçÅ[Éh';
+
+//v1.2.5
+$txt['uploadadmin104'] = 'ç≈ëÂÉtÉ@ÉCÉãÉoÉCÉgÉTÉCÉY<a href=# class=info>(?)<span>Ç±ÇÍÇ™ÉVÉXÉeÉÄì‡ÇÃç≈ëÂÉtÉ@ÉCÉãÉTÉCÉYÇ≈Ç∑ÅBëùâ¡ÇµÇΩÇ¢èÍçáÇÕÅAphp.ini ÉtÉ@ÉCÉãÇÃï“èWÇ™ïKóvÇ≈Ç∑ÅB/span></a>';
+$txt['uploadadmin105'] = 'ÉfÉWÉ^Éãè§ïiÇ…ÇÕsymlinksÇÇ≤óòópÇµÇƒÇ≠ÇæÇ≥Ç¢ÅB<a href=# class=info>(?)<span>ÉfÉWÉ^Éãè§ïiÇÉRÉsÅ[Ç∑ÇÈë„ÇÌÇËÇ…ÅAsymlinkÇ™çÏê¨Ç≥ÇÍÇ‹ÇµÇΩÅB</span></a>';
+$txt['details100'] = 'ÇªÇÃëºÇÃè§ïi';
+
+//v1.2.7 - new
+$txt['admin100'] = 'ê≈';
+$txt['general100'] = 'ó¶';
+$txt['general101'] = 'Label1'] = 'ÉJÉXÉPÅ[Éh';
+$txt['checkout25'] = "ê≈çûÇ›";
+$txt['checkout102'] = "ê≈";
+$txt['checkout103'] = "éËë±Ç´Çë±ÇØÇÈëOÇ…èåèÇ…ìØà”ÇÇµÇƒâ∫Ç≥Ç¢";
+$txt['checkout104'] = "Ç≤íçï∂éËë±Ç´ÇäÆóπÇ∑ÇÈà◊ÅAÇ®éxï•Ç¢É|Å[É^ÉãÇ÷à⁄ìÆÇµÇ‹Ç∑";
+$txt['editsettings110'] = 'ÉNÉCÉbÉNÉ`ÉFÉbÉNÉAÉEÉgÇóLå¯Ç∑ÇÈÇ…Ç∑ÇÈ';
+$txt['cart100'] = 'ï\é¶';
+$txt['cart101'] = 'âBÇ∑';
+$txt['editsettings111'] = 'ìoò^ÉtÉHÅ[ÉÄì‡ÇÃê∂îNåéì˙';
+
+//v1.2.7 -eddited
+$txt['general5'] = 'ê≈';
+$txt['editsettings51'] = 'ê≈ã‡Ç»Çµ <a href=# class=info>(?)<span>è¡îÔê≈ÇégópÇµÇ»Ç¢èÍçáÇÕóLå¯Ç…ÇµÇƒâ∫Ç≥Ç¢</span></a>';
+$txt['editsettings13'] = 'DBì‡ÇÃóøã‡ÇÕê≈ã‡Çä‹Ç›Ç‹Ç∑';
+
+//v1.3.0 - í«â¡çœ
+$txt['admin101'] = 'ÉvÉçÉìÉvÉgÅï & ÉâÉxÉã';
+$txt['editsettings112']= 'è§ïiIDÅïê‡ñæ';
+$txt['prompt1'] = 'åæåÍ';
+$txt['prompt2'] = 'ïWèÄÉeÉLÉXÉg';
+$txt['prompt3'] = 'ÉeÉLÉXÉgÉJÉXÉ^ÉÄ';
+
+//v1.3.7 - added
+$txt['discountadmin100'] = 'ä˙å¿êÿÇÍì˙ïtÇØ';
+$txt['discountadmin101'] = 'ä˙å¿êÿÇÍêîó ';
+
+//v1.4.0 - added
+$txt['admin102'] = 'É_ÉbÉVÉÖÉ{Å[Éh';
+$txt['dashboard1'] = 'åéï ÉTÉCÉìÉAÉbÉv';
+$txt['dashboard2'] = 'åé';
+$txt['dashboard3'] = 'ìùåv';
+$txt['dashboard4'] = 'ëSÇƒÇÃîÑÇËè„Ç∞';
+$txt['dashboard5'] = 'ïΩãœîÑÇËè„Ç∞';
+$txt['dashboard6'] = 'âﬂãéÇTåèÇÃè@ñÂ';
+
+//v1.4.1 - added
+$txt['paymentadmin100'] = 'É}Å[É`ÉÉÉìÉgID';
+$txt['paymentadmin101'] = 'ëIë';
+
+?>
