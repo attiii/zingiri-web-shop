@@ -1,0 +1,177 @@
+#slidearea{
+	height: 250px; 
+	overflow: hidden;
+	position: relative; 
+}
+#gallerycover{
+	overflow: hidden;
+	width:900px;
+	margin:0px 52px;
+}
+
+.mygallery{
+	overflow: hidden;
+	position:relative;
+}
+
+.mytext img{
+	position:absolute;
+	left:5px;
+	top:5px;
+	padding:10px;
+}
+
+.mytext{
+	position:relative;
+	margin:20px 0px;
+	height:190px;
+	width:900px;
+	float:left;
+	display:inline;
+	line-height:20px;
+	color:#c4c4c4;
+	font-family: Tahoma,Georgia,century gothic,Verdana, sans-serif;
+}
+
+.mytext ul li{
+	height:200px;
+
+}
+
+.mytext a:link, .mytext  a:visited {
+	color:#fff;
+}
+
+.mytext h2 {
+	font: 26px Georgia,century gothic,Verdana, sans-serif;
+	margin:5px 0px 5px 450px;
+	font-weight:normal;
+	width:450px;
+}
+
+.mytext p {
+	width:450px;
+	margin:0px 0px 5px 450px;
+	color:#e3f3bc;
+}
+
+.mytext h2 a:link, .mytext h2 a:visited {
+	color:#fff;
+}
+
+.prev{
+	position:absolute;
+	top:100px;
+	left:20px;
+	width:32px;
+	height:32px;
+	z-index:200;
+	background:url(images/prev.png);
+	}
+	
+.next{
+	position:absolute;
+	top:100px;
+	right:20px;
+	width:32px;
+	height:32px;
+	z-index:200;
+	background:url(images/nxt.png);
+	display:block;
+	}
+
+
+
+	
+h3.sidetil{
+	padding: 15px 0px 0px 55px;
+	color:#222;
+	font-size:20px;
+	}
+	
+.sidetitl{
+	padding: 15px 0px 10px 15px;
+	color:#222;
+	font-size:24px;
+	}
+
+.box{
+	width:325px;
+	margin: 0px 0px 20px 20px;
+	height:100%;
+	color:#504945;
+	font: 13px Tahoma, century gothic,Arial,verdana, sans-serif;
+	float:left;
+	display:inline;
+	border-bottom:1px solid #DADADA;
+	}
+
+.box  h2 {
+	margin: 5px 0 10px 0;
+	padding: 0px 0px 0px 5px;
+	text-align: left;
+	font: 24px Arial, Georgia, century gothic,verdana, sans-serif;
+	font-weight:bold;
+	overflow:hidden;
+	}
+
+.box h2 a, .box h2 a:link,.box  h2 a:visited  {
+	color:#191109;
+	background-color: transparent;
+	}
+	
+.ethumb{
+	position:relative;
+	width:320px;
+	height:120px;
+	
+	}
+
+.resp{
+	font: 30px Arial Black,Georgia, century gothic,verdana, sans-serif;
+	position:absolute;
+	bottom:5px;
+	right:10px;
+	z-index:100;
+		color:#fff;
+	}
+
+.resp a:link,.resp a:visited{
+	color:#fff;
+	}
+
+.pmore{
+	font-size:10px;
+	font-family:Tahoma, century gothic,Arial,Verdana,Helvitica,sans-serif;
+	position:absolute;
+	bottom:10px;
+	left:10px;
+   	color:#8B5301;
+	text-transform: uppercase;
+	}
+
+.pmore a:link,.pmore a:visited{
+	color:#fff;
+	background:#7AA019;
+	display:block;
+	padding:5px 5px;
+	}
+
+.subscribe{
+	height:65px;
+	background:url(images/line.png) bottom repeat-x;
+	}
+
+.subscribe img{
+	margin:10px 10px;
+	float:left;
+	}
+.subscribe p{
+	padding-top:10px;
+	font: 24px Arial, Georgia, century gothic,verdana, sans-serif;
+	font-weight:bold;
+	}
+	
+
+
+ 
