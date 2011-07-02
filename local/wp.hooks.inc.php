@@ -160,8 +160,6 @@ function zing_ws_install_default_pages($zing_version) {
  */
 function zing_activate() {
 	//nothing happening here
-	//if (defined('WP_ZINGIRI_LIVE'))
-	//zing_install();
 }
 
 /**

@@ -86,6 +86,8 @@ function zing_ws_add_admin() {
 	global $dbtablesprefix;
 	if ($zing_version) require(ZING_LOC.'/startmodules.inc.php');
 
+	if (!defined('WP_ZINGIRI_LIVE')) update_option('zing_ws_install_type','local');
+	
 	zing_set_options();
 	if ((ZING_CMS=='dp' && strstr($_GET['q'],'admin/webshop')) || (ZING_CMS=='wp' && $_GET['page']=='zingiri-web-shop') || (ZING_CMS=='jl' && $_REQUEST['option'] == "com_zingiriwebshop") ) {
 		if( isset($_REQUEST['sync']) ) {
