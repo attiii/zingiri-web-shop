@@ -6,6 +6,7 @@ Requires at least: 2.1.7
 Tested up to: 3.1.3
 Stable tag: 1.8.1
 
+
 Zingiri Web Shop is a Wordpress plugin that adds fantastic ecommerce capabilities to a great content management system.
 
 == Description ==
