@@ -27,7 +27,8 @@ if (!empty($_GET['pagetoload'])) {
 }
 
 require_once(ZING_APPS_PLAYER_DIR."includes/all.inc.php");
-$custForm=appsForm('register','add',"?page=customer&action=add&step=save&registration=".intval($_GET['registration'])."&pagetoload=".urlencode($pagetoload),true);
+$custForm=appsForm('register','add',"?page=customer&action=add&step=save&registration=".intval($_GET['registration'])."&pagetoload=".$pagetoload,true);
+//zing_ws_default_page
 
 if ($action=="add" && $_GET['step']=="save" && $custForm->success && $custForm->showform=="saved") {
 	foreach ($zingPrompts->vars as $var) { global $$var; }
@@ -63,6 +64,7 @@ if ($action=="add" && $_GET['step']=="save" && $custForm->success && $custForm->
 				
 			}
 			if (!$pagetoload) $pagetoload='page=my';
+			else $pagetoload=base64url_decode($pagetoload);
 			header('Location: '.zurl('index.php?'.$pagetoload));
 		}
 		else {
@@ -84,6 +86,7 @@ if ($action=="add" && $_GET['step']=="save" && $custForm->success && $custForm->
 			$update_query = "UPDATE `".$dbtablesprefix."basket` SET `CUSTOMERID` = ".$newcustomerid." WHERE STATUS = 0 AND CUSTOMERID = '".$customerid."'";
 			$update_sql = mysql_query($update_query) or die(mysql_error());
 			if (!$pagetoload) $pagetoload='page=onecheckout';
+			else $pagetoload=base64url_decode($pagetoload);
 			header('Location: '.zurl('index.php?'.$pagetoload));
 	}
 }

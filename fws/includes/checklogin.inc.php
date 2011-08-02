@@ -69,12 +69,12 @@ if (LoggedIn() == false) {
 ?>
 <?php if (!wsSetting('require_registration')) {?>
 <div id="wsnoregistration"><a
-	href="<?php zurl("index.php?page=customer&action=new&registration=0&pagetoload=".urlencode($pagetoload),true);?>"
+	href="<?php zurl("index.php?page=customer&action=new&registration=0&pagetoload=".base64url_encode($pagetoload),true);?>"
 ><?php echo $txt['checkout106'] ?></a></div>
 <?php }?>
 
 <div id="wsregister"><a
-	href="<?php zurl("index.php?page=customer&action=new&registration=1&pagetoload=".urlencode($pagetoload),true);?>"
+	href="<?php zurl("index.php?page=customer&action=new&registration=1&pagetoload=".base64url_encode($pagetoload),true);?>"
 ><?php echo $txt['checklogin5'] ?></a></div>
 
 <?php 

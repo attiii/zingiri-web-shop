@@ -27,7 +27,12 @@ if (!class_exists('db')) {
 		var $sql="";
 		var $row;
 		var $table;
+		var $onError; //1=die, 2=return false
 
+		function db($onError=1) {
+			$this->onError=$onError;
+		} 
+		
 		function select($query) {
 			global $dbtablesprefix;
 			$action="";
@@ -35,7 +40,6 @@ if (!class_exists('db')) {
 			$this->sql = mysql_query($query) or die($this->error($query));
 			$this->numrows=mysql_num_rows($this->sql);
 			if ($this->numrows == 0) return false; else return $this->numrows;
-
 		}
 
 		function next() {
@@ -78,9 +82,10 @@ if (!class_exists('db')) {
 			global $dbtablesprefix;
 			$query=str_replace("##",$dbtablesprefix,$query);
 			if ($sql = mysql_query($query)) {
-	//			if (function_exists('zfDumpQuery')) zfDumpQuery($table,$query);
+				//			if (function_exists('zfDumpQuery')) zfDumpQuery($table,$query);
 			} else {
-				die($this->error($query));
+				if ($this->onError == 2) return $this->error(); 
+				else die($this->error($query));
 			}
 			return $sql;
 		}
@@ -90,7 +95,8 @@ if (!class_exists('db')) {
 			echo $msg;
 			if (function_exists("zing_ws_error_handler")) zing_ws_error_handler(0,$msg);
 			elseif (function_exists("zing_apps_error_handler")) zing_apps_error_handler(0,$msg);
-			die();
+			if ($this->onError == 2) return false;
+			else die();
 		}
 
 		function get($field) {
@@ -160,13 +166,13 @@ if (!class_exists('db')) {
 
 
 			//zing_ws_error_handler(0,$query);
-			
+
 			if ($sql_update = mysql_query($query)) {
 				if (function_exists('zfDumpQuery')) zfDumpQuery($query,$table);
 			} else {
 				die($this->error($query));
 			}
-							
+
 		}
 
 		function insertRecord($table,$keys="",$row,$action="")
@@ -290,7 +296,7 @@ if (!class_exists('db')) {
 		function export($tables)
 		{
 			global $dbtablesprefix;
-				
+
 			$this->exported='';
 			foreach($tables as $t)
 			{
@@ -323,7 +329,7 @@ if (!class_exists('db')) {
 			$sql = mysql_query($query) or die($this->error($query));
 			$row=mysql_fetch_array($sql);
 			$h=str_replace("`".$row[0]."`","`##".$this->table."`",$row[1]);
-			
+
 			if ($auto === false) $h=preg_replace('/AUTO_INCREMENT\=[0-9]* / ','',$h);
 
 			$h=$h.';';
@@ -349,7 +355,7 @@ if (!class_exists('db')) {
 				if ($fields) $fields.=',';
 				$fields .= "`$name`";
 			}
-				
+
 			$d = null;
 			if ($filter) $sql="SELECT " . $fields . " FROM `" . $dbtablesprefix.$this->table . "` WHERE ".$filter;
 			else $sql = "SELECT " . $fields . " FROM `" . $dbtablesprefix.$this->table . "` WHERE 1";
@@ -373,6 +379,43 @@ if (!class_exists('db')) {
 
 			return($d);
 		}
+
+		function executeScript($file_content) {
+			global $dbtablesprefix;
+			foreach($file_content as $sql_line) {
+				$tsl = trim($sql_line);
+				if (($sql_line != "") && (substr($tsl, 0, 2) != "--") && (substr($tsl, 0, 1) != "#")) {
+					if (str_replace("##", $dbtablesprefix, $sql_line) == $sql_line) {
+						$sql_line = str_replace("CREATE TABLE `", "CREATE TABLE `".$dbtablesprefix, $sql_line);
+						$sql_line = str_replace("CREATE TABLE IF NOT EXISTS `", "CREATE TABLE IF NOT EXISTS`".$dbtablesprefix, $sql_line);
+						$sql_line = str_replace("INSERT INTO `", "INSERT INTO `".$dbtablesprefix, $sql_line);
+						$sql_line = str_replace("ALTER TABLE `", "ALTER TABLE `".$dbtablesprefix, $sql_line);
+						$sql_line = str_replace("UPDATE `", "UPDATE `".$dbtablesprefix, $sql_line);
+						$sql_line = str_replace("TRUNCATE TABLE `", "TRUNCATE TABLE `".$dbtablesprefix, $sql_line);
+					} else {
+						$sql_line = str_replace("##", $dbtablesprefix, $sql_line);
+					}
+					$query .= $sql_line;
+					if(preg_match("/;\s*$/", $sql_line)) {
+						if (!mysql_query($query)) {
+							$this->display('Error loading:'.mysql_error());
+							$this->display($query);
+							return false;
+						}
+						$query = "";
+					}
+				}
+			}
+			return true;
+		}
+		//end executeScript
+
+		function display($message) {
+			if (is_array($message)) print_r($message,true);
+			else echo $message;
+			echo EOL;
+		} 
+		//end display
 	}
 }
 ?>

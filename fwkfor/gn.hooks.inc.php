@@ -29,7 +29,7 @@ function zing_apps_player_header()
 
 	$wsScripts=zScripts();
 	foreach ($wsScripts as $s) {
-		$ret.='<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . $s . '"></script>';
+		$ret.='<script type="text/javascript" src="' . $s . '"></script>';
 	}
 
 	$wsStyleSheets=zStyleSheets();
