@@ -45,13 +45,13 @@ function zing_admin_notices() {
 			$message='You downloaded Zingiri Web Shop version '.ZING_VERSION;
 			$message.=get_option('zing_webshop_pro') ? '/'.ZING_WS_PRO_VERSION : '';
 			$message.=' and need to <a href="admin.php?page=zingiri-web-shop">upgrade</a> your database (currently at version '.$zing_version;
-			$message.=get_option('zing_webshop_pro') ? '/'.$zing_version_pro : ''; 
+			$message.=get_option('zing_webshop_pro') ? '/'.$zing_version_pro : '';
 			$message.=') from the integration page.';
 		} else {
 			$message='You downloaded Zingiri Web Shop version '.ZING_VERSION;
 			$message.=get_option('zing_webshop_pro') ? '/'.ZING_WS_PRO_VERSION : '';
 			$message.=' and need to upgrade your database (currently at version '.$zing_version;
-			$message.=get_option('zing_webshop_pro') ? '/'.$zing_version_pro : ''; 
+			$message.=get_option('zing_webshop_pro') ? '/'.$zing_version_pro : '';
 			$message.=') by clicking the Upgrade button below.';
 		}
 	}
@@ -211,6 +211,13 @@ function zing_install() {
 			mkdir($dir);
 			chmod($dir,0777);
 		}
+		if (is_writable($dir)) {
+			if ($fh = fopen($dir.'/index.php', 'w')) {
+				fwrite($fh,"");
+				fclose($fh);
+			}
+		}
+
 		foreach (array('cats' => 'cats','cache' => 'cache','prodgfx' => 'prodgfx','orders' => 'orders','prodgfx/'.get_option('zing_webshop_dig') => 'digital-'.get_option('zing_webshop_dig')) as $subori => $subdir) {
 			$dir=BLOGUPLOADDIR.'zingiri-web-shop/'.$subdir.'/';
 			$ori=ZING_DIR.$subori.'/';
@@ -219,7 +226,7 @@ function zing_install() {
 				chmod($dir,0777);
 			}
 			if (is_writable($dir)) {
-				if ($fh = fopen($dir.'/index.php', 'a')) {
+				if ($fh = fopen($dir.'/index.php', 'w')) {
 					fwrite($fh,"");
 					fclose($fh);
 				}
@@ -277,7 +284,7 @@ function zing_uninstall() {
 	if (function_exists('zing_apps_player_uninstall')) zing_apps_player_uninstall(false);
 
 	if (function_exists('zing_ws_pro_uninstall')) zing_ws_pro_uninstall();
-	
+
 	restore_error_handler();
 	error_reporting($wsper);
 }
@@ -300,7 +307,7 @@ function zing_ws_is_shop_page($pid) {
  */
 function zing_main($process,$content="") {
 	global $saasRet;
-	
+
 	require(ZING_GLOBALS);
 
 	$matches=array();
@@ -375,9 +382,9 @@ function zing_main($process,$content="") {
 	}
 	elseif ($to_include) {
 		echo $prefix;
-//		global $post;
-//		echo 'here:'.$post->post_content;
-//		echo 'here:'.$content;
+		//		global $post;
+		//		echo 'here:'.$post->post_content;
+		//		echo 'here:'.$content;
 		if ($process=='content' && $page!='ajax' && $page!='downldr') echo '<div class="zing_ws_page" id="zing_ws_'.$_GET['page'].'">';
 		include($scripts_dir.$to_include);
 		if ($process=='content' && $page!='ajax' && $page!='downldr') echo '</div>';
@@ -440,8 +447,8 @@ function jsVars() {
 	$v['wpabspath']=str_replace('\\','/',ABSPATH);
 	$v['wsAnimateImage']=wsSetting('animateimage');
 	$v['wsCms']=ZING_CMS;
-	$v['wsLive']=isset($_REQUEST['wslive']) ? 1 : 0; 
-	
+	$v['wsLive']=isset($_REQUEST['wslive']) ? 1 : 0;
+
 	return $v;
 }
 
@@ -458,7 +465,7 @@ function jsScripts() {
 		$v[]='http://connect.facebook.net/en_US/all.js#xfbml=1';
 	}
 	$v[]=ZING_URL . 'fws/addons/lightbox/lightbox.js';
-	
+
 	return $v;
 }
 
@@ -466,7 +473,7 @@ function jsStyleSheets() {
 	$v=array();
 	$v[]=ZING_URL . 'zing.css';
 	$v[]=ZING_URL . 'fws/addons/lightbox/lightbox.css';
-	
+
 	return $v;
 }
 

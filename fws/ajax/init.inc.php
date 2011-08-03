@@ -1,7 +1,4 @@
 <?php
-//error_reporting(E_ALL & ~E_NOTICE);
-//ini_set('display_errors', '1');
-
 if ($_REQUEST['cms']=='jl') {
 	define('ZING_CMS','jl');
 	$_REQUEST['tmpl'] = 'component';

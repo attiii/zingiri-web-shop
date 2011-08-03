@@ -692,57 +692,7 @@ Function ActiveDiscounts() {
 	return $discount->countActive();
 }
 
-if (!function_exists('zurl')) {
-	function zurl($url,$printurl=false,$interface='') {
 
-		if ($_REQUEST['wslive']=='dp') {
-			if (ZING_CMS=='wp') {
-				//return $url;
-				list($p,$u)=explode('?',$url);
-				$url=$_REQUEST['wsliveurl'].'/?';
-				if (strstr($u,'q=webshop')===false) $url.='q=webshop&';
-				$url.=$u;
-			}
-		} elseif ($_REQUEST['wslive']=='wp') {
-			if (ZING_CMS=='wp') {
-				if (strstr($url,ZING_HOME)===false) {
-					$url=str_replace('index.php',$_REQUEST['wsliveurl'].'/index.php',$url);
-					if (strstr($url,'?')) {
-						$url.='&page_id='.intval($_GET['wslivepage_id']);
-					} else {
-						$url.='?page_id='.intval($_GET['wslivepage_id']);
-					}
-				}
-			}
-		} else {
-			if (ZING_CMS=='wp') {
-				if (wsIsAdminPage() && ($interface!='front')) $url=str_replace('index.php','admin.php',$url);
-				else {
-					if (strstr($url,ZING_HOME)===false) {
-						$url=str_replace('index.php',ZING_HOME.'/index.php',$url);
-						if (strstr($url,'?')) {
-							$url.='&page_id='.zing_ws_default_page();
-						} else {
-							$url.='?page_id='.zing_ws_default_page();
-						}
-					}
-				}
-			} elseif (ZING_CMS=='jl') {
-				if ($url=='index.php') $url='index.php?option=com_zingiriwebshop';
-				if (wsIsAdminPage() && !strstr($url,'option=com_zingiriwebshop')) $url=str_replace('?','?option=com_zingiriwebshop&',$url);
-				if (!wsIsAdminPage() && !strstr($url,'option=com_zingiriwebshop')) $url=str_replace('?','?option=com_zingiriwebshop&',$url);
-			} elseif (ZING_CMS=='dp') {
-				//if ($url=='index.php') $url='index.php?q=webshop';
-				//if (!wsIsAdminPage() && !strstr($url,'webshop')) $url=str_replace('?','?q=webshop&',$url);
-				//if (!wsIsAdminPage() && !strstr($url,'q=webshop')) $url=str_replace('?','?q=webshop&',$url);
-				//if (wsIsAdminPage()) $url=str_replace("index.php","",$url);
-			}
-		}
-
-		if ($printurl) echo $url;
-		else return $url;
-	}
-}
 
 function similarProducts($productid,$catid) {
 	global $dbtablesprefix;

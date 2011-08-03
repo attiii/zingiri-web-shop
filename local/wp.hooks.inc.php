@@ -155,14 +155,6 @@ function zing_ws_install_default_pages($zing_version) {
 }
 
 /**
- * Activation of web shop: creation of database tables & set up of pages
- * @return unknown_type
- */
-function zing_activate() {
-	//nothing happening here
-}
-
-/**
  * Deactivation of web shop
  * @return void
  */
@@ -610,3 +602,45 @@ if ($zing_version) {
 	add_action('zing_ws_cron_hook','zing_ws_cron');
 }
 
+
+function zurl($url,$printurl=false,$interface='') {
+
+	$pageID = zing_ws_default_page();
+
+	if (get_option('permalink_structure')){
+		$homePage = get_option('home');
+		$wordpressPageName = get_permalink($pageID);
+		$wordpressPageName = str_replace($homePage,"",$wordpressPageName);
+		$pid="";
+		$home=$homePage.$wordpressPageName;
+	}else{
+		$pid='page_id='.$pageID;
+		$home=get_option('home').'/';
+	}
+
+	if ($_REQUEST['wslive']=='wp') {
+		if (strstr($url,ZING_HOME)===false) {
+			$url=str_replace('index.php',$_REQUEST['wsliveurl'].'/index.php',$url);
+			if ($pid && strstr($url,'?')) {
+				$url.='&'.$pid;
+			} elseif ($pid) {
+				$url.='?'.$pid;
+			}
+		}
+	} else {
+		if (wsIsAdminPage() && ($interface!='front')) $url=str_replace('index.php','admin.php',$url);
+		else {
+			if (strstr($url,$home)===false) {
+				$url=str_replace('index.php',$home.'index.php',$url);
+				if ($pid && strstr($url,'?')) {
+					$url.='&'.$pid;
+				} elseif ($pid) {
+					$url.='?'.$pid;
+				}
+			}
+		}
+	}
+
+	if ($printurl) echo $url;
+	else return $url;
+}

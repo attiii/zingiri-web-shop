@@ -1,6 +1,6 @@
 <?php
 /*  zingiri_webshop.php
- Copyright 2008,2009 Erik Bogaerts
+ Copyright 2008-2011 Erik Bogaerts
  Support site: http://www.zingiri.com
 
  This file is part of Zingiri Web Shop.
@@ -22,31 +22,26 @@
 ?>
 <?php
 /*
- Plugin Name: Zingiri Web Shop (Developer Edition)
- Plugin URI: http://www.zingiri.com/web-shop
- Description: Zingiri Web Shop Developer Edition if you want to hack into the code of Zingiri Web Shop and fully customise.
- Author: EBO
+ Plugin Name: Zingiri Web Shop Live
+ Plugin URI: http://www.zingiri.com
+ Description: Zingiri Web Shop is a full featured software package that allows you to set up your own online webshop within minutes.
+ Author: Zingiri
  Version: 2.1.0
- Author URI: http://www.zingiri.com/
+ Author URI: http://www.zingiri.com
  */
 
 //error_reporting(E_ALL & ~E_NOTICE);
 //ini_set('display_errors', '1');
 
-
 if (!defined('ZING_CMS')) define('ZING_CMS','wp');
-if (isset($_REQUEST['wscr'])) define('ZING_AJAX',true);
-else define('ZING_AJAX',false);
 
-if (file_exists(dirname(__FILE__).'/../maintenance')) {
-	define('ZING_MAINTENANCE',1);
-} else {
-	define('ZING_MAINTENANCE',0);
-	require(dirname(__FILE__).'/local/bootstrap.php');
-	register_deactivation_hook(__FILE__,'zing_deactivate');
-}
-register_activation_hook(__FILE__,'zing_activate');
+require(dirname(__FILE__).'/live/bootstrap.php');
 
-function zing_activate() {
-	if (is_plugin_active('zingiri-web-shop/wslive.php') || is_plugin_active('wslive/wslive.php')) die("Zingiri and Zingiri Developer Edition can't be activated at the same time.");
+register_activation_hook(__FILE__,'zing_wslive_activate');
+register_deactivation_hook(__FILE__,'zing_wslive_deactivate');
+
+function zing_wslive_activate() {
+	if (is_plugin_active('zingiri-web-shop/zingiri_webshop.php')) die("Zingiri and Zingiri Developer Edition can't be activated at the same time.");
 }
+
+
