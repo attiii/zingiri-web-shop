@@ -163,7 +163,7 @@ function zing_deactivate() {
 }
 
 function zing_ws_uninstall_delete_pages() {
-	global $wpdb;
+	global $wpdb,$zing_ws_shortname;
 	$ids=get_option("zing_webshop_pages");
 	$ida=explode(",",$ids);
 	foreach ($ida as $id) {
@@ -171,6 +171,7 @@ function zing_ws_uninstall_delete_pages() {
 			wp_delete_post($id,true);
 			$query="delete from ".$wpdb->prefix."postmeta where meta_key in ('zing_page','zing_action','zing_security')";
 			$wpdb->query($query);
+			delete_option($zing_ws_shortname."_show_menu_".$id);
 		}
 	}
 }
@@ -299,7 +300,7 @@ function zing_init()
 
 	if (isset($_REQUEST['wslive'])) {
 		$_GET['page_id']=zing_page_id("main");
-	} elseif ((!isset($_GET['page_id']) || empty($_GET['page_id'])) && isset($_GET['page'])) {
+	} elseif ((!isset($_GET['page_id']) || empty($_GET['page_id'])) && isset($_GET['page']) && !get_option('permalink_structure')) {
 		$pageId='';
 		$pageId=zing_page_id($_GET['page']);
 		if ($pageId) $_GET['page_id']=$pageId;
@@ -311,7 +312,6 @@ function zing_init()
 		$_GET['kat']=$_GET['cat'];
 		unset($_GET['cat']);
 	}
-
 }
 
 /**
@@ -641,6 +641,7 @@ function zurl($url,$printurl=false,$interface='') {
 		}
 	}
 
+	$url=str_replace('index.php','',$url);
 	if ($printurl) echo $url;
 	else return $url;
 }

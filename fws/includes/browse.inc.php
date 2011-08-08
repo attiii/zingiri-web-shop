@@ -24,7 +24,7 @@ function wsShowProductRow($row) {
 	$stocktext = "";
 
 	// new product?
-	if ($row[7] == 1) { $new = "<font color=\"red\"><strong>" . $txt['general3']. "</strong></font>"; }
+	if ($row[7] == 1) { $new = '<div class="wsnew">'.$txt['general3'].'</div>'; }
 
 	// is there a picture?
 	if ($search_prodgfx == 1 && $use_prodgfx == 1) {
@@ -33,13 +33,13 @@ function wsShowProductRow($row) {
 		else { $picture = $row[1]; }
 
 		list($image_url,$height,$width)=wsDefaultProductImageUrl($picture,$row['DEFAULTIMAGE']);
-		$thumb = "<img class=\"imgleft\" src=\"".$image_url."\"".$width.$height." alt=\"\" />";
+		$thumb = "<img src=\"".$image_url."\"".$width.$height." alt=\"\" />";
 	}
 	// see if you are an admin. if so, add a [EDIT] link to the line
 	$admin_edit = "";
 	if (IsAdmin() == true) {
-		$admin_edit = "<br /><br />";
 		if ($stock_enabled == 1) { $admin_edit .= $txt['productadmin12'].": ".$row[5]."<br />"; }
+		$admin_edit = '<div class="wsadminedit">';
 		if (wsIsAdminPage()) {
 			$admin_edit .= "<a href=\"".zurl("?page=product&zfaces=form&form=product&action=edit&zfp=62&id=".$row[0])."\">".$txt['browse7']."</a>";
 			$admin_edit .= " | <a href=\"".zurl("?page=product&zfaces=form&form=product&action=delete&zfp=62&id=".$row[0])."\" >".$txt['browse8']."</a>";
@@ -50,6 +50,7 @@ function wsShowProductRow($row) {
 			$admin_edit .= "<a href=\"".get_option('siteurl')."/wp-admin/admin.php?page=product&zfaces=form&form=product&action=edit&id=".$row[0]."&redirect=".wsCurrentPageURL(true)."\">".$txt['browse7']."</a>";
 			$admin_edit .= " | <a href=\"".get_option('siteurl')."/wp-admin/admin.php?page=product&zfaces=form&form=product&action=delete&id=".$row[0]."&redirect=".wsCurrentPageURL(true)."\" >".$txt['browse8']."</a>";
 		}
+		$admin_edit.= '</div>';
 	}
 	// make up the description to print according to the pricelist_format and max_description
 	$print_description=printDescription($row[1],$row[3],$row['EXCERPT']);
@@ -71,9 +72,14 @@ function wsShowProductRow($row) {
 	}
 
 	$output.= "<td>".$stockpic;
-	if (!wsIsAdminPage()) $output.= "<a class=\"plain\" href=\"".zurl("index.php?page=details&prod=".$row[0]."&cat=".$row[2]."&group=".$group)."\">".$thumb.$print_description."</a> ";
+	$output.=$new;
+	if (!wsIsAdminPage()) {
+		//$output.= "<a class=\"plain\" href=\"".zurl("index.php?page=details&prod=".$row[0]."&cat=".$row[2]."&group=".$group)."\">".'<div class="imgleft">'.$thumb.'</div>'.$print_description."</a> ";
+		$output.= '<div class="wsbrowseimage">'.$thumb.'</div>';
+		$output.= "<a class=\"wsbrowsetitle\" href=\"".zurl("index.php?page=details&prod=".$row[0]."&cat=".$row[2]."&group=".$group)."\">".$print_description."</a> ";
+	}
 	else $output.= $thumb.$print_description;
-	$output.= $picturelink." ".$new." ".$stocktext.$admin_edit."</td>";
+	$output.= $picturelink." "." ".$stocktext.$admin_edit."</td>";
 	if ($ordering_enabled) {
 		$output.= "<td><div style=\"text-align:right;\">";
 		if ($order_from_pricelist) {
@@ -155,7 +161,7 @@ function wsShowProductCell($row,$row_count,$prods_per_row) {
 		$height = intval($size[1] * $percent);
 		$width = intval($size[0] * $percent);
 
-		$screenshot = "<img src=\"".$thumb."\" width=\"".$width."\" height=\"".$height."\" />";
+		$screenshot = '<div class="wsgridimage"><img src="'.$thumb.'" width="'.$width.'" height="'.$height.'" /></div>';
 		$screenshot="<div style=\"height:100px\">".$screenshot."</div>";
 	}
 	if ($row_count == 1) { $output.="<tr>"; }

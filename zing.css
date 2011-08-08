@@ -3,10 +3,6 @@
 }
 
 /* image properties */
-.imgleft {
-	float: left;
-	padding: 6px 10px 6px 0px;
-}
 
 .imgright {
 	float: right;
@@ -284,4 +280,40 @@ table.wsfeaturestable,table.wsfeaturestable tr,table.wsfeaturestable td {
 #wsloginwelcome {
 	padding-top:30px;
 	clear:both;
+}
+
+.wsadminedit {
+	float:right;
+	text-align:left;
+	margin-top:20px;
+}
+
+.wsadminedit a {
+	display:inline;
+}
+
+.wsnew {
+	color: red;
+	font-weight: bold; 
+	float:left;
+	clear:left;
+}
+
+.wsbrowseimage {
+	float: left;
+	padding: 6px 10px 6px 0px;
+}
+
+.wsbrowsetitle {
+	float:left;
+	clear:right;
+	max-width:70%;
+	text-align:left;
+	margin-top:10px;
+}
+
+.wsgridimage {
+	text-align:center;
+	margin-left:auto;
+	margin-right:auto;
 }

@@ -44,13 +44,6 @@ if ($action=='add') {
 $today = getdate();
 $error = 0; // no errors found
 
-/*
-if (IsAdmin() == true) {
-	if (!empty($_GET['id']))
-	{ $customerid = intval($_GET['id']); }
-}
-*/
-
 if ($action=="add") {
 	
 	// if we work with stock amounts, then lets check if there is enough in stock
@@ -268,7 +261,7 @@ else {
 		if ($ordering_enabled == 1) { 
 			echo "<form method=\"post\" action=\"".zurl("index.php?page=onecheckout")."\">"; 
 		 	echo "<input type=\"submit\" value=\"".$txt['cart9']."\">"; 
-		 	echo '<form>'; 
+		 	echo '</form>'; 
 		}
 		?>
 		</td>

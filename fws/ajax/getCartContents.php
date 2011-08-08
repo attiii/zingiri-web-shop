@@ -24,6 +24,14 @@
 require(dirname(__FILE__).'/init.inc.php');
 
 /** Display cart */
+global $wsCartTotalPrice,$wsCartTotalItems;
+
+ob_start();
 $wsc=new widget_sidebar_cart();
 $wsc->display(); 
-?>
+$html['data']=ob_get_contents();
+$html['count']=$wsCartTotalItems;
+$html['total']=$wsCartTotalPrice;
+ob_end_clean();
+echo json_encode($html);
+//echo $html['data'];

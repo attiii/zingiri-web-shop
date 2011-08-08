@@ -32,6 +32,8 @@ if (isset($_GET['displaytype']) && ($_GET['displaytype']=='list' || $_GET['displ
 	$wsProductDisplayType=$_GET['displaytype'];
 } else $wsProductDisplayType=isset($_COOKIE['fws_displaytype']) ? $_COOKIE['fws_displaytype'] : 'list';
 
+echo '<script type="text/javascript" language="javascript">var wsProductDisplayType=\''.$wsProductDisplayType.'\';</script>';
+
 
 if (isset($_GET['itemsperpage'])) {
 	if ($_COOKIE['fws_itemsperpage'] != $_GET['itemsperpage']) {
@@ -96,22 +98,7 @@ if (IsAdmin()) {
 	echo '<br />';
 }
 
-if ($action == "list") {
-	$query = "SELECT * FROM `".$dbtablesprefix."product` ";
-	if ($stock_enabled == 1 && $hide_outofstock == 1 && wsIsAdminPage() == false) { // filter out products with stock lower than 1
-		$query = sprintf("SELECT * FROM `".$dbtablesprefix."product` where `STOCK` > 0 AND `CATID`=%s ORDER BY `$orderby_field` ASC", quote_smart($cat));
-	}
-	elseif (!empty($cat)) {
-		$query = sprintf("SELECT * FROM `".$dbtablesprefix."product` WHERE CATID=%s ORDER BY `$orderby_field` ASC", quote_smart($cat));
-	}
-}
-elseif ($action == "shownew") {
-	if ($stock_enabled == 1 && IsAdmin() == false) { // filter out products with stock lower than 1
-		$query = "SELECT * FROM `".$dbtablesprefix."product` WHERE `STOCK` > 0 AND `NEW` = '1' ORDER BY `$orderby_field` ASC";
-	}
-	else { $query = "SELECT * FROM `".$dbtablesprefix."product` WHERE `NEW` = '1' ORDER BY `$orderby_field` ASC"; }
-}
-else {
+if ($action == "search" || $searchfor) {
 	//search on the given terms
 	if ($searchfor != "") {
 		$searchitem = explode (" ", $searchfor);
@@ -132,6 +119,19 @@ else {
 	} // just to cause that the searchresult is empty
 	$query = "SELECT * FROM `".$dbtablesprefix."product` $searchquery ORDER BY `$orderby_field` ASC";
 	$limit="";
+} elseif ($action == "shownew") {
+	if ($stock_enabled == 1 && IsAdmin() == false) { // filter out products with stock lower than 1
+		$query = "SELECT * FROM `".$dbtablesprefix."product` WHERE `STOCK` > 0 AND `NEW` = '1' ORDER BY `$orderby_field` ASC";
+	}
+	else { $query = "SELECT * FROM `".$dbtablesprefix."product` WHERE `NEW` = '1' ORDER BY `$orderby_field` ASC"; }
+} else {
+	$query = "SELECT * FROM `".$dbtablesprefix."product` ";
+	if ($stock_enabled == 1 && $hide_outofstock == 1 && wsIsAdminPage() == false) { // filter out products with stock lower than 1
+		$query = sprintf("SELECT * FROM `".$dbtablesprefix."product` where `STOCK` > 0 AND `CATID`=%s ORDER BY `$orderby_field` ASC", quote_smart($cat));
+	}
+	elseif (!empty($cat)) {
+		$query = sprintf("SELECT * FROM `".$dbtablesprefix."product` WHERE CATID=%s ORDER BY `$orderby_field` ASC", quote_smart($cat));
+	}
 }
 
 // total products without the limit
@@ -207,7 +207,7 @@ else {
 	}
 	echo '</table>';
 	if (!$includesearch) {
-		echo '<div style="text-align: right;"><img src="'.$gfx_dir.'/photo.gif" alt="" /> <em><small>'.$txt['browse6'].'</small></em></div>';
+		//echo '<div style="text-align: right;"><img src="'.$gfx_dir.'/photo.gif" alt="" /> <em><small>'.$txt['browse6'].'</small></em></div>';
 	}
 	// page code
 	if ($products_per_page > 0 && $num_products > $products_per_page) {

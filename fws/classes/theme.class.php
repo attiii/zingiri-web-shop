@@ -1,4 +1,5 @@
 <?php
+/*
 class wsTheme {
 	var $db;
 
@@ -91,3 +92,5 @@ class wsTheme {
 		return $this->db->get('price');	
 	}
 }
+
+*/

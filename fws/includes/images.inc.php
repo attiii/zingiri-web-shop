@@ -86,9 +86,6 @@ function wsResizeImage($image,$thumb=true,$gfx=false) {
 		$maxHeight=$product_max_height;
 	}
 	$size = getimagesize(str_replace($product_url,$product_dir,$image));
-	//echo $image;
-	//echo '<br />/'.$thumb.'/'.$maxWidth.'/'.$maxHeight.'<br />';
-	//print_r($size);
 	$height = $size[1];
 	$width = $size[0];
 	$resized = 0;
@@ -98,27 +95,6 @@ function wsResizeImage($image,$thumb=true,$gfx=false) {
 	$width = intval($size[0] * $percent);
 	if ($height!=$size[1] || $width!=$size[0]) $resized=1;
 
-/*	
-	if ($height > $maxHeight)
-	{
-		//echo 'case a';
-		$height = $maxHeight;
-		$percent = ($size[1] / $height);
-		$width = round(($size[0] / $percent));
-		$resized = 1;
-	}
-	if ($width > $maxWidth)
-	{
-		//echo 'case b';
-		$width = $maxWidth;
-		$percent = ($size[0] / $width);
-		$height = round(($size[1] / $percent));
-		$resized = 1;
-	}
-	*/
-	//echo '<br />resize to '.$height.' x '.$width;
-	//die('stop');
-	
 	return array('height' => $height,'width' => $width,'resized' => $resized);
 }
 
@@ -159,9 +135,6 @@ function wsDefaultProductImageUrl($picture,$defaultimage,$thumb=true) {
 	}
 	list($height,$width,$resized)=
 	$size=wsResizeImage($image_url,$thumb,$gfx);
-	//print_r($size);
-//	$resized=;
-//	echo '<br />'.$height.'+'.$width;
 	$width = " width=\"".$size['width']."\"";
 	$height = " height=\"".$size['height']."\"";
 	return array($image_url,$height,$width,$size['resized']);

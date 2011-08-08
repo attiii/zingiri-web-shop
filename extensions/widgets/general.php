@@ -45,5 +45,3 @@ class widget_sidebar_general {
 }
 
 $wsWidgets[]=array('name'=>'Zingiri Web Shop General','class'=>'widget_sidebar_general','title'=>'menu14');
-
-?>

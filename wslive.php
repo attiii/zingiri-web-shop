@@ -26,7 +26,7 @@
  Plugin URI: http://www.zingiri.com
  Description: Zingiri Web Shop is a full featured software package that allows you to set up your own online webshop within minutes.
  Author: Zingiri
- Version: 2.1.0
+ Version: 2.1.1
  Author URI: http://www.zingiri.com
  */
 

@@ -14,7 +14,8 @@ wsSearch = {
 						'cms' : wsCms
 					},
 					success : function(request) {
-						tag.attr('innerHTML',request);
+						//tag.attr('innerHTML',request);
+						tag.html(request);
 					}
 				});			
 			});

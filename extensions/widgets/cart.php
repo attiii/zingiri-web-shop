@@ -22,7 +22,10 @@ class widget_sidebar_cart {
 
 	function display() {
 		require(ZING_GLOBALS);
-		$countCart=CountCart(wsCid());
+		global $wsCartTotalPrice,$wsCartTotalItems;
+		$wsCartTotalItems=$countCart=CountCart(wsCid());
+		$wsCartTotalPrice=$currency_symbol_pre.myNumberFormat(CalculateCart(wsCid()), $number_format).$currency_symbol_post;
+		echo '<span id="notificationsLoader"></span>';
 		echo "<ul>";
 		if (get_option('zing_webshop_pro') && isset($_SESSION['zing_session']['customerid'])) {
 			echo '<li>(';
@@ -30,7 +33,10 @@ class widget_sidebar_cart {
 			echo ')</li>';
 		}
 		echo "<li"; if ($page == "cart") { echo " id=\"active\""; }; echo "><a href=\"".zurl("?page=cart&action=show")."\">".$txt['cart5'].": ".$countCart."<br />";
-		echo $txt['cart7'].": ".$currency_symbol_pre.myNumberFormat(CalculateCart(wsCid()), $number_format).$currency_symbol_post."</a></li>";
+		echo $txt['cart7'].": ";
+		echo $wsCartTotalPrice;
+		echo "</a></li>";
+		
 		if ($countCart > 0 && (ZING_JQUERY))
 		{
 			echo '<li id="showcart"><a href="javascript:void(0);">&#x25BE; ('.z_('show').')</a></li>';
@@ -86,18 +92,6 @@ class widget_sidebar_cart {
 			echo '<li><a href="'.zurl('index.php?page=onecheckout').'">'.$txt['menu3'].'</a></li>';
 			echo '</ul>';
 		}
-
-			?>
-<script type="text/javascript" language="javascript">
-//<![CDATA[
-	jQuery(document).ready(function() {
-          wsCart.contents();
-	});
-	//]]>
-	</script>
-<?php		
 	}
 }
 $wsWidgets[]=array('class'=>'widget_sidebar_cart','name'=>'Zingiri Web Shop Cart','title'=>'menu2');
-
-?>

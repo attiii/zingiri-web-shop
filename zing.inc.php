@@ -90,35 +90,52 @@ function zing_install() {
 	zing_ws_error_handler(0,'DB_PREFIX:'.DB_PREFIX);
 
 	$zing_version=get_option("zing_webshop_version");
-	update_option("zing_webshop_version",ZING_VERSION);
 
+	//Look for baseline version
+	if ($handle = opendir(dirname(__FILE__).'/fws/db')) {
+		if (!$zing_version) { //look for highest baseline
+			$baselineVersion='';
+			while (false !== ($file = readdir($handle))) {
+				if (strstr($file,".sql") && strstr($file,"init-")) {
+					$f=explode("-",$file);
+					$v=str_replace(".sql","",$f[1]);
+					if ($v > $baselineVersion) $baselineVersion=$v;
+				}
+			}
+		} else {
+			$baselineVersion=$zing_version;
+		}
+		closedir($handle);
+	}
+	
 	if ($handle = opendir(dirname(__FILE__).'/fws/db')) {
 		$files=array();
 		$execs=array();
 		while (false !== ($file = readdir($handle))) {
-			if (strstr($file,".sql")) {
+			if (strstr($file,".sql") && !strstr($file,"init-")) {
 				$f=explode("-",$file);
 				$v=str_replace(".sql","",$f[1]);
-				if ($zing_version < $v) {
+				if ($baselineVersion < $v) {
 					$files[]=array(dirname(__FILE__).'/fws/db/'.$file,$v);
 				}
 			} elseif (strstr($file,".php")) {
 				$f=explode("-",$file);
 				$v=str_replace(".php","",$f[1]);
-				if ($zing_version < $v) {
+				if ($baselineVersion < $v) {
 					$execs[]=dirname(__FILE__).'/fws/db/'.$file;
 				}
 			}
 		}
 		closedir($handle);
 		asort($files);
+		if(!$zing_version) array_unshift($files,array(dirname(__FILE__).'/fws/db/init-'.$baselineVersion.'.sql',$baselineVersion));
 		asort($execs);
 		if (count($files) > 0) {
 			mysql_query('SET storage_engine=InnoDB');
 			foreach ($files as $afile) {
 				list($file,$v)=$afile;
 				zing_ws_error_handler(0,'Process '.$file);
-				if ($v>='1.2.7' && !$player) {
+				if ($zing_version && $v>='1.2.7' && !$player) {
 					zing_apps_player_install();
 					$player=true;
 					zing_ws_error_handler(0,'continue with:'.$file);
@@ -243,9 +260,11 @@ function zing_install() {
 			}
 		}
 	}
-
+	
+	update_option("zing_webshop_version",ZING_VERSION);
+	
 	if (function_exists('zing_ws_pro_install')) zing_ws_pro_install();
-
+	
 	zing_ws_error_handler(0,'completed');
 	restore_error_handler();
 	error_reporting($wsper);
@@ -329,7 +348,6 @@ function zing_main($process,$content="") {
 			}
 
 			$cf=get_post_custom();
-
 			if (isset($_GET['page'])) {
 				//do nothing, page already set
 			}  elseif (isset($cf['zing_page'])) {

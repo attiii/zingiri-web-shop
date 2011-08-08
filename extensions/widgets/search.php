@@ -20,23 +20,27 @@ class widget_sidebar_search {
 		echo $after_widget;
 	}
 
-	function display() {
+	function display($list=true) {
 		require(ZING_GLOBALS);
 		$widget_data = get_option('zing_ws_widget_options');
-		echo '<ul>';
-		echo '<li>';
+		if ($list) {
+			echo '<ul>';
+			echo '<li>';
+		}
 		echo '<input id="searchbar" name="searchbar" size="'.$widget_data['search_size'].'"/><br />';
 		echo '<div id="searchresults"></div>';
-		echo '</li>';
-		echo '</ul>';
+		if ($list) {
+			echo '</li>';
+			echo '</ul>';
+		}
 		?>
-		<script type="text/javascript" language="javascript">
+<script type="text/javascript" language="javascript">
 //<![CDATA[
 		jQuery(document).ready(function() {
 			wsSearch.init(); 
 		});
 //]]>
-</script>		
+</script>
 		<?php
 	}
 
