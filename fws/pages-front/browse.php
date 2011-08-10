@@ -32,8 +32,6 @@ if (isset($_GET['displaytype']) && ($_GET['displaytype']=='list' || $_GET['displ
 	$wsProductDisplayType=$_GET['displaytype'];
 } else $wsProductDisplayType=isset($_COOKIE['fws_displaytype']) ? $_COOKIE['fws_displaytype'] : 'list';
 
-echo '<script type="text/javascript" language="javascript">var wsProductDisplayType=\''.$wsProductDisplayType.'\';</script>';
-
 
 if (isset($_GET['itemsperpage'])) {
 	if ($_COOKIE['fws_itemsperpage'] != $_GET['itemsperpage']) {

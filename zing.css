@@ -312,7 +312,7 @@ table.wsfeaturestable,table.wsfeaturestable tr,table.wsfeaturestable td {
 	margin-top:10px;
 }
 
-.wsgridimage {
+.wsgridimage, .wsgridform {
 	text-align:center;
 	margin-left:auto;
 	margin-right:auto;

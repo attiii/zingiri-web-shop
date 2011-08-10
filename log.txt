@@ -1,0 +1,210 @@
+2011-08-10 04:39:59 /Library/WebServer/Documents/ws2/wp-content/plugins/zingiri-web-shop/fwkfor/db/apps-0.1.sql (-0)
+2011-08-10 04:39:59 CREATE TABLE `wp_zing_faces` (
+  `ID` int(11) NOT NULL auto_increment,
+  `NAME` varchar(15) NOT NULL,
+  `ELEMENTCOUNT` smallint(6) NOT NULL default '0',
+  `DATA` text NOT NULL,
+  `TYPE` varchar(12) NOT NULL,
+  `ENTITY` varchar(40) NOT NULL,
+  PRIMARY KEY  (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+ (-0)
+2011-08-10 04:39:59 Table 'wp_zing_faces' already exists-CREATE TABLE `wp_zing_faces` (
+  `ID` int(11) NOT NULL auto_increment,
+  `NAME` varchar(15) NOT NULL,
+  `ELEMENTCOUNT` smallint(6) NOT NULL default '0',
+  `DATA` text NOT NULL,
+  `TYPE` varchar(12) NOT NULL,
+  `ENTITY` varchar(40) NOT NULL,
+  PRIMARY KEY  (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+ (-0)
+2011-08-10 04:39:59 CREATE TABLE `wp_zing_flink` (
+  `ID` int(11) NOT NULL auto_increment,
+  `DATE_CREATED` datetime NOT NULL default '0000-00-00 00:00:00',
+  `DATE_UPDATED` datetime default NULL,
+  `FORMIN` int(11) default NULL,
+  `FORMOUT` int(11) default NULL,
+  `ACTION` varchar(40) default NULL,
+  `ICON` varchar(40) default NULL,
+  `DISPLAYIN` varchar(4) default NULL,
+  `MAPPING` mediumtext,
+  `FORMOUTALT` varchar(40) default NULL,
+  `REDIRECT` varchar(40) default NULL,
+  `ACTIONIN` mediumtext,
+  `ACTIONOUT` varchar(40) default NULL,
+  `DISPLAYOUT` varchar(4) default NULL,
+  PRIMARY KEY  (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+ (-0)
+2011-08-10 04:39:59 Table 'wp_zing_flink' already exists-CREATE TABLE `wp_zing_flink` (
+  `ID` int(11) NOT NULL auto_increment,
+  `DATE_CREATED` datetime NOT NULL default '0000-00-00 00:00:00',
+  `DATE_UPDATED` datetime default NULL,
+  `FORMIN` int(11) default NULL,
+  `FORMOUT` int(11) default NULL,
+  `ACTION` varchar(40) default NULL,
+  `ICON` varchar(40) default NULL,
+  `DISPLAYIN` varchar(4) default NULL,
+  `MAPPING` mediumtext,
+  `FORMOUTALT` varchar(40) default NULL,
+  `REDIRECT` varchar(40) default NULL,
+  `ACTIONIN` mediumtext,
+  `ACTIONOUT` varchar(40) default NULL,
+  `DISPLAYOUT` varchar(4) default NULL,
+  PRIMARY KEY  (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+ (-0)
+2011-08-10 04:39:59 CREATE TABLE `wp_zing_frole` (
+  `ID` int(11) NOT NULL auto_increment,
+  `DATE_CREATED` datetime NOT NULL default '0000-00-00 00:00:00',
+  `DATE_UPDATED` datetime default NULL,
+  `NAME` varchar(40) default NULL,
+  PRIMARY KEY  (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+ (-0)
+2011-08-10 04:39:59 Table 'wp_zing_frole' already exists-CREATE TABLE `wp_zing_frole` (
+  `ID` int(11) NOT NULL auto_increment,
+  `DATE_CREATED` datetime NOT NULL default '0000-00-00 00:00:00',
+  `DATE_UPDATED` datetime default NULL,
+  `NAME` varchar(40) default NULL,
+  PRIMARY KEY  (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+ (-0)
+2011-08-10 04:39:59 /Library/WebServer/Documents/ws2/wp-content/plugins/zingiri-web-shop/fwkfor/db/apps-0.7.sql (-0)
+2011-08-10 04:39:59 ALTER TABLE `wp_zing_faces` ADD `LABEL` VARCHAR( 75 ) NULL DEFAULT NULL;
+ (-0)
+2011-08-10 04:39:59 Duplicate column name 'LABEL'-ALTER TABLE `wp_zing_faces` ADD `LABEL` VARCHAR( 75 ) NULL DEFAULT NULL;
+ (-0)
+2011-08-10 04:39:59 
+CREATE TABLE IF NOT EXISTS `wp_zing_faccess` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `DATE_CREATED` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `DATE_UPDATED` datetime DEFAULT NULL,
+  `FORMID` int(11) DEFAULT NULL,
+  `ROLEID` int(11) DEFAULT NULL,
+  `ACTION` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+ (-0)
+2011-08-10 04:39:59 
+INSERT INTO `wp_zing_faccess` (`DATE_CREATED`, `DATE_UPDATED`, `FORMID`, `ROLEID`, `ACTION`) VALUES
+('2010-02-02 20:43:23', NULL, 0, 1, '*');
+ (-0)
+2011-08-10 04:39:59 
+
+
+INSERT INTO `wp_zing_frole` (`ID`, `DATE_CREATED`, `DATE_UPDATED`, `NAME`) VALUES(1, '2010-02-02 20:21:41', NULL, 'ADMIN');
+ (-0)
+2011-08-10 04:39:59 Duplicate entry '1' for key 'PRIMARY'-
+
+
+INSERT INTO `wp_zing_frole` (`ID`, `DATE_CREATED`, `DATE_UPDATED`, `NAME`) VALUES(1, '2010-02-02 20:21:41', NULL, 'ADMIN');
+ (-0)
+2011-08-10 04:39:59 INSERT INTO `wp_zing_frole` (`ID`, `DATE_CREATED`, `DATE_UPDATED`, `NAME`) VALUES(2, '2010-02-02 20:21:49', NULL, 'CUSTOMER'); (-0)
+2011-08-10 04:39:59 Duplicate entry '2' for key 'PRIMARY'-INSERT INTO `wp_zing_frole` (`ID`, `DATE_CREATED`, `DATE_UPDATED`, `NAME`) VALUES(2, '2010-02-02 20:21:49', NULL, 'CUSTOMER'); (-0)
+2011-08-10 04:39:59 /Library/WebServer/Documents/ws2/wp-content/plugins/zingiri-web-shop/fwkfor/db/apps-0.8.sql (-0)
+2011-08-10 04:39:59 /Library/WebServer/Documents/ws2/wp-content/plugins/zingiri-web-shop/fwkfor/db/apps-0.9.0.sql (-0)
+2011-08-10 04:39:59 ALTER TABLE `wp_zing_faces` ADD `LABEL` VARCHAR( 75 ) NULL DEFAULT NULL;
+ (-0)
+2011-08-10 04:39:59 Duplicate column name 'LABEL'-ALTER TABLE `wp_zing_faces` ADD `LABEL` VARCHAR( 75 ) NULL DEFAULT NULL;
+ (-0)
+2011-08-10 04:39:59 
+
+
+INSERT INTO `wp_zing_flink` (`ID`, `DATE_CREATED`, `DATE_UPDATED`, `FORMIN`, `FORMOUT`, `ACTION`, `ICON`, `DISPLAYIN`, `MAPPING`, `FORMOUTALT`, `REDIRECT`, `ACTIONIN`, `ACTIONOUT`, `DISPLAYOUT`) VALUES(1, '0000-00-00 00:00:00', NULL, 1, 1, 'edit', 'edit.png', 'list', NULL, NULL, NULL, NULL, 'edit', 'form');
+ (-0)
+2011-08-10 04:39:59 Duplicate entry '1' for key 'PRIMARY'-
+
+
+INSERT INTO `wp_zing_flink` (`ID`, `DATE_CREATED`, `DATE_UPDATED`, `FORMIN`, `FORMOUT`, `ACTION`, `ICON`, `DISPLAYIN`, `MAPPING`, `FORMOUTALT`, `REDIRECT`, `ACTIONIN`, `ACTIONOUT`, `DISPLAYOUT`) VALUES(1, '0000-00-00 00:00:00', NULL, 1, 1, 'edit', 'edit.png', 'list', NULL, NULL, NULL, NULL, 'edit', 'form');
+ (-0)
+2011-08-10 04:39:59 INSERT INTO `wp_zing_flink` (`ID`, `DATE_CREATED`, `DATE_UPDATED`, `FORMIN`, `FORMOUT`, `ACTION`, `ICON`, `DISPLAYIN`, `MAPPING`, `FORMOUTALT`, `REDIRECT`, `ACTIONIN`, `ACTIONOUT`, `DISPLAYOUT`) VALUES(2, '0000-00-00 00:00:00', NULL, 3, 3, 'edit', 'edit.png', 'list', NULL, NULL, NULL, NULL, 'edit', 'form');
+ (-0)
+2011-08-10 04:39:59 Duplicate entry '3-list-3-form-edit' for key 'FORMIN'-INSERT INTO `wp_zing_flink` (`ID`, `DATE_CREATED`, `DATE_UPDATED`, `FORMIN`, `FORMOUT`, `ACTION`, `ICON`, `DISPLAYIN`, `MAPPING`, `FORMOUTALT`, `REDIRECT`, `ACTIONIN`, `ACTIONOUT`, `DISPLAYOUT`) VALUES(2, '0000-00-00 00:00:00', NULL, 3, 3, 'edit', 'edit.png', 'list', NULL, NULL, NULL, NULL, 'edit', 'form');
+ (-0)
+2011-08-10 04:39:59 INSERT INTO `wp_zing_flink` (`ID`, `DATE_CREATED`, `DATE_UPDATED`, `FORMIN`, `FORMOUT`, `ACTION`, `ICON`, `DISPLAYIN`, `MAPPING`, `FORMOUTALT`, `REDIRECT`, `ACTIONIN`, `ACTIONOUT`, `DISPLAYOUT`) VALUES(3, '0000-00-00 00:00:00', NULL, 2, 2, 'edit', 'edit.png', 'list', NULL, NULL, NULL, NULL, 'edit', 'form');
+ (-0)
+2011-08-10 04:39:59 Duplicate entry '3' for key 'PRIMARY'-INSERT INTO `wp_zing_flink` (`ID`, `DATE_CREATED`, `DATE_UPDATED`, `FORMIN`, `FORMOUT`, `ACTION`, `ICON`, `DISPLAYIN`, `MAPPING`, `FORMOUTALT`, `REDIRECT`, `ACTIONIN`, `ACTIONOUT`, `DISPLAYOUT`) VALUES(3, '0000-00-00 00:00:00', NULL, 2, 2, 'edit', 'edit.png', 'list', NULL, NULL, NULL, NULL, 'edit', 'form');
+ (-0)
+2011-08-10 04:39:59 INSERT INTO `wp_zing_flink` (`ID`, `DATE_CREATED`, `DATE_UPDATED`, `FORMIN`, `FORMOUT`, `ACTION`, `ICON`, `DISPLAYIN`, `MAPPING`, `FORMOUTALT`, `REDIRECT`, `ACTIONIN`, `ACTIONOUT`, `DISPLAYOUT`) VALUES(4, '0000-00-00 00:00:00', NULL, 1, 1, 'delete', 'delete.png', 'list', NULL, NULL, NULL, NULL, 'delete', 'form');
+ (-0)
+2011-08-10 04:39:59 Duplicate entry '4' for key 'PRIMARY'-INSERT INTO `wp_zing_flink` (`ID`, `DATE_CREATED`, `DATE_UPDATED`, `FORMIN`, `FORMOUT`, `ACTION`, `ICON`, `DISPLAYIN`, `MAPPING`, `FORMOUTALT`, `REDIRECT`, `ACTIONIN`, `ACTIONOUT`, `DISPLAYOUT`) VALUES(4, '0000-00-00 00:00:00', NULL, 1, 1, 'delete', 'delete.png', 'list', NULL, NULL, NULL, NULL, 'delete', 'form');
+ (-0)
+2011-08-10 04:39:59 INSERT INTO `wp_zing_flink` (`ID`, `DATE_CREATED`, `DATE_UPDATED`, `FORMIN`, `FORMOUT`, `ACTION`, `ICON`, `DISPLAYIN`, `MAPPING`, `FORMOUTALT`, `REDIRECT`, `ACTIONIN`, `ACTIONOUT`, `DISPLAYOUT`) VALUES(5, '0000-00-00 00:00:00', NULL, 3, 3, 'delete', 'delete.png', 'list', NULL, NULL, NULL, NULL, 'delete', 'form');
+ (-0)
+2011-08-10 04:39:59 Duplicate entry '3-list-3-form-delete' for key 'FORMIN'-INSERT INTO `wp_zing_flink` (`ID`, `DATE_CREATED`, `DATE_UPDATED`, `FORMIN`, `FORMOUT`, `ACTION`, `ICON`, `DISPLAYIN`, `MAPPING`, `FORMOUTALT`, `REDIRECT`, `ACTIONIN`, `ACTIONOUT`, `DISPLAYOUT`) VALUES(5, '0000-00-00 00:00:00', NULL, 3, 3, 'delete', 'delete.png', 'list', NULL, NULL, NULL, NULL, 'delete', 'form');
+ (-0)
+2011-08-10 04:39:59 INSERT INTO `wp_zing_flink` (`ID`, `DATE_CREATED`, `DATE_UPDATED`, `FORMIN`, `FORMOUT`, `ACTION`, `ICON`, `DISPLAYIN`, `MAPPING`, `FORMOUTALT`, `REDIRECT`, `ACTIONIN`, `ACTIONOUT`, `DISPLAYOUT`) VALUES(6, '0000-00-00 00:00:00', NULL, 2, 2, 'delete', 'delete.png', 'list', NULL, NULL, NULL, NULL, 'delete', 'form');
+ (-0)
+2011-08-10 04:39:59 Duplicate entry '6' for key 'PRIMARY'-INSERT INTO `wp_zing_flink` (`ID`, `DATE_CREATED`, `DATE_UPDATED`, `FORMIN`, `FORMOUT`, `ACTION`, `ICON`, `DISPLAYIN`, `MAPPING`, `FORMOUTALT`, `REDIRECT`, `ACTIONIN`, `ACTIONOUT`, `DISPLAYOUT`) VALUES(6, '0000-00-00 00:00:00', NULL, 2, 2, 'delete', 'delete.png', 'list', NULL, NULL, NULL, NULL, 'delete', 'form');
+ (-0)
+2011-08-10 04:39:59 INSERT INTO `wp_zing_flink` (`ID`, `DATE_CREATED`, `DATE_UPDATED`, `FORMIN`, `FORMOUT`, `ACTION`, `ICON`, `DISPLAYIN`, `MAPPING`, `FORMOUTALT`, `REDIRECT`, `ACTIONIN`, `ACTIONOUT`, `DISPLAYOUT`) VALUES(7, '0000-00-00 00:00:00', NULL, 1, 1, 'view', 'view.png', 'list', NULL, NULL, NULL, NULL, 'view', 'form');
+ (-0)
+2011-08-10 04:39:59 Duplicate entry '7' for key 'PRIMARY'-INSERT INTO `wp_zing_flink` (`ID`, `DATE_CREATED`, `DATE_UPDATED`, `FORMIN`, `FORMOUT`, `ACTION`, `ICON`, `DISPLAYIN`, `MAPPING`, `FORMOUTALT`, `REDIRECT`, `ACTIONIN`, `ACTIONOUT`, `DISPLAYOUT`) VALUES(7, '0000-00-00 00:00:00', NULL, 1, 1, 'view', 'view.png', 'list', NULL, NULL, NULL, NULL, 'view', 'form');
+ (-0)
+2011-08-10 04:39:59 INSERT INTO `wp_zing_flink` (`ID`, `DATE_CREATED`, `DATE_UPDATED`, `FORMIN`, `FORMOUT`, `ACTION`, `ICON`, `DISPLAYIN`, `MAPPING`, `FORMOUTALT`, `REDIRECT`, `ACTIONIN`, `ACTIONOUT`, `DISPLAYOUT`) VALUES(8, '0000-00-00 00:00:00', NULL, 3, 3, 'view', 'view.png', 'list', NULL, NULL, NULL, NULL, 'view', 'form');
+ (-0)
+2011-08-10 04:39:59 Duplicate entry '8' for key 'PRIMARY'-INSERT INTO `wp_zing_flink` (`ID`, `DATE_CREATED`, `DATE_UPDATED`, `FORMIN`, `FORMOUT`, `ACTION`, `ICON`, `DISPLAYIN`, `MAPPING`, `FORMOUTALT`, `REDIRECT`, `ACTIONIN`, `ACTIONOUT`, `DISPLAYOUT`) VALUES(8, '0000-00-00 00:00:00', NULL, 3, 3, 'view', 'view.png', 'list', NULL, NULL, NULL, NULL, 'view', 'form');
+ (-0)
+2011-08-10 04:39:59 INSERT INTO `wp_zing_flink` (`ID`, `DATE_CREATED`, `DATE_UPDATED`, `FORMIN`, `FORMOUT`, `ACTION`, `ICON`, `DISPLAYIN`, `MAPPING`, `FORMOUTALT`, `REDIRECT`, `ACTIONIN`, `ACTIONOUT`, `DISPLAYOUT`) VALUES(9, '0000-00-00 00:00:00', NULL, 2, 2, 'view', 'view.png', 'list', NULL, NULL, NULL, NULL, 'view', 'form');
+ (-0)
+2011-08-10 04:39:59 Duplicate entry '9' for key 'PRIMARY'-INSERT INTO `wp_zing_flink` (`ID`, `DATE_CREATED`, `DATE_UPDATED`, `FORMIN`, `FORMOUT`, `ACTION`, `ICON`, `DISPLAYIN`, `MAPPING`, `FORMOUTALT`, `REDIRECT`, `ACTIONIN`, `ACTIONOUT`, `DISPLAYOUT`) VALUES(9, '0000-00-00 00:00:00', NULL, 2, 2, 'view', 'view.png', 'list', NULL, NULL, NULL, NULL, 'view', 'form');
+ (-0)
+2011-08-10 04:39:59 
+REPLACE INTO `wp_zing_frole` (`ID`, `DATE_CREATED`, `DATE_UPDATED`, `NAME`) VALUES(1, '2010-02-02 20:21:41', NULL, 'ADMIN');
+ (-0)
+2011-08-10 04:39:59 REPLACE INTO `wp_zing_frole` (`ID`, `DATE_CREATED`, `DATE_UPDATED`, `NAME`) VALUES(2, '2010-02-02 20:21:49', NULL, 'CUSTOMER'); (-0)
+2011-08-10 04:39:59 /Library/WebServer/Documents/ws2/wp-content/plugins/zingiri-web-shop/fwkfor/db/apps-0.9.1.sql (-0)
+2011-08-10 04:39:59 ALTER TABLE `wp_zing_faces` ADD `LOGIN` VARCHAR( 60 ) NOT NULL;
+ (-0)
+2011-08-10 04:39:59 Duplicate column name 'LOGIN'-ALTER TABLE `wp_zing_faces` ADD `LOGIN` VARCHAR( 60 ) NOT NULL;
+ (-0)
+2011-08-10 04:39:59 ALTER TABLE `wp_zing_faces` ADD `CUSTOM` TEXT NOT NULL;
+ (-0)
+2011-08-10 04:39:59 Duplicate column name 'CUSTOM'-ALTER TABLE `wp_zing_faces` ADD `CUSTOM` TEXT NOT NULL;
+ (-0)
+2011-08-10 04:39:59 /Library/WebServer/Documents/ws2/wp-content/plugins/zingiri-web-shop/fwkfor/db/apps-0.9.2.sql (-0)
+2011-08-10 04:39:59 INSERT INTO `wp_zing_flink` (`FORMIN`,`FORMOUT`,`DISPLAYIN`,`DISPLAYOUT`,`ACTION`,`ACTIONOUT`,`ICON`) VALUES (1,1,'list','form','edit','edit','edit.png');
+ (-0)
+2011-08-10 04:39:59 Duplicate entry '1-list-1-form-edit' for key 'FORMIN'-INSERT INTO `wp_zing_flink` (`FORMIN`,`FORMOUT`,`DISPLAYIN`,`DISPLAYOUT`,`ACTION`,`ACTIONOUT`,`ICON`) VALUES (1,1,'list','form','edit','edit','edit.png');
+ (-0)
+2011-08-10 04:39:59 INSERT INTO `wp_zing_flink` (`FORMIN`,`FORMOUT`,`DISPLAYIN`,`DISPLAYOUT`,`ACTION`,`ACTIONOUT`,`ICON`) VALUES (1,1,'list','form','delete','delete','delete.png');
+ (-0)
+2011-08-10 04:39:59 Duplicate entry '1-list-1-form-delete' for key 'FORMIN'-INSERT INTO `wp_zing_flink` (`FORMIN`,`FORMOUT`,`DISPLAYIN`,`DISPLAYOUT`,`ACTION`,`ACTIONOUT`,`ICON`) VALUES (1,1,'list','form','delete','delete','delete.png');
+ (-0)
+2011-08-10 04:39:59 INSERT INTO `wp_zing_flink` (`FORMIN`,`FORMOUT`,`DISPLAYIN`,`DISPLAYOUT`,`ACTION`,`ACTIONOUT`,`ICON`) VALUES (1,1,'list','form','view','view','view.png');
+ (-0)
+2011-08-10 04:39:59 Duplicate entry '1-list-1-form-view' for key 'FORMIN'-INSERT INTO `wp_zing_flink` (`FORMIN`,`FORMOUT`,`DISPLAYIN`,`DISPLAYOUT`,`ACTION`,`ACTIONOUT`,`ICON`) VALUES (1,1,'list','form','view','view','view.png');
+ (-0)
+2011-08-10 04:39:59 /Library/WebServer/Documents/ws2/wp-content/plugins/zingiri-web-shop/fwkfor/db/apps-0.9.3.sql (-0)
+2011-08-10 04:39:59 update `wp_zing_faccess` set allowed=1;
+ (-0)
+2011-08-10 04:39:59 /Library/WebServer/Documents/ws2/wp-content/plugins/zingiri-web-shop/fwkfor/db/apps-0.9.4.sql (-0)
+2011-08-10 04:39:59 INSERT INTO `wp_zing_flink` (`FORMIN`,`FORMOUT`,`DISPLAYIN`,`DISPLAYOUT`,`ACTION`,`ACTIONOUT`,`ICON`) VALUES (1,1,'list','form','add','add','add.png');
+ (-0)
+2011-08-10 04:39:59 
+ALTER TABLE `wp_zing_flink` DROP `CONTEXT`; (-0)
+2011-08-10 04:39:59 Can't DROP 'CONTEXT'; check that column/key exists-
+ALTER TABLE `wp_zing_flink` DROP `CONTEXT`; (-0)
+2011-08-10 04:39:59 /Library/WebServer/Documents/ws2/wp-content/plugins/zingiri-web-shop/fwkfor/db/apps-0.9.6.sql (-0)
+2011-08-10 04:39:59 ALTER TABLE `wp_zing_faces` ADD `PROJECT` VARCHAR( 75 ) NOT NULL; 
+ (-0)
+2011-08-10 04:39:59 Duplicate column name 'PROJECT'-ALTER TABLE `wp_zing_faces` ADD `PROJECT` VARCHAR( 75 ) NOT NULL; 
+ (-0)
+2011-08-10 04:39:59 
+ ALTER TABLE `wp_zing_flink` ADD UNIQUE (
+`FORMIN` ,
+`DISPLAYIN` ,
+`FORMOUT` ,
+`DISPLAYOUT` ,
+`ACTION`
+);  (-0)
+2011-08-10 04:39:59 /Library/WebServer/Documents/ws2/wp-content/plugins/zingiri-web-shop/fwkfor/db/apps-1.0.0.sql (-0)
+2011-08-10 04:39:59 /Library/WebServer/Documents/ws2/wp-content/plugins/zingiri-web-shop/fwkfor/db/apps-1.0.4.sql (-0)
+2011-08-10 04:39:59 ALTER TABLE `wp_zing_tax_faces` CHANGE `LOGIN` `LOGIN` VARCHAR( 60 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL;
+ (-0)
+2011-08-10 04:39:59 Table 'ws2.wp_zing_tax_faces' doesn't exist-ALTER TABLE `wp_zing_tax_faces` CHANGE `LOGIN` `LOGIN` VARCHAR( 60 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL;
+ (-0)
+2011-08-10 04:39:59 ALTER TABLE `wp_zing_tax_faces` CHANGE `CUSTOM` `CUSTOM` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL;  (-0)
+2011-08-10 04:39:59 Table 'ws2.wp_zing_tax_faces' doesn't exist-ALTER TABLE `wp_zing_tax_faces` CHANGE `CUSTOM` `CUSTOM` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL;  (-0)

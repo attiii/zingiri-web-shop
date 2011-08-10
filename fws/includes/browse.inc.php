@@ -139,6 +139,8 @@ function wsShowProductRow($row) {
 	}
 	$output.= "</tr>";
 
+	$output.='<script type="text/javascript" language="javascript">var wsProductDisplayType=\'list\';</script>';
+	
 	return $output;
 }
 
@@ -168,8 +170,8 @@ function wsShowProductCell($row,$row_count,$prods_per_row) {
 	$output.='<td width="'.(intval(100/$prods_per_row)).'%" style="text-align:center;">
 			       '."<a class=\"plain\" href=\"".zurl("index.php?page=details&prod=".$row[0]."&cat=".$row[2])."\"><h5 style=\"text-align:center\">".$row[1].'</h5>'.$screenshot.'</a><br />
 				   <br />';
-	if ($row['FEATURES']) $output.='<form id="order'.$row[0].'" method="post" action="'.zurl('?page=details&prod='.$row[0]."&cat=".$row[2]).'">';
-	else $output.='<form id="order'.$row[0].'" method="post" action="?page=cart&action=add">';
+	if ($row['FEATURES']) $output.='<form class="wsgridform" id="order'.$row[0].'" method="post" action="'.zurl('?page=details&prod='.$row[0]."&cat=".$row[2]).'">';
+	else $output.='<form class="wsgridform" id="order'.$row[0].'" method="post" action="?page=cart&action=add">';
 	$output.='<input type="hidden" name="prodid" value="'.$row[0].'">';
 	if (!$row[4] == 0) {
 		$tax=new wsTax($row[4],$row['TAXCATEGORYID']);
@@ -188,5 +190,8 @@ function wsShowProductCell($row,$row_count,$prods_per_row) {
 	$output.='id="addtocart" value="'.$txt['details7'].'" />
                    </form></td>';
 	if ($row_count == $prods_per_row) { $output.="</tr>"; }
+	
+	$output.='<script type="text/javascript" language="javascript">var wsProductDisplayType=\'grid\';</script>';
+	
 	return $output;
 }

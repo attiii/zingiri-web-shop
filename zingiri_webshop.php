@@ -26,7 +26,7 @@
  Plugin URI: http://www.zingiri.com/web-shop
  Description: Zingiri Web Shop Developer Edition if you want to hack into the code of Zingiri Web Shop and fully customise.
  Author: Zingiri
- Version: 2.1.1
+ Version: 2.1.2
  Author URI: http://www.zingiri.com/
  */
 

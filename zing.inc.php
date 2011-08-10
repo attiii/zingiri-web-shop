@@ -239,8 +239,11 @@ function zing_install() {
 			$dir=BLOGUPLOADDIR.'zingiri-web-shop/'.$subdir.'/';
 			$ori=ZING_DIR.$subori.'/';
 			if (!file_exists($dir)) {
+				$createDir=true;
 				mkdir($dir);
 				chmod($dir,0777);
+			} else {
+				$createDir=false;
 			}
 			if (is_writable($dir)) {
 				if ($fh = fopen($dir.'/index.php', 'w')) {
@@ -248,7 +251,7 @@ function zing_install() {
 					fclose($fh);
 				}
 			}
-			if (file_exists($ori)) {
+			if (file_exists($ori) && ($createDir || !$zing_version)) { //only for new installations
 				if ($handle = opendir($ori)) {
 					while (false !== ($file = readdir($handle))) {
 						if (strstr($file,'.php') || strstr($file,'.jpg') || strstr($file,'.png') || strstr($file,'.gif') || strstr($file,'.pdf')) {
