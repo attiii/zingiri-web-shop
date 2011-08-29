@@ -282,7 +282,7 @@ $txt['admin32'] = 'Lagerverwaltung';
 $txt['admin33'] = 'Einige Produkte haben (';
 $txt['admin34'] = ') den Mindestbestand unterschritten!';
 $txt['admin35'] = 'Mailing Liste';
-$txt['admin36'] = '<strong><font color="red">Es gibt Neuigkeiten von FreeWebshop.org</font></strong><br /><br />Es kann ein Security Fx, eine neue Version oder eine andere wichtige Neuigkeite sein. Pr&uuml;fen Sie es hier unten oder besuchen Sie <a href="http://www.freewebshop.org">FreeWebshop.org</a>!<br /><br />(Sie bekommen diese Benachrichtigung wenn es aktuellere Neuigkeiten gibt)';
+$txt['admin36'] = '<strong><font color="red">Es gibt Neuigkeiten von Zingiri Web Shop</font></strong><br /><br />Es kann ein Security Fx, eine neue Version oder eine andere wichtige Neuigkeite sein. Pr&uuml;fen Sie es hier unten oder besuchen Sie <a href="http://www.Zingiri Web Shop">Zingiri Web Shop</a>!<br /><br />(Sie bekommen diese Benachrichtigung wenn es aktuellere Neuigkeiten gibt)';
 $txt['admin37'] = 'Versandl&auml;nder';
 $txt['admin38'] = 'Rabatt';
 
@@ -448,7 +448,7 @@ $txt['editsettings75'] = 'Bilddatei Name <a href=# class=info>(?)<span>Einige Sp
 $txt['editsettings76'] = 'Bild ID (empfohlen)';
 $txt['editsettings77'] = 'Produkt ID';
 $txt['editsettings78'] = 'den &Uuml;ber uns Link zeigen';
-$txt['editsettings79'] = 'Live News aktivieren <a href=# class=info>(?)<span>Seien Sie immer auf dem laufendem, was FreeWebShop.org Neues zu bieten hat. Nur deaktivieren, wenn Sie Probleme mit den News erfahren.</span></a>';
+$txt['editsettings79'] = 'Live News aktivieren <a href=# class=info>(?)<span>Seien Sie immer auf dem laufendem, was Zingiri Web Shop Neues zu bieten hat. Nur deaktivieren, wenn Sie Probleme mit den News erfahren.</span></a>';
 $txt['editsettings80'] = 'Preislisten Vorschaubild Weite <a href=# class=info>(?)<span> in Pixel (px).<br />default=50<br/>0=deaktivieren der Bildanpassung</span></a>';
 $txt['editsettings81'] = 'Preislisten Vorschaubild H&ouml;he <a href=# class=info>(?)<span> in Pixel (px).<br />default=50<br />0=deaktivieren der Bildanpassung</span></a>';
 $txt['editsettings82'] = 'Kategorie Vorschaubild Weite <a href=# class=info>(?)<span> in Pixel (px).<br />default=50<br/>0=deaktivieren der Bildanpassung</span></a>';

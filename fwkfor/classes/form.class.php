@@ -45,7 +45,7 @@ class zfForm {
 	var $search;
 	var $searchable=false; //whether form contains searcheable fields
 	var $action;
-	var $errorMessage;
+	var $errorMessage='Record not found';
 	var $recid;
 	var $rec;
 	var $success;
@@ -368,8 +368,6 @@ class zfForm {
 					}
 				}
 
-				//if (!$element->isRepeatable || $ca==0) {
-				//if (1==1) {
 				foreach ($value['subelements'] as $key2 => $sub)
 				{
 					if (isset($this->elements['cat'][$key][$key2]) && $this->elements['cat'][$key][$key2]=='parameter') {
@@ -417,43 +415,6 @@ class zfForm {
 					$ret.=$element_markup;
 				}
 				$isFirst=false;
-				/*
-				 } else {
-					for ($a=0; $a<$ca; $a++) {
-					if ($a<$ca-1) $element->showSubscript=false;
-					else $element->showSubscript=true;
-					foreach ($value['subelements'] as $key2 => $sub)
-					{
-					if (isset($this->elements['cat'][$key][$key2]) && $this->elements['cat'][$key][$key2]=='parameter') {
-					$populated_value['element_'.$key.'_'.$key2]=$sub['populate'];
-					}
-					elseif (isset($sub['populate']) && empty($this->input))
-					{
-					$populated_value['element_'.$key.'_'.$key2]=$sub['populate'];
-					}
-					elseif (!empty($this->input))
-					{
-					$populated_value['element_'.$key.'_'.$key2]=$this->input['element_'.$key.'_'.$key2][$a];
-					}
-					if ($c > 1) {
-					$f=strtoupper($this->column[$key]."_".$element->xmlf->fields->{'field'.$key2}->name);
-					} else {
-					$f=$this->column[$key];
-					}
-					$populated_column[$f]=$populated_value['element_'.$key.'_'.$key2];
-					}
-					$ret.='<li class="zfli" style="background-image:none;">';
-					$element->populated_value=$populated_value;
-					$element->populated_column=$populated_column;
-					$element->column=$this->column;
-					$element->prepare();
-					if ($prefix) $ret.=str_replace('element_',$prefix.'_element_',$element->display($mode));
-					else $ret.=$element->display($mode);
-					$ret.='</li>';
-					}
-					}
-					*/
-
 				$this->elements[$key]=$element->name;
 
 			}
@@ -466,7 +427,8 @@ class zfForm {
 				$tabs.=$divider;
 				$tabs.='</a></li>';
 			}
-			$tabs.='<ul>';
+			$tabs.='</ul>';
+			$tabs.='<div class="zfclear"></div>';
 			$js='<script type="text/javascript" language="javascript">';
 			$js.='//<![CDATA['.chr(13);
 			$js.='jQuery(document).ready(function() {';
@@ -476,8 +438,6 @@ class zfForm {
 			$js.="</script>";
 		}
 		$ret=$tabs.$ret;
-		//error_reporting(E_ALL & ~E_NOTICE);
-		//ini_set('display_errors', '1');
 		$ret='<div id="zfacestabs">'.$ret.'</div>'.$js;
 		if (count($jsRules) > 0) {
 			$js_markup='<script type="text/javascript">';
@@ -1014,6 +974,11 @@ class zfForm {
 			$this->errorMessage="Access denied";
 			return false;
 		}
+	}
+	
+	function recValue($field) {
+		$ret=$this->rec[strtoupper($field)] ? $this->rec[strtoupper($field)] : $this->rec[strtolower($field)];
+		return $ret;
 	}
 
 }

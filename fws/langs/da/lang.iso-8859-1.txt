@@ -280,7 +280,7 @@ $txt['admin32'] = 'Lagerstyring';
 $txt['admin33'] = 'Antal produkter (';
 $txt['admin34'] = ') er under minimum antal stk!';
 $txt['admin35'] = 'Mailing liste';
-$txt['admin36'] = '<strong><font color="red">Der er nyheder fra FreeWebshop.org</font></strong><br /><br />Det kan være sikkerheds fix, eller anden vigtig information. Læs nedenstående eller besøg <a href="http://www.freewebshop.org">FreeWebshop.org</a>!<br /><br />(Du får kun denne besked, når der er noget nyt)';
+$txt['admin36'] = '<strong><font color="red">Der er nyheder fra Zingiri Web Shop</font></strong><br /><br />Det kan være sikkerheds fix, eller anden vigtig information. Læs nedenstående eller besøg <a href="http://www.Zingiri Web Shop">Zingiri Web Shop</a>!<br /><br />(Du får kun denne besked, når der er noget nyt)';
 $txt['admin37'] = 'Forsendelse lande';
 $txt['admin38'] = 'Rabat';
 
@@ -428,7 +428,7 @@ $txt['editsettings75'] = 'Billed filnavn <a href=# class=info>(?)<span>Nogle spr
 $txt['editsettings76'] = 'Database ID (anbefalet)';
 $txt['editsettings77'] = 'Product ID';
 $txt['editsettings78'] = 'Vis firmaprofil link';
-$txt['editsettings79'] = 'Aktiver Live News <a href=# class=info>(?)<span>Dette aktiverer Live News forbindelsen fra FreeWebshop.org, som informerer dig om opdateringer og andre relevante nyheder. Dekativer kun denne facilitet, hvis du har problemer med funktionen.</span></a>';
+$txt['editsettings79'] = 'Aktiver Live News <a href=# class=info>(?)<span>Dette aktiverer Live News forbindelsen fra Zingiri Web Shop, som informerer dig om opdateringer og andre relevante nyheder. Dekativer kun denne facilitet, hvis du har problemer med funktionen.</span></a>';
 $txt['editsettings80'] = 'Prisliste thumb bredde <a href=# class=info>(?)<span>Bredden i pixels.<br />default=50<br/>0=deaktiver breddetilpasning</span></a>';
 $txt['editsettings81'] = 'Prisliste thumb højde <a href=# class=info>(?)<span>Højden i pixels.<br />default=50<br />0=deaktiver højdetilpasning</span></a>';
 $txt['editsettings82'] = 'Kategori thumb bredde <a href=# class=info>(?)<span>Bredden i pixels.<br />default=50<br />0=deaktiver breddetilpasning</span></a>';

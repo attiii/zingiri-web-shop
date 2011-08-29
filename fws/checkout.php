@@ -272,10 +272,10 @@ if (LoggedIn() == True) {
 			// read the shipping costs
 			$query = sprintf("SELECT * FROM `".$dbtablesprefix."shipping_weight` WHERE `ID` = %s", quote_smart($weightid));
 			$sql = mysql_query($query) or die(mysql_error());
-
-			while ($row = mysql_fetch_row($sql)) {
-				$sendcosts = $row[4];
-			}
+			if ($row = mysql_fetch_row($sql)) $sendcosts = $row[4];
+			else $sendcosts=0;
+			$shippingTax=new wsTax($sendcosts,wsSetting('SHIPPING_TAX_CATEGORY'));
+			
 			$zingPrompts->load(true); // update sendcost in language file
 			$message .= '<tr><td>'.$txt['checkout16'].'</td><td>'.$shipping_descr.'</td><td style="text-align: right">'.$currency_symbol_pre.myNumberFormat($sendcosts,$number_format).$currency_symbol_post.'</td></tr>';
 			$tpl->replace('SHIPPINGMETHOD',$shipping_descr);
@@ -294,16 +294,32 @@ if (LoggedIn() == True) {
 							$tpl->repeatRow(array('TAXLABEL','TAXRATE','TAXTOTAL'));
 							$tpl->replace('TAXRATE',$data['RATE']);
 							$tpl->replace('TAXTOTAL',$currency_symbol_pre.myNumberFormat($data['TAX'],$number_format).$currency_symbol_post);
-							$tpl->replace('TAXLABEL',$label);
-							$message .= '<tr><td>'.$taxheader.'</td><td>'.$label.' '.$data['RATE'].'%</td><td style="text-align: right">'.$currency_symbol_pre.myNumberFormat($data['TAX'],$number_format).$currency_symbol_post.'</td></tr>';
+							$tpl->replace('TAXLABEL',$label.' '.$data['CATEGORY']);
+							$message .= '<tr><td>'.$taxheader.'</td><td>'.$label.' '.$data['CATEGORY'].' '.$data['RATE'].'%</td><td style="text-align: right">'.$currency_symbol_pre.myNumberFormat($data['TAX'],$number_format).$currency_symbol_post.'</td></tr>';
 							$taxheader="";
 						}
 					}
 				}
-			} else {
-				$tpl->removeRow(array('TAXLABEL','TAXRATE','TAXTOTAL'));
 			}
 
+			if (count($shippingTax->taxByCategory)>0) {
+				foreach ($shippingTax->taxByCategory as $taxCategory => $taxes) {
+					if (count($taxes)>0) {
+						foreach ($taxes as $label => $data) {
+							$tpl->repeatRow(array('TAXLABEL','TAXRATE','TAXTOTAL'));
+							$tpl->replace('TAXRATE',$data['RATE']);
+							$tpl->replace('TAXTOTAL',$currency_symbol_pre.myNumberFormat($data['TAX'],$number_format).$currency_symbol_post);
+							$tpl->replace('TAXLABEL',$label.' '.$data['CATEGORY']);
+							$message .= '<tr><td>'.$taxheader.'</td><td>'.$label.' '.$data['CATEGORY'].' '.$data['RATE'].'%</td><td style="text-align: right">'.$currency_symbol_pre.myNumberFormat($data['TAX'],$number_format).$currency_symbol_post.'</td></tr>';
+							$taxheader="";
+						}
+					}
+				}
+			} 
+			if (count($tax->taxByCategory)==0 && count($shippingTax->taxByCategory)==0) {
+				$tpl->removeRow(array('TAXLABEL','TAXRATE','TAXTOTAL'));
+			}
+			
 			// now lets calculate the invoice total now we know the final addition, the shipping costs
 			$message .= '<tr><td>'.$txt['checkout24'].'</td><td>'.$txt['checkout25'].'</td><td style="text-align: right"><big><strong>'.$currency_symbol_pre.myNumberFormat($total,$number_format).$currency_symbol_post.'</strong></big></td></tr>';
 			$tpl->replace('TOTAL',$currency_symbol_pre.myNumberFormat($total,$number_format).$currency_symbol_post);

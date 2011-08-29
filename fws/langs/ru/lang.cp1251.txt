@@ -271,7 +271,7 @@ $txt['admin32'] = 'Управление складом';
 $txt['admin33'] = 'Количество товаров (';
 $txt['admin34'] = ') ниже минимального уровня!';
 $txt['admin35'] = 'Лист рассылки';
-$txt['admin36'] = '<strong><font color="red">Новости от FreeWebshop.org</font></strong><br /><br />It might be a security fix, new version or other important news. Check it out below or visit <a href="http://www.freewebshop.org">FreeWebshop.org</a>!<br /><br />(you only get this notification once when there is new news)';
+$txt['admin36'] = '<strong><font color="red">Новости от Zingiri Web Shop</font></strong><br /><br />It might be a security fix, new version or other important news. Check it out below or visit <a href="http://www.Zingiri Web Shop">Zingiri Web Shop</a>!<br /><br />(you only get this notification once when there is new news)';
 
 
 // customeradmin.php
@@ -416,7 +416,7 @@ $txt['editsettings75'] = 'Имена файлов для изображений товаров <a href=# class=i
 $txt['editsettings76'] = 'Database ID (recommended)';
 $txt['editsettings77'] = 'Product ID';
 $txt['editsettings78'] = 'Показывать ссылку О нас';
-$txt['editsettings79'] = 'Включить Live News <a href=# class=info>(?)<span>Включает live news FreeWebshop.org, для получения информации об обновлениях и других новостях с FreeWebshop.org. Отключите, если Вы испытываете проблемы с этой настройкой</span></a>';
+$txt['editsettings79'] = 'Включить Live News <a href=# class=info>(?)<span>Включает live news Zingiri Web Shop, для получения информации об обновлениях и других новостях с Zingiri Web Shop. Отключите, если Вы испытываете проблемы с этой настройкой</span></a>';
 $txt['editsettings80'] = 'Ширина полосы позиции в прайс-листе <a href=# class=info>(?)<span>Ширина в пикселях.<br />50 по умолчанию<br/>0 отключает масштабирование</span></a>';
 $txt['editsettings81'] = 'Высота полосы позиции в прайс-листе <a href=# class=info>(?)<span>Высота в пикселях.<br />50 по умолчанию<br/>0 отключает масштабирование</span></a>';
 $txt['editsettings82'] = 'Ширина полосы позиции категории <a href=# class=info>(?)<span>Ширина в пикселях.<br />50 по умолчанию<br/>0 отключает масштабирование</span></a>';

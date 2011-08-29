@@ -1,0 +1,615 @@
+<?php
+$charset = "ISO-8859-1";
+
+// first some values that can also be used further along in this lang file
+// database values for orders
+$txt['db_shipping1'] = 'Hent produkta sjølv, ingen fraktkostnader';
+
+// database values for payments
+$txt['db_payment1'] = 'Betal via bank';
+$txt['db_payment2'] = 'Betal i butikken (berre mogleg viss du hentar produkta sjølv)';
+$txt['db_payment3'] = 'Betal via PayPal';
+$txt['db_payment4'] = 'Betal med postoppkrav';
+
+// ordar status
+$txt['db_status1'] = 'Ordre motteken frå kunde';
+$txt['db_status2'] = 'Ventar på betaling';
+$txt['db_status3'] = 'Ventar på avtale';
+$txt['db_status4'] = 'Ordren blir handsama';
+$txt['db_status5'] = 'Sendt til kunde (fullført)';
+$txt['db_status6'] = 'Henta av kunde (fullført)';
+$txt['db_status7'] = 'Kansellert';
+
+$txt['db_status10'] = 'Forklaring av status';
+$txt['db_status11'] = 'Ordren din er motteken, men er ikkje godkjent av ein tilsett enno';
+$txt['db_status12'] = 'Ordren din er godkjent. Ver god å overføra kjøpssummen til bankkontoen vår';
+$txt['db_status13'] = 'Vi har fått betalinga di, og har sendt deg ein e-post for å informera om at ordren er klår til å bli henta. Ring oss for å avtala tidspunkt';
+$txt['db_status14'] = 'Vi har fått betalinga di, og ordren blir handsama. Dette tyder at vi anten held på å få inn produktet, eller at vi snart sender det';
+$txt['db_status15'] = 'Ordren er sendt i posten. Ordren er fullført';
+$txt['db_status16'] = 'Ordren er henta av deg. Ordren er fullført';
+$txt['db_status17'] = 'Ordren vart kansellert av anten deg eller oss';
+
+// database values for stock
+$txt['db_stock1'] = 'På lager';
+$txt['db_stock2'] = 'Ikkje på lager';
+$txt['db_stock3'] = 'Tinga';
+
+$txt['db_stock10'] = 'Forklaring av lagerstatus';
+$txt['db_stock11'] = 'Produktet er på lager. Viss du tingar no, får du produktet tilsendt med ein gong';
+$txt['db_stock12'] = 'Produktet er ikkje på lager (og vil ikkje bli tinga i næraste framtida)';
+$txt['db_stock13'] = 'Produktet er tinga, så vi har det snart på lager. Viss du tingar no, får du produktet så snart vi har det på lager.';
+
+// general values
+$txt['general1'] = 'Inkje tilgjenge!';
+$txt['general2'] = 'IP-adressa di er lagra for å forhindra vidare misbruk';
+$txt['general3'] = 'ny';
+$txt['general4'] = 'Tilbake til admin-val';
+$txt['general5'] = 'moms';
+$txt['general6'] = 'ekskl.';
+$txt['general7'] = 'inkl.';
+$txt['general8'] = 'MERK: Nettbutikken er stengt! Kundane kan ikkje leita etter eller bestille produkt';
+$txt['general9'] = '404 feil. Sida finst ikkje!';
+$txt['general10'] = 'Du er vorten utestengt frå denne nettbutikken';
+$txt['general11'] = 'Om oss';
+$txt['general12'] = 'Feil';
+$txt['general13'] = 'Melding';
+$txt['general14'] = 'Tilbake';
+$txt['general15'] = 'Skriv inn koden';
+$txt['general16'] = 'Koden var feil. Prøv ein gong til';
+
+// headar.php
+$txt['headar1'] = 'Trygleiksrisiko';
+$txt['headar2'] = 'velkomen';
+$txt['headar3'] = 'gjest';
+$txt['headar4'] = '<font color=red><strong>install.php</strong></font> funnen. Du må sletta fila eller gje ho eit nytt namn før du held fram!';
+
+// menu.php
+$txt['menu1'] = 'Heim';
+$txt['menu2'] = 'Handlekorg';
+$txt['menu3'] = 'Til kassa';
+$txt['menu4'] = 'Søk';
+$txt['menu5'] = 'Almenne vilkår';
+$txt['menu6'] = 'Fraktalternativ';
+$txt['menu7'] = 'Garanti';
+$txt['menu8'] = 'Kontakt';
+$txt['menu9'] = 'Administrasjon';
+$txt['menu10'] = 'Personleg side';
+$txt['menu11'] = 'Logg ut';
+$txt['menu12'] = 'Logg inn';
+$txt['menu13'] = 'Registrer deg';
+$txt['menu14'] = 'Informasjon';
+$txt['menu15'] = 'Produkt';
+$txt['menu16'] = '<font color=rei><strong>Nye</strong></font> produkt';
+$txt['menu17'] = 'Ingen produkt';
+$txt['menu18'] = 'Om oss';
+$txt['menu19'] = 'Ekstra';
+
+// sendprocedure.php
+$txt['send1'] = 'Fraktmetode';
+
+// cart.php
+$txt['cart1'] = 'Handlekorg';
+$txt['cart2'] = 'Handlekorga di er tom.<br /><br />';
+$txt['cart3'] = 'Skildring';
+$txt['cart4'] = 'Pris';
+$txt['cart5'] = 'Mengd';
+$txt['cart6'] = 'Slett';
+$txt['cart7'] = 'Totalt';
+$txt['cart8'] = 'Tøm';
+$txt['cart9'] = 'Til kassa';
+$txt['cart10'] = 'Oppdatér';
+$txt['cart11'] = 'Kva du har i korga';
+$txt['cart12'] = 'Hald fram å handla';
+
+// browse.php
+$txt['browse1'] = 'Søkjeresultat';
+$txt['browse2'] = 'Produktskildring';
+$txt['browse3'] = 'Pris';
+$txt['browse4'] = 'Sortér';
+$txt['browse5'] = 'Fann ingen produkt';
+$txt['browse6'] = 'Produkta kan avvika litt frå bileta. Prisar med atterhald om feil';
+$txt['browse7'] = 'endra';
+$txt['browse8'] = 'slett';
+$txt['browse9'] = 'Produktliste';
+$txt['browse10'] = 'endra bilete';
+$txt['browse11'] = 'Sider';
+
+// submenu.php
+$txt['submenu1'] = 'Kategoriane i denne gruppa';
+$txt['submenu2'] = 'Fann ingen kategoriar i denne gruppa';
+
+// main.php
+$txt['main1'] = 'Velkomen';
+$txt['main2'] = 'Spesialtilbod';
+
+// details.php
+$txt['details1'] = 'Produktdetaljar';
+$txt['details2'] = 'Produkt-ID';
+$txt['details4'] = 'Skildring';
+$txt['details5'] = 'Pris/stk';
+$txt['details6'] = 'Mengder';
+$txt['details7'] = 'Ting';
+$txt['details8'] = 'Tilbake til lista';
+$txt['details9'] = 'Klikk for full storleik';
+
+// conditions.php
+$txt['conditions1'] = 'Eg godtek dei almenne vilkåra';
+$txt['conditions2'] = 'Eg godtek ikkje dei almenne vilkåra';
+$txt['conditions3'] = 'Ikkje tilgjengeleg';
+$txt['conditions4'] = 'Det er ikkje mogleg for å tinga nett no';
+$txt['conditions5'] = 'Almenne vilkår';
+
+// shipping.php
+$txt['shipping1'] = 'Frakt og betaling';
+$txt['shipping2'] = 'vel fraktmetode';
+$txt['shipping3'] = 'Kommentarar/spørsmål';
+$txt['shipping9'] = 'Fullfør tinginga';
+$txt['shipping10'] = 'Vel betalingsmåte';
+
+// checkout.php
+$txt['checkout1'] = 'Feil';
+$txt['checkout2'] = 'Sida er utgått. Gå tilbake til handlekorga og klikk på "til kassa"';
+$txt['checkout3'] = "Hei!<br /><br /><br />Vi sender denne meldinga for å stadfesta ordren din hjå <a href=$shopurl>$shopname</a><br /><br />Ordren din-ID: $webid<br />Kunden din-ID: $customerid<br /><br />Du tinga desse produkta:<br />";
+$txt['checkout4'] = ' x produkt ';
+$txt['checkout5'] = ' per stk';
+$txt['checkout6'] = "<br />";
+$txt['checkout7'] = 'Du prøvde å tinga:';
+$txt['checkout8'] = 'På lager:';
+$txt['checkout9'] = "<br /><br />Du kan kontrollera statusen på ordren din når du vil ved å klikka <a href=$shopurl/index.php?page=orders&id=$customerid>her</a><br /><br />Takk for handelen.<br />Viss du har spørsmål, kan du kontakta oss (kontaktinformasjon finn du på heimesida vår)";
+$txt['checkout10'] = 'Stadfesting på tinginga di hjå '.$shopname;
+$txt['checkout11'] = 'Ordren din er fullført. Ei stadfesting blir sendt til deg.';
+$txt['checkout12'] = 'Vi kunne ikkje senda stadfestinga via e-post. Skriv difor ut stadfestinga under.';
+$txt['checkout13'] = 'Under finn du ein kopi av e-post-stadfestinga:';
+$txt['checkout15'] = 'Det finst ikkje nok produkt att på lager av det du freista å tinga:';
+$txt['checkout16'] = "Fraktmetode: ";
+$txt['checkout17'] = "Sendingsadresse:<br />$company<br />$address<br />$zipcode $city<br />$country";
+$txt['checkout19'] = "Betalingsmåte: ";
+$txt['checkout20'] = "Bankinformasjon:<br />Kontonummer: $bankaccount<br />Kontoeigar: $bankaccountowner<br />Stad: $bankcity<br />Land: $bankcountry<br />Namnet åt banken: $bankname<br />IBAN: $bankiban<br />BIC: $bankbic<br />Referanse: $webid";
+$txt['checkout21'] = "Når produkta er på lager, vil vi senda deg ein e-post for å avtala hentetidspunkt.";
+$txt['checkout22'] = "Bruk PayPal-kontoen din (eller bank/kredittkort) for å betala.";
+$txt['checkout23'] = "Du betaler til posten når du får pakka.";
+$txt['checkout24'] = "Fakturasummen er: $currency_symbol $totalprint (inkludert $currency_symbol $print_sendcosts i fraktkostnad)";
+$txt['checkout25'] = "inkludert $show_vat ".$txt['general5'];
+$txt['checkout26'] = "Ver god å betala heile beløpet innan $paymentdays dagar (NB! Viss det blir kravd forskotsbetaling vil ordren bli sletta etter dette). Når vi har motteke betalinga, sender vi deg produktet/-a så fort vi kan.";
+$txt['checkout27'] = 'PayPal-overføring';
+
+// search.php
+$txt['search1'] = 'Finn eit produkt';
+$txt['search2'] = 'Søk etter';
+$txt['search3'] = 'Søkjemetode';
+$txt['search4'] = 'Treff alle ord';
+$txt['search5'] = 'Treff eitt av orda';
+$txt['search6'] = 'Søk';
+
+// guarantee.php
+$txt['guarantee1'] = 'Garanti';
+
+// contact.php
+$txt['contact1'] = 'Spørsmål via skjema på '. $shopurl;
+$txt['contact2'] = 'Send melding';
+$txt['contact3'] = 'Meldinga di er sendt. Viss det trengst, svarar vi deg så fort vi kan';
+$txt['contact5'] = 'Du må fylla inn alle felta i skjemaet.<br /><a href="javascript:history.go(-1)"><strong>Klikk her</strong></a> for å gå tilbake.';
+$txt['contact6'] = 'Kontakt';
+$txt['contact7'] = 'Korleis kontakta oss';
+$txt['contact8'] = 'E-post';
+$txt['contact9'] = 'Telefon';
+$txt['contact10'] = 'Fax';
+$txt['contact11'] = 'For å kontakta oss via nettsida, bruker du skjemaet under:';
+$txt['contact12'] = 'Send til';
+$txt['contact13'] = 'Namnet ditt';
+$txt['contact14'] = 'E-postadressa di';
+$txt['contact15'] = 'Meldinga di';
+
+// checklogin.php
+$txt['checklogin1'] = 'Bruk den personlege koden din for å logga inn';
+$txt['checklogin2'] = 'Brukarnamn';
+$txt['checklogin3'] = 'Passord';
+$txt['checklogin4'] = 'Logg inn';
+$txt['checklogin5'] = 'Viss du ikkje har brukernamn enno, klikk her';
+$txt['checklogin6'] = 'Kvifor bli medlem?';
+$txt['checklogin7'] = 'For å kjøpe produkt frå vår nettbutikk må du registrera deg. For å registrera deg må du oppgje namn, leveringsadresse, e-post adresse osb Vi treng informasjonen for å handsama ordren din rett.<br /><br /><strong>Informasjonen din vil berre bli brukt av oss.</strong><br /><br /><br />Når du har registrert deg kan du òg:<ul><li>Logga inn i nettbutikken frå kva for ein som helst PC<li>Tinga produkt<li>Halda auga med tinginga<li>Halda orden på handlekorga</ul>';
+$txt['checklogin8'] = 'Gløymt innloggingsinformasjon';
+$txt['checklogin9'] = 'Skriv inn e-post adressa du brukte då du registrerte deg. Innloggingsinformasjonen vil bli sendt til den adressa.';
+$txt['checklogin10'] = 'Send e-post';
+$txt['checklogin11'] = 'Gløymt innloggingsinformasjon?';
+$txt['checklogin12'] = 'Din innloggingsinformasjon er sendt til';
+$txt['checklogin13'] = 'Gløymt innloggingsinformasjon '. $shopurl;
+$txt['checklogin14'] = 'Denne a-posten vart sendt til deg fordi du trong innloggingsinformasjonen for vår nettbutikk ('. $shopurl .').';
+$txt['checklogin15'] = 'Det finst ingen kunde med den adressa du oppgav';
+$txt['checklogin18'] = 'Gå tilbake';
+
+// login.php
+$txt['login1'] = 'Feil ved innlogging... vent litt';
+$txt['login2'] = 'eller klikk her';
+$txt['login3'] = 'Du er logga inn... vent litt';
+
+// logout.php
+$txt['logout1'] = 'Du har logga ut..';
+
+// my.php
+$txt['my3'] = 'Om di personlege side';
+$txt['my4'] = 'Dette er den personlege sida di. Berre du har tilgjenge til denne sida når du har logga inn i nettbutikken med brukarnamn og passord.<br /><br />Her kan du sjå den personlege informasjonen din, tingingane dine og handlekorga di. Alt på ein stad.';
+$txt['my5'] = 'Alternativ for personleg side';
+$txt['my6'] = 'Kunde-IDen din';
+$txt['my7'] = 'Endra informasjon';
+$txt['my8'] = 'Viser ordrar';
+$txt['my9'] = 'Viser handlekorga';
+
+// admin.php
+$txt['admin1'] = 'Butikkadministrasjon';
+$txt['admin2'] = 'Ordrar';
+$txt['admin3'] = 'Kundar';
+$txt['admin4'] = 'Butikk';
+$txt['admin5'] = 'Produkt';
+$txt['admin6'] = 'Grupper&<br />Kategoriar';
+$txt['admin7'] = 'Optimalisér databasen';
+$txt['admin8'] = 'Innstillingar';
+$txt['admin9'] = 'Last opp ei prisliste';
+$txt['admin10'] = 'Optimalisér alle databasetabellane...';
+$txt['admin11'] = 'Optimaliserer';
+$txt['admin12'] = 'Optimalisering fullført!';
+$txt['admin13'] = 'Informasjon og hjelp';
+$txt['admin14'] = 'Sjekk etter oppdateringar';
+$txt['admin15'] = 'Almenne vilkår';
+$txt['admin16'] = 'Om frakt/levering';
+$txt['admin17'] = 'Garanti-vilkår';
+$txt['admin18'] = 'Fraktmetodar';
+$txt['admin19'] = 'Utestengt-liste';
+$txt['admin20'] = 'Om oss';
+$txt['admin21'] = 'Betalingsmåtar';
+$txt['admin22'] = 'Framside';
+$txt['admin23'] = 'Endra innstillinger';
+$txt['admin24'] = 'Endra filer';
+$txt['admin25'] = 'Informasjon';
+$txt['admin26'] = 'Feil-logg';
+$txt['admin27'] = 'Database-tryggingskopi';
+$txt['admin28'] = 'Tryggingskopieringa er fullført. For å lasta ned backup-fila, klikkar du på lenkja under';
+$txt['admin29'] = 'Administratorar';
+$txt['admin30'] = 'Ekstrasider';
+$txt['admin31'] = 'Tilgangslogg';
+$txt['admin32'] = 'Lagerstyring';
+$txt['admin33'] = 'Mengd produkt (';
+$txt['admin34'] = ') er under minimum lagerbehaldning!';
+$txt['admin35'] = 'Epost-liste';
+$txt['admin36'] = '<strong><font color="rei">Det er nyhende frå FreeWebshop.org</font></strong><br /><br />Det kan vera ei tryggleiksoppdatering, ein ny versjon eller andre viktige nyhende! Sjekk det ut nedanfor eller vitja <a href="http://www.freewebshop.org">FreeWebshop.org</a>!<br /><br />(du får desse meldingane berre ein gong kvar gong det er nyhende)';
+
+
+// customeradmin.php
+$txt['customeradmin1'] = 'Etternamn';
+$txt['customeradmin2'] = 'Medlemmar';
+$txt['customeradmin3'] = 'E-post';
+$txt['customeradmin4'] = 'Telefon';
+$txt['customeradmin5'] = 'Alternativ';
+$txt['customeradmin6'] = 'Kundeadministrasjon';
+$txt['customeradmin7'] = 'Denne personen er no medlem av administrasjonsgruppa';
+$txt['customeradmin8'] = 'Denne personen er no medlem av kundegruppa';
+$txt['customeradmin9'] = 'Fann ingen kundar';
+$txt['customeradmin10'] = 'Søk';
+
+// orderadmin.php
+$txt['orderadmin1'] = 'Din ordrestatus ';
+$txt['orderadmin2'] = ' er endra';
+$txt['orderadmin3'] = 'Ordren er sletta';
+$txt['orderadmin4'] = "<br /><br />Sjå $shopurl/index.php?page=orders&id=";
+$txt['orderadmin5'] = ' for oppdatert ordrestatus';
+$txt['orderadmin6'] = 'E-post sendt til';
+$txt['orderadmin7'] = 'e-post til kunde?';
+$txt['orderadmin8'] = 'Oppdatér';
+$txt['orderadmin9'] = 'alle ordrar';
+$txt['orderadmin10'] = 'Det finst ingen ordrar med statusen du oppgav';
+$txt['orderadmin11'] = 'Viser';
+$txt['orderadmin12'] = 'MERK: Kunden la inn ekstra kommentarar!';
+$txt['orderadmin13'] = 'Ordreadministrasjon';
+$txt['orderadmin14'] = 'Endra status';
+$txt['orderadmin15'] = 'Ordrestatusen er endra';
+
+// orders.php
+$txt['orders3'] = 'Ordrane dine <a href=# class=info>(?)<span>Under finn du ei liste over ordrane dine og den noverande statusen deira<br />Klikk på ein ordre for å sjå detaljane</span></a>';
+$txt['orders4'] = 'Ordre-ID';
+$txt['orders5'] = 'Levering og betaling';
+$txt['orders6'] = 'Fakturasum';
+$txt['orders7'] = 'Ordredato';
+$txt['orders8'] = 'Status';
+$txt['orders9'] = 'Du har ikkje bestilt noko frå nettbutikken vår enno';
+
+// customer.php
+$txt['customer1'] = 'Fylke';
+$txt['customer2'] = 'Kunden sletta';
+$txt['customer3'] = 'Gå tilbake';
+$txt['customer5'] = 'Du må fylla ut alle dei kravde felta før du kan gå vidare';
+$txt['customer6'] = 'Du må fylla ut alle felt merkte med ein (*)';
+$txt['customer7'] = 'Mellomrom er ikkje lov i brukernavnet';
+$txt['customer8'] = 'Dei to passorda er ikkje like';
+$txt['customer9'] = 'Passordet må vere på minst 5 teikn';
+$txt['customer10'] = 'Du har skrive inn ei ugyldig e-post adresse';
+$txt['customer11'] = 'Velkomen til '.$shopname;
+$txt['customer12'] = "Hei!<br /><br />Takk for at du registrerte deg hjå $shopname Webshop ($shopurl).<br /><br />No kan du logga deg på nettbutikken vår og tinga produkt<br />eller sjå statusen på ordrane dine.<br /><br />Her er innloggingsinformasjonen din:<br />Brukarnamn:  $login<br />Passord: $pass1<br /><br />Pass på denne informasjonen!<br /><br />Sjåast att på $shopurl<br /><br />Mvh,<br /><br /><br />Nettansvarleg";
+$txt['customer13'] = 'Informasjonen din vart lagra.';
+$txt['customer14'] = 'Ver god å oppgje så mykje informasjon som mogleg';
+$txt['customer15'] = 'Brukarnamn';
+$txt['customer16'] = 'Passord';
+$txt['customer17'] = 'Passord ein gong til';
+$txt['customer18'] = 'Etternamn';
+$txt['customer19'] = 'Mellomnavn';
+$txt['customer20'] = 'Førenamn';
+$txt['customer21'] = 'Adresse';
+$txt['customer22'] = 'Postnummer';
+$txt['customer23'] = 'Poststad';
+$txt['customer24'] = 'Land';
+$txt['customer25'] = 'Telefon';
+$txt['customer26'] = 'E-post';
+$txt['customer27'] = '* = må fyllast ut';
+$txt['customer28'] = 'Lagar informasjon';
+$txt['customer29'] = 'Brukarnamnet du skreiv, er allereie registrert';
+$txt['customer30'] = 'Selskap';
+$txt['customer32'] = 'Du prøvde å sletta administratorkontoen. Dette ville hindra deg frå å logga på nettbutikken, og førespurnaden er dermed ikkje tilleten';
+$txt['customer33'] = '(mellom 5 og 10 teikn)';
+$txt['customer34'] = 'Denne a-post adressa er allereie registrert';
+$txt['customer35'] = 'Klikk her for å logga inn';
+$txt['customer36'] = 'Ny kunde';
+$txt['customer37'] = 'Ein kunde har registrert seg på nettbutikken din. Ein kopi av den utsende mailen blir vist nedanfor:';
+$txt['customer38'] = 'Nyhendebrev?';
+
+// readorder.php
+$txt['readorder1'] = 'Skriv ut denne ordren';
+$txt['readorder2'] = 'Gå tilbake til ordrane dine';
+
+// editsettings.php
+$txt['editsettings1'] = 'Endra innstillingane';
+$txt['editsettings2'] = 'Lagra innstillingane';
+$txt['editsettings4'] = 'Standard fraktland <a href=# class=info>(?)<span>Dette er vanlegvis landa føretaket ditt kjem frå</span></a>';
+$txt['editsettings7'] = 'Ekstrakostnad for postoppkrav <a href=# class=info>(?)<span>Kjem i tillegg til vanleg fraktkostnad (kostar for tida 60 kroner ekstra hjå Posten). Format: 12.34</span></a>';
+$txt['editsettings8'] = 'Valuta';
+$txt['editsettings9'] = 'Valuta-"symbol" <a href=# class=info>(?)<span>I tilfellet ditt blir det sannsynlegvis: NOK</span></a>>';
+$txt['editsettings10'] = 'Betal innan xx dagar <a href=# class=info>(?)<span>Innan kor mange dagar skal kjøpesummen betalast inn til bankkontoen din?</span></a>';
+$txt['editsettings11'] = 'Inkludert moms <a href=# class=info>(?)<span>Viss moms er 25% skal det her stå: 1.25</span></a></a>';
+$txt['editsettings12'] = 'Momstekst <a href=# class=info>(?)<span>Viss momsen er 25 % skal det her stå: 25%</span></a>';
+$txt['editsettings13'] = 'Prisane i databasen er inkludert moms';
+$txt['editsettings14'] = 'E-post adresse til salsavdelinga <a href=# class=info>(?)<span>Alle ordrar vil bli sende til denne adressa. T.d. sal@dinbutikk.com</span></a>';
+$txt['editsettings15'] = 'Butikknamn';
+$txt['editsettings16'] = 'Nettbutikk-URL <a href=# class=info>(?)<span>URL som startar med http://, men utan / til slutt. Døme: http://www.dinbutikk.no/nettbutikk</span></a>';
+$txt['editsettings17'] = 'Standardspråk';
+$txt['editsettings18'] = 'Ordrar prefix (valfritt) <a href=# class=info>(?)<span>Alle ordrar startar med prefikset. Døme: WEB-</span></a>';
+$txt['editsettings19'] = 'Ordrar suffix (valfritt) <a href=# class=info>(?)<span>Alle ordrar startar med sufffikset. Til dømes gjeldande år: -06</span></a>';
+$txt['editsettings20'] = 'Bruk lagerverdiar <a href=# class=info>(?)<span><strong>på:</strong> du brukar lagerverdiar<br /><br /><strong>av:</strong> du brukar lagerstatus (på lager/tinga/ikkje på lager)</span></a>';
+$txt['editsettings21'] = 'Aktivér ordrar-modul';
+$txt['editsettings22'] = 'Deaktivér nettbutikk';
+$txt['editsettings23'] = 'Deaktivér nettbutikk tittel';
+$txt['editsettings24'] = 'Deaktivér nettbutikk-melding';
+$txt['editsettings25'] = 'E-postadresse til nettansvarleg';
+$txt['editsettings26'] = 'Telefon (valfritt)';
+$txt['editsettings27'] = 'Fax (valfritt)';
+$txt['editsettings28'] = 'Bankkontonummer';
+$txt['editsettings29'] = 'Kontoeigar';
+$txt['editsettings30'] = 'Byen banken ligg i';
+$txt['editsettings31'] = 'Landet banken ligg i';
+$txt['editsettings32'] = 'IBAN-nummer';
+$txt['editsettings33'] = 'BIC';
+$txt['editsettings34'] = 'Oppstartsår <a href=# class=info>(?)<span>Året du starta føretaket</span></a>';
+$txt['editsettings35'] = 'Logo <a href=# class=info>(?)<span>Bilete med logoen din. Denne skal liggja i mappa <strong>'.$gfx_dir.'</strong></span></a>';
+$txt['editsettings37'] = 'Slagord for føretaket (valfritt) <a href=# class=info>(?)<span>Slagordet blir vist under logoen</span></a>';
+$txt['editsettings38'] = 'Sidetittel <a href=# class=info>(?)<span>Tittelen som blir vist i nettlesarvindauga som nettbutikken visa si i</span></a>';
+$txt['editsettings39'] = 'Botntekst';
+$txt['editsettings44'] = 'Innstillingane blir lagra i databasen';
+$txt['editsettings45'] = 'Bankdetaljar';
+$txt['editsettings46'] = 'Utforming';
+$txt['editsettings47'] = 'Butikk';
+$txt['editsettings48'] = 'Pengar';
+$txt['editsettings49'] = 'Talformat';
+$txt['editsettings50'] = 'Maksimum lengd på skildringar <a href=# class=info>(?)<span>Dette er for å forkorta skildringane i prislistene. <br /><strong>0 = ikkje forkort<br />1-99 = tekstbryting etter xx teikn</strong></span></a>';
+$txt['editsettings51'] = 'Ingen moms <a href=# class=info>(?)<span>Vel dette viss du ikkje vil bruke moms i butikkprisane, t.d. viss du er friteke moms</span></a>';
+$txt['editsettings52'] = 'Namnet til banken';
+$txt['editsettings53'] = 'Prislisteformat <a href=# class=info>(?)<span>Desse innstillingane gjeld prislistene, handlekorga og ordrestadfestings-eposten</span></a>';
+$txt['editsettings54'] = 'Produkt-ID';
+$txt['editsettings55'] = 'Skildring';
+$txt['editsettings56'] = 'Produkt-ID og skildring';
+$txt['editsettings57'] = 'Datoformat <a href=# class=info>(?)<span><strong>d-m-Y @ G:i</strong> for dd-mm-åååå @ 23:59<br /><strong>m-d-Y @ G:i</strong> for mm-dd-åååå @ 23:59<br /></span></a>';
+$txt['editsettings58'] = 'Søk etter grafikk i prislista <a href=# class=info>(?)<span>Søk etter bilete av dei ulike produkta medan prislistene blir lasta. Viss eit bilete finst vil eit ikon visast bak biletet, slik at kunden veit at det finst bilete. <br /><br />For å redusera lastetid, eller viss du har bilete hjå ein annan vert, bør du ikkje velja dette</span></a>';
+$txt['editsettings59'] = 'Bruk bilete <a href=# class=info>(?)<span>viss du ikkje har bilete til produkta bør du ikkje bruka dette</span></a>';
+$txt['editsettings69'] = 'Bruk miniatyrbilete i prislister <a href=# class=info>(?)<span>Viser (viss funne) eit miniatyrbilete av produktbildet føre skildringa</span></a>';
+$txt['editsettings70'] = 'Nøkkelord (separert med komma) <a href=# class=info>(?)<span>Ord som du vil at søkjemotorane skal finna</span></a>';
+$txt['editsettings71'] = 'Brukt tegnsett <a href=# class=info>(?)<span>Nokre språk treng andre tegnsett. For deg er det sannsynlegvis: ISO-8859-1</span></a>';
+$txt['editsettings72'] = 'Vis lenkje til Almenne vilkår';
+$txt['editsettings73'] = 'Vis link til Garantivilkår';
+$txt['editsettings74'] = 'Vis link til Fraktvilkår';
+$txt['editsettings75'] = 'Filnamn for bilete <a href=# class=info>(?)<span>Nokre språk har bokstavar/teikn som ikkje kan brukast i filnamn. Det er best å bruka database-ID som bilete-ID i dei (og dei fleste andre) tilfella</span></a>';
+$txt['editsettings76'] = 'Database-ID (tilrådd)';
+$txt['editsettings77'] = 'Produkt-ID';
+$txt['editsettings78'] = 'Vis link til Om oss';
+$txt['editsettings79'] = 'Aktivér Live News <a href=# class=info>(?)<span>Dette aktiverer ei direkte nyhendetavle frå FreeWebshop.org, som informerer deg om oppdateringer og andre relaterte nyhende. Deaktivér denne berre viss du har problem med han</span></a>';
+$txt['editsettings80'] = 'Breidd for miniatyrbilete i prislista <a href=# class=info>(?)<span>Breidd i biletpunkt.<br />standard=50<br/>0=deaktivér resize</span></a>';
+$txt['editsettings81'] = 'Høgd for miniatyrbilete i prislista <a href=# class=info>(?)<span>Høgd i biletpunkt.<br />standard=50<br />0=deaktivér resize</span></a>';
+$txt['editsettings82'] = 'Breidd for miniatyrbilete i kategoriar <a href=# class=info>(?)<span>Breidd i biletpunkt.<br />standard=50<br />0=deaktivér resize</span></a>';
+$txt['editsettings83'] = 'Høgd for miniatyrbilete i kategoriar <a href=# class=info>(?)<span>Høgd i biletpunkt.<br />standard=50<br />0=deaktivér resize</span></a>';
+$txt['editsettings84'] = 'Maks breidd for produktbilete <a href=# class=info>(?)<span>Maksimum breidd i biletpunkt.<br />standard=450<br />9999=deaktivér maks</span></a>';
+$txt['editsettings85'] = 'Maks høgd for produktbilde <a href=# class=info>(?)<span>Maksimum høgd i biletpunkt.<br />standard=350<br />9999=deaktivér maks</span></a>';
+$txt['editsettings86'] = 'Alle';
+$txt['editsettings87'] = 'Vis lenkje til nye produkt';
+$txt['editsettings88'] = 'Bruk WYSIWYG editor';
+$txt['editsettings89'] = 'Lag miniatyrbilete automatisk <a href=# class=info>(?)<span>Lag automatisk eit miniatyrbilete når eit produktbilete blir lasta opp.<br />Krev <strong>GD tillegget</strong> for å verka</span></a>';
+$txt['editsettings90'] = 'Butikkskildring <a href=# class=info>(?)<span>Skildring som du vil at søkjemotorane skal finna</span></a>';
+$txt['editsettings91'] = 'Produkt pr. side <a href=# class=info>(?)<span>kor mange produkt pr. side.<br />0 = uavgrensa</span></a>';
+$txt['editsettings92'] = 'Deaktivert';
+$txt['editsettings93'] = 'Avansert';
+$txt['editsettings94'] = 'Enkel';
+$txt['editsettings95'] = 'Bruk Captcha <a href=# class=info>(?)<span>bruk Captcha (anti-spam) saman med kontaktskjemaet og ved kunderegistrering</span></a>';
+$txt['editsettings96'] = 'Bruk bilete i nytt vindauge <a href=# class=info>(?)<span>Bruk betre utsjåande bilete i nytt vindauge<br />Javascript krevjast</span></a>';
+$txt['editsettings97'] = 'Plassering valutasymbol';
+$txt['editsettings98'] = 'Bruk denne malen';
+$txt['editsettings99'] = 'Bruk varebehaldningsvarsel';
+$txt['editsettings100'] = 'Minimum varebehaldning';
+$txt['editsettings101'] = 'Vektklassifisering <a href=# class=info>(?)<span>Sannsynlegvis <strong>kg</strong>for deg</span></a>';
+$txt['editsettings102'] = 'Ting frå prislista vår';
+$txt['editsettings103'] = 'Bruk datofiksing <a href=# class=info>(?)<span>Bruk dette berre viss feilmeldings-loggen blir fylt opp med dato-åtvaringar</span></a>';
+
+
+
+// productadmin.php
+$txt['productadmin1'] = ' har vorte lasta opp til ';
+$txt['productadmin2'] = 'Det oppsto ein feil ved opplasting av fila. Prøv omatt!';
+$txt['productadmin3'] = 'Last berre opp .jpg, .png eller .gif-filer';
+$txt['productadmin4'] = 'Legg til eit nytt produkt';
+$txt['productadmin5'] = 'Tilbake til produktlista';
+$txt['productadmin6'] = 'Legg til eit produkt';
+$txt['productadmin7'] = 'Oppdater eit produkt';
+$txt['productadmin8'] = 'Legg til nokre grupper først';
+$txt['productadmin9'] = 'ID';
+$txt['productadmin10'] = 'Skildring <a href=# class=info>(?)<span>HTML-kode er lov</span></a>';
+$txt['productadmin11'] = 'Pris <a href=# class=info>(?)<span>format: 123456.78</span></a>';
+$txt['productadmin12'] = 'Mengd på lager';
+$txt['productadmin13'] = 'Lager (0|1|2) <a href=# class=info>(?)<span>0=Ikkje på lager<br />1=På lager<br />2=Tinga</span></a>';
+$txt['productadmin14'] = 'Legg på framsida';
+$txt['productadmin15'] = 'Ny';
+$txt['productadmin16'] = 'Legg til produkt';
+$txt['productadmin17'] = 'Oppdatér produkt';
+$txt['productadmin18'] = 'Gruppe/Kategori';
+$txt['productadmin19'] = 'vel ei jpg, png eller gif-fil';
+$txt['productadmin20'] = 'Last opp';
+$txt['productadmin21'] = 'Last opp eit bilete';
+$txt['productadmin22'] = 'Legg til nokre kategoriar først';
+$txt['productadmin23'] = 'Du kan ikkje lasta opp eit bilete, sidan produktet ikkje har nokon ID';
+$txt['productadmin24'] = 'Slett dette biletet';
+$txt['productadmin25'] = 'Biletet vart fjerna';
+$txt['productadmin26'] = 'Produktet vart fjerna';
+$txt['productadmin27'] = 'Ekstraval';
+$txt['productadmin28'] = 'Lag miniatyrbilete for alle bilete (kan ta eit bel)';
+$txt['productadmin29'] = 'Alle miniatyrbilete er vorte laga (der det var naudsynt)..';
+$txt['productadmin30'] = 'Val <a href=# class=info>(?)<span>Val1:Raud,kvit,blå|Val2:Liten,medium,stor<br />Ingen mellomrom!</span></a>';
+$txt['productadmin31'] = 'Vekt <a href=# class=info>(?)<span>Fraktprisen blir rekna ut frå den totale vekta til ordren </span></a>';
+
+
+
+// groupadmin.php
+$txt['groupadmin1'] = ' har vorte lasta opp til ';
+$txt['groupadmin2'] = 'Det oppsto ein feil ved opplasting av fila. Prøv omatt!';
+$txt['groupadmin3'] = 'Last berre opp .jpg, .png eller .gif-filer';
+$txt['groupadmin4'] = 'Gruppa er lagt til...';
+$txt['groupadmin5'] = 'Gruppa er oppdatert...';
+$txt['groupadmin6'] = 'Gruppa (og alle underliggande kategoriar og produkt) vart sletta...';
+$txt['groupadmin7'] = 'Kategorien er lagt til...';
+$txt['groupadmin8'] = 'Kategorien er oppdatert...';
+$txt['groupadmin9'] = 'Kategorien er flytta...';
+$txt['groupadmin10'] = 'Kategorien (og underliggande produkt) vart sletta...';
+$txt['groupadmin11'] = 'Gruppenamn';
+$txt['groupadmin12'] = 'Legg til gruppe';
+$txt['groupadmin13'] = 'Det finst ingen grupper enno';
+$txt['groupadmin14'] = 'Gruppe';
+$txt['groupadmin15'] = 'Nytt gruppenamn';
+$txt['groupadmin16'] = 'Oppdatér gruppe';
+$txt['groupadmin17'] = 'Slett gruppe';
+$txt['groupadmin18'] = 'Gruppealternativ';
+$txt['groupadmin19'] = 'Kategorialternativ';
+$txt['groupadmin20'] = 'Kategorinamn';
+$txt['groupadmin21'] = 'Legg til kategori';
+$txt['groupadmin22'] = 'Kategori';
+$txt['groupadmin23'] = 'Nytt kategorinamn';
+$txt['groupadmin24'] = 'Oppdatér kategori';
+$txt['groupadmin25'] = 'Flytt kategori';
+$txt['groupadmin26'] = 'Slett kategori';
+$txt['groupadmin27'] = 'Vel ei jpg, png eller gif-fil';
+$txt['groupadmin28'] = 'Last opp';
+$txt['groupadmin29'] = 'Last opp eit bilete';
+$txt['groupadmin30'] = 'Generelle val';
+$txt['groupadmin31'] = 'Slett tomme kategoriar og grupper';
+$txt['groupadmin32'] = 'kategoriar sletta';
+$txt['groupadmin33'] = 'grupper sletta';
+$txt['groupadmin34'] = 'Ei gruppe med namnet '.$gname.' eksisterer allereie. Vel eit anna namn';
+$txt['groupadmin35'] = 'Gruppenamnet er blankt';
+$txt['groupadmin36'] = 'Du har ikkje skrive inn noko gruppenamn';
+$txt['groupadmin37'] = 'Ein kategori med namnet '.$cname.' eksisterer allereie. Vel eit anna namn';
+$txt['groupadmin38'] = 'Du har ikkje skrive inn noko kategorinamn';
+$txt['groupadmin39'] = 'Kategorinamnet er blankt';
+
+
+// uploadadmin.php
+$txt['uploadadmin1'] = ' har vorte lasta opp til ';
+$txt['uploadadmin2'] = 'Det oppstod ein feil ved opplasting av fila. Prøv omatt!';
+$txt['uploadadmin3'] = 'Last berre opp .sql-filer';
+$txt['uploadadmin4'] = 'Last opp ei prisliste (.SQL)';
+$txt['uploadadmin5'] = 'Vel ei SQL-fil';
+$txt['uploadadmin6'] = 'Last opp SQL';
+$txt['uploadadmin7'] = 'SQL-fil lagt inn i databasen';
+
+// adminedit.php
+$txt['adminedit1'] = 'Lagra endringar';
+$txt['adminedit2'] = 'Endringane vart lagra...';
+$txt['adminedit3'] = 'Endrar ';
+
+// shippingadmin.php
+$txt['shippingadmin1'] = 'Fraktmetode lagt til';
+$txt['shippingadmin2'] = 'Fraktmetode fjerna';
+$txt['shippingadmin3'] = 'Fraktmetode endra';
+$txt['shippingadmin4'] = 'Tilletne fraktmetodar';
+$txt['shippingadmin5'] = 'Skildring';
+$txt['shippingadmin6'] = 'Kostnader';
+$txt['shippingadmin7'] = "Berre i $send_default_country?";
+$txt['shippingadmin8'] = 'Endra';
+$txt['shippingadmin9'] = 'Fjern';
+$txt['shippingadmin10'] = 'Legg til';
+$txt['shippingadmin11'] = 'Endra leveringsland';
+$txt['shippingadmin12'] = 'Alternativ';
+$txt['shippingadmin13'] = 'Betalingsmåtar';
+$txt['shippingadmin14'] = 'Endra fraktmetode';
+$txt['shippingadmin15'] = 'MERK: Du vil no endra ei system-fraktmetode. Andre deler av nettbutikken er avhengig av denne. Du må berre endra skildringa slik at ho passar deg, men ikkje sjølve metoden';
+$txt['shippingadmin16'] = 'Endre standard leveringsland';
+$txt['shippingadmin17'] = 'Andre alternativ';
+$txt['shippingadmin18'] = 'Frå';
+$txt['shippingadmin19'] = 'Til';
+$txt['shippingadmin20'] = 'Kostnader';
+$txt['shippingadmin21'] = 'Fraktutgifter/vektutrekning vart fjerna utan feil';
+
+
+// paymentadmin.php
+$txt['paymentadmin1'] = 'Betalingsmåte lagt til';
+$txt['paymentadmin2'] = 'Betalingsmåte fjerna';
+$txt['paymentadmin3'] = 'Betalingsmåte endra';
+$txt['paymentadmin4'] = 'Tilletne betalingsmåtar';
+$txt['paymentadmin5'] = 'Skildring';
+$txt['paymentadmin6'] = 'Endra betalingsmåtar';
+$txt['paymentadmin7'] = 'HTML-kode for betaling';
+$txt['paymentadmin8'] = 'Endra';
+$txt['paymentadmin9'] = 'Fjern';
+$txt['paymentadmin10'] = 'Legg til';
+$txt['paymentadmin11'] = 'Alternativ';
+$txt['paymentadmin12'] = 'MERK: Du vil no endra ein system-betalingsmåte. Andre deler av nettbutikken er avhengig av denne. Du må berre endra skildringa slik at ho passar deg, men ikkje sjølve metoden';
+
+// errorlogadmin.php
+$txt['errorlogadmin1'] = 'Feil-logg';
+$txt['errorlogadmin2'] = 'Strengleik';
+$txt['errorlogadmin3'] = 'Feil';
+$txt['errorlogadmin4'] = 'Fil';
+$txt['errorlogadmin5'] = 'Linje';
+$txt['errorlogadmin6'] = 'Dato';
+$txt['errorlogadmin7'] = 'Ingen loggførde feil funne';
+$txt['errorlogadmin8'] = 'Tøm loggen';
+$txt['errorlogadmin9'] = 'Feil-loggen vart tømd utan feil';
+
+// pagesadmin.php
+$txt['pagesadmin1'] = 'Ekstrasider';
+$txt['pagesadmin2'] = 'Sidenamn';
+$txt['pagesadmin3'] = 'Val';
+$txt['pagesadmin4'] = 'Gje nytt namn';
+$txt['pagesadmin5'] = 'Legg til';
+$txt['pagesadmin6'] = 'Sidenamnet vart endra';
+$txt['pagesadmin7'] = 'Sida vart sletta';
+$txt['pagesadmin8'] = 'Mislukka';
+$txt['pagesadmin9'] = 'Sida vart lagt til';
+
+// accessadmin.php
+$txt['accesslogadmin1'] = 'Tilgangslogg';
+$txt['accesslogadmin2'] = 'Brukarnamn';
+$txt['accesslogadmin3'] = 'Passord';
+$txt['accesslogadmin4'] = 'Tid';
+$txt['accesslogadmin5'] = 'Suksess';
+//$txt['accesslogadmin6'] = 'Dato';
+$txt['accesslogadmin7'] = 'Ingen tilgangslogg-data vart funne';
+$txt['accesslogadmin8'] = 'Tøm loggen';
+$txt['accesslogadmin9'] = 'Tilgangsloggen vart tømt utan feil';
+
+// stockadmin.php
+$txt['stockadmin2'] = 'Viser';
+$txt['stockadmin3'] = 'Lagerstyring';
+
+// mailinglist.php
+$txt['mailinglist1'] = 'Kopier/lim inn dette i favorittprogrammet ditt for å masseutsenda epost';
+?>

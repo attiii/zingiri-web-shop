@@ -28,14 +28,13 @@ if (!empty($_GET['pagetoload'])) {
 
 require_once(ZING_APPS_PLAYER_DIR."includes/all.inc.php");
 $custForm=appsForm('register','add',"?page=customer&action=add&step=save&registration=".intval($_GET['registration'])."&pagetoload=".$pagetoload,true);
-//zing_ws_default_page
 
 if ($action=="add" && $_GET['step']=="save" && $custForm->success && $custForm->showform=="saved") {
 	foreach ($zingPrompts->vars as $var) { global $$var; }
 	$registration=wsSetting('require_registration') ? 1 : intval($_GET['registration']);
-	$email=$custForm->rec['EMAIL'];
+	$email=$custForm->recValue('EMAIL');
 	if (wsSetting('login_with_email')) $login=$email;
-	else $login=$custForm->rec['LOGINNAME'];
+	else $login=$custForm->recValue('LOGINNAME');
 	$tussenvoegsels=$initials=$custForm->rec['INITIALS'];
 	$naam=$surname=$custForm->rec['LASTNAME'];
 	if (wsSetting('generate_password')) $pass1=CreateRandomCode(12);

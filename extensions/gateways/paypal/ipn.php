@@ -22,9 +22,6 @@
 ?>
 <?php
 
-error_reporting(E_ALL & ~E_NOTICE);
-ini_set('display_errors', '1');
-
 if (!defined('ZING_CMS')) {
 	include(dirname(__FILE__)."/../../../fws/includes/settings.inc.php");     // database settings
 	include(dirname(__FILE__)."/../../../fws/includes/connectdb.inc.php");    // connect to db

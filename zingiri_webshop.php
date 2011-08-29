@@ -26,12 +26,10 @@
  Plugin URI: http://www.zingiri.com/web-shop
  Description: Zingiri Web Shop Developer Edition if you want to hack into the code of Zingiri Web Shop and fully customise.
  Author: Zingiri
- Version: 2.1.2
+ Version: 2.1.3
  Author URI: http://www.zingiri.com/
  */
 
-//error_reporting(E_ALL & ~E_NOTICE);
-//ini_set('display_errors', '1');
 
 
 if (!defined('ZING_CMS')) define('ZING_CMS','wp');

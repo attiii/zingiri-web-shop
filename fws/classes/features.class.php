@@ -1,5 +1,5 @@
 <?php
-class wsFeaturesCore {
+class wsFeatures {
 	var $features=array();
 	var $headers;
 	var $setid;
@@ -17,7 +17,7 @@ class wsFeaturesCore {
 	var $setType;
 	var $post;
 
-	function wsFeaturesCore($features=array(),$header='',$set='',$productid=0) {
+	function wsFeatures($features=array(),$header='',$set='',$productid=0) {
 		if (count($features)>0) $this->setFeatures($features,$header,$set);
 		$this->productid=$productid;
 		$this->post=$_POST;
@@ -149,8 +149,8 @@ class wsFeaturesCore {
 				$output.= '<td>'.$feature[0].": </td>";
 				for ($i=0;$i<$qty;$i++) {
 					$output.= "<td>";
-					if (isset($feature[1]) && $feature[1]=='file'){
-						$output.=$this->outputFile($counter1,$i,$r);
+					if (isset($feature[1]) && $feature[1]=='file' && method_exists('wsFeaturesFile','outputFile')){
+						$output.=wsFeaturesFile::outputFile($counter1,$i,$r);
 					} elseif (!isset($feature[1])){
 						$output.= '<input type="text" class="wsfeature" name="wsfeature'.$counter1.'[]" value="'.$this->prefil[$i]['features'][$r].'" > ';
 					} else {
@@ -247,10 +247,5 @@ class wsFeaturesCore {
 	
 	function validate($index=0) {
 		//not implemented in basic version
-	}
-}
-
-if (!get_option('zing_webshop_pro')) {
-	class wsFeatures extends wsFeaturesCore {
 	}
 }

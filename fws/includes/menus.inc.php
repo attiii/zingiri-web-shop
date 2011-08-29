@@ -1,5 +1,5 @@
 <?php
-$menus=array();
+//$menus=array();
 $menus['dashboard']=array('group' => 'admin102', 'grouping' => 'dashboard', 'single' => true, 'label' => 'admin102','href' => 'page=dashboard', 'img' => 'dashboard.png');
 if (ZING_PLUGIN=='ws-live' && file_exists(ZING_LOC.'fws/pages-back/migrate.php')) $menus['migrate']=array('group' => 'admin102', 'grouping' => 'dashboard', 'single' => true, 'label' => 'migrate1','href' => 'page=migrate', 'img' => 'dashboard.png');
 $menus['orderadmin']=array('group' => 'admin2', 'grouping' => 'orders', 'label' => 'admin2','href' => 'page=orderadmin', 'img' => 'orders.jpg', 'func' => 'CountAllOrders');

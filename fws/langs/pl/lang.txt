@@ -408,7 +408,7 @@ $txt['editsettings75'] = 'Plik image <a href=# class=info>(?)<span>Niektóre ję
 $txt['editsettings76'] = 'Database ID (zalecane)';
 $txt['editsettings77'] = 'Produkt ID';
 $txt['editsettings78'] = 'Link O nas';
-$txt['editsettings79'] = 'Włšcz wiadomoci na żywo <a href=# class=info>(?)<span>Ta opcja dotyczy wiadomoci z FreeWebshop.org, które informuja o aktualizacjach. Wyłšcz tylko wtedy gdy masz problemy z tš opcjš</span></a>';
+$txt['editsettings79'] = 'Włšcz wiadomoci na żywo <a href=# class=info>(?)<span>Ta opcja dotyczy wiadomoci z Zingiri Web Shop, które informuja o aktualizacjach. Wyłšcz tylko wtedy gdy masz problemy z tš opcjš</span></a>';
 $txt['editsettings80'] = 'Odnonik listy cen szerokoć <a href=# class=info>(?)<span>Szerokoć w pixels.<br />default=50<br/>0=disable resize</span></a>';
 $txt['editsettings81'] = 'Odnonik listy cen wysokoć <a href=# class=info>(?)<span>Height in pixels.<br />default=50<br />0=disable resize</span></a>';
 $txt['editsettings82'] = 'Odnonik kotegori szerokosc <a href=# class=info>(?)<span>Width in pixels.<br />default=50<br />0=disable resize</span></a>';

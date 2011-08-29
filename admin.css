@@ -1,0 +1,18 @@
+.zfelabel {
+	font-size: medium;
+}
+
+.guidelines small {
+	font-size: small;
+	color: green;
+}
+
+.zfaces-form {
+	border: 0px;
+}
+
+.zfaces {
+	background-color:#F8F8F8; 
+	border-radius: 12px;
+	-moz-border-radius: 12px;	
+}

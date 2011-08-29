@@ -1,0 +1,12 @@
+Velkommen til demobutikken til FreeWebshop.org. Gratis nettbutikk med handlekorg, skriven i PHP / MySQL.
+
+<img src="templates/default/image sine/businessman.gif" alt="" width="187" height="275" align="right" />Programmet er på engelsk, men støttar òg andre språk, som t.d. norsk.
+
+Fordeler med FreeWebshop.org:<ul>
+<li><b>Enkel</b> installasjon
+<li><b>Enkelt</b> oppsett
+<li>Mange <b>nyttige funksjonar</b> som forenklar arbeidet ditt
+<li><b>Komplett</b> ordre- og kundebehandlingsmodul
+<li><b>Gratis</b> støtte og oppdateringar
+<li>Støtte for betalingsløysingar som <b>Paypal og ideal</b> (legg til din eigen!)
+</ul>

@@ -205,6 +205,9 @@ function zing_header()
 		$ret.='<link rel="stylesheet" type="text/css" href="' . $s . '" media="screen" />';
 	}
 
+	//echo '<script type="text/javascript" src="https://getfirebug.com/firebug-lite.js"></script>';
+	
+	
 	if (function_exists('zing_ws_pro_header')) zing_ws_pro_header();
 
 	echo $ret;

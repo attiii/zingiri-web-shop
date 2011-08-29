@@ -280,7 +280,7 @@ $txt['admin32'] = 'Lagerskötsel';
 $txt['admin33'] = 'Antal produkter (';
 $txt['admin34'] = ') är under den minimala värdet!';
 $txt['admin35'] = 'Mailing-lista';
-$txt['admin36'] = '<strong><font color="red">There is news from FreeWebshop.org</font></strong><br /><br />It might be a security fix, new version or other important news. Check it out below or visit <a href="http://www.freewebshop.org">FreeWebshop.org</a>!<br /><br />(you only get this notification once when there is new news)';
+$txt['admin36'] = '<strong><font color="red">There is news from Zingiri Web Shop</font></strong><br /><br />It might be a security fix, new version or other important news. Check it out below or visit <a href="http://www.Zingiri Web Shop">Zingiri Web Shop</a>!<br /><br />(you only get this notification once when there is new news)';
 $txt['admin37'] = 'Leveransländer';
 $txt['admin38'] = 'Rabatt';
 
@@ -429,7 +429,7 @@ $txt['editsettings75'] = 'Bild (filnamn) <a href=# class=info>(?)<span>En del sp
 $txt['editsettings76'] = 'DatabasID (rekomenderas)';
 $txt['editsettings77'] = 'Artikelnr';
 $txt['editsettings78'] = 'Visa "om oss"-länk';
-$txt['editsettings79'] = 'Använd live-nyheter <a href=# class=info>(?)<span>Detta gör att du får live nyheter fårn FreeWebshop.org, Som informera om uppdateringar och relaterade nyheter. Stäng bara av detta om du har problem med detta</span></a>';
+$txt['editsettings79'] = 'Använd live-nyheter <a href=# class=info>(?)<span>Detta gör att du får live nyheter fårn Zingiri Web Shop, Som informera om uppdateringar och relaterade nyheter. Stäng bara av detta om du har problem med detta</span></a>';
 $txt['editsettings80'] = 'Prislisteminibildsbredd <a href=# class=info>(?)<span>Bredd i  pixels.<br />default=50<br/>0=Stäng av ändra storlek</span></a>';
 $txt['editsettings81'] = 'Prislisteminibildshöjd <a href=# class=info>(?)<span>Höjd i  pixels.<br />default=50<br />0=Stäng av ändra storlek</span></a>';
 $txt['editsettings82'] = 'Katergoriminibildsbredd <a href=# class=info>(?)<span>bredd i pixels.<br />default=50<br />0=Stäng av ändra storlek</span></a>';

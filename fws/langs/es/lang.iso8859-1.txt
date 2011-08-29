@@ -1,5 +1,5 @@
 <?php
-//// --- FreeWebshop.org | Spanish Translation --- ////
+//// --- Zingiri Web Shop | Spanish Translation --- ////
 //// --- done by scancode / scancode@gmail.com --- ////
 //// --- permission is granted to copy/modify  --- ////
 //// --- file if this lines are kept.          --- ////
@@ -403,7 +403,7 @@ $txt['editsettings75'] = 'Nombre de las im&aacute;genes <a href=# class=info>(?)
 $txt['editsettings76'] = 'ID de la Base de Datos (recommended)';
 $txt['editsettings77'] = 'ID del Producto';
 $txt['editsettings78'] = 'Mostrar el v&iacute;nculo Acerca de';
-$txt['editsettings79'] = 'Activar Noticias en Vivo <a href=# class=info>(?)<span>Esto muestra actualizaciones y noticias de FreeWebshop.org, desactiva si tienes problemas.</span></a>';
+$txt['editsettings79'] = 'Activar Noticias en Vivo <a href=# class=info>(?)<span>Esto muestra actualizaciones y noticias de Zingiri Web Shop, desactiva si tienes problemas.</span></a>';
 $txt['editsettings80'] = 'Ancho de las Thumbnails [lista de precios]<a href=# class=info>(?)<span>En p&iacute;xeles.<br />default=50<br/>0=desactivar</span></a>';
 $txt['editsettings81'] = 'Alto de las Thumbnails [lista de precios]<a href=# class=info>(?)<span>En p&iacute;xeles.<br />default=50<br/>0=desactivar</span></a>';
 $txt['editsettings82'] = 'Ancho de las Thumbnails [Categor&iacute;as]<a href=# class=info>(?)<span>En p&iacute;xeles.<br />default=50<br/>0=desactivar</span></a>';

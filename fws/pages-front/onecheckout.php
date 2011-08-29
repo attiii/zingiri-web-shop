@@ -336,8 +336,9 @@ else {
 			//fixed amount
 			echo '</td><td style="text-align: right">-'.$currency_symbol_pre.myNumberFormat($discount->discount,$number_format).$currency_symbol_post.'</td></tr>';
 		}
-		$totaal -= $discount->discount;
-
+		$discountValue=$discount->discount;
+	} else {
+		$discountValue=0;
 	}
 
 	//shipping costs
@@ -355,42 +356,19 @@ else {
 		$query = sprintf("SELECT * FROM `".$dbtablesprefix."shipping_weight` WHERE `ID` = %s", quote_smart($weightid));
 		$sql = mysql_query($query) or die(mysql_error());
 		if ($row = mysql_fetch_row($sql)) $sendcosts = $row[4]; else $sendcosts = 0;
-	}
+	} else $sendcosts=0;
 	
 	if ($sendcosts != 0) {
 		echo '<tr><td>'.$txt['checkout16'].'</td><td>'.$shipping_descr.'</td><td style="text-align: right">'.$currency_symbol_pre.myNumberFormat($sendcosts,$number_format).$currency_symbol_post.'</td></tr>';
-		$totaal += $sendcosts;
 	}
+	$shippingTax=new wsTax($sendcosts,wsSetting('SHIPPING_TAX_CATEGORY'));
 	
 	//calculate and display taxes
-	//$tax = new wsTax($totaal);
-	$totaal_ex = myNumberFormat($tax->exSum);
-	$totaal_in = myNumberFormat($tax->inSum);
-
-	function displayTaxes($tax) {
-		global $txt,$currency_symbol_pre,$number_format,$currency_symbol_post;
-		$taxheader=$txt['checkout102'];
-		if (count($tax->taxByCategory)>0) {
-			foreach ($tax->taxByCategory as $taxCategory => $taxes) {
-				if (count($taxes>0)) {
-					foreach ($taxes as $label => $data) {
-						echo '<tr>';
-						if ($taxheader) {
-							echo '<td rowspan="'.$tax->combinations.'">'.$taxheader.'</td>';
-						}
-						echo '<td>'.$label.' '.$data['RATE'].'%</td><td style="text-align: right">'.$currency_symbol_pre.myNumberFormat($data['TAX'],$number_format).$currency_symbol_post.'</td>';
-						if ($taxheader) {
-							echo '<td rowspan="'.$tax->combinations.'"></td>';
-						}
-						$taxheader="";
-						echo '</tr>';
-					}
-				}
-			}
-		}
-	}
-	if (!$db_prices_including_vat) displayTaxes($tax);
-
+	$totaal_ex = $tax->exSum + $shippingTax->ex - $discountValue;
+	$totaal_in = $tax->inSum + $shippingTax->in - $discountValue;
+	
+	if (!$db_prices_including_vat) displayTaxes(array($tax,$shippingTax),$txt['checkout102']);
+	
 	//total
 	?>
 	<tr>
@@ -398,12 +376,12 @@ else {
 		<div style="text-align: right;"><strong><?php echo $txt['cart7']; ?></strong></div>
 		</td>
 		<td>
-		<div style="text-align: right;"><?php echo $currency_symbol_pre.myNumberFormat($totaal).$currency_symbol_post; ?><br />
+		<div style="text-align: right;"><?php echo $currency_symbol_pre.myNumberFormat($totaal_in).$currency_symbol_post; ?><br />
 		<?php if ($no_vat == 0) { echo "<small>(".$currency_symbol_pre.$totaal_ex.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>"; } ?></div>
 		</td>
 	</tr>
 	<?php
-	if ($db_prices_including_vat) displayTaxes($tax);
+	if ($db_prices_including_vat) displayTaxes(array($tax,$shippingTax),$txt['checkout102']);
 	?>
 </table>
 <br />

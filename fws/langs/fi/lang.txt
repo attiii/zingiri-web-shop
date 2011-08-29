@@ -272,7 +272,7 @@ $txt['admin32'] = 'Varaston hallinta';
 $txt['admin33'] = 'Tuotemäärä (';
 $txt['admin34'] = ') on alle varaston minimimäärän!';
 $txt['admin35'] = 'Postituslista';
-$txt['admin36'] = '<strong><font color="red">Uutisia FreeWebshop.org</font></strong><br /><br />Päivityksiä, uusi versio tai muita tärkeitä uutisia. Tarkista allaolevasta tai vieraile sivullamme <a href="http://www.freewebshop.org">FreeWebshop.org</a>!<br /><br />(saat ainoastaan kerran tämän ilmoituksen uusista uutisista)';
+$txt['admin36'] = '<strong><font color="red">Uutisia Zingiri Web Shop</font></strong><br /><br />Päivityksiä, uusi versio tai muita tärkeitä uutisia. Tarkista allaolevasta tai vieraile sivullamme <a href="http://www.Zingiri Web Shop">Zingiri Web Shop</a>!<br /><br />(saat ainoastaan kerran tämän ilmoituksen uusista uutisista)';
 
 // customeradmin.php
 $txt['customeradmin1'] = 'Sukunimi';
@@ -416,7 +416,7 @@ $txt['editsettings75'] = 'Kuvien tiedostonimi <a href=# class=info>(?)<span>Joil
 $txt['editsettings76'] = 'Tietokantatunnus (suositeltavaa)';
 $txt['editsettings77'] = 'Tuotetunnus';
 $txt['editsettings78'] = 'Näytä tietoja yrityksestä';
-$txt['editsettings79'] = 'Salli Live Uutiset <a href=# class=info>(?)<span>Tämä sallii live uutiset FreeWebshop.orgista, joka ilmoittaa päivityksistä sekä muista uutisista. Poista tämä käytöstä vain jos sinulla on ongelmia kyseisen toiminnon kanssa</span></a>';
+$txt['editsettings79'] = 'Salli Live Uutiset <a href=# class=info>(?)<span>Tämä sallii live uutiset Zingiri Web Shopista, joka ilmoittaa päivityksistä sekä muista uutisista. Poista tämä käytöstä vain jos sinulla on ongelmia kyseisen toiminnon kanssa</span></a>';
 $txt['editsettings80'] = 'Hinnaston pienoiskuvan lev. <a href=# class=info>(?)<span>Leveys pikseleinä.<br />oletus=50<br/>0=normaalikoko</span></a>';
 $txt['editsettings81'] = 'Hinnaston pienoiskuvan kork. <a href=# class=info>(?)<span>Korkeus pikseleinä.<br />oletus=50<br />0=normaalikoko</span></a>';
 $txt['editsettings82'] = 'Kategorian pienoiskuvan lev. <a href=# class=info>(?)<span>Leveys pikseleinä.<br />oletus=50<br />0=normaalikoko</span></a>';

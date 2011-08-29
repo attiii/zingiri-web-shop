@@ -283,7 +283,7 @@ $txt['admin32'] = 'Stock management';
 $txt['admin33'] = 'Un certo numero di articoli (';
 $txt['admin34'] = ') sono sotto il livello minimo di stock!';
 $txt['admin35'] = 'Mailing list';
-$txt['admin36'] = '<strong><font color="red">News da FreeWebshop.org</font></strong><br /><br />ci può essere una modifica, una nuova versione o altre importanti novita\'. Controllate qui sotto o visitate <a href="http://www.freewebshop.org">FreeWebshop.org</a>!<br /><br />(avete questa nota ogni volta che ci sono novita\')';
+$txt['admin36'] = '<strong><font color="red">News da Zingiri Web Shop</font></strong><br /><br />ci può essere una modifica, una nuova versione o altre importanti novita\'. Controllate qui sotto o visitate <a href="http://www.Zingiri Web Shop">Zingiri Web Shop</a>!<br /><br />(avete questa nota ogni volta che ci sono novita\')';
 $txt['admin37'] = 'Paesi di spedizione';
 $txt['admin38'] = 'Sconto';
 
@@ -432,7 +432,7 @@ $txt['editsettings75'] = 'Nome del file immagine <a href=# class=info>(?)<span>A
 $txt['editsettings76'] = 'Database ID (raccomandato)';
 $txt['editsettings77'] = 'Prodotto ID';
 $txt['editsettings78'] = 'Mostra il link Chi siamo';
-$txt['editsettings79'] = 'Abilita Live News <a href=# class=info>(?)<span>Questo abiilta il live news feed da FreeWebshop.org, che informa sugli aggiornamenti ed altre news. Disabilitate solo se avete problemi con questa opzione</span></a>';
+$txt['editsettings79'] = 'Abilita Live News <a href=# class=info>(?)<span>Questo abiilta il live news feed da Zingiri Web Shop, che informa sugli aggiornamenti ed altre news. Disabilitate solo se avete problemi con questa opzione</span></a>';
 $txt['editsettings80'] = 'Larghezza thumbnails in lista prezzi <a href=# class=info>(?)<span>Larghezza in pixels.<br />default=50<br/>0=disabilita il resize</span></a>';
 $txt['editsettings81'] = 'Altezza thumbnails in lista prezzi <a href=# class=info>(?)<span>Altezza in pixels.<br />default=50<br />0=disabilita il resize</span></a>';
 $txt['editsettings82'] = 'Larghezza thumbnails categorie <a href=# class=info>(?)<span>Larghezza in pixels.<br />default=50<br />0=disabilita il resize</span></a>';

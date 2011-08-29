@@ -1,8 +1,8 @@
-Velkommen til demobutikken til FreeWebshop.org. Gratis nettbutikk med handlekurv, skrevet i PHP / MySQL.
+Velkommen til demobutikken til Zingiri Web Shop. Gratis nettbutikk med handlekurv, skrevet i PHP / MySQL.
 
 <img src="templates/default/images/businessman.gif" alt="" width="187" height="275" align="right" />Programmet er på engelsk, men støtter også andre språk, som f.eks. norsk.
 
-Fordeler med FreeWebshop.org:<ul>
+Fordeler med Zingiri Web Shop:<ul>
 <li><b>Enkel</b> installasjon
 <li><b>Enkel</b> konfigurasjon
 <li>Mange <b>nyttige funksjoner</b> som forenkler arbeidet ditt

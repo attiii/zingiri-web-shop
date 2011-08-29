@@ -163,8 +163,8 @@ if (!$allowed) {
 	if (function_exists('fwktecError')) fwktecError($zfform->errorMessage); else echo $zfform->errorMessage; 	
 }
 if (!$success || !$allowed) {
-	if (empty($zfform->errorMessage)) {
-		if (function_exists('fwktecError')) fwktecError($zfform->errorMessage); else echo z_('Record not found');
+	if (!empty($zfform->errorMessage)) {
+		if (function_exists('fwktecError')) fwktecError($zfform->errorMessage); else echo z_($zfform->errorMessage);
 	}
 }
 
@@ -203,7 +203,7 @@ if ($allowed && $success && $showform == "edit") {
 	$alink=new zfLink($formid,true,'form');
 	$links=$alink->getLinks($id);
 	if ($links) {
-		echo '<center>';
+		echo '<div class="aphps_form_buttons">';
 		foreach ($links as $i => $link) {
 			if (empty($link['ACTIONIN']) or strstr($link['ACTIONIN'],$action)) {
 				if ($link['ACTIONOUT'] == 'save') $override_save=true;
@@ -217,18 +217,20 @@ if ($allowed && $success && $showform == "edit") {
 				}
 			}
 		}
-		echo '</center>';
+		echo '</div>';
 	}
 	if (!$noForm) {
+		echo '<div class="aphps_form_buttons">';
 		if (($action == 'add' or $action == 'edit') && (!$override_save)) {
-			echo '<center><input id="appscommit" class="art-button" type="submit" name="save" value="'.z_('Save').'"></center>';
+			echo '<input id="appscommit" class="art-button" type="submit" name="save" value="'.z_('Save').'">';
 		} elseif ($action == 'delete') {
-			echo '<center><input class="art-button" type="submit" name="delete" value="'.z_('Delete').'"></center>';
+			echo '<input class="art-button" type="submit" name="delete" value="'.z_('Delete').'">';
 		} elseif (!empty($action)) {
-			echo '<center><input class="art-button" type="submit" name="other" value="'.z_('Confirm').'"></center>';
+			echo '<input class="art-button" type="submit" name="other" value="'.z_('Confirm').'">';
 		}
-		echo '</form><br />';
+		echo '</div>';
 	}
+	echo '</form>';
 	echo '</div>';
 	if ($stack->getPrevious()) echo '<a href="'.zurl($stack->getPrevious()).'">'.z_('Back').'</a>';
 

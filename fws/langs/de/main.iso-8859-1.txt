@@ -1,6 +1,6 @@
 Herzlichen Gl&uuml;chwunsch!<br>
 Sie haben soeben erfolgreich Ihren eigenen Webshop installiert. <img src="templates/default/images/businessman.gif" alt="" width="187" height="275" align="right" />Diese Software ist komplett in englischer Sprache und hat zus&auml;tzliche Sprachpakete, z. B. niederl&auml;ndisch.<br><br>
-Die Vorteile von FreeWebshop.org:
+Die Vorteile von Zingiri Web Shop:
 <ul>
 <li><strong>einfache</strong> Installation </li>
 <li><strong>einfache</strong> Konfiguration </li>

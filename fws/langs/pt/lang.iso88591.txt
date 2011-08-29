@@ -271,7 +271,7 @@ $txt['admin32'] = 'Gestão de stock';
 $txt['admin33'] = 'Um número de produtos (';
 $txt['admin34'] = ') estão abaixo do nível mínimo de stock!';
 $txt['admin35'] = 'Mailing list';
-$txt['admin36'] = '<strong><font color="red">Existem notícias da FreeWebshop.org</font></strong><br /><br />Podem ser actualizações de segurança, nova versão ou outras notícias importantes. Verifique na secção abaiso ou visite a <a href="http://www.freewebshop.org">FreeWebshop.org</a>!<br /><br />(só tem esta notificação uma vez quando existem novas notícias)';
+$txt['admin36'] = '<strong><font color="red">Existem notícias da Zingiri Web Shop</font></strong><br /><br />Podem ser actualizações de segurança, nova versão ou outras notícias importantes. Verifique na secção abaiso ou visite a <a href="http://www.Zingiri Web Shop">Zingiri Web Shop</a>!<br /><br />(só tem esta notificação uma vez quando existem novas notícias)';
 
 // customeradmin.php
 $txt['customeradmin1'] = 'Apelido';
@@ -415,7 +415,7 @@ $txt['editsettings75'] = 'Nome dos ficheiros das imagens<a href=# class=info>(?)
 $txt['editsettings76'] = 'ID da Base de Dados (recomendado)';
 $txt['editsettings77'] = 'ID do Produto';
 $txt['editsettings78'] = 'Mostrar link Sobre Nós';
-$txt['editsettings79'] = 'Activar Live News <a href=# class=info>(?)<span>Activa as notícias em directo de FreeWebshop.org, que o informa de actualizações e outras notícias relacionadas. Apenas desactive se tiver dificuldades com esta opção</span></a>';
+$txt['editsettings79'] = 'Activar Live News <a href=# class=info>(?)<span>Activa as notícias em directo de Zingiri Web Shop, que o informa de actualizações e outras notícias relacionadas. Apenas desactive se tiver dificuldades com esta opção</span></a>';
 $txt['editsettings80'] = 'Largura da miniatura da lista de preços <a href=# class=info>(?)<span>Largura em pixels.<br />default=50<br/>0=desactivar redimensionamento</span></a>';
 $txt['editsettings81'] = 'Altura da miniatura da lista de preços <a href=# class=info>(?)<span>Altura em pixels.<br />default=50<br />0=desactivar redimensionamento</span></a>';
 $txt['editsettings82'] = 'Largura da miniatura da categoria <a href=# class=info>(?)<span>Largura em pixels.<br />default=50<br />0=desactivar redimensionamento</span></a>';

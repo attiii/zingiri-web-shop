@@ -110,24 +110,6 @@ function strip_slashes($value) {
 	return $value;
 }
 
-function quote_smart($value)
-{
-	if( is_array($value) ) {
-		return array_map("quote_smart", $value);
-	} else {
-		if( get_magic_quotes_gpc() ) {
-			$value = stripslashes($value);
-		}
-		if( $value == '' ) {
-			$value = '';
-		}
-		if( !is_numeric($value) || $value[0] == '0' ) {
-			$value = "'".wsEscapeString($value)."'";
-		}
-		return $value;
-	}
-}
-
 function wsEscapeString($value) {
 	if (version_compare(phpversion(),"4.3.0")=="-1") {
 		return mysql_escape_string($value);
@@ -726,12 +708,6 @@ function faces_group() {
 	return $group;
 }
 
-if (!function_exists('qs')) {
-	function qs($value) {
-		return quote_smart($value);
-	}
-}
-
 function getCustomerByLogin($login) {
 	global $dbtablesprefix;
 	$query = "SELECT ID FROM ".$dbtablesprefix."customer WHERE LOGINNAME = " . qs($login);
@@ -780,7 +756,7 @@ function AllowAccess($zfaces,$formid="",$action="") {
 		case "form":
 		case "list":
 			$role=new db();
-			$query="select ##faccess.id from ##frole,##faccess where ##faccess.roleid=##frole.id and ##frole.name=".zfqs($group)." and (##faccess.formid=0 OR ##faccess.formid=".zfqs($formid).")";
+			$query="select ##faccess.id from ##frole,##faccess where ##faccess.roleid=##frole.id and ##frole.name=".qs($group)." and (##faccess.formid=0 OR ##faccess.formid=".zfqs($formid).")";
 			if ($role->select($query)) return true;
 			break;
 		case "edit":

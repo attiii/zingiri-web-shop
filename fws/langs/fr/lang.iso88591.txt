@@ -271,7 +271,7 @@ $txt['admin32'] = 'Gestion du Stock';
 $txt['admin33'] = 'Un certain nombre d\'articles (';
 $txt['admin34'] = ') sont sous le stock minimum!';
 $txt['admin35'] = 'Mailing';
-$txt['admin36'] = '<strong><font color="red">Nouveau courrier de FreeWebshop.org</font></strong><br /><br />Peut-être un patch de sécurité, une nouvelle version ou quelque chose d\'important. Vérifiez ci-dessous ou allez sur <a href="http://www.freewebshop.org">FreeWebshop.org</a>!<br /><br />(Vous êtes notifié uniquement lorsqu\'il y a du courrier nouveau)';
+$txt['admin36'] = '<strong><font color="red">Nouveau courrier de Zingiri Web Shop</font></strong><br /><br />Peut-être un patch de sécurité, une nouvelle version ou quelque chose d\'important. Vérifiez ci-dessous ou allez sur <a href="http://www.Zingiri Web Shop">Zingiri Web Shop</a>!<br /><br />(Vous êtes notifié uniquement lorsqu\'il y a du courrier nouveau)';
 
 // customeradmin.php
 $txt['customeradmin1'] = 'Nom';
@@ -415,7 +415,7 @@ $txt['editsettings75'] = 'Nom des images <a href=# class=info>(?)<span>Certaines
 $txt['editsettings76'] = 'Référence de la base de données (recommandé)';
 $txt['editsettings77'] = 'Référence produit';
 $txt['editsettings78'] = 'Montrer le lien "À propos de nous"';
-$txt['editsettings79'] = 'Activer les nouvelles live <a href=# class=info>(?)<span>Cela active les news de FreeWebshop.org, qui vous informent sur les mises à jour</span></a>';
+$txt['editsettings79'] = 'Activer les nouvelles live <a href=# class=info>(?)<span>Cela active les news de Zingiri Web Shop, qui vous informent sur les mises à jour</span></a>';
 $txt['editsettings80'] = 'Longueur des miniatures de liste de prix <a href=# class=info>(?)<span>Longueur en pixels.<br />défaut=50<br/>0=empêche la redimension</span></a>';
 $txt['editsettings81'] = 'Hauteur des miniatures de liste de prix <a href=# class=info>(?)<span>Hauteur en pixels.<br />default=50<br />0=empêche la redimension</span></a>';
 $txt['editsettings82'] = 'Longueur des miniatures de catégorie <a href=# class=info>(?)<span>Longueur en pixels.<br />default=50<br />0=empêche la redimension</span></a>';

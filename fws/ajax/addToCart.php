@@ -26,7 +26,7 @@ require(dirname(__FILE__).'/init.inc.php');
 /** Add to cart */
 $action='add';
 ob_start();
-require(dirname(__FILE__).'/../cart.php');
+require(dirname(__FILE__).'/../pages-front/cart.php');
 ob_end_clean();
 if ($error && $warning) {
 	echo str_replace('<br />',"\n\0",$warning);

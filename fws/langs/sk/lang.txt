@@ -277,7 +277,7 @@ $txt['admin32'] = 'Správa zásob';
 $txt['admin33'] = 'Počet výrobkov (';
 $txt['admin34'] = ') je pod minimálnou hladinou skladových zásob!';
 $txt['admin35'] = 'Zoznam mailových adries';
-$txt['admin36'] = '<strong><font color="red">Sú dostupné správy z FreeWebshop.org</font></strong><br /><br />Môže to byť bezpečnostná záplata, nová verzia alebo inú dôležité informácie. Vyhľadajte ich nižšie alebo navštívte <a href="http://www.freewebshop.org">FreeWebshop.org</a>!<br /><br />(tento oznam dostanete iba raz, keď je k dispozícii nová správa)';
+$txt['admin36'] = '<strong><font color="red">Sú dostupné správy z Zingiri Web Shop</font></strong><br /><br />Môže to byť bezpečnostná záplata, nová verzia alebo inú dôležité informácie. Vyhľadajte ich nižšie alebo navštívte <a href="http://www.Zingiri Web Shop">Zingiri Web Shop</a>!<br /><br />(tento oznam dostanete iba raz, keď je k dispozícii nová správa)';
 $txt['admin37'] = 'Krajiny doručenia';
 $txt['admin38'] = 'Zľava';
 
@@ -421,7 +421,7 @@ $txt['editsettings75'] = 'Názov obrázkového súboru <a href=# class=info>(?)<
 $txt['editsettings76'] = 'ID databázy (odporúčané)';
 $txt['editsettings77'] = 'ID výrobku';
 $txt['editsettings78'] = 'Zobraziť prepojenie O nás';
-$txt['editsettings79'] = 'Aktivovať Live News <a href=# class=info>(?)<span>Toto aktivuje zasielanie noviniek z FreeWebshop.org, ktoré vás informujú o aktualizáciách a iných zaujímavých novinkách. Vypnite, aby ak máte problémy s touto možnosťou</span></a>';
+$txt['editsettings79'] = 'Aktivovať Live News <a href=# class=info>(?)<span>Toto aktivuje zasielanie noviniek z Zingiri Web Shop, ktoré vás informujú o aktualizáciách a iných zaujímavých novinkách. Vypnite, aby ak máte problémy s touto možnosťou</span></a>';
 $txt['editsettings80'] = 'Šírka ikony cenníka <a href=# class=info>(?)<span>Šírka v pixloch.<br />default=50<br/>0=vypína zmenu veľkosti</span></a>';
 $txt['editsettings81'] = 'Výška ikony cenníka <a href=# class=info>(?)<span>Výška v pixloch.<br />default=50<br />0=vypína zmenu veľkosti</span></a>';
 $txt['editsettings82'] = 'Šírka ikony kategórie <a href=# class=info>(?)<span>Šírka v pixloch.<br />default=50<br/>0=vypína zmenu veľkosti</span></a>';

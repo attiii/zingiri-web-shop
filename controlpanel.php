@@ -78,9 +78,8 @@ function zing_set_options() {
 
 
 function zing_ws_settings() {
-	global $menus,$txt,$wpdb,$dbtablesprefix,$action;
+	global $menus,$txt,$wpdb,$dbtablesprefix,$action,$gfx_dir;
 
-	//	if ($action=='app_head') $action='';
 	zing_header();
 	zing_apps_player_header_cp();
 
@@ -108,59 +107,19 @@ function zing_ws_settings() {
 
 	zing_main('content');
 	if ((isset($menus[$page]['type']) && $menus[$page]['type']=="apps") || ZING_CMS!='wp') {
-		//echo '<link rel="stylesheet" type="text/css" href="'.ZING_APPS_PLAYER_URL.'css/apps_wp_admin.css" />';
 		zing_apps_player_content('content');
 	}
 	echo '</div>';
 
-	echo '<div style="width:20%;float:right;position:relative">';
-	
 	//share and donate
-	if (!defined('WP_ZINGIRI_LIVE')) {
-		echo '<div class="updated" style="">';
-		echo '<h3>Support Us</h3>';
-		echo '<p>If you like this plugin, please share it with your friends and help us out with a small token of appreciation</p>';
-		echo '<form style="margin-bottom:15px;text-align:center;" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-		  <input type="hidden" name="cmd" value="_s-xclick">
-		  <input type="hidden" name="hosted_button_id" value="ZK6CCBG2TPTXQ">
-		  <input align="middle" type="image" src="https://www.paypal.com/en_GB/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online.">
-		  <img alt="" border="0" src="https://www.paypal.com/en_GB/i/scr/pixel.gif" width="1" height="1">
-		  </form>';
-		echo '<div style="align:center;margin-bottom:15px;text-align:center">';
-		echo '<a style="margin-bottom:15px;" href="http://www.twitter.com/zingiri"><img align="middle" src="http://twitter-badges.s3.amazonaws.com/follow_us-a.png" alt="Follow Zingiri on Twitter"/></a>';
-		echo '</div>';
-		echo '<div style="margin-bottom:15px;text-align:center">';
-		echo '<fb:share-button href="http://www.zingiri.com" type="button" >';
-		echo '</div>';
-		echo '</div>';
-	}
-
-	//news
-	echo '<div class="updated" style="">';
-	global $current_user;
-	get_currentuserinfo();
-	$query="SELECT count(*) as oc FROM ".$dbtablesprefix."order";
-	$sql = mysql_query($query) or die(mysql_error());
-	$row = mysql_fetch_array($sql);
-
-	require(dirname(__FILE__).'/fws/includes/httpclass.inc.php');
-	$news = new wsNewsRequest('http://www.zingiri.com/news.php?e='.urlencode(isset($current_user->user_email) ? $current_user->user_email : $sales_mail).'&w='.urlencode(ZING_HOME).'&a='.get_option("zing_ws_install").'&v='.urlencode(ZING_VERSION).'&oc='.(string)$row['oc']);
-	if ($news->live() && !$_SESSION['zing_session']['news']) {
-		if (ZING_CMS=='jl') update_option('zing_ws_news',urlencode($news->DownloadToString()));
-		else update_option('zing_ws_news',$news->DownloadToString());
-		$_SESSION['zing_session']['news']=true;
-	}
-	echo '<h3>Latest news</h3>';
-	if (ZING_CMS=='jl') echo urldecode(get_option('zing_ws_news'));
-	else echo get_option('zing_ws_news');
-	echo '</div>';
-
-	echo '</div>';
+	echo '<div style="width:20%;float:right;position:relative">';
+	require(ZING_LOC.'support-us.inc.php');
+	echo '</div>';	
 }
 
 function zing_ws_admin() {
 
-	global $zing_ws_name, $zing_ws_options, $integrator;
+	global $zing_ws_name, $zing_ws_options, $integrator, $dbtablesprefix, $gfx_dir;
 
 	zing_set_options();
 
@@ -172,7 +131,7 @@ function zing_ws_admin() {
 		echo '</p></div>';
 	}
 	?>
-<div class="wrap">
+<div style="width:80%;float:left;position:relative">
 <h2><?php echo $zing_ws_name; ?></h2>
 	<?php
 	if (ZING_CMS=='dp' || ZING_CMS=="jl") zing_admin_notices();
@@ -193,7 +152,6 @@ function zing_ws_admin() {
 		foreach ($zing_warnings as $zing_warning) echo $zing_warning.'<br />';
 		echo '</p></div>';
 	}
-	//elseif (!$zing_errors && !$zing_warnings)	echo 'Your version is up to date!';
 
 	?>
 <form method="post"><?php if (ZING_CMS=='jl') echo '<input type="hidden" name="option" value="com_zingiriwebshop" />';?>
@@ -333,6 +291,12 @@ if ($zing_version) {
 	$index_refer=1;
 	require(dirname(__FILE__).'/fws/about.php');
 }
+	echo '</div>';
+	//share and donate
+	echo '<div style="width:20%;float:right;position:relative">';
+	require(ZING_LOC.'support-us.inc.php');
+	echo '</div>';	
+
 }
 if (ZING_CMS=='wp') add_action('admin_menu', 'zing_ws_add_admin'); 
 ?>

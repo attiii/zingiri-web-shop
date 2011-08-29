@@ -1,8 +1,8 @@
-Welcome to the demo shop of FreeWebshop.org. The free shopping cart script, written in PHP / MySQL.
+Welcome to the demo shop of Zingiri Web Shop. The free shopping cart script, written in PHP / MySQL.
 
 <img src=gfx/businessman.gif align=right>The software is completely in English, and has support for additional languages like Dutch.
 
-Some advantages of UltraShop:<ul>
+Some advantages of Zingiri Web Shop:<ul>
 <li><b>Simple</b> installation
 <li><b>Easy</b> configuration
 <li>Many <b>useful features</b> that simplify your work
@@ -14,4 +14,4 @@ Some advantages of UltraShop:<ul>
 
 Just <a href=?page=my><u>log in</u></a> using <b>admin</b> as your loginname and <b>admin_1234</b> as your password and test all the functions yourself.
 
-Convinced? <a href=http://www.freewebshop.org><u>Visit the FreeWebshop.org homepage!</u></a>
+Convinced? <a href=http://www.Zingiri Web Shop><u>Visit the Zingiri Web Shop homepage!</u></a>

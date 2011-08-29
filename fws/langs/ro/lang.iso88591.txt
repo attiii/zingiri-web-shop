@@ -442,7 +442,7 @@ $txt['editsettings75'] = 'Imagine <a href=# class=info>(?)<span>Unele limbi au c
 $txt['editsettings76'] = 'ID baza de date (recomandat)';
 $txt['editsettings77'] = 'ID Produs';
 $txt['editsettings78'] = 'Arata /Despre noi/';
-$txt['editsettings79'] = 'Activeaza Live News <a href=# class=info>(?)<span>Se activeaza live news din FreeWebshop.org, care transmite informatii despre actualizari si alte stiri. Dezactivati aceasta optiune doar in cazul in care creeaza probleme</span></a>';
+$txt['editsettings79'] = 'Activeaza Live News <a href=# class=info>(?)<span>Se activeaza live news din Zingiri Web Shop, care transmite informatii despre actualizari si alte stiri. Dezactivati aceasta optiune doar in cazul in care creeaza probleme</span></a>';
 $txt['editsettings80'] = 'Latime imagine in lista de preturi <a href=# class=info>(?)<span>Latime in pixeli.<br />initial=50<br />0=dezactiveaza redimensionarea</span></a>';
 $txt['editsettings81'] = 'Inaltime imagine in lista de preturi <a href=# class=info>(?)<span>Inaltime in pixeli.<br />initial=50<br />0=dezactiveaza redimensionarea</span></a>';
 $txt['editsettings82'] = 'Latime imagine in Categorii <a href=# class=info>(?)<span>Latime in pixeli.<br />initial=50<br />0=dezactiveaza redimensionarea</span></a>';

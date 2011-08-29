@@ -396,7 +396,7 @@ $txt['editsettings75'] = 'Imena slika <a href=# class=info>(?)<span>Neki jezici 
 $txt['editsettings76'] = 'ID baze podataka (preporuceno)';
 $txt['editsettings77'] = 'ID proizvoda';
 $txt['editsettings78'] = 'Prikazi link O Nama';
-$txt['editsettings79'] = 'Omoguci Live News <a href=# class=info>(?)<span>Ovim omogucavate live news feed od FreeWebshop.org, koji vas informise o update-ovima i drugim vestima. Onemogucite ovo samo u slucaju da imate problema sa ovom opcijom</span></a>';
+$txt['editsettings79'] = 'Omoguci Live News <a href=# class=info>(?)<span>Ovim omogucavate live news feed od Zingiri Web Shop, koji vas informise o update-ovima i drugim vestima. Onemogucite ovo samo u slucaju da imate problema sa ovom opcijom</span></a>';
 $txt['editsettings80'] = 'Thumb sirina u cenovniku <a href=# class=info>(?)<span>Sirina u pixelima.<br />default=50<br/>0=onemuguci resize</span></a>';
 $txt['editsettings81'] = 'Thumb visina u cenovniku <a href=# class=info>(?)<span>Visina u pixelima.<br />default=50<br />0=onemoguci resize</span></a>';
 $txt['editsettings82'] = 'Thumb sirina u kategoriji <a href=# class=info>(?)<span>Sirina u pixelima.<br />default=50<br />0=onemoguci resize</span></a>';

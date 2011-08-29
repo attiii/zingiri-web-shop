@@ -827,4 +827,9 @@ $txt['checkout106'] = 'Continua senza registrazione';
 $txt['paymentadmin103'] = 'Sotto ID';
 $txt['paymentadmin104'] = 'Modalit&agrave; Test';
 
+//1.8.0 -added
+$txt['migrate1'] = 'Traferimento';
+$txt['migrate2'] = 'Trasferimento da Web Shop 1.x';
+$txt['migrate3'] = 'Formato del File Non Corretto';
+
 ?>

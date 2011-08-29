@@ -22,8 +22,8 @@
 */
 ?>
 <?php if ($index_refer <> 1) { exit(); } ?>
-<?php include ("includes/checklogin.inc.php"); ?>
-<?php
+<?php 
+require(ZING_DIR."includes/checklogin.inc.php");
 if (LoggedIn() == 1) {
     PutWindow($gfx_dir, $txt['my3'], $txt['my4'], "personal.jpg", "80");
 ?>

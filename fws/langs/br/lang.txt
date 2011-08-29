@@ -394,7 +394,7 @@ $txt['editsettings75'] = 'Nome dos arquivos das imagens<a href=# class=info>(?)<
 $txt['editsettings76'] = 'ID da base de dados (recomendado)';
 $txt['editsettings77'] = 'ID do produto';
 $txt['editsettings78'] = 'Mostrar link Sobre Nós';
-$txt['editsettings79'] = 'Ativar Live News <a href=# class=info>(?)<span>Ativa notícias fornecidas por FreeWebshop.org (atualizações e conteúdo relacionado). Não há porquê desabilitar essa opção</span></a>';
+$txt['editsettings79'] = 'Ativar Live News <a href=# class=info>(?)<span>Ativa notícias fornecidas por Zingiri Web Shop (atualizações e conteúdo relacionado). Não há porquê desabilitar essa opção</span></a>';
 $txt['editsettings80'] = 'Largura da miniatura da lista de preços <a href=# class=info>(?)<span>Largura em pixels.<br />default=50<br/>0=desativar redimensionamento</span></a>';
 $txt['editsettings81'] = 'Altura da miniatura da lista de preços <a href=# class=info>(?)<span>Altura em pixels.<br />default=50<br />0=desativar redimensionamento</span></a>';
 $txt['editsettings82'] = 'Largura da miniatura da categoria <a href=# class=info>(?)<span>Largura em pixels.<br />default=50<br />0=desativar redimensionamento</span></a>';

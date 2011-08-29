@@ -269,7 +269,7 @@ $txt['admin32'] = 'Lagerbehandling';
 $txt['admin33'] = 'Et antall produkter (';
 $txt['admin34'] = ') er under minimum lagerbeholdning!';
 $txt['admin35'] = 'Epost-liste';
-$txt['admin36'] = '<strong><font color="red">Det er nyheter fra FreeWebshop.org</font></strong><br /><br />Det kan være en sikkerhetsoppdatering, en ny versjon eller andre viktige nyheter! Sjekk det ut nedenfor eller besøk <a href="http://www.freewebshop.org">FreeWebshop.org</a>!<br /><br />(du får disse beskjedene kun en gang hver gang det er nyheter)';
+$txt['admin36'] = '<strong><font color="red">Det er nyheter fra Zingiri Web Shop</font></strong><br /><br />Det kan være en sikkerhetsoppdatering, en ny versjon eller andre viktige nyheter! Sjekk det ut nedenfor eller besøk <a href="http://www.Zingiri Web Shop">Zingiri Web Shop</a>!<br /><br />(du får disse beskjedene kun en gang hver gang det er nyheter)';
 
 
 // customeradmin.php
@@ -414,7 +414,7 @@ $txt['editsettings75'] = 'Filnavn for bilder <a href=# class=info>(?)<span>Noen 
 $txt['editsettings76'] = 'Database-ID (anbefalt)';
 $txt['editsettings77'] = 'Produkt-ID';
 $txt['editsettings78'] = 'Vis link til Om oss';
-$txt['editsettings79'] = 'Aktivér Live News <a href=# class=info>(?)<span>Dette aktiverer en direkte nyhetstavle fra FreeWebshop.org, som informerer deg om oppdateringer og andre relaterte nyheter. Deaktivér denne kun hvis du har problemer med den</span></a>';
+$txt['editsettings79'] = 'Aktivér Live News <a href=# class=info>(?)<span>Dette aktiverer en direkte nyhetstavle fra Zingiri Web Shop, som informerer deg om oppdateringer og andre relaterte nyheter. Deaktivér denne kun hvis du har problemer med den</span></a>';
 $txt['editsettings80'] = 'Bredde for miniatyrbilde i prisliste <a href=# class=info>(?)<span>Bredde i piksler.<br />standard=50<br/>0=deaktivér resize</span></a>';
 $txt['editsettings81'] = 'Høyde for miniatyrbilde i prisliste <a href=# class=info>(?)<span>Høyde i piksler.<br />standard=50<br />0=deaktivér resize</span></a>';
 $txt['editsettings82'] = 'Bredde for miniatyrbilde i kategorier <a href=# class=info>(?)<span>Bredde i piksler.<br />standard=50<br />0=deaktivér resize</span></a>';

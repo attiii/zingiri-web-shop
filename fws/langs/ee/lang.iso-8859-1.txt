@@ -406,7 +406,7 @@ $txt['editsettings75'] = 'Kujutiste failinimed <a href=# class=info>(?)<span>Mõn
 $txt['editsettings76'] = 'Andmebaasi ID (soovitav)';
 $txt['editsettings77'] = 'Toote ID';
 $txt['editsettings78'] = 'Näidata Meist linki';
-$txt['editsettings79'] = 'Aktiveeri Live News <a href=# class=info>(?)<span>Sellega aktiveerite live news feed FreeWebshop.org, mis informeerivad Teid uutest versioonidest jm seotud uudistest. Deaktiveerige see valik ainult juhul kui Teil on raskusi selle võimaluse kasutamisel</span></a>';
+$txt['editsettings79'] = 'Aktiveeri Live News <a href=# class=info>(?)<span>Sellega aktiveerite live news feed Zingiri Web Shop, mis informeerivad Teid uutest versioonidest jm seotud uudistest. Deaktiveerige see valik ainult juhul kui Teil on raskusi selle võimaluse kasutamisel</span></a>';
 $txt['editsettings80'] = 'Hinnaloendi eelvaate laius <a href=# class=info>(?)<span>Laius pixelites.<br />vaikimisi=50<br/>0=deaktiveeri resize</span></a>';
 $txt['editsettings81'] = 'Hinnaloendi eelvaate kõrgus <a href=# class=info>(?)<span>Kõrgus pixelites.<br />vaikimisi=50<br />0=deaktiveeri resize</span></a>';
 $txt['editsettings82'] = 'Kategooria eelvaate laius <a href=# class=info>(?)<span>Laius pixelites.<br />vaikimisi=50<br />0=deaktiveeri resize</span></a>';

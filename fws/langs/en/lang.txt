@@ -277,7 +277,7 @@ $txt['admin32'] = 'Stock management';
 $txt['admin33'] = 'A number of products (';
 $txt['admin34'] = ') are below the minimum stock level!';
 $txt['admin35'] = 'Mailing list';
-$txt['admin36'] = '<strong><font color="red">There is news from FreeWebshop.org</font></strong><br /><br />It might be a security fix, new version or other important news. Check it out below or visit <a href="http://www.freewebshop.org">FreeWebshop.org</a>!<br /><br />(you only get this notification once when there is new news)';
+$txt['admin36'] = '<strong><font color="red">There is news from Zingiri Web Shop</font></strong><br /><br />It might be a security fix, new version or other important news. Check it out below or visit <a href="http://www.Zingiri Web Shop">Zingiri Web Shop</a>!<br /><br />(you only get this notification once when there is new news)';
 $txt['admin37'] = 'Shipping countries';
 $txt['admin38'] = 'Discount';
 
@@ -421,7 +421,7 @@ $txt['editsettings75'] = 'Pictures filename <a href=# class=info>(?)<span>Some l
 $txt['editsettings76'] = 'Database ID (recommended)';
 $txt['editsettings77'] = 'Product ID';
 $txt['editsettings78'] = 'Show About Us link';
-$txt['editsettings79'] = 'Enable Live News <a href=# class=info>(?)<span>This enabled the live news feed from FreeWebshop.org, which informs you of updates and other related news. Only disable this if you are having difficulties with this option</span></a>';
+$txt['editsettings79'] = 'Enable Live News <a href=# class=info>(?)<span>This enabled the live news feed from Zingiri Web Shop, which informs you of updates and other related news. Only disable this if you are having difficulties with this option</span></a>';
 $txt['editsettings80'] = 'Pricelist thumb width <a href=# class=info>(?)<span>Width in pixels.<br />default=50<br/>0=disable resize</span></a>';
 $txt['editsettings81'] = 'Pricelist thumb height <a href=# class=info>(?)<span>Height in pixels.<br />default=50<br />0=disable resize</span></a>';
 $txt['editsettings82'] = 'Category thumb width <a href=# class=info>(?)<span>Width in pixels.<br />default=50<br />0=disable resize</span></a>';

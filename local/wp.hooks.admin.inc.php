@@ -9,13 +9,15 @@ function zing_ws_admin_menus() {
 		foreach ($menus as $page => $menu) {
 			if (!$menu['hide']) {
 				$g=$menu['grouping'];
+				$groupLabel=$txt[$menu['group']] ? $txt[$menu['group']] : $menu['group'];
+				$menuLabel=$txt[$menu['label']] ? $txt[$menu['label']] : $menu['label'];
 				if (!isset($groupings[$g]) && !isset($menu['single']) && !$menu['single']) {
-					add_menu_page($zing_ws_name, $txt[$menu['group']], $cap, $page,'zing_ws_settings',ZING_URL.'fws/templates/default/images/menu_'.$g.'.png');
+					add_menu_page($zing_ws_name, $groupLabel , $cap, $page,'zing_ws_settings',ZING_URL.'fws/templates/default/images/menu_'.$g.'.png');
 					$groupings[$g]=$page;
 				} elseif (isset($menu['single']) && $menu['single']) {
-					add_submenu_page('zingiri-web-shop', $txt[$menu['label']], $txt[$menu['label']], $cap, $page, 'zing_ws_settings');
+					add_submenu_page('zingiri-web-shop', $menuLabel, $menuLabel, $cap, $page, 'zing_ws_settings');
 				} else {
-					add_submenu_page($groupings[$g], $txt[$menu['label']], $txt[$menu['label']], $cap, $page, 'zing_ws_settings');
+					add_submenu_page($groupings[$g], $menuLabel, $menuLabel, $cap, $page, 'zing_ws_settings');
 				}
 			}
 		}

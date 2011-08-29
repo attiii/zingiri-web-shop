@@ -84,97 +84,14 @@ function zing_install() {
 	set_error_handler("zing_ws_error_handler");
 	$wsper=error_reporting(E_ALL & ~E_NOTICE);
 
-	$prefix=$dbtablesprefix;
-	if (!defined("DB_PREFIX")) define("DB_PREFIX",$prefix);
+	if (!defined("DB_PREFIX")) define("DB_PREFIX",$dbtablesprefix);
 
 	zing_ws_error_handler(0,'DB_PREFIX:'.DB_PREFIX);
 
 	$zing_version=get_option("zing_webshop_version");
-
-	//Look for baseline version
-	if ($handle = opendir(dirname(__FILE__).'/fws/db')) {
-		if (!$zing_version) { //look for highest baseline
-			$baselineVersion='';
-			while (false !== ($file = readdir($handle))) {
-				if (strstr($file,".sql") && strstr($file,"init-")) {
-					$f=explode("-",$file);
-					$v=str_replace(".sql","",$f[1]);
-					if ($v > $baselineVersion) $baselineVersion=$v;
-				}
-			}
-		} else {
-			$baselineVersion=$zing_version;
-		}
-		closedir($handle);
-	}
 	
-	if ($handle = opendir(dirname(__FILE__).'/fws/db')) {
-		$files=array();
-		$execs=array();
-		while (false !== ($file = readdir($handle))) {
-			if (strstr($file,".sql") && !strstr($file,"init-")) {
-				$f=explode("-",$file);
-				$v=str_replace(".sql","",$f[1]);
-				if ($baselineVersion < $v) {
-					$files[]=array(dirname(__FILE__).'/fws/db/'.$file,$v);
-				}
-			} elseif (strstr($file,".php")) {
-				$f=explode("-",$file);
-				$v=str_replace(".php","",$f[1]);
-				if ($baselineVersion < $v) {
-					$execs[]=dirname(__FILE__).'/fws/db/'.$file;
-				}
-			}
-		}
-		closedir($handle);
-		asort($files);
-		if(!$zing_version) array_unshift($files,array(dirname(__FILE__).'/fws/db/init-'.$baselineVersion.'.sql',$baselineVersion));
-		asort($execs);
-		if (count($files) > 0) {
-			mysql_query('SET storage_engine=InnoDB');
-			foreach ($files as $afile) {
-				list($file,$v)=$afile;
-				zing_ws_error_handler(0,'Process '.$file);
-				if ($zing_version && $v>='1.2.7' && !$player) {
-					zing_apps_player_install();
-					$player=true;
-					zing_ws_error_handler(0,'continue with:'.$file);
-				}
-				$file_content = file($file);
-				$query = "";
-				foreach($file_content as $sql_line) {
-					$tsl = trim($sql_line);
-					if (($sql_line != "") && (substr($tsl, 0, 2) != "--") && (substr($tsl, 0, 1) != "#")) {
-						if (str_replace("##", $prefix, $sql_line) == $sql_line) {
-							$sql_line = str_replace("CREATE TABLE `", "CREATE TABLE `".$prefix, $sql_line);
-							$sql_line = str_replace("CREATE TABLE IF NOT EXISTS `", "CREATE TABLE IF NOT EXISTS`".$prefix, $sql_line);
-							$sql_line = str_replace("INSERT INTO `", "INSERT INTO `".$prefix, $sql_line);
-							$sql_line = str_replace("ALTER TABLE `", "ALTER TABLE `".$prefix, $sql_line);
-							$sql_line = str_replace("UPDATE `", "UPDATE `".$prefix, $sql_line);
-							$sql_line = str_replace("TRUNCATE TABLE `", "TRUNCATE TABLE `".$prefix, $sql_line);
-						} else {
-							$sql_line = str_replace("##", $prefix, $sql_line);
-						}
-						$query .= $sql_line;
-						if(preg_match("/;\s*$/", $sql_line)) {
-							zing_ws_error_handler(0,$query);
-							mysql_query($query) or zing_ws_error_handler(1,mysql_error().'-'.$query);
-							$query = "";
-						}
-					}
-				}
-			}
-		}
-	}
-
-	//Running scripts
-	zing_ws_error_handler(0,'Running scripts');
-	if (count($execs) > 0) {
-		foreach ($execs as $exec) {
-			require($exec);
-		}
-	}
-
+	zing_db_install($zing_version,dirname(__FILE__).'/fws/db/',$player);
+	
 	//Load Apps forms if not loaded yet
 	if (!$player) {
 		zing_ws_error_handler(0,'Loading Apps forms');
@@ -184,13 +101,13 @@ function zing_install() {
 
 	//Update default settings
 	if (!$zing_version) {
-		$query="update ".$prefix."settings set sales_mail='".get_bloginfo('admin_email')."' where id=1";
+		$query="update ".$dbtablesprefix."settings set sales_mail='".get_bloginfo('admin_email')."' where id=1";
 		mysql_query($query) or zing_ws_error_handler(1,mysql_error().'-'.$query);
-		$query="update ".$prefix."settings set webmaster_mail='".get_bloginfo('admin_email')."' where id=1";
+		$query="update ".$dbtablesprefix."settings set webmaster_mail='".get_bloginfo('admin_email')."' where id=1";
 		mysql_query($query) or zing_ws_error_handler(1,mysql_error().'-'.$query);
-		$query="update ".$prefix."settings set shopname='".get_bloginfo('name')."' where id=1";
+		$query="update ".$dbtablesprefix."settings set shopname='".get_bloginfo('name')."' where id=1";
 		mysql_query($query) or zing_ws_error_handler(1,mysql_error().'-'.$query);
-		$query="update ".$prefix."settings set shopurl='".get_option('home')."' where id=1";
+		$query="update ".$dbtablesprefix."settings set shopurl='".get_option('home')."' where id=1";
 		mysql_query($query) or zing_ws_error_handler(1,mysql_error().'-'.$query);
 	}
 
@@ -273,6 +190,94 @@ function zing_install() {
 	error_reporting($wsper);
 }
 
+function zing_db_install($zing_version,$dir,&$player=true) {
+	global $dbtablesprefix;
+	
+	//Look for baseline version
+	if ($handle = opendir($dir)) {
+		if (!$zing_version) { //look for highest baseline
+			$baselineVersion='';
+			while (false !== ($file = readdir($handle))) {
+				if (strstr($file,".sql") && strstr($file,"init-")) {
+					$f=explode("-",$file);
+					$v=str_replace(".sql","",$f[1]);
+					if ($v > $baselineVersion) $baselineVersion=$v;
+				}
+			}
+		} else {
+			$baselineVersion=$zing_version;
+		}
+		closedir($handle);
+	}
+	
+	if ($handle = opendir($dir)) {
+		$files=array();
+		$execs=array();
+		while (false !== ($file = readdir($handle))) {
+			if (strstr($file,".sql") && !strstr($file,"init-")) {
+				$f=explode("-",$file);
+				$v=str_replace(".sql","",$f[1]);
+				if ($baselineVersion < $v) {
+					$files[]=array($dir.$file,$v);
+				}
+			} elseif (strstr($file,".php")) {
+				$f=explode("-",$file);
+				$v=str_replace(".php","",$f[1]);
+				if ($baselineVersion < $v) {
+					$execs[]=$dir.$file;
+				}
+			}
+		}
+		closedir($handle);
+		asort($files);
+		if(!$zing_version) array_unshift($files,array($dir.'init-'.$baselineVersion.'.sql',$baselineVersion));
+		asort($execs);
+		if (count($files) > 0) {
+			mysql_query('SET storage_engine=InnoDB');
+			foreach ($files as $afile) {
+				list($file,$v)=$afile;
+				zing_ws_error_handler(0,'Process '.$file);
+				if ($zing_version && $v>='1.2.7' && !$player) {
+					zing_apps_player_install();
+					$player=true;
+					zing_ws_error_handler(0,'continue with:'.$file);
+				}
+				$file_content = file($file);
+				$query = "";
+				foreach($file_content as $sql_line) {
+					$tsl = trim($sql_line);
+					if (($sql_line != "") && (substr($tsl, 0, 2) != "--") && (substr($tsl, 0, 1) != "#")) {
+						if (str_replace("##", $dbtablesprefix, $sql_line) == $sql_line) {
+							$sql_line = str_replace("CREATE TABLE `", "CREATE TABLE `".$dbtablesprefix, $sql_line);
+							$sql_line = str_replace("CREATE TABLE IF NOT EXISTS `", "CREATE TABLE IF NOT EXISTS`".$dbtablesprefix, $sql_line);
+							$sql_line = str_replace("INSERT INTO `", "INSERT INTO `".$dbtablesprefix, $sql_line);
+							$sql_line = str_replace("ALTER TABLE `", "ALTER TABLE `".$dbtablesprefix, $sql_line);
+							$sql_line = str_replace("UPDATE `", "UPDATE `".$dbtablesprefix, $sql_line);
+							$sql_line = str_replace("TRUNCATE TABLE `", "TRUNCATE TABLE `".$dbtablesprefix, $sql_line);
+						} else {
+							$sql_line = str_replace("##", $dbtablesprefix, $sql_line);
+						}
+						$query .= $sql_line;
+						if(preg_match("/;\s*$/", $sql_line)) {
+							zing_ws_error_handler(0,$query);
+							mysql_query($query) or zing_ws_error_handler(1,mysql_error().'-'.$query);
+							$query = "";
+						}
+					}
+				}
+			}
+		}
+	}
+
+	//Running scripts
+	zing_ws_error_handler(0,'Running scripts');
+	if (count($execs) > 0) {
+		foreach ($execs as $exec) {
+			require($exec);
+		}
+	}
+	
+}
 /**
  * Uninstallation of web shop: removal of database tables
  * @return void
@@ -283,8 +288,7 @@ function zing_uninstall() {
 	set_error_handler("zing_ws_error_handler");
 	$wsper=error_reporting(E_ALL & ~E_NOTICE);
 
-	$prefix=$dbtablesprefix;
-	$query="show tables like '".$prefix."%'";
+	$query="show tables like '".$dbtablesprefix."%'";
 	$sql = mysql_query($query) or die(mysql_error());
 	while ($row = mysql_fetch_row($sql)) {
 		if (strpos($row[0],'_mybb_')===false && strstr($row[0],'_ost_')===false) {
@@ -299,6 +303,7 @@ function zing_uninstall() {
 	delete_option("zing_webshop_dig");
 	delete_option('zing_ws_widget_options');
 	delete_option('zing_ws_news');
+	delete_option('zingiri-web-shop-support-us');
 
 	//remove uploads sub-directory
 	rmdir(BLOGUPLOADDIR.'zingiri-web-shop');
@@ -394,18 +399,14 @@ function zing_main($process,$content="") {
 		require (ZING_DIR."./includes/readvals.inc.php");        // get and post values
 	}
 
-	if (!ZING_LIVE && $to_include=="loadmain.php" && ($page=='logout' || ($page=='login' && !$_GET['lostlogin']))) {
+	if (!ZING_LIVE && $to_include=="loadmain.php" && (($page=='login' && !$_GET['lostlogin']))) {
 		//stop logging
 		restore_error_handler();
 		error_reporting($wsper);
+		//die('Location:'.ZING_HOME.'/index.php?page='.$page);
 		header('Location:'.ZING_HOME.'/index.php?page='.$page);
 		exit;
-	}
-	elseif ($to_include) {
-		echo $prefix;
-		//		global $post;
-		//		echo 'here:'.$post->post_content;
-		//		echo 'here:'.$content;
+	} elseif ($to_include) {
 		if ($process=='content' && $page!='ajax' && $page!='downldr') echo '<div class="zing_ws_page" id="zing_ws_'.$_GET['page'].'">';
 		include($scripts_dir.$to_include);
 		if ($process=='content' && $page!='ajax' && $page!='downldr') echo '</div>';
@@ -465,6 +466,7 @@ function zing_dberror($query,$loc) {
 function jsVars() {
 	$v=array();
 	$v['wsURL']=ZING_URL."fws/ajax/";
+	$v['wsAjaxURL']=zurl("index.php?page=ajax&wscr=");
 	$v['wpabspath']=str_replace('\\','/',ABSPATH);
 	$v['wsAnimateImage']=wsSetting('animateimage');
 	$v['wsCms']=ZING_CMS;
@@ -493,6 +495,7 @@ function jsScripts() {
 function jsStyleSheets() {
 	$v=array();
 	$v[]=ZING_URL . 'zing.css';
+	if (is_admin()) $v[]=ZING_URL . 'admin.css';
 	$v[]=ZING_URL . 'fws/addons/lightbox/lightbox.css';
 
 	return $v;

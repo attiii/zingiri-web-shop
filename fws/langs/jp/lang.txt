@@ -276,7 +276,7 @@ $txt['admin32'] = 'ç›å…ä«óù';
 $txt['admin33'] = 'è§ïiêî(';
 $txt['admin34'] = ') ÇÕâ∫ãLÇ™ç≈è¨ç›å…ÉåÉxÉãÇ≈Ç∑';
 $txt['admin35'] = 'ÉÅÅ[ÉãÉäÉXÉg';
-$txt['admin36'] = '<strong><font color="red">FreeWebshop.orgÇ©ÇÁÇÃÉjÉÖÅ[ÉXÇ™Ç†ÇËÇ‹Ç∑</font></strong><br /><br />ÉZÉLÉÖÉäÉeÉBÅ[èCïúÇ™Ç≥ÇÍÇ‹ÇµÇΩÅAêVÉoÅ[ÉWÉáÉìÇ©èdóvÇ»ÉjÉÖÅ[ÉXÅB â∫ãLÇÉNÉäÉbÉNÇ∑ÇÈÇ©ÅAÇ±Ç±ÇñKñ‚<a href="http://www.freewebshop.org">FreeWebshop.org</a>!<br /><br />(Ç±ÇÃÇ®ímÇÁÇπÇÕÅAêVÇµÇ¢ÉjÉÖÅ[ÉXÇ™Ç†ÇÈéûÇÃÇ›éÛÇØéÊÇËÇ‹Ç∑)';
+$txt['admin36'] = '<strong><font color="red">Zingiri Web ShopÇ©ÇÁÇÃÉjÉÖÅ[ÉXÇ™Ç†ÇËÇ‹Ç∑</font></strong><br /><br />ÉZÉLÉÖÉäÉeÉBÅ[èCïúÇ™Ç≥ÇÍÇ‹ÇµÇΩÅAêVÉoÅ[ÉWÉáÉìÇ©èdóvÇ»ÉjÉÖÅ[ÉXÅB â∫ãLÇÉNÉäÉbÉNÇ∑ÇÈÇ©ÅAÇ±Ç±ÇñKñ‚<a href="http://www.Zingiri Web Shop">Zingiri Web Shop</a>!<br /><br />(Ç±ÇÃÇ®ímÇÁÇπÇÕÅAêVÇµÇ¢ÉjÉÖÅ[ÉXÇ™Ç†ÇÈéûÇÃÇ›éÛÇØéÊÇËÇ‹Ç∑)';
 $txt['admin37'] = 'îzëóçë';
 $txt['admin38'] = 'äÑà¯';
 
@@ -420,7 +420,7 @@ $txt['editsettings75'] = 'é ê^ÉtÉ@ÉCÉãñº<a href=# class=info>(?)<span>
 $txt['editsettings76'] = 'ÉfÅ[É^Å[ÉxÅ[ÉXID (êÑèß)';
 $txt['editsettings77'] = 'è§ïiID';
 $txt['editsettings78'] = 'ìñìXÇ…Ç¬Ç¢ÇƒÉäÉìÉNï\é¶';
-$txt['editsettings79'] = 'ÉâÉCÉuÉjÉÖÅ[ÉXÇóLå¯Ç…Ç∑ÇÈ<a href=# class=info>(?)<span>óLå¯Ç…Ç∑ÇÈÇ±Ç∆Ç≈FreeWebshop.orgÇ©ÇÁÇÃçXêVÇ≥ÇÍÇΩèÓïÒÇ‚ÇªÇÃëºÇÃÉjÉÖÅ[ÉXÇÇ®ímÇÁÇπÇµÇ‹Ç∑ÅB Ç±ÇÃÉIÉvÉVÉáÉìÇÃàµÇ¢Ç™ç¢ìÔÇ»èÍçáÇÃÇ›ñ≥å¯Ç…ÇµÇƒâ∫Ç≥Ç¢</span></a>';
+$txt['editsettings79'] = 'ÉâÉCÉuÉjÉÖÅ[ÉXÇóLå¯Ç…Ç∑ÇÈ<a href=# class=info>(?)<span>óLå¯Ç…Ç∑ÇÈÇ±Ç∆Ç≈Zingiri Web ShopÇ©ÇÁÇÃçXêVÇ≥ÇÍÇΩèÓïÒÇ‚ÇªÇÃëºÇÃÉjÉÖÅ[ÉXÇÇ®ímÇÁÇπÇµÇ‹Ç∑ÅB Ç±ÇÃÉIÉvÉVÉáÉìÇÃàµÇ¢Ç™ç¢ìÔÇ»èÍçáÇÃÇ›ñ≥å¯Ç…ÇµÇƒâ∫Ç≥Ç¢</span></a>';
 $txt['editsettings80'] = 'óøã‡ÉäÉXÉgèkè¨â°ÉTÉCÉY<a href=# class=info>(?)<span>â°pixels.<br />ÉfÉtÉHÉãÉg=50<br/>0=ÉäÉTÉCÉYñ≥å¯</span></a>';
 $txt['editsettings81'] = 'óøã‡ÉäÉXÉgèkè¨ècÉTÉCÉY<a href=# class=info>(?)<span>èc pixels.<br />ÉfÉtÉHÉãÉg=50<br />0=ÉäÉTÉCÉYñ≥å¯</span></a>';
 $txt['editsettings82'] = 'ÉJÉeÉSÉäÅ[èkè¨â°ÉTÉCÉY<a href=# class=info>(?)<span>â° pixels.<br />ÉfÉtÉHÉãÉg=50<br />0=ÉäÉTÉCÉYñ≥å¯</span></a>';

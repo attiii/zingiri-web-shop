@@ -1,5 +1,5 @@
 <?php
-// A Freewebshop.org 2.2.9r2 kiadásának magyar változata. Elkövette: Domi <domokos dot endrejanos at chello dot hu>
+// A Zingiri Web Shop 2.2.9r2 kiadásának magyar változata. Elkövette: Domi <domokos dot endrejanos at chello dot hu>
 $charset = "UTF-8";
 
 // first some values that can also be used further along in this lang file
@@ -279,7 +279,7 @@ $txt['admin32'] = 'Raktár kezelés';
 $txt['admin33'] = 'A termékek száma (';
 $txt['admin34'] = ') elmarad a minimális készlettől!';
 $txt['admin35'] = 'Levelező lista';
-$txt['admin36'] = '<strong><font color="red">A FreeWebshop.org hírei</font></strong><br /><br />Ezekben biztonsági figyelmeztetésekről, új verziókról vagy más fontos dolgokról szerezhet tudomást. További információkért látogasson el a <a href="http://www.freewebshop.org">FreeWebshop.org</a> oldalra!<br /><br />';
+$txt['admin36'] = '<strong><font color="red">A Zingiri Web Shop hírei</font></strong><br /><br />Ezekben biztonsági figyelmeztetésekről, új verziókról vagy más fontos dolgokról szerezhet tudomást. További információkért látogasson el a <a href="http://www.Zingiri Web Shop">Zingiri Web Shop</a> oldalra!<br /><br />';
 $txt['admin37'] = 'Szállítási körzetek';
 $txt['admin38'] = 'Kedvezmény';
 
@@ -427,7 +427,7 @@ $txt['editsettings75'] = 'Képek állományneve <a href=# class=info>(?)<span>Az
 $txt['editsettings76'] = 'Adatbázis ID (ajánlott)';
 $txt['editsettings77'] = 'Termék ID';
 $txt['editsettings78'] = 'Rólunk link megjelenítése';
-$txt['editsettings79'] = 'Élő hírek engedélyezése <a href=# class=info>(?)<span>Engedélyzve ezt értesülhet a freewebshop.org-on megjelenő frissítésekről és egyéb hasznos információkról. Csak akkor tiltsa le, ha nehézségei vannak ezzel az opcióval.</span></a>';
+$txt['editsettings79'] = 'Élő hírek engedélyezése <a href=# class=info>(?)<span>Engedélyzve ezt értesülhet a Zingiri Web Shop-on megjelenő frissítésekről és egyéb hasznos információkról. Csak akkor tiltsa le, ha nehézségei vannak ezzel az opcióval.</span></a>';
 $txt['editsettings80'] = 'Árlista bélyegképeinek szélessége <a href=# class=info>(?)<span>Szélesség képpontban.<br />alapértelmezett=50<br/>0=átméretezés tiltva</span></a>';
 $txt['editsettings81'] = 'Árlista bélyegképeinek magassága <a href=# class=info>(?)<span>Magasság képpontban.<br />alapértelmezett=50<br />0=átméretezés tiltva</span></a>';
 $txt['editsettings82'] = 'Kategória bélyegképek szélessége <a href=# class=info>(?)<span>Szélesség képpontban.<br />alapértelmezett=50<br />0=átméretezés tiltva</span></a>';

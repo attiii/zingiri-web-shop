@@ -278,7 +278,7 @@ $txt['admin32'] = 'Voorraad beheer';
 $txt['admin33'] = 'Een aantal producten (';
 $txt['admin34'] = ') zit onder het minimum voorraadniveau!';
 $txt['admin35'] = 'Mailinglijst';
-$txt['admin36'] = '<strong><font color="red">Er is nieuws van FreeWebshop.org</font></strong><br /><br />Het kan een beveiligingsupdate, een nieuwe versie of ander belangrijk nieuws bevatten. Lees het onderaan deze pagina of bezoek <a href="http://www.freewebshop.org">FreeWebshop.org</a>!<br /><br />(u krijgt deze melding eenmalig bij nieuw nieuws)';
+$txt['admin36'] = '<strong><font color="red">Er is nieuws van Zingiri Web Shop</font></strong><br /><br />Het kan een beveiligingsupdate, een nieuwe versie of ander belangrijk nieuws bevatten. Lees het onderaan deze pagina of bezoek <a href="http://www.Zingiri Web Shop">Zingiri Web Shop</a>!<br /><br />(u krijgt deze melding eenmalig bij nieuw nieuws)';
 $txt['admin37'] = 'Verzendlanden';
 $txt['admin38'] = 'Korting';
 
@@ -425,7 +425,7 @@ $txt['editsettings75'] = 'Afbeelding bestandsnaam <a href=# class=info>(?)<span>
 $txt['editsettings76'] = 'Database ID (recommended)';
 $txt['editsettings77'] = 'Product ID';
 $txt['editsettings78'] = 'Toon Over ons link';
-$txt['editsettings79'] = 'Activeer Live Nieuws <a href=# class=info>(?)<span>Dit activeert de live nieuws feed van FreeWebshop.org, met nieuws, updates en andere berichten. Schakel deze optie alleen uit als u er problemen mee ondervindt</span></a>';
+$txt['editsettings79'] = 'Activeer Live Nieuws <a href=# class=info>(?)<span>Dit activeert de live nieuws feed van Zingiri Web Shop, met nieuws, updates en andere berichten. Schakel deze optie alleen uit als u er problemen mee ondervindt</span></a>';
 $txt['editsettings80'] = 'Prijslijst thumb breedte <a href=# class=info>(?)<span>Breedte in pixels.<br />standaar=30<br/>0=geen resize</span></a>';
 $txt['editsettings81'] = 'Prijslijst thumb hoogte <a href=# class=info>(?)<span>Hoogte in pixels.<br />standaard=30<br />0=geen resize</span></a>';
 $txt['editsettings82'] = 'Categorie thumb breedte <a href=# class=info>(?)<span>Breedte in pixels.<br />standaard=30<br />0=geen resize</span></a>';

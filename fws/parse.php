@@ -13,7 +13,6 @@ while ($i<100 && preg_match('/\[zing-ws-(.*):(.*)\]/',$tmp,$matches)==1) { //[zi
 			$f_sql = mysql_query($f_query) or die(mysql_error());
 			if (mysql_num_rows($f_sql) != 0) {
 				$parsed.="<div style=\"text-align:center;\">";
-				//echo "<h2>".$txt['main2']."</h2>";
 				$parsed.="<br />";
 				$parsed.='<table width="100%" class="borderless" style="width:100%">';
 				while ($f_row = mysql_fetch_array($f_sql)) {

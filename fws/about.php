@@ -46,7 +46,7 @@ else {
             published by the Free Software Foundation.<br />
             You can find out more about the original project here: <a href="http://www.freewebshop.org"><img src="<?php echo ZING_URL;?>/fws/templates/default/images/poweredby.png"/></a>.<br />
             <h6>Contributors</h6>
-            Special thanks go to Marek Krajnak for providing the Slovak version, Luisa Fumi for providing the first Italian version and Giuseppe M. Corsano for completely reviewing and completing it, Timothy Hall for his testing support and excellent videos.
+            Special thanks go to Marek Krajnak for providing the Slovak version, Luisa Fumi for providing the first Italian version and <a href="http://forums.zingiri.com/member.php?action=profile&uid=863">Giuseppe M. Corsano</a> for completely reviewing and completing it, <a href="http://forums.zingiri.com/member.php?action=profile&uid=1530">ginger</a> for providing the Norwegian Nynorsk language version and Timothy Hall for his testing support and excellent videos.
             <h6>3rd party addons</h6>
 			<strong>Lightbox JS: Fullsize Image Overlays</strong><br />
 			by Lokesh Dhakar - http://www.huddletogether.com<br />
