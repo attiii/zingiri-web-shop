@@ -26,7 +26,7 @@
  Plugin URI: http://www.zingiri.com/web-shop
  Description: Zingiri Web Shop Developer Edition if you want to hack into the code of Zingiri Web Shop and fully customise.
  Author: Zingiri
- Version: 2.1.3
+ Version: 2.2.0
  Author URI: http://www.zingiri.com/
  */
 
@@ -46,5 +46,5 @@ if (file_exists(dirname(__FILE__).'/../maintenance')) {
 register_activation_hook(__FILE__,'zing_activate');
 
 function zing_activate() {
-	if (is_plugin_active('zingiri-web-shop/wslive.php') || is_plugin_active('wslive/wslive.php')) die("Zingiri and Zingiri Developer Edition can't be activated at the same time.");
+	if (is_plugin_active('zingiri-web-shop/wslive.php') || is_plugin_active('wslive/zingiri_webshop.php')) die("Zingiri and Zingiri Developer Edition can't be activated at the same time.");
 }

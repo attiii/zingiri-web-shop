@@ -1,6 +1,6 @@
 <?php if ($index_refer <> 1) { exit(); } ?>
 <?php
-//Check if cookie is set
+ob_start();
 if (LoggedIn() == false) {
 	$pagetoload = $_SERVER['QUERY_STRING'];
 	echo '<div>';
@@ -84,4 +84,8 @@ if (LoggedIn() == false) {
 	PutWindow($gfx_dir, $txt['checklogin6'], $txt['checklogin7'], "personal.jpg", "90");
 	echo '</div>';
 }
+$checkLogin=ob_get_contents();
+ob_clean();
+$aphps->doAction('loginform',&$checkLogin);
+echo $checkLogin;
 ?>

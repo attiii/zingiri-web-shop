@@ -57,6 +57,8 @@ if ($lostlogin == 0) {
 	if ($count == 1) // one customer found, ok
 	{
 		// if a cookie already exists, then the user was logged in as a guest. so let's check if he has stuff in his cart
+		wsGuestToCustomer($id);
+		/*
 		if (isset($_COOKIE['fws_guest'])) {
 			$fws_cust = $_COOKIE['fws_guest'];
 			$sessionid = $fws_cust; // read the sessionid
@@ -71,6 +73,7 @@ if ($lostlogin == 0) {
 			// now kill the cookie
 			setcookie ("fws_guest", "", time() - 3600, '/');
 		}
+		*/
 
 		$cookie_data = $name.'#'.$id.'#'.md5($pass); //name userid and encrypted password
 			

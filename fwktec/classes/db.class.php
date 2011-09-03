@@ -416,6 +416,11 @@ if (!class_exists('db')) {
 			echo EOL;
 		} 
 		//end display
+		
+		function getInsertId() {
+			return mysql_insert_id();
+		}
+		
 	}
 }
 ?>

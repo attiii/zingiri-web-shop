@@ -22,87 +22,96 @@
  */
 ?>
 <?php if ($index_refer <> 1) { exit(); } ?>
-<?php require (ZING_DIR."/includes/checklogin.inc.php"); ?>
-
 <?php
-if (loggedin()) {
-	if (!empty($_POST['numprod'])) {
-		$numprod=intval($_POST['numprod']);
-	}
-	if (!empty($_REQUEST['paymentid'])) {
-		$paymentid=intval($_REQUEST['paymentid']);
-	}
-	if (!empty($_REQUEST['basketid'])) {
-		$basketid=intval($_REQUEST['basketid']);
-	}
-	if (!empty($_POST['conditions']) && $_POST['conditions']=="on") {
-		$conditions=true;
-	}
-	if (!empty($_POST['notes'])) {
-		$notes=$_POST['notes'];
-	}
-	if (!empty($_GET['prodid'])) {
-		$prodid=intval($_GET['prodid']);
-		if (!empty($_POST['numprod'][$basketid])) $numprod=$_POST['numprod'][$basketid];
-	}
-	if (isset($_REQUEST['shipping'])) {
-		list($weightid, $shippingid) = explode(":", $_REQUEST['shipping']);
-		$weightid=intval($weightid);
-		$shippingid=intval($shippingid);
-		$wsShipping=$weightid.':'.$shippingid;
-	}
+// read basket
+$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (`CUSTOMERID` = ".wsCid()." AND `STATUS` = 0) ORDER BY ID";
+$sql = mysql_query($query) or zfdbexit($query);
+$count = mysql_num_rows($sql);
 
-	if (isset($_POST['discount_code'])) {
-		$discount_code=$_POST['discount_code'];
-		if ($discount_code <> "") {
-			$discount=new wsDiscount($discount_code);
-			if (!$discount->exists()) {
-				PutWindow($gfx_dir, $txt['general12'], $txt['checkout1'], "warning.gif", "50");
-				$error = 1;
+if ($count == 0) {
+	PutWindow($gfx_dir, '', $txt['cart2'], "carticon.gif", "50");
+} else {
+
+	require (ZING_DIR."/includes/checklogin.inc.php");
+
+	if (loggedin()) {
+		if (!empty($_POST['numprod'])) {
+			$numprod=intval($_POST['numprod']);
+		}
+		if (!empty($_REQUEST['paymentid'])) {
+			$paymentid=intval($_REQUEST['paymentid']);
+		}
+		if (!empty($_REQUEST['basketid'])) {
+			$basketid=intval($_REQUEST['basketid']);
+		}
+		if (!empty($_POST['conditions']) && $_POST['conditions']=="on") {
+			$conditions=true;
+		}
+		if (!empty($_POST['notes'])) {
+			$notes=$_POST['notes'];
+		}
+		if (!empty($_GET['prodid'])) {
+			$prodid=intval($_GET['prodid']);
+			if (!empty($_POST['numprod'][$basketid])) $numprod=$_POST['numprod'][$basketid];
+		}
+		if (isset($_REQUEST['shipping'])) {
+			list($weightid, $shippingid) = explode(":", $_REQUEST['shipping']);
+			$weightid=intval($weightid);
+			$shippingid=intval($shippingid);
+			$wsShipping=$weightid.':'.$shippingid;
+		}
+
+		if (isset($_POST['discount_code'])) {
+			$discount_code=$_POST['discount_code'];
+			if ($discount_code <> "") {
+				$discount=new wsDiscount($discount_code);
+				if (!$discount->exists()) {
+					PutWindow($gfx_dir, $txt['general12'], $txt['checkout1'], "warning.gif", "50");
+					$error = 1;
+				}
 			}
 		}
-	}
-	// current date
-	$today = getdate();
-	$error = 0; // no errors found
-	if ($action=="delete"){
-		$query = "DELETE FROM `".$dbtablesprefix."basket` WHERE `CUSTOMERID` = '". wsCid()."' AND `STATUS` = '0' AND  `ID` = '". $basketid."'";
-		$sql = mysql_query($query) or die(mysql_error());
-	} elseif ($action=="update"){
-
-		// if we work with stock amounts, then lets check if there is enough in stock
-		if ($stock_enabled == 1) {
-			$query = "SELECT `STOCK` FROM `".$dbtablesprefix."product` WHERE `ID` = '".$prodid."'";
+		// current date
+		$today = getdate();
+		$error = 0; // no errors found
+		if ($action=="delete"){
+			$query = "DELETE FROM `".$dbtablesprefix."basket` WHERE `CUSTOMERID` = '". wsCid()."' AND `STATUS` = '0' AND  `ID` = '". $basketid."'";
 			$sql = mysql_query($query) or die(mysql_error());
-			$row = mysql_fetch_row($sql);
+		} elseif ($action=="update"){
 
-			if ($numprod > $row[0] || $row[0] == 0) {
-				PutWindow($gfx_dir, $txt['general12'], $txt['checkout15']."<br />".$txt['checkout7']." ".$numprod."<br />".$txt['checkout8']." ".$row[0], "warning.gif", "50");
-				$error = 1;
+			// if we work with stock amounts, then lets check if there is enough in stock
+			if ($stock_enabled == 1) {
+				$query = "SELECT `STOCK` FROM `".$dbtablesprefix."product` WHERE `ID` = '".$prodid."'";
+				$sql = mysql_query($query) or die(mysql_error());
+				$row = mysql_fetch_row($sql);
+
+				if ($numprod > $row[0] || $row[0] == 0) {
+					PutWindow($gfx_dir, $txt['general12'], $txt['checkout15']."<br />".$txt['checkout7']." ".$numprod."<br />".$txt['checkout8']." ".$row[0], "warning.gif", "50");
+					$error = 1;
+				}
+			}
+			if ($error == 0) {
+				$query = "UPDATE `".$dbtablesprefix."basket` SET `QTY` = ".$numprod." WHERE `CUSTOMERID` = '". wsCid()."' AND `STATUS` = '0' AND  `ID` = '". $basketid."'";
+				$sql = mysql_query($query) or die(mysql_error());
 			}
 		}
-		if ($error == 0) {
-			$query = "UPDATE `".$dbtablesprefix."basket` SET `QTY` = ".$numprod." WHERE `CUSTOMERID` = '". wsCid()."' AND `STATUS` = '0' AND  `ID` = '". $basketid."'";
-			$sql = mysql_query($query) or die(mysql_error());
-		}
-	}
 
-	CheckoutShowProgress();
+		CheckoutShowProgress();
 
-	//shipping start
-	$cart_weight = WeighCart(wsCid());
-	//check if combined shipping and weight is applicable
-	if ($shippingid && $weightid) {
-		$weight_query = "SELECT * FROM `".$dbtablesprefix."shipping_weight` WHERE '".$cart_weight."' >= `FROM` AND '".$cart_weight."' <= `TO` AND `SHIPPINGID` = '".$shippingid."'";
-		$weight_sql = mysql_query($weight_query) or zfdbexit($weight_query);
-		if ($row_weight=mysql_fetch_array($weight_sql)) {
-			$weightid=$row_weight['ID'];
-		} else {
-			$weightid='';
-			$shippingid='';
+		//shipping start
+		$cart_weight = WeighCart(wsCid());
+		//check if combined shipping and weight is applicable
+		if ($shippingid && $weightid) {
+			$weight_query = "SELECT * FROM `".$dbtablesprefix."shipping_weight` WHERE '".$cart_weight."' >= `FROM` AND '".$cart_weight."' <= `TO` AND `SHIPPINGID` = '".$shippingid."'";
+			$weight_sql = mysql_query($weight_query) or zfdbexit($weight_query);
+			if ($row_weight=mysql_fetch_array($weight_sql)) {
+				$weightid=$row_weight['ID'];
+			} else {
+				$weightid='';
+				$shippingid='';
+			}
 		}
-	}
-	?>
+		?>
 <form id="checkout" method="post" action="<?php zurl('index.php?page=checkout',true);?>">
 <table width="100%" class="datatable">
 	<tr>
@@ -357,18 +366,18 @@ else {
 		$sql = mysql_query($query) or die(mysql_error());
 		if ($row = mysql_fetch_row($sql)) $sendcosts = $row[4]; else $sendcosts = 0;
 	} else $sendcosts=0;
-	
+
 	if ($sendcosts != 0) {
 		echo '<tr><td>'.$txt['checkout16'].'</td><td>'.$shipping_descr.'</td><td style="text-align: right">'.$currency_symbol_pre.myNumberFormat($sendcosts,$number_format).$currency_symbol_post.'</td></tr>';
 	}
 	$shippingTax=new wsTax($sendcosts,wsSetting('SHIPPING_TAX_CATEGORY'));
-	
+
 	//calculate and display taxes
 	$totaal_ex = $tax->exSum + $shippingTax->ex - $discountValue;
 	$totaal_in = $tax->inSum + $shippingTax->in - $discountValue;
-	
+
 	if (!$db_prices_including_vat) displayTaxes(array($tax,$shippingTax),$txt['checkout102']);
-	
+
 	//total
 	?>
 	<tr>
@@ -399,5 +408,6 @@ else {
 </form>
 
 <?php
+}
 }
 }?>

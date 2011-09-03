@@ -44,8 +44,6 @@ class integrator {
 				$data['user_email']=$row['EMAIL'];
 				$data['user_pass']='';
 
-				//if ($row['GROUP']=='ADMIN') $this->createWpUser($data,'editor');
-				//else $this->createWpUser($data,'subscriber');
 				$this->createWpUser($data,'subscriber');
 				if ($row['GROUP']=='ADMIN') $this->setAdmin($row['ID'],$row['LOGINNAME']);
 			} else {

@@ -21,10 +21,11 @@
  */
 ?>
 <?php
-define("ZING_APPS_PLAYER_VERSION","1.1.1");
+define("ZING_APPS_PLAYER_VERSION","1.1.2");
 
 if (!defined('APHPS_JS')) define('APHPS_JSDIR','min');
 
+require_once(dirname(__FILE__).'/aphps.php');
 require(dirname(__FILE__).'/'.ZING_CMS.'.init.inc.php');
 require(dirname(__FILE__).'/'.ZING_CMS.'.hooks.inc.php');
 require(dirname(__FILE__).'/../fwktec/functions/index.php');
@@ -183,8 +184,7 @@ function zing_apps_player_uninstall($drop=true) {
  * @return unknown_type
  */
 function zing_apps_player_content($content='') {
-
-	global $post;
+	global $post,$aphps;
 	global $dbtablesprefix,$page;
 	global $aphps_projects;
 
@@ -212,6 +212,7 @@ function zing_apps_player_content($content='') {
 		return $content;
 	}
 
+	$aphps->doAction('content_before');
 	if ($cf['zing_form'][0]) $_GET['form']=$cf['zing_form'][0];
 	if ($cf['zing_action'][0]) $_GET['action']=$cf['zing_action'][0];
 
@@ -220,17 +221,15 @@ function zing_apps_player_content($content='') {
 	if (isset($aphps_projects)) {
 		foreach ($aphps_projects as $id => $project) {
 			if ($id != 'player') {
-//				echo '<br />'.$id.'-'.$project['dir']."classes/index.php";
-				require($project['dir']."classes/index.php");
+				if (file_exists($project['dir']."classes/index.php")) require($project['dir']."classes/index.php");
 			}
 		}
 		foreach ($aphps_projects as $id => $project) {
-			if ($id != 'player') require($project['dir']."services/index.php");
+			if ($id != 'player' && file_exists($project['dir']."services/index.php")) require($project['dir']."services/index.php");
 		}
 	}
 
 	echo actionCompleteMessage();
-
 	echo '<div class="zing_ws_page" id="zing_ws_'.$_GET['form'].'">';
 	echo $prefix;
 	switch ($zfaces)
@@ -247,6 +246,9 @@ function zing_apps_player_content($content='') {
 	}
 	echo $postfix;
 	echo '</div>';
+	
+	$aphps->doAction('content_after');
+	
 	restore_error_handler();
 	error_reporting($apper);
 

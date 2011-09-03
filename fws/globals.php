@@ -1,4 +1,5 @@
 <?php 
+global $aphps;
 global $aboutus_page;
 global $action;
 global $author;
@@ -128,4 +129,5 @@ global $zing_loaded;
 global $zing;
 global $zingPrompts;
 global $wsPages;
+global $urlFix;
 ?>

@@ -333,7 +333,7 @@ function zing_ws_is_shop_page($pid) {
  * @return unknown_type
  */
 function zing_main($process,$content="") {
-	global $saasRet;
+	global $saasRet,$aphps;
 
 	require(ZING_GLOBALS);
 
@@ -378,7 +378,7 @@ function zing_main($process,$content="") {
 			if (isset($cf['cat'])) {
 				$_GET['cat']=$cf['cat'][0];
 			}
-
+			if (!$page) $page=$_GET['page'];
 			$to_include="loadmain.php";
 			break;
 		case "sidebar":
@@ -403,12 +403,13 @@ function zing_main($process,$content="") {
 		//stop logging
 		restore_error_handler();
 		error_reporting($wsper);
-		//die('Location:'.ZING_HOME.'/index.php?page='.$page);
 		header('Location:'.ZING_HOME.'/index.php?page='.$page);
 		exit;
 	} elseif ($to_include) {
 		if ($process=='content' && $page!='ajax' && $page!='downldr') echo '<div class="zing_ws_page" id="zing_ws_'.$_GET['page'].'">';
+		$aphps->doAction('content_before');
 		include($scripts_dir.$to_include);
+		$aphps->doAction('content_after');
 		if ($process=='content' && $page!='ajax' && $page!='downldr') echo '</div>';
 		echo $postfix;
 		if (!wsIsAdminPage() && $process=='content' && get_option('zing_ws_logo')=='pf') zing_display_logo();

@@ -34,6 +34,8 @@ $allowed=false;
 $success=true;
 if (isset($_GET['showform'])) $showform=$_GET['showform']; else $showform="edit";
 
+//echo 'action='.$action;die();
+
 if ($action == "add" && ($step == "" || $step == "poll")) {
 	if ($zfform->allowAccess()) {
 		$allowed=true;
@@ -233,7 +235,6 @@ if ($allowed && $success && $showform == "edit") {
 	echo '</form>';
 	echo '</div>';
 	if ($stack->getPrevious()) echo '<a href="'.zurl($stack->getPrevious()).'">'.z_('Back').'</a>';
-
 } elseif ($showform == "saved") {
 	if ($stack->getPrevious()) {
 		$redirect2=$stack->getPrevious();

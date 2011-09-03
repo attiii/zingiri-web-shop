@@ -827,4 +827,9 @@ $txt['migrate1'] = 'Migrate';
 $txt['migrate2'] = 'Migrate from Web Shop 1.x';
 $txt['migrate3'] = 'Incorrect file format';
 
+//2.1 - added
+$txt['checklogin19'] = 'Please connect with Facebook to continue';
+$txt['menu20'] = 'Cart';
+$txt['menu21'] = 'Personal';
+
 ?>

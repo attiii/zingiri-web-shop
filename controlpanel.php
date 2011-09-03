@@ -1,6 +1,6 @@
 <?php
 function zing_set_options() {
-	global $wpdb,$zing_ws_options,$zing_ws_name;
+	global $wpdb,$zing_ws_options,$zing_ws_name,$zing;
 
 	$zing_ws_name = "Zingiri Web Shop";
 	$install_type = array("Yes","No");
@@ -71,6 +71,24 @@ function zing_set_options() {
 			"std" => "Yes",
 			"type" => "select",
 			"options" => $zing_yn);
+		}
+	}
+
+	if (count($zing->extensions) > 0) {
+		foreach ($zing->extensions as $id) {
+			$zing_ws_options[] = array(  "name" => "Web Shop Pro Extension $id",
+				"type" => "heading",
+				"desc" => "This section covers the options for your $id Pro Extension.");
+			$zing_ws_options[]= array(	"name" => "License key",
+				"desc" => "License key for $id extension",
+				"id" => $id."_license_key",
+				"std" => "",
+				"type" => "text",);
+			if (count($zing->options[$id]) > 0) {
+				foreach ($zing->options[$id] as $option) {
+					$zing_ws_options[]=$option;
+				}
+			}
 		}
 	}
 

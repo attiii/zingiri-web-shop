@@ -28,6 +28,13 @@ if (ZING_AJAX) {
 	add_action("init","zing_init_uninstall");
 	add_action('admin_notices','zing_admin_notices');
 }
+
+function zing_wslive_active() {
+	//if (is_plugin_active('wslive/zingiri_webshop.php') || 
+		//if ($message) echo "<div id='zing-warning' style='background-color:greenyellow' class='updated fade'><p><strong>".$message."</strong> "."</p></div>";
+	
+}
+
 function zing_ws_login_errors() {
 	if ($_REQUEST['redirect_to']) {
 		header('Location: '.$_REQUEST['redirect_to']);
@@ -182,13 +189,14 @@ function zing_ws_uninstall_delete_pages() {
  */
 function zing_header()
 {
+	$ret='';
+	
 	if ($seo=wsSeo($_REQUEST['page'],$_REQUEST['kat'],$_REQUEST['prod'])) {
-		if (isset($seo['description'])) printf("<meta name=\"description\" content=\"%s\" />", $seo['description']);
-		if (isset($seo['keywords'])) printf("<meta name=\"keywords\" content=\"%s\" />", $seo['keywords']);
+		if (isset($seo['description'])) $ret.=sprintf("<meta name=\"description\" content=\"%s\" />", $seo['description']);
+		if (isset($seo['keywords'])) $ret.=sprintf("<meta name=\"keywords\" content=\"%s\" />", $seo['keywords']);
 	}
 
 	$wsVars=jsVars();
-	$ret='';
 	$ret.='<script type="text/javascript" language="javascript">';
 	foreach ($wsVars as $v => $c) {
 		$ret.="var ".$v."='".$c."';";
@@ -205,9 +213,6 @@ function zing_header()
 		$ret.='<link rel="stylesheet" type="text/css" href="' . $s . '" media="screen" />';
 	}
 
-	//echo '<script type="text/javascript" src="https://getfirebug.com/firebug-lite.js"></script>';
-	
-	
 	if (function_exists('zing_ws_pro_header')) zing_ws_pro_header();
 
 	echo $ret;
@@ -606,7 +611,24 @@ if ($zing_version) {
 }
 
 
+function wsHomePage() {
+	$pageID = zing_ws_default_page();
+
+	if (get_option('permalink_structure')){
+		$homePage = get_option('home');
+		$wordpressPageName = get_permalink($pageID);
+		$wordpressPageName = str_replace($homePage,"",$wordpressPageName);
+		$pid="";
+		$home=$homePage.$wordpressPageName;
+	}else{
+		$pid='page_id='.$pageID;
+		$home=get_option('home').'/';
+	}
+	return $home;
+}
+
 function zurl($url,$printurl=false,$interface='') {
+	global $urlFix;
 
 	$pageID = zing_ws_default_page();
 
@@ -645,6 +667,15 @@ function zurl($url,$printurl=false,$interface='') {
 	}
 
 	$url=str_replace('index.php','',$url);
+
+	if (count($urlFix) > 0) {
+		foreach ($urlFix as $pair) {
+			if (strstr($url,'?')) $url.='&'.$pair[0].'='.$pair[1];
+			else $url.='?'.$pair[0].'='.$pair[1];
+		}
+	}
 	if ($printurl) echo $url;
 	else return $url;
 }
+
+
