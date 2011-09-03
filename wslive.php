@@ -11,7 +11,7 @@
 add_action('admin_notices','zing_wslive_active');
 
 function zing_wslive_active() {
-	$message='This plugin now only contains the Zingiri Web Shop (Developer) version.<br />To continue with the version you selected, please follow these steps:<br />1) Download the <a href="'.get_option('siteurl').'/wp-admin/plugin-install.php?tab=search&type=term&s=Zingiri+Web+Shop+live&plugin-search-input=Search+Plugins">Zingiri Web Shop Live</a> plugin.<br />2) Activate the Zingiri Web Shop Live plugin.<br />3) Deactivate the current Web Shop (Developer) plugin';
-	if ($message) echo "<div id='zing-warning' style='background-color:orangered;color:white' class='updated fade'><p><strong>".$message."</strong> "."</p></div>";
+	$message='Please replace the plugin zingiri-web-shop with the plugin ws-live. The zingiri-web-shop plugin now only contains the Developer version. To continue with the version you selected, please download and install the <a href="wp-admin/plugin-install.php?tab=search&type=term&s=Zingiri+Web+Shop+live&plugin-search-input=Search+Plugins">Zingiri Web Shop Live</a> plugin.';
+	if ($message) echo "<div id='zing-warning' style='background-color:greenyellow' class='updated fade'><p><strong>".$message."</strong> "."</p></div>";
 }
 
