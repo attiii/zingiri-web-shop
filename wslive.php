@@ -1,6 +1,6 @@
 <?php
 /*
- Plugin Name: Zingiri Web Shop Live
+ Plugin Name: Zingiri Web Shop Live (obsolete)
  Plugin URI: http://www.zingiri.com
  Description: This plugin is no longer containted in this package, please download Zingiri Web Shop Live.
  Author: Zingiri

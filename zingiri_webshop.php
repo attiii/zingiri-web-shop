@@ -1,6 +1,6 @@
 <?php
 /*  zingiri_webshop.php
- Copyright 2008,2009 Erik Bogaerts
+ Copyright 2008-2011 Erik Bogaerts
  Support site: http://www.zingiri.com
 
  This file is part of Zingiri Web Shop.
@@ -22,15 +22,13 @@
 ?>
 <?php
 /*
- Plugin Name: Zingiri Web Shop (Developer Edition)
+ Plugin Name: Zingiri Web Shop
  Plugin URI: http://www.zingiri.com/web-shop
- Description: Zingiri Web Shop Developer Edition if you want to hack into the code of Zingiri Web Shop and fully customise.
+ Description: Zingiri Web Shop is a Wordpress plugin that adds fantastic ecommerce capabilities to a great content management system.
  Author: Zingiri
  Version: 2.2.0
  Author URI: http://www.zingiri.com/
  */
-
-
 
 if (!defined('ZING_CMS')) define('ZING_CMS','wp');
 if (isset($_REQUEST['wscr'])) define('ZING_AJAX',true);
