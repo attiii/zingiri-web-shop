@@ -1,47 +1,17 @@
 <?php
-/*  zingiri_webshop.php
- Copyright 2008-2011 Erik Bogaerts
- Support site: http://www.zingiri.com
-
- This file is part of Zingiri Web Shop.
-
- Zingiri Web Shop is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
-
- Zingiri Web Shop is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with FreeWebshop.org; if not, write to the Free Software
- Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
-?>
-<?php
 /*
  Plugin Name: Zingiri Web Shop Live
  Plugin URI: http://www.zingiri.com
- Description: Zingiri Web Shop is a full featured software package that allows you to set up your own online webshop within minutes.
+ Description: This plugin is no longer containted in this package, please download Zingiri Web Shop Live.
  Author: Zingiri
  Version: 2.1.1
  Author URI: http://www.zingiri.com
  */
 
-//error_reporting(E_ALL & ~E_NOTICE);
-//ini_set('display_errors', '1');
+add_action('admin_notices','zing_wslive_active');
 
-if (!defined('ZING_CMS')) define('ZING_CMS','wp');
-
-require(dirname(__FILE__).'/live/bootstrap.php');
-
-register_activation_hook(__FILE__,'zing_wslive_activate');
-register_deactivation_hook(__FILE__,'zing_wslive_deactivate');
-
-function zing_wslive_activate() {
-	if (is_plugin_active('zingiri-web-shop/zingiri_webshop.php')) die("Zingiri and Zingiri Developer Edition can't be activated at the same time.");
+function zing_wslive_active() {
+	$message='This plugin now only contains the Zingiri Web Shop (Developer) version.<br />To continue with the version you selected, please follow these steps:<br />1) Download the <a href="'.get_option('siteurl').'/wp-admin/plugin-install.php?tab=search&type=term&s=Zingiri+Web+Shop+live&plugin-search-input=Search+Plugins">Zingiri Web Shop Live</a> plugin.<br />2) Activate the Zingiri Web Shop Live plugin.<br />3) Deactivate the current Web Shop (Developer) plugin';
+	if ($message) echo "<div id='zing-warning' style='background-color:orangered;color:white' class='updated fade'><p><strong>".$message."</strong> "."</p></div>";
 }
-
 

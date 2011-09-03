@@ -29,12 +29,6 @@ if (ZING_AJAX) {
 	add_action('admin_notices','zing_admin_notices');
 }
 
-function zing_wslive_active() {
-	//if (is_plugin_active('wslive/zingiri_webshop.php') || 
-		//if ($message) echo "<div id='zing-warning' style='background-color:greenyellow' class='updated fade'><p><strong>".$message."</strong> "."</p></div>";
-	
-}
-
 function zing_ws_login_errors() {
 	if ($_REQUEST['redirect_to']) {
 		header('Location: '.$_REQUEST['redirect_to']);
