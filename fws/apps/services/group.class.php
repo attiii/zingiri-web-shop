@@ -6,7 +6,7 @@ class zfgroup extends zfForm {
 	}
 	
 	function sortlist() {
-		$this->ajaxUpdateURL=ZING_URL.'fws/ajax/group_sort.php';
+		$this->ajaxUpdateURL=zurl('index.php?page=ajax&wscr=group_sort');
 	}
 
 	function postPrepare($success) {

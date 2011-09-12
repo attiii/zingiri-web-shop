@@ -33,8 +33,8 @@
 //
 //	Configuration
 //
-var loadingImage = wsURL+'../addons/lightbox/loading.gif';		
-var closeButton = wsURL+'../addons/lightbox/close.gif';
+var loadingImage = wsURL+'fws/addons/lightbox/loading.gif';		
+var closeButton = wsURL+'fws/addons/lightbox/close.gif';
 
 var overlayOpacity = 0.8;	// controls transparency of shadow overlay
 

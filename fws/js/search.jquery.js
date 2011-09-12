@@ -6,11 +6,10 @@ wsSearch = {
 			e.keyup(function () {
 				var tag = jQuery('#searchresults');
 				new jQuery.ajax({
-					url : wsURL + "search.php",
+					url : wsAjaxURL + "search",
 					type : "post",
 					data : {
 						'searchfor' : jQuery('#searchbar').attr('value'),
-						'wpabspath' : wpabspath,
 						'cms' : wsCms
 					},
 					success : function(request) {

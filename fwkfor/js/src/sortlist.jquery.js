@@ -15,7 +15,6 @@ appsSortList = {
 						url : ajaxUpdateURL,
 						type : "post",
 						data : {
-							'abspath' : wpabspath,
 							'cms' : wsCms,
 							'sortorder' : that.container.sortable("serialize")
 						},

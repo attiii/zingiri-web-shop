@@ -133,7 +133,7 @@ function wsDefaultProductImageUrl($picture,$defaultimage,$thumb=true) {
 		if ($thumb) $image_url = $gfx_dir."/nopic.gif";
 		else $image_url = $gfx_dir."/photo.gif";
 	}
-	list($height,$width,$resized)=
+	//list($height,$width,$resized)=
 	$size=wsResizeImage($image_url,$thumb,$gfx);
 	$width = " width=\"".$size['width']."\"";
 	$height = " height=\"".$size['height']."\"";

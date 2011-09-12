@@ -349,7 +349,7 @@ function zing_main($process,$content="") {
 			//apps player integration
 			if (isset($_GET['zfaces']) || isset($_POST['zfaces'])) {
 				if (!$zing_loaded) {
-					require (ZING_LOC."./startmodules.inc.php");
+					require_once(ZING_LOC."./startmodules.inc.php");
 					$zing_loaded=TRUE;
 				}
 				return $content;
@@ -393,7 +393,7 @@ function zing_main($process,$content="") {
 	set_error_handler("user_error_handler");
 
 	if (!$zing_loaded) {
-		require (ZING_LOC."./startmodules.inc.php");
+		require_once(ZING_LOC."./startmodules.inc.php");
 		$zing_loaded=TRUE;
 	} else {
 		require (ZING_DIR."./includes/readvals.inc.php");        // get and post values
@@ -466,9 +466,8 @@ function zing_dberror($query,$loc) {
 
 function jsVars() {
 	$v=array();
-	$v['wsURL']=ZING_URL."fws/ajax/";
+	$v['wsURL']=ZING_URL;
 	$v['wsAjaxURL']=zurl("index.php?page=ajax&wscr=");
-	$v['wpabspath']=str_replace('\\','/',ABSPATH);
 	$v['wsAnimateImage']=wsSetting('animateimage');
 	$v['wsCms']=ZING_CMS;
 	$v['wsLive']=isset($_REQUEST['wslive']) ? 1 : 0;
@@ -484,10 +483,21 @@ function jsScripts() {
 	$v[]=ZING_URL . 'fws/js/checkout.jquery.js';
 	$v[]=ZING_URL . 'fws/js/cart.jquery.js';
 	$v[]=ZING_URL . 'fws/js/search.jquery.js';
-	if (wsIsAdminPage()) {
-		$v[]=ZING_URL . 'fws/js/admin.jquery.js';
-		$v[]='http://connect.facebook.net/en_US/all.js#xfbml=1';
-	}
+	$v[]=ZING_URL . 'fws/addons/lightbox/lightbox.js';
+
+	return $v;
+}
+
+function jsAdminScripts() {
+	$v=array();
+	//$v[]=ZING_URL . 'fws/js/jquery-ui-1.7.3.custom.min.js';
+	$v[]=ZING_URL . 'fws/js/lib.jquery.js';
+	$v[]=ZING_URL . 'fws/js/cookie.jquery.js';
+	//$v[]=ZING_URL . 'fws/js/checkout.jquery.js';
+	//$v[]=ZING_URL . 'fws/js/cart.jquery.js';
+	//$v[]=ZING_URL . 'fws/js/search.jquery.js';
+	$v[]=ZING_URL . 'fws/js/admin.jquery.js';
+	$v[]='http://connect.facebook.net/en_US/all.js#xfbml=1';
 	$v[]=ZING_URL . 'fws/addons/lightbox/lightbox.js';
 
 	return $v;

@@ -1,5 +1,5 @@
 <?php
-if (ZING_AJAX) {
+if (ZING_AJAX===3) {
 	add_action("init","zing_init");
 	add_filter('the_content', 'zing_content', 10, 3);
 } else {
@@ -50,7 +50,7 @@ function zing_ws_install_roles() {
 }
 
 function zing_init_uninstall() {
-	if (current_user_can('edit_plugins') && $_GET['zingiri']=='uninstall') {
+	if (current_user_can('edit_plugins') && isset($_GET['zingiri']) && $_GET['zingiri']=='uninstall') {
 		zing_uninstall();
 		zing_apps_player_uninstall();
 		header("Location: options-general.php?page=zingiri-web-shop&uninstalled=true");
@@ -181,11 +181,36 @@ function zing_ws_uninstall_delete_pages() {
  * Header hook: loads FWS addons and css files
  * @return unknown_type
  */
+function zing_admin_header() {
+	$ret='';
+	
+	$wsVars=jsVars();
+	$ret.='<script type="text/javascript" language="javascript">';
+	foreach ($wsVars as $v => $c) {
+		$ret.="var ".$v."='".$c."';";
+	}
+	$ret.='</script>';
+
+	$wsScripts=jsAdminScripts();
+	foreach ($wsScripts as $s) {
+		$ret.='<script type="text/javascript" src="' . $s . '"></script>';
+	}
+
+	$wsStyleSheets=jsStyleSheets();
+	foreach ($wsStyleSheets as $s) {
+		$ret.='<link rel="stylesheet" type="text/css" href="' . $s . '" media="screen" />';
+	}
+
+	if (function_exists('zing_ws_pro_header')) zing_ws_pro_header();
+
+	echo $ret;
+}
+
 function zing_header()
 {
 	$ret='';
 	
-	if ($seo=wsSeo($_REQUEST['page'],$_REQUEST['kat'],$_REQUEST['prod'])) {
+	if ($seo=wsSeo(isset($_REQUEST['page']) ? $_REQUEST['page'] : '',isset($_REQUEST['kat']) ? $_REQUEST['kat'] : '',isset($_REQUEST['prod']) ? $_REQUEST['prod'] : '')) {
 		if (isset($seo['description'])) $ret.=sprintf("<meta name=\"description\" content=\"%s\" />", $seo['description']);
 		if (isset($seo['keywords'])) $ret.=sprintf("<meta name=\"keywords\" content=\"%s\" />", $seo['keywords']);
 	}
@@ -246,8 +271,11 @@ function zing_init()
 
 	if (!isset($_REQUEST['wslive'])) {
 		define("ZING_LIVE",false);
-		session_start();
+		if (!session_id()) @session_start();
 		wp_enqueue_script('jquery');
+		wp_enqueue_script('jquery-ui-core');
+		wp_enqueue_script('jquery-ui-sortable');
+		 
 		ob_start();
 		$bail_out = ( ( defined( 'WP_ADMIN' ) && WP_ADMIN == true ) || ( strpos( $_SERVER[ 'PHP_SELF' ], 'wp-admin' ) !== false ) );
 		if ( $bail_out ) { return $pages; }
@@ -276,7 +304,7 @@ function zing_init()
 	foreach ($zing_page_id_to_page as $i => $a)
 	{
 		$page=$a[0];
-		$action=$a[1];
+		$action=isset($a[1]) ? $a[1] : '';
 		if (isset($a[0]) && isset($a[1]))
 		{
 			$zing_page_to_page_id[$page][$action]=$i;
@@ -287,15 +315,15 @@ function zing_init()
 		}
 	}
 
-	if (!ZING_LIVE && $_POST['page']=="login")
+	if (!ZING_LIVE && isset($_POST['page']) && $_POST['page']=="login")
 	{
-		include (ZING_LOC."./startmodules.inc.php");
+		require_once(ZING_LOC."./startmodules.inc.php");
 		require(ZING_DIR."login.php");
 		exit;
 	}
 	if (!ZING_LIVE && (!empty($_GET['page_id'])) && ($_GET['page_id']==zing_page_id("logout")))
 	{
-		include (ZING_LOC."./startmodules.inc.php");
+		require_once(ZING_LOC."./startmodules.inc.php");
 		require(ZING_DIR."logout.php");
 		exit;
 	}
@@ -381,7 +409,7 @@ function zing_exclude_pages( $pages )
 
 	$loggedin=LoggedIn();
 	if ($loggedin) $isadmin=IsAdmin();
-	if (!$isadmin) $iscustomer=true;
+	if (!$isadmin) $iscustomer=true; else $iscustomer=false;
 
 	$unsetpages=array();
 	$l=count($pages);
@@ -432,13 +460,12 @@ function zing_sidebar_init()
 {
 	global $wsWidgets;
 	foreach ($wsWidgets as $w) {
-		//if (isset($w['class'])) register_sidebar_widget(__($w['name']), array($w['class'],'init'));
 		if (isset($w['class'])) {
 			$wstemp=new $w['class'];
-			register_sidebar_widget(__($w['name']), array($wstemp,'init'));
-			if (isset($w['control'])) register_widget_control(__($w['name']), array($wstemp,'control'));
+			wp_register_sidebar_widget($w['class'],__($w['name']), array($wstemp,'init'));
+			if (isset($w['control'])) wp_register_widget_control($w['class'],__($w['name']), array($wstemp,'control'));
 		}
-		elseif (isset($w['function'])) register_sidebar_widget(__($w['name']), $w['function']);
+		elseif (isset($w['function'])) wp_register_sidebar_widget($w['function'],__($w['name']), $w['function']);
 	}
 }
 
@@ -457,14 +484,14 @@ function zing_ws_page_title($pageTitle='',$id=0) {
 		if (!zing_ws_is_shop_page($post->ID) || $id==0 || ($id != $post->ID)) return $pageTitle;
 
 		if (!$zing_loaded)	{
-			require (ZING_LOC."./startmodules.inc.php");
+			require_once(ZING_LOC."./startmodules.inc.php");
 			$zing_loaded=TRUE;
 		} else {
 			require (ZING_DIR."./includes/readvals.inc.php");        // get and post values
 		}
 	}
 
-	if ($_GET['prod']) {
+	if (isset($_GET['prod']) && $_GET['prod']) {
 		$prodid=intval($_GET['prod']);
 		$db=new db();
 		$db->select('select `productid`,`desc` from `##product`,`##category` where ##product.catid=##category.id and ##product.id='.qs($prodid));
@@ -605,7 +632,7 @@ if ($zing_version) {
 }
 
 
-function wsHomePage() {
+function wsHomePage($vars='') {
 	$pageID = zing_ws_default_page();
 
 	if (get_option('permalink_structure')){
@@ -614,9 +641,11 @@ function wsHomePage() {
 		$wordpressPageName = str_replace($homePage,"",$wordpressPageName);
 		$pid="";
 		$home=$homePage.$wordpressPageName;
+		if ($vars) $home.='?'.$vars;
 	}else{
 		$pid='page_id='.$pageID;
-		$home=get_option('home').'/';
+		$home=get_option('home').'/'.$pid;
+		if ($vars) $home.='&'.$vars;
 	}
 	return $home;
 }
@@ -637,7 +666,7 @@ function zurl($url,$printurl=false,$interface='') {
 		$home=get_option('home').'/';
 	}
 
-	if ($_REQUEST['wslive']=='wp') {
+	if (isset($_REQUEST['wslive']) && $_REQUEST['wslive']=='wp') {
 		if (strstr($url,ZING_HOME)===false) {
 			$url=str_replace('index.php',$_REQUEST['wsliveurl'].'/index.php',$url);
 			if ($pid && strstr($url,'?')) {

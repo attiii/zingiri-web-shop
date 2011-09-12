@@ -73,10 +73,10 @@ var wsCart = {
 		var priceIn=form.find('.wspricein');
 		var priceEx=form.find('.wspriceex');
 		data=form.serialize(true);
-		data+='&cms='+wsCms+'&wpabspath='+wpabspath;
+		data+='&cms='+wsCms;
 		data+='&wsfeature='+e.attr('name').replace('[]','');
 		new jQuery.ajax({
-			url : wsURL + "recalculate_price.php",
+			url : wsAjaxURL + "recalculate_price",
 			type : "post",
 			data : data,
 			success : function(request) {
@@ -85,9 +85,7 @@ var wsCart = {
 				for (i = 0; i < f.length; i++) {
 					n=jQuery(f[i]).attr('name').replace('[]','');
 					v=a.post[eval("'"+n+"'")][0];
-//					alert(n+'='+i+'='+a.post[eval("'"+n+"'")][0]);
 					jQuery(f[i]).attr('value',v);
-					//alert(i);
 				}
 				priceIn.attr('innerHTML',a.pricein);
 				priceEx.attr('innerHTML',a.priceex);
@@ -103,13 +101,13 @@ var wsCart = {
 		
 		if (wsAnimateImage==2) wsFlyToCart.fly(image);
 
-		jQuery("#notificationsLoader").html('<img src="'+wsURL+'../templates/default/images/loader2.gif">');
+		jQuery("#notificationsLoader").html('<img src="'+wsURL+'fws/templates/default/images/loader2.gif">');
 
 		form = e.closest('form');
 		data=form.serialize(true);
-		data+='&cms='+wsCms+'&wpabspath='+wpabspath;
+		data+='&cms='+wsCms;
 		new jQuery.ajax({
-			url : wsURL + "addToCart.php",
+			url : wsAjaxURL + "addToCart",
 			type : "post",
 			data : data,
 			success : function(request) {
@@ -130,7 +128,7 @@ var wsCart = {
 
 		form = e.closest('form');
 		data=form.serialize(true);
-		data+='&cms='+wsCms+'&wpabspath='+wpabspath;
+		data+='&cms='+wsCms;
 
 		var productX 		= image.offset().left;
 		var productY 		= image.offset().top;
@@ -151,10 +149,12 @@ var wsCart = {
 		.animate({opacity: 0.4}, 100 )
 		.animate({opacity: 0.1, marginLeft: gotoX, marginTop: gotoY, width: newImageWidth, height: newImageHeight}, 1200, function() {
 			new jQuery.ajax({
-				url : wsURL + "addToCart.php",
+				url : wsAjaxURL + "addToCart",
 				type : "post",
 				data : data,
 				success : function(request) {
+				alert('here we are'+wsAjaxURL + "addToCart");
+
 					if (request) alert(request);
 					else t.getCart();
 					jQuery("#tempimage").remove();
@@ -169,9 +169,9 @@ var wsCart = {
 		var image = e.closest('td').find('img');
 		form = e.closest('form');
 		data=form.serialize(true);
-		data+='&cms='+wsCms+'&wpabspath='+wpabspath;
+		data+='&cms='+wsCms;
 		new jQuery.ajax({
-			url : wsURL + "add_to_wishlist.php",
+			url : wsAjaxURL + "add_to_wishlist",
 			type : "post",
 			data : data,
 			success : function(request) {
@@ -186,10 +186,9 @@ var wsCart = {
 		var t=this;
 		var tag = jQuery('#zing-sidebar-cart');
 		new jQuery.ajax({
-			url : wsURL + "getCartContents.php",
+			url : wsAjaxURL + "getCartContents",
 			type : "post",
 			data : {
-				'wpabspath' : wpabspath,
 				'cms' : wsCms
 			},
 			success : function(request) {

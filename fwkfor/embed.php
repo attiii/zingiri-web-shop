@@ -21,9 +21,9 @@
  */
 ?>
 <?php
-define("ZING_APPS_PLAYER_VERSION","1.1.2");
+define("ZING_APPS_PLAYER_VERSION","1.1.3");
 
-if (!defined('APHPS_JS')) define('APHPS_JSDIR','min');
+if (!defined('APHPS_JSDIR')) define('APHPS_JSDIR','min');
 
 require_once(dirname(__FILE__).'/aphps.php');
 require(dirname(__FILE__).'/'.ZING_CMS.'.init.inc.php');
@@ -243,6 +243,9 @@ function zing_apps_player_content($content='') {
 		case "mform":
 			require(dirname(__FILE__)."/scripts/mform.php");
 			break;
+		case "ajax":
+			require(dirname(__FILE__)."/scripts/ajax.php");
+			break;
 	}
 	echo $postfix;
 	echo '</div>';
@@ -422,7 +425,8 @@ function zing_apps_settings() {
 
 function zVars() {
 	$v=array();
-	$v['zfAppsUrl']=ZING_APPS_PLAYER_URL;
+	$v['aphpsAjaxURL']=zurl('index.php?zfaces=ajax&form=');
+	$v['aphpsURL']=ZING_APPS_PLAYER_URL;
 	
 	return $v;
 }

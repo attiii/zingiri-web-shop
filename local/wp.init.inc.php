@@ -8,7 +8,7 @@ function wsIsAdminPage() {
 	return is_admin();
 }
 
-define('ZING_CMS','wp');
+if (!defined('ZING_CMS')) define('ZING_CMS','wp');
 
 require(dirname(dirname(__FILE__)).'/fws/globals.php');
 global $zing_version;

@@ -14,11 +14,10 @@ dashboard = {
 	save : function()
 	{
 		new jQuery.ajax({
-					url : wsURL + "dashboard_update.php",
+					url : wsAjaxURL + "dashboard_update",
 					type : "post",
 					data : {
 						'data' : Sortable.serialize('zdashboard'),
-						'wpabspath' : wpabspath,
 						'cms' : wsCms
 					},
 					success : function(request) {
@@ -31,12 +30,11 @@ dashboard = {
 
 function wsFrontPage(id,checked) {
 	new jQuery.ajax({
-				url : wsURL+"product_update.php",
+				url : wsAjaxURL+"product_update",
 				type : "post",
 				data : {
 					'id' : id,
 					'frontpage' : checked,
-					'wpabspath' : wpabspath,
 					'cms' : wsCms
 				},
 				success : function(request) {

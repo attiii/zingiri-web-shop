@@ -17,9 +17,9 @@ var wsFormField = {
 	ajax : function(rule,field) {
 		var that=this;
 		new jQuery.ajax({
-			url : zfAppsUrl + "ajax/form_field.php",
+			url : aphpsAjaxURL + "form_field",
 			type : "post",
-			data : { 'cms' : wsCms, 'wpabspath' : wpabspath, 'wsData' : rule},
+			data : { 'cms' : wsCms, 'wsData' : rule, 'mod' : 'fwkfor'},
 			success : function(request) {
 				a=eval("(" + request + ")");
 				if (a.error == 0) {

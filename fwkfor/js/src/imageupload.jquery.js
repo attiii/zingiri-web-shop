@@ -1,10 +1,9 @@
 function wsRemoveImage(id,tag) {
 	new jQuery.ajax({
-		url : wsURL+'removeimage.php',
+		url : wsAjaxURL+'removeimage',
 		type : "post",
 		data : { 
 			'id' : id, 
-			'wpabspath' : wpabspath,
 			'cms' : wsCms
 		},
 		success : function(request) {
@@ -20,11 +19,10 @@ jQuery(document).ready(function() {
 		new AjaxUpload('upload_button', {
 			data: { 
 				'upload_key' : key,
-				'wpabspath' : wpabspath,
 				'cms' : wsCms
 				},
 			responseType: 'json',
-			action: wsURL+'uploadimage.php',
+			action: wsAjaxURL+'uploadimage',
 			onComplete: function(file, response) {
 				var divTag = jQuery(document.createElement("div"));
 				divTag.css('position',"relative");
@@ -37,7 +35,7 @@ jQuery(document).ready(function() {
 			
 				var aTag = jQuery(document.createElement("a"));
 				aTag.attr('href','javascript:wsRemoveImage(\''+response.target_file+'\',\'tn_'+response.target_file+'\');');
-				aTag.attr('innerHTML','<img style="position:absolute;right:0px;top:0px;" src="'+zfAppsUrl+'images/delete.png" height="16px" width="16px" />');
+				aTag.attr('innerHTML','<img style="position:absolute;right:0px;top:0px;" src="'+aphpsURL+'fwkfor/images/delete.png" height="16px" width="16px" />');
 			
 				var inputTag = jQuery(document.createElement("input"));
 				inputTag.attr('type','radio');

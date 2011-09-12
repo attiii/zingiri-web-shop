@@ -39,8 +39,6 @@ class htmlareaZfSubElement extends zfSubElement {
 		$i=$this->subid;
 		$xmlf=$this->xmlf;
 		$use_wysiwyg=1;
-		//if (!defined("ZING_AJAX")) require(dirname(__FILE__).'/../fields/htmlarea/tinymce/tinymce.inc');
-		// 
 		if (!defined("ZING_AJAX") || !ZING_AJAX) {
 			if (defined("ZING_DIR")) require(ZING_DIR.'/addons/tinymce/tinymce.inc');
 			else require(dirname(__FILE__).'/../../addons/tinymce/tinymce.inc');

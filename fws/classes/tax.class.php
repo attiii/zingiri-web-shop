@@ -36,11 +36,12 @@ class wsTax {
 						$taxtot+=$tax;
 					}
 				} else {
+					$totrate=0;
 					$taxesCount=count($taxes);
 					foreach ($taxes as $label => $tax) {
 						$rate=$tax['RATE']/100;
 						$cascading=$tax['CASCADING'];
-						if (!cascading || $taxesCount == 1) $totrate+=$rate;
+						if (!$cascading || $taxesCount == 1) $totrate+=$rate;
 						else $totrate+=(1+$totrate) * $rate;
 					}
 					$reprice=$price/(1+$totrate);
@@ -111,7 +112,7 @@ class wsTax {
 			$query_rates="select `RATE`,`TAXCATEGORYID` FROM `".$dbtablesprefix."taxrates` WHERE `TAXESID`='".$tax['ID']."' AND (`taxcategoryid`='".$category."' OR `taxcategoryid`='' OR `taxcategoryid` IS NULL) AND (`country`='".$country."' OR `country`='') AND (`state`='".$state."' OR `state`='') ORDER BY `taxcategoryid` DESC,`country` DESC,`state` DESC LIMIT 1";
 			$sql_rates = mysql_query($query_rates) or die(mysql_error());
 			while ($rates = mysql_fetch_array($sql_rates)) {
-				$taxes[$tax['LABEL']]=array('RATE' => $rates['RATE'], 'CASCADING' => $tax['CASCADING'], 'CATEGORY' => $taxCategories[$rates['TAXCATEGORYID']]);
+				$taxes[$tax['LABEL']]=array('RATE' => $rates['RATE'], 'CASCADING' => $tax['CASCADING'], 'CATEGORY' => $rates['TAXCATEGORYID'] ? $taxCategories[$rates['TAXCATEGORYID']] : '');
 			}
 		}
 		return $taxes;

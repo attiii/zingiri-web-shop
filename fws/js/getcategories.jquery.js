@@ -10,11 +10,10 @@ var wsCategories = {
 		var group=e.attr('value');
 		
 		new jQuery.ajax({
-			url : wsURL + "get_categories.php",
+			url : wsAjaxURL + "get_categories",
 			type : "post",
-			data : {'cms' : wsCms, 'wpabspath' : wpabspath, 'wsgroupid' : group },
+			data : {'cms' : wsCms, 'wsgroupid' : group },
 			success : function(request) {
-				//alert(request);
 				jQuery('#wsproductcategory').attr('innerHTML',request);
 			}
 		});
