@@ -276,9 +276,9 @@ function zing_init()
 		wp_enqueue_script('jquery-ui-core');
 		wp_enqueue_script('jquery-ui-sortable');
 		 
+		
 		ob_start();
-		$bail_out = ( ( defined( 'WP_ADMIN' ) && WP_ADMIN == true ) || ( strpos( $_SERVER[ 'PHP_SELF' ], 'wp-admin' ) !== false ) );
-		if ( $bail_out ) { return $pages; }
+		if ( ( defined( 'WP_ADMIN' ) && WP_ADMIN == true ) || ( strpos( $_SERVER[ 'PHP_SELF' ], 'wp-admin' ) !== false ) ) return; //bail out
 	} else {
 		define("ZING_LIVE",true);
 	}
@@ -408,7 +408,7 @@ function zing_exclude_pages( $pages )
 	//require (ZING_DIR."./includes/settings.inc.php");        // database settings
 
 	$loggedin=LoggedIn();
-	if ($loggedin) $isadmin=IsAdmin();
+	if ($loggedin) $isadmin=IsAdmin(); else $isadmin=false;
 	if (!$isadmin) $iscustomer=true; else $iscustomer=false;
 
 	$unsetpages=array();
@@ -470,7 +470,7 @@ function zing_sidebar_init()
 }
 
 function zing_ws_title($title='') {
-	if ($seo=wsSeo($_REQUEST['page'],$_REQUEST['kat'],$_REQUEST['prod'])) return $seo['title'];
+	if ($seo=wsSeo(isset($_REQUEST['page']) ? $_REQUEST['page'] : '',isset($_REQUEST['kat']) ? $_REQUEST['kat'] : '',isset($_REQUEST['prod']) ? $_REQUEST['prod'] : '')) return $seo['title'];
 	return $title;
 }
 
@@ -498,15 +498,15 @@ function zing_ws_page_title($pageTitle='',$id=0) {
 		if ($db->next()) {
 			$pageTitle=$db->get('productid');
 		}
-	} elseif ($_GET['page']=='browse' && isset($_GET['kat'])) {
+	} elseif (isset($_GET['page']) && ($_GET['page']=='browse') && isset($_GET['kat'])) {
 		$db=new db();
 		$db->select('select `##group`.`name`,`##category`.`desc` from `##group`,`##category` where ##group.id=##category.groupid and ##category.id='.qs(intval($_GET['kat'])));
 		if ($db->next()) {
 			$pageTitle=$db->get('name').' - '.$db->get('desc');
 		}
-	} elseif ($p=$_GET['page']) {
+	} elseif (isset($_GET['page']) && ($p=$_GET['page'])) {
 		if (isset($wsPages[$p])) $pageTitle=$txt[$wsPages[$p]];
-	} elseif ($_GET['zfaces'] && $p=$_GET['form']) {
+	} elseif (isset($_GET['zfaces']) && $_GET['zfaces'] && $p=$_GET['form']) {
 		if ($pt=zing_ws_get_form_title($_GET['form'])) $pageTitle=$pt;
 	}
 	return $pageTitle;

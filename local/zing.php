@@ -7,6 +7,7 @@ if (!class_exists('zing')) {
 		var $types=array('inc' => 'includes', 'class' => 'classes');
 		var $paths=array();
 		var $dashboardWidgets=array();
+		var $extensions=array();
 
 		function zing() {
 
@@ -26,5 +27,3 @@ if (!class_exists('zing')) {
 if (!isset($zing)) {
 	$zing=new zing();
 }
-$zing->paths[]=dirname(__FILE__).'/fws/';
-?>

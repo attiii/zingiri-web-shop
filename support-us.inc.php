@@ -4,7 +4,7 @@ if (!function_exists('zing_support_us')) {
 		$option=$plugin.'-support-us';
 		if ($action == 'activate' || get_option($option) == '') {
 			update_option($option,time());
-		} elseif ($_REQUEST['support-us'] == 'hide') {
+		} elseif (isset($_REQUEST['support-us']) && ($_REQUEST['support-us'] == 'hide')) {
 			update_option($option,time()+7776000);
 		} elseif ($action == 'check') {
 			if ((time() - get_option($option)) > 1209600) { //14 days 
@@ -49,9 +49,10 @@ if (!defined('WP_ZINGIRI_LIVE')) echo zing_support_us('zingiri-web-shop');
 	$query="SELECT count(*) as oc FROM ".$dbtablesprefix."order";
 	$sql = mysql_query($query) or die(mysql_error());
 	$row = mysql_fetch_array($sql);
+	$oc=$row['oc'];
 
 	require(dirname(__FILE__).'/fws/includes/httpclass.inc.php');
-	$news = new wsNewsRequest('http://www.zingiri.com/news.php?e='.urlencode(isset($current_user->user_email) ? $current_user->user_email : $sales_mail).'&w='.urlencode(ZING_HOME).'&a='.get_option("zing_ws_install").'&v='.urlencode(ZING_VERSION).'&oc='.(string)$row['oc']);
+	$news = new wsNewsRequest('http://www.zingiri.com/news.php?e='.urlencode(isset($current_user->user_email) ? $current_user->user_email : $sales_mail).'&w='.urlencode(ZING_HOME).'&a='.get_option("zing_ws_install").'&v='.urlencode(ZING_VERSION).'&oc='.(string)$oc);
 	if ($news->live() && !$_SESSION['zing_session']['news']) {
 		if (ZING_CMS=='jl') update_option('zing_ws_news',urlencode($news->DownloadToString()));
 		else update_option('zing_ws_news',$news->DownloadToString());

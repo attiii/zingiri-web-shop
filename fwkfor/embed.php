@@ -1,27 +1,5 @@
 <?php
-/*  embed.php
- Copyright 2008,2009,2010 Erik Bogaerts
- Support site: http://www.zingiri.com
-
- This file is part of APhPS.
-
- APhPS is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
-
- APhPS is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with APhPS; if not, write to the Free Software
- Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
-?>
-<?php
-define("ZING_APPS_PLAYER_VERSION","1.1.3");
+define("ZING_APPS_PLAYER_VERSION","1.1.4");
 
 if (!defined('APHPS_JSDIR')) define('APHPS_JSDIR','min');
 
@@ -137,7 +115,7 @@ function zing_apps_player_install() {
 			}
 		}
 	}
-	
+
 	//load forms
 	zing_apps_player_load(ZING_APPS_PLAYER_DIR.'forms/');
 	if (count($aphps_projects) > 0) {
@@ -145,7 +123,7 @@ function zing_apps_player_install() {
 			if ($id != 'player') zing_apps_player_load($project['dir'].'forms/');
 		}
 	}
-	
+
 	//remote forms
 	if (get_option('zing_apps_remote_url') == 'http://www.zingiri.com') update_option('zing_apps_remote_url','http://forms.zingiri.com');
 }
@@ -188,14 +166,16 @@ function zing_apps_player_content($content='') {
 	global $dbtablesprefix,$page;
 	global $aphps_projects;
 
-	$page=$_GET['page'];
-	$apper=error_reporting(E_ALL ^ E_NOTICE); // ^ E_NOTICE
-	if (function_exists("user_error_handler")) set_error_handler("user_error_handler");
-	else ini_set('display_errors', '1');
+	if (isset($_GET['page'])) $page=$_GET['page'];
+	if (!defined('WP_DEBUG')) {
+		$apper=error_reporting(E_ALL ^ E_NOTICE); // ^ E_NOTICE
+		if (function_exists("user_error_handler")) set_error_handler("user_error_handler");
+		else ini_set('display_errors', '1');
+	}
 
 	if (defined("ZING_APPS_CUSTOM")) { require(ZING_APPS_CUSTOM."globals.php"); }
 
-	$cf=get_post_custom();
+	if (isset($post)) $cf=get_post_custom();
 
 	if (isset($_GET['zfaces'])) {
 		$zfaces=$_GET['zfaces'];
@@ -207,14 +187,18 @@ function zing_apps_player_content($content='') {
 		$_GET['action']='add';
 		$zfaces='form';
 	} else {
-		restore_error_handler();
-		error_reporting($apper);
+		if (!defined('WP_DEBUG')) {
+			restore_error_handler();
+			error_reporting($apper);
+		}
 		return $content;
 	}
 
 	$aphps->doAction('content_before');
-	if ($cf['zing_form'][0]) $_GET['form']=$cf['zing_form'][0];
-	if ($cf['zing_action'][0]) $_GET['action']=$cf['zing_action'][0];
+	if (isset($post)) {
+		if ($cf['zing_form'][0]) $_GET['form']=$cf['zing_form'][0];
+		if ($cf['zing_action'][0]) $_GET['action']=$cf['zing_action'][0];
+	}
 
 	require_once(dirname(__FILE__)."/includes/all.inc.php");
 
@@ -230,8 +214,8 @@ function zing_apps_player_content($content='') {
 	}
 
 	echo actionCompleteMessage();
-	echo '<div class="zing_ws_page" id="zing_ws_'.$_GET['form'].'">';
-	echo $prefix;
+	echo '<div class="zing_ws_page" id="zing_ws_'.(isset($_GET['form']) ? $_GET['form'] : 'form_'.$_GET['formid']).'">';
+	if (isset($prefix)) echo $prefix;
 	switch ($zfaces)
 	{
 		case "form":
@@ -247,14 +231,15 @@ function zing_apps_player_content($content='') {
 			require(dirname(__FILE__)."/scripts/ajax.php");
 			break;
 	}
-	echo $postfix;
+	if (isset($postfix)) echo $postfix;
 	echo '</div>';
-	
-	$aphps->doAction('content_after');
-	
-	restore_error_handler();
-	error_reporting($apper);
 
+	$aphps->doAction('content_after');
+
+	if (!defined('WP_DEBUG')) {
+		restore_error_handler();
+		error_reporting($apper);
+	}
 	return "";
 }
 
@@ -277,7 +262,7 @@ function zing_apps_player_init()
 	}
 	wp_enqueue_script('jquery');
 	wp_enqueue_script('jquery-ui-tabs');
-	
+
 	ob_start();
 	session_start();
 
@@ -427,7 +412,7 @@ function zVars() {
 	$v=array();
 	$v['aphpsAjaxURL']=zurl('index.php?zfaces=ajax&form=');
 	$v['aphpsURL']=ZING_APPS_PLAYER_URL;
-	
+
 	return $v;
 }
 
@@ -437,14 +422,14 @@ function zScripts() {
 	$v[]=ZING_APPS_PLAYER_URL.'js/'.APHPS_JSDIR.'/repeatable.jquery.js';
 	$v[]=ZING_APPS_PLAYER_URL.'js/'.APHPS_JSDIR.'/formfield.jquery.js';
 	$v[]=ZING_APPS_PLAYER_URL.'js/'.APHPS_JSDIR.'/core.jquery.js';
-	
+
 	return $v;
 }
 
 function zStyleSheets() {
 	$v=array();
 	$v[]=ZING_APPS_PLAYER_URL . 'css/integrated_view.css';
-	
+
 	return $v;
 }
 ?>

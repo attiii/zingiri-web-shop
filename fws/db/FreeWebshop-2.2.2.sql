@@ -1,0 +1,1 @@
+RENAME TABLE `##paypal_payment_info` TO `##payment_info` ;

@@ -25,26 +25,36 @@ class payment_gatewayZfSubElement extends zfSubElement {
 
 	function output($mode="edit",$input="")
 	{
+		global $zing;
+
 		$g=explode('-',$this->int);
+		$this->ext='';
 		if (empty($g[0])) $this->ext=$g[0];
 		elseif (isset($g[1])) {
-			if (file_exists(ZING_LOC."extensions/gateways/".$g[0]."/config/".$g[1].".php")) {
-				require(ZING_LOC."extensions/gateways/".$g[0]."/config/".$g[1].".php");
-				$this->ext=$aSettings['GATEWAY_NAME'];
-			} else $this->ext='';
+			foreach ($zing->paths as $path) {
+				$f=dirname($path).'/extensions/gateways/'.$g[0].'/config/'.$g[1].'.php';
+				if (file_exists($f)) {
+					require($f);
+					$this->ext=$aSettings['GATEWAY_NAME'];
+					break;
+				}
+			}
 		} elseif (!empty($g[0])) {
-			if (file_exists(ZING_LOC."extensions/gateways/".$g[0]."/config.php"))
-			{
-				require(ZING_LOC."extensions/gateways/".$g[0]."/config.php");
-				$this->ext=$aSettings['GATEWAY_NAME'];
-			} else $this->ext='';
-		} else {
-			$this->ext='';
+			foreach ($zing->paths as $path) {
+				$f=dirname($path).'/extensions/gateways/'.$g[0].'/config.php';
+				if (file_exists($f)) {
+					require($f);
+					$this->ext=$aSettings['GATEWAY_NAME'];
+					break;
+				}
+			}
 		}
 		return $this->ext;
 	}
 
 	function display(&$field_markup,&$subscript_markup) {
+		global $zing;
+
 		$e=$this->element;
 		$i=$this->subid;
 		$xmlf=$this->xmlf;
@@ -53,39 +63,30 @@ class payment_gatewayZfSubElement extends zfSubElement {
 
 		$option_markup = "<option value=\"\"></option>";
 
-		$files=faces_directory(ZING_LOC."extensions/gateways","",true);
-		foreach ($files as $file) {
-			if (file_exists(ZING_LOC."extensions/gateways/".$file."/config")) {
-				$option_markup.='<optgroup label="'.$file.'">';
-				$files2=faces_directory(ZING_LOC."extensions/gateways/".$file."/config","",false);
-				foreach ($files2 as $file2) {
-					if (strstr(ZING_LOC."extensions/gateways/".$file."/config/".$file2,'.php')) {
-						require(ZING_LOC."extensions/gateways/".$file."/config/".$file2);
-						$value2=$file.'-'.str_replace('.php','',$file2);
-						if(trim($e->populated_value['element_'.$e->id.'_'.$i]) == $value2) $selected = 'selected="selected"';
-						elseif ($e->default_value == $value2) $selected = 'selected="selected"';
-						else $selected='';
-						$option_markup .= '<option style="padding-left: 20px;" value="'.$value2.'" '.$selected.'>'.$aSettings['GATEWAY_NAME'].'</option>';
-					}
-				}
-				$option_markup.='</optgroup>';
-			} elseif (file_exists(ZING_LOC."extensions/gateways/".$file."/config.php")) {
-				require(ZING_LOC."extensions/gateways/".$file."/config.php");
-				if(trim($e->populated_value['element_'.$e->id.'_'.$i]) == $file) $selected = 'selected="selected"';
-				elseif ($e->default_value == $file) $selected = 'selected="selected"';
-				else $selected='';
-				if (!$e->readonly || ($e->readonly && $selected)) $option_markup .= "<option value=\"".$file."\" {$selected}>".$aSettings['GATEWAY_NAME']."</option>";
-			}
-		}
-		if (get_option('zing_webshop_pro')) {
-			$files=faces_directory(ZING_WS_PRO_DIR."../extensions/gateways","",true);
+		foreach ($zing->paths as $path) {
+			$files=faces_directory(dirname($path)."/extensions/gateways","",true);
 			foreach ($files as $file) {
-				if(trim($e->populated_value['element_'.$e->id.'_'.$i]) == $file){
-					$selected = 'selected="selected"';
-				} elseif ($e->default_value == $file) {
-					$selected = 'selected="selected"';
-				} else $selected='';
-				if (!$e->readonly || ($e->readonly && $selected)) $option_markup .= "<option value=\"".$file."\" {$selected}>".$file."</option>";
+				if (file_exists(dirname($path)."/extensions/gateways/".$file."/config")) {
+					$option_markup.='<optgroup label="'.$file.'">';
+					$files2=faces_directory(dirname($path)."/extensions/gateways/".$file."/config","",false);
+					foreach ($files2 as $file2) {
+						if (strstr(dirname($path)."/extensions/gateways/".$file."/config/".$file2,'.php')) {
+							require(dirname($path)."/extensions/gateways/".$file."/config/".$file2);
+							$value2=$file.'-'.str_replace('.php','',$file2);
+							if(trim($e->populated_value['element_'.$e->id.'_'.$i]) == $value2) $selected = 'selected="selected"';
+							elseif ($e->default_value == $value2) $selected = 'selected="selected"';
+							else $selected='';
+							$option_markup .= '<option style="padding-left: 20px;" value="'.$value2.'" '.$selected.'>'.$aSettings['GATEWAY_NAME'].'</option>';
+						}
+					}
+					$option_markup.='</optgroup>';
+				} elseif (file_exists(dirname($path)."/extensions/gateways/".$file."/config.php")) {
+					require(dirname($path)."/extensions/gateways/".$file."/config.php");
+					if(trim($e->populated_value['element_'.$e->id.'_'.$i]) == $file) $selected = 'selected="selected"';
+					elseif ($e->default_value == $file) $selected = 'selected="selected"';
+					else $selected='';
+					if (!$e->readonly || ($e->readonly && $selected)) $option_markup .= "<option value=\"".$file."\" {$selected}>".$aSettings['GATEWAY_NAME']."</option>";
+				}
 			}
 		}
 		$field_markup.=$option_markup;

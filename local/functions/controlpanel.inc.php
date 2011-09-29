@@ -84,12 +84,12 @@ function zing_ws_add_admin() {
 
 	global $zing_ws_name, $zing_ws_options, $menus, $txt, $wpdb, $zing_version, $integrator;
 	global $dbtablesprefix;
-	if ($zing_version) require(ZING_LOC.'/startmodules.inc.php');
+	if ($zing_version) require_once(ZING_LOC.'/startmodules.inc.php');
 
 	if (!defined('WP_ZINGIRI_LIVE')) update_option('zing_ws_install_type','local');
 	
 	zing_set_options();
-	if ((ZING_CMS=='dp' && strstr($_GET['q'],'admin/webshop')) || (ZING_CMS=='wp' && $_GET['page']=='zingiri-web-shop') || (ZING_CMS=='jl' && $_REQUEST['option'] == "com_zingiriwebshop") ) {
+	if ((isset($_GET['q']) && (ZING_CMS=='dp') && strstr($_GET['q'],'admin/webshop')) || (ZING_CMS=='wp' && isset($_GET['page']) && ($_GET['page']=='zingiri-web-shop')) || (ZING_CMS=='jl' && isset($_REQUEST['option']) && ($_REQUEST['option'] == "com_zingiriwebshop")) ) {
 		if( isset($_REQUEST['sync']) ) {
 			if (get_option('zing_ws_install_type') == 'local') {
 				$integrator->sync();
@@ -100,7 +100,7 @@ function zing_ws_add_admin() {
 			die;
 		}
 
-		if ( 'install' == $_REQUEST['action'] ) {
+		if ( isset($_REQUEST['action']) && ('install' == $_REQUEST['action']) ) {
 			foreach ($zing_ws_options as $value) {
 				update_option( $value['id'], $_REQUEST[ $value['id'] ] );
 			}
@@ -123,7 +123,7 @@ function zing_ws_add_admin() {
 			die;
 		}
 
-		if( 'uninstall' == $_REQUEST['action'] ) {
+		if( isset($_REQUEST['action']) && ('uninstall' == $_REQUEST['action']) ) {
 			if (get_option('zing_ws_install_type') == 'local') {
 				zing_uninstall();
 			}

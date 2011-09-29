@@ -10,7 +10,7 @@
 		<th scope="row"><?php echo $value['name']; ?>:</th>
 		<td><input name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>"
 			type="<?php echo $value['type']; ?>"
-			value="<?php if ( get_settings( $value['id'] ) != "") { echo get_settings( $value['id'] ); } else { echo $value['std']; } ?>"
+			value="<?php if ( get_option( $value['id'] ) != "") { echo get_option( $value['id'] ); } else { echo $value['std']; } ?>"
 			size="40"
 		/></td>
 
@@ -27,7 +27,7 @@
 		<td><textarea name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>" cols="50"
 			rows="8"
 		/>
-		<?php if ( get_settings( $value['id'] ) != "") { echo stripslashes (get_settings( $value['id'] )); }
+		<?php if ( get_option( $value['id'] ) != "") { echo stripslashes (get_option( $value['id'] )); }
 		else { echo $value['std'];
 		} ?>
 </textarea></td>
@@ -45,7 +45,7 @@
 		<th scope="top"><?php echo $value['name']; ?>:</th>
 		<td><select name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>">
 		<?php foreach ($value['options'] as $option) { ?>
-			<option <?php if ( get_settings( $value['id'] ) == $option) { echo ' selected="selected"'; }?>><?php echo $option; ?></option>
+			<option <?php if ( get_option( $value['id'] ) == $option) { echo ' selected="selected"'; }?>><?php echo $option; ?></option>
 			<?php } ?>
 		</select></td>
 
@@ -60,7 +60,7 @@
 		<th scope="top"><?php echo $value['name']; ?>:</th>
 		<td><select name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>">
 		<?php foreach ($value['options'] as $key => $option) { ?>
-			<option value="<?php echo $key;?>" <?php if ( get_settings( $value['id'] ) == $key) { echo ' selected="selected"'; }?>><?php echo $option; ?></option>
+			<option value="<?php echo $key;?>" <?php if ( get_option( $value['id'] ) == $key) { echo ' selected="selected"'; }?>><?php echo $option; ?></option>
 			<?php } ?>
 		</select></td>
 

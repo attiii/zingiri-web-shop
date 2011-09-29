@@ -37,16 +37,26 @@ class zfSubElement {
 		$this->xmlf=$xmlf;
 		$this->elementid=$element->id;
 		$this->element=$element;
+		if (!isset($this->element->readonly)) $this->element->readonly='';
 		$this->subid=$subid;
 		if (is_array($ext)) $this->ext=$ext;
 		else $this->ext=trim($ext);
 		$this->error_message="";
 		$this->is_error=false;
-		$this->size=$element->attributes['zfsize'] ? $element->attributes['zfsize'] : $xmlf->fields->{'field'.$this->subid}->size;
-		$this->maxlength=$element->attributes['zfmaxlength'] ? $element->attributes['zfmaxlength'] : $xmlf->fields->{'field'.$this->subid}->maxlength;
+		//$this->size=isset($element->attributes['zfsize']) ? $element->attributes['zfsize'] : $xmlf->fields->{'field'.$this->subid}->size;
+		if (isset($element->attributes['zfsize'])) $this->size=$element->attributes['zfsize'];
+		elseif (isset($xmlf->fields->{'field'.$this->subid}->size)) $this->size=$xmlf->fields->{'field'.$this->subid}->size;
+		else $this->size=null;
+		
+		if (isset($element->attributes['zfmaxlength'])) $this->maxlength=$element->attributes['zfmaxlength'];
+		elseif (isset($xmlf->fields->{'field'.$this->subid}->maxlength)) $this->maxlength=$xmlf->fields->{'field'.$this->subid}->maxlength;
+		else $this->maxlength=null;
+		
 		$this->ai=$ai;
-		if ($element->isRepeatable) {
-			if ($ai>0) $this->ail='_'.$this->ai; else $this->ail='';
+		$this->ail='';
+		if (!isset($element->populated_value['element_'.$element->id.'_'.$subid])) $element->populated_value['element_'.$element->id.'_'.$subid]=null;		
+		if (isset($element->isRepeatable) && $element->isRepeatable) {
+			if ($ai>0) $this->ail='_'.$this->ai;
 			$element->values['element_'.$element->id.'_'.$subid]=$element->populated_value['element_'.$element->id.'_'.$subid];
 		} else {
 			$element->values['element_'.$element->id.'_'.$subid][0]=$element->populated_value['element_'.$element->id.'_'.$subid];
@@ -110,7 +120,8 @@ class zfSubElement {
 		if($e->values['element_'.$e->id.'_'.$i][$this->ai] == ""){
 			$e->values['element_'.$e->id.'_'.$i][$this->ai] = $xmlf->fields->{'field'.$i}->default;
 		}
-		$field_markup.="<input id=\"element_{$e->id}_{$i}{$this->ail}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" size=\"{$this->size}\" value=\"{$e->values['element_'.$e->id.'_'.$i][$this->ai]}\" maxlength=\"{$this->maxlength}\" type=\"text\" {$e->readonly}/>";
+		$readonly=isset($e->readonly) ? $e->readonly : '';
+		$field_markup.="<input id=\"element_{$e->id}_{$i}{$this->ail}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" size=\"{$this->size}\" value=\"{$e->values['element_'.$e->id.'_'.$i][$this->ai]}\" maxlength=\"{$this->maxlength}\" type=\"text\" {$readonly}/>";
 		$subscript_markup.="<label id=\"label_{$e->id}_{$i}\"for=\"element_{$e->id}_{$i}\">".z_($xmlf->fields->{'field'.$i}->label)."</label>";
 	}
 

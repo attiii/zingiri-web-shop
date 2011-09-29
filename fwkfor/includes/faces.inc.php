@@ -124,7 +124,7 @@ function faces_directory($dir,$filters,$dirsOnly=false) {
 			while (($file = readdir($handle))!==false) {
 				for ($f=0;$f<sizeof($filters);$f++):
 				$system=explode(".",$file);
-				if ($system[1] == $filters[$f]){
+				if (isset($system[1]) && ($system[1] == $filters[$f])) {
 					if ($dirsOnly==false || ($dirsOnly==true && is_dir($dir.'/'.$file))) $files[] = $file;
 				}
 				endfor;

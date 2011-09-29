@@ -798,7 +798,7 @@ if (!function_exists('actionCompleteMessage')) {
 	function actionCompleteMessage() {
 		global $gfx_dir,$txt;
 		$msg='';
-		if ($_REQUEST['zmsg']) {
+		if (isset($_REQUEST['zmsg']) && $_REQUEST['zmsg']) {
 			$title=$txt['general13'];
 			$message=$txt['adminedit2'];
 			$picture="notify.gif";

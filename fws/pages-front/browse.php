@@ -3,12 +3,9 @@
 if (isset($_GET['displaytype']) && ($_GET['displaytype']=='list' || $_GET['displaytype']=='grid')) {
 	if ($_COOKIE['fws_displaytype'] != $_GET['displaytype']) {
 		setcookie ("fws_displaytype",$_GET['displaytype'], 0, '/');
-		//header('Location:'.wsCurrentPageURL());
-		//exit;
 	}
 	$wsProductDisplayType=$_GET['displaytype'];
 } else $wsProductDisplayType=isset($_COOKIE['fws_displaytype']) ? $_COOKIE['fws_displaytype'] : 'list';
-
 
 if (isset($_GET['itemsperpage'])) {
 	if ($_COOKIE['fws_itemsperpage'] != $_GET['itemsperpage']) {
@@ -44,6 +41,12 @@ if ($orderby == 1) {
 }
 else { $orderby_field = "PRICE"; }
 
+if (empty($cat) && isset($_GET['cat'])) {
+	$cat=$_GET['cat'];
+}
+if (empty($cat) && isset($_GET['kat'])) {
+	$cat=$_GET['kat'];
+}
 if (!empty($cat)){
 	// find the product category
 	$query = sprintf("SELECT * FROM `".$dbtablesprefix."category` where `ID`=%s", quote_smart($cat));

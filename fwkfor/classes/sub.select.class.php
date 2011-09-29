@@ -27,7 +27,7 @@ class selectZfSubElement extends zfSubElement {
 	{
 		foreach ($this->xmlf->values->children() as $child) {
 			$t=(array)$child;
-			$option=$t[0];
+			$option=isset($t[0]) ? $t[0] : '';
 			if (isset($child->attributes()->value)) $value=$child->attributes()->value;
 			else $value=$option;
 			if ($value==$this->int) $this->ext=$option;
@@ -49,7 +49,7 @@ class selectZfSubElement extends zfSubElement {
 			foreach ($xmlf->fields->{'field'.$i}->values->children() as $child) {
 				$t=(array)$child;
 
-				$option=$t[0];
+				$option=isset($t[0]) ? $t[0] : '';
 				if (isset($child->attributes()->value)) $value=$child->attributes()->value;
 				else $value=$option;
 				$selected="";

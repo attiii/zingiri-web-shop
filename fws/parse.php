@@ -1,7 +1,7 @@
 <?php
 $tmp=$content;
 $i=0;
-while ($i<100 && preg_match('/\[zing-ws-(.*):(.*)\]/',$tmp,$matches)==1) { //[zing-ws:page]
+while ($i<100 && preg_match('/\[zing-ws-(.*):(.*)\]/',$tmp,$matches)==1) { //[zing-ws-action:parameters]
 	$parsed='';
 	switch ($matches[1]) {
 		case 'show-category':

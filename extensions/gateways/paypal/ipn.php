@@ -167,7 +167,7 @@ else
 			$fecha=date("Y") . date("m") . date("d");
 
 			//check if transaction ID has been processed before
-			$checkquery="select txnid from " . $dbtablesprefix . "paypal_payment_info where txnid='" . $txn_id . "'";
+			$checkquery="select txnid from " . $dbtablesprefix . "payment_info where txnid='" . $txn_id . "'";
 			$sihay=mysql_query($checkquery) or die(user_error_handler("1", "Duplicate txn id check query failed:<br>" . mysql_error() . "<br>"
 			. mysql_errno(),"ipn.php",0));
 			$nm=mysql_num_rows($sihay);
@@ -183,7 +183,7 @@ else
 					user_error_handler("0", "step C1\n","ipn.php",0);
 					$strQuery=
 						"insert into " . $dbtablesprefix
-					. "paypal_payment_info(paymentstatus,buyer_email,firstname,lastname,street,city,state,zipcode,country,mc_gross,mc_fee,memo,paymenttype,paymentdate,txnid,pendingreason,reasoncode,tax,datecreation) values ('"
+					. "payment_info(paymentstatus,buyer_email,firstname,lastname,street,city,state,zipcode,country,mc_gross,mc_fee,memo,paymenttype,paymentdate,txnid,pendingreason,reasoncode,tax,datecreation) values ('"
 					. $payment_status . "','" . $payer_email . "','" . $first_name . "','" . $last_name . "','"
 					. $address_street . "','" . $address_city . "','" . $address_state . "','" . $address_zip
 					. "','" . $address_country . "','" . $mc_gross . "','" . $mc_fee . "','" . $memo . "','"
@@ -191,7 +191,7 @@ else
 					. $reason_code . "','" . $tax . "','" . $fecha . "')";
 
 					$result=
-					mysql_query($strQuery) or die(user_error_handler("1", "Cart - paypal_payment_info, Query failed:<br>" . mysql_error()
+					mysql_query($strQuery) or die(user_error_handler("1", "Cart - payment_info, Query failed:<br>" . mysql_error()
 					. "<br>" . mysql_errno(),"ipn.php",0));
 
 					for ($i=1; $i <= $num_cart_items; $i++)
@@ -220,7 +220,7 @@ else
 					user_error_handler("0", "step C2\n","ipn.php",0);
 					$strQuery=
 						"insert into " . $dbtablesprefix
-					. "paypal_payment_info(paymentstatus,buyer_email,firstname,lastname,street,city,state,zipcode,country,mc_gross,mc_fee,itemnumber,itemname,os0,on0,os1,on1,quantity,memo,paymenttype,paymentdate,txnid,pendingreason,reasoncode,tax,datecreation,custom,invoice) values ('"
+					. "payment_info(paymentstatus,buyer_email,firstname,lastname,street,city,state,zipcode,country,mc_gross,mc_fee,itemnumber,itemname,os0,on0,os1,on1,quantity,memo,paymenttype,paymentdate,txnid,pendingreason,reasoncode,tax,datecreation,custom,invoice) values ('"
 					. $payment_status . "','" . $payer_email . "','" . $first_name . "','" . $last_name . "','"
 					. $address_street . "','" . $address_city . "','" . $address_state . "','" . $address_zip
 					. "','" . $address_country . "','" . $mc_gross . "','" . $mc_fee . "','" . $item_number . "','"
@@ -230,56 +230,56 @@ else
 					. $reason_code . "','" . $tax . "','" . $fecha . "','" . $custom . "','" . $invoice . "')";
 					$result=
 					mysql_query($strQuery) or die(user_error_handler("1",
-							"Default - paypal_payment_info, Query failed:<br>" . mysql_error() . "<br>" . mysql_errno(),
+							"Default - payment_info, Query failed:<br>" . mysql_error() . "<br>" . mysql_errno(),
 							"ipn.php", 0));
 				}
 
 				user_error_handler("0", "step C-OK\n","ipn.php",0);
 
-				
+
 				//update order payment status
 				$query="select * from " . $dbtablesprefix . "order where WEBID=" . quote_smart(trim($item_name));
 				$sql=mysql_query($query) or die(user_error_handler("1",
-						"Default - paypal_payment_info, Can not find order:<br>" . mysql_error() . "<br>"
+						"Default - payment_info, Can not find order:<br>" . mysql_error() . "<br>"
 						. mysql_errno(),
 						"ipn.php", 0));
-				if ($row = mysql_fetch_array($sql)) {
-					//check if order contains only downloadable items
-					$digProducts=$allProducts=0;
-					$query_basket=sprintf("select PRODUCTID from ".$dbtablesprefix."basket where CUSTOMERID=%s and ORDERID=%s",$row['CUSTOMERID'],$row['ID']);
-					user_error_handler(1,$query_basket);
-					$sql_basket=mysql_query($query_basket) or die(user_error_handler("1","Error reading basket:<br>" . mysql_error() . "<br>" . mysql_errno(),"ipn.php", 0));
-					while ($row_basket = mysql_fetch_array($sql_basket)) {
-						$query_product=sprintf("select LINK from ".$dbtablesprefix."product where ID=%s",$row_basket['PRODUCTID']);
-						user_error_handler(1,$query_product);
-						$sql_product=mysql_query($query_product) or die(user_error_handler("1","Error reading product:<br>" . mysql_error() . "<br>" . mysql_errno(),"ipn.php", 0));
-						if ($row_product = mysql_fetch_array($sql_product)) {
-							if (!empty($row_product['LINK'])) $digProducts++;
-							$allProducts++;
-						}
-					}
-					user_error_handler(1,'Products:'.$digProducts.'/'.$allProducts);
-					$paid=$row['PAID'] + $mc_gross;
-					if (($paid >= $row['TOPAY']) && ($allProducts==$digProducts)) $status=5;
-					elseif ($paid >= $row['TOPAY']) $status=4;
-					else $status=$row['STATUS'];
-					$query="update " . $dbtablesprefix . "order SET STATUS=".$status.", PAID=".$paid ." WHERE WEBID =" . quote_smart(trim($item_name));
-					user_error_handler("0", "custom=" . $custom . "\n","ipn.php",0);
-					user_error_handler("0", "mc_gross=" . $mc_gross . "\n","ipn.php",0);
-					$result=mysql_query($query) or die(user_error_handler("1",
-							"Default - paypal_payment_info, Customer update failed:<br>" . mysql_error() . "<br>"
+						if ($row = mysql_fetch_array($sql)) {
+							//check if order contains only downloadable items
+							$digProducts=$allProducts=0;
+							$query_basket=sprintf("select PRODUCTID from ".$dbtablesprefix."basket where CUSTOMERID=%s and ORDERID=%s",$row['CUSTOMERID'],$row['ID']);
+							user_error_handler(1,$query_basket);
+							$sql_basket=mysql_query($query_basket) or die(user_error_handler("1","Error reading basket:<br>" . mysql_error() . "<br>" . mysql_errno(),"ipn.php", 0));
+							while ($row_basket = mysql_fetch_array($sql_basket)) {
+								$query_product=sprintf("select LINK from ".$dbtablesprefix."product where ID=%s",$row_basket['PRODUCTID']);
+								user_error_handler(1,$query_product);
+								$sql_product=mysql_query($query_product) or die(user_error_handler("1","Error reading product:<br>" . mysql_error() . "<br>" . mysql_errno(),"ipn.php", 0));
+								if ($row_product = mysql_fetch_array($sql_product)) {
+									if (!empty($row_product['LINK'])) $digProducts++;
+									$allProducts++;
+								}
+							}
+							user_error_handler(1,'Products:'.$digProducts.'/'.$allProducts);
+							$paid=$row['PAID'] + $mc_gross;
+							if (($paid >= $row['TOPAY']) && ($allProducts==$digProducts)) $status=5;
+							elseif ($paid >= $row['TOPAY']) $status=4;
+							else $status=$row['STATUS'];
+							$query="update " . $dbtablesprefix . "order SET STATUS=".$status.", PAID=".$paid ." WHERE WEBID =" . quote_smart(trim($item_name));
+							user_error_handler("0", "custom=" . $custom . "\n","ipn.php",0);
+							user_error_handler("0", "mc_gross=" . $mc_gross . "\n","ipn.php",0);
+							$result=mysql_query($query) or die(user_error_handler("1",
+							"Default - payment_info, Customer update failed:<br>" . mysql_error() . "<br>"
 							. mysql_errno(),
 							"ipn.php", 0));
-				}
+						}
 
-				//update basket status
-				$query=sprintf("update ".$dbtablesprefix."basket set STATUS=1 where CUSTOMERID=%s and ORDERID=%s",$row['CUSTOMERID'],$row['ID']);
-				$sql=mysql_query($query) or die(user_error_handler("1","Error updating basket:<br>" . mysql_error() . "<br>" . mysql_errno(),"ipn.php", 0));
-				
-				// send an email in any case
-				//				echo "Verified";
-				//				mail($notify_email, "VERIFIED IPN", "$res\n $req\n $strQuery\n $struery\n  $strQuery2");
-				user_error_handler("0", "VERIFIED IPN\n","ipn.php",0);
+						//update basket status
+						$query=sprintf("update ".$dbtablesprefix."basket set STATUS=1 where CUSTOMERID=%s and ORDERID=%s",$row['CUSTOMERID'],$row['ID']);
+						$sql=mysql_query($query) or die(user_error_handler("1","Error updating basket:<br>" . mysql_error() . "<br>" . mysql_errno(),"ipn.php", 0));
+
+						// send an email in any case
+						//				echo "Verified";
+						//				mail($notify_email, "VERIFIED IPN", "$res\n $req\n $strQuery\n $struery\n  $strQuery2");
+						user_error_handler("0", "VERIFIED IPN\n","ipn.php",0);
 			}
 			else {
 				// send an email
@@ -292,16 +292,16 @@ else
 			if ($txn_type == "subscr_signup" || $txn_type == "subscr_payment")
 			{
 
-				// insert subscriber payment info into paypal_payment_info table
+				// insert subscriber payment info into payment_info table
 				$strQuery=
 					"insert into " . $dbtablesprefix
-				. "paypal_payment_info(paymentstatus,buyer_email,firstname,lastname,street,city,state,zipcode,country,mc_gross,mc_fee,memo,paymenttype,paymentdate,txnid,pendingreason,reasoncode,tax,datecreation) values ('"
+				. "payment_info(paymentstatus,buyer_email,firstname,lastname,street,city,state,zipcode,country,mc_gross,mc_fee,memo,paymenttype,paymentdate,txnid,pendingreason,reasoncode,tax,datecreation) values ('"
 				. $payment_status . "','" . $payer_email . "','" . $first_name . "','" . $last_name . "','"
 				. $address_street . "','" . $address_city . "','" . $address_state . "','" . $address_zip . "','"
 				. $address_country . "','" . $mc_gross . "','" . $mc_fee . "','" . $memo . "','" . $payment_type
 				. "','" . $payment_date . "','" . $txn_id . "','" . $pending_reason . "','" . $reason_code . "','"
 				. $tax . "','" . $fecha . "')";
-				$result=mysql_query($strQuery) or die(user_error_handler("1", "Subscription - paypal_payment_info, Query failed:<br>"
+				$result=mysql_query($strQuery) or die(user_error_handler("1", "Subscription - payment_info, Query failed:<br>"
 				. mysql_error() . "<br>" . mysql_errno(),"ipn.php",0));
 
 

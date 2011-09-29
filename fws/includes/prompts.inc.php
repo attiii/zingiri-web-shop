@@ -3,6 +3,7 @@ function z_($label) {
 	global $txt,$txt2;
 	
 	$label=trim($label);
+	if (empty($label)) return;
 	if (isset($txt[$label])) return $txt[$label];
 
 	if (count($txt2)==0) {
@@ -17,10 +18,10 @@ function z_($label) {
 }
 
 function reorder_txt() {
-	global $lang_dir,$zing;
+	global $lang_dir,$zing,$txt,$lang;
 
 	$txt2=array();
-	include($lang_dir."/en/lang.txt");
+	//include($lang_dir."/en/lang.txt");
 	foreach ($txt as $label => $text) {
 		$a=explode('<a href=# class=info>(?)<span>',$text);
 		if (count($a) > 1) {
@@ -41,6 +42,7 @@ function h_($label) {
 	global $txt,$txt2;
 
 	$label=trim($label);
+	if (empty($label)) return;
 	if (isset($txt['help_'.$label])) return 'what:'.$txt['help_'.$label];
 	
 	if (count($txt2)==0) {

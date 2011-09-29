@@ -28,15 +28,17 @@ class dynamic_selectZfSubElement extends zfSubElement {
 		$e=$this->element;
 		$i=$this->subid;
 		
-		$keypairs=explode(",",trim($input['element_'.$e->id.'_2']));
-		if (count($keypairs) > 0) {
-			foreach ($keypairs as $keypair) {
-				list($value,$option)=explode("=",$keypair);
-				if(trim($this->int) == trim($value)) {
-					$this->ext=$option;
+		if (isset($input['element_'.$e->id.'_2'])) {
+			$keypairs=explode(",",trim($input['element_'.$e->id.'_2']));
+			if (count($keypairs) > 0) {
+				foreach ($keypairs as $keypair) {
+					list($value,$option)=explode("=",$keypair);
+					if(trim($this->int) == trim($value)) {
+						$this->ext=$option;
+					}
 				}
-			}
-		}
+			} 
+		} else $this->ext='';
 		return $this->ext;
 	}
 
@@ -46,7 +48,7 @@ class dynamic_selectZfSubElement extends zfSubElement {
 		$xmlf=$this->xmlf;
 
 		$keypairs=explode(",",trim($e->populated_value['element_'.$e->id.'_2']));
-		$size=intval($e->populated_value['element_'.$e->id.'_3']);
+		//$size=intval($e->populated_value['element_'.$e->id.'_3']);
 
 		if($e->populated_value['element_'.$e->id.'_'.$i] == ""){
 			$e->populated_value['element_'.$e->id.'_'.$i] = $xmlf->fields->{'field'.$i}->default;

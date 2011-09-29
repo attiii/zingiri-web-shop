@@ -49,7 +49,7 @@ class checkboxZfSubElement extends zfSubElement {
 		}else{
 			$checked = '';
 		}
-		$option_markup .= "<input id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element checkbox\" type=\"checkbox\" {$checked} {$e->readonly}/>\n";
+		$option_markup = "<input id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element checkbox\" type=\"checkbox\" {$checked} {$e->readonly}/>\n";
 		$field_markup.=$option_markup;
 		$subscript_markup.="<label for=\"element_{$e->id}_{$i}\">".z_($xmlf->fields->{'field'.$i}->label)."</label>";
 	}

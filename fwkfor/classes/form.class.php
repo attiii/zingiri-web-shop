@@ -111,7 +111,7 @@ class zfForm {
 		$setsOnly=array();
 
 		//check if there are any sets to include but not initialised yet
-		if ($this->action=='add' && !$this->setId) {
+		if ($this->action=='add' && (!isset($this->setId) || !$this->setId)) {
 			foreach ($this->json as $i => $value)
 			{
 				if ($value['type']=='system_subformproxy') {
@@ -138,7 +138,7 @@ class zfForm {
 				$this->json=$setsOnly;
 				$this->newstep='poll';
 			}
-		} elseif (($this->action=='edit' || $this->action=='view') && !$this->setId) {
+		} elseif (($this->action=='edit' || $this->action=='view') && (!isset($this->setId) || !$this->setId)) {
 			foreach ($this->json as $i => $value)
 			{
 				if ($value['type']=='system_subformproxy') {
@@ -167,9 +167,10 @@ class zfForm {
 				}
 			}
 		}
-		if (($this->action=='add' && $this->setId) || $this->action=='edit' || $this->action=='view') {
+		if (($this->action=='add' && isset($this->setId) && $this->setId) || $this->action=='edit' || $this->action=='view') {
 			$json_set=array();
 			$maxId=0;
+			$maxI=0;
 			foreach ($this->json as $i => $value)
 			{
 				$maxI=max($maxI,$i);
@@ -242,9 +243,9 @@ class zfForm {
 			foreach ($value['subelements'] as $key2 => $value2)
 			{
 				if ($this->elements['format'][$key1][$key2] != 'none') {
-					if ($all || !$value2['hide']) {
+					if ($all || !isset($value2['hide']) || !$value2['hide']) {
 						if (!isset($value2['sortorder'])) $value2['sortorder']=1;
-						if (!$value['attributes']['zfrepeatable'] && !$value['attributes']['zfmeta']) {
+						if ((!isset($value['attributes']['zfrepeatable']) || !$value['attributes']['zfrepeatable']) && (!isset($value['attributes']['zfmeta']) || !$value['attributes']['zfmeta'])) {
 							$s[$key1*100+$key2]=$value2['sortorder'];
 						} else {
 							$sa[$key1*100+$key2]=$value2['sortorder'];
@@ -272,7 +273,7 @@ class zfForm {
 				foreach ($value['subelements'] as $key2 => $value2)
 				{
 					if ($this->elements['format'][$key1][$key2] != 'none') {
-						if ($all || !$value2['hide']) {
+						if ($all || !isset($value2['hide']) || !$value2['hide']) {
 								
 							if ($count > 1) {
 								$f[$key1*100+$key2]=strtoupper('`'.$value['column'].'_'.$this->elements['name'][$key1][$key2].'`');
@@ -332,6 +333,7 @@ class zfForm {
 		$tabs='';
 		$dividers=array();
 		$numDiv=0;
+		$js_markup='';
 
 		$populated_value=array();
 		$populated_column=array();
@@ -342,21 +344,21 @@ class zfForm {
 			{
 				$key=$value['id'];
 				$element=new element($value['type']);
-				$element->isRepeatable=$value['attributes']['zfrepeatable'];
+				$element->isRepeatable=isset($value['attributes']['zfrepeatable']) ? $value['attributes']['zfrepeatable'] : '';
 				$element->title=$value['label'];
 				$element->id=$value['id'];
-				$element->is_error=$this->elements['is_error'][$key];
-				$element->error_message=$this->elements['error_message'][$key];
-				$element->is_required=$value['mandatory'];
-				$element->is_searchable=$value['searchable'];
-				if ($value['searchable']) $this->searchable=true;
-				$element->readonly=$value['readonly'];
-				if ($value['searchable'] && $mode=="search") $element->readonly='';
-				$element->hidden=$value['hidden'];
+				$element->is_error=isset($this->elements['is_error'][$key]) ? $this->elements['is_error'][$key] : '';
+				$element->error_message=isset($this->elements['error_message'][$key]) ? $this->elements['error_message'][$key] : '';
+				$element->is_required=isset($value['mandatory']) ? $value['mandatory'] : '';
+				$element->is_searchable=isset($value['searchable']) ? $value['searchable'] : '';
+				$this->searchable=isset($value['searchable']) && $value['searchable'] ? true : false;
+				$element->readonly=isset($value['readonly']) ? $value['readonly'] : '';
+				if (isset($value['searchable']) && $value['searchable'] && $mode=="search") $element->readonly='';
+				$element->hidden=isset($value['hidden']) ? $value['hidden'] : '';
 				$element->attributes=$value['attributes'];
-				$element->unique=$value['unique'];
+				$element->unique=isset($value['unique']) ? $value['unique'] : '';
 				$element->linksin=$value['links'];
-				$element->rules=$this->elements['rules'][$key];
+				$element->rules=isset($this->elements['rules'][$key]) ? $this->elements['rules'][$key] : '';
 				$element->showSubscript=true;
 
 				$c=$this->countSubelements($value['subelements'],$key);
@@ -877,26 +879,26 @@ class zfForm {
 			foreach ($this->allfields as $key => $column)
 			{
 				zfKeys($key,$key1,$key2);
-				if ($_POST['element_'.$key1."_".$key2]) {
+				if (isset($_POST['element_'.$key1."_".$key2]) && $_POST['element_'.$key1."_".$key2]) {
 					$input['element_'.$key1."_".$key2]=$_POST['element_'.$key1."_".$key2];
-				} elseif ($_POST['element_'.$key1]) {
+				} elseif (isset($_POST['element_'.$key1]) && $_POST['element_'.$key1]) {
 					$input['element_'.$key1]=$_POST['element_'.$key1];
-				} elseif ((($f=$this->map['element_'.$key1."_".$key2]) && ($value=$this->post[$f])) || (($f=$this->map['element_'.$key1]) && ($value=$this->post[$f]))) {
+				} elseif ((isset($this->map['element_'.$key1."_".$key2]) && ($f=$this->map['element_'.$key1."_".$key2]) && ($value=isset($this->post[$f]) ? $this->post[$f] : '')) || (isset($this->map['element_'.$key1]) && ($f=$this->map['element_'.$key1]) && ($value=isset($this->post[$f]) ? $this->post[$f] : ''))) {
 					if (function_exists($value)) $v=$value();
 					elseif (isset($_GET[$value])) $v=$_GET[$value];
 					elseif (isset($_POST[$value])) $v=$_POST[$value];
 					else $v=$value;
 					$input['element_'.$key1."_".$key2]=$v;
-				} elseif ($_GET['element_'.$key1."_".$key2]) {
+				} elseif (isset($_GET['element_'.$key1."_".$key2]) && $_GET['element_'.$key1."_".$key2]) {
 					$input['element_'.$key1."_".$key2]=$_GET['element_'.$key1."_".$key2];
-				} elseif ($_GET['element_'.$key1]) {
+				} elseif (isset($_GET['element_'.$key1]) && $_GET['element_'.$key1]) {
 					$input['element_'.$key1]=$_GET['element_'.$key1];
 				}
 			}
 		} else {
 
 			$this->query="select * from `".DB_PREFIX.$this->entity."` where `ID`=".qs($id);
-			if (count($this->post)) {
+			if (is_array($this->post) && count($this->post)) {
 				foreach ($this->post as $f => $value) {
 					if (function_exists($value)) $v=$value();
 					elseif (isset($_GET[$value])) $v=$_GET[$value];

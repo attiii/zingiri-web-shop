@@ -31,6 +31,7 @@ function zing_admin_notices() {
 	$zing_version=get_option("zing_webshop_version");
 	$zing_version_pro=get_option("zing_ws_pro_version");
 
+	$message='';
 	if (defined('WP_ZINGIRI_LIVE') && $zing_version != ZING_VERSION && get_current_blog_id() != 1) {
 		zing_install();
 		if ($zing_version) $message='Zingiri Web Shop has been upgraded! Click <a href="'.get_option('home').'">here</a> to continue ...';
@@ -190,6 +191,10 @@ function zing_install() {
 	error_reporting($wsper);
 }
 
+function zing_db_uninstall($dir) {
+	zing_db_install('',$dir);
+}
+
 function zing_db_install($zing_version,$dir,&$player=true) {
 	global $dbtablesprefix;
 	
@@ -220,7 +225,7 @@ function zing_db_install($zing_version,$dir,&$player=true) {
 				if ($baselineVersion < $v) {
 					$files[]=array($dir.$file,$v);
 				}
-			} elseif (strstr($file,".php")) {
+			} elseif (strstr($file,".php") && ($file != 'index.php')) {
 				$f=explode("-",$file);
 				$v=str_replace(".php","",$f[1]);
 				if ($baselineVersion < $v) {
@@ -334,7 +339,7 @@ function zing_ws_is_shop_page($pid) {
  */
 function zing_main($process,$content="") {
 	global $saasRet,$aphps;
-
+	
 	require(ZING_GLOBALS);
 
 	$matches=array();
@@ -354,26 +359,25 @@ function zing_main($process,$content="") {
 				}
 				return $content;
 			}
-
-			$cf=get_post_custom();
+			if (isset($post)) $cf=get_post_custom();
 			if (isset($_GET['page'])) {
 				//do nothing, page already set
 			}  elseif (isset($cf['zing_page'])) {
-				$_GET['page']=$cf['zing_page'][0];
+				$page=$_GET['page']=$cf['zing_page'][0];
 				if (isset($cf['zing_action']))
 				{
 					$_GET['action']=$cf['zing_action'][0];
 				}
 			} elseif (preg_match('/\[zing-ws:(.*)&amp;(.*)=(.*)\]/',$content,$matches)==1) { //[zing-ws:page&x=y]
 				list($prefix,$postfix)=preg_split('/\[zing-ws:(.*)\]/',$content);
-				$_GET['page']=$matches[1];
+				$page=$_GET['page']=$matches[1];
 				if ($matches[2]=='cat') $_GET['action']='list';
 				$_GET[$matches[2]]=$matches[3];
 			} elseif (preg_match('/\[zing-ws:(.*)\]/',$content,$matches)==1) { //[zing-ws:page]
 				list($prefix,$postfix)=preg_split('/\[zing-ws:(.*)\]/',$content);
-				$_GET['page']=$matches[1];
-			} elseif (preg_match('/\[zing-ws-(.*):(.*)\]/',$content,$matches)==1) { //[zing-ws:page]
-				$_GET['page']='parse';
+				$page=$_GET['page']=$matches[1];
+			} elseif (preg_match('/\[zing-ws-(.*):(.*)\]/',$content,$matches)==1) { //[zing-ws-action:parameters]
+				$page=$_GET['page']='parse';
 			} else return $content;
 			if (isset($cf['cat'])) {
 				$_GET['cat']=$cf['cat'][0];
@@ -406,12 +410,13 @@ function zing_main($process,$content="") {
 		header('Location:'.ZING_HOME.'/index.php?page='.$page);
 		exit;
 	} elseif ($to_include) {
+		if (isset($prefix)) echo $prefix;
 		if ($process=='content' && $page!='ajax' && $page!='downldr') echo '<div class="zing_ws_page" id="zing_ws_'.$_GET['page'].'">';
 		$aphps->doAction('content_before');
 		include($scripts_dir.$to_include);
 		$aphps->doAction('content_after');
 		if ($process=='content' && $page!='ajax' && $page!='downldr') echo '</div>';
-		echo $postfix;
+		if (isset($postfix)) echo $postfix;
 		if (!wsIsAdminPage() && $process=='content' && get_option('zing_ws_logo')=='pf') zing_display_logo();
 		//stop logging
 		restore_error_handler();

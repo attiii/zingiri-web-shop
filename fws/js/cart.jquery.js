@@ -153,8 +153,6 @@ var wsCart = {
 				type : "post",
 				data : data,
 				success : function(request) {
-				alert('here we are'+wsAjaxURL + "addToCart");
-
 					if (request) alert(request);
 					else t.getCart();
 					jQuery("#tempimage").remove();

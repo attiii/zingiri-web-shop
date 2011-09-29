@@ -184,7 +184,7 @@ class element {
 
 		for ($i=1; $i<=$this->fields; $i++) {
 
-			$int=$ext=$input['element_'.$this->id.'_'.$i];
+			$int=$ext=isset($input['element_'.$this->id.'_'.$i]) ? $input['element_'.$this->id.'_'.$i] : '';
 
 			$type=$this->xmlf->fields->{'field'.$i}->type;
 			if ($this->fields > 1)
@@ -206,7 +206,7 @@ class element {
 		$success=true;
 		for ($i=1; $i<=$this->fields; $i++) {
 
-			$int=$ext=$input['element_'.$this->id.'_'.$i];
+			$int=$ext=isset($input['element_'.$this->id.'_'.$i]) ? $input['element_'.$this->id.'_'.$i] : '';
 
 			$type=$this->xmlf->fields->{'field'.$i}->type;
 			if ($this->fields > 1)
@@ -220,7 +220,7 @@ class element {
 	}
 
 	function preRules() {
-		if (!is_array($this->rules) || count($this->rules) == 0) return;
+		if (!isset($this->rules) || !is_array($this->rules) || count($this->rules) == 0) return;
 		foreach ($this->rules as $rule) {
 			$r='zf'.$rule['type'];
 			$n=new $r();
@@ -237,7 +237,7 @@ class element {
 
 		$this->preRules();
 
-		if ($this->disabled) return "";
+		if (isset($this->disabled) && $this->disabled) return "";
 		//check for error
 		$error_class = '';
 		$error_message = '';
@@ -259,7 +259,7 @@ class element {
 			$span_required = "<span id=\"required_{$this->id}\" class=\"zfrequired\">*</span>";
 		}
 
-		if ($this->readonly) $this->readonly="READONLY";
+		if (isset($this->readonly) && $this->readonly) $this->readonly="READONLY";
 		if ($mode!="edit" && $mode!="add" && $mode!="search" && $mode!="build") $this->readonly="READONLY";
 
 		if (is_numeric($xmlf->width)) { $width=$xmlf->width; } else { $width="100%"; }
@@ -270,7 +270,8 @@ class element {
 		else
 		$position="";
 
-		$element_markup = $style_markup;
+		//$element_markup = $style_markup;
+		$element_markup='';
 
 		if (!empty($_POST['zf_label'])) $label=$_POST['zf_label'];
 		elseif (!empty($this->title)) $label=$this->title;
@@ -289,7 +290,8 @@ class element {
 			$label=$tempfunc($label);
 		}
 
-		if (count($this->rules) > 0) {
+		$jsRule=array();
+		if (isset($this->rules) && is_array($this->rules) && count($this->rules) > 0) {
 			foreach ($this->rules as $rule) {
 				if ($rule['type']=='rule_formfield') {
 					$ruleFields=explode(',',$rule['parameters'][0]);
@@ -309,7 +311,7 @@ class element {
 		}
 
 		if ($this->hidden) $hidden='display:none;'; else $hidden="";
-		$element_markup.= '<div data-field="'.$this->column[$this->id].'" id="zf_'.$this->id.'" class="zfelement '.$error_class.'" style="'.$position.$hidden.'">';
+		$element_markup.= '<div data-field="'.(isset($this->column[$this->id]) ? $this->column[$this->id] : '').'" id="zf_'.$this->id.'" class="zfelement '.$error_class.'" style="'.$position.$hidden.'">';
 		if ($xmlf->attributes()->header == "none") { $label=""; }
 		$element_markup.= '<label id="zf_'.$this->id.'_name" class="zfelabel">'.z_($label).' '.$span_required.'</label>';
 		$element_markup.='<div class="zfsubelements" id="zf_'.$this->id.'_sf">';
@@ -323,7 +325,7 @@ class element {
 			$field_markup ="<div id=\"zf_{$this->id}_{$fn}\" style=\"width: {$xmlf->fields->{'field'.$i}->width}\" class=\"zfsub\">";
 
 			$ac=1;
-			if ($this->isRepeatable) $ac=max($ac,count($this->populated_value['element_'.$this->id.'_'.$i]));
+			if (isset($this->isRepeatable) && $this->isRepeatable) $ac=max($ac,count($this->populated_value['element_'.$this->id.'_'.$i]));
 
 			//default
 			for ($ai=0; $ai < $ac; $ai++) {
@@ -333,7 +335,7 @@ class element {
 				if (method_exists($e,"display")) {
 					$e->mode=$this->mode;
 					$e->display($field_markup,$subscript_markup);
-					$this->divider=$e->divider;
+					$this->divider=isset($e->divider) ? $e->divider : null;
 				}
 				if ($ac > 1) $field_markup.='<br />';
 				if ($ac > 1 && $ai!=$ac-1) $subscript_markup='';
@@ -346,7 +348,7 @@ class element {
 				$element_markup.=$field_markup;
 			}
 			}
-			if ($this->attributes['zfrepeatable']) {
+			if (isset($this->attributes['zfrepeatable']) && $this->attributes['zfrepeatable']) {
 				$element_markup.='<div id="zfc_'.$this->id.'_del" class="zftablecontrol" style="float:left;position:relative;">';
 				for ($ai=1; $ai <= $ac; $ai++) {
 					$element_markup.='<input type="button" pos="'.$ai.'" id="zfci_'.$this->id.'_del_'.$ai.'" class="zfrepeatable_del" onclick="appsRepeatable.del(\'zf_'.$this->id.'_sf\','.$ai.')" value="-" height="16px"/>';

@@ -86,7 +86,7 @@ class sqlidZfSubElement extends zfSubElement {
 					$key=$row[0];
 					$option=$row[1];
 					$selected="";
-					if ($fields > 1) { $fieldsuffix='_'.$i; } else { $fieldsuffix=''; }
+					//if ($fields > 1) { $fieldsuffix='_'.$i; } else { $fieldsuffix=''; }
 					if(trim($e->populated_value['element_'.$e->id.'_'.$i]) == $key){
 						$selected = 'selected="selected"';
 					} elseif ($e->default_value == $key) {

@@ -1,17 +1,17 @@
 <?php
-$formid=$_GET['formid'];
-$formname=$_GET['form'] ? $_GET['form'] : zfGetForm($_GET['formid']);
-$zfp=intval($_GET['zfp']);
-$zft=$_GET['zft'];
-$pos=intval($_GET['pos']);
-$mapflat=$_GET['map'];
-//$mapflat=stripslashes($_GET['map']);
+$formid=isset($_GET['formid']) ? $_GET['formid'] : '';
+$formname=isset($_GET['form']) ? $_GET['form'] : (isset($_GET['formid']) ? zfGetForm($_GET['formid']) : '');
+$zfp=isset($_GET['zfp']) ? intval($_GET['zfp']) : 0;
+$zft=isset($_GET['zft']) ? $_GET['zft'] : '';
+$pos=isset($_GET['pos']) ? intval($_GET['pos']) : 0;
+$mapflat=isset($_GET['map']) ? $_GET['map'] : '';
 
-$json=str_replace("\'",'"',$_GET['map']);
-$json=str_replace("'",'"',$_GET['map']);
-//echo $json;
+//$json=str_replace("\'",'"',$_GET['map']);
+//$json=str_replace("'",'"',$_GET['map']);
+$json=str_replace("\'",'"',$mapflat);
+$json=str_replace("'",'"',$mapflat);
+
 $map=zf_json_decode($json,true);
-//print_r($map);
 
 if (class_exists('zf'.$formname)) $zfClass='zf'.$formname;
 else $zfClass='zfForm';
@@ -20,7 +20,7 @@ $formname=$zflist->form;
 $formid=$zflist->id;
 if ($action=='search') {
 	$search=$zflist->setSearch($_POST,$map);
-}
+} else $search='';
 
 $stack=new zfStack('list',$formname,$search);
 

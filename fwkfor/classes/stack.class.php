@@ -3,7 +3,7 @@ class zfStack {
 	var $key;
 
 	function zfStack($type,$form,$extra='') {
-		$zfp=intval($_GET['zfp']);
+		$zfp=isset($_GET['zfp']) ? intval($_GET['zfp']) : 0;
 		if (!$zfp) unset($_SESSION['stack']);
 		//$q=$_SERVER['QUERY_STRING'];
 		$this->key=$type.'-'.$form;
@@ -24,7 +24,7 @@ class zfStack {
 			$_SESSION['stack'][$this->key]=$q.$extra;
 		//}
 		$c=count($_SESSION['stack']);
-		if ($c > 1) $this->previous=$_SESSION['stack'][$c-2];
+		if ($c > 1) $this->previous=(isset($_SESSION['stack'][$c-2])) ? $_SESSION['stack'][$c-2] : '';
 		//print_r($_SESSION['stack']);
 	}
 

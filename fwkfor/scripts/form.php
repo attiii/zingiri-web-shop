@@ -2,9 +2,9 @@
 global $zfform,$zfSuccess;
 
 if (isset($_GET['form'])) $form=$_GET['form'];
-if (isset($_GET['formid'])) $formid=$_GET['formid'];
+if (isset($_GET['formid'])) $formid=$_GET['formid']; else $formid='';
 if (!isset($action) && isset($_GET['action'])) $action=$_GET['action'];
-if (isset($_GET['step'])) $step=$_GET['step'];
+$step=isset($_GET['step']) ? $_GET['step'] : null;
 if (isset($_GET['id'])) $id=$_GET['id'];
 if (isset($_GET['zfp'])) $zfp=intval($_GET['zfp']);
 if (isset($_GET['zft'])) $zft=$_GET['zft'];
@@ -21,7 +21,7 @@ if (isset($_POST['map'])) {
 } elseif (isset($_GET['map'])) {
 	$json=str_replace("\'",'"',$_GET['map']);
 	$map=zf_json_decode($json,true);
-}
+} else $map='';
 if (empty($form)) $form=zfGetForm($formid);
 if (class_exists('zf'.$form)) $zfClass='zf'.$form;
 else $zfClass='zfForm';
@@ -200,7 +200,7 @@ if ($allowed && $success && $showform == "edit") {
 			echo '<input type="hidden" name="'.$name.'" value="'.str_replace("\'","'",$value).'" />';
 		}
 	}
-	if ($_GET['redirect']) echo '<input type="hidden" name="redirect" value="'.$_GET['redirect'].'" />';
+	if (isset($_GET['redirect']) && $_GET['redirect']) echo '<input type="hidden" name="redirect" value="'.$_GET['redirect'].'" />';
 
 	$alink=new zfLink($formid,true,'form');
 	$links=$alink->getLinks($id);
@@ -223,7 +223,7 @@ if ($allowed && $success && $showform == "edit") {
 	}
 	if (!$noForm) {
 		echo '<div class="aphps_form_buttons">';
-		if (($action == 'add' or $action == 'edit') && (!$override_save)) {
+		if (($action == 'add' or $action == 'edit') && (!isset($override_save) || !$override_save)) {
 			echo '<input id="appscommit" class="art-button" type="submit" name="save" value="'.z_('Save').'">';
 		} elseif ($action == 'delete') {
 			echo '<input class="art-button" type="submit" name="delete" value="'.z_('Delete').'">';

@@ -26,13 +26,15 @@
  Plugin URI: http://www.zingiri.com/web-shop
  Description: Zingiri Web Shop is a Wordpress plugin that adds fantastic ecommerce capabilities to a great content management system.
  Author: Zingiri
- Version: 2.2.1
+ Version: 2.2.2
  Author URI: http://www.zingiri.com/
  */
 
 if (!defined('ZING_CMS')) define('ZING_CMS','wp');
-if (isset($_REQUEST['wscr'])) define('ZING_AJAX',true);
-else define('ZING_AJAX',false);
+if (!defined('ZING_AJAX')) {
+	if (isset($_REQUEST['wscr'])) define('ZING_AJAX',true);
+	else define('ZING_AJAX',false);
+}
 
 if (file_exists(dirname(__FILE__).'/../maintenance')) {
 	define('ZING_MAINTENANCE',1);

@@ -7,11 +7,11 @@ function zing_ws_admin_menus() {
 		$cap='administer_web_shop';
 		$groupings=array();
 		foreach ($menus as $page => $menu) {
-			if (!$menu['hide']) {
+			if (!isset($menu['hide']) || !$menu['hide']) {
 				$g=$menu['grouping'];
 				$groupLabel=$txt[$menu['group']] ? $txt[$menu['group']] : $menu['group'];
 				$menuLabel=$txt[$menu['label']] ? $txt[$menu['label']] : $menu['label'];
-				if (!isset($groupings[$g]) && !isset($menu['single']) && !$menu['single']) {
+				if (!isset($groupings[$g]) && !isset($menu['single'])) {
 					add_menu_page($zing_ws_name, $groupLabel , $cap, $page,'zing_ws_settings',ZING_URL.'fws/templates/default/images/menu_'.$g.'.png');
 					$groupings[$g]=$page;
 				} elseif (isset($menu['single']) && $menu['single']) {
@@ -21,7 +21,7 @@ function zing_ws_admin_menus() {
 				}
 			}
 		}
-		if ($menus[$_GET['page']] && $menus[$_GET['page']]['hide']) {
+		if (isset($_GET['page']) && isset($menus[$_GET['page']]) && $menus[$_GET['page']] && isset($menus[$_GET['page']]['hide']) && $menus[$_GET['page']]['hide']) {
 			$menu=$menus[$_GET['page']];
 			add_submenu_page('zingiri-web-shop', $txt[$menu['label']], $txt[$menu['label']], $cap, $_GET['page'], 'zing_ws_settings');
 		}

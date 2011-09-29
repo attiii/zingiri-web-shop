@@ -84,7 +84,7 @@ function zing_set_options() {
 				"id" => $id."_license_key",
 				"std" => "",
 				"type" => "text",);
-			if (count($zing->options[$id]) > 0) {
+			if (isset($zing->options[$id]) && count($zing->options[$id]) > 0) {
 				foreach ($zing->options[$id] as $option) {
 					$zing_ws_options[]=$option;
 				}
@@ -96,7 +96,7 @@ function zing_set_options() {
 
 
 function zing_ws_settings() {
-	global $menus,$txt,$wpdb,$dbtablesprefix,$action,$gfx_dir;
+	global $menus,$txt,$wpdb,$dbtablesprefix,$action,$gfx_dir,$wsPages;
 
 	zing_admin_header();
 	zing_apps_player_header_cp();
@@ -120,7 +120,7 @@ function zing_ws_settings() {
 	if (ZING_CMS=='wp' || ZING_CMS=='jl') echo '<link rel="stylesheet" type="text/css" href="'.ZING_URL.'zing.css" />';
 	if (isset($_GET['page'])) {
 		require(dirname(__FILE__).'/fws/includes/pages.inc.php');
-		echo '<h1>'.$txt[$wsPages[$page]].'</h1>';
+		if (isset($wsPages[$page])) echo '<h1>'.$txt[$wsPages[$page]].'</h1>';
 	}
 
 	zing_main('content');
@@ -131,7 +131,7 @@ function zing_ws_settings() {
 
 	//share and donate
 	echo '<div style="width:20%;float:right;position:relative">';
-	require(ZING_LOC.'support-us.inc.php');
+	if (get_option('zing_webshop_version')) require(ZING_LOC.'support-us.inc.php');
 	echo '</div>';	
 }
 
@@ -141,9 +141,9 @@ function zing_ws_admin() {
 
 	zing_set_options();
 
-	if ( $_REQUEST['installed'] ) echo '<div id="message" class="updated fade"><p><strong>'.$zing_ws_name.' installed.</strong></p></div>';
-	if ( $_REQUEST['uninstalled'] ) echo '<div id="message" class="updated fade"><p><strong>'.$zing_ws_name.' uninstalled.</strong></p></div>';
-	if ( $_REQUEST['synced'] ) {
+	if ( isset($_REQUEST['installed']) && $_REQUEST['installed'] ) echo '<div id="message" class="updated fade"><p><strong>'.$zing_ws_name.' installed.</strong></p></div>';
+	if ( isset($_REQUEST['uninstalled']) && $_REQUEST['uninstalled'] ) echo '<div id="message" class="updated fade"><p><strong>'.$zing_ws_name.' uninstalled.</strong></p></div>';
+	if ( isset($_REQUEST['synced']) && $_REQUEST['synced'] ) {
 		echo '<div id="message" class="updated fade"><p><strong>The following users are synchronised<br /></strong>';
 		$integrator->showUsers();
 		echo '</p></div>';
@@ -312,7 +312,7 @@ if ($zing_version) {
 	echo '</div>';
 	//share and donate
 	echo '<div style="width:20%;float:right;position:relative">';
-	require(ZING_LOC.'support-us.inc.php');
+	if (get_option('zing_webshop_version')) require(ZING_LOC.'support-us.inc.php');
 	echo '</div>';	
 
 }

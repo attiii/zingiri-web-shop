@@ -29,7 +29,7 @@ class zfrule {
 	}
 
 	function precheck(&$e,$parameters) {
-		return $result;
+		return;
 	} 
 	
 	function postcheck(&$e,$parameters) {

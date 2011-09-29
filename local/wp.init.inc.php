@@ -74,7 +74,7 @@ if (!defined("ZING_URL")) {
 
 define("ZING_TIMTHUMB",ZING_URL.'fws/addons/timthumb/timthumb2.php?dir='.urlencode(BLOGUPLOADDIR.'zingiri-web-shop/cache'));
 
-define("ZING_APPS_CUSTOM_URL",ZING_URL."fws/");
+if (!defined('ZING_APPS_CUSTOM')) define("ZING_APPS_CUSTOM_URL",ZING_URL."fws/");
 
 if (!defined("ZING_HOME")) {
 	define("ZING_HOME", get_option("home"));
