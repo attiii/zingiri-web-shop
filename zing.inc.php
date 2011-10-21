@@ -37,7 +37,7 @@ function zing_admin_notices() {
 		if ($zing_version) $message='Zingiri Web Shop has been upgraded! Click <a href="'.get_option('home').'">here</a> to continue ...';
 		else $message='Zingiri Web Shop has been installed! Click <a href="'.get_option('home').'">here</a> to continue ...';
 	} elseif (!$zing_version) {
-		if ($_GET['page']!='zingiri-web-shop' && ZING_CMS=="wp")
+		if (!isset($_GET['page']) || ($_GET['page']!='zingiri-web-shop') && ZING_CMS=="wp")
 		$message='Zingiri Web Shop is almost ready. You need to launch the <a href="admin.php?page=zingiri-web-shop">installation</a> from the integration page.';
 		else
 		$message='Zingiri Web Shop is almost ready. You need to launch the installation by clicking the Install button below.';
@@ -472,7 +472,7 @@ function zing_dberror($query,$loc) {
 function jsVars() {
 	$v=array();
 	$v['wsURL']=ZING_URL;
-	$v['wsAjaxURL']=zurl("index.php?page=ajax&wscr=");
+	$v['wsAjaxURL']=zurl("index.php?page=ajax")."&wscr=";
 	$v['wsAnimateImage']=wsSetting('animateimage');
 	$v['wsCms']=ZING_CMS;
 	$v['wsLive']=isset($_REQUEST['wslive']) ? 1 : 0;

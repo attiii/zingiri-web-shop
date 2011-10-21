@@ -381,6 +381,8 @@ if (LoggedIn() == True) {
 			$message .= $txt['checkout9']; // direct link to customer order for online status checking
 			$message=$tpl->getContent();
 
+			$message=str_replace($shopurl.'/index.php?page=orders',zurl('index.php?page=orders'),$message);;
+
 			if (isset($_REQUEST['wslive']) && $_REQUEST['wslive']=='dp') $message=str_replace($shopurl.'/index.php?',$_REQUEST['wsliveurl'].'/index.php?q=webshop&',$message);
 			
 			//update order & basket

@@ -1,5 +1,5 @@
 <?php
-define("ZING_APPS_PLAYER_VERSION","1.1.4");
+define("ZING_APPS_PLAYER_VERSION","1.1.5");
 
 if (!defined('APHPS_JSDIR')) define('APHPS_JSDIR','min');
 
@@ -16,7 +16,7 @@ if (defined('ZING_APPS_BUILDER')) {
 }
 
 if (get_option('zing_apps_remote_url')) define("ZING_APPS_REMOTE_URL",get_option('zing_apps_remote_url').'/');
-else define("ZING_APPS_REMOTE_URL","http://www.zingiri.com/");
+else define("ZING_APPS_REMOTE_URL","http://www.aphps.com/");
 
 function zing_apps_player_error_handler($severity, $msg, $filename, $linenum) {
 	echo $severity."-".$msg."-".$filename."-".$linenum;
@@ -125,7 +125,7 @@ function zing_apps_player_install() {
 	}
 
 	//remote forms
-	if (get_option('zing_apps_remote_url') == 'http://www.zingiri.com') update_option('zing_apps_remote_url','http://forms.zingiri.com');
+	if (get_option('zing_apps_remote_url') == 'http://www.aphps.com') update_option('zing_apps_remote_url','http://forms.aphps.com');
 }
 
 /**
@@ -305,10 +305,6 @@ if (!function_exists('zing_apps_error_handler')) {
 
 function zing_apps_cp_submenus() {
 	$name='APhPS';
-	//add_options_page($name." Options", "$name", 8, 'zingiri-apps', 'zing_apps_editor');
-
-
-	//add_submenu_page('zingiri-apps', $name.'- List', 'List', 'administrator', 'zingiri-apps-summary', 'zing_apps_summary');
 }
 
 function zing_apps_editor() {
@@ -376,7 +372,7 @@ function zing_apps_list() {
 		echo '<input type="hidden" name="entity" value="'.$db->get('entity').'" />';
 		echo '<input type="hidden" name="type" value="'.$db->get('type').'" />';
 		echo '<input type="hidden" name="id" value="'.$db->get('id').'" />';
-		echo '<input type="hidden" name="urlback" value="'.get_option("siteurl").'/wp-admin/admin.php?page=zingiri-apps-settings" />';
+		echo '<input type="hidden" name="urlback" value="'.get_option("siteurl").'/wp-admin/admin.php?page=aphps-player-settings" />';
 		echo '<input type="submit" value="'.$db->get('label').'" />';
 		echo '</form></div>';
 		echo '</li>';
@@ -389,10 +385,10 @@ function zing_apps_settings() {
 	$options[]=	array(	"name" => "Remote URL",
 			"desc" => "Remote URL to Zingir Apps Builder. Only change this if you know what you are doing.",
 			"id" => "zing_apps_remote_url",
-			"std" => "http://forms.zingiri.com",
+			"std" => "http://forms.aphps.com",
 			"type" => "text");
 
-	if ( $_GET['page'] == "zingiri-apps" ) {
+	if ( $_GET['page'] == "aphps-player" ) {
 		if ( 'update' == $_REQUEST['action'] ) {
 			foreach ($options as $value) {
 				update_option( $value['id'], $_REQUEST[ $value['id'] ] );

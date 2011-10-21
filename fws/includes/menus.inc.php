@@ -21,7 +21,7 @@ $menus['discountadmin']=array('type' => 'apps', 'grouping' => 'settings', 'group
 $menus['taxes']=array('type' => 'apps', 'grouping' => 'settings', 'group' => 'admin23', 'label' => 'admin100','href' => 'zfaces=list&form=taxes', 'img' => 'taxes.png');
 $menus['taxcategories']=array('type' => 'apps', 'grouping' => 'settings', 'group' => 'admin23', 'label' => 'taxes2','href' => 'zfaces=list&form=taxcategory', 'img' => 'taxes.png');
 $menus['admineditcountries']=array('page' => 'adminedit', 'grouping' => 'settings', 'group' => 'admin23', 'label' => 'admin37','href' => 'page=adminedit&filename=countries.txt&root=1&wysiwyg=0', 'img' => 'countries.gif');
-$menus['admineditmain']=array('page' => 'adminedit', 'grouping' => 'files', 'group' => 'admin24', 'label' => 'admin22','href' => 'page=adminedit&filename=main.sql&root=0', 'img' => 'mainadmin.gif');
+$menus['admineditmain']=array('page' => 'adminedit', 'grouping' => 'files', 'group' => 'admin24', 'label' => 'admin22','href' => 'page=adminedit&filename=main.txt&root=0', 'img' => 'mainadmin.gif');
 $menus['templates']=array('type' => 'apps', 'grouping' => 'files', 'group' => 'admin24', 'label' => 'template3','href' => 'zfaces=list&form=template', 'img' => 'template.png');
 $menus['adminedit']=array('group' => 'admin24', 'grouping' => 'files', 'label' => 'admin15','href' => 'page=adminedit&filename=conditions.sql&root=0&wysiwyg=0', 'img' => 'conditionsadmin.gif');
 $menus['prompts']=array('grouping' => 'files', 'type' => 'apps', 'group' => 'admin24', 'label' => 'admin101','href' => 'zfaces=list&form=prompt', 'img' => 'update.gif');

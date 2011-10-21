@@ -1,7 +1,7 @@
 <?php
 /*  sub.password.class.php
  Copyright 2008,2009 Erik Bogaerts
- Support site: http://www.zingiri.com
+ Support site: http://www.aphps.com
 
  This file is part of APhPS.
 

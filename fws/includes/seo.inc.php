@@ -39,19 +39,19 @@ function wsProductTitle() {
 		}
 	}
 
-	if ($p=$_GET['page']) {
+	if (isset($_GET['page']) && ($p=$_GET['page'])) {
 		if (isset($wsPages[$p])) $pt[]=array('text' => $txt[$wsPages[$p]],'url' => zurl('index.php?page='.$p));
 		//	} elseif ($_GET['zfaces'] && $p=$_GET['form']) {
 		//		if ($f=zing_ws_get_form_title($_GET['form'])) $pt[]=array('text' => $txt[$wsPages[$p]],'url' => zurl('index.php?page='.$p));
 	}
-	if ($_GET['prod']) {
+	if (isset($_GET['prod']) && $_GET['prod']) {
 		$db=new db();
 		if ($db->select('select `productid`,`##category`.`groupid`,`catid` from `##product`,`##category` where ##product.catid=##category.id and `##product`.`id`='.intval($_GET['prod'])) && $db->next()) {
 			$catid=$db->get('catid');
 			$groupid=$db->get('groupid');
 			$productname=$db->get('productid');
 		}
-	} elseif ($catid=$_GET['kat']) {
+	} elseif (isset($_GET['kat']) && ($catid=$_GET['kat'])) {
 		$db=new db();
 			if ($db->select('select `groupid` from `##category` where `id`='.$catid) && $db->next()) {
 				$groupid=$db->get('groupid');

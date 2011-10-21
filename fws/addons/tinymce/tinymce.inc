@@ -1,5 +1,6 @@
 <?php 
- if ($use_wysiwyg == 1) {
+global $shopurl;
+if ($use_wysiwyg == 1) {
 ?>	 
 	<script language="javascript" type="text/javascript" src="<?php if (defined("ZING_URL")) echo ZING_URL?>/fws/addons/tinymce/jscripts/tiny_mce/tiny_mce_gzip.php"></script>
 	<script language="javascript" type="text/javascript">

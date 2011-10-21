@@ -1,7 +1,7 @@
 <?php
 /*  sub.htmlarea.class.php
  Copyright 2008,2009 Erik Bogaerts
- Support site: http://www.zingiri.com
+ Support site: http://www.aphps.com
 
  This file is part of APhPS.
 
@@ -46,7 +46,7 @@ class htmlareaZfSubElement extends zfSubElement {
 		$size=$xmlf->fields->{'field'.$i}->size;
 		$sizes=explode(",",$size);
 		if (!is_numeric($sizes[0])) $sizes[0]=40;
-		if (!is_numeric($sizes[1])) $sizes[1]=3;
+		if (!isset($sizes[1]) || !is_numeric($sizes[1])) $sizes[1]=3; 
 		$field_markup.="<textarea id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" cols=\"{$sizes[0]}\" rows=\"{$sizes[1]}\" {$e->readonly}>{$e->populated_value['element_'.$e->id.'_'.$i]}</textarea>";
 		$subscript_markup.="<label id=\"label_{$e->id}_{$i}\"for=\"element_{$e->id}_{$i}\">".z_($xmlf->fields->{'field'.$i}->label)."</label>";
 	}

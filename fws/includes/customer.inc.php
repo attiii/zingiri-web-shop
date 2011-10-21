@@ -1,7 +1,7 @@
 <?php
 function wsCid() {
 	global $customerid;
-	if (IsAdmin() && $_SESSION['zing_session']['customerid']) $cid=$_SESSION['zing_session']['customerid'];
+	if (IsAdmin() && isset($_SESSION['zing_session']['customerid']) && $_SESSION['zing_session']['customerid']) $cid=$_SESSION['zing_session']['customerid'];
 	else $cid=$customerid;
 	return $cid;
 }

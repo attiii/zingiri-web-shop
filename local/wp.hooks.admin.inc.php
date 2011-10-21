@@ -1,8 +1,8 @@
 <?php
 function zing_ws_admin_menus() {
 	global $zing_ws_name, $zing_ws_name,$txt,$menus,$zing_version;
-	add_menu_page($zing_ws_name, 'Zingiri', 'administrator', 'zingiri-web-shop','zing_ws_admin',ZING_URL.'fws/templates/default/images/menu_webshop.png');
-	add_submenu_page('zingiri-web-shop', $zing_ws_name.'- Integration', 'Integration', 'administrator', 'zingiri-web-shop', 'zing_ws_admin');
+	add_menu_page($zing_ws_name, 'Zingiri', 'manage_options', 'zingiri-web-shop','zing_ws_admin',ZING_URL.'fws/templates/default/images/menu_webshop.png');
+	add_submenu_page('zingiri-web-shop', $zing_ws_name.'- Integration', 'Integration', 'manage_options', 'zingiri-web-shop', 'zing_ws_admin');
 	if ($zing_version && get_option('zing_ws_install_type')) {
 		$cap='administer_web_shop';
 		$groupings=array();

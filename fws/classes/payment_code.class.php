@@ -18,6 +18,7 @@ class paymentCode {
 			$payment_code = $row['CODE'];
 			$gateway = $row['GATEWAY'];
 			$this->merchantid=$row['MERCHANTID'];
+			$this->subid=$row['SUBID'];
 			$this->secret=$row['SECRET'];
 			$this->testmode=$row['TESTMODE'];
 

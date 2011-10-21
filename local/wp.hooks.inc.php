@@ -183,7 +183,7 @@ function zing_ws_uninstall_delete_pages() {
  */
 function zing_admin_header() {
 	$ret='';
-	
+
 	$wsVars=jsVars();
 	$ret.='<script type="text/javascript" language="javascript">';
 	foreach ($wsVars as $v => $c) {
@@ -209,7 +209,7 @@ function zing_admin_header() {
 function zing_header()
 {
 	$ret='';
-	
+
 	if ($seo=wsSeo(isset($_REQUEST['page']) ? $_REQUEST['page'] : '',isset($_REQUEST['kat']) ? $_REQUEST['kat'] : '',isset($_REQUEST['prod']) ? $_REQUEST['prod'] : '')) {
 		if (isset($seo['description'])) $ret.=sprintf("<meta name=\"description\" content=\"%s\" />", $seo['description']);
 		if (isset($seo['keywords'])) $ret.=sprintf("<meta name=\"keywords\" content=\"%s\" />", $seo['keywords']);
@@ -275,8 +275,6 @@ function zing_init()
 		wp_enqueue_script('jquery');
 		wp_enqueue_script('jquery-ui-core');
 		wp_enqueue_script('jquery-ui-sortable');
-		 
-		
 		ob_start();
 		if ( ( defined( 'WP_ADMIN' ) && WP_ADMIN == true ) || ( strpos( $_SERVER[ 'PHP_SELF' ], 'wp-admin' ) !== false ) ) return; //bail out
 	} else {

@@ -20,8 +20,7 @@
     }
     // now save captcha key as file
     $handle = fopen ("./".$ResultStr.".key", "w+");
-	if (!fwrite($handle, "zingiri"))
-	   {
+    if (!fwrite($handle, "aphps")) {
 	    $retVal = false;
 	}
 	else {

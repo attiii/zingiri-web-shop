@@ -75,6 +75,12 @@ function user_error_handler($severity, $msg, $filename="", $linenum=0) {
 	}
 }
 
+function zing_user_debug($msg) {
+	global $dbtablesprefix;
+	if (is_array($msg)) $msg=print_r($msg,true);
+	$query = sprintf("INSERT INTO ".$dbtablesprefix."errorlog (severity, message, filename, linenum, time) VALUES('0',%s,'".__FILE__."',0, '".date("Y-m-d h:i:s")."')", quote_smart($msg));
+	$sql = mysql_query($query) or die(mysql_error());
+}
 
 function directory($dir,$filters) {
 	$handle=opendir($dir);
@@ -802,7 +808,7 @@ if (!function_exists('actionCompleteMessage')) {
 			$title=$txt['general13'];
 			$message=$txt['adminedit2'];
 			$picture="notify.gif";
-			$msg ="<table width=\"".$width."%\" class=\"datatable\">";
+			$msg ="<table width=\"100%\" class=\"datatable\">";
 			$msg.="<tr><td><img src=\"".$gfx_dir."/".$picture."\" alt=\"".$picture."\" height=\"24px\">";
 			$msg.='<strong>'.$message.'</strong>'."</td></tr></table>";
 			$msg.="<br /><br />";

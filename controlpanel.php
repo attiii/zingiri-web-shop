@@ -96,7 +96,7 @@ function zing_set_options() {
 
 
 function zing_ws_settings() {
-	global $menus,$txt,$wpdb,$dbtablesprefix,$action,$gfx_dir,$wsPages;
+	global $menus,$txt,$wpdb,$dbtablesprefix,$action,$gfx_dir,$wsPages,$page;
 
 	zing_admin_header();
 	zing_apps_player_header_cp();
@@ -104,9 +104,9 @@ function zing_ws_settings() {
 	//main window
 	echo '<div style="width:80%;float:left;position:relative">';
 	$_GET['page']=str_replace('zingiri-web-shop-','',$_GET['page']);
-	$page=$_GET['page'];
+	$pg=$_GET['page'];
 	$params=array();
-	$pairs=explode('&',$menus[$page]['href']);
+	$pairs=explode('&',$menus[$pg]['href']);
 	foreach ($pairs as $pair) {
 		list($n,$v)=explode('=',$pair);
 		if ($n!='page') {
@@ -115,16 +115,15 @@ function zing_ws_settings() {
 			$params[$n]=$v;
 		}
 	}
-
-	if (isset($menus[$page]['page'])) $_GET['page']=$menus[$page]['page'];
+	if (isset($menus[$pg]['page'])) $_GET['page']=$menus[$pg]['page'];
+	$page=$_GET['page'];
 	if (ZING_CMS=='wp' || ZING_CMS=='jl') echo '<link rel="stylesheet" type="text/css" href="'.ZING_URL.'zing.css" />';
 	if (isset($_GET['page'])) {
 		require(dirname(__FILE__).'/fws/includes/pages.inc.php');
-		if (isset($wsPages[$page])) echo '<h1>'.$txt[$wsPages[$page]].'</h1>';
+		if (isset($wsPages[$pg])) echo '<h1>'.$txt[$wsPages[$pg]].'</h1>';
 	}
-
 	zing_main('content');
-	if ((isset($menus[$page]['type']) && $menus[$page]['type']=="apps") || ZING_CMS!='wp') {
+	if ((isset($menus[$pg]['type']) && $menus[$pg]['type']=="apps") || ZING_CMS!='wp') {
 		zing_apps_player_content('content');
 	}
 	echo '</div>';
