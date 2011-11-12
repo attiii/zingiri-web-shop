@@ -111,7 +111,7 @@ if (LoggedIn() == True) {
 			// read the details
 			if ($row = mysql_fetch_array($sql)) {
 				$address=new wsAddress(wsCid());
-				$adrid=$_POST['address'];
+				$adrid=isset($_POST['address']) ? $_POST['address'] : '';
 				$adr=$address->getAddress($adrid);
 				$initials=$adr['INITIALS'];
 				$middlename=$adr['MIDDLENAME'];
@@ -302,7 +302,7 @@ if (LoggedIn() == True) {
 				}
 			}
 
-			if (count($shippingTax->taxByCategory)>0) {
+			if (count($shippingTax->taxByCategory)>0 && $shippingTax->tax != 0) {
 				foreach ($shippingTax->taxByCategory as $taxCategory => $taxes) {
 					if (count($taxes)>0) {
 						foreach ($taxes as $label => $data) {
@@ -350,7 +350,7 @@ if (LoggedIn() == True) {
 			$payment=new paymentCode();
 			$payment_code=$payment->getCode($paymentid,$customer_row,$total,$webid);
 
-			$message .= $txt['checkout19'].$payment_descr; // Payment method:
+			$message .= $txt['checkout19']; // Payment method:
 			$message .= $txt['checkout6']; // line break
 
 			// the two standard build in payment methods

@@ -132,7 +132,7 @@ function displayTaxes($atax,$taxheader) {
 	if (empty($taxheader)) $taxheader=$txt['checkout102'];
 	$combinations=0;
 	foreach ($atax as $tax) {
-		if (count($tax->taxByCategory)>0) {
+		if (count($tax->taxByCategory)>0 && $tax->tax!=0) {
 			foreach ($tax->taxByCategory as $taxCategory => $taxes) {
 				if (count($taxes>0)) {
 					foreach ($taxes as $label => $data) {
@@ -143,7 +143,7 @@ function displayTaxes($atax,$taxheader) {
 		}
 	}
 	foreach ($atax as $tax) {
-		if (count($tax->taxByCategory)>0) {
+		if (count($tax->taxByCategory)>0 && $tax->tax!=0) {
 			foreach ($tax->taxByCategory as $taxCategory => $taxes) {
 				if (count($taxes>0)) {
 					foreach ($taxes as $label => $data) {

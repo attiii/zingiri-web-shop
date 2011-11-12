@@ -2,7 +2,9 @@
 <?php 
 $wsPageSearch=($page=='search') ? 'browse' : $page;
 if (isset($_REQUEST['wsgroup'])) $searchGroup=intval($_REQUEST['wsgroup']);
+else $searchGroup='';
 if (isset($_REQUEST['wscategory'])) $searchCategory=intval($_REQUEST['wscategory']);
+else $searchCategory='';
 ?>
 <div class="datatable">
 	<form method="get" action="?page=<?php echo $wsPageSearch;?>">

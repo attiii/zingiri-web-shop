@@ -226,7 +226,6 @@ else {
 	echo "<br /><br />";
 	echo "<h6>".$txt['shippingadmin17']."</h6>";
 	echo "<ul>";
-	echo "<li><a class=\"plain\" href=\"".zurl("?page=adminedit&filename=countries.txt&root=1&wysiwyg=0")."\">".$txt['shippingadmin11']."</a></li>";
 	echo "<li><a class=\"plain\" href=\"".zurl("?page=editsettings&show=2")."\">" .$txt['shippingadmin16']." (".$send_default_country.")</a></li>";
 	echo "</ul>";
 }

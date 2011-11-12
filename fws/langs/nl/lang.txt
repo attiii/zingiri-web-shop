@@ -156,7 +156,7 @@ $txt['shipping10'] = 'Selecteer een betaalwijze';
 // checkout.php
 $txt['checkout1'] = 'Ongeldige kortingscode. Als dit volgens u niet correct is, neem dan contact met ons op voordat u verder gaat met bestellen';
 $txt['checkout2'] = 'De pagina is verlopen. Ga terug naar uw winkelwagen en klik daar op Afrekenen';
-$txt['checkout3'] = "Geachte heer/mevrouw $surname $lastname,<br /><br /><br />Dit bericht is een bevestiging van uw order bij <strong>$shopname</strong><br /><br />Uw ordernummer is: $webid<br />Uw klantnummer is: $customerid<br /><br />De volgende artikelen zijn door u besteld:<br />";
+$txt['checkout3'] = "Geachte heer/mevrouw $lastname,<br /><br /><br />Dit bericht is een bevestiging van uw order bij <strong>$shopname</strong><br /><br />Uw ordernummer is: $webid<br />Uw klantnummer is: $customerid<br /><br />De volgende artikelen zijn door u besteld:<br />";
 $txt['checkout4'] = ' x artikel ';
 $txt['checkout5'] = ' p/stuk';
 $txt['checkout6'] = '<br />';
@@ -176,7 +176,7 @@ $txt['checkout19'] = "<strong>Betaalwijze:</strong> ";
 $txt['checkout20'] = "<strong>Bank informatie:</strong><br />Rekeningnummer: $bankaccount<br />Rekeninghouder: $bankaccountowner<br />Stad: $bankcity<br />Land: $bankcountry<br />Bank naam: $bankname<br />IBAN: $bankiban<br />BIC: $bankbic<br />Betalingskenmerk: $webid";
 $txt['checkout21'] = "Zodra de artikelen voorradig zijn, zullen we via email contact met u opnemen om een afhaalafspraak te maken.";
 $txt['checkout24'] = "Het totaalbedrag";
-$txt['checkout25'] = "inclusief $show_vat ".$txt['general5'];
+$txt['checkout25'] = "inclusief BTW ".$txt['general5'];
 $txt['checkout26'] = "Maakt u aub het bedrag binnen $paymentdays dag(en) naar ons over. Zodra wij uw betaling hebben ontvangen wordt de order verder verwerkt en zo snel mogelijk naar u opgestuurd.";
 $txt['checkout27'] = "of download de order in PDF";
 
@@ -265,7 +265,7 @@ $txt['admin19'] = 'Ban lijst';
 $txt['admin20'] = 'Over ons';
 $txt['admin21'] = 'Betalings opties';
 $txt['admin22'] = 'Beginpagina';
-$txt['admin23'] = 'Wijzig instellingen';
+$txt['admin23'] = 'Instellingen';
 $txt['admin24'] = 'Wijzig bestanden';
 $txt['admin25'] = 'Informatie';
 $txt['admin26'] = 'Error log';
@@ -362,7 +362,7 @@ $txt['readorder1'] = 'Print deze order';
 $txt['readorder2'] = 'Ga terug naar uw order overzicht';
 
 // editsettings.php
-$txt['editsettings1'] = 'Wijzig instellingen';
+$txt['editsettings1'] = 'Instellingen';
 $txt['editsettings2'] = 'Sla wijzigingen op';
 $txt['editsettings3'] = 'Verberg producten met voorraad 0';
 $txt['editsettings4'] = 'Standaard verzendland <a href=# class=info>(?)<span>Dit is meestal het land waar uw bedrijf is gevestigd</span></a>';

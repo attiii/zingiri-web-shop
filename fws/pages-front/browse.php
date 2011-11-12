@@ -1,5 +1,6 @@
 <?php if ($index_refer <> 1) { exit(); } ?>
 <?php
+if (!isset($group)) $group='';
 if (isset($_GET['displaytype']) && ($_GET['displaytype']=='list' || $_GET['displaytype']=='grid')) {
 	if ($_COOKIE['fws_displaytype'] != $_GET['displaytype']) {
 		setcookie ("fws_displaytype",$_GET['displaytype'], 0, '/');
@@ -14,8 +15,9 @@ if (isset($_GET['itemsperpage'])) {
 	$products_per_page=$_GET['itemsperpage'];
 } elseif (isset($_COOKIE['fws_itemsperpage'])) $products_per_page=$_COOKIE['fws_itemsperpage'];
 
-if ($_GET['includesearch']) $includesearch=$_GET['includesearch'];
-elseif ($_POST['includesearch']) $includesearch=$_POST['includesearch'];
+if (isset($_GET['includesearch']) && $_GET['includesearch']) $includesearch=$_GET['includesearch'];
+elseif (isset($_POST['includesearch']) && $_POST['includesearch']) $includesearch=$_POST['includesearch'];
+else $includesearch='';
 if ($includesearch) {
 	require(dirname(__FILE__).'/search.php');
 }
@@ -29,10 +31,9 @@ if (!empty($_GET['searchmethod'])) {
 }
 if (!empty($_POST['searchfor'])) {
 	$searchfor=$_POST['searchfor'];
-}
-if (!empty($_GET['searchfor'])) {
+} elseif (!empty($_GET['searchfor'])) {
 	$searchfor=$_GET['searchfor'];
-}
+} else $searchfor='';
 if (!empty($_GET['orderby'])) {
 	$orderby = $_GET['orderby'];
 }

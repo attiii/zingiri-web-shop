@@ -78,7 +78,7 @@ class wsFeatures {
 			if (!empty($this->features)) {
 				$features = explode("|", $this->features);
 				$counter1 = 0;
-				while (!$features[$counter1] == NULL){
+				while (isset($features[$counter1]) && (!$features[$counter1] == NULL)) {
 					$feature = explode(":", $features[$counter1]);
 					$counter1 += 1;
 					if (!empty($this->post["wsfeature".$counter1][$index])) {
@@ -142,7 +142,7 @@ class wsFeatures {
 		if (!empty($this->features)) {
 			$features = explode("|", $this->features);
 			$counter1 = 0;
-			while (!$features[$counter1] == NULL){
+			while (isset($features[$counter1]) && (!$features[$counter1] == NULL)) {
 				$output.= "<tr>";
 				$feature = explode(":", $features[$counter1]);
 				$counter1 += 1;
@@ -152,7 +152,7 @@ class wsFeatures {
 					if (isset($feature[1]) && $feature[1]=='file' && method_exists('wsFeaturesFile','outputFile')){
 						$output.=wsFeaturesFile::outputFile($counter1,$i,$r);
 					} elseif (!isset($feature[1])){
-						$output.= '<input type="text" class="wsfeature" name="wsfeature'.$counter1.'[]" value="'.$this->prefil[$i]['features'][$r].'" > ';
+						$output.= '<input type="text" class="wsfeature" name="wsfeature'.$counter1.'[]" value="'.(isset($this->prefil[$i]['features'][$r]) ? $this->prefil[$i]['features'][$r] : '').'" > ';
 					} else {
 						$output.= '<select class="wsfeature" name="wsfeature'.$counter1.'[]">';
 						if ($feature[1]=='?') {
@@ -174,11 +174,11 @@ class wsFeatures {
 						} else {
 							$value = explode(",", $feature[1]);
 							$counter2 = 0;
-							while (!$value[$counter2] == NULL){
+							while (isset($value[$counter2]) && (!$value[$counter2] == NULL)) {
 
 								// optionally you can specify the additional costs: color:red+1.50,green+2.00,blue+3.00 so lets deal with that
 								$extracosts = explode("+",$value[$counter2]);
-								if (!$extracosts[1] == NULL) {
+								if (isset($extracosts[1]) && (!$extracosts[1] == NULL)) {
 									// there are extra costs
 									$printvalue = $extracosts[0]." (+".$currency_symbol_pre.myNumberFormat($extracosts[1],$number_format).$currency_symbol_post.")";
 								}
@@ -233,8 +233,10 @@ class wsFeatures {
 				if (count($features)>0) {
 					foreach ($features as $i => $feature) {
 						$values1=explode(':',$feature);
-						$values2=explode('+',$values1[1]);
-						$prefil[$r]['features'][]=trim($values2[0]);
+						if (isset($values1[1])) {
+							$values2=explode('+',$values1[1]);
+							$prefil[$r]['features'][]=trim($values2[0]);
+						} else $prefil[$r]['features'][]='';
 					}
 				}
 				$prefil[$r]['qty']=$row['QTY'];
@@ -244,7 +246,7 @@ class wsFeatures {
 		}
 		$this->prefil=$prefil;
 	}
-	
+
 	function validate($index=0) {
 		//not implemented in basic version
 	}

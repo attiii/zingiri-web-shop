@@ -3,7 +3,7 @@
 function wsShowProductRow($row) {
 	global $use_prodgfx,$prods_per_row,$currency_symbol_pre,$currency_symbol_post,$txt,$product_url,$product_dir,$pictureid;
 	global $db_prices_including_vat,$search_prodgfx,$use_prodgfx,$stock_enabled,$gfx_dir,$hide_outofstock,$show_stock;
-	global $ordering_enabled,$order_from_pricelist,$includesearch,$currency_symbol,$no_vat,$optel;
+	global $ordering_enabled,$order_from_pricelist,$includesearch,$currency_symbol,$no_vat,$optel,$group;
 
 	$output='';
 
@@ -74,7 +74,6 @@ function wsShowProductRow($row) {
 	$output.= "<td>".$stockpic;
 	$output.=$new;
 	if (!wsIsAdminPage()) {
-		//$output.= "<a class=\"plain\" href=\"".zurl("index.php?page=details&prod=".$row[0]."&cat=".$row[2]."&group=".$group)."\">".'<div class="imgleft">'.$thumb.'</div>'.$print_description."</a> ";
 		$output.= '<div class="wsbrowseimage">'.$thumb.'</div>';
 		$output.= "<a class=\"wsbrowsetitle\" href=\"".zurl("index.php?page=details&prod=".$row[0]."&cat=".$row[2]."&group=".$group)."\">".$print_description."</a> ";
 	}
@@ -115,7 +114,7 @@ function wsShowProductRow($row) {
 					$output.= '<tr>';
 					$output.= '<td>'.$txt['details6'].':</td>';
 					for ($i=0;$i<$wsFeatures->sets;$i++) {
-						$output.= '<td><input type="text" size="2" name="numprod[]" value="'.intval($wsFeatures->prefil[$i]['qty'] || !count($wsFeatures->prefil)).'" maxlength="4" /></td>';
+						$output.= '<td><input type="text" size="2" name="numprod[]" value="'.intval((isset($wsFeatures->prefil[$i]['qty']) ? $wsFeatures->prefil[$i]['qty'] : 0) || !count($wsFeatures->prefil)).'" maxlength="4" /></td>';
 					}
 					$output.= '</tr>';
 				}
@@ -145,7 +144,7 @@ function wsShowProductRow($row) {
 }
 
 function wsShowProductCell($row,$row_count,$prods_per_row) {
-	global $no_vat,$use_prodgfx,$currency_symbol_pre,$currency_symbol_post,$txt,$product_url,$product_dir,$pictureid;
+	global $no_vat,$use_prodgfx,$currency_symbol_pre,$currency_symbol_post,$txt,$product_url,$product_dir,$pictureid,$group;
 
 	$screenshot = "";
 	$output='';

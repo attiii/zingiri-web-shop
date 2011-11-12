@@ -49,7 +49,7 @@ if ($count == 0) {
 		}
 		if (!empty($_POST['notes'])) {
 			$notes=$_POST['notes'];
-		}
+		} else $notes='';
 		if (!empty($_GET['prodid'])) {
 			$prodid=intval($_GET['prodid']);
 			if (!empty($_POST['numprod'][$basketid])) $numprod=$_POST['numprod'][$basketid];
@@ -59,6 +59,8 @@ if ($count == 0) {
 			$weightid=intval($weightid);
 			$shippingid=intval($shippingid);
 			$wsShipping=$weightid.':'.$shippingid;
+		} else {
+			$shippingid=$weightid='';
 		}
 
 		if (isset($_POST['discount_code'])) {
@@ -70,7 +72,7 @@ if ($count == 0) {
 					$error = 1;
 				}
 			}
-		}
+		} else $discount_code='';
 		// current date
 		$today = getdate();
 		$error = 0; // no errors found
@@ -113,7 +115,7 @@ if ($count == 0) {
 		}
 		?>
 <form id="checkout" method="post" action="<?php zurl('index.php?page=checkout',true);?>">
-<table width="100%" class="datatable">
+<table width="100%" class="wspayship">
 	<tr>
 		<td colspan="4"><?php echo $txt['shipping2'] ?><br />
 		<SELECT NAME="shipping" id="shipping"
@@ -240,7 +242,7 @@ if ($count == 0) {
 	</tr>
 </table>
 	<?php if (ActiveDiscounts()) {?>
-<table>
+<table class="wsdiscount">
 	<tr>
 		<td><?php echo $txt['shipping5']?> <input type="text" id="discount_code" name="discount_code"
 			value="<?php echo $discount_code?>"
@@ -262,7 +264,7 @@ if ($count == 0) {
 }
 else {
 	?> <br />
-<table width="100%" class="datatable">
+<table width="100%" class="datatable wsproducts">
 	<tr>
 		<th colspan="2"><?php echo $txt['cart3']; ?></th>
 		<th><?php echo $txt['cart4']; ?></th>
@@ -272,6 +274,7 @@ else {
 	<?php
 	$optel = 0;
 	$id=0;
+	$totaal=0;
 	$tax = new wsTaxSum();
 
 	while ($row = mysql_fetch_array($sql)) {
@@ -298,9 +301,9 @@ else {
 			$print_description=printDescription($row_details[1],$row_details[3],$row_details['EXCERPT']);
 			?>
 	<tr <?php echo $kleur; ?>>
-		<td colspan="2"><a
+		<td colspan="2" class="col-desc"><a
 			href="<?php zurl("index.php?page=details&prod=".$row_details[0].'&basketid='.$row['ID'],true); ?>"
-		><?php echo $thumb.$print_description.$picturelink; ?></a> <?php
+		><?php echo $thumb.'<div class="imgleft-label">'.$print_description.'</div>'; ?></a> <?php
 		//$productprice = $row[3]; // the price of a product
 		$tax->calculate($row[3],$row_details['TAXCATEGORYID']);
 		$productprice = $tax->in;
@@ -308,14 +311,14 @@ else {
 		$printvalue = $row[7];   // features
 		if (!$printvalue == "") { echo "<br />(".$printvalue.")"; }
 		?></td>
-		<td style="text-align: right"><?php 
+		<td class="col-price"><?php 
 		echo $currency_symbol_pre;
 		$subtotaal = $productprice * $row[6];
 		$printprijs = myNumberFormat($subtotaal);
 		echo $printprijs;
 		echo $currency_symbol_post;
 		?></td>
-		<td style="text-align: right;"><input type="text" size="4"
+		<td class="col-quantity"><input type="text" size="4"
 			name="numprod[<?php echo $row['ID'];?>]" value="<?php echo $row[6] ?>"
 		>&nbsp; <input type="submit" value="<?php echo $txt['cart10'] ?>"
 			onclick="form.action='<?php zurl("?page=onecheckout&action=update&prodid=".$row_details[0].'&basketid='.$row['ID'],true)?>';"
@@ -339,11 +342,11 @@ else {
 		echo '<tr><td colspan="2" style="text-align: right">'.$txt['checkout14'];
 		if ($discount->percentage>0) {
 			// percentage
-			echo ' '.$discount->percentage.'%</td><td style="text-align: right">-'.$currency_symbol_pre.myNumberFormat($discount->discount,$number_format).$currency_symbol_post.'</td></tr>';
+			echo ' '.$discount->percentage.'%</td><td class="col-discount">-'.$currency_symbol_pre.myNumberFormat($discount->discount,$number_format).$currency_symbol_post.'</td></tr>';
 		}
 		else {
 			//fixed amount
-			echo '</td><td style="text-align: right">-'.$currency_symbol_pre.myNumberFormat($discount->discount,$number_format).$currency_symbol_post.'</td></tr>';
+			echo '</td><td class="col-discount">-'.$currency_symbol_pre.myNumberFormat($discount->discount,$number_format).$currency_symbol_post.'</td></tr>';
 		}
 		$discountValue=$discount->discount;
 	} else {
@@ -368,7 +371,7 @@ else {
 	} else $sendcosts=0;
 
 	if ($sendcosts != 0) {
-		echo '<tr><td>'.$txt['checkout16'].'</td><td>'.$shipping_descr.'</td><td style="text-align: right">'.$currency_symbol_pre.myNumberFormat($sendcosts,$number_format).$currency_symbol_post.'</td></tr>';
+		echo '<tr><td>'.$txt['checkout16'].'</td><td>'.$shipping_descr.'</td><td class="col-price">'.$currency_symbol_pre.myNumberFormat($sendcosts,$number_format).$currency_symbol_post.'</td></tr>';
 	}
 	$shippingTax=new wsTax($sendcosts,wsSetting('SHIPPING_TAX_CATEGORY'));
 
@@ -381,12 +384,12 @@ else {
 	//total
 	?>
 	<tr>
-		<td colspan="2">
-		<div style="text-align: right;"><strong><?php echo $txt['cart7']; ?></strong></div>
+		<td colspan="2" class="col-total">
+		<div class="col-price"><strong><?php echo $txt['cart7']; ?></strong></div>
 		</td>
-		<td>
-		<div style="text-align: right;"><?php echo $currency_symbol_pre.myNumberFormat($totaal_in).$currency_symbol_post; ?><br />
-		<?php if ($no_vat == 0) { echo "<small>(".$currency_symbol_pre.$totaal_ex.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>"; } ?></div>
+		<td class="col-price">
+		<?php echo $currency_symbol_pre.myNumberFormat($totaal_in).$currency_symbol_post; ?><br />
+		<?php if ($no_vat == 0) { echo "<small>(".$currency_symbol_pre.$totaal_ex.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>"; } ?>
 		</td>
 	</tr>
 	<?php

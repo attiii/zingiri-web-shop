@@ -639,4 +639,209 @@ $txt['discountadmin7'] = 'Rabattkod';
 $txt['discountadmin8'] = 'Inga oanvända rabattkoder';
 $txt['discountadmin9'] = 'Skapad den';
 
+//v1.1.0 - new
+$txt['groupadmin100'] = 'Category type';
+$txt['groupadmin101'] = 'Physical';
+$txt['groupadmin102'] = 'Digital';
+$txt['groupadmin103'] = 'New category type';
+$txt['productadmin100'] = 'Digital source? <a href=# class=info>(?)<span>If this is a digital product you can upload the music, video, ebook, ... file here</span></a>';
+$txt['readorder100'] = 'Your downloads';
+$txt['products1'] = 'Download';
+
+//v1.2.0 - modified
+$txt['editsettings72'] = 'Show General Conditions page';
+$txt['editsettings74'] = 'Show Shipping page';
+
+//v1.2.2 - added
+$txt['generic1'] = 'Ta bort';
+
+//v1.2.4 - added
+$txt['checkout100'] = "Your payment was processed successfully";
+$txt['checkout101'] = "Your payment could not be processed";
+
+//v1.2.4 - modified
+$txt['uploadadmin3'] = 'Please only upload .xml or .sql files';
+$txt['uploadadmin4'] = 'Import data (product, pricelist, etc)';
+$txt['uploadadmin5'] = 'Select an XML or SQL file';
+$txt['uploadadmin6'] = 'Import file';
+$txt['uploadadmin7'] = 'Data inserted into database';
+$txt['uploadadmin100'] = "Couldn't upload file:";
+$txt['uploadadmin101'] = "Field missing:";
+$txt['uploadadmin102'] = "on line";
+$txt['uploadadmin103'] = "Warning: skipping unrecognized field ";
+$txt['admin9'] = 'Upload products';
+
+//v1.2.5
+$txt['uploadadmin104'] = 'Maximum file size in bytes <a href=# class=info>(?)<span>This is the maximum file size as set on your system. If you want to increase it, you will need to edit your php.ini file.</span></a>';
+$txt['uploadadmin105'] = 'Use symlinks for digital products <a href=# class=info>(?)<span>Instead of copying digital products a symlink is created to the digital product.</span></a>';
+$txt['details100'] = 'Other products';
+
+//v1.2.7 - new
+$txt['admin100'] = 'Varav';
+$txt['general100'] = 'Rate';
+$txt['general101'] = 'Label';
+$txt['taxes1'] = 'Cascading';
+$txt['checkout25'] = "including taxes";
+$txt['checkout102'] = "Taxes";
+$txt['checkout103'] = "Please accept conditions before proceeding";
+$txt['checkout104'] = "You will now be redirected to the payment portal to complete your order";
+$txt['editsettings110'] = 'Activate fast checkout';
+$txt['cart100'] = 'show';
+$txt['cart101'] = 'hide';
+$txt['editsettings111'] = 'Date of birth on registration form'; //not used
+
+//v1.2.7 - modified
+$txt['general5'] = 'varav';
+$txt['editsettings51'] = 'No taxes <a href=# class=info>(?)<span>Enable this if you do not want to use VAT in your shop prices, for example when it is a webshop with personal products</span></a>';
+$txt['editsettings13'] = 'Prices in DB are incl. taxes';
+
+//v1.3.0 - added
+$txt['admin101'] = 'Prompts & labels';
+$txt['editsettings112'] = 'Product ID and full description';
+$txt['prompt1'] = 'Language';
+$txt['prompt2'] = 'Standard text';
+$txt['prompt3'] = 'Custom text';
+
+//v1.3.7 - added
+$txt['discountadmin100'] = 'Expiry date';
+$txt['discountadmin101'] = 'Expiry quantity';
+
+//v1.4.0 - added
+$txt['admin102'] = 'Dashboard';
+$txt['dashboard1'] = 'Monthly Signups';
+$txt['dashboard2'] = 'Month';
+$txt['dashboard3'] = 'Statistics';
+$txt['dashboard4'] = 'Alltime sales';
+$txt['dashboard5'] = 'Average sale';
+$txt['dashboard6'] = 'Last 5 Orders';
+
+//v1.4.1 - added
+$txt['paymentadmin100'] = 'Merchant ID';
+$txt['paymentadmin101'] = 'Secret';
+
+//v1.4.8 - changed
+$txt['editsettings8'] = 'Currency <a href=# class=info>(?)<span>Make sure you use ISO codes for currency, so for example EUR, USD, GBP, ...</span></a>';
+
+//1.4.9 - new
+$txt['address1'] = 'First';
+$txt['address2'] = 'Last';
+$txt['address3'] = 'Street';
+$txt['address4'] = 'Name';
+$txt['address5'] = 'Line 2';
+$txt['apps1'] = 'Save';
+$txt['apps2'] = 'Ta bort';
+$txt['apps3'] = 'Back';
+
+//1.5.0 - added
+$txt['general102'] = "Enabled";
+$txt['general103'] = "Disabled";
+$txt['stockadmin100'] = "Status only";
+$txt['groupadmin104'] = 'This group still contains categories';
+
+
+//1.5.0 - modified
+$txt['productadmin13'] = 'Stock';
+
+//1.5.1 - added
+$txt['dashboard7'] = 'No records available';
+$txt['apps4'] = 'No records available';
+$txt['my10'] = 'Other addresses';
+$txt['address6'] = 'Name';
+$txt['groupadmin105'] = 'This category still contains products';
+$txt['template1'] = 'Content';
+$txt['template2'] = 'Title';
+$txt['template3'] = 'Templates';
+
+//1.5.5 - added
+$txt['productadmin101'] = 'SKU';
+$txt['productadmin102'] = 'Short description';
+
+//1.6.0 - added
+$txt['editsettings113'] = 'Animate image when ordering';
+$txt['editsettings114'] = 'Short description';
+$txt['editsettings117'] = 'Product ID and short description';
+$txt['banned1'] = 'Banned IP addresses';
+$txt['banned2'] = 'IP address';
+$txt['customeradmin100'] = 'Customer ID';
+$txt['wishlist1'] = 'Wishlist';
+$txt['wishlist2'] = 'Add to wishlist';
+$txt['wishlist3'] = 'Activate wishlist';
+$txt['wishlist4'] = 'Your wishlist is empty.';
+$txt['browse100'] = 'List';
+$txt['browse101'] = 'Grid';
+
+//1.6.5 - added
+$txt['general104'] = 'Type';
+$txt['general105'] = 'Definition';
+$txt['editsettings115'] = 'Close basket and submit';
+$txt['editsettings116'] = 'Submit but leave basket open';
+$txt['db_status0'] = 'Order in progress';
+
+//1.6.7 - added
+$txt['generic2'] = 'New';
+$txt['apps1'] = 'Amount format incorrect!';
+$txt['apps2'] = 'Code incorrect!';
+$txt['apps3'] = 'Wrong date format!';
+$txt['apps4'] = 'Field is mandatory!';
+$txt['apps5'] = 'Wrong email format!';  
+$txt['apps6'] = 'IP address form is not valid!';  
+$txt['apps7'] = 'Number format incorrect!';  
+$txt['apps8'] = 'Passwords are not matching!';  
+$txt['apps9'] = 'Record not found';  
+$txt['apps10'] = 'Repeat';
+$txt['apps11'] = 'Low';
+$txt['apps12'] = 'High';
+$txt['apps13'] = 'Amount';
+$txt['apps14'] = 'Password is too long!';
+
+//1.6.9 - added
+$txt['taxes2'] = 'Tax categories';
+$txt['taxes3'] = 'Tax category';
+$txt['general106'] = 'ID';
+
+//1.7.0 - added
+$txt['pay1'] = 'Invalid issuer request.';
+$txt['pay2'] = 'Transaction already completed';
+$txt['pay3'] = 'Executing IssuerRequest on ';
+$txt['pay4'] = 'Invalid transaction request.';
+$txt['pay5'] = 'Executing TransactionRequest on ';
+$txt['pay6'] = 'Invalid return request.';
+$txt['pay7'] = 'Executing StatusRequest on ';
+$txt['pay8'] = 'Choose your bank';
+$txt['pay9'] = 'Your payment is not complete yet';
+$txt['pay10'] = 'Continue';
+$txt['pay11'] = 'Your payment was cancelled. Please try again.';
+$txt['pay12'] = 'Your payment failed. Please try again.';
+$txt['pay13'] = 'Choose another payment method';
+$txt['pay14'] = "I can't pay via iDEAL";
+$txt['pay15'] = 'Invalid report request.';
+$txt['pay16'] = 'The transaction has been updated.';
+$txt['pay17'] = 'Verification of outstanding transactions.';
+$txt['pay18'] = 'Updated all outstanding transactions';
+$txt['pay19'] = 'No outstanding transactions could be found.';
+$txt['pay20'] = 'Close window';
+$txt['pay21'] = 'for';
+$txt['pay22'] = 'Received';
+$txt['task1'] = 'Tasks & maintenance';
+$txt['task2'] = 'Tasks';
+$txt['general106'] = 'Go';
+$txt['order100'] = 'Email customer';
+$txt['order101'] = 'Email shop administrator';
+$txt['checkout105'] = 'Copy of the order confirmation email sent to';
+$txt['checkout106'] = 'Fortsätt utan att registera';
+
+//1.7.2 - added
+$txt['paymentadmin103'] = 'Sub ID';
+$txt['paymentadmin104'] = 'Test mode';
+
+//1.8.0 -added
+$txt['migrate1'] = 'Migrate';
+$txt['migrate2'] = 'Migrate from Web Shop 1.x';
+$txt['migrate3'] = 'Incorrect file format';
+
+//2.1 - added
+$txt['checklogin19'] = 'Please connect with Facebook to continue';
+$txt['menu20'] = 'Cart';
+$txt['menu21'] = 'Personal';
+
 ?>

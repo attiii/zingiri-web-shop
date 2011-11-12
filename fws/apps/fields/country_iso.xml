@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="module" version="1.5.0">
+	<name>Country ISO</name>
+	<fields count="1">
+		<field1>
+			<name>country</name>
+			<format>varchar(75)</format>
+			<type>country_iso</type>
+		</field1>
+	</fields>
+</config>

@@ -67,7 +67,7 @@ if ($action=="add") {
 			//$wsFeatures->prepare($i);
 			
 			//calculate price
-			$wsFeatures->calcPrice($i,$row['PRICE'],$row['PRICE_FORMULA_TYPE'],$row['PRICE_FORMULA_RULE']);
+			$wsFeatures->calcPrice($i,$row['PRICE'],isset($row['PRICE_FORMULA_TYPE']) ? $row['PRICE_FORMULA_TYPE'] : '',isset($row['PRICE_FORMULA_RULE']) ? $row['PRICE_FORMULA_RULE'] : '');
 			
 			$productfeatures=$wsFeatures->featureString;
 			$prodprice+=$wsFeatures->price;
@@ -80,7 +80,7 @@ if ($action=="add") {
 				$query="SELECT `ID` FROM `".$dbtablesprefix."basket` WHERE `CUSTOMERID`=".qs(wsCid())." AND `STATUS`=0 AND `PRODUCTID`=".qs($prodid)." AND `FEATURES`=".qs($productfeatures);
 				$sql = mysql_query($query) or zfdbexit($query);
 				if (mysql_num_rows($sql)>0) {
-					$row = mysql_fetch_row($sql);
+					$row = mysql_fetch_array($sql);
 					$query = "UPDATE `".$dbtablesprefix."basket` SET `QTY` = ".qs($qty)." WHERE `ID` = ".qs($row['ID']);
 				} else {
 					$query = "INSERT INTO `".$dbtablesprefix."basket` ( `SET` ,`CUSTOMERID` , `PRODUCTID` , `PRICE` , `ORDERID` , `LINEADDDATE` , `QTY` , `FEATURES`) VALUES (".qs($uniqueSet).", '".wsCid()."', '".$prodid."', '".$prodprice."', '0', '".Date("d-m-Y @ G:i")."', '".$qty."', '".$productfeatures."')";
@@ -139,6 +139,7 @@ else {
 	<?php
 	$optel = 0;
 	$tax=new wsTaxSum();
+	$totaal=0;
 	
 	while ($row = mysql_fetch_array($sql)) {
 		$query = "SELECT * FROM `".$dbtablesprefix."product` where `ID`='" . $row[2] . "'";
@@ -155,7 +156,7 @@ else {
 				if ($pictureid == 1) { $picture = $row_details[0]; }
 				else { $picture = $row_details[1]; }
 
-				list($image_url,$height,$width)=wsDefaultProductImageUrl($picture,$row['DEFAULTIMAGE']);
+				list($image_url,$height,$width)=wsDefaultProductImageUrl($picture,$row_details['DEFAULTIMAGE']);
 				$thumb = "<img class=\"imgleft\" src=\"".$image_url."\"".$width.$height." alt=\"\" />";
 				
 			}
@@ -166,13 +167,13 @@ else {
 	<tr <?php echo $kleur; ?>>
 		<td><a
 			href="index.php?page=details&prod=<?php echo $row_details[0]; ?>&basketid=<?php echo $row['ID']; ?>"
-		><?php echo $thumb.$print_description.$picturelink; ?></a> <?php
+		><?php echo $thumb.$print_description; ?></a> <?php
 		$productprice = $row[3]; // the price of a product
 		if (!empty($row[7])) {
 			$wsFeatures=new wsFeatures($row[7],$row_details['FEATURESHEADER'],$row_details['FEATURES_SET']);
 			$printvalue = $wsFeatures->toString();   // features
+			if (!$printvalue == "") { echo "<br />(".$printvalue.")"; }
 		}
-		if (!$printvalue == "") { echo "<br />(".$printvalue.")"; }
 		?></td>
 		<td><?php 
 		echo $currency_symbol_pre;
