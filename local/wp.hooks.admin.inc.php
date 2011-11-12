@@ -12,7 +12,7 @@ function zing_ws_admin_menus() {
 				$groupLabel=$txt[$menu['group']] ? $txt[$menu['group']] : $menu['group'];
 				$menuLabel=$txt[$menu['label']] ? $txt[$menu['label']] : $menu['label'];
 				if (!isset($groupings[$g]) && !isset($menu['single'])) {
-					add_menu_page($zing_ws_name, $groupLabel , $cap, $page,'zing_ws_settings',ZING_URL.'fws/templates/default/images/menu_'.$g.'.png');
+					add_menu_page($groupLabel, $groupLabel , $cap, $page,'zing_ws_settings',ZING_URL.'fws/templates/default/images/menu_'.$g.'.png');
 					$groupings[$g]=$page;
 				} elseif (isset($menu['single']) && $menu['single']) {
 					add_submenu_page('zingiri-web-shop', $menuLabel, $menuLabel, $cap, $page, 'zing_ws_settings');
@@ -25,8 +25,32 @@ function zing_ws_admin_menus() {
 			$menu=$menus[$_GET['page']];
 			add_submenu_page('zingiri-web-shop', $txt[$menu['label']], $txt[$menu['label']], $cap, $_GET['page'], 'zing_ws_settings');
 		}
-		add_submenu_page('admineditmain', 'Forms settings', 'Forms settings', $cap, 'zingiri-apps', 'zing_apps_settings');
-		add_submenu_page('admineditmain', 'Forms editor', 'Forms editor', $cap, 'zingiri-apps-settings', 'zing_apps_editor');
+		//add_submenu_page('admineditmain', 'Forms settings', 'Forms settings', $cap, 'zingiri-apps', 'zing_apps_settings');
+		//add_submenu_page('admineditmain', 'Forms editor', 'Forms editor', $cap, 'zingiri-apps-settings', 'zing_apps_editor');
 	}
 }
 
+
+add_action('init','zing_enqueue_tinymce');
+function zing_enqueue_tinymce() {
+	if (is_admin()) {
+		wp_enqueue_script(array('editor', 'thickbox', 'media-upload'));
+		wp_enqueue_style('thickbox');
+	}
+}
+
+
+/*
+add_action( 'admin_print_footer_scripts', 'wp_tiny_mce_preload_dialogs');
+function wp_tiny_mce_preload_dialogs() {
+	wp_quicktags();
+	wp_preload_dialogs( array( 'plugins' => 'wpdialogs,wplink,wpfullscreen' ) );
+}
+*/
+
+/*
+add_action('admin_head','zing_load_tinymce');
+function zing_load_tinymce() {
+	wp_tiny_mce( false, array( 'editor_selector' => 'tinyMce' ) );
+}
+*/

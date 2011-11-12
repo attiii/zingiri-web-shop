@@ -76,7 +76,7 @@ class zfSubElement {
 		return $this->ext;
 	}
 
-	function verifyall($mode,$before)
+	function verifyall($mode='',$before='')
 	{
 		$this->mode=$mode;
 		$this->before=$before;
@@ -87,7 +87,7 @@ class zfSubElement {
 			if ($this->element->entityType == 'DB') {
 				$key='element_'.$this->elementid.'_'.$this->subid;
 				$field=$this->element->column_map[$key];
-				$db=new db();
+				$db=new aphpsDb();
 				if ($db->select('select id from ##'.$this->element->entityName.' where '.$field."=".qs($this->int))) {
 					return $this->error("Value not allowed!");
 				}

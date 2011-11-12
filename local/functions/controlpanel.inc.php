@@ -58,6 +58,7 @@ function zing_check() {
 	}
 
 	//check files hash
+	/*
 	$c=new filesHash();
 	$checksumErrors=$c->compare();
 	if (count($checksumErrors) > 25) {
@@ -68,6 +69,7 @@ function zing_check() {
 			if ($error == 2) $warnings[]="File ".$file." is not the correct version";
 		}
 	}
+	*/
 
 	return array('errors'=> $errors, 'warnings' => $warnings);
 }

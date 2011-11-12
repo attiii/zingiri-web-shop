@@ -5,9 +5,7 @@ $zfp=isset($_GET['zfp']) ? intval($_GET['zfp']) : 0;
 $zft=isset($_GET['zft']) ? $_GET['zft'] : '';
 $pos=isset($_GET['pos']) ? intval($_GET['pos']) : 0;
 $mapflat=isset($_GET['map']) ? $_GET['map'] : '';
-
-//$json=str_replace("\'",'"',$_GET['map']);
-//$json=str_replace("'",'"',$_GET['map']);
+$orderkeys=isset($_REQUEST['orderkeys']) ? $_REQUEST['orderkeys'] : '';
 $json=str_replace("\'",'"',$mapflat);
 $json=str_replace("'",'"',$mapflat);
 
@@ -32,6 +30,7 @@ if (!$zflist->allowAccess()) {
 	return false;
 }
 if (file_exists(ZING_APPS_CUSTOM.'apps.'.$formname.'.php')) require(ZING_APPS_CUSTOM.'apps.'.$formname.'.php');
+
 //search fields
 echo '<form name="faces" method="POST" action="?page='.$page.'&zfaces=list&form='.$formname.'&action=search';
 echo '&zft=form&zfp='.$formid.'">';
@@ -50,8 +49,8 @@ $topspan='';
 if ($links) {
 	$topspan='';
 	foreach ($links as $i => $link) {
-		if ($link['FORMOUTALT']) $topspan.='<a class="art-button" href="'.zurl('?'.$link['FORMOUTALT'].'&id='.$id.'&map='.$link['MAP'].'&orderkeys='.urlencode($_REQUEST['orderkeys']).$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION']).'">'.ucfirst($link['ACTION']).'</a>';
-		else $topspan.='<a class="art-button" href="'.zurl('?page='.$page.'&zfaces='.$link['DISPLAYOUT'].'&action='.$link['ACTIONOUT'].'&formid='.$link['FORMOUT'].'&id='.$id.'&map='.$link['MAP'].'&orderkeys='.urlencode($_REQUEST['orderkeys']).$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION']).'">'.ucfirst($link['ACTION']).'</a>';
+		if ($link['FORMOUTALT']) $topspan.='<a class="art-button" href="'.zurl('?'.$link['FORMOUTALT'].'&id='.$id.'&map='.$link['MAP'].'&orderkeys='.urlencode($orderkeys).$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION']).'">'.ucfirst($link['ACTION']).'</a>';
+		else $topspan.='<a class="art-button" href="'.zurl('?page='.$page.'&zfaces='.$link['DISPLAYOUT'].'&action='.$link['ACTIONOUT'].'&formid='.$link['FORMOUT'].'&id='.$id.'&map='.$link['MAP'].'&orderkeys='.urlencode($orderkeys).$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION']).'">'.ucfirst($link['ACTION']).'</a>';
 		$topspan.='&nbsp';
 	}
 }
@@ -142,15 +141,9 @@ if ($zflist)
 			}
 			echo '</td>';
 			if (!empty($span)) {
-//				if (ZING_PROTOTYPE) {
-//					$script.="var zelt = $('foo_".$line."');";
-//					$script.="zelt.observe('mouseover', function() { $('fox_".$line."').setStyle({ display : 'block', backgroundColor : '#ccdd4f'}); });";
-//					$script.="zelt.observe('mouseout', function() { $('fox_".$line."').setStyle({ display : 'none'});});";
-//				} elseif (ZING_JQUERY) {
 					$script.="var zelt = jQuery('#foo_".$line."');";
 					$script.="zelt.bind('mouseover', this, function() { jQuery('#fox_".$line."').css('display','block');jQuery('#fox_".$line."').css('backgroundColor','#ccdd4f'); });";
 					$script.="zelt.bind('mouseout', this, function() { jQuery('#fox_".$line."').css('display','none'); });";
-//				}
 			}
 			$line++;
 		}
@@ -163,13 +156,8 @@ if ($zflist)
 	echo '</tbody>';
 	echo '</table>';
 	echo '<script type="text/javascript">';
-//	if (ZING_PROTOTYPE) {
-//		echo 'document.observe("dom:loaded", function() {';
-//		echo $script;
-//	} elseif (ZING_JQUERY) {
 		echo 'jQuery(document).ready(function() {';
 		echo $script;
-//	}
 	echo '});';
 	echo '</script>';
 	if ($stack->getPrevious()) echo '<a href="'.$stack->getPrevious().'">Back</a>';
@@ -178,24 +166,16 @@ if ($zflist)
 		
 		$s=max(0,$pos-5*$zflist->maxRows);
 		$e=min($zflist->rowsCount,$pos+5*$zflist->maxRows);
-		//echo $s.'-'.$e.'-'.$zflist->rowsCount.'-'.$zflist->maxRows;
 		$i=0;
-		if ($s != 0) echo '<a href="'.zurl('?page='.$page.'&zfaces=list&form='.$formname.'&pos='.$i.'&zft=list&zfp='.$zfp.'&map='.urlencode(zf_json_encode($map)).'&orderkeys='.urlencode($_REQUEST['orderkeys']).$search).'">['.$i.']</a> ... '; 
+		if ($s != 0) echo '<a href="'.zurl('?page='.$page.'&zfaces=list&form='.$formname.'&pos='.$i.'&zft=list&zfp='.$zfp.'&map='.urlencode(zf_json_encode($map)).'&orderkeys='.urlencode($orderkeys).$search).'">['.$i.']</a> ... '; 
 		for ($i=$s;$i<=$e;$i=$i+$zflist->maxRows) {
-			echo '<a href="'.zurl('?page='.$page.'&zfaces=list&form='.$formname.'&pos='.$i.'&zft=list&zfp='.$zfp.'&map='.urlencode(zf_json_encode($map)).'&orderkeys='.urlencode($_REQUEST['orderkeys']).$search).'">['.$i.']</a> ';
+			echo '<a href="'.zurl('?page='.$page.'&zfaces=list&form='.$formname.'&pos='.$i.'&zft=list&zfp='.$zfp.'&map='.urlencode(zf_json_encode($map)).'&orderkeys='.urlencode($orderkeys).$search).'">['.$i.']</a> ';
 			$k=$i;
 		}
 		$i=round($zflist->rowsCount/$zflist->maxRows-0.5,0)*$zflist->maxRows;
-		if ($k!=$i) echo ' ... <a href="'.zurl('?page='.$page.'&zfaces=list&form='.$formname.'&pos='.$i.'&zft=list&zfp='.$zfp.'&map='.urlencode(zf_json_encode($map)).'&orderkeys='.urlencode($_REQUEST['orderkeys']).$search).'">['.$i.']</a> ';
-		//for ($i=0;$i<=$zflist->rowsCount;$i=$i+$zflist->maxRows) {
-		//	echo '<a href="'.zurl('?page='.$page.'&zfaces=list&form='.$formname.'&pos='.$i.'&zft=list&zfp='.$zfp.'&map='.urlencode(zf_json_encode($map)).$search).'">['.$i.']</a> ';
-		//}
+		if ($k!=$i) echo ' ... <a href="'.zurl('?page='.$page.'&zfaces=list&form='.$formname.'&pos='.$i.'&zft=list&zfp='.$zfp.'&map='.urlencode(zf_json_encode($map)).'&orderkeys='.urlencode($orderkeys).$search).'">['.$i.']</a> ';
 	}
-
-
 }
-
-
 ?></div>
 <?php 
 if (method_exists($zflist,'sortlist')) {

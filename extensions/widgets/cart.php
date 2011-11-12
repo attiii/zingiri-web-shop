@@ -32,7 +32,7 @@ class widget_sidebar_cart {
 			echo getCustomerName(wsCid());
 			echo ')</li>';
 		}
-		echo "<li"; if ($page == "cart") { echo " id=\"active\""; }; echo "><a href=\"".zurl("?page=cart&action=show")."\">".$txt['cart5'].": ".$countCart."<br />";
+		echo "<li"; if ($page == "cart") { echo " id=\"active\""; }; echo "><a href=\"".zurl("index.php?page=cart&action=show")."\">".$txt['cart5'].": ".$countCart."<br />";
 		echo $txt['cart7'].": ";
 		echo $wsCartTotalPrice;
 		echo "</a></li>";

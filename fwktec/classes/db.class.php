@@ -1,23 +1,26 @@
 <?php
-if (!class_exists('db')) {
-	class db {
+if (!class_exists('aphpsDb')) {
+	class aphpsDb {
 		var $numrows;
 		var $sql="";
 		var $row;
 		var $table;
 		var $onError; //1=die, 2=return false
 
-		function db($onError=1) {
-			$this->onError=$onError;
+		function db($onError='') {
+			if ($onError) $this->onError=$onError;
+			elseif (defined('APHPS_DB_ON_ERROR')) $this->onError=APHPS_DB_ON_ERROR;
+			else $this->onError=1;
 		} 
 		
 		function select($query) {
 			global $dbtablesprefix;
 			$action="";
 			$query=str_replace("##",$dbtablesprefix,$query);
-			$this->sql = mysql_query($query) or die($this->error($query));
-			$this->numrows=mysql_num_rows($this->sql);
-			if ($this->numrows == 0) return false; else return $this->numrows;
+			if ($this->sql = mysql_query($query)) {
+				$this->numrows=mysql_num_rows($this->sql);
+				if ($this->numrows == 0) return false; else return $this->numrows;
+			} else $this->error($query);
 		}
 
 		function next() {
@@ -401,4 +404,10 @@ if (!class_exists('db')) {
 		
 	}
 }
+
+if (!class_exists('db')) {
+	class db extends aphpsDb {
+		
+	}
+} 
 ?>

@@ -20,10 +20,12 @@ if (!class_exists('zfAccess')) {
 
 		function allowed() {
 			$allowed=false;
+			
+			if (defined('APHPS_ACCESS_CHECK_DISABLED') && APHPS_ACCESS_CHECK_DISABLED) return true;
 			if (function_exists('faces_group')) $role=faces_group();
 			elseif (!function_exists('faces_group') && ZING_CMS=='wp' && current_user_can('edit_plugins')) $role="ADMIN";
 			else $role="GUEST";
-			$roles=new db();
+			$roles=new aphpsDb();
 			$query="select * from ##frole where name=".qs($role);
 			if ($roles->select($query)) {
 				$roles->next();
@@ -32,7 +34,7 @@ if (!class_exists('zfAccess')) {
 				{
 					case "form":
 					case "list":
-						$access=new db();
+						$access=new aphpsDb();
 						//check on role, form, action & rules
 						$query="select id,rules,allowed from ##faccess where (type<>2 or type is null) and (roleid=0 or roleid=".$roleid.") and formid=".qs($this->formid)." and action=".qs($this->action)." and (rules is not null or rules<>'')";
 						if (!$allowed && $access->select($query)) {
@@ -85,7 +87,7 @@ if (!class_exists('zfAccess')) {
 						if ($role != 'ADMIN') $allowed=false;
 						break;
 					case "page":
-						$access=new db();
+						$access=new aphpsDb();
 						//check on role, page, action & rules
 						$query="select id,rules,allowed from ##faccess where type=2 and (roleid=0 or roleid=".$roleid.") and page=".qs($this->page)." and action=".qs($this->action)." and (rules is not null or rules<>'')";
 						if (!$allowed && $access->select($query)) {

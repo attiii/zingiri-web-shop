@@ -29,7 +29,7 @@ class zfrule_dbfield extends zfrule {
 		$compare=$parameters[2];
 		$reference=$parameters[3];
 		$action=$parameters[4];
-		$db=new db();
+		$db=new aphpsDb();
 		$db->select("select ".$field." from ##".$table." limit 1");
 		if ($row=$db->next()) $value=$row[$field];
 		else $value=null;

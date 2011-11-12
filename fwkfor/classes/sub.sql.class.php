@@ -81,9 +81,7 @@ class sqlZfSubElement extends zfSubElement {
 			$key=$row[0];
 			$option=$row[1];
 			$selected="";
-			if ($fields > 1) { $fieldsuffix='_'.$i; } else { $fieldsuffix=''; }
-			//echo print_r($e->populated_value);
-			//echo "********<br />".'element_'.$e->id.'_'.$i."=".$e->populated_value['element_'.$e->id.'_'.$i]."/".$option."/".$key."<br />";
+			//if ($fields > 1) { $fieldsuffix='_'.$i; } else { $fieldsuffix=''; }
 			if(trim($e->populated_value['element_'.$e->id.'_'.$i]) == $key){
 				$selected = 'selected="selected"';
 			} elseif ($e->default_value == $key) {

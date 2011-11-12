@@ -123,10 +123,8 @@ function InsertRecord($table,$keys,$row,$action="")
 		}
 	}
 	$query.=")";
-	//	echo $query."<br />";
 	$sql_insert = mysql_query($query) or zing_apps_error_handler(0,$query);
 	 
-	//or die(dbError(1,$query,"substax.inc.php",$action));
 	$id = mysql_insert_id();
 
 	if (function_exists('zfDumpQuery')) zfDumpQuery($query,$table);

@@ -72,6 +72,8 @@ if (!defined("ZING_URL")) {
 	define("ZING_URL", WP_PLUGIN_URL . "/".ZING_PLUGIN."/");
 }
 
+define("ZING_TPL_DIR",ZING_DIR.'/templates/');
+
 define("ZING_TIMTHUMB",ZING_URL.'fws/addons/timthumb/timthumb2.php?dir='.urlencode(BLOGUPLOADDIR.'zingiri-web-shop/cache'));
 
 if (!defined('ZING_APPS_CUSTOM')) define("ZING_APPS_CUSTOM_URL",ZING_URL."fws/");

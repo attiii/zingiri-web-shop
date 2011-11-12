@@ -45,13 +45,13 @@ class element {
 	var $is_searchable;
 	var $attributes=array();
 	var $mode;
+	var $disabled=false;
 
 	function element($constraint) {
 		$this->constraint=$constraint;
 		$xmlf=faces_get_xml($this->constraint);
 		$this->xmlf=$xmlf;
 		$this->fields=$xmlf->fields->attributes()->count;
-		//		$this->countParams=isset($xmlf->params) ? $xmlf->params->attributes()->count : 0;
 		$this->name=array();
 		$this->sublabel=array();
 		$this->help=z_((string)$xmlf->help);

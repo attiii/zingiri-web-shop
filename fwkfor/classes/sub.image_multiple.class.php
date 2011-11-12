@@ -78,7 +78,7 @@ class image_multipleZfSubElement extends zfSubElement {
 
 		//set default image
 		$column=$this->element->elementToColumn['element_'.$this->elementid.'_'.$this->subid];
-		$db=new db();
+		$db=new aphpsDb();
 		$db->updateRecord($this->element->entity,array('ID' => $id),array($column => $defaultImage));
 		$this->ext=$this->int=$defaultImage;
 

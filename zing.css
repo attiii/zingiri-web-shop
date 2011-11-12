@@ -9,9 +9,18 @@
 	padding: 6px 0px 6px 10px;
 }
 
+.imgleft {
+	float:left;
+	padding-right: 6px;
+}
+
+.imgleft-label {
+}
+	
 img {
 	border-width: 0px;
 }
+
 
 /* this image is used in details.php and browse.php, all other images should not have borders */
 .borderimg {
@@ -318,3 +327,25 @@ table.wsfeaturestable,table.wsfeaturestable tr,table.wsfeaturestable td {
 	margin-right:auto;
 }
 
+td.col-total,td.col-price,td.col-discount,td.col-quantity {
+	text-align:right;border-left:0px;border-right:0px;
+}
+
+td.col-desc {
+	text-align:left;border-left:0px;border-right:0px;
+}
+
+table.wspayship {
+	border:1px;
+}
+
+table.wsproducts {
+	border:1px;
+}
+
+.wsproduct_details {
+	border:1px solid;
+	padding:10px;
+	border-radius: 12px;
+	-moz-border-radius: 12px;	
+}

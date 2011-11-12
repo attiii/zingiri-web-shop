@@ -20,6 +20,8 @@ class widget_sidebar_products {
 		echo $after_widget;
 	}
 	function display() {
+		global $group,$cat;
+		
 		require(ZING_GLOBALS);
 		$wsCatCollapse=wsSetting('catcollapse');
 		// if the category is send, then use that to find out the group

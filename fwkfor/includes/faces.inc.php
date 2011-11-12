@@ -29,7 +29,7 @@ function zfKeys($key,&$key1,&$key2)
 
 function zfGetForm($formid)
 {
-	$db=new db();
+	$db=new aphpsDb();
 	if ($db->select("select `name` from `##faces` where id=".qs($formid))) {
 		$db->next();
 		return $db->get('name');
@@ -273,12 +273,13 @@ if (!function_exists('actionCompleteMessage')) {
 	function actionCompleteMessage() {
 		global $gfx_dir,$txt;
 		$msg='';
-		if ($_REQUEST['zmsg']) {
+		if (isset($_REQUEST['zmsg']) && $_REQUEST['zmsg']) {
 			$title=$txt['general13'];
 			$message=z_('Changes are saved');
-			$picture="notify.gif";
+			if ($gfx_dir) $picture=$gfx_dir."notify.gif";
+			else $picture=ZING_APPS_PLAYER_URL.'images/notify.gif';
 			$msg ="<table width=\"".$width."%\" class=\"datatable\">";
-			$msg.="<tr><td><img src=\"".$gfx_dir."/".$picture."\" alt=\"".$picture."\" height=\"24px\">";
+			$msg.="<tr><td><img src=\"".$picture."\" alt=\"Notify\" height=\"24px\">";
 			$msg.='<strong>'.$message.'</strong>'."</td></tr></table>";
 			$msg.="<br /><br />";
 		}

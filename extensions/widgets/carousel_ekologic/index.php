@@ -20,6 +20,7 @@ jQuery(document).ready(function() {
 <ul>
 <?php
 global $dbtablesprefix;
+$row_count=0;
 $f_query = "SELECT * FROM `".$dbtablesprefix."product` WHERE `NEW` = '1'";
 $f_sql = mysql_query($f_query) or die(mysql_error());
 while ($f_row = mysql_fetch_array($f_sql)) {

@@ -1,5 +1,5 @@
 <?php
-define("ZING_APPS_PLAYER_VERSION","1.1.5");
+define("ZING_APPS_PLAYER_VERSION","1.2.1");
 
 if (!defined('APHPS_JSDIR')) define('APHPS_JSDIR','min');
 
@@ -13,6 +13,7 @@ if (defined('ZING_APPS_BUILDER')) {
 	$aphps_projects['player']['label']='Core';
 	$aphps_projects['player']['dir']=ZING_APPS_PLAYER_DIR;
 	$aphps_projects['player']['url']=ZING_APPS_PLAYER_URL;
+	$aphps_projects['player']['level']='admin';
 }
 
 if (get_option('zing_apps_remote_url')) define("ZING_APPS_REMOTE_URL",get_option('zing_apps_remote_url').'/');
@@ -21,7 +22,6 @@ else define("ZING_APPS_REMOTE_URL","http://www.aphps.com/");
 function zing_apps_player_error_handler($severity, $msg, $filename, $linenum) {
 	echo $severity."-".$msg."-".$filename."-".$linenum;
 }
-
 
 /**
  * Output activation messages to log
@@ -48,6 +48,8 @@ function zing_apps_player_activate() {
 	$prefix=$dbtablesprefix;
 	if (!defined("DB_PREFIX")) define("DB_PREFIX",$prefix);
 	zing_apps_player_install();
+
+	restore_error_handler();
 	error_reporting($apper);
 }
 
@@ -60,54 +62,67 @@ function zing_apps_player_install() {
 	if (!class_exists('db')) require(dirname(__FILE__).'/classes/db.class.php');
 
 	$zing_version=get_option("zing_apps_player_version");
-	if (!$zing_version)
-	{
-		add_option("zing_apps_player_version",ZING_APPS_PLAYER_VERSION);
-	}
-	else
-	{
-		update_option("zing_apps_player_version",ZING_APPS_PLAYER_VERSION);
-	}
 
 	$prefix=$dbtablesprefix;
 
-	if ($handle = opendir(dirname(__FILE__).'/db')) {
-		$files=array();
-		while (false !== ($file = readdir($handle))) {
-			if (strstr($file,".sql") && ($file != 'apps.db.sql')) {
-				$f=explode("-",$file);
+	//Look for baseline version
+	$dir=dirname(__FILE__).'/db/';
+	if ($handle = opendir($dir)) {
+		if (!$zing_version) { //look for highest baseline
+			$baselineVersion='';
+			while (false !== ($file = readdir($handle))) {
+				if (strstr($file,".sql") && strstr($file,"init-")) {
+					$f=explode("-",$file);
+					$v=str_replace(".sql","",$f[1]);
+					if ($v > $baselineVersion) $baselineVersion=$v;
+				}
+			}
+		} else {
+			$baselineVersion=$zing_version;
+		}
+		closedir($handle);
+	}
 
+	if ($handle = opendir($dir)) {
+		$files=array();
+		$execs=array();
+		while (false !== ($file = readdir($handle))) {
+			if (strstr($file,".sql") && !strstr($file,"init-")) {
+				$f=explode("-",$file);
 				$v=str_replace(".sql","",$f[1]);
-				if ($zing_version < $v) {
-					$files[]=dirname(__FILE__).'/db/'.$file;
+				if ($baselineVersion < $v) {
+					$files[]=array($dir.$file,$v);
 				}
 			}
 		}
 		closedir($handle);
 		asort($files);
+		if(!$zing_version) array_unshift($files,array($dir.'init-'.$baselineVersion.'.sql',$baselineVersion));
+		asort($execs);
 		if (count($files) > 0) {
 			mysql_query('SET storage_engine=InnoDB');
-			foreach ($files as $file) {
-				zing_apps_error_handler(0,$file);
+			foreach ($files as $afile) {
+				list($file,$v)=$afile;
+				zing_apps_error_handler(0,'Process '.$file);
 				$file_content = file($file);
 				$query = "";
 				foreach($file_content as $sql_line) {
 					$tsl = trim($sql_line);
 					if (($sql_line != "") && (substr($tsl, 0, 2) != "--") && (substr($tsl, 0, 1) != "#")) {
-						if (str_replace("##", $prefix, $sql_line) == $sql_line) {
-							$sql_line = str_replace("CREATE TABLE `", "CREATE TABLE `".$prefix, $sql_line);
-							$sql_line = str_replace("CREATE TABLE IF NOT EXISTS `", "CREATE TABLE IF NOT EXISTS`".$prefix, $sql_line);
-							$sql_line = str_replace("INSERT INTO `", "INSERT INTO `".$prefix, $sql_line);
-							$sql_line = str_replace("ALTER TABLE `", "ALTER TABLE `".$prefix, $sql_line);
-							$sql_line = str_replace("UPDATE `", "UPDATE `".$prefix, $sql_line);
-							$sql_line = str_replace("TRUNCATE TABLE `", "TRUNCATE TABLE `".$prefix, $sql_line);
+						if (str_replace("##", $dbtablesprefix, $sql_line) == $sql_line) {
+							$sql_line = str_replace("CREATE TABLE `", "CREATE TABLE `".$dbtablesprefix, $sql_line);
+							$sql_line = str_replace("CREATE TABLE IF NOT EXISTS `", "CREATE TABLE IF NOT EXISTS`".$dbtablesprefix, $sql_line);
+							$sql_line = str_replace("INSERT INTO `", "INSERT INTO `".$dbtablesprefix, $sql_line);
+							$sql_line = str_replace("ALTER TABLE `", "ALTER TABLE `".$dbtablesprefix, $sql_line);
+							$sql_line = str_replace("UPDATE `", "UPDATE `".$dbtablesprefix, $sql_line);
+							$sql_line = str_replace("TRUNCATE TABLE `", "TRUNCATE TABLE `".$dbtablesprefix, $sql_line);
 						} else {
-							$sql_line = str_replace("##", $prefix, $sql_line);
+							$sql_line = str_replace("##", $dbtablesprefix, $sql_line);
 						}
 						$query .= $sql_line;
 						if(preg_match("/;\s*$/", $sql_line)) {
 							zing_apps_error_handler(0,$query);
-							mysql_query($query) or zing_apps_error_handler(1,mysql_error().'-'.$query);
+							mysql_query($query) or zing_apps_error_handler(0,mysql_error().'-'.$query);
 							$query = "";
 						}
 					}
@@ -126,6 +141,9 @@ function zing_apps_player_install() {
 
 	//remote forms
 	if (get_option('zing_apps_remote_url') == 'http://www.aphps.com') update_option('zing_apps_remote_url','http://forms.aphps.com');
+
+	if (!$zing_version) add_option("zing_apps_player_version",ZING_APPS_PLAYER_VERSION);
+	else update_option("zing_apps_player_version",ZING_APPS_PLAYER_VERSION);
 }
 
 /**
@@ -149,7 +167,7 @@ function zing_apps_player_uninstall($drop=true) {
 		while ($row = mysql_fetch_row($sql)) {
 			if (($row[0]!=$dbtablesprefix.'options') && strpos($row[0],'_mybb_')===false && strstr($row[0],'_ost_')===false) {
 				$query="drop table ".$row[0];
-				mysql_query($query) or zing_ws_error_handler(1,mysql_error().'-'.$query);
+				mysql_query($query) or zing_apps_error_handler(1,mysql_error().'-'.$query);
 			}
 		}
 	}
@@ -259,6 +277,7 @@ function zing_apps_player_init()
 	if (!defined("ZING_PROTOTYPE") || ZING_PROTOTYPE) {
 		//wp_enqueue_script('prototype');
 		//wp_enqueue_script('scriptaculous');
+
 	}
 	wp_enqueue_script('jquery');
 	wp_enqueue_script('jquery-ui-tabs');
@@ -276,7 +295,6 @@ function zing_apps_player_load($dir) {
 	global $dbtablesprefix;
 
 	$prefix=$dbtablesprefix;
-
 	if ($handle = opendir($dir)) {
 		$files=array();
 		while (false !== ($file = readdir($handle))) {
@@ -342,7 +360,7 @@ function zing_apps_editor() {
 			$a['ID']=$_POST['zfremoteid'];
 			$form=$a['NAME']=$_POST['zfformname'];
 			zfCreate($a['NAME'],$a['ELEMENTCOUNT'],$a['ENTITY'],$a['TYPE'],$a['DATA'],$a['LABEL'],$a['PROJECT'],$a['ID'],true);
-			$db=new db();
+			$db=new aphpsDb();
 			$db->update('update ##faces set custom='.qs($data).' where name='.qs($form));
 			echo '<div id="message" class="updated fade"><p>Form updated</p></div>';
 			zing_apps_list();

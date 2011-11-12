@@ -3,7 +3,7 @@ class fwktecSessions {
 	var $db; //db class instance
 	
 	function fwktecSessions() {
-		$this->db=new db();	
+		$this->db=new aphpsDb();	
 	}
 	
 	function open()

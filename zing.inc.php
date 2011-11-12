@@ -1,26 +1,4 @@
 <?php
-/*  zing.inc.php
- Copyright 2008,2009 Erik Bogaerts
- Support site: http://www.zingiri.com
-
- This file is part of Zingiri Web Shop.
-
- Zingiri Web Shop is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
-
- Zingiri Web Shop is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with FreeWebshop.org; if not, write to the Free Software
- Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
-?>
-<?php
 $zing_version=get_option("zing_webshop_version");
 
 if (!defined("ZING_DIG") && get_option('zing_webshop_dig')!="") {
@@ -42,7 +20,7 @@ function zing_admin_notices() {
 		else
 		$message='Zingiri Web Shop is almost ready. You need to launch the installation by clicking the Install button below.';
 	} elseif (!wsVersion()) {
-		if ($_GET['page']!='zingiri-web-shop' && ZING_CMS=="wp") {
+		if ((!isset($_GET['page']) || ($_GET['page']!='zingiri-web-shop')) && ZING_CMS=="wp") {
 			$message='You downloaded Zingiri Web Shop version '.ZING_VERSION;
 			$message.=get_option('zing_webshop_pro') ? '/'.ZING_WS_PRO_VERSION : '';
 			$message.=' and need to <a href="admin.php?page=zingiri-web-shop">upgrade</a> your database (currently at version '.$zing_version;
@@ -90,9 +68,9 @@ function zing_install() {
 	zing_ws_error_handler(0,'DB_PREFIX:'.DB_PREFIX);
 
 	$zing_version=get_option("zing_webshop_version");
-	
+
 	zing_db_install($zing_version,dirname(__FILE__).'/fws/db/',$player);
-	
+
 	//Load Apps forms if not loaded yet
 	if (!$player) {
 		zing_ws_error_handler(0,'Loading Apps forms');
@@ -181,11 +159,11 @@ function zing_install() {
 			}
 		}
 	}
-	
+
 	update_option("zing_webshop_version",ZING_VERSION);
-	
+
 	if (function_exists('zing_ws_pro_install')) zing_ws_pro_install();
-	
+
 	zing_ws_error_handler(0,'completed');
 	restore_error_handler();
 	error_reporting($wsper);
@@ -197,7 +175,7 @@ function zing_db_uninstall($dir) {
 
 function zing_db_install($zing_version,$dir,&$player=true) {
 	global $dbtablesprefix;
-	
+
 	//Look for baseline version
 	if ($handle = opendir($dir)) {
 		if (!$zing_version) { //look for highest baseline
@@ -214,7 +192,7 @@ function zing_db_install($zing_version,$dir,&$player=true) {
 		}
 		closedir($handle);
 	}
-	
+
 	if ($handle = opendir($dir)) {
 		$files=array();
 		$execs=array();
@@ -281,7 +259,7 @@ function zing_db_install($zing_version,$dir,&$player=true) {
 			require($exec);
 		}
 	}
-	
+
 }
 /**
  * Uninstallation of web shop: removal of database tables
@@ -339,7 +317,7 @@ function zing_ws_is_shop_page($pid) {
  */
 function zing_main($process,$content="") {
 	global $saasRet,$aphps;
-	
+
 	require(ZING_GLOBALS);
 
 	$matches=array();
@@ -393,9 +371,10 @@ function zing_main($process,$content="") {
 	}
 
 	//start logging
-	$wsper=error_reporting(E_ALL ^ E_NOTICE); // ^ E_NOTICE
-	set_error_handler("user_error_handler");
-
+	if (!defined('WP_DEBUG')) {
+		$wsper=error_reporting(E_ALL ^ E_NOTICE); // ^ E_NOTICE
+		set_error_handler("user_error_handler");
+	}
 	if (!$zing_loaded) {
 		require_once(ZING_LOC."./startmodules.inc.php");
 		$zing_loaded=TRUE;
@@ -405,8 +384,10 @@ function zing_main($process,$content="") {
 
 	if (!ZING_LIVE && $to_include=="loadmain.php" && (($page=='login' && !$_GET['lostlogin']))) {
 		//stop logging
-		restore_error_handler();
-		error_reporting($wsper);
+		if (!defined('WP_DEBUG')) {
+			restore_error_handler();
+			error_reporting($wsper);
+		}
 		header('Location:'.ZING_HOME.'/index.php?page='.$page);
 		exit;
 	} elseif ($to_include) {
@@ -419,6 +400,8 @@ function zing_main($process,$content="") {
 		if (isset($postfix)) echo $postfix;
 		if (!wsIsAdminPage() && $process=='content' && get_option('zing_ws_logo')=='pf') zing_display_logo();
 		//stop logging
+	}
+	if (!defined('WP_DEBUG')) {
 		restore_error_handler();
 		error_reporting($wsper);
 	}

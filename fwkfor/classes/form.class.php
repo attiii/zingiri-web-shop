@@ -1,26 +1,4 @@
 <?php
-/*  form.class.php
- Copyright 2008,2009 Erik Bogaerts
- Support site: http://www.aphps.com
-
- This file is part of APhPS.
-
- APhPS is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
-
- APhPS is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with APhPS; if not, write to the Free Software
- Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
-?>
-<?php
 class zfForm {
 	var $form;
 	var $id;
@@ -56,6 +34,7 @@ class zfForm {
 	var $before=array();
 	var $allFieldAttributes=array(); //all field attributes
 	var $maxRows;
+	var $noAlert=false;
 
 	function zfForm($form,$id=0,$post=null,$action="",$page="",$id='') {
 		$this->recid=$id;
@@ -63,7 +42,7 @@ class zfForm {
 		$this->action=$action;
 		$this->form=$form;
 		$this->maxRows=ZING_APPS_MAX_ROWS;
-		$table=new db();
+		$table=new aphpsDb();
 		if ($form) $query="select * from `".DB_PREFIX."faces` WHERE `NAME`=".qs($form);
 		else $query="select * from `".DB_PREFIX."faces` WHERE `ID`=".qs($id);
 		$table->select($query);
@@ -123,7 +102,7 @@ class zfForm {
 						$dbTable=$this->json[$linkedElement]['subelements'][4]['populate'];
 						$query="select ".$dbField." from ##".$dbTable." where ".$dbKey."=".qs($dbValue);
 						//echo '<br />'.$linkedElement.'-'.$dbField.'-'.$dbKey.'-'.$dbTable;
-						$db=new db();
+						$db=new aphpsDb();
 						$db->select($query);
 						if ($row=$db->next()) {
 							$this->setId=$db->get($dbField);
@@ -144,7 +123,7 @@ class zfForm {
 				if ($value['type']=='system_subformproxy') {
 					$linkedElement=$value['subelements'][1]['populate'];
 					$getField=$this->json[$linkedElement]['column'];
-					$db=new db();
+					$db=new aphpsDb();
 					$query="select ".$getField." from ##".$this->entity. " where id=".qs($this->recid);
 					$db->select($query);
 					if ($db->next()) {
@@ -157,7 +136,7 @@ class zfForm {
 						$dbKey=$this->json[$linkedElement]['subelements'][2]['populate'];
 						$dbTable=$this->json[$linkedElement]['subelements'][4]['populate'];
 						$query="select ".$dbField." from ##".$dbTable." where ".$dbKey."=".qs($dbValue);
-						$db=new db();
+						$db=new aphpsDb();
 						$db->select($query);
 						if ($row=$db->next()) {
 							$this->setId=$db->get($dbField);
@@ -177,7 +156,7 @@ class zfForm {
 				$maxId=max($maxId,$value['id']);
 				if ($value['type']=='system_subformproxy') {
 					//$setsOnly[$i]=$value;
-					$db=new db();
+					$db=new aphpsDb();
 					$db->select("select * from `".DB_PREFIX."faces` WHERE `ID`=".qs($this->setId));
 					if ($row=$db->next()) {
 						if ($row['CUSTOM']!='') $json_set=zf_json_decode($row['CUSTOM'],true); //form data
@@ -204,7 +183,7 @@ class zfForm {
 
 	function filter($post='') {
 		//print_r($post);
-		$linksin=new db();
+		$linksin=new aphpsDb();
 		$query="select * from ##flink where (displayout='".$this->page."' or displayout='any') and formout='".$this->id."' and mapping <> ''";
 		$linksin->select($query);
 		while ($l=$linksin->next()) {
@@ -357,7 +336,7 @@ class zfForm {
 				$element->hidden=isset($value['hidden']) ? $value['hidden'] : '';
 				$element->attributes=$value['attributes'];
 				$element->unique=isset($value['unique']) ? $value['unique'] : '';
-				$element->linksin=$value['links'];
+				$element->linksin=isset($value['links']) ? $value['links'] : '';
 				$element->rules=isset($this->elements['rules'][$key]) ? $this->elements['rules'][$key] : '';
 				$element->showSubscript=true;
 
@@ -379,7 +358,7 @@ class zfForm {
 					{
 						$populated_value['element_'.$key.'_'.$key2]=$sub['populate'];
 					}
-					elseif (!empty($this->input))
+					elseif (!empty($this->input) && isset($this->input['element_'.$key.'_'.$key2]))
 					{
 						$populated_value['element_'.$key.'_'.$key2]=$this->input['element_'.$key.'_'.$key2];
 					}
@@ -388,7 +367,7 @@ class zfForm {
 					} else {
 						$f=$this->column[$key];
 					}
-					$populated_column[$f]=$populated_value['element_'.$key.'_'.$key2];
+					if (isset($populated_value['element_'.$key.'_'.$key2])) $populated_column[$f]=$populated_value['element_'.$key.'_'.$key2];
 				}
 				if ($isFirst) {
 					$ret.='<ul id="zfaces'.$numDiv.'" class="zfaces">';
@@ -405,11 +384,11 @@ class zfForm {
 				$element->column=$this->column;
 				$element->prepare();
 				$retDisplay=$element->display($mode);
-				if (is_array($retDisplay['jsrule']) && count($retDisplay['jsrule']) > 0) {
+				if (isset($retDisplay['jsrule']) && is_array($retDisplay['jsrule']) && count($retDisplay['jsrule']) > 0) {
 					$jsRules[]=$retDisplay['jsrule'];
 				}
 				if ($prefix) $element_markup.=str_replace('element_',$prefix.'_element_',$retDisplay['markup']);
-				else $element_markup.=$retDisplay['markup'];
+				elseif (isset($retDisplay['markup'])) $element_markup.=$retDisplay['markup'];
 				$element_markup.='</li>';
 				if ($element->constraint=='system_divider') {
 					$dividers[]=$element->divider;
@@ -465,7 +444,7 @@ class zfForm {
 	{
 		if ($id) { //get image of record before update
 			$query="select * from `".DB_PREFIX.$this->entity."` where `ID`=".qs($id);
-			$db=new db();
+			$db=new aphpsDb();
 			$db->select($query);
 			$this->before=$db->next();
 		}
@@ -476,11 +455,11 @@ class zfForm {
 			$element=new element($value['type']);
 			$element->id=$key;
 			$element->is_required=$value['mandatory'];
-			$element->is_searchable=$value['searchable'];
-			$element->readonly=$value['readonly'];
-			$element->hidden=$value['hidden'];
-			$element->unique=$value['unique'];
-			$element->rules=$this->elements['rules'][$key];
+			$element->is_searchable=isset($value['searchable']) ? $value['searchable'] : '';
+			$element->readonly=isset($value['readonly']) ? $value['readonly'] : '';
+			$element->hidden=isset($value['hidden']) ? $value['hidden'] : '';
+			$element->unique=isset($value['unique']) ? $value['unique'] : '';
+			$element->rules=isset($this->elements['rules'][$key]) ? $this->elements['rules'][$key] : '';
 
 			$c=$this->countSubelements($value['subelements'],$key);
 			foreach ($value['subelements'] as $key2 => $sub)
@@ -515,21 +494,21 @@ class zfForm {
 			$this->elements['is_error'][$key]=$element->is_error;
 			$this->elements['error_message'][$key]=$element->error_message;
 			$this->elements['format'][$key]=$element->format;
-			$this->data=$this->populated_column;
+			$this->data=isset($this->populated_column) ? $this->populated_column : null;
 		}
 		return $success;
 	}
 
 	function alert($message)
 	{
-		echo '<div class="zfalert">'.$message.'</div>';
+		if (!$this->noAlert) echo '<div class="zfalert">'.$message.'</div>';
 	}
 
 	function Delete($id)
 	{
 		//get image of record before update
 		$query="select * from `".DB_PREFIX.$this->entity."` where `ID`=".qs($id);
-		$db=new db();
+		$db=new aphpsDb();
 		$db->select($query);
 		$this->before=$db->next();
 
@@ -571,7 +550,7 @@ class zfForm {
 		$grid=array();
 		foreach ($this->json as $key => $value)
 		{
-			if (!$value['attributes']['zfrepeatable'] && !$value['attributes']['zfmeta']) {
+			if (!$value['attributes']['zfrepeatable'] && (!isset($value['attributes']['zfmeta']) || !$value['attributes']['zfmeta'])) {
 				$count=$this->countSubelements($value['subelements'],$key);
 				foreach ($value['subelements'] as $key2 => $sub)
 				{
@@ -613,7 +592,7 @@ class zfForm {
 	
 	function SaveDB($id=0)
 	{
-		$db=new db();
+		$db=new aphpsDb();
 
 		$this->makeRow($id);
 		$this->preSaveDB();
@@ -759,6 +738,7 @@ class zfForm {
 		}
 
 		foreach ($this->search as $id => $value) {
+			if (!strstr($id,'_')) continue;
 			list($prefix,$key1,$key2)=explode('_',$id);
 			$key=100*$key1+$key2;
 			if ($value!="" && $prefix=='element') {
@@ -802,7 +782,7 @@ class zfForm {
 			$this->query.=$qwhere;
 		}
 		$this->query.=" ORDER BY ".$this->orderKeys;
-		$this->db=new db();
+		$this->db=new aphpsDb();
 		$this->rowsCount=$this->db->select($this->query);
 
 		$this->query.=' LIMIT '.$pos.','.$this->maxRows;
@@ -896,7 +876,6 @@ class zfForm {
 				}
 			}
 		} else {
-
 			$this->query="select * from `".DB_PREFIX.$this->entity."` where `ID`=".qs($id);
 			if (is_array($this->post) && count($this->post)) {
 				foreach ($this->post as $f => $value) {
@@ -907,7 +886,7 @@ class zfForm {
 					$this->query.=' AND '.$f.'='.qs($v);
 				}
 			}
-			$this->db=new db();
+			$this->db=new aphpsDb();
 			$this->db->select($this->query);
 			if ($r=$this->db->next())
 			{
@@ -926,7 +905,7 @@ class zfForm {
 
 			//load attributes
 			//print_r($this->allFieldAttributes);
-			$db=new db();
+			$db=new aphpsDb();
 			foreach ($this->allFieldAttributes as $key => $column)
 			{
 				zfKeys($key,$key1,$key2);
@@ -984,4 +963,3 @@ class zfForm {
 	}
 
 }
-?>

@@ -28,7 +28,7 @@ class zfrule_parameter extends zfrule {
 		$compare=$parameters[1];
 		$reference=$parameters[2];
 		$action=$parameters[3];
-		$db=new db();
+		$db=new aphpsDb();
 		$db->select("select value from ##fparam where id='".$id."'");
 		if ($row=$db->next()) $value=$row['value'];
 		else $value=null;

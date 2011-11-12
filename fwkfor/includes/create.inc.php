@@ -1,6 +1,6 @@
 <?php
 function zfCreateTable($entity) {
-	$newtable=new db();
+	$newtable=new aphpsDb();
 	$query="CREATE TABLE IF NOT EXISTS `".DB_PREFIX.$entity."`";
 	$query.="(
   		`ID` int(11) NOT NULL auto_increment,
@@ -11,7 +11,7 @@ function zfCreateTable($entity) {
 }
 
 function zfTableExists($entity) {
-	$db=new db();
+	$db=new aphpsDb();
 	return $db->exists($entity);
 }
 
@@ -20,7 +20,7 @@ function zfCreateColumns($entity,$data)
 	global $allfields;
 	$allfields=array('ID','DATE_CREATED','DATE_UPDATED');
 
-	$newtable=new db();
+	$newtable=new aphpsDb();
 	if (is_new_field($entity,'ID')==1) {
 		$query="ALTER TABLE `".DB_PREFIX.$entity."`";
 		$query.="ADD COLUMN `ID` int(11) NOT NULL auto_increment PRIMARY KEY";
@@ -105,12 +105,12 @@ function faces_add_element($fieldname,$multiformat,$form_dbtable,$maxlength) {
 		$allfields[]=$fieldname;
 	}
 
-	$table=new db();
+	$table=new aphpsDb();
 	if (!$isfirst && $table->update($query)) zfDumpQuery($query);
 }
 
 function faces_add_repeatable_element($fieldname,$multiformat,$form_dbtable,$maxlength) {
-	$newtable=new db();
+	$newtable=new aphpsDb();
 	$query="CREATE TABLE IF NOT EXISTS `".DB_PREFIX.$form_dbtable."_attributes`";
 	$query.="(
   		`ID` int(11) NOT NULL auto_increment,
@@ -125,7 +125,7 @@ function faces_add_repeatable_element($fieldname,$multiformat,$form_dbtable,$max
 }
 
 function zfShowColumns($form_dbtable) {
-	$table=new db();
+	$table=new aphpsDb();
 	$query = "SHOW COLUMNS FROM `".DB_PREFIX."{$form_dbtable}` ";
 	$result = do_query($query);
 

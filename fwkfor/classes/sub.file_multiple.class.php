@@ -19,7 +19,7 @@ class file_multipleZfSubElement extends zfSubElement {
 		if ($totalFiles > 0) $link=$prefix;
 		else $link='';
 		$column=$this->element->elementToColumn['element_'.$this->elementid.'_'.$this->subid];
-		$db=new db();
+		$db=new aphpsDb();
 		$db->updateRecord($this->element->entity,array('ID' => $id),array($column => $link));
 		$this->ext=$this->int=$link;
 		
@@ -33,7 +33,8 @@ class file_multipleZfSubElement extends zfSubElement {
 
 		$constant_dir=$this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+1)];
 		$product_dir=@constant($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+1)]);
-		list($filePrefix,$fileName)=explode('__',$this->element->populated_value['element_'.$this->elementid.'_'.$this->subid]);
+		if (strstr($this->element->populated_value['element_'.$this->elementid.'_'.$this->subid],'__')) list($filePrefix,$fileName)=explode('__',$this->element->populated_value['element_'.$this->elementid.'_'.$this->subid]);
+		else $filePrefix=$fileName='';
 		if (empty($filePrefix)) $filePrefix=create_sessionid(16,1,36);
 
 		$picid=is_numeric($_GET['id']) ? $_GET['id'] : 0;

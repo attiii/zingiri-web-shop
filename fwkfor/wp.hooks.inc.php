@@ -39,22 +39,10 @@ function zing_apps_player_header()
 	}
 	
 	echo $ret;
-	echo '<script type="text/javascript" language="javascript">';
-	if (defined("ZING_APPS_BUILDER")) {
-		echo "var zfurl='".ZING_APPS_BUILDER_URL."ajax/';";
-		if (defined("ZING_APPS_CUSTOM")) echo "var zfAppsCustom='".ZING_APPS_CUSTOM."';";
-		else echo "var zfAppsCustom='';";
-		echo "var zfAppsSystem='".ZING_APPS_PLAYER_DIR."';";
-		echo "var zfAppsCms='".ZING_CMS."';";
-	}
-	echo '</script>';
+	//echo '<script type="text/javascript" language="javascript">';
+	//echo '</script>';
 	
 	if (wsIsAdminPage()) echo '<link rel="stylesheet" href="' . ZING_APPS_PLAYER_URL . 'css/apps_wp_admin.css" type="text/css" media="screen" />';
-	if (defined("ZING_APPS_BUILDER") && (!defined("ZING_PROTOTYPE") || ZING_PROTOTYPE)) {
-		echo '<script type="text/javascript" src="' . ZING_APPS_BUILDER_URL . 'js/form.js"></script>';
-		echo '<script type="text/javascript" src="' . ZING_APPS_BUILDER_URL . 'js/face.js"></script>';
-		echo '<script type="text/javascript" src="' . ZING_APPS_BUILDER_URL . 'js/dragtable.js"></script>';
-		//echo '<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/' . APHPS_JSDIR . '/sorttable.js"></script>';
-	}
+	echo '<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/' . APHPS_JSDIR . '/sorttable.js"></script>';
 }
 ?>

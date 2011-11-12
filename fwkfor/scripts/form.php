@@ -2,7 +2,7 @@
 global $zfform,$zfSuccess;
 
 if (isset($_GET['form'])) $form=$_GET['form'];
-if (isset($_GET['formid'])) $formid=$_GET['formid']; else $formid='';
+if (!isset($formid) && isset($_GET['formid'])) $formid=$_GET['formid']; else $formid='';
 if (!isset($action) && isset($_GET['action'])) $action=$_GET['action'];
 $step=isset($_GET['step']) ? $_GET['step'] : null;
 if (isset($_GET['id'])) $id=$_GET['id'];
@@ -12,9 +12,12 @@ if (isset($_GET['search']) && is_array($_GET['search'])) $search=$_GET['search']
 if (!isset($noRedirect)) {
 	if (isset($_GET['no_redirect'])) $noRedirect=true; else $noRedirect=false;
 }
+$noBackLink=isset($_REQUEST['no_back_link']) ? $_REQUEST['no_back_link'] : false;
+
 if (!isset($noForm)) {
 	if (isset($_GET['no_form'])) $noForm=true; else $noForm=false;
 }
+$noLabel=isset($_REQUEST['no_label']) ? $_REQUEST['no_label'] : false; 
 if (isset($_POST['map'])) {
 	$json=str_replace("\'",'"',$_POST['map']);
 	$map=zf_json_decode($json,true);
@@ -29,6 +32,7 @@ $zfform=new $zfClass($form,$formid,$map,$action,'form',$id);
 $form=$zfform->form;
 $formid=$zfform->id;
 $stack=new zfStack('form',$form);
+$zfform->noAlert=isset($_REQUEST['no_alert']) ? $_REQUEST['no_alert'] : false;
 
 $allowed=false;
 $success=true;
@@ -171,7 +175,7 @@ if (!$success || !$allowed) {
 }
 
 if ($allowed && $success && $showform == "edit") {
-	if (is_admin() || ZING_CMS=='gn') echo '<h2 class="zfaces-form-label">'.$zfform->label.'</h2>';
+	if (!$noLabel && (is_admin() || ZING_CMS=='gn')) echo '<h2 class="zfaces-form-label">'.$zfform->label.'</h2>';
 	echo '<div class="zfaces-form">';
 	if (defined("ZING_APPS_BUILDER") && ZingAppsIsAdmin()) {
 		echo '<a href="'.zurl('?page=apps_edit&zfaces=edit&form='.$form).'" >'.z_('Edit form').'</a>';
@@ -232,7 +236,7 @@ if ($allowed && $success && $showform == "edit") {
 		}
 		echo '</div>';
 	}
-	echo '</form>';
+	if (!$noForm) echo '</form>';
 	echo '</div>';
 	if ($stack->getPrevious()) echo '<a href="'.zurl($stack->getPrevious()).'">'.z_('Back').'</a>';
 } elseif ($showform == "saved") {
@@ -245,7 +249,7 @@ if ($allowed && $success && $showform == "edit") {
 		header('Location: '.zurl($redirect2.'&zmsg=complete'));
 		die();
 	} else {
-		echo '<a href="'.zurl($redirect2).'" class="button">'.z_('Back').'</a>';
+		if (!noBackLink) echo '<a href="'.zurl($redirect2).'" class="button">'.z_('Back').'</a>';
 	}
 }
 ?>

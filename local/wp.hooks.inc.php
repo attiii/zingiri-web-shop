@@ -269,6 +269,7 @@ function zing_init()
 	global $name;
 	global $customerid;
 
+
 	if (!isset($_REQUEST['wslive'])) {
 		define("ZING_LIVE",false);
 		if (!session_id()) @session_start();
@@ -646,6 +647,12 @@ function wsHomePage($vars='') {
 		if ($vars) $home.='&'.$vars;
 	}
 	return $home;
+}
+
+function zurlAdmin($url,$printurl=false) {
+	$url= get_option('siteurl').'/wp-admin/admin.php'.$url;
+	if ($printurl) echo $url;
+	else return $url;
 }
 
 function zurl($url,$printurl=false,$interface='') {
