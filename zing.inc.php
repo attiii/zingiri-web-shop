@@ -162,8 +162,6 @@ function zing_install() {
 
 	update_option("zing_webshop_version",ZING_VERSION);
 
-	if (function_exists('zing_ws_pro_install')) zing_ws_pro_install();
-
 	zing_ws_error_handler(0,'completed');
 	restore_error_handler();
 	error_reporting($wsper);

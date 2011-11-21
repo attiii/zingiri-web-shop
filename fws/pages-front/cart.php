@@ -67,7 +67,7 @@ if ($action=="add") {
 			//$wsFeatures->prepare($i);
 			
 			//calculate price
-			$wsFeatures->calcPrice($i,$row['PRICE'],isset($row['PRICE_FORMULA_TYPE']) ? $row['PRICE_FORMULA_TYPE'] : '',isset($row['PRICE_FORMULA_RULE']) ? $row['PRICE_FORMULA_RULE'] : '');
+			$wsFeatures->calcPrice($i,wsPrice::price($row['PRICE']),isset($row['PRICE_FORMULA_TYPE']) ? $row['PRICE_FORMULA_TYPE'] : '',isset($row['PRICE_FORMULA_RULE']) ? $row['PRICE_FORMULA_RULE'] : '');
 			
 			$productfeatures=$wsFeatures->featureString;
 			$prodprice+=$wsFeatures->price;
@@ -83,7 +83,7 @@ if ($action=="add") {
 					$row = mysql_fetch_array($sql);
 					$query = "UPDATE `".$dbtablesprefix."basket` SET `QTY` = ".qs($qty)." WHERE `ID` = ".qs($row['ID']);
 				} else {
-					$query = "INSERT INTO `".$dbtablesprefix."basket` ( `SET` ,`CUSTOMERID` , `PRODUCTID` , `PRICE` , `ORDERID` , `LINEADDDATE` , `QTY` , `FEATURES`) VALUES (".qs($uniqueSet).", '".wsCid()."', '".$prodid."', '".$prodprice."', '0', '".Date("d-m-Y @ G:i")."', '".$qty."', '".$productfeatures."')";
+					$query = "INSERT INTO `".$dbtablesprefix."basket` ( `CURRENCY` , `SET` ,`CUSTOMERID` , `PRODUCTID` , `PRICE` , `ORDERID` , `LINEADDDATE` , `QTY` , `FEATURES`) VALUES (".qs(wsPrice::ccy()).", ".qs($uniqueSet).", '".wsCid()."', '".$prodid."', '".$prodprice."', '0', '".Date("d-m-Y @ G:i")."', '".$qty."', '".$productfeatures."')";
 				}
 			}
 			$sql = mysql_query($query) or die(mysql_error());
@@ -176,13 +176,13 @@ else {
 		}
 		?></td>
 		<td><?php 
-		echo $currency_symbol_pre;
+		echo wsPrice::currencySymbolPre();
 		$subtotaal = $productprice * $row[6];
 		$tax->calculate($subtotaal,$row_details['TAXCATEGORYID']);
 		$subtotaal = $tax->in;
-		$printprijs = myNumberFormat($subtotaal);
+		$printprijs = wsPrice::format($subtotaal);
 		echo $printprijs;
-		echo $currency_symbol_post;
+		echo wsPrice::currencySymbolPost();
 		?></td>
 		<td><?php if (!$row_details['LINK']) {?>
 		<form method="POST" action="?page=cart&action=update"><input type="hidden" name="prodid"
@@ -210,14 +210,12 @@ else {
 		}
 	}
 
-	$totaal = myNumberFormat($totaal);
 	?>
 	<tr>
 		<td colspan="3">
-		<div style="text-align: right;"><strong><?php echo $txt['cart7']; ?></strong> <?php echo $currency_symbol_pre.$totaal.$currency_symbol_post; ?><br />
+		<div style="text-align: right;"><strong><?php echo $txt['cart7']; ?></strong> <?php echo wsPrice::currencySymbolPre().wsPrice::format($totaal).wsPrice::currencySymbolPost(); ?><br />
 		<?php if ($no_vat == 0) { 
-			$totaal_ex = myNumberFormat($tax->exSum);
-			echo "<small>(".$currency_symbol_pre.$totaal_ex.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>"; 
+			echo "<small>(".wsPrice::currencySymbolPre().wsPrice::format($tax->exSum).wsPrice::currencySymbolPost()." ".$txt['general6']." ".$txt['general5'].")</small>"; 
 		}
 		?></div>
 		</td>

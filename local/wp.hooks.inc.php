@@ -269,7 +269,6 @@ function zing_init()
 	global $name;
 	global $customerid;
 
-
 	if (!isset($_REQUEST['wslive'])) {
 		define("ZING_LIVE",false);
 		if (!session_id()) @session_start();

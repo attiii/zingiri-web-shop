@@ -1,10 +1,10 @@
 === Zingiri Web Shop ===
 Contributors: zingiri
 Donate link: http://www.zingiri.com/
-Tags: ecommerce, e-commerce, paypal, freewebshop, shop, cart, web shop, shopping cart, iDEAL, Google Checkout, Worldpay
+Tags: ecommerce, e-commerce, paypal, freewebshop, shop, cart, web shop, shopping cart, iDEAL, Google Checkout, Worldpay, 2checkout, facebook, Payson, webshop, free web shop
 Requires at least: 2.1.7
 Tested up to: 3.2.1
-Stable tag: 2.2.4
+Stable tag: 2.3.0
 
 Zingiri Web Shop is a Wordpress plugin that adds fantastic ecommerce capabilities to a great content management system.
 
@@ -12,17 +12,28 @@ Zingiri Web Shop is a Wordpress plugin that adds fantastic ecommerce capabilitie
 
 Zingiri Web Shop is a Wordpress plugin that turns a great content management system into a fantastic e-commerce solution.
 
-The main feaures are:
+The main features of the basic version are:
 
 * Simple installation & easy configuration
 * Sell digital and physical products
-* Many useful features that simplify your work
-* Complete order and customer management module
+* Full customer management module
+* Complete ordering and stock management module
 * Ajax powered shopping cart & one page checkout
 * Support for payment portals like Paypal, Worldpay, Google Checkout and iDEAL and possibility to add your own
-* Multilingual support: English, Dutch, French, German, Spanish, ... 
+* Multiple language libraries included: English, Dutch, French, German, Spanish, Portuguese, Danish, Estonian, Finish, Greek, Hungarian, Italian, Japanese, Norwegian, Polish, Romanian, Russian, Swedish, Slovak, Thai, Turkish and Serbian
+* Localized tax support: including support for complex cascading tax systems 
 * Easily migrate your current web shop by uploading your products via an XML file
-* Free support and updates
+
+The Web Shop can also easily be extended with a number of additional professional extensions:
+* Social media: integrate your shop with Facebook and start selling on the largest social media market 
+* Order management: manual ordering
+* Product features: extend the power of product features and define customer price formulas for your products
+* Additional gateways: Payson, 2Checkout
+* Offline credit cards: record credit card details during registration and process them offline 
+* Forms editor: edit the customer registration and other forms to your liking (coming soon)  
+* Multi-lingual: provide multiple languages at once (coming soon)
+* Multi-currency: provides support for multiple currencies as once, useful if you target customers in different geographical areas
+* Customer group pricing: define customer groups and apply specific pricing and discounts to your customer groups (coming soon)
 
 == Installation ==
 

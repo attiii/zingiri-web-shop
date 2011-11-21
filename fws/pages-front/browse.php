@@ -2,7 +2,7 @@
 <?php
 if (!isset($group)) $group='';
 if (isset($_GET['displaytype']) && ($_GET['displaytype']=='list' || $_GET['displaytype']=='grid')) {
-	if ($_COOKIE['fws_displaytype'] != $_GET['displaytype']) {
+	if (!isset($_COOKIE['fws_displaytype']) || ($_COOKIE['fws_displaytype'] != $_GET['displaytype'])) {
 		setcookie ("fws_displaytype",$_GET['displaytype'], 0, '/');
 	}
 	$wsProductDisplayType=$_GET['displaytype'];
@@ -71,11 +71,13 @@ if ($products_per_page > 0) {
 	$limit    = " LIMIT $start_record, $products_per_page";
 }
 else { $limit = ""; }
+/*
 if (IsAdmin()) {
 	echo "<br /><a href=\"".zurl("?page=product&zfaces=form&form=product&action=add&redirect=".wsCurrentPageURL(true))."\"><img style=\"height:16px;\" src=\"".ZING_APPS_PLAYER_URL."images/add.png\" /></a>";
 	echo "<a href=\"".zurl("?page=product&zfaces=form&form=product&action=add&redirect=".wsCurrentPageURL(true))."\">".$txt['productadmin16']."</a>";
 	echo '<br />';
 }
+*/
 
 if ($action == "search" || $searchfor) {
 	//search on the given terms
@@ -130,6 +132,10 @@ else {
 		while ($row = mysql_fetch_array($sql)) {
 			$rows[]=$row;
 		}
+	}
+	if (class_exists('wsMultiCurrency')) {
+		$mc=new wsMultiCurrency();
+		$mc->currencySelector();
 	}
 	//table header
 	echo '<div style="position:relative;float:left">';

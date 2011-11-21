@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="module" version="1.5.0">
+	<name>World region</name>
+	<fields count="1">
+		<field1>
+			<name>world_region</name>
+			<format>varchar(3)</format>
+			<type>select</type>
+			<values type="multi">
+				<option VALUE="150">Europe</option>
+				<option VALUE="021">Northern America</option>
+				<option VALUE="419">Latin America and the Caribbean</option>
+				<option VALUE="002">Africa</option>
+				<option VALUE="142">Asia</option>
+				<option VALUE="009">Oceania</option>
+			</values>
+		</field1>
+	</fields>
+</config>

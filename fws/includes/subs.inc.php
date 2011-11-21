@@ -173,27 +173,29 @@ Function escape_data($data){
 	return $data;
 }
 // format numbers according to settings
-Function myNumberFormat ($aNumber) {
-	Global $number_format;
-	if ($number_format == "1234,56") {
+Function myNumberFormat ($aNumber,$format='') {
+	global $number_format;
+	if (!$format) $format=$number_format;
+	
+	if ($format == "1234,56") {
 		$aNumber = number_format($aNumber, 2, ',', '');
 	}
-	if ($number_format == "1.234,56") {
+	if ($format == "1.234,56") {
 		$aNumber = number_format($aNumber, 2, ',', '.');
 	}
-	if ($number_format == "1234.56") {
+	if ($format == "1234.56") {
 		$aNumber = number_format($aNumber, 2, '.', '');
 	}
-	if ($number_format == "1,234.56") {
+	if ($format == "1,234.56") {
 		$aNumber = number_format($aNumber, 2, '.', ',');
 	}
-	if ($number_format == "1,234") {
+	if ($format == "1,234") {
 		$aNumber = number_format($aNumber, 0, '.', ',');
 	}
-	if ($number_format == "1.234") {
+	if ($format == "1.234") {
 		$aNumber = number_format($aNumber, 0, ',', '.');
 	}
-	if ($number_format == "1234") {
+	if ($format == "1234") {
 		$aNumber = number_format($aNumber, 0, '.', '');
 	}
 	return $aNumber;

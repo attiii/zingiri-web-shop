@@ -1,26 +1,3 @@
-<?php
-/*  onecheckout.php
- Copyright 2008,2009,2010 Erik Bogaerts
- Support site: http://www.zingiri.com
-
- This file is part of Zingiri Web Shop.
-
- Zingiri Apps is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
-
- Zingiri Apps is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with Zingiri Web Shop; if not, write to the Free Software
- Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-
- */
-?>
 <?php if ($index_refer <> 1) { exit(); } ?>
 <?php
 // read basket
@@ -102,25 +79,25 @@ if ($count == 0) {
 
 		//shipping start
 		$cart_weight = WeighCart(wsCid());
+		$cart_total = CalculateCart(wsCid());
+		$cart_count = CountCart(wsCid());
+		
 		//check if combined shipping and weight is applicable
-		if ($shippingid && $weightid) {
-			$weight_query = "SELECT * FROM `".$dbtablesprefix."shipping_weight` WHERE '".$cart_weight."' >= `FROM` AND '".$cart_weight."' <= `TO` AND `SHIPPINGID` = '".$shippingid."'";
-			$weight_sql = mysql_query($weight_query) or zfdbexit($weight_query);
-			if ($row_weight=mysql_fetch_array($weight_sql)) {
-				$weightid=$row_weight['ID'];
-			} else {
-				$weightid='';
-				$shippingid='';
-			}
+		$shipping=new wsShipping();
+		if ($shippingid) {
+			$weightid=$shipping->getWeightId($shippingid,$cart_weight,$cart_total,$cart_count);
+			if (!$weightid) $shippingid=''; 
 		}
 		?>
 <form id="checkout" method="post" action="<?php zurl('index.php?page=checkout',true);?>">
 <table width="100%" class="wspayship">
 	<tr>
 		<td colspan="4"><?php echo $txt['shipping2'] ?><br />
+		<?php if (1) {?>
 		<SELECT NAME="shipping" id="shipping"
 			onChange="this.form.action='<?php zurl('?page=onecheckout',true)?>';this.form.submit();"
 		>
+		<?php }?>
 		<?php
 		// find out the shipping methods
 		$query="SELECT * FROM `".$dbtablesprefix."shipping` ORDER BY `id`";
@@ -132,14 +109,13 @@ if ($count == 0) {
 			if (mysql_num_rows($pay_sql) <> 0) {
 				if ($row[2] == 0 || ($row[2] == 1 && IsCustomerFromDefaultSendCountry($send_default_country) == 1)) {
 					// now check the weight and the costs
-					$weight_query = "SELECT * FROM `".$dbtablesprefix."shipping_weight` WHERE '".$cart_weight."' >= `FROM` AND '".$cart_weight."' <= `TO` AND `SHIPPINGID` = '".$row[0]."'";
-					$weight_sql = mysql_query($weight_query) or zfdbexit($weight_query);
-					while ($weight_row = mysql_fetch_array($weight_sql)) {
+					list($wid,$wprice)=$shipping->getWeightOption($row[0],$cart_weight,$cart_total,$cart_count);
+					if ($wid) {
 						if (!$shippingid) $shippingid=$row[0];
-						if (!$weightid) $weightid=$weight_row[0];
-						if ($shippingid==$row[0] && $weightid==$weight_row[0]) $selected='selected="SELECTED"'; else $selected="";
-						echo "<OPTION VALUE=\"".$weight_row[0].":".$row[0]."\" ".$selected." >".$row[1]."&nbsp;(".$currency_symbol_pre.myNumberFormat($weight_row[4],$number_format).$currency_symbol_post.")</OPTION>";
-					}
+						if (!$weightid) $weightid=$wid;
+						if ($shippingid==$row[0] && $weightid==$wid) $selected='selected="SELECTED"'; else $selected="";
+						echo "<OPTION VALUE=\"".$wid.":".$row[0]."\" ".$selected." >".$row[1]."&nbsp;(".wsPrice::currencySymbolPre().wsPrice::format(wsPrice::price($wprice)).wsPrice::currencySymbolPost().")</OPTION>";
+					}	
 				}
 			}
 		}
@@ -154,7 +130,7 @@ if ($count == 0) {
 		// find out the payment methods
 		$query="SELECT * FROM `".$dbtablesprefix."shipping_payment` WHERE `shippingid`='".$shippingid."' ORDER BY `paymentid`";
 		$sql = mysql_query($query) or die(mysql_error());
-
+		$wsIsOfflineCC=0;
 		while ($row = mysql_fetch_row($sql)) {
 			$query_pay="SELECT * FROM `".$dbtablesprefix."payment` WHERE `id`='".$row[1]."'";
 			$sql_pay = mysql_query($query_pay) or die(mysql_error());
@@ -173,36 +149,10 @@ if ($count == 0) {
 		?></td>
 	</tr>
 	<?php
-	if (IsAdmin() && get_option('zing_webshop_pro') && $wsIsOfflineCC) {
-		echo '<tr><td colspan="4">'.$txt['card1'].'</td></tr><tr>';
+	if (get_option('wspro_offline-cc') && class_exists('wsCreditCard') && $wsIsOfflineCC) {
 		$wsCreditCard=new wsCreditCard(wsCid());
-		$i=0;
-		$first=true;
-		if (count($wsCreditCard->all()) > 0) {
-			foreach ($wsCreditCard->all() as $cardid => $card) {
-				$i++;
-				if ($i > 4) {
-					echo '</tr><tr>';
-					$i=1;
-				}
-				echo '<td width="25%">';
-				echo '<strong>'.$card['CARD_NAME'].'</strong><br />';
-				echo $card['CARD_TYPE'].' ';
-				echo $card['CARD_NUMBER'].'<br />';
-				if ($_POST['wscardid'] == $cardid || ($_POST['wscardid']=='' && $first)) $selected = 'CHECKED'; else $selected="";
-				echo '<input type="radio" name="wscardid" value="'.$cardid.'" '.$selected.'/>';
-				if ($cardid > 0) {
-					echo '<a href="index.php?zfaces=form&action=edit&form=bankcard&id='.$cardid.'&redirect='.urlencode('index.php?page=onecheckout&paymentid='.$paymentid.'&shipping='.$wsShipping).'" class="button">'.$txt['browse7'].'</a>';
-					echo ' ';
-					echo '<a href="index.php?zfaces=form&action=delete&form=bankcard&id='.$cardid.'&redirect='.urlencode('index.php?page=onecheckout&paymentid='.$paymentid.'&shipping='.$wsShipping).'" class="button">'.$txt['browse8'].'</a>';
-				}
-				echo '</td>';
-				$first=false;
-			}
-		}
-		echo '<tr><td colspan="4">';
-		echo '<a href="index.php?zfaces=form&action=add&form=bankcard&redirect='.urlencode('index.php?page=onecheckout&paymentid='.$paymentid.'&shipping='.$wsShipping).'" class="button">'.$txt['shippingadmin10'].'</a>';
-		echo '</td></tr>';
+		$wsCreditCard->addCardIfNoneAvailable($paymentid,$wsShipping);
+		$wsCreditCard->selectCards($paymentid,$wsShipping);
 	}
 	?>
 	<?php
@@ -312,14 +262,13 @@ else {
 		if (!$printvalue == "") { echo "<br />(".$printvalue.")"; }
 		?></td>
 		<td class="col-price"><?php 
-		echo $currency_symbol_pre;
+		echo wsPrice::currencySymbolPre();
 		$subtotaal = $productprice * $row[6];
-		$printprijs = myNumberFormat($subtotaal);
-		echo $printprijs;
-		echo $currency_symbol_post;
+		echo wsPrice::format($subtotaal);
+		echo wsPrice::currencySymbolPost();
 		?></td>
-		<td class="col-quantity"><input type="text" size="4"
-			name="numprod[<?php echo $row['ID'];?>]" value="<?php echo $row[6] ?>"
+		<td class="col-quantity"><input type="text" size="4" name="numprod[<?php echo $row['ID'];?>]"
+			value="<?php echo $row[6] ?>"
 		>&nbsp; <input type="submit" value="<?php echo $txt['cart10'] ?>"
 			onclick="form.action='<?php zurl("?page=onecheckout&action=update&prodid=".$row_details[0].'&basketid='.$row['ID'],true)?>';"
 			name="sub"
@@ -342,16 +291,17 @@ else {
 		echo '<tr><td colspan="2" style="text-align: right">'.$txt['checkout14'];
 		if ($discount->percentage>0) {
 			// percentage
-			echo ' '.$discount->percentage.'%</td><td class="col-discount">-'.$currency_symbol_pre.myNumberFormat($discount->discount,$number_format).$currency_symbol_post.'</td></tr>';
+			echo ' '.$discount->percentage.'%</td><td class="col-discount">-'.wsPrice::currencySymbolPre().wsPrice::format($discount->discount).wsPrice::currencySymbolPost().'</td></tr>';
 		}
 		else {
 			//fixed amount
-			echo '</td><td class="col-discount">-'.$currency_symbol_pre.myNumberFormat($discount->discount,$number_format).$currency_symbol_post.'</td></tr>';
+			echo '</td><td class="col-discount">-'.wsPrice::currencySymbolPre().wsPrice::format($discount->discount).currencySymbolPost().'</td></tr>';
 		}
 		$discountValue=$discount->discount;
 	} else {
 		$discountValue=0;
 	}
+
 
 	//shipping costs
 	if ($shippingid) {
@@ -364,18 +314,14 @@ else {
 	}
 
 	// read the shipping costs
-	if ($weightid) {
-		$query = sprintf("SELECT * FROM `".$dbtablesprefix."shipping_weight` WHERE `ID` = %s", quote_smart($weightid));
-		$sql = mysql_query($query) or die(mysql_error());
-		if ($row = mysql_fetch_row($sql)) $sendcosts = $row[4]; else $sendcosts = 0;
-	} else $sendcosts=0;
+	$sendcosts=wsPrice::price($shipping->getCosts($weightid));
 
 	if ($sendcosts != 0) {
-		echo '<tr><td>'.$txt['checkout16'].'</td><td>'.$shipping_descr.'</td><td class="col-price">'.$currency_symbol_pre.myNumberFormat($sendcosts,$number_format).$currency_symbol_post.'</td></tr>';
+		echo '<tr><td>'.$txt['checkout16'].'</td><td>'.$shipping_descr.'</td><td class="col-price">'.wsPrice::currencySymbolPre().wsPrice::format($sendcosts).wsPrice::currencySymbolPost().'</td></tr>';
 	}
-	$shippingTax=new wsTax($sendcosts,wsSetting('SHIPPING_TAX_CATEGORY'));
 
 	//calculate and display taxes
+	$shippingTax=new wsTax($sendcosts,wsSetting('SHIPPING_TAX_CATEGORY'));
 	$totaal_ex = $tax->exSum + $shippingTax->ex - $discountValue;
 	$totaal_in = $tax->inSum + $shippingTax->in - $discountValue;
 
@@ -387,9 +333,8 @@ else {
 		<td colspan="2" class="col-total">
 		<div class="col-price"><strong><?php echo $txt['cart7']; ?></strong></div>
 		</td>
-		<td class="col-price">
-		<?php echo $currency_symbol_pre.myNumberFormat($totaal_in).$currency_symbol_post; ?><br />
-		<?php if ($no_vat == 0) { echo "<small>(".$currency_symbol_pre.$totaal_ex.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>"; } ?>
+		<td class="col-price"><?php echo wsPrice::currencySymbolPre().wsPrice::format($totaal_in).wsPrice::currencySymbolPost(); ?><br />
+		<?php if ($no_vat == 0) { echo "<small>(".wsPrice::currencySymbolPre().wsPrice::format($totaal_ex).wsPrice::currencySymbolPost()." ".$txt['general6']." ".$txt['general5'].")</small>"; } ?>
 		</td>
 	</tr>
 	<?php
@@ -412,5 +357,5 @@ else {
 
 <?php
 }
-}
+	}
 }?>

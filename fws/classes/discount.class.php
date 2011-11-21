@@ -65,7 +65,7 @@ class wsDiscount {
 	function calculate() {
 		if ($this->base>0) {
 			if ($this->percentage>0) $this->discount=myNumberRounding($this->percentage/100*$this->base);
-			else $this->discount=$this->amount;
+			else $this->discount=wsPrice::price($this->amount,false);
 		}
 	}
 	

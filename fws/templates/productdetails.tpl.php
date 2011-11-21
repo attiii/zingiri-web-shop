@@ -1,4 +1,5 @@
 <div class="wsproduct_details">
+	[CURRENCY_SELECTOR]
 	<div id="productimages" style="text-align: center;">
 		[IMAGE]
 	</div>

@@ -24,7 +24,7 @@ class widget_sidebar_cart {
 		require(ZING_GLOBALS);
 		global $wsCartTotalPrice,$wsCartTotalItems;
 		$wsCartTotalItems=$countCart=CountCart(wsCid());
-		$wsCartTotalPrice=$currency_symbol_pre.myNumberFormat(CalculateCart(wsCid()), $number_format).$currency_symbol_post;
+		$wsCartTotalPrice=wsPrice::currencySymbolPre().wsPrice::format(CalculateCart(wsCid())).wsPrice::currencySymbolPost();
 		echo '<span id="notificationsLoader"></span>';
 		echo "<ul>";
 		if (get_option('zing_webshop_pro') && isset($_SESSION['zing_session']['customerid'])) {
@@ -67,7 +67,7 @@ class widget_sidebar_cart {
 					$cart.='</a>';
 				}
 				$cart.='</form>';
-				$cart.=' '.$currency_symbol_pre.myNumberFormat($price).$currency_symbol_post.' ';
+				$cart.=' '.wsPrice::currencySymbolPre().wsPrice::format($price).wsPrice::currencySymbolPost().' ';
 				if (ZING_JQUERY) {
 					$cart.='<form style="display:inline" id="cart_remove'.$row['ID'].'" method="POST" action="?page=cart&action=update">';
 					$cart.='<input type="hidden" name="prodid" value="'.$row_details[0].'"/>';

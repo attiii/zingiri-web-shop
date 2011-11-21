@@ -47,7 +47,8 @@ class dynamic_selectZfSubElement extends zfSubElement {
 		$i=$this->subid;
 		$xmlf=$this->xmlf;
 
-		$keypairs=explode(",",trim($e->populated_value['element_'.$e->id.'_2']));
+		if (isset($e->populated_value['element_'.$e->id.'_2'])) $keypairs=explode(",",trim($e->populated_value['element_'.$e->id.'_2']));
+		else $keypairs=array();
 		//$size=intval($e->populated_value['element_'.$e->id.'_3']);
 
 		if($e->populated_value['element_'.$e->id.'_'.$i] == ""){

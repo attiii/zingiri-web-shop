@@ -163,7 +163,7 @@ $txt['checkout7'] = 'You tried ordering:';
 $txt['checkout8'] = 'Currently in stock:';
 $txt['checkout9'] = "<br /><br />You can view the status of your order at any time, by clicking this link: <a href=\"$shopurl/index.php?page=orders&id=$customerid\">$shopurl/index.php?page=orders&id=$customerid</a><br /><br />Thank you for your order.<br />If you have questions then contact us (contact details are on our website)";
 $txt['checkout10'] = 'Confirmation of your order with '.$shopname;
-$txt['checkout11'] = 'Your order is completed. A confirmation e-mail is being send to you.';
+$txt['checkout11'] = 'Your order is completed. A confirmation e-mail has been sent to you.';
 $txt['checkout12'] = 'The confirmation e-mail could not be send. Therefor print out the confirmation below.';
 $txt['checkout13'] = 'Order confirmation';
 $txt['checkout14'] = 'Discount';
@@ -831,5 +831,13 @@ $txt['migrate3'] = 'Incorrect file format';
 $txt['checklogin19'] = 'Please connect with Facebook to continue';
 $txt['menu20'] = 'Cart';
 $txt['menu21'] = 'Personal';
+
+//2.3.0 - added
+$txt['region1'] = 'Northern America';
+$txt['region2'] = 'Latin America and the Caribbean';
+$txt['region3'] = 'Europe';
+$txt['region4'] = 'Africa';
+$txt['region5'] = 'Asia';
+$txt['region6'] = 'Oceania';
 
 ?>

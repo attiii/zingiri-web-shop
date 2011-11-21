@@ -214,8 +214,8 @@ function zing_apps_player_content($content='') {
 
 	$aphps->doAction('content_before');
 	if (isset($post)) {
-		if ($cf['zing_form'][0]) $_GET['form']=$cf['zing_form'][0];
-		if ($cf['zing_action'][0]) $_GET['action']=$cf['zing_action'][0];
+		if (isset($cf['zing_form'][0]) && $cf['zing_form'][0]) $_GET['form']=$cf['zing_form'][0];
+		if (isset($cf['zing_action'][0]) && $cf['zing_action'][0]) $_GET['action']=$cf['zing_action'][0];
 	}
 
 	require_once(dirname(__FILE__)."/includes/all.inc.php");
@@ -283,9 +283,9 @@ function zing_apps_player_init()
 	wp_enqueue_script('jquery-ui-tabs');
 
 	ob_start();
-	session_start();
+	if (!session_id()) @session_start();
 
-	if (isset($_GET['zfaces']))
+	if (isset($_GET['zfaces']) && (ZING_CMS!='wp'))
 	{
 		$_GET['page_id']=get_option("zing_apps_player_page");
 	}
@@ -294,6 +294,11 @@ function zing_apps_player_init()
 function zing_apps_player_load($dir) {
 	global $dbtablesprefix;
 
+	if (!function_exists('zfCreate')) require(dirname(__FILE__).'/includes/create.inc.php');
+	if (!function_exists('zfReadRecord')) require(dirname(__FILE__).'/includes/db.inc.php');
+	if (!function_exists('zf_json_decode')) require(dirname(__FILE__).'/includes/faces.inc.php');
+	if (!class_exists('db')) require(dirname(__FILE__).'/classes/db.class.php');
+	
 	$prefix=$dbtablesprefix;
 	if ($handle = opendir($dir)) {
 		$files=array();
@@ -446,4 +451,4 @@ function zStyleSheets() {
 
 	return $v;
 }
-?>
+

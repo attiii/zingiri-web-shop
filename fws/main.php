@@ -32,6 +32,10 @@ if ($shop_disabled == 1 && IsAdmin() == true) {
 		$f_sql = mysql_query($f_query) or die(mysql_error());
 		if (mysql_num_rows($f_sql) != 0) {
 			if (mysql_num_rows($f_sql) < $prods_per_row) { $prods_per_row = mysql_num_rows($f_sql); }
+			if (class_exists('wsMultiCurrency')) {
+				$mc=new wsMultiCurrency();
+				$mc->currencySelector();
+			}
 			echo "<div style=\"text-align:center;\">";
 			echo "<h2>".$txt['main2']."</h2>";
 			echo "<br />";

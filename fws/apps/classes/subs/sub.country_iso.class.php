@@ -5,7 +5,7 @@ class country_isoZfSubElement extends zfSubElement {
 	{
 		$db=new db();
 		$query="select * from ##country where iso=".qs($this->int);
-		if ($db->select($query) && $db->next()) $this->ext=$db->get('printable_name');
+		if ($db->select($query) && $db->next()) $this->ext=$db->get('name_en');
 		else $this->ext=$this->int;
 		return $this->ext;
 			
@@ -31,7 +31,7 @@ class country_isoZfSubElement extends zfSubElement {
 		$db->select($query);
 		while($db->next()) {
 			$key=$db->get('iso');
-			$option=$db->get('printable_name');
+			$option=$db->get('name_en');
 			$selected="";
 			if(trim($e->populated_value['element_'.$e->id.'_'.$i]) == $key){
 				$selected = 'selected="selected"';

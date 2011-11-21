@@ -60,7 +60,7 @@ class wsFeatures {
 		}
 	}
 
-	function prepare($index) {
+	function prepare($index=0) {
 	}
 
 	function calcPrice($index=0,$price,$formulaType='',$formulaRule='') {
@@ -84,7 +84,7 @@ class wsFeatures {
 					if (!empty($this->post["wsfeature".$counter1][$index])) {
 						$detail = explode("+", $this->post["wsfeature".$counter1][$index]);
 						$productfeatures .= $feature[0].": ".$detail[0];
-						$prodprice += $detail[1];
+						$prodprice += wsPrice::price($detail[1]);
 					}
 					if (!empty($features[$counter1])) {
 						$productfeatures .= ", ";
@@ -120,14 +120,12 @@ class wsFeatures {
 				if (!empty($features[$counter1])) {
 					$productfeatures .= ", ";
 				}
-				$i++;
 			}
 			return $productfeatures;
 		} else return $this->features;
 	}
 
 	function displayFeatures($display=true) {
-		global $currency_symbol_pre,$number_format,$currency_symbol_post;
 		$output='';
 		$db=new db();
 		$qty=$this->sets;
@@ -180,14 +178,14 @@ class wsFeatures {
 								$extracosts = explode("+",$value[$counter2]);
 								if (isset($extracosts[1]) && (!$extracosts[1] == NULL)) {
 									// there are extra costs
-									$printvalue = $extracosts[0]." (+".$currency_symbol_pre.myNumberFormat($extracosts[1],$number_format).$currency_symbol_post.")";
+									$printvalue = $extracosts[0]." (+".wsPrice::currencySymbolPre().wsPrice::format(wsPrice::price($extracosts[1])).wsPrice::currencySymbolPost().")";
 								}
 								else {
 									$printvalue = $value[$counter2];
 								}
 
 								// print the pulldown menu
-								$printvalue = str_replace("+".$currency_symbol_pre."-", "-".$currency_symbol_pre, $printvalue);
+								$printvalue = str_replace("+".wsPrice::currencySymbolPre()."-", "-".wsPrice::currencySymbolPre(), $printvalue);
 								$option=explode('+',$value[$counter2]);
 								$selected='';
 								if (isset($this->prefil[$i]['features'][$r])) {
@@ -195,7 +193,6 @@ class wsFeatures {
 								} else {
 									if ($counter2 == 0) $selected='selected="selected"';
 								}
-								//$printvalue.='+'.$option[0].'='.$this->prefil[$i]['features'][$r].'/'.$selected;
 								$output.= '<option value="'.$value[$counter2].'" '.$selected.'>'.$printvalue.'</option>';
 								$counter2 += 1;
 							}

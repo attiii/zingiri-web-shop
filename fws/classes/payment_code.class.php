@@ -60,7 +60,7 @@ class paymentCode {
 			$payment_code = str_replace("%total%", $total, $payment_code);
 			$payment_code = str_replace("%webid%", $webid, $payment_code);
 			$payment_code = str_replace("%shopurl%", $shopurl, $payment_code);
-			$payment_code = str_replace("%currency%", $currency, $payment_code);
+			$payment_code = str_replace("%currency%", wsPrice::ccy(), $payment_code);
 			$payment_code = str_replace("%lang%", $lang, $payment_code);
 			$payment_code = str_replace("%customer%", $customer['ID'], $payment_code);
 			$payment_code = str_replace("%name%", $customer['INITIALS'].' '.$customer['LASTNAME'], $payment_code);

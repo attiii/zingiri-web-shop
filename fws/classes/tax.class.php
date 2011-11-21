@@ -70,8 +70,8 @@ class wsTax {
 		$this->in=myNumberRounding($in_vat);
 		$this->tax=myNumberRounding($taxtot);
 		$this->taxes=$taxes;
-		$this->inFtd=myNumberFormat($in_vat);
-		$this->exFtd=myNumberFormat($ex_vat);
+		$this->inFtd=wsPrice::format($in_vat,false);
+		$this->exFtd=wsPrice::format($ex_vat,false);
 
 		foreach ($taxes as $label => $data) {
 			$data['TAX']=myNumberRounding($data['TAX']);
@@ -151,7 +151,7 @@ function displayTaxes($atax,$taxheader) {
 						if ($taxheader) {
 							echo '<td rowspan="'.$combinations.'">'.$taxheader.'</td>';
 						}
-						echo '<td>'.$label.' '.$data['CATEGORY'].' '.$data['RATE'].'%</td><td style="text-align: right">'.$currency_symbol_pre.myNumberFormat($data['TAX']).$currency_symbol_post.'</td>';
+						echo '<td>'.$label.' '.$data['CATEGORY'].' '.$data['RATE'].'%</td><td style="text-align: right">'.wsPrice::currencySymbolPre().wsPrice::format($data['TAX']).wsPrice::currencySymbolPost().'</td>';
 						if ($taxheader) {
 							echo '<td rowspan="'.$combinations.'"></td>';
 						}

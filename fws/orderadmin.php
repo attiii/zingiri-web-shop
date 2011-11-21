@@ -1,26 +1,3 @@
-<?php
-/*  orderadmin.php
- Copyright 2006, 2007, 2008 Elmar Wenners
- Support site: http://www.chaozz.nl
-
- This file is part of FreeWebshop.org.
-
- FreeWebshop.org is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
-
- FreeWebshop.org is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with FreeWebshop.org; if not, write to the Free Software
- Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-
- */
-?>
 <?php if ($index_refer <> 1) { exit(); } ?>
 <?php
 // admin check
@@ -40,7 +17,7 @@ else {
 	}
 	if (!empty($_REQUEST['id'])) {
 		$wsCustomerId=intval($_REQUEST['id']);
-	}
+	} else $wsCustomerId='';
 	if (!empty($_POST['notify'])) {
 		$notify=$_POST['notify'];
 	}
@@ -240,25 +217,13 @@ else {
 					$pay_sql = mysql_query($pay_query) or die(mysql_error());
 					if ($pay_row = mysql_fetch_row($pay_sql)) { echo $pay_row[1]; }
 					// find out bank card
-					if (get_option('zing_webshop_pro') && $row['CARDID']) {
+					if (get_option('wspro_offline-cc') && class_exists('wsCreditCard') && $row['CARDID']) {
 						$wsBankCard=new wsCreditCard();
-						$wsBankCard->getCard($row['CARDID']);
 						echo '<br />';
-						//echo '<a href="#">';
-						echo $wsBankCard->card['CARD_NAME'];
-						echo '<br />';
-						echo $wsBankCard->card['CARD_TYPE'];
-						echo '<br />';
-						echo $wsBankCard->card['CARD_NUMBER'];
-						echo '<br />';
-						echo $wsBankCard->card['EXPIRY_MONTH'].'-'.$wsBankCard->card['EXPIRY_YEAR'];
-						echo '<br />';
-						echo ' ('.$wsBankCard->card['CARD_CCV'].')';
-						
-						//echo '</a>';
+						$wsBankCard->displayCard($row['CARDID']);
 					}
 					echo "</td>";
-					echo "<td><div style=\"text-align:right;\">".myNumberFormat($row[6], $number_format)."</div></td>";
+					echo "<td><div style=\"text-align:right;\">".myNumberFormat($row['TOPAY'], $number_format)."</div></td>";
 					echo "<td>".$row[1]."</td>";
 					echo "<td>";
 					// determin the status and show a colored picture accordingly

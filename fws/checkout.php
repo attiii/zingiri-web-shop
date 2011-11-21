@@ -1,26 +1,3 @@
-<?php
-/*  checkout.php
- Copyright 2006, 2007, 2008 Elmar Wenners
- Support site: http://www.chaozz.nl
-
- This file is part of FreeWebshop.org.
-
- FreeWebshop.org is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
-
- FreeWebshop.org is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with FreeWebshop.org; if not, write to the Free Software
- Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-
- */
-?>
 <?php if ($index_refer <> 1) { exit(); } ?>
 <?php include (dirname(__FILE__)."/includes/checklogin.inc.php"); ?>
 <?php
@@ -100,8 +77,9 @@ if (LoggedIn() == True) {
 		}
 
 		//check credit card
-		if (get_option('zing_webshop_pro') && isset($_POST['wscardid'])) {
-			$wsCardId=intval($_POST['wscardid']);
+		if (get_option('wspro_offline-cc') && class_exists('wsCreditCard')) {
+			$wsCreditCard=new wsCreditCard(wsCid());
+			$wsCardId=$wsCreditCard->getCardId();
 		} else $wsCardId=0;
 
 		if ($error == 0) {
@@ -138,17 +116,20 @@ if (LoggedIn() == True) {
 					$lastid=$row['ORDERID'];
 					$orderDate=$row_order['DATE'];
 				}
-			} 
+			}
 			if (!$lastid) {
 				$orderDate=Date($date_format);
-				if (get_option('zing_webshop_pro')) $query = sprintf("INSERT INTO `".$dbtablesprefix."order` (`CARDID`,`ADDRESSID`,`DATE`,`STATUS`,`SHIPPING`,`PAYMENT`,`CUSTOMERID`,`TOPAY`,`WEBID`,`NOTES`,`WEIGHT`) VALUES (%s,%s,'".$orderDate."','1',%s,%s,%s,'1','n/a',%s,%s)", qs($wsCardId), quote_smart($adrid), quote_smart($shippingid), quote_smart($paymentid), quote_smart(wsCid()), quote_smart($notes), quote_smart($weightid));
-				else $query = sprintf("INSERT INTO `".$dbtablesprefix."order` (`ADDRESSID`,`DATE`,`STATUS`,`SHIPPING`,`PAYMENT`,`CUSTOMERID`,`TOPAY`,`WEBID`,`NOTES`,`WEIGHT`) VALUES (%s,'".$orderDate."','1',%s,%s,%s,'1','n/a',%s,%s)", quote_smart($adrid), quote_smart($shippingid), quote_smart($paymentid), quote_smart(wsCid()), quote_smart($notes), quote_smart($weightid));
-
+				$query = sprintf("INSERT INTO `".$dbtablesprefix."order` (`ADDRESSID`,`DATE`,`STATUS`,`SHIPPING`,`PAYMENT`,`CUSTOMERID`,`TOPAY`,`WEBID`,`NOTES`,`WEIGHT`) VALUES (%s,'".$orderDate."','1',%s,%s,%s,'1','n/a',%s,%s)", quote_smart($adrid), quote_smart($shippingid), quote_smart($paymentid), quote_smart(wsCid()), quote_smart($notes), quote_smart($weightid));
 				$sql = mysql_query($query) or die(mysql_error());
 				// get the last id
 				$lastid = mysql_insert_id();
 			}
-
+				
+			//link credit card to order
+			if (get_option('wspro_offline-cc') && class_exists('wsCreditCard') && $wsCardId) {
+				$wsCreditCard->updateOrder($lastid,$wsCardId);
+			}
+				
 			// make webID
 			$date_array = GetDate();
 			$this_year = $date_array['year'];
@@ -169,8 +150,7 @@ if (LoggedIn() == True) {
 			$tpl->replace('WEBID',$webid);
 			$tpl->replace('CUSTOMERID',wsCid());
 			$tpl->replace('EMAIL',$to);
-			
-			$message = $txt['checkout3'];
+				
 			$paymentmessage = "";
 			// now go through all all products from basket with status 'basket'
 
@@ -178,9 +158,8 @@ if (LoggedIn() == True) {
 			$sql = mysql_query($query) or die(mysql_error());
 			$total = 0;
 			$tax = new wsTaxSum();
-				
+
 			// let's format the product list a little
-			$message .= "<table width=\"100%\" class=\"borderless\">";
 
 			while ($row = mysql_fetch_row($sql)) {
 				$query_details = "SELECT * FROM ".$dbtablesprefix."product WHERE ID = '" . $row[2] . "'";
@@ -201,7 +180,6 @@ if (LoggedIn() == True) {
 						$wsFeatures->prepare();
 					} // product features
 					$total_add = $product_price * $row[6];
-					$message .= "<tr><td>".$row[6].$txt['checkout4']."</td><td>".$print_description."<br />".$currency_symbol_pre.myNumberFormat($product_price,$number_format).$currency_symbol_post.$txt['checkout5']."</td><td style=\"text-align: right\">".$currency_symbol_pre.myNumberFormat($total_add,$number_format).$currency_symbol_post."</tr>";
 					$tpl->repeatRow(array('DESCRIPTION','QTY','PRICE','LINETOTAL'));
 					$tpl->replace('DESCRIPTION',$print_description);
 					if ($pictureid == 1) { $picture = $row_details[0]; }
@@ -210,8 +188,8 @@ if (LoggedIn() == True) {
 					$thumb = "<img class=\"imgleft\" src=\"".$image_url."\"".$width.$height." alt=\"\" />";
 					$tpl->replace('IMAGE',$thumb);
 					$tpl->replace('QTY',$row[6]);
-					$tpl->replace('PRICE',$currency_symbol_pre.myNumberFormat($product_price,$number_format).$currency_symbol_post);
-					$tpl->replace('LINETOTAL',$currency_symbol_pre.myNumberFormat($total_add,$number_format).$currency_symbol_post);
+					$tpl->replace('PRICE',wsPrice::currencySymbolPre().wsPrice::format($product_price).wsPrice::currencySymbolPost());
+					$tpl->replace('LINETOTAL',wsPrice::currencySymbolPre().wsPrice::format($total_add).wsPrice::currencySymbolPost());
 
 					$total = $total + $total_add;
 
@@ -237,49 +215,35 @@ if (LoggedIn() == True) {
 			// there might be a discount code
 			if ($discount_code <> "") {
 				$discount->calculate();
-				$message.= '<tr><td>'.$txt['checkout14'].'</td><td>'.$txt['checkout18'].' '.$discount_code.'<br />';
 				$tpl->replace('DISCOUNTCODE',$discount_code);
 				if ($discount->percentage>0) {
 					// percentage
 					$tpl->replace('DISCOUNTRATE',$discount->percentage.'%');
-					$message.= $txt['checkout14'].' '.$discount->percentage.'%</td><td style="text-align: right"><strong>-'.$currency_symbol_pre.myNumberFormat($discount->discount,$number_format).$currency_symbol_post.'</strong></td></tr>';
 				}
 				else {
 					$tpl->replace('DISCOUNTRATE','');
-					$message.= $txt['checkout14'].' '.$currency_symbol_pre.myNumberFormat($discount->discount,$number_format).$currency_symbol_post.'</td><td style="text-align: right"><strong>-'.$currency_symbol_pre.myNumberFormat($discount->discount,$number_format).$currency_symbol_post.'</strong></td></tr>';
 				}
-				$tpl->replace('DISCOUNTAMOUNT',$currency_symbol_pre.myNumberFormat($discount->discount,$number_format).$currency_symbol_post);
+				$tpl->replace('DISCOUNTAMOUNT',wsPrice::currencySymbolPre().wsPrice::format($discount->discount).wsPrice::currencySymbolPost());
 				$total -= $discount->discount;
 				$discount->consume();
 			}
 			$tpl->removeRow(array('DISCOUNTCODE','DISCOUNTRATE','DISCOUNTAMOUNT'));
 
 			// if the customer added additional notes/questions, we will display them too
-			if (!empty($_POST['notes'])) {
-				$message = $message . $txt['checkout6'].$txt['checkout6']; // white line
-				$message = $message . $txt['shipping3']."<br />".nl2br($notes);
-			}
 			$tpl->replace('NOTES',nl2br($notes));
 
 			// first the shipping description
-			$query = sprintf("SELECT * FROM `".$dbtablesprefix."shipping` WHERE `id` = %s", quote_smart($shippingid));
-			$sql = mysql_query($query) or die(mysql_error());
-
-			while ($row = mysql_fetch_row($sql)) {
-				$shipping_descr = $row[1];
-			}
+			$shipping=new wsShipping();
+			$shipping_descr=$shipping->getShippingDescription($shippingid);			
 
 			// read the shipping costs
-			$query = sprintf("SELECT * FROM `".$dbtablesprefix."shipping_weight` WHERE `ID` = %s", quote_smart($weightid));
-			$sql = mysql_query($query) or die(mysql_error());
-			if ($row = mysql_fetch_row($sql)) $sendcosts = $row[4];
-			else $sendcosts=0;
+			$sendcosts=wsPrice::price($shipping->getCosts($weightid));
+
 			$shippingTax=new wsTax($sendcosts,wsSetting('SHIPPING_TAX_CATEGORY'));
-			
+				
 			$zingPrompts->load(true); // update sendcost in language file
-			$message .= '<tr><td>'.$txt['checkout16'].'</td><td>'.$shipping_descr.'</td><td style="text-align: right">'.$currency_symbol_pre.myNumberFormat($sendcosts,$number_format).$currency_symbol_post.'</td></tr>';
 			$tpl->replace('SHIPPINGMETHOD',$shipping_descr);
-			$tpl->replace('SHIPPINGCOSTS',$currency_symbol_pre.myNumberFormat($sendcosts,$number_format).$currency_symbol_post);
+			$tpl->replace('SHIPPINGCOSTS',wsPrice::currencySymbolPre().wsPrice::format($sendcosts).wsPrice::currencySymbolPost());
 
 			$total = $total + $sendcosts;
 			$totalprint = myNumberFormat($total);
@@ -293,9 +257,8 @@ if (LoggedIn() == True) {
 						foreach ($taxes as $label => $data) {
 							$tpl->repeatRow(array('TAXLABEL','TAXRATE','TAXTOTAL'));
 							$tpl->replace('TAXRATE',$data['RATE']);
-							$tpl->replace('TAXTOTAL',$currency_symbol_pre.myNumberFormat($data['TAX'],$number_format).$currency_symbol_post);
+							$tpl->replace('TAXTOTAL',wsPrice::currencySymbolPre().wsPrice::format($data['TAX']).wsPrice::currencySymbolPost());
 							$tpl->replace('TAXLABEL',$label.' '.$data['CATEGORY']);
-							$message .= '<tr><td>'.$taxheader.'</td><td>'.$label.' '.$data['CATEGORY'].' '.$data['RATE'].'%</td><td style="text-align: right">'.$currency_symbol_pre.myNumberFormat($data['TAX'],$number_format).$currency_symbol_post.'</td></tr>';
 							$taxheader="";
 						}
 					}
@@ -308,25 +271,21 @@ if (LoggedIn() == True) {
 						foreach ($taxes as $label => $data) {
 							$tpl->repeatRow(array('TAXLABEL','TAXRATE','TAXTOTAL'));
 							$tpl->replace('TAXRATE',$data['RATE']);
-							$tpl->replace('TAXTOTAL',$currency_symbol_pre.myNumberFormat($data['TAX'],$number_format).$currency_symbol_post);
+							$tpl->replace('TAXTOTAL',wsPrice::currencySymbolPre().wsPrice::format($data['TAX']).wsPrice::currencySymbolPost());
 							$tpl->replace('TAXLABEL',$label.' '.$data['CATEGORY']);
-							$message .= '<tr><td>'.$taxheader.'</td><td>'.$label.' '.$data['CATEGORY'].' '.$data['RATE'].'%</td><td style="text-align: right">'.$currency_symbol_pre.myNumberFormat($data['TAX'],$number_format).$currency_symbol_post.'</td></tr>';
 							$taxheader="";
 						}
 					}
 				}
-			} 
+			}
 			if (count($tax->taxByCategory)==0 && count($shippingTax->taxByCategory)==0) {
 				$tpl->removeRow(array('TAXLABEL','TAXRATE','TAXTOTAL'));
 			}
-			
+				
 			// now lets calculate the invoice total now we know the final addition, the shipping costs
-			$message .= '<tr><td>'.$txt['checkout24'].'</td><td>'.$txt['checkout25'].'</td><td style="text-align: right"><big><strong>'.$currency_symbol_pre.myNumberFormat($total,$number_format).$currency_symbol_post.'</strong></big></td></tr>';
-			$tpl->replace('TOTAL',$currency_symbol_pre.myNumberFormat($total,$number_format).$currency_symbol_post);
-			$message .= "</table><br /><br />";
+			$tpl->replace('TOTAL',wsPrice::currencySymbolPre().wsPrice::format($total).wsPrice::currencySymbolPost());
 			// shippingmethod 2 is pick up at store. if you don't support this option, there is no need to remove this
-			if ($shippingid != "2" && $totalWeight > 0) { // only show shipping address if something to ship and not pickup from store
-				$message .= $txt['checkout17']; // shipping address
+//			if ($shippingid != "2" && $totalWeight > 0) { // only show shipping address if something to ship and not pickup from store
 				$tpl->replace('PHONE',$customer_row['PHONE']);
 				$tpl->replace('COMPANY',$customer_row['COMPANY']);
 				$tpl->replace('ADDRESS',$address);
@@ -334,8 +293,8 @@ if (LoggedIn() == True) {
 				$tpl->replace('CITY',$city);
 				$tpl->replace('STATE',$state);
 				$tpl->replace('COUNTRY',$country);
+				/*
 			} else {
-				$message .= $txt['checkout18']; // appointment line
 				$tpl->replace('PHONE','');
 				$tpl->replace('COMPANY','');
 				$tpl->replace('ADDRESS','');
@@ -344,14 +303,11 @@ if (LoggedIn() == True) {
 				$tpl->replace('STATE','');
 				$tpl->replace('COUNTRY','');
 			}
-			$message = $message . $txt['checkout6'].$txt['checkout6']; // white line
+			*/
 
 			// now the payment
 			$payment=new paymentCode();
 			$payment_code=$payment->getCode($paymentid,$customer_row,$total,$webid);
-
-			$message .= $txt['checkout19']; // Payment method:
-			$message .= $txt['checkout6']; // line break
 
 			// the two standard build in payment methods
 			if ($paymentid == "1") {
@@ -359,32 +315,25 @@ if (LoggedIn() == True) {
 				$paymentmessage = $txt['checkout20']; // bank info
 				$paymentmessage .= $txt['checkout6'].$txt['checkout6']; // new line
 				$paymentmessage .= $txt['checkout26'];  // pay within xx days
-				$message.=$paymentmessage;
 			} elseif ($paymentid == "2") {
 				// if the payment method is 'pay at the store', you don't need to pay within 14 days
 				$paymentmessage = $txt['checkout21']; // cash payment
-				$message.=$paymentmessage;
 			} else {
 				//other methods
 				//$paymentmessage .= $txt['checkout6'].$txt['checkout6']; // new line
 				if ($payment_code!='') {
 					$paymentmessage = $payment_code;
-					$message .= $paymentmessage;
-				} else {
-					$message .= $paymentmessage;
 				}
 				$paymentmessage .= $txt['checkout26'];  // pay within xx days
 			}
 			$tpl->replace('PAYMENTCODE',$paymentmessage);
 
-			$message .= $txt['checkout6']; // white line
-			$message .= $txt['checkout9']; // direct link to customer order for online status checking
 			$message=$tpl->getContent();
 
 			$message=str_replace($shopurl.'/index.php?page=orders',zurl('index.php?page=orders'),$message);;
 
 			if (isset($_REQUEST['wslive']) && $_REQUEST['wslive']=='dp') $message=str_replace($shopurl.'/index.php?',$_REQUEST['wsliveurl'].'/index.php?q=webshop&',$message);
-			
+				
 			//update order & basket
 			if ($autosubmit==1 && $payment_code!="") {
 				$basket_status=0;
@@ -397,7 +346,7 @@ if (LoggedIn() == True) {
 				$order_status=1;
 			}
 			// order update
-			$query = "UPDATE `".$dbtablesprefix."order` SET `STATUS`=".qs($order_status).", `TOPAY` = '".$total."',`DISCOUNTCODE`=".qs($discount_code)." WHERE `ID` = ".$lastid;
+			$query = "UPDATE `".$dbtablesprefix."order` SET `CURRENCY`=".qs(wsPrice::ccy()).", `STATUS`=".qs($order_status).", `TOPAY` = '".$total."',`DISCOUNTCODE`=".qs($discount_code)." WHERE `ID` = ".$lastid;
 			$sql = mysql_query($query) or die(mysql_error());
 
 			//basket update

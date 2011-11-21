@@ -91,7 +91,11 @@ class zingPrompts {
 			$$var='$'.$var;
 		}
 		require(ZING_DIR.'langs/'.$lang.'/lang.txt');
-		foreach ($zing->paths as $wsPath) if (file_exists($wsPath.'langs/'.$lang.'/lang.php')) include($wsPath.'langs/'.$lang.'/lang.php');
+		foreach ($zing->paths as $wsPath) {
+			if (file_exists($wsPath.'langs/'.$lang.'/lang.php')) {
+				include($wsPath.'langs/'.$lang.'/lang.php');
+			}
+		}
 		foreach ($txt as $label => $text) {
 			$a=explode('<a href=# class=info>(?)<span>',$text);
 			if (count($a) > 1) {
@@ -212,7 +216,6 @@ class zingPrompts {
 			$langs[]=$db->get('lang');
 		}
 		$deflang=$this->currentLanguage();
-		//if (!in_array($deflang,$langs)) $langs[]=$deflang;
 		if (!in_array('en',$langs)) $langs[]='en';
 		$this->activeLanguages=$langs;
 	}

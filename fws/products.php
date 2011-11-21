@@ -61,7 +61,7 @@ else {
 			$print_description=printDescription($row_details[1],$row_details[3],$row_details['EXCERPT']);
 			?>
 	<tr <?php echo $kleur; ?>>
-		<td><a href="index.php?page=details&prod=<?php echo $row_details[0]; ?>"><?php echo $thumb.$print_description.$picturelink; ?></a>
+		<td><a href="index.php?page=details&prod=<?php echo $row_details[0]; ?>"><?php echo $thumb.$print_description; ?></a>
 		<?php
 		$productprice = $row[3]; // the price of a product
 		if ($row[7]) {
@@ -71,15 +71,14 @@ else {
 		}
 		?></td>
 		<td><?php 
-		echo $currency_symbol_pre;
 		$subtotaal = $productprice * $row[6];
 		if ($no_vat == 0 && $db_prices_including_vat == 0) {
 			$tax=new wsTax($subtotaal,$row_details['TAXCATEGORYID']);
-			$subtotaal = $tax->in;
+			$printPrice=$tax->in;
+		} else {
+			$printPrice=$subtotaal;
 		}
-		$printprijs = myNumberFormat($subtotaal);
-		echo $printprijs;
-		echo $currency_symbol_post;
+		echo wsPrice::formatWithSymbol($subtotaal,$row['CURRENCY']);
 		?></td>
 		<td style="text-align: center;"><?php echo $row[6];
 		if ($row_details['LINK'] && ($row_order['STATUS']==5 || $row_order['STATUS']==6 || IsAdmin())) {

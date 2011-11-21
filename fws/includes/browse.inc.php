@@ -1,7 +1,7 @@
 <?php
 
 function wsShowProductRow($row) {
-	global $use_prodgfx,$prods_per_row,$currency_symbol_pre,$currency_symbol_post,$txt,$product_url,$product_dir,$pictureid;
+	global $use_prodgfx,$prods_per_row,$txt,$product_url,$product_dir,$pictureid;
 	global $db_prices_including_vat,$search_prodgfx,$use_prodgfx,$stock_enabled,$gfx_dir,$hide_outofstock,$show_stock;
 	global $ordering_enabled,$order_from_pricelist,$includesearch,$currency_symbol,$no_vat,$optel,$group;
 
@@ -11,11 +11,6 @@ function wsShowProductRow($row) {
 	if ($optel == 3) { $optel = 1; }
 	if ($optel == 1) { $kleur = ""; }
 	if ($optel == 2) { $kleur = " class=\"altrow\""; }
-
-	// the price gets calculated here
-	$printprijs = $row[4]; // from the database
-	//if ($db_prices_including_vat == 0 && $no_vat == 0) { $printprijs = $row[4] * $vat; }
-	$printprijs = myNumberFormat($printprijs); // format to our settings
 
 	// reset values
 	$picturelink = "";
@@ -84,15 +79,14 @@ function wsShowProductRow($row) {
 		if ($order_from_pricelist) {
 			$output.= '<form id="order'.$row[0].'" method="POST" action="?page=cart&action=add" enctype="multipart/form-data">';
 			$output.= '<div style="text-align: right"><input type="hidden" id="prodid" name="prodid" value="'.$row[0].'">';
-			$output.= '<input type="hidden" name="prodprice" value="'.$row[4].'">';
 			if (!$row[4] == 0 || $stock_enabled != 1) {
-				$tax=new wsTax($row[4],$row['TAXCATEGORYID']);
+				$tax=new wsTax(wsPrice::price($row[4]),$row['TAXCATEGORYID']);
 				if ($no_vat == 1) {
-					$output.= "<big><strong>". $currency_symbol_pre.'<span class="wspricein" id="wsprice'.$row[0].'">'.$tax->inFtd.'</span>'.$currency_symbol_post."</strong></big>";
+					$output.= "<big><strong>". wsPrice::currencySymbolPre().'<span class="wspricein" id="wsprice'.$row[0].'">'.$tax->inFtd.'</span>'.wsPrice::currencySymbolPost()."</strong></big>";
 				}
 				else {
-					$output.= "<big><strong>".$currency_symbol_pre.'<span class="wspricein" id="wsprice'.$row[0].'">'.$tax->inFtd.'</span>'.$currency_symbol_post."</strong></big>";
-					if (wsSetting('show_tax_breakdown')) $output.= "<br /><small>(".$currency_symbol_pre.'<span class="wspriceex" id="wsprice'.$row[0].'">'.$tax->exFtd.'</span>'.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>";
+					$output.= "<big><strong>".wsPrice::currencySymbolPre().'<span class="wspricein" id="wsprice'.$row[0].'">'.$tax->inFtd.'</span>'.wsPrice::currencySymbolPost()."</strong></big>";
+					if (wsSetting('show_tax_breakdown')) $output.= "<br /><small>(".wsPrice::currencySymbolPre().'<span class="wspriceex" id="wsprice'.$row[0].'">'.$tax->exFtd.'</span>'.wsPrice::currencySymbolPost()." ".$txt['general6']." ".$txt['general5'].")</small>";
 				}
 
 				// product features
@@ -133,7 +127,7 @@ function wsShowProductRow($row) {
 			}
 			$output.= '</form>';
 		}
-		else { $output.= "<big><strong>".$currency_symbol."&nbsp;".$printprijs."</strong></big>"; }
+		else { $output.= "<big><strong>".$currency_symbol."&nbsp;".wsPrice::format($row[4])."</strong></big>"; }
 		$output.= "</div></td>";
 	}
 	$output.= "</tr>";
@@ -144,7 +138,7 @@ function wsShowProductRow($row) {
 }
 
 function wsShowProductCell($row,$row_count,$prods_per_row) {
-	global $no_vat,$use_prodgfx,$currency_symbol_pre,$currency_symbol_post,$txt,$product_url,$product_dir,$pictureid,$group;
+	global $no_vat,$use_prodgfx,$txt,$product_url,$product_dir,$pictureid,$group;
 
 	$screenshot = "";
 	$output='';
@@ -173,13 +167,13 @@ function wsShowProductCell($row,$row_count,$prods_per_row) {
 	else $output.='<form class="wsgridform" id="order'.$row[0].'" method="post" action="?page=cart&action=add">';
 	$output.='<input type="hidden" name="prodid" value="'.$row[0].'">';
 	if (!$row[4] == 0) {
-		$tax=new wsTax($row[4],$row['TAXCATEGORYID']);
+		$tax=new wsTax(wsPrice::price($row[4]),$row['TAXCATEGORYID']);
 		if ($no_vat == 1) {
-			$output.="<normal>" . $currency_symbol_pre.$tax->inFtd.$currency_symbol_post."</normal>";
+			$output.="<normal>" . wsPrice::currencySymbolPre().$tax->inFtd.wsPrice::currencySymbolPost()."</normal>";
 		}
 		else {
-			$output.="<strong>" .$currency_symbol_pre.$tax->inFtd.$currency_symbol_post."</strong>";
-			if (wsSetting('show_tax_breakdown')) $output.="<br /><small>(".$currency_symbol_pre.$tax->exFtd.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>";
+			$output.="<strong>" .wsPrice::currencySymbolPre().$tax->inFtd.wsPrice::currencySymbolPost()."</strong>";
+			if (wsSetting('show_tax_breakdown')) $output.="<br /><small>(".wsPrice::currencySymbolPre().$tax->exFtd.wsPrice::currencySymbolPost()." ".$txt['general6']." ".$txt['general5'].")</small>";
 		}
 	}
 

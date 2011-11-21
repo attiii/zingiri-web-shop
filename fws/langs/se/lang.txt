@@ -677,7 +677,7 @@ $txt['uploadadmin105'] = 'Use symlinks for digital products <a href=# class=info
 $txt['details100'] = 'Other products';
 
 //v1.2.7 - new
-$txt['admin100'] = 'Varav';
+$txt['admin100'] = 'Moms';
 $txt['general100'] = 'Rate';
 $txt['general101'] = 'Label';
 $txt['taxes1'] = 'Cascading';
@@ -691,7 +691,7 @@ $txt['cart101'] = 'hide';
 $txt['editsettings111'] = 'Date of birth on registration form'; //not used
 
 //v1.2.7 - modified
-$txt['general5'] = 'varav';
+$txt['general5'] = 'moms';
 $txt['editsettings51'] = 'No taxes <a href=# class=info>(?)<span>Enable this if you do not want to use VAT in your shop prices, for example when it is a webshop with personal products</span></a>';
 $txt['editsettings13'] = 'Prices in DB are incl. taxes';
 

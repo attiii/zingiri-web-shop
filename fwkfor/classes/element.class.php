@@ -92,7 +92,7 @@ class element {
 		if ($this->disabled) return true;
 
 		for ($i=1; $i<=$this->fields; $i++) {
-			$int=$ext=$this->input['element_'.$this->id.'_'.$i];
+			$int=$ext=isset($this->input['element_'.$this->id.'_'.$i]) ? $this->input['element_'.$this->id.'_'.$i] : '';
 			$type=$this->xmlf->fields->{'field'.$i}->type;
 			if ($this->fields > 1)
 			$this->name[$i]=(string)$this->xmlf->fields->{'field'.$i}->name;
@@ -134,7 +134,7 @@ class element {
 		$this->input=$input;
 
 		for ($i=1; $i<=$this->fields; $i++) {
-			$int=$ext=$this->input['element_'.$this->id.'_'.$i];
+			$int=$ext=isset($this->input['element_'.$this->id.'_'.$i]) ? $this->input['element_'.$this->id.'_'.$i] : '';
 
 			$type=$this->xmlf->fields->{'field'.$i}->type;
 			if ($this->fields > 1)

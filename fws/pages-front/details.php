@@ -75,9 +75,9 @@ else {
 
 		if ($ordering_enabled) {
 			if (!$row[4] == 0) {
-				$tax=new wsTax($row[4],$row['TAXCATEGORYID']);
-				$priceOut="<big><strong>" . $txt['details5'] . ": ". $currency_symbol_pre.'<span class="wspricein" id="wsprice'.$row[0].'">'.$tax->inFtd.'</span>'.$currency_symbol_post."</strong></big>";
-				if (!$no_vat && wsSetting('show_tax_breakdown')) $priceOut.="<br /><small>(".$currency_symbol_pre.'<span class="wspriceex" id="wsprice'.$row[0].'">'.$tax->exFtd.'</span>'.$currency_symbol_post." ".$txt['general6']." ".$txt['general5'].")</small>";
+				$tax=new wsTax(wsPrice::price($row[4]),$row['TAXCATEGORYID']);
+				$priceOut="<big><strong>" . $txt['details5'] . ": ". wsPrice::currencySymbolPre().'<span class="wspricein" id="wsprice'.$row[0].'">'.$tax->inFtd.'</span>'.wsPrice::currencySymbolPost()."</strong></big>";
+				if (!$no_vat && wsSetting('show_tax_breakdown')) $priceOut.="<br /><small>(".wsPrice::currencySymbolPre().'<span class="wspriceex" id="wsprice'.$row[0].'">'.$tax->exFtd.'</span>'.wsPrice::currencySymbolPost()." ".$txt['general6']." ".$txt['general5'].")</small>";
 			}
 
 			// product features
@@ -127,8 +127,8 @@ else {
 	$tpl=new wsTemplate('productdetails');
 	$tpl->parse('image',$screenshot);
 	$tpl->parse('thumbnails',$imagesMarkUp);
-	$tpl->parse('pricewithtax',$currency_symbol_pre.$tax->inFtd.$currency_symbol_post);
-	$tpl->parse('pricewithouttax',$currency_symbol_pre.$tax->exFtd.$currency_symbol_post);
+	$tpl->parse('pricewithtax',wsPrice::currencySymbolPre().$tax->inFtd.wsPrice::currencySymbolPost());
+	$tpl->parse('pricewithouttax',wsPrice::currencySymbolPre().$tax->exFtd.wsPrice::currencySymbolPost());
 	$tpl->parse('description',nl2br($row['DESCRIPTION']));
 	$tpl->parse('price',$row['PRICE']);
 	$tpl->parse('similar',$similarOut);
@@ -138,7 +138,13 @@ else {
 	$tpl->parse('images_count',$imagesCount);
 	$tpl->parse('ordering_enabled',$ordering_enabled);
 	$tpl->parse('id',$row['ID']);
-
+	if (class_exists('wsMultiCurrency')) {
+		$mc=new wsMultiCurrency();
+		$tpl->parse('currency_selector',$mc->currencySelector(false));
+	} else $tpl->parse('currency_selector','');
+	
+	
+	
 	$tpl->conditions();
 
 	echo $tpl->content;

@@ -454,7 +454,7 @@ class zfForm {
 		{
 			$element=new element($value['type']);
 			$element->id=$key;
-			$element->is_required=$value['mandatory'];
+			$element->is_required=isset($value['mandatory']) ? $value['mandatory'] : '';
 			$element->is_searchable=isset($value['searchable']) ? $value['searchable'] : '';
 			$element->readonly=isset($value['readonly']) ? $value['readonly'] : '';
 			$element->hidden=isset($value['hidden']) ? $value['hidden'] : '';
@@ -473,14 +473,14 @@ class zfForm {
 				}
 				elseif (!empty($this->input))
 				{
-					$populated_value['element_'.$key.'_'.$key2]=$this->input['element_'.$key.'_'.$key2];
+					$populated_value['element_'.$key.'_'.$key2]=isset($this->input['element_'.$key.'_'.$key2]) ? $this->input['element_'.$key.'_'.$key2] : '';
 				}
 				if ($c > 1) {
 					$f=strtoupper($this->column[$key]."_".$element->xmlf->fields->{'field'.$key2}->name);
 				} else {
 					$f=$this->column[$key];
 				}
-				$populated_column[$f]=$this->input['element_'.$key.'_'.$key2];
+				$populated_column[$f]=isset($this->input['element_'.$key.'_'.$key2]) ? $this->input['element_'.$key.'_'.$key2] : '';
 				$column_map['element_'.$key.'_'.$key2]=$f;
 			}
 			$element->entityName=$this->entity;
@@ -550,7 +550,7 @@ class zfForm {
 		$grid=array();
 		foreach ($this->json as $key => $value)
 		{
-			if (!$value['attributes']['zfrepeatable'] && (!isset($value['attributes']['zfmeta']) || !$value['attributes']['zfmeta'])) {
+			if ((!isset($value['attributes']['zfrepeatable']) || !$value['attributes']['zfrepeatable']) && (!isset($value['attributes']['zfmeta']) || !$value['attributes']['zfmeta'])) {
 				$count=$this->countSubelements($value['subelements'],$key);
 				foreach ($value['subelements'] as $key2 => $sub)
 				{
@@ -642,12 +642,12 @@ class zfForm {
 		{
 			$element=new element($value['type']);
 			$element->id=$key;
-			$element->is_required=$value['mandatory'];
-			$element->is_searchable=$value['searchable'];
-			$element->readonly=$value['readonly'];
-			$element->hidden=$value['hidden'];
-			$element->unique=$value['unique'];
-			$element->rules=$this->elements['rules'][$key];
+			$element->is_required=isset($value['mandatory']) ? $value['mandatory'] : '';
+			$element->is_searchable=isset($value['searchable']) ? $value['searchable'] : '';
+			$element->readonly=isset($value['readonly']) ? $value['readonly'] : '';
+			$element->hidden=isset($value['hidden']) ? $value['hidden'] : '';
+			$element->unique=isset($value['unique']) ? $value['unique'] : '';
+			$element->rules=isset($this->elements['rules'][$key]) ? $this->elements['rules'][$key] : '';
 
 			$c=$this->countSubelements($value['subelements'],$key);
 			foreach ($value['subelements'] as $key2 => $sub)
@@ -661,14 +661,14 @@ class zfForm {
 				}
 				elseif (!empty($this->input))
 				{
-					$populated_value['element_'.$key.'_'.$key2]=$this->input['element_'.$key.'_'.$key2];
+					$populated_value['element_'.$key.'_'.$key2]=isset($this->input['element_'.$key.'_'.$key2]) ? $this->input['element_'.$key.'_'.$key2] : '';
 				}
 				if ($c > 1) {
 					$f=strtoupper($this->column[$key]."_".$element->xmlf->fields->{'field'.$key2}->name);
 				} else {
 					$f=$this->column[$key];
 				}
-				$populated_column[$f]=$this->input['element_'.$key.'_'.$key2];
+				$populated_column[$f]=isset($this->input['element_'.$key.'_'.$key2]) ? $this->input['element_'.$key.'_'.$key2] : '';
 				$elementToColumn['element_'.$key.'_'.$key2]=$f;
 			}
 			$element->populated_value=$populated_value;
