@@ -4,11 +4,10 @@ if (!get_option('zing_webshop_pro')) {
 	define("ZING_WS_PRO_URL",'');
 	define('ZING_WS_PRO',false);
 }
-if (!defined('ZING_VERSION')) define("ZING_VERSION","2.3.0");
+if (!defined('ZING_VERSION')) define("ZING_VERSION","2.3.1");
 if (!defined('APHPS_JSDIR')) define('APHPS_JSDIR','src');
 global $aphps_projects;
 $aphps_projects['fws']=array('label'=>'Web Shop','dir'=>ZING_LOC.'fws/apps/','url'=>ZING_URL.'fws/apps/');
-
 @include(dirname(dirname(__FILE__))."/source.inc.php");
 @include(dirname(dirname(__FILE__))."/fixme.php");
 require(dirname(__FILE__)."/zing.php");

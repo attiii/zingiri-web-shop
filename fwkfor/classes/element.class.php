@@ -285,10 +285,10 @@ class element {
 			$guidelines = "<p class=\"guidelines\" id=\"guide_{$this->id}\"><small>{$this->attributes['zfguidelines']}</small></p>";
 		}
 		
-		if (defined("ZING_APPS_TRANSLATE")) {
-			$tempfunc=ZING_APPS_TRANSLATE;
-			$label=$tempfunc($label);
-		}
+		//if (defined("ZING_APPS_TRANSLATE")) {
+			//$tempfunc=ZING_APPS_TRANSLATE;
+			//$label=$tempfunc($label);
+		//}
 
 		$jsRule=array();
 		if (isset($this->rules) && is_array($this->rules) && count($this->rules) > 0) {
@@ -323,7 +323,6 @@ class element {
 
 			$subscript_markup = '';
 			$field_markup ="<div id=\"zf_{$this->id}_{$fn}\" style=\"width: {$xmlf->fields->{'field'.$i}->width}\" class=\"zfsub\">";
-
 			$ac=1;
 			if (isset($this->isRepeatable) && $this->isRepeatable) $ac=max($ac,count($this->populated_value['element_'.$this->id.'_'.$i]));
 

@@ -18,11 +18,12 @@ function z_($label) {
 }
 
 function reorder_txt() {
-	global $lang_dir,$zing,$txt,$lang;
+	global $lang_dir,$zing,$lang,$zingPrompts;
 
+	$ref=$zingPrompts->loadLang('en');
 	$txt2=array();
 	//include($lang_dir."/en/lang.txt");
-	foreach ($txt as $label => $text) {
+	foreach ($ref as $label => $text) {
 		$a=explode('<a href=# class=info>(?)<span>',$text);
 		if (count($a) > 1) {
 			$txt2[trim($a[0])]=$label;

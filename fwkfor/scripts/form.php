@@ -5,7 +5,7 @@ if (isset($_GET['form'])) $form=$_GET['form'];
 if (!isset($formid) && isset($_GET['formid'])) $formid=$_GET['formid']; else $formid='';
 if (!isset($action) && isset($_GET['action'])) $action=$_GET['action'];
 $step=isset($_GET['step']) ? $_GET['step'] : null;
-if (isset($_GET['id'])) $id=$_GET['id'];
+if (isset($_GET['id'])) $id=$_GET['id']; else $id='';
 if (isset($_GET['zfp'])) $zfp=intval($_GET['zfp']);
 if (isset($_GET['zft'])) $zft=$_GET['zft'];
 if (isset($_GET['search']) && is_array($_GET['search'])) $search=$_GET['search'];

@@ -24,12 +24,12 @@
 <?php
 if (!empty($_GET['pagetoload'])) {
 	$pagetoload=$_GET['pagetoload'];
-}
+} else $pagetoload='';
 
 require_once(ZING_APPS_PLAYER_DIR."includes/all.inc.php");
-$custForm=appsForm('register','add',"?page=customer&action=add&step=save&registration=".intval($_GET['registration'])."&pagetoload=".$pagetoload,true);
+$custForm=appsForm('register','add',"?page=customer&action=add&step=save&registration=".(isset($_GET['registration']) ? intval($_GET['registration']) : 0)."&pagetoload=".$pagetoload,true);
 
-if ($action=="add" && $_GET['step']=="save" && $custForm->success && $custForm->showform=="saved") {
+if ($action=="add" && isset($_GET['step']) && $_GET['step']=="save" && $custForm->success && $custForm->showform=="saved") {
 	foreach ($zingPrompts->vars as $var) { global $$var; }
 	$registration=wsSetting('require_registration') ? 1 : intval($_GET['registration']);
 	$email=$custForm->recValue('EMAIL');

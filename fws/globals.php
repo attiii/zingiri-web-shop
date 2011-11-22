@@ -1,5 +1,6 @@
 <?php 
 global $aphps;
+global $aphps_projects;
 global $aboutus_page;
 global $action;
 global $author;

@@ -13,3 +13,15 @@ require(dirname(__FILE__)."/../classes/index.php");
 
 if (!defined("ZING_APPS_MAX_ROWS"))
 define ("ZING_APPS_MAX_ROWS",15);
+
+global $aphps_projects;
+if (isset($aphps_projects)) {
+	foreach ($aphps_projects as $id => $project) {
+		if ($id != 'player') {
+			if (file_exists($project['dir']."classes/index.php")) require($project['dir']."classes/index.php");
+		}
+	}
+	foreach ($aphps_projects as $id => $project) {
+		if ($id != 'player' && file_exists($project['dir']."services/index.php")) require($project['dir']."services/index.php");
+	}
+}

@@ -219,7 +219,7 @@ function zing_apps_player_content($content='') {
 	}
 
 	require_once(dirname(__FILE__)."/includes/all.inc.php");
-
+/*
 	if (isset($aphps_projects)) {
 		foreach ($aphps_projects as $id => $project) {
 			if ($id != 'player') {
@@ -230,7 +230,7 @@ function zing_apps_player_content($content='') {
 			if ($id != 'player' && file_exists($project['dir']."services/index.php")) require($project['dir']."services/index.php");
 		}
 	}
-
+*/
 	echo actionCompleteMessage();
 	echo '<div class="zing_ws_page" id="zing_ws_'.(isset($_GET['form']) ? $_GET['form'] : 'form_'.$_GET['formid']).'">';
 	if (isset($prefix)) echo $prefix;

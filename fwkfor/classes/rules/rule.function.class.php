@@ -29,7 +29,7 @@ class zfrule_function extends zfrule {
 		$this->reference=$parameters[2];
 		$this->action=$parameters[3];
 		if (function_exists($f[0])) {
-			$this->v=$f[0]($f[1]);
+			$this->v=isset($f[1]) ? $f[0]($f[1]) : $f[0]();
 		}
 		if ($this->compare($this->v,$this->reference,$this->compare)) {
 			$this->action($e,$this->action);

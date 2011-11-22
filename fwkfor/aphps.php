@@ -19,6 +19,7 @@ if (!class_exists('aphps')) {
 			if ($this->bootstrap) return;
 			global $aphps_projects;
 			require_once(ZING_APPS_PLAYER_DIR."includes/all.inc.php");
+			/*
 			if (isset($aphps_projects)) {
 				foreach ($aphps_projects as $id => $project) {
 					if ($id != 'player') {
@@ -29,6 +30,7 @@ if (!class_exists('aphps')) {
 					if ($id != 'player' && file_exists($project['dir']."services/index.php")) require($project['dir']."services/index.php");
 				}
 			}
+			*/
 			$this->bootstrap=true;
 		}
 
