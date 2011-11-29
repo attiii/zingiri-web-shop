@@ -1,0 +1,1 @@
+function wsSubmit(){var a=jQuery("#autosubmit");if(a){a.attr("target","");a.submit()}};

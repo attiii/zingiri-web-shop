@@ -26,7 +26,7 @@ class image_multipleZfSubElement extends zfSubElement {
 	function output($mode="edit",$input="")
 	{
 		if ($mode=='list') {
-			$url=@constant($input['element_'.$this->elementid.'_'.($this->subid+2)]);
+			$url=defined('APHPS_DATA_URL') ? APHPS_DATA_URL : constant($input['element_'.$this->elementid.'_'.($this->subid+2)]);
 			$image=$url.'/'.$input['element_'.$this->elementid.'_'.$this->subid];
 			if ($this->int!='') $this->ext='<img src="'.$image.'" height="48px"/>';
 			else $this->ext='';
@@ -36,18 +36,19 @@ class image_multipleZfSubElement extends zfSubElement {
 
 	function postSave($id=0)
 	{
-		$product_dir=@constant($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+1)]);
-		$product_url=@constant($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+2)]);
+		$product_dir=defined('APHPS_DATA_DIR') ? APHPS_DATA_DIR : constant($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+1)]);
+		$product_url=defined('APHPS_DATA_URL') ? APHPS_DATA_URL : constant($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+2)]);
 
 		$picid=$id;
 
 		//set default image
 		if (isset($this->element->input['image_default'])) $defaultImage=$this->element->input['image_default'];
+		else $defaultImage=null;
 
 		// move the multiple uploaded images to the correct folder
 		if ($this->element->input['upload_key']!='') {
 			$key=$this->element->input['upload_key'];
-			$imgs=$this->element->input['new_images'];
+			$imgs=isset($this->element->input['new_images']) ? $this->element->input['new_images'] : null;
 			if (count($imgs) > 0) {
 				foreach ($imgs as $img) {
 					foreach (array("","tn_") as $tn) {
@@ -69,7 +70,7 @@ class image_multipleZfSubElement extends zfSubElement {
 		}
 
 		//delete images if required
-		if (count($this->element->input['delimage'])>0) {
+		if (isset($this->element->input['delimage']) && count($this->element->input['delimage'])>0) {
 			foreach ($this->element->input['delimage'] as $imageid) {
 				unlink($product_dir.'/'.$imageid);
 				unlink($product_dir.'/'.str_replace('tn_','',$imageid));
@@ -77,10 +78,12 @@ class image_multipleZfSubElement extends zfSubElement {
 		}
 
 		//set default image
-		$column=$this->element->elementToColumn['element_'.$this->elementid.'_'.$this->subid];
-		$db=new aphpsDb();
-		$db->updateRecord($this->element->entity,array('ID' => $id),array($column => $defaultImage));
-		$this->ext=$this->int=$defaultImage;
+		if ($defaultImage) {
+			$column=$this->element->elementToColumn['element_'.$this->elementid.'_'.$this->subid];
+			$db=new aphpsDb();
+			$db->updateRecord($this->element->entity,array('ID' => $id),array($column => $defaultImage));
+			$this->ext=$this->int=$defaultImage;
+		}
 
 		return true;
 	}
@@ -90,23 +93,24 @@ class image_multipleZfSubElement extends zfSubElement {
 		$i=$this->subid;
 		$xmlf=$this->xmlf;
 
-		$product_dir=@constant($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+1)]);
-		$product_url=@constant($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+2)]);
+		$product_dir=defined('APHPS_DATA_DIR') ? APHPS_DATA_DIR : constant($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+1)]);
+		$product_url=defined('APHPS_DATA_URL') ? APHPS_DATA_URL : constant($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+2)]);
 		$defaultImage=$this->element->populated_value['element_'.$this->elementid.'_'.$this->subid];
 
-		$picid=is_numeric($_GET['id']) ? $_GET['id'] : 0;
+		$picid=(isset($_GET['id']) && is_numeric($_GET['id'])) ? $_GET['id'] : 0;
 
-		$field_markup.='<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/' . APHPS_JSDIR . '/ajaxupload.js"></script>';
-		$field_markup.='<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/' . APHPS_JSDIR . '/imageupload.jquery.js"></script>';
-
-		$field_markup.='<input type="button" id="upload_button" value="'.zurl('Upload a picture').'" />';
-		$field_markup.='<input type="hidden" name="upload_key" id="upload_key" value="'.create_sessionid(16,1,36).'">';
+		if ($this->mode != 'view') {
+			$field_markup.='<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/' . APHPS_JSDIR . '/ajaxupload.js"></script>';
+			$field_markup.='<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/' . APHPS_JSDIR . '/imageupload.jquery.js"></script>';
+			$field_markup.='<input type="button" id="upload_button" value="'.zurl('Upload a picture').'" />';
+			$field_markup.='<input type="hidden" name="upload_key" id="upload_key" value="'.$this->createRandomCode(16).'">';
+		}
 
 		$imgs=array();
 		$field_markup.='<div id="uploaded_images">';
 		if ($handle=opendir($product_dir)) {
 			while (($img = readdir($handle))!==false) {
-				if (strstr($img,'tn_'.$picid.'.') || strstr($img,'tn_'.$picid.'__')) {
+				if (strstr($img,'tn_'.$picid.'.') || strstr($img,'tn_'.$picid.'__') || (!function_exists('createthumb') && strpos($img,$picid)===0)) {
 					$imgs[]=$img;
 				}
 			}
@@ -116,16 +120,22 @@ class image_multipleZfSubElement extends zfSubElement {
 			asort($imgs);
 			foreach ($imgs as $img) {
 				$field_markup.='<div id="'.$img.'" style="position:relative;float:left">';
-				$field_markup.="<img src=\"".$product_url."/".$img."\" class=\"borderimg\" /><br />";
-				$field_markup.='<a onclick="wsDeleteImage(\''.$img.'\');">';
-				$field_markup.='<img style="position:absolute;right:0px;top:0px;" src="'.ZING_APPS_PLAYER_URL.'images/delete.png" height="16px" width="16px" />';
-				$field_markup.="</a>";
-				if ($img == $defaultImage) $checked='checked'; else $checked='';
-				$field_markup.='<input type="radio" name="image_default" value="'.$img.'" '.$checked.' />';
-				$field_markup.='</div>';
-				preg_match('/tn_(.*)__(.*)\./',$img,$matches);
-				if (count($matches) == 3) $lastimg=$matches[2]+1;
-				else $lastimg=1;
+				if (strpos($img,'tn_')===0) $image_markup="<img src=\"".$product_url."/".$img."\" class=\"borderimg\" /><br />";
+				else $image_markup.="<img height=\"48px\" src=\"".$product_url."/".$img."\" class=\"borderimg\" /><br />";
+				if ($this->mode == 'view') {
+					$field_markup.='<a href="'.$product_url.'/'.$img.'">'.$image_markup.'</a>';
+				} else {
+					$field_markup.=$image_markup;
+					$field_markup.='<a onclick="wsDeleteImage(\''.$img.'\');">';
+					$field_markup.='<img style="position:absolute;right:0px;top:0px;" src="'.ZING_APPS_PLAYER_URL.'images/delete.png" height="16px" width="16px" />';
+					$field_markup.="</a>";
+					if ($img == $defaultImage) $checked='checked'; else $checked='';
+					$field_markup.='<input type="radio" name="image_default" value="'.$img.'" '.$checked.' />';
+					$field_markup.='</div>';
+					preg_match('/tn_(.*)__(.*)\./',$img,$matches);
+					if (count($matches) == 3) $lastimg=$matches[2]+1;
+					else $lastimg=1;
+				}
 			}
 			$field_markup.='<input type="hidden" name="lastimg" id="lastimg" value="'.$lastimg.'">';
 		}

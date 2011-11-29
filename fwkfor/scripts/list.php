@@ -85,8 +85,8 @@ if ($zflist)
 
 	$h=$zflist->headers;
 
-	if (ZingAppsIsAdmin()) echo '<table id="'.$formname.'" class="datatable sortable draggable">';
-	else echo '<table id="'.$formname.'" class="datatable">';
+	if (ZingAppsIsAdmin()) echo '<table id="'.$formname.'" class="datatable sortable draggable aphps-list-table">';
+	else echo '<table id="'.$formname.'" class="datatable aphps-list-table">';
 	echo '<thead>';
 	echo '<tr>';
 	foreach ($h as $key => $value)

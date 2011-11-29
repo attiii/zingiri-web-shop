@@ -1,0 +1,1 @@
+jQuery.fn.delay=function(a,b){jQuery.fx.step.delay=function(){};return this.animate({delay:1},a,b)};

@@ -1,0 +1,1 @@
+wsSearch={init:function(){if(jQuery("#searchbar")!=null){var a=jQuery("#searchbar");a.keyup(function(){var b=jQuery("#searchresults");new jQuery.ajax({url:wsAjaxURL+"search",type:"post",data:{searchfor:jQuery("#searchbar").attr("value"),cms:wsCms},success:function(c){b.html(c)}})})}}};

@@ -97,7 +97,7 @@ function zing_set_options() {
 
 function zing_ws_settings() {
 	global $menus,$txt,$wpdb,$dbtablesprefix,$action,$gfx_dir,$wsPages,$page;
-
+	
 	zing_admin_header();
 	zing_apps_player_header_cp();
 

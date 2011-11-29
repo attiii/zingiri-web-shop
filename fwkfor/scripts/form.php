@@ -56,6 +56,7 @@ if ($action == "add" && ($step == "" || $step == "poll")) {
 			$showform="saved";
 			if (isset($_POST['redirect'])) $redirect=$_POST['redirect'];
 			elseif (isset($_GET['redirect'])) $redirect=$_GET['redirect'];
+			else $redirect=null;
 			if ($redirect && (!defined("ZING_SAAS") || !ZING_SAAS)) {
 				header('Location:'.zurl($redirect.'&zmsg=add'));
 				exit;
@@ -89,6 +90,7 @@ if ($action == "add" && ($step == "" || $step == "poll")) {
 			$showform="saved";
 			if (isset($_POST['redirect'])) $redirect=$_POST['redirect'];
 			elseif (isset($_GET['redirect'])) $redirect=$_GET['redirect'];
+			else $redirect=null;
 			if ($redirect && (!defined("ZING_SAAS") || !ZING_SAAS)) {
 				header('Location:'.zurl($redirect.'&zmsg=edit'));
 				exit;
@@ -115,6 +117,7 @@ if ($action == "add" && ($step == "" || $step == "poll")) {
 		$showform="saved";
 		if (isset($_POST['redirect'])) $redirect=$_POST['redirect'];
 		elseif (isset($_GET['redirect'])) $redirect=$_GET['redirect'];
+		else $redirect=null;
 		if ($redirect && (!defined("ZING_SAAS") || !ZING_SAAS)) {
 			header('Location:'.zurl($redirect.'&zmsg=delete'));
 			exit;
@@ -149,6 +152,7 @@ if ($action == "add" && ($step == "" || $step == "poll")) {
 							$showform="saved";
 							if (isset($_POST['redirect'])) $redirect=$_POST['redirect'];
 							elseif (isset($_GET['redirect'])) $redirect=$_GET['redirect'];
+							else $redirect=null;
 							if ($redirect && (!defined("ZING_SAAS") || !ZING_SAAS)) {
 								header('Location:'.zurl($redirect.'&zmsg=delete'));
 								exit;
@@ -242,14 +246,18 @@ if ($allowed && $success && $showform == "edit") {
 } elseif ($showform == "saved") {
 	if ($stack->getPrevious()) {
 		$redirect2=$stack->getPrevious();
+		trigger_error('redirect1:'.$redirect2);
+		trigger_error('redirect1:'.zurl($redirect2.'&zmsg=complete'));
 	} else {
 		$redirect2='?page='.$page.'&zfaces=form&form='.$form.'&zft='.$zft.'&zfp='.$zfp.'&action='.$action.'&id='.$id;
+		trigger_error('redirect2:'.$redirect2);
+		trigger_error('redirect2:'.zurl($redirect2.'&zmsg=complete'));
 	}
 	if (!$noRedirect && !$redirect && (!defined("ZING_SAAS") || !ZING_SAAS)) {
 		header('Location: '.zurl($redirect2.'&zmsg=complete'));
 		die();
 	} else {
-		if (!noBackLink) echo '<a href="'.zurl($redirect2).'" class="button">'.z_('Back').'</a>';
+		if (!$noBackLink) echo '<a href="'.zurl($redirect2).'" class="button">'.z_('Back').'</a>';
 	}
 }
 ?>

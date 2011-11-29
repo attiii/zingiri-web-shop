@@ -64,8 +64,6 @@ function faces_get_xml($type,$dir="") {
 	}
 
 	if (count($aphps_projects) > 0) {
-		//foreach ($zing->paths as $path) {
-		//	$url_details=$path.'apps/fields/'.$type.".xml";
 		foreach ($aphps_projects as $id => $project) {
 			if ($id != 'player') {
 				$url_details=$project['dir'].'fields/'.$type.".xml";

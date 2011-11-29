@@ -521,12 +521,10 @@
             // form.setAttribute('enctype', 'multipart/form-data');
             // Because in this case file won't be attached to request                    
             var form = toElement('<form method="post" enctype="multipart/form-data"></form>');
-                        
             form.setAttribute('action', settings.action);
             form.setAttribute('target', iframe.name);                                   
             form.style.display = 'none';
             document.body.appendChild(form);
-            
             // Create hidden input element for each data key
             for (var prop in settings.data) {
                 if (settings.data.hasOwnProperty(prop)){
@@ -587,14 +585,12 @@
                 }
                 
                 var response;
-                
                 if (doc.XMLDocument) {
                     // response is a xml document Internet Explorer property
                     response = doc.XMLDocument;
                 } else if (doc.body){
                     // response is html document or plain text
                     response = doc.body.innerHTML;
-                    
                     if (settings.responseType && settings.responseType.toLowerCase() == 'json') {
                         // If the document was sent as 'application/javascript' or
                         // 'text/javascript', then the browser wraps the text in a <pre>
@@ -616,7 +612,6 @@
                     // response is a xml document
                     response = doc;
                 }
-                
                 settings.onComplete.call(self, file, response);
                 
                 // Reload blank page, so that reloading main page

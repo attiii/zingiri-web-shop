@@ -1,6 +1,6 @@
 function wsRemoveFile(id,key,dir) {
 	new jQuery.ajax({
-		url : wsAjaxURL+'removefile',
+		url : aphpsAjaxURL+'removefile&mod=fwkfor',
 		type : "post",
 		data : { 
 			'wsid' : id, 
@@ -26,7 +26,7 @@ jQuery(document).ready(function() {
 				'wsdir' : dir
 				},
 			responseType: 'json',
-			action: wsAjaxURL+'uploadfile',
+			action: aphpsAjaxURL+'uploadfile&mod=fwkfor',
 			onComplete: function(file, response) {
 				if (response.error == 0) {
 					var divTag = jQuery(document.createElement("li"));
@@ -35,11 +35,11 @@ jQuery(document).ready(function() {
 					divTag.attr('id',response.target_file);
 
 					var pTag = jQuery(document.createElement("p"));
-					pTag.attr('innerHTML',response.target_file);
+					pTag.html(response.target_file);
 			
 					var aTag = jQuery(document.createElement("a"));
 					aTag.attr('href','javascript:wsRemoveFile(\''+response.target_file+'\',\''+key+'\',\''+dir+'\');');
-					aTag.attr('innerHTML','<img style="position:absolute;right:-16px;top:0px;" src="'+aphpsURL+'fwkfor/images/delete.png" height="16px" width="16px" />');
+					aTag.html('<img style="position:absolute;right:-16px;top:0px;" src="'+aphpsURL+'images/delete.png" height="16px" width="16px" />');
 			
 					var newTag = jQuery(document.createElement("input"));
 					newTag.attr('type','hidden');

@@ -1,0 +1,1 @@
+function wsIncludeJavaScript(a){document.write('<script type="text/javascript" src="'+a+'"><\/script>')};

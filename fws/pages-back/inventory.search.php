@@ -48,4 +48,4 @@ else $searchCategory='';
 	    <div style="text-align:center;"><input type="submit" value="<?php echo $txt['search6'] ?>"></div>
 	</form>
 </div>      
-<script type="text/javascript" src="<?php echo ZING_URL.'fws/js/getcategories.jquery.js';?>"></script>'
+<script type="text/javascript" src="<?php echo ZING_URL.'fws/js/'.APHPS_JSDIR.'/getcategories.jquery.js';?>"></script>'

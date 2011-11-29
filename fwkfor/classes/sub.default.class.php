@@ -125,5 +125,19 @@ class zfSubElement {
 		$subscript_markup.="<label id=\"label_{$e->id}_{$i}\"for=\"element_{$e->id}_{$i}\">".z_($xmlf->fields->{'field'.$i}->label)."</label>";
 	}
 
+	function createRandomCode($len=16) {
+		$chars = "abcdefghijkmnpqrstuvwxyz23456789";
+		srand((double)microtime()*1000000);
+		$pass = '' ;
+		$len++;
+
+		for ($i=0;$i<=$len; $i++) {
+			$num = rand() % 33;
+			$tmp = substr($chars, $num, 1);
+			$pass = $pass . $tmp;
+		}
+	return $pass;
+}
+	
 }
 ?>

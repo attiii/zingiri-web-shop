@@ -88,6 +88,8 @@ if (!defined("ZING_UPLOADS_DIR")) {
 	define("ZING_UPLOADS_DIR", BLOGUPLOADDIR . "zingiri-web-shop/");
 }
 
+define('APHPS_LOG_FILE',ZING_UPLOADS_DIR.'log.txt');
+
 if (function_exists("qtrans_getLanguage")) {
 	session_start();
 	if (isset($_GET['lang'])) $_SESSION['lang']=$_GET['lang'];

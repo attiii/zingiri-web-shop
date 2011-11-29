@@ -13,4 +13,5 @@
 			<cat>parameter</cat>
 		</field2>
 	</fields>
+	<help>Upload multiple files at once. The 'directory' can be left blank.</help>
 </config>

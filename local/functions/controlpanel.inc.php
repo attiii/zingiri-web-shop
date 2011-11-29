@@ -104,14 +104,9 @@ function zing_ws_add_admin() {
 
 		if ( isset($_REQUEST['action']) && ('install' == $_REQUEST['action']) ) {
 			foreach ($zing_ws_options as $value) {
-				update_option( $value['id'], $_REQUEST[ $value['id'] ] );
+				if (isset($value['id'])) update_option( $value['id'], isset($_REQUEST[ $value['id'] ]) ? $_REQUEST[ $value['id'] ] : '');
 			}
 
-			foreach ($zing_ws_options as $value) {
-				if( isset( $_REQUEST[ $value['id'] ] ) ) {
-					update_option( $value['id'], $_REQUEST[ $value['id'] ]  );
-				} else { delete_option( $value['id'] ); }
-			}
 			if (get_option('zing_ws_install_type') == 'local') {
 				zing_install();
 				$integrator->sync();

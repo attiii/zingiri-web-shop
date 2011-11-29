@@ -13,4 +13,5 @@
 			<cat>parameter</cat>
 		</field2>
 	</fields>
+	<help>Upload a single image. Directory/URL can be left blank.</help>
 </config>

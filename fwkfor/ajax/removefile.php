@@ -5,7 +5,7 @@ require(dirname(__FILE__).'/init.inc.php');
 <?php
 $img=$_POST['wsid'];
 $key=$_POST['wskey'];
-$dir=constant($_POST['wsdir']);
+$dir=defined('APHPS_DATA_DIR') ? APHPS_DATA_DIR : constant($_POST['wsdir']);
 unlink($dir.'/'.$key.'__'.$img);
 echo 'success';
 ?>

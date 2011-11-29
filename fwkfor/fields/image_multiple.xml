@@ -18,4 +18,5 @@
 			<cat>parameter</cat>
 		</field3>
 	</fields>
+	<help>Upload multiple images. Directory and URL can be left blank.</help>
 </config>

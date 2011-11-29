@@ -41,18 +41,24 @@ function zing_admin_notices() {
 
 function zing_ws_error_handler($severity, $msg, $filename="", $linenum=0) {
 	if (is_array($msg)) $msg=print_r($msg,true);
-	$myFile = ZING_UPLOADS_DIR."log.txt";
+	$myFile = APHPS_LOG_FILE;
 	if ($fh = fopen($myFile, 'a')) {
-		fwrite($fh, date('Y-m-d h:i:s').' '.$msg.' ('.$filename.'-'.$linenum.')'."\r\n");
+		$time=date('Y-m-d h:i:s');
+		if (function_exists('microtime')) {
+			list($usec,$sec)=explode(" ",microtime());
+			$time.=':'.round($usec*100,0);
+		}
+		fwrite($fh, $time.' '.$msg.' ('.$filename.'-'.$linenum.')'."\r\n");
 		fclose($fh);
 	}
 }
 function zing_ws_error_handler_truncate() {
-	$myFile = ZING_UPLOADS_DIR."log.txt";
+	$myFile = APHPS_LOG_FILE;
 	if ($fh = fopen($myFile, 'w')) {
 		fclose($fh);
 	}
 }
+
 
 function zing_install() {
 	global $zingPrompts,$dbtablesprefix;
@@ -74,7 +80,8 @@ function zing_install() {
 	//Load Apps forms if not loaded yet
 	if (!$player) {
 		zing_ws_error_handler(0,'Loading Apps forms');
-		zing_apps_player_install();
+		if ($zing_version) zing_apps_player_install();
+		else zing_apps_player_install('1.2.1');
 		$player=true;
 	}
 
@@ -464,11 +471,11 @@ function jsVars() {
 function jsScripts() {
 	$v=array();
 	$v[]=ZING_URL . 'fws/js/jquery-ui-1.7.3.custom.min.js';
-	$v[]=ZING_URL . 'fws/js/lib.jquery.js';
-	$v[]=ZING_URL . 'fws/js/cookie.jquery.js';
-	$v[]=ZING_URL . 'fws/js/checkout.jquery.js';
-	$v[]=ZING_URL . 'fws/js/cart.jquery.js';
-	$v[]=ZING_URL . 'fws/js/search.jquery.js';
+	$v[]=ZING_URL . 'fws/js/'.APHPS_JSDIR.'/lib.jquery.js';
+	$v[]=ZING_URL . 'fws/js/'.APHPS_JSDIR.'/cookie.jquery.js';
+	$v[]=ZING_URL . 'fws/js/'.APHPS_JSDIR.'/checkout.jquery.js';
+	$v[]=ZING_URL . 'fws/js/'.APHPS_JSDIR.'/cart.jquery.js';
+	$v[]=ZING_URL . 'fws/js/'.APHPS_JSDIR.'/search.jquery.js';
 	$v[]=ZING_URL . 'fws/addons/lightbox/lightbox.js';
 
 	return $v;
@@ -476,14 +483,10 @@ function jsScripts() {
 
 function jsAdminScripts() {
 	$v=array();
-	//$v[]=ZING_URL . 'fws/js/jquery-ui-1.7.3.custom.min.js';
-	$v[]=ZING_URL . 'fws/js/lib.jquery.js';
-	$v[]=ZING_URL . 'fws/js/cookie.jquery.js';
-	//$v[]=ZING_URL . 'fws/js/checkout.jquery.js';
-	//$v[]=ZING_URL . 'fws/js/cart.jquery.js';
-	//$v[]=ZING_URL . 'fws/js/search.jquery.js';
-	$v[]=ZING_URL . 'fws/js/admin.jquery.js';
-	$v[]='http://connect.facebook.net/en_US/all.js#xfbml=1';
+	$v[]=ZING_URL . 'fws/js/'.APHPS_JSDIR.'/lib.jquery.js';
+	$v[]=ZING_URL . 'fws/js/'.APHPS_JSDIR.'/cookie.jquery.js';
+	$v[]=ZING_URL . 'fws/js/'.APHPS_JSDIR.'/admin.jquery.js';
+	//$v[]='http://connect.facebook.net/en_US/all.js#xfbml=1';
 	$v[]=ZING_URL . 'fws/addons/lightbox/lightbox.js';
 
 	return $v;

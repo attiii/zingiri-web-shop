@@ -1,0 +1,1 @@
+function wsHoverImage(c,a,d){var b=jQuery("#highlight_image");b.attr("src",c);b.attr("height",a);b.attr("width",d);if(jQuery("#highlight_ref")!=null){jQuery("#highlight_ref").attr("href",c)}};

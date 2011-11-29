@@ -4,7 +4,7 @@ require(dirname(__FILE__).'/init.inc.php');
 <?php if ($index_refer <> 1) { exit(); } ?>
 <?php
 $key=$_POST['upload_key'];
-$dir=constant($_POST['wsdir']);
+$dir=defined('APHPS_DATA_DIR') ? APHPS_DATA_DIR : constant($_POST['wsdir']);
 $ret=array();
 $name = $_FILES['userfile']['name'];
 $ext = strtolower(substr(strrchr($name, '.'), 1));

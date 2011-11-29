@@ -159,4 +159,4 @@ else {
 	});
 //]]>
 </script>
-<script type="text/javascript" src="<?php echo ZING_URL;?>fws/js/imagedisplay.jquery.js"></script>
+<script type="text/javascript" src="<?php echo ZING_URL;?>fws/js/<?php echo APHPS_JSDIR;?>/imagedisplay.jquery.js"></script>

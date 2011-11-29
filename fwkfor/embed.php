@@ -24,18 +24,6 @@ function zing_apps_player_error_handler($severity, $msg, $filename, $linenum) {
 }
 
 /**
- * Output activation messages to log
- * @param $stringData
- * @return unknown_type
- */
-function zing_apps_player_echo($stringData) {
-	$myFile = ZING_LOC."/log.txt";
-	$fh = fopen($myFile, 'a') or die("can't open file");
-	fwrite($fh, $stringData);
-	fclose($fh);
-}
-
-/**
  * Activation of web shop: creation of database tables & set up of pages
  * @return unknown_type
  */
@@ -53,7 +41,7 @@ function zing_apps_player_activate() {
 	error_reporting($apper);
 }
 
-function zing_apps_player_install() {
+function zing_apps_player_install($version='') {
 	global $dbtablesprefix,$aphps_projects;
 
 	if (!function_exists('zfCreate')) require(dirname(__FILE__).'/includes/create.inc.php');
@@ -61,7 +49,7 @@ function zing_apps_player_install() {
 	if (!function_exists('zf_json_decode')) require(dirname(__FILE__).'/includes/faces.inc.php');
 	if (!class_exists('db')) require(dirname(__FILE__).'/classes/db.class.php');
 
-	$zing_version=get_option("zing_apps_player_version");
+	$zing_version=$version ? $version : get_option("zing_apps_player_version");
 
 	$prefix=$dbtablesprefix;
 
@@ -300,7 +288,7 @@ function zing_apps_player_load($dir) {
 	if (!class_exists('db')) require(dirname(__FILE__).'/classes/db.class.php');
 	
 	$prefix=$dbtablesprefix;
-	if ($handle = opendir($dir)) {
+	if (file_exists($dir) && $handle = opendir($dir)) {
 		$files=array();
 		while (false !== ($file = readdir($handle))) {
 			if (strstr($file,".json")) {
@@ -318,9 +306,15 @@ function zing_apps_player_load($dir) {
 if (!function_exists('zing_apps_error_handler')) {
 	function zing_apps_error_handler($severity, $msg, $filename="", $linenum=0) {
 		if (is_array($msg)) $msg=print_r($msg,true);
-		$myFile = dirname(__FILE__)."/../log.txt";
+		$myFile = defined('APHPS_LOG_FILE') ? APHPS_LOG_FILE : dirname(__FILE__)."/../log.txt";
 		if ($fh = fopen($myFile, 'a')) {
-			fwrite($fh, date('Y-m-d h:i:s').' '.$msg.' ('.$filename.'-'.$linenum.')'."\r\n");
+					$time=date('Y-m-d h:i:s');
+		if (function_exists('microtime')) {
+			list($usec,$sec)=explode(" ",microtime());
+			$time.=':'.round($usec*100,0);
+		}
+			
+			fwrite($fh, $time.' '.$msg.' ('.$filename.'-'.$linenum.')'."\r\n");
 			fclose($fh);
 		}
 	}
@@ -429,7 +423,8 @@ function zing_apps_settings() {
 
 function zVars() {
 	$v=array();
-	$v['aphpsAjaxURL']=zurl('index.php?zfaces=ajax&form=');
+	if (is_admin()) $v['aphpsAjaxURL']=zurl('admin.php?page=ajax&zfaces=ajax&form=');
+	else $v['aphpsAjaxURL']=zurl('index.php?zfaces=ajax&form=');
 	$v['aphpsURL']=ZING_APPS_PLAYER_URL;
 
 	return $v;

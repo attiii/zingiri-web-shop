@@ -98,7 +98,7 @@ class widget_sidebar_products {
 			}
 			echo "</ul>\n";
 		}
-		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/productmenu.jquery.js"></script>';
+		echo '<script type="text/javascript" src="' . ZING_URL . 'fws/js/'.APHPS_JSDIR.'/productmenu.jquery.js"></script>';
 	}
 }
 
