@@ -255,7 +255,7 @@ else {
 			href="<?php zurl("index.php?page=details&prod=".$row_details[0].'&basketid='.$row['ID'],true); ?>"
 		><?php echo $thumb.'<div class="imgleft-label">'.$print_description.'</div>'; ?></a> <?php
 		//$productprice = $row[3]; // the price of a product
-		$tax->calculate($row[3],$row_details['TAXCATEGORYID']);
+		$tax->calculate($row['PRICE']*$row['QTY'],$row_details['TAXCATEGORYID']);
 		$productprice = $tax->in;
 
 		$printvalue = $row[7];   // features
@@ -263,7 +263,7 @@ else {
 		?></td>
 		<td class="col-price"><?php 
 		echo wsPrice::currencySymbolPre();
-		$subtotaal = $productprice * $row[6];
+		$subtotaal = $productprice;
 		echo wsPrice::format($subtotaal);
 		echo wsPrice::currencySymbolPost();
 		?></td>

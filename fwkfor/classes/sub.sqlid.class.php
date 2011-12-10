@@ -53,8 +53,8 @@ class sqlidZfSubElement extends zfSubElement {
 		$key=strtoupper($e->populated_value['element_'.$e->id.'_2']);
 		$value=strtoupper($e->populated_value['element_'.$e->id.'_3']);
 		$table=$e->populated_value['element_'.$e->id.'_4'];
-
-		$field_markup.="<select id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" {$e->readonly}>";
+		
+		$field_markup.="<select id=\"element_{$e->id}_{$i}_{$this->ai}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" {$e->readonly}>";
 		$option_markup="";
 		$option_markup='<option value="0"></option>';
 		if (!empty($key) && !empty($value)) {
@@ -86,8 +86,7 @@ class sqlidZfSubElement extends zfSubElement {
 					$key=$row[0];
 					$option=$row[1];
 					$selected="";
-					//if ($fields > 1) { $fieldsuffix='_'.$i; } else { $fieldsuffix=''; }
-					if(trim($e->populated_value['element_'.$e->id.'_'.$i]) == $key){
+					if(trim($e->populated_value['element_'.$e->id.'_'.$i][$this->ai]) == $key){
 						$selected = 'selected="selected"';
 					} elseif ($e->default_value == $key) {
 						$selected = 'selected="selected"';

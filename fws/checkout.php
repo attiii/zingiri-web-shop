@@ -161,16 +161,16 @@ if (LoggedIn() == True) {
 
 			// let's format the product list a little
 
-			while ($row = mysql_fetch_row($sql)) {
+			while ($row = mysql_fetch_array($sql)) {
 				$query_details = "SELECT * FROM ".$dbtablesprefix."product WHERE ID = '" . $row[2] . "'";
 				$sql_details = mysql_query($query_details) or die(mysql_error());
 
 				while ($row_details = mysql_fetch_array($sql_details)) {
 					$product_price = $row[3]; // read from the cart
 
-					$tax->calculate($product_price,$row_details['TAXCATEGORYID']);
-					$product_price = $tax->in;
-
+					$tax->calculate($product_price*$row['QTY'],$row_details['TAXCATEGORYID']);
+					$total_add = $tax->in;
+					
 					// make up the description to print according to the pricelist_format and max_description
 					$print_description=$row_details['PRODUCTID'];
 					if (!empty($row[7])) {
@@ -179,7 +179,6 @@ if (LoggedIn() == True) {
 						$print_description .= "<br />".$wsFeatures->toString();
 						$wsFeatures->prepare();
 					} // product features
-					$total_add = $product_price * $row[6];
 					$tpl->repeatRow(array('DESCRIPTION','QTY','PRICE','LINETOTAL'));
 					$tpl->replace('DESCRIPTION',$print_description);
 					if ($pictureid == 1) { $picture = $row_details[0]; }

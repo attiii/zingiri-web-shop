@@ -15,11 +15,12 @@ class wsTax {
 		global $dbtablesprefix,$no_vat,$db_prices_including_vat;
 
 		$taxtot=0;
-		if (!isset($this->taxByCategory[$category])) $this->taxByCategory[$category]=0;
+		if (!isset($this->taxByCategory[$category])) $this->taxByCategory[$category]=array(); 
 
 		if ($no_vat == 1) {
 			$in_vat = $price;
 			$ex_vat = $in_vat;
+			$taxes=array(); 
 		}
 		else {
 			$taxes=$this->selectTaxes($category);
@@ -73,13 +74,15 @@ class wsTax {
 		$this->inFtd=wsPrice::format($in_vat,false);
 		$this->exFtd=wsPrice::format($ex_vat,false);
 
-		foreach ($taxes as $label => $data) {
-			$data['TAX']=myNumberRounding($data['TAX']);
-			if (!isset($this->taxByCategory[$category][$label])) {
-				$this->taxByCategory[$category]=array($label => $data);
-				$this->combinations++;
+		if (is_array($taxes) && count($taxes) > 0) {
+			foreach ($taxes as $label => $data) {
+				$data['TAX']=myNumberRounding($data['TAX']);
+				if (!isset($this->taxByCategory[$category][$label])) {
+					$this->taxByCategory[$category]=array($label => $data);
+					$this->combinations++;
+				}
+				else $this->taxByCategory[$category][$label]['TAX']+=$data['TAX'];
 			}
-			else $this->taxByCategory[$category][$label]['TAX']+=$data['TAX'];
 		}
 		$this->exSum+=$this->ex;
 		$this->inSum+=$this->in;

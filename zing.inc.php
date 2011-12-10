@@ -138,7 +138,7 @@ function zing_install() {
 			}
 		}
 
-		foreach (array('cats' => 'cats','cache' => 'cache','prodgfx' => 'prodgfx','orders' => 'orders','prodgfx/'.get_option('zing_webshop_dig') => 'digital-'.get_option('zing_webshop_dig')) as $subori => $subdir) {
+		foreach (array('temp' => 'temp','cats' => 'cats','cache' => 'cache','prodgfx' => 'prodgfx','orders' => 'orders','prodgfx/'.get_option('zing_webshop_dig') => 'digital-'.get_option('zing_webshop_dig')) as $subori => $subdir) {
 			$dir=BLOGUPLOADDIR.'zingiri-web-shop/'.$subdir.'/';
 			$ori=ZING_DIR.$subori.'/';
 			if (!file_exists($dir)) {

@@ -33,11 +33,12 @@ class captchaZfSubElement extends zfSubElement {
 
 	function verify()
 	{
-		$number=$this->ext;
-		if(!file_exists(ZING_APPS_CAPTCHA.$number.".key") || $number == "0"){
+		$hash=$_REQUEST['hash_element_'.$this->elementid.'_'.$this->subid];
+		$key=$this->ext;
+				
+		if (md5(strtoupper($key).APHPS_SECRET) != $hash) {
 			return ($this->error("Code incorrect!"));
 		}
-		else { unlink (ZING_APPS_CAPTCHA.$number.".key"); }
 
 		$this->ext=$this->int;
 		return true;
@@ -51,11 +52,45 @@ class captchaZfSubElement extends zfSubElement {
 		if($e->populated_value['element_'.$e->id.'_'.$i] == ""){
 			$e->populated_value['element_'.$e->id.'_'.$i] = $xmlf->fields->{'field'.$i}->default;
 		}
-		$img='<img style="float:left" src="'.ZING_URL.'fws/addons/captcha/php_captcha.php?dir='.urlencode(ZING_APPS_CAPTCHA).'" />&nbsp';
-		$field_markup.=$img;
-		$field_markup.="<input id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" size=\"{$xmlf->fields->{'field'.$i}->size}\" value=\"{$e->populated_value['element_'.$e->id.'_'.$i]}\" maxlength=\"{$xmlf->fields->{'field'.$i}->maxlength}\" type=\"text\" {$e->readonly}/>";
+		if ($this->mode == 'add') {
+			list($hash,$url)=$this->captcha();
+			$field_markup.='<img style="float:left" src="'.$url.'" />';
+			$field_markup.="<input id=\"hash_element_{$e->id}_{$i}\" name=\"hash_element_{$e->id}_{$i}\" value=\"{$hash}\" type=\"hidden\"/>";
+			$field_markup.="<input id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" size=\"{$xmlf->fields->{'field'.$i}->size}\" value=\"{$e->populated_value['element_'.$e->id.'_'.$i]}\" maxlength=\"{$xmlf->fields->{'field'.$i}->maxlength}\" type=\"text\" {$e->readonly}/>";
+		} elseif ($this->mode == 'build') {
+			$field_markup.='<img style="float:left" src="'.ZING_APPS_PLAYER_URL.'images/captcha.jpg" />';
+			$field_markup.="<input id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" size=\"{$xmlf->fields->{'field'.$i}->size}\" value=\"{$e->populated_value['element_'.$e->id.'_'.$i]}\" maxlength=\"{$xmlf->fields->{'field'.$i}->maxlength}\" type=\"text\" {$e->readonly}/>";
+		}
 		$subscript_markup.="<label id=\"label_{$e->id}_{$i}\"for=\"element_{$e->id}_{$i}\">".z_($xmlf->fields->{'field'.$i}->label)."</label>";
 	}
 
+	function captcha() {
+		$dir=APHPS_DATA_DIR.'temp/';
+		// make random string and paste it onto the image
+		$file = 'key.'.md5(microtime().rand()).'.jpg';// md5 to generate the random string
+		$key = substr(md5(microtime().rand()),0,5);
+		$hash=md5(strtoupper($key).APHPS_SECRET);
+		$NewImage =imagecreatefromjpeg(ZING_APPS_PLAYER_DIR."images/img.jpg");//image create by existing image and as back ground
+		$LineColor = imagecolorallocate($NewImage,233,239,239);//line color
+		$TextColor = imagecolorallocate($NewImage, 255, 255, 255);//text color-white
+		imageline($NewImage,1,1,40,40,$LineColor);//create line 1 on image
+		imageline($NewImage,1,100,60,0,$LineColor);//create line 2 on image
+		imagestring($NewImage, 5, 20, 10, $key, $TextColor);// Draw a random string horizontally
+
+		// now lets delete captcha files older than 15 minutes:
+		if ($handle = @opendir($dir)) {
+			while (($filename = readdir($handle)) !== false) {
+				if(time() - filemtime($dir . $filename) > 15 * 60 && substr($filename, 0, 4) == 'key.') {
+					@unlink($dir . $filename);
+				}
+			}
+			closedir($handle);
+		}
+
+		// now save captcha image
+		imagejpeg($NewImage,$dir.$file);
+		
+		return array($hash,APHPS_DATA_URL.'temp/'.$file);
+
+	}
 }
-?>

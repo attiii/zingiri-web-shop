@@ -83,9 +83,11 @@ if (!defined("ZING_HOME")) {
 }
 if (!defined("ZING_UPLOADS_URL")) {
 	define("ZING_UPLOADS_URL", BLOGUPLOADURL . "zingiri-web-shop/");
+	define("APHPS_DATA_URL",ZING_UPLOADS_URL);
 }
 if (!defined("ZING_UPLOADS_DIR")) {
 	define("ZING_UPLOADS_DIR", BLOGUPLOADDIR . "zingiri-web-shop/");
+	define("APHPS_DATA_DIR",ZING_UPLOADS_DIR);
 }
 
 define('APHPS_LOG_FILE',ZING_UPLOADS_DIR.'log.txt');

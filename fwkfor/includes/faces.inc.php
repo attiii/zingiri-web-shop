@@ -274,7 +274,7 @@ if (!function_exists('actionCompleteMessage')) {
 		if (isset($_REQUEST['zmsg']) && $_REQUEST['zmsg']) {
 			$title=$txt['general13'];
 			$message=z_('Changes are saved');
-			if ($gfx_dir) $picture=$gfx_dir."notify.gif";
+			if ($gfx_dir) $picture=$gfx_dir."/notify.gif";
 			else $picture=ZING_APPS_PLAYER_URL.'images/notify.gif';
 			$msg ="<table width=\"".$width."%\" class=\"datatable\">";
 			$msg.="<tr><td><img src=\"".$picture."\" alt=\"Notify\" height=\"24px\">";

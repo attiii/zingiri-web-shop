@@ -4,7 +4,7 @@ if (!get_option('zing_webshop_pro')) {
 	define("ZING_WS_PRO_URL",'');
 	define('ZING_WS_PRO',false);
 }
-if (!defined('ZING_VERSION')) define("ZING_VERSION","2.3.2");
+if (!defined('ZING_VERSION')) define("ZING_VERSION","2.3.3");
 //if (!defined('APHPS_JSDIR')) define('APHPS_JSDIR','src');
 global $aphps_projects;
 $aphps_projects['fws']=array('label'=>'Web Shop','dir'=>ZING_LOC.'fws/apps/','url'=>ZING_URL.'fws/apps/');
@@ -23,6 +23,7 @@ define("ZING_APPS_MENU","zingiri-web-shop");
 
 define("ZING_JQUERY",true);
 define("ZING_PROTOTYPE",false);
+define("APHPS_SECRET",md5(AUTH_KEY.dirname(__FILE__)));
 
 require(dirname(dirname(__FILE__))."/fwkfor/embed.php");
 

@@ -81,11 +81,11 @@ class wsFeatures {
 				while (isset($features[$counter1]) && (!$features[$counter1] == NULL)) {
 					$feature = explode(":", $features[$counter1]);
 					$counter1 += 1;
-					if (!empty($this->post["wsfeature".$counter1][$index])) {
+					//if (!empty($this->post["wsfeature".$counter1][$index])) {
 						$detail = explode("+", $this->post["wsfeature".$counter1][$index]);
 						$productfeatures .= $feature[0].": ".$detail[0];
-						$prodprice += wsPrice::price($detail[1]);
-					}
+						if (isset($detail[1])) $prodprice += wsPrice::price($detail[1]);
+					//}
 					if (!empty($features[$counter1])) {
 						$productfeatures .= ", ";
 					}
@@ -112,7 +112,7 @@ class wsFeatures {
 				$feature = explode(":", $features[$counter1]);
 				$definition = explode(":", $definitions[$counter1]);
 				$counter1 += 1;
-				if ($definition[1]=='file' && trim($feature[1])) {
+				if (isset($definition[1]) && $definition[1]=='file' && trim($feature[1])) {
 					$productfeatures .= $definition[0].': <a href="'.ZING_UPLOADS_URL.'orders/'.trim($feature[1]).'">'.trim($feature[1]).'</a>';
 				} else {
 					$productfeatures .= $definition[0].":".$feature[1];

@@ -57,7 +57,6 @@ else {
 			// payment data
 			$query="SELECT * FROM `".$dbtablesprefix."payment`";
 			$sql = mysql_query($query) or die(mysql_error());
-
 			if (mysql_num_rows($sql) <> 0) {
 				while ($row = mysql_fetch_row($sql)) {
 					$selected=CheckBox(isset($_POST['paymentoption'.$row[0]]) ? $_POST['paymentoption'.$row[0]] : '');
@@ -83,7 +82,7 @@ else {
 			if ($shipping->hasOptions($calculator)) {
 				// delete weight records if no range method used
 				if (!$shipping->hasRange($calculator)) {
-					$query = sprintf("DELETE FROM `".$dbtablesprefix."shipping_weight` WHERE `SHIPPINGID`='%s' AND (`FROM`<>0 OR `TO`<>999999999)",$sid);
+					$query = sprintf("DELETE FROM `".$dbtablesprefix."shipping_weight` WHERE `SHIPPINGID`='%s'",$sid);
 					$sql = mysql_query($query) or die(mysql_error());
 				}
 				if ((!empty($_POST['from'])) || (!empty($_POST['to'])) || (!empty($_POST['price'])) || ($_POST['from']===0) || ($_POST['to']===0) || ($_POST['price']===0)) {
@@ -200,7 +199,7 @@ else {
 					else $costs='';
 					echo "<input type=\"hidden\" name=\"from\" size=\"9\" value=\"0\"> ";
 					echo "<input type=\"hidden\" name=\"to\" size=\"9\" value=\"999999999\"> ";
-					echo $txt['shippingadmin20']." (".$currency_symbol.") <input type=\"text\" size=\"9\" value=\"".$costs."\">";
+					echo $txt['shippingadmin20']." (".$currency_symbol.") <input type=\"text\" name=\"price\" size=\"9\" value=\"".$costs."\">";
 				}
 				echo "</td></tr>";
 			}
