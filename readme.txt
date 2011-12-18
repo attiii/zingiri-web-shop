@@ -1,10 +1,10 @@
 === Zingiri Web Shop ===
 Contributors: zingiri
 Donate link: http://www.zingiri.com/
-Tags: ecommerce, e-commerce, paypal, freewebshop, shop, cart, web shop, shopping cart, iDEAL, Google Checkout, Worldpay, 2checkout, facebook, Payson, webshop, free web shop
+Tags: ecommerce, e-commerce, paypal, freewebshop, shop, cart, web shop, shopping cart, iDEAL, payson, Google Checkout, Worldpay, 2checkout, facebook, Payson, webshop, free web shop
 Requires at least: 2.1.7
 Tested up to: 3.2.1
-Stable tag: 2.3.3
+Stable tag: 2.3.4
 
 Zingiri Web Shop is a Wordpress plugin that adds fantastic ecommerce capabilities to a great content management system.
 
@@ -25,6 +25,7 @@ The main features of the basic version are:
 * Easily migrate your current web shop by uploading your products via an XML file
 
 The Web Shop can also easily be extended with a number of additional professional extensions:
+
 * Social media: integrate your shop with Facebook and start selling on the largest social media market 
 * Order management: manual ordering
 * Product features: extend the power of product features and define customer price formulas for your products

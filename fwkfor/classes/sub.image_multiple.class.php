@@ -26,7 +26,8 @@ class image_multipleZfSubElement extends zfSubElement {
 	function output($mode="edit",$input="")
 	{
 		if ($mode=='list') {
-			$url=defined('APHPS_DATA_URL') ? APHPS_DATA_URL : constant($input['element_'.$this->elementid.'_'.($this->subid+2)]);
+			if (isset($input['element_'.$this->elementid.'_'.($this->subid+2)]) && ($c=constant($input['element_'.$this->elementid.'_'.($this->subid+2)]))) $url=$c;
+			else $url=APHPS_DATA_URL; 
 			$image=$url.'/'.$input['element_'.$this->elementid.'_'.$this->subid];
 			if ($this->int!='') $this->ext='<img src="'.$image.'" height="48px"/>';
 			else $this->ext='';
@@ -36,9 +37,11 @@ class image_multipleZfSubElement extends zfSubElement {
 
 	function postSave($id=0)
 	{
-		$product_dir=defined('APHPS_DATA_DIR') ? APHPS_DATA_DIR : constant($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+1)]);
-		$product_url=defined('APHPS_DATA_URL') ? APHPS_DATA_URL : constant($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+2)]);
-
+		if (isset($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+1)]) && ($c=constant($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+1)]))) $product_dir=$c;
+		else $product_dir=APHPS_DATA_DIR;
+		if (isset($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+2)]) && ($c=constant($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+2)]))) $product_url=$c;
+		else $product_dir=APHPS_DATA_URL;
+		
 		$picid=$id;
 
 		//set default image
@@ -60,8 +63,8 @@ class image_multipleZfSubElement extends zfSubElement {
 							$i++;
 							$newimg=$tn.$picid.'__'.sprintf('%03d',$i).'.'.$ext;
 						}
-						copy($product_dir.'/'.$tn.$img,$product_dir.'/'.$newimg);
-						unlink($product_dir.'/'.$tn.$img);
+						copy(APHPS_DATA_DIR.'/'.$tn.$img,$product_dir.'/'.$newimg);
+						unlink(APHPS_DATA_DIR.'/'.$tn.$img);
 						if ($tn.$img==$defaultImage) $defaultImage=$newimg;
 					}
 				}
@@ -93,8 +96,10 @@ class image_multipleZfSubElement extends zfSubElement {
 		$i=$this->subid;
 		$xmlf=$this->xmlf;
 
-		$product_dir=defined('APHPS_DATA_DIR') ? APHPS_DATA_DIR : constant($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+1)]);
-		$product_url=defined('APHPS_DATA_URL') ? APHPS_DATA_URL : constant($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+2)]);
+		if (isset($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+1)]) && ($c=constant($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+1)]))) $product_dir=$c;
+		else $product_dir=APHPS_DATA_DIR;
+		if (isset($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+2)]) && ($c=constant($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+2)]))) $product_url=$c;
+		else $product_dir=APHPS_DATA_URL;
 		$defaultImage=$this->element->populated_value['element_'.$this->elementid.'_'.$this->subid];
 
 		$picid=(isset($_GET['id']) && is_numeric($_GET['id'])) ? $_GET['id'] : 0;
@@ -108,6 +113,7 @@ class image_multipleZfSubElement extends zfSubElement {
 
 		$imgs=array();
 		$field_markup.='<div id="uploaded_images">';
+		
 		if ($handle=opendir($product_dir)) {
 			while (($img = readdir($handle))!==false) {
 				if (strstr($img,'tn_'.$picid.'.') || strstr($img,'tn_'.$picid.'__') || (!function_exists('createthumb') && strpos($img,$picid)===0)) {
