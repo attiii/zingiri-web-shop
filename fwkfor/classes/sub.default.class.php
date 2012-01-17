@@ -30,7 +30,7 @@ class zfSubElement {
 	var $is_error;
 	var $element;
 	var $populated_column=array();
-
+	var $submit=null;
 
 	function zfSubElement($int,$ext="",$xmlf="",$element="",$subid="",$ai=0) {
 		$this->int=$int;
@@ -102,6 +102,10 @@ class zfSubElement {
 		return true;
 	}
 
+	function onSubmitActions() {
+		return null;
+	}
+	
 	function error($error_message) {
 		$this->error_message=z_($error_message);
 		$this->is_error=true;

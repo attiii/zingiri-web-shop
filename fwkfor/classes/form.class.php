@@ -35,6 +35,8 @@ class zfForm {
 	var $allFieldAttributes=array(); //all field attributes
 	var $maxRows;
 	var $noAlert=false;
+	var $hasSubmit=false;
+	var $onSubmitActions=array();
 
 	function zfForm($form,$id=0,$post=null,$action="",$page="",$id='') {
 		$this->recid=$id;
@@ -57,13 +59,14 @@ class zfForm {
 			$this->elementcount=$row['ELEMENTCOUNT'];
 			$this->type=$row['TYPE'];
 			$this->entity=$row['ENTITY'];
-				
+
 			//check if form has a sub form to include
 			$this->includeSubForm();
 
 			foreach ($this->json as $i => $value)
 			{
 				$key=$value['id'];
+				if ($value['type']=='submit') $this->hasSubmit=true;
 				$element=new element($value['type']);
 				$this->elements['name'][$key]=$element->name;
 				$this->elements['label'][$key]=$element->sublabel;
@@ -130,7 +133,7 @@ class zfForm {
 						$dbValue=$db->get($getField);
 					}
 					//echo '<br />'.$linkedElement.'-'.$dbField.'-'.$dbKey.'-'.$dbTable;
-						
+
 					if (is_numeric($dbValue)) {
 						$dbField=$value['subelements'][2]['populate'];
 						$dbKey=$this->json[$linkedElement]['subelements'][2]['populate'];
@@ -196,7 +199,7 @@ class zfForm {
 				$s=explode(",",$l['MAPPING']);
 				foreach ($s as $m) {
 					$f=explode(":",$m);
-					//if (function_exists($f[1])|| isset($_GET[$value]) || isset($_POST[$value])) 
+					//if (function_exists($f[1])|| isset($_GET[$value]) || isset($_POST[$value]))
 					//$post[$f[0]]=$f[1];
 				}
 			}
@@ -253,7 +256,7 @@ class zfForm {
 				{
 					if ($this->elements['format'][$key1][$key2] != 'none') {
 						if ($all || !isset($value2['hide']) || !$value2['hide']) {
-								
+
 							if ($count > 1) {
 								$f[$key1*100+$key2]=strtoupper('`'.$value['column'].'_'.$this->elements['name'][$key1][$key2].'`');
 								if (defined("ZING_APPS_TRANSLATE")) {
@@ -304,7 +307,7 @@ class zfForm {
 		return $count;
 	}
 
-	function Render($mode="edit",$prefix="")
+	function Render($mode="edit",$prefix="",$display=true)
 	{
 		$jsRules=array();
 		$ret='';
@@ -430,13 +433,14 @@ class zfForm {
 					$data['value']=$this->input['element_'.$data['field'].'_'.$data['subField']];
 					$r=$fnct($data);
 				}
-				$js_markup.="wsFormField.add(".json_encode($data,JSON_FORCE_OBJECT).",".$jsRule[1].",".$r['result'].");";
+				if (version_compare (PHP_VERSION,'5.3.0') >= 0) $js_markup.="wsFormField.add(".json_encode($data,JSON_FORCE_OBJECT).",".$jsRule[1].",".$r['result'].");";
+				else $js_markup.="wsFormField.add(".json_encode($data).",".$jsRule[1].",".$r['result'].");";
 			}
 			$js_markup.='});';
 			$js_markup.='</script>';
 		}
 		$ret.=$js_markup;
-		echo $ret;
+		if ($display) echo $ret;
 		return $ret;
 	}
 
@@ -495,6 +499,11 @@ class zfForm {
 			$this->elements['error_message'][$key]=$element->error_message;
 			$this->elements['format'][$key]=$element->format;
 			$this->data=isset($this->populated_column) ? $this->populated_column : null;
+			if (count($element->onSubmitActions) > 0) {
+				foreach ($element->onSubmitActions as $onSubmitAction) {
+					$this->onSubmitActions[]=$onSubmitAction;
+				}
+			}
 		}
 		return $success;
 	}
@@ -537,8 +546,28 @@ class zfForm {
 		$this->recid=$id;
 		$this->postSaveElements();
 		$success=$this->postSave($success);
+		if (count($this->onSubmitActions) > 0) {
+			foreach ($this->onSubmitActions as $onSubmitAction) {
+				if ($onSubmitAction['action']=='mailto') $this->mailTo($onSubmitAction['to']);
+			}
+		}
 		$this->alert("Save successfull!");
 		return $success;
+	}
+
+	function mailTo($to) {
+		if (!defined('APHPS_ADMIN_EMAIL')) return false;
+
+		$from=APHPS_ADMIN_EMAIL;
+
+		$headers  = 'MIME-Version: 1.0' . "\r\n";
+		$headers .= 'Content-type: text/html; charset='.$charset."\r\n";
+		$headers .= 'From: '.$from.' <'.$from.'>' . "\r\n";
+
+		$subject=$this->label.' submitted';
+		$message=$render=$this->render('view','',false);
+		mail($to, '=?UTF-8?B?'.base64_encode($subject).'?=', $message, $headers);
+		return true;
 	}
 
 	function postSave() {
@@ -587,9 +616,9 @@ class zfForm {
 	}
 
 	function preSaveDB() {
-		return true;	
+		return true;
 	}
-	
+
 	function SaveDB($id=0)
 	{
 		$db=new aphpsDb();
@@ -677,7 +706,7 @@ class zfForm {
 			$element->action=$this->action;
 			$element->type=$this->type;
 			$element->entity=$this->entity;
-				
+
 			$sv=$element->postSave($this->input,$this->output,$this->recid);
 			$success=$success && $sv;
 			$this->elements['name'][$key]=$element->name;
@@ -956,7 +985,7 @@ class zfForm {
 			return false;
 		}
 	}
-	
+
 	function recValue($field) {
 		$ret=$this->rec[strtoupper($field)] ? $this->rec[strtoupper($field)] : $this->rec[strtolower($field)];
 		return $ret;

@@ -229,7 +229,7 @@ if ($allowed && $success && $showform == "edit") {
 		}
 		echo '</div>';
 	}
-	if (!$noForm) {
+	if (!$noForm && !$zfform->hasSubmit) {
 		echo '<div class="aphps_form_buttons">';
 		if (($action == 'add' or $action == 'edit') && (!isset($override_save) || !$override_save)) {
 			echo '<input id="appscommit" class="art-button" type="submit" name="save" value="'.z_('Save').'">';

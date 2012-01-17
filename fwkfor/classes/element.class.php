@@ -46,6 +46,7 @@ class element {
 	var $attributes=array();
 	var $mode;
 	var $disabled=false;
+	var $onSubmitActions=array();
 
 	function element($constraint) {
 		$this->constraint=$constraint;
@@ -111,6 +112,10 @@ class element {
 						$this->is_error=$subelement->is_error;
 					}
 					$output['element_'.$this->id.'_'.$i][$s]=$subelement->int;
+					if ($success) {
+						$onSubmitActions=$subelement->onSubmitActions();
+						if ($onSubmitActions) $this->onSubmitActions[]=$onSubmitActions;
+					}
 				}
 			} else {
 				$subelement=new $c($int,$ext,$this->xmlf->fields->{'field'.$i},$this,$i);
@@ -121,6 +126,10 @@ class element {
 					$this->is_error=$subelement->is_error;
 				}
 				$output['element_'.$this->id.'_'.$i]=$subelement->int;
+				if ($success) {
+					$onSubmitActions=$subelement->onSubmitActions();
+					if ($onSubmitActions) $this->onSubmitActions[]=$onSubmitActions;
+				}
 			}
 
 		}
@@ -191,7 +200,7 @@ class element {
 			$this->name[$i]=(string)$this->xmlf->fields->{'field'.$i}->name;
 			if (class_exists($type."ZfSubElement"))	{ $c=$type."ZfSubElement"; }
 			else { $c="zfSubElement"; }
-				
+
 			$subelement=new $c($int,$ext,$this->xmlf->fields->{'field'.$i},$this,$i);
 			$ext=$subelement->output($mode,$input);
 
@@ -276,7 +285,7 @@ class element {
 		if (!empty($_POST['zf_label'])) $label=$_POST['zf_label'];
 		elseif (!empty($this->title)) $label=$this->title;
 		else $label=$xmlf->name;
-		
+
 		//check for guidelines
 		if(empty($this->attributes['zfguidelines']) && $label && function_exists('h_')){
 			$this->guidelines=h_($label);
@@ -284,10 +293,10 @@ class element {
 		if(!empty($this->attributes['zfguidelines'])){
 			$guidelines = "<p class=\"guidelines\" id=\"guide_{$this->id}\"><small>{$this->attributes['zfguidelines']}</small></p>";
 		}
-		
+
 		//if (defined("ZING_APPS_TRANSLATE")) {
-			//$tempfunc=ZING_APPS_TRANSLATE;
-			//$label=$tempfunc($label);
+		//$tempfunc=ZING_APPS_TRANSLATE;
+		//$label=$tempfunc($label);
 		//}
 
 		$jsRule=array();
@@ -304,7 +313,7 @@ class element {
 					$ruleParameters['params']=$aParams[1];
 					$ruleParameters['condition']=$rule['parameters'][3];
 					$ruleParameters['compare']=$rule['parameters'][4];
-					
+						
 					$jsRule=array($ruleParameters,$this->id);
 				}
 			}

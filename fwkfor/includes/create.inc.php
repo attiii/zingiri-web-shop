@@ -141,7 +141,6 @@ function zfShowColumns($form_dbtable) {
 function is_new_field($form_dbtable,$fieldname,$format='')
 {
 	$field_array = zfShowColumns($form_dbtable);
-
 	if (isset($field_array[strtoupper($fieldname)])) {
 		if (!$format) return 2; //update field
 		if ($field_array[strtoupper($fieldname)]['type']== strtoupper($format)) return 0; //no change

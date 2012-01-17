@@ -31,7 +31,8 @@ class passwordZfSubElement extends zfSubElement {
 	
 	function verify() {
 		$pass1=$this->element->populated_value['element_'.$this->element->id.'_1'];
-		$pass2=$this->element->populated_value['element_'.$this->element->id.'_2'];
+		if (isset($this->element->populated_value['element_'.$this->element->id.'_2'])) $pass2=$this->element->populated_value['element_'.$this->element->id.'_2'];
+		else $pass2=$pass1;
 		if (strlen($pass1) > 40) {
 			return ($this->error("Password is too long!"));
 		} elseif (strstr($pass1,' ')) {

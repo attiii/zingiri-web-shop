@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="module" version="1.5.0" header="none">
+	<name>Submit</name>
+	<fields count="3">
+		<field1>
+			<type>submit</type>
+		</field1>
+		<field2>
+			<label>Button label</label>
+			<size>20</size>
+			<maxlength>40</maxlength>
+			<format>none</format>
+			<cat>parameter</cat>
+		</field2>	
+		<field3>
+			<label>Email form contents to</label>
+			<size>40</size>
+			<maxlength>128</maxlength>
+			<format>none</format>
+			<cat>parameter</cat>
+		</field3>	
+	</fields>
+	<help>Submit button with additional options, overrides the default submit button if used on a form.</help>
+</config>
