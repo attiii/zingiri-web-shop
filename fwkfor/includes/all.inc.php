@@ -22,6 +22,21 @@ if (isset($aphps_projects)) {
 		}
 	}
 	foreach ($aphps_projects as $id => $project) {
-		if ($id != 'player' && file_exists($project['dir']."services/index.php")) require($project['dir']."services/index.php");
+		if ($id != 'player' && file_exists($project['dir']."services/index.php")) {
+			require($project['dir']."services/index.php");
+		} elseif ($id != 'player' && is_dir($project['dir']."services")) {
+			$dirs=array('.');
+			foreach ($dirs as $dir) {
+				if ($handle = opendir($project['dir']."services/".$dir)) {
+					while (false !== ($file = readdir($handle))) {
+						if (strstr($file,"class.php")) {
+							require_once($project['dir']."services/".$dir.'/'.$file);
+						}
+					}
+					closedir($handle);
+				}
+			}
+				
+		}
 	}
 }

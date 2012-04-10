@@ -58,17 +58,17 @@ class htmlareaZfSubElement extends zfSubElement {
 		if (!isset($sizes[1]) || !is_numeric($sizes[1])) $sizes[1]=3;
 
 		if (!defined("ZING_AJAX") || !ZING_AJAX) {
-			if ($this->mode!='build' && defined('ZING_CMS') && ZING_CMS=='wp') {
+			if ($this->mode!='build' && defined('APHPS_HTML_EDITOR') && (APHPS_HTML_EDITOR=='wordpress_client')) {
+				$field_markup.='<div id="poststuff">';
+				$field_markup.="<textarea id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"theEditor element text\" cols=\"{$sizes[0]}\" rows=\"{$sizes[1]}\" {$e->readonly}>{$e->populated_value['element_'.$e->id.'_'.$i]}</textarea>";
+				$field_markup.='</div>';
+				$field_markup.='<input id="title" type="hidden" size="40" value="(no subject)" name="msgsubject">';
+			} elseif ($this->mode!='build' && defined('ZING_CMS') && ZING_CMS=='wp') {
 				$field_markup.='<div id="poststuff">';
 				ob_start();
 				the_editor($e->populated_value['element_'.$e->id.'_'.$i],"element_".$e->id."_".$i,'title',true,2,true);
 				$field_markup.=ob_get_clean();
 				$field_markup.='</div>';
-			} elseif ($this->mode!='build' && defined('APHPS_HTML_EDITOR') && APHPS_HTML_EDITOR=='wordpress_client') {
-				$field_markup.='<div id="poststuff">';
-				$field_markup.="<textarea id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"theEditor element text\" cols=\"{$sizes[0]}\" rows=\"{$sizes[1]}\" {$e->readonly}>{$e->populated_value['element_'.$e->id.'_'.$i]}</textarea>";
-				$field_markup.='</div>';
-				$field_markup.='<input id="title" type="hidden" size="40" value="(no subject)" name="msgsubject">';
 			} else {
 				$field_markup.="<textarea id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"tinyMce element text\" cols=\"{$sizes[0]}\" rows=\"{$sizes[1]}\" {$e->readonly}>{$e->populated_value['element_'.$e->id.'_'.$i]}</textarea>";
 			}

@@ -1,7 +1,8 @@
 <?php
-define("ZING_APPS_PLAYER_VERSION","1.2.2");
+define("ZING_APPS_PLAYER_VERSION","1.3.0");
 
 if (!defined('APHPS_JSDIR')) define('APHPS_JSDIR','min');
+if (!defined('APHPS_XD')) define('APHPS_XD',0);
 
 require_once(dirname(__FILE__).'/aphps.php');
 require(dirname(__FILE__).'/'.ZING_CMS.'.init.inc.php');
@@ -126,7 +127,7 @@ function zing_apps_player_install($version='') {
 			if ($id != 'player') zing_apps_player_load($project['dir'].'forms/');
 		}
 	}
-
+	
 	//remote forms
 	if (get_option('zing_apps_remote_url') == 'http://www.aphps.com') update_option('zing_apps_remote_url','http://forms.aphps.com');
 
@@ -262,11 +263,6 @@ function zing_apps_player_header_cp() {
  */
 function zing_apps_player_init()
 {
-	if (!defined("ZING_PROTOTYPE") || ZING_PROTOTYPE) {
-		//wp_enqueue_script('prototype');
-		//wp_enqueue_script('scriptaculous');
-
-	}
 	wp_enqueue_script('jquery');
 	wp_enqueue_script('jquery-ui-tabs');
 
@@ -437,6 +433,7 @@ function zScripts() {
 	$v[]=ZING_APPS_PLAYER_URL.'js/'.APHPS_JSDIR.'/formfield.jquery.js';
 	$v[]=ZING_APPS_PLAYER_URL.'js/'.APHPS_JSDIR.'/core.jquery.js';
 
+	
 	return $v;
 }
 

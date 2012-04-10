@@ -3,7 +3,7 @@ function zing_ws_admin_menus() {
 	global $zing_ws_name, $zing_ws_name,$txt,$menus,$zing_version;
 	add_menu_page($zing_ws_name, 'Zingiri', 'manage_options', 'zingiri-web-shop','zing_ws_admin',ZING_URL.'fws/templates/default/images/menu_webshop.png');
 	add_submenu_page('zingiri-web-shop', $zing_ws_name.'- Integration', 'Integration', 'manage_options', 'zingiri-web-shop', 'zing_ws_admin');
-	if ($zing_version && get_option('zing_ws_install_type')) {
+	if ($zing_version && (get_option('zing_ws_install_type')!='live')) {
 		$cap='administer_web_shop';
 		$groupings=array();
 		foreach ($menus as $page => $menu) {
@@ -25,8 +25,6 @@ function zing_ws_admin_menus() {
 			$menu=$menus[$_GET['page']];
 			add_submenu_page('zingiri-web-shop', $txt[$menu['label']], $txt[$menu['label']], $cap, $_GET['page'], 'zing_ws_settings');
 		}
-		//add_submenu_page('admineditmain', 'Forms settings', 'Forms settings', $cap, 'zingiri-apps', 'zing_apps_settings');
-		//add_submenu_page('admineditmain', 'Forms editor', 'Forms editor', $cap, 'zingiri-apps-settings', 'zing_apps_editor');
 	}
 }
 
@@ -40,17 +38,3 @@ function zing_enqueue_tinymce() {
 }
 
 
-/*
-add_action( 'admin_print_footer_scripts', 'wp_tiny_mce_preload_dialogs');
-function wp_tiny_mce_preload_dialogs() {
-	wp_quicktags();
-	wp_preload_dialogs( array( 'plugins' => 'wpdialogs,wplink,wpfullscreen' ) );
-}
-*/
-
-/*
-add_action('admin_head','zing_load_tinymce');
-function zing_load_tinymce() {
-	wp_tiny_mce( false, array( 'editor_selector' => 'tinyMce' ) );
-}
-*/

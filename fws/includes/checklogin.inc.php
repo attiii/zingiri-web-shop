@@ -27,7 +27,7 @@ if (LoggedIn() == false) {
 			class="button-primary" value="<?php echo $txt['checklogin4'] ?>" tabindex="100"
 		/></div>
 		<input type="hidden" name="redirect_to"
-			value="<?php echo urlencode(zurl(get_option('home').'/index.php?'.$pagetoload,true));?>"
+			value="<?php echo urlencode(zurl(wsHomePage($pagetoload),true));?>"
 		/> <input type="hidden" name="testcookie" value="1" />
 		</form>
 <div style="text-align:center"><a

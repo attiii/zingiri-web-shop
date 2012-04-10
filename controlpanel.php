@@ -10,6 +10,7 @@ function zing_set_options() {
 		$zing_ws_options = array();
 		return;
 	}
+
 	
 	$zing_ws_options = array();
 		

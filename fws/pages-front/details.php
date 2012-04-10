@@ -142,9 +142,9 @@ else {
 		$mc=new wsMultiCurrency();
 		$tpl->parse('currency_selector',$mc->currencySelector(false));
 	} else $tpl->parse('currency_selector','');
-	
-	
-	
+
+
+
 	$tpl->conditions();
 
 	echo $tpl->content;
@@ -159,4 +159,7 @@ else {
 	});
 //]]>
 </script>
-<script type="text/javascript" src="<?php echo ZING_URL;?>fws/js/<?php echo APHPS_JSDIR;?>/imagedisplay.jquery.js"></script>
+<script
+	type="text/javascript"
+	src="<?php echo ZING_URL;?>fws/js/<?php echo APHPS_JSDIR;?>/imagedisplay.jquery.js"
+></script>

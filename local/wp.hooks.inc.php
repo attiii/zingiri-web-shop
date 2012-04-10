@@ -268,6 +268,7 @@ function zing_init()
 	global $zing_page_id_to_page, $zing_page_to_page_id, $wpdb;
 	global $name;
 	global $customerid;
+	global $wsPar;
 
 	if (!isset($_REQUEST['wslive'])) {
 		define("ZING_LIVE",false);
@@ -671,12 +672,21 @@ function zurl($url,$printurl=false,$interface='') {
 	}
 
 	if (isset($_REQUEST['wslive']) && $_REQUEST['wslive']=='wp') {
-		if (strstr($url,ZING_HOME)===false) {
-			$url=str_replace('index.php',$_REQUEST['wsliveurl'].'/index.php',$url);
-			if ($pid && strstr($url,'?')) {
-				$url.='&'.$pid;
-			} elseif ($pid) {
-				$url.='?'.$pid;
+		if (IsAdmin()) {
+			
+			$url=str_replace('index.php','',$url);
+			$url=str_replace('?','admin.php?',$url);
+			//$url='http://mymac/ws5/wp-admin/'.$url;
+			
+			
+		} else {
+			if (strstr($url,ZING_HOME)===false) {
+				$url=str_replace('index.php',$_REQUEST['wsliveurl'].'/index.php',$url);
+				if ($pid && strstr($url,'?')) {
+					$url.='&'.$pid;
+				} elseif ($pid) {
+					$url.='?'.$pid;
+				}
 			}
 		}
 	} else {

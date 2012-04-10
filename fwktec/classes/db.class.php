@@ -361,8 +361,9 @@ if (!class_exists('aphpsDb')) {
 			return($d);
 		}
 
-		function executeScript($file_content) {
+		function executeScript($file_content,$create=true) {
 			global $dbtablesprefix;
+			$query='';
 			foreach($file_content as $sql_line) {
 				$tsl = trim($sql_line);
 				if (($sql_line != "") && (substr($tsl, 0, 2) != "--") && (substr($tsl, 0, 1) != "#")) {
@@ -378,11 +379,11 @@ if (!class_exists('aphpsDb')) {
 					}
 					$query .= $sql_line;
 					if(preg_match("/;\s*$/", $sql_line)) {
-						if (!mysql_query($query)) {
-							$this->display('Error loading:'.mysql_error());
+						if (($create || !stristr($query,'CREATE TABLE')) && !mysql_query($query)) {
 							$this->display($query);
+							$this->display('Error loading:'.mysql_error());
 							return false;
-						}
+						}						
 						$query = "";
 					}
 				}

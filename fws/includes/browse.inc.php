@@ -60,7 +60,7 @@ function wsShowProductRow($row) {
 	}
 	else {
 		$stockpic = "";
-		if ($hide_outofstock == 0 && $row[5] == 0 && !wsIsAdminPage()) { $row[4] = 0; }
+		//if ($hide_outofstock == 0 && $row[5] == 0 && !wsIsAdminPage()) { $row[4] = 0; }
 		if (wsIsAdminPage() == FALSE && $show_stock == 1) {
 			$stocktext = "<br /><small>".$txt['browse13'].": ".$row[5]."</small>";
 		}
@@ -163,8 +163,8 @@ function wsShowProductCell($row,$row_count,$prods_per_row) {
 	$output.='<td width="'.(intval(100/$prods_per_row)).'%" style="text-align:center;">
 			       '."<a class=\"plain\" href=\"".zurl("index.php?page=details&prod=".$row[0]."&cat=".$row[2])."\"><h5 style=\"text-align:center\">".$row[1].'</h5>'.$screenshot.'</a><br />
 				   <br />';
-	if ($row['FEATURES']) $output.='<form class="wsgridform" id="order'.$row[0].'" method="post" action="'.zurl('?page=details&prod='.$row[0]."&cat=".$row[2]).'">';
-	else $output.='<form class="wsgridform" id="order'.$row[0].'" method="post" action="?page=cart&action=add">';
+	if ($row['FEATURES']) $output.='<form class="wsgridform" id="order'.$row[0].'" method="post" action="'.zurl('index.php?page=details&prod='.$row[0]."&cat=".$row[2]).'">';
+	else $output.='<form class="wsgridform" id="order'.$row[0].'" method="post" action="'.zurl('index.php?page=cart&action=add').'">';
 	$output.='<input type="hidden" name="prodid" value="'.$row[0].'">';
 	if (!$row[4] == 0) {
 		$tax=new wsTax(wsPrice::price($row[4]),$row['TAXCATEGORYID']);

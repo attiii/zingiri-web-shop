@@ -16,9 +16,12 @@ else $zfClass='zfForm';
 $zflist=new $zfClass($formname,$formid,'','list','list');
 $formname=$zflist->form;
 $formid=$zflist->id;
+if (!isset($action) && isset($_REQUEST['action'])) $action=$_REQUEST['action'];
 if ($action=='search') {
 	$search=$zflist->setSearch($_POST,$map);
 } else $search='';
+trigger_error($action);
+trigger_error(print_r($search,true));
 
 $stack=new zfStack('list',$formname,$search);
 
@@ -83,9 +86,9 @@ echo $topspan;
 if ($zflist)
 {
 
-	$h=$zflist->headers;
+	$h=$zflist->listHeaders;
 
-	if (ZingAppsIsAdmin()) echo '<table id="'.$formname.'" class="datatable sortable draggable aphps-list-table">';
+	if (ZingAppsIsAdmin()) echo '<table id="'.$formname.'" class="datatable tablesorter sortable draggable aphps-list-table">';
 	else echo '<table id="'.$formname.'" class="datatable aphps-list-table">';
 	echo '<thead>';
 	echo '<tr>';
@@ -108,11 +111,11 @@ if ($zflist)
 		}
 		if ($orderKeys) $zflist->orderKeys=$orderKeys;
 	}
+	$script="";
 	if ($zflist->SelectRows($map,$pos))
 	{
 		$rows=$zflist->NextRows();
 		$line=1;
-		$script="";
 		foreach ($rows as $id => $row)
 		{
 			$links=$alink->getLinks($id);
@@ -180,17 +183,8 @@ if ($zflist)
 <?php 
 if (method_exists($zflist,'sortlist')) {
 	$zflist->sortlist();
-	if (ZING_PROTOTYPE) { 
 ?>
 
-<script type="text/javascript" language="javascript">
-//<![CDATA[
-	document.observe("dom:loaded", function() {
-	    appsSortList.init('<?php echo $zflist->ajaxUpdateURL;?>');
-	});
-//]]>
-</script>
-		<?php } else {?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
 	jQuery(document).ready(function() {
@@ -198,5 +192,11 @@ if (method_exists($zflist,'sortlist')) {
 	});
 //]]>
 </script>
-<?php }
-		}?>
+<?php }?>
+<script type="text/javascript" language="javascript">
+//<![CDATA[
+	jQuery(document).ready(function() {
+	    jQuery('table#<?php echo $zflist->form;?>').tablesorter();
+	});
+//]]>
+</script>

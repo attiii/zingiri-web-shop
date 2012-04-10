@@ -63,21 +63,24 @@ class zfForm {
 			//check if form has a sub form to include
 			$this->includeSubForm();
 
+			
 			foreach ($this->json as $i => $value)
 			{
 				$key=$value['id'];
-				if ($value['type']=='submit') $this->hasSubmit=true;
+				if ($value['type']=='submit') {
+					$this->hasSubmit=true;
+				}
 				$element=new element($value['type']);
 				$this->elements['name'][$key]=$element->name;
 				$this->elements['label'][$key]=$element->sublabel;
 				$this->elements['format'][$key]=$element->format;
 				$this->elements['cat'][$key]=$element->cat;
 				$this->column[$key]=$this->json[$key]['column'];
-				if (count($value['rules']) > 0) $this->elements['rules'][$key]=$value['rules'];
+				if (isset($value['rules']) && (count($value['rules']) > 0)) $this->elements['rules'][$key]=$value['rules'];
 			}
 			$this->headers=$this->Headers();
 			$this->headersCount=count($this->headers);
-			$this->allheaders=$this->Headers(true);
+			$this->Headers(true);
 
 			$this->post=$post;
 		}
@@ -218,6 +221,7 @@ class zfForm {
 		$g=array(); //sorted headers, indexed by sub element number
 		$e=array(); //sorted fields, indexed by sub element number
 		$m=array(); //sorted fields (excluding attributes), indexed by sub element number
+		$t=array(); //sorted headers, excluding submit fields
 
 		foreach ($this->json as $i => $value)
 		{
@@ -286,7 +290,10 @@ class zfForm {
 		foreach ($s as $key => $sortorder) {
 			$g[$key]=$h[$key];
 			$e[$key]=$f[$key];
+			$i=round($key/100,0);
+			if ($this->json[$i]['type']!='submit') $t[$key]=$h[$key];
 		}
+		
 		foreach ($sa as $key => $sortorder) {
 			$m[$key]=$f[$key];
 		}
@@ -294,6 +301,8 @@ class zfForm {
 		if ($all) $this->map=$c;
 		if ($all) $this->allfields=$e; else $this->fields=$e;
 		if ($all) $this->allFieldAttributes=$m;
+		if ($all) $this->allheaders=$t;
+		else $this->listHeaders=$t;
 
 		return $g;
 
@@ -332,8 +341,8 @@ class zfForm {
 				$element->is_error=isset($this->elements['is_error'][$key]) ? $this->elements['is_error'][$key] : '';
 				$element->error_message=isset($this->elements['error_message'][$key]) ? $this->elements['error_message'][$key] : '';
 				$element->is_required=isset($value['mandatory']) ? $value['mandatory'] : '';
-				$element->is_searchable=isset($value['searchable']) ? $value['searchable'] : '';
-				$this->searchable=isset($value['searchable']) && $value['searchable'] ? true : false;
+				$element->is_searchable=isset($value['searchable']) ? $value['searchable'] : false;
+				if ($element->is_searchable) $this->searchable=true;
 				$element->readonly=isset($value['readonly']) ? $value['readonly'] : '';
 				if (isset($value['searchable']) && $value['searchable'] && $mode=="search") $element->readonly='';
 				$element->hidden=isset($value['hidden']) ? $value['hidden'] : '';
@@ -348,7 +357,7 @@ class zfForm {
 				$ca=0;
 				if ($element->isRepeatable) {
 					foreach ($value['subelements'] as $key2 => $sub) {
-						$ca=max($ca,count($this->input['element_'.$key.'_'.$key2]));
+						$ca=max($ca,isset($this->input['element_'.$key.'_'.$key2]) ? count($this->input['element_'.$key.'_'.$key2]) : 0);
 					}
 				}
 
@@ -444,6 +453,146 @@ class zfForm {
 		return $ret;
 	}
 
+	function printout($mode="print",$prefix="",$display=false)
+	{
+		$jsRules=array();
+		$ret='';
+		$js='';
+		$tabs='';
+		$dividers=array();
+		$numDiv=0;
+		$js_markup='';
+
+		$populated_value=array();
+		$populated_column=array();
+		if ($a=$this->json)
+		{
+			$isFirst=true;
+			foreach ($a as $i => $value)
+			{
+				$key=$value['id'];
+				if ($value['type']=='submit') continue;
+				$element=new element($value['type']);
+				$element->isRepeatable=isset($value['attributes']['zfrepeatable']) ? $value['attributes']['zfrepeatable'] : '';
+				$element->title=$value['label'];
+				$element->id=$value['id'];
+				$element->is_error=isset($this->elements['is_error'][$key]) ? $this->elements['is_error'][$key] : '';
+				$element->error_message=isset($this->elements['error_message'][$key]) ? $this->elements['error_message'][$key] : '';
+				$element->is_required=isset($value['mandatory']) ? $value['mandatory'] : '';
+				$element->is_searchable=isset($value['searchable']) ? $value['searchable'] : '';
+				$this->searchable=isset($value['searchable']) && $value['searchable'] ? true : false;
+				$element->readonly=isset($value['readonly']) ? $value['readonly'] : '';
+				if (isset($value['searchable']) && $value['searchable'] && $mode=="search") $element->readonly='';
+				$element->hidden=isset($value['hidden']) ? $value['hidden'] : '';
+				$element->attributes=$value['attributes'];
+				$element->unique=isset($value['unique']) ? $value['unique'] : '';
+				$element->linksin=isset($value['links']) ? $value['links'] : '';
+				$element->rules=isset($this->elements['rules'][$key]) ? $this->elements['rules'][$key] : '';
+				$element->showSubscript=true;
+
+				$c=$this->countSubelements($value['subelements'],$key);
+
+				$ca=0;
+				if ($element->isRepeatable) {
+					foreach ($value['subelements'] as $key2 => $sub) {
+						$ca=max($ca,isset($this->input['element_'.$key.'_'.$key2]) ? count($this->input['element_'.$key.'_'.$key2]) : 0);
+					}
+				}
+
+				foreach ($value['subelements'] as $key2 => $sub)
+				{
+					if (isset($this->elements['cat'][$key][$key2]) && $this->elements['cat'][$key][$key2]=='parameter') {
+						$populated_value['element_'.$key.'_'.$key2]=$sub['populate'];
+					}
+					elseif (isset($sub['populate']) && empty($this->input))
+					{
+						$populated_value['element_'.$key.'_'.$key2]=$sub['populate'];
+					}
+					elseif (!empty($this->input) && isset($this->input['element_'.$key.'_'.$key2]))
+					{
+						$populated_value['element_'.$key.'_'.$key2]=$this->input['element_'.$key.'_'.$key2];
+					}
+					if ($c > 1) {
+						$f=strtoupper($this->column[$key]."_".$element->xmlf->fields->{'field'.$key2}->name);
+					} else {
+						$f=$this->column[$key];
+					}
+					if (isset($populated_value['element_'.$key.'_'.$key2])) $populated_column[$f]=$populated_value['element_'.$key.'_'.$key2];
+				}
+				if ($isFirst) {
+					$ret.='<ul id="zfaces'.$numDiv.'" class="zfaces">';
+					$numDiv++;
+				}
+				elseif ($element->constraint=='system_divider') {
+					$ret.='</ul>';
+					$ret.='<ul id="zfaces'.$numDiv.'" class="zfaces">';
+					$numDiv++;
+				}
+				$element_markup='<li class="zfli" style="background-image:none;">';
+				$element->populated_value=$populated_value;
+				$element->populated_column=$populated_column;
+				$element->column=$this->column;
+				$element->prepare();
+				$retDisplay=$element->display($mode);
+				if (isset($retDisplay['jsrule']) && is_array($retDisplay['jsrule']) && count($retDisplay['jsrule']) > 0) {
+					$jsRules[]=$retDisplay['jsrule'];
+				}
+				if ($prefix) $element_markup.=str_replace('element_',$prefix.'_element_',$retDisplay['markup']);
+				elseif (isset($retDisplay['markup'])) $element_markup.=$retDisplay['markup'];
+				$element_markup.='</li>';
+				if ($element->constraint=='system_divider') {
+					$dividers[]=$element->divider;
+				} else {
+					$ret.=$element_markup;
+				}
+				$isFirst=false;
+				$this->elements[$key]=$element->name;
+
+			}
+		}
+		$ret.='</ul>';
+		if (count($dividers) > 0) {
+			$tabs='<ul>';
+			foreach ($dividers as $id => $divider) {
+				$tabs.='<li class="zfacestab"><a href="#zfaces'.$id.'">';
+				$tabs.=$divider;
+				$tabs.='</a></li>';
+			}
+			$tabs.='</ul>';
+			$tabs.='<div class="zfclear"></div>';
+			$js='<script type="text/javascript" language="javascript">';
+			$js.='//<![CDATA['.chr(13);
+			$js.='jQuery(document).ready(function() {';
+			$js.="jQuery('#zfacestabs').tabs();";
+			$js.="});";
+			$js.=chr(13)." //]]>";
+			$js.="</script>";
+		}
+		$ret=$tabs.$ret;
+		$ret='<div id="zfacestabs">'.$ret.'</div>'.$js;
+		/*
+		if (count($jsRules) > 0) {
+			$js_markup='<script type="text/javascript">';
+			$js_markup.='jQuery(document).ready(function() {';
+			foreach ($jsRules as $jsRule) {
+				$data=$jsRule[0];
+				if (isset($data['fnct']) && function_exists($data['fnct'])) {
+					$fnct=$data['fnct'];
+					$data['value']=$this->input['element_'.$data['field'].'_'.$data['subField']];
+					$r=$fnct($data);
+				}
+				if (version_compare (PHP_VERSION,'5.3.0') >= 0) $js_markup.="wsFormField.add(".json_encode($data,JSON_FORCE_OBJECT).",".$jsRule[1].",".$r['result'].");";
+				else $js_markup.="wsFormField.add(".json_encode($data).",".$jsRule[1].",".$r['result'].");";
+			}
+			$js_markup.='});';
+			$js_markup.='</script>';
+		}
+		$ret.=$js_markup;
+		*/
+		if ($display) echo $ret;
+		return $ret;
+	}
+	
 	function Verify($input,$id=0)
 	{
 		if ($id) { //get image of record before update
@@ -524,7 +673,7 @@ class zfForm {
 		$success=true;
 		if ($this->type=="DB") $success=$this->DeleteDB($id);
 		$this->postDelete();
-		$this->alert("Record delete successfull!");
+		$this->alert("Record delete successful!");
 		return $success;
 	}
 
@@ -551,7 +700,7 @@ class zfForm {
 				if ($onSubmitAction['action']=='mailto') $this->mailTo($onSubmitAction['to']);
 			}
 		}
-		$this->alert("Save successfull!");
+		$this->alert("Save successful!");
 		return $success;
 	}
 
@@ -561,11 +710,11 @@ class zfForm {
 		$from=APHPS_ADMIN_EMAIL;
 
 		$headers  = 'MIME-Version: 1.0' . "\r\n";
-		$headers .= 'Content-type: text/html; charset='.$charset."\r\n";
+		$headers .= 'Content-type: text/html; charset=UTF-8'."\r\n";
 		$headers .= 'From: '.$from.' <'.$from.'>' . "\r\n";
 
 		$subject=$this->label.' submitted';
-		$message=$render=$this->render('view','',false);
+		$message=$render=$this->printout();
 		mail($to, '=?UTF-8?B?'.base64_encode($subject).'?=', $message, $headers);
 		return true;
 	}
@@ -829,14 +978,15 @@ class zfForm {
 		while ($r=$this->db->next())
 		{
 			$id=$r['ID'];
-			//unset($r['ID']); //ebo
 			$input=array();
 			foreach ($this->fields as $key => $column)
 			{
 				zfKeys($key,$key1,$key2);
+				if (($this->page=='list') && ($this->json[$key1]['type']=='submit')) continue;
 				$input['element_'.$key1."_".$key2]=$r[str_replace('`','',$column)];
 			}
 			foreach ($this->json as $key1 => $sub) {
+				if (($this->page=='list') && ($this->json[$key1]['type']=='submit')) continue;
 				foreach ($sub['subelements'] as $key2 => $data) {
 					if (!isset($input['element_'.$key1."_".$key2])) $input['element_'.$key1."_".$key2]=$data['populate'];
 				}
@@ -846,6 +996,7 @@ class zfForm {
 			foreach ($this->fields as $key => $column)
 			{
 				zfKeys($key,$key1,$key2);
+				if (($this->page=='list') && ($this->json[$key1]['type']=='submit')) continue;
 				$o[str_replace('`','',$column)]=$output['element_'.$key1."_".$key2];
 			}
 			$rows[$id]=$o;

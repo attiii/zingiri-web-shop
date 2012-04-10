@@ -30,6 +30,7 @@ function zing_apps_player_header($display=true)
 	$wsScripts=zScripts();
 	foreach ($wsScripts as $s) {
 		$ret.='<script type="text/javascript" src="' . $s . '"></script>';
+		
 	}
 	
 	$wsStyleSheets=zStyleSheets();
@@ -41,7 +42,7 @@ function zing_apps_player_header($display=true)
 	//$ret.='</script>';
 	
 	if (wsIsAdminPage()) $ret.='<link rel="stylesheet" href="' . ZING_APPS_PLAYER_URL . 'css/apps_wp_admin.css" type="text/css" media="screen" />';
-	$ret.='<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/' . APHPS_JSDIR . '/sorttable.js"></script>';
+	$ret.='<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/' . APHPS_JSDIR . '/tablesorter.jquery.js"></script>';
 
 	if ($display) echo $ret;
 	else return $ret;

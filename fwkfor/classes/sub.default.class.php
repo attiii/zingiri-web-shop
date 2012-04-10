@@ -70,6 +70,10 @@ class zfSubElement {
 	function prepare() {
 	}
 
+	function printout(&$field_markup,&$subscript_markup) {
+		$this->display($field_markup,$subscript_markup);
+	}
+	
 	function output($mode="edit",$input="")
 	{
 		$this->ext=$this->int;
@@ -125,6 +129,7 @@ class zfSubElement {
 			$e->values['element_'.$e->id.'_'.$i][$this->ai] = $xmlf->fields->{'field'.$i}->default;
 		}
 		$readonly=isset($e->readonly) ? $e->readonly : '';
+		
 		$field_markup.="<input id=\"element_{$e->id}_{$i}{$this->ail}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" size=\"{$this->size}\" value=\"{$e->values['element_'.$e->id.'_'.$i][$this->ai]}\" maxlength=\"{$this->maxlength}\" type=\"text\" {$readonly}/>";
 		$subscript_markup.="<label id=\"label_{$e->id}_{$i}\"for=\"element_{$e->id}_{$i}\">".z_($xmlf->fields->{'field'.$i}->label)."</label>";
 	}

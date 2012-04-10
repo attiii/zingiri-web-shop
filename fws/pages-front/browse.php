@@ -34,13 +34,9 @@ if (!empty($_POST['searchfor'])) {
 } elseif (!empty($_GET['searchfor'])) {
 	$searchfor=$_GET['searchfor'];
 } else $searchfor='';
-if (!empty($_GET['orderby'])) {
-	$orderby = $_GET['orderby'];
-}
-if ($orderby == 1) {
-	$orderby_field = "PRODUCTID";
-}
-else { $orderby_field = "PRICE"; }
+$orderby=isset($_GET['orderby']) ? $_GET['orderby'] : 0;
+if ($orderby == 1) $orderby_field = "PRODUCTID";
+else $orderby_field = "PRICE";
 
 if (empty($cat) && isset($_GET['cat'])) {
 	$cat=$_GET['cat'];
@@ -71,14 +67,6 @@ if ($products_per_page > 0) {
 	$limit    = " LIMIT $start_record, $products_per_page";
 }
 else { $limit = ""; }
-/*
-if (IsAdmin()) {
-	echo "<br /><a href=\"".zurl("?page=product&zfaces=form&form=product&action=add&redirect=".wsCurrentPageURL(true))."\"><img style=\"height:16px;\" src=\"".ZING_APPS_PLAYER_URL."images/add.png\" /></a>";
-	echo "<a href=\"".zurl("?page=product&zfaces=form&form=product&action=add&redirect=".wsCurrentPageURL(true))."\">".$txt['productadmin16']."</a>";
-	echo '<br />';
-}
-*/
-
 if ($action == "search" || $searchfor) {
 	//search on the given terms
 	if ($searchfor != "") {
@@ -106,13 +94,10 @@ if ($action == "search" || $searchfor) {
 	}
 	else { $query = "SELECT * FROM `".$dbtablesprefix."product` WHERE `NEW` = '1' ORDER BY `$orderby_field` ASC"; }
 } else {
-	$query = "SELECT * FROM `".$dbtablesprefix."product` ";
-	if ($stock_enabled == 1 && $hide_outofstock == 1 && wsIsAdminPage() == false) { // filter out products with stock lower than 1
-		$query = sprintf("SELECT * FROM `".$dbtablesprefix."product` where `STOCK` > 0 AND `CATID`=%s ORDER BY `$orderby_field` ASC", quote_smart($cat));
-	}
-	elseif (!empty($cat)) {
-		$query = sprintf("SELECT * FROM `".$dbtablesprefix."product` WHERE CATID=%s ORDER BY `$orderby_field` ASC", quote_smart($cat));
-	}
+	
+	if ($stock_enabled == 1 && $hide_outofstock == 1 && wsIsAdminPage() == false) $query = sprintf("SELECT * FROM `".$dbtablesprefix."product` where `STOCK` > 0 AND `CATID`=%s ORDER BY `$orderby_field` ASC", quote_smart($cat));
+	elseif (!empty($cat)) $query = sprintf("SELECT * FROM `".$dbtablesprefix."product` WHERE CATID=%s ORDER BY `$orderby_field` ASC", quote_smart($cat));
+	else $query = "SELECT * FROM `".$dbtablesprefix."product` ORDER BY `$orderby_field` ASC"; 
 }
 
 // total products without the limit
@@ -125,7 +110,7 @@ if (mysql_num_rows($sql) == 0) {
 	PutWindow($gfx_dir, $txt['general13'], $txt['browse5'].($categorie ? ': ' : '').$categorie, "notify.gif", "50");
 }
 else {
-	if ($searchfor) {
+	if ($searchfor && !$orderby) {
 		$rows=wsOrderByRelevance($sql,$query,$searchitem,$searchmethod,$start_record,$orderby_field);
 	} else {
 		$rows=array();

@@ -39,33 +39,55 @@ class fileZfSubElement extends zfSubElement {
 
 	function postSave($id=0) {
 
-		$secret=$this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+1)];
 		$dir=defined('APHPS_DATA_DIR') ? APHPS_DATA_DIR : constant($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+2)]);
 		$eln='file_element_'.$this->elementid.'_'.$this->subid;
-
-		if (isset($_FILES[$eln]['name']) && $file = $_FILES[$eln]['name']) {
-			$ext = strtolower(substr(strrchr($file, '.'), 1));
-
-			if ($secret) $file=$this->createRandomCode(15).'__'.$file;
-
-			$target_path = $dir.$file;
-
-			if(move_uploaded_file($_FILES[$eln]['tmp_name'], $target_path)) {
-				chmod($target_path,0644); // new uploaded file can sometimes have wrong permissions
-				//update full file name
-				$column=$this->element->elementToColumn['element_'.$this->elementid.'_'.$this->subid];
-				$db=new aphpsDb();
-				trigger_error($this->element->entity.','.$id.','.$column.'=>'.$file);
-				$db->updateRecord($this->element->entity,array('ID' => $id),array($column => $file));
-				$this->ext=$this->int=$file;
-				return true;
-			}
-			else {
+		
+		if (APHPS_XD) {
+			$fh=$this->element->input[$eln];
+			if (!$fh) return true;
+			$link=APHPS_TEMP_DIR.$fh.'/'.$fh;
+			$ori_path=readlink($link);
+			$file=$this->createRandomCode(15).'__'.basename(readlink($link));
+			$target_path=$dir.$file;
+			unlink($link);
+			if(rename($ori_path, $target_path)) {
+					chmod($target_path,0644); // new uploaded file can sometimes have wrong permissions
+					//update full file name
+					$column=$this->element->elementToColumn['element_'.$this->elementid.'_'.$this->subid];
+					$db=new aphpsDb();
+					$db->updateRecord($this->element->entity,array('ID' => $id),array($column => $file));
+					$this->ext=$this->int=$file;
+					$_FILES[$eln]['name']=basename($ori_path);
+					return true;
+			} else {
 				return false;
 			}
+			
 		} else {
-			//$this->ext=$this->int;
-			return true;
+			$secret=$this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+1)];
+
+			if (isset($_FILES[$eln]['name']) && $file = $_FILES[$eln]['name']) {
+				$ext = strtolower(substr(strrchr($file, '.'), 1));
+
+				if ($secret) $file=$this->createRandomCode(15).'__'.$file;
+
+				$target_path = $dir.$file;
+
+				if(move_uploaded_file($_FILES[$eln]['tmp_name'], $target_path)) {
+					chmod($target_path,0644); // new uploaded file can sometimes have wrong permissions
+					//update full file name
+					$column=$this->element->elementToColumn['element_'.$this->elementid.'_'.$this->subid];
+					$db=new aphpsDb();
+					$db->updateRecord($this->element->entity,array('ID' => $id),array($column => $file));
+					$this->ext=$this->int=$file;
+					return true;
+				}
+				else {
+					return false;
+				}
+			} else {
+				return true;
+			}
 		}
 
 	}
@@ -79,6 +101,11 @@ class fileZfSubElement extends zfSubElement {
 		return $this->ext;
 	}
 
+	function printout(&$field_markup,&$subscript_markup) {
+		$eln='file_element_'.$this->elementid.'_'.$this->subid;
+		$field_markup.='<p>'.$_FILES[$eln]['name'].'</p>';
+	}
+	
 	function display(&$field_markup,&$subscript_markup) {
 		$e=$this->element;
 		$i=$this->subid;
@@ -90,7 +117,14 @@ class fileZfSubElement extends zfSubElement {
 		if ($this->mode=='view') {
 			$field_markup.='<a href="'.$e->populated_value['element_'.$e->id.'_'.$i].'">'.$e->populated_value['element_'.$e->id.'_'.$i].'</a>';
 		} else {
-			$field_markup.="<input id=\"file_element_{$e->id}_{$i}\" name=\"file_element_{$e->id}_{$i}\" class=\"element text\" size=\"{$this->size}\" maxlength=\"{$this->maxlength}\" type=\"file\" {$e->readonly}/>";
+			if (!APHPS_XD) {
+				$field_markup.="<input id=\"file_element_{$e->id}_{$i}\" name=\"file_element_{$e->id}_{$i}\" class=\"element text\" size=\"{$this->size}\" maxlength=\"{$this->maxlength}\" type=\"file\" {$e->readonly}/>";
+			} else {
+				$fh=md5(session_id().$e->id.$i);
+				$field_markup.='<iframe id="file_element_'.$e->id.'_'.$i.'" frameborder="0" src="'.APHPS_XD.'?fh='.$fh.'" >';
+				$field_markup.='</iframe>';
+				$field_markup.="<input id=\"file_element_{$e->id}_{$i}\" name=\"file_element_{$e->id}_{$i}\" type=\"hidden\" value=\"$fh\">";
+			}
 			if ($e->populated_value['element_'.$e->id.'_'.$i]) {
 				$field_markup.="<input id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" size=\"{".strlen($e->populated_value['element_'.$e->id.'_'.$i])."}\" value=\"{$e->populated_value['element_'.$e->id.'_'.$i]}\" type=\"text\" readonly/>";
 				$js='void(0)';

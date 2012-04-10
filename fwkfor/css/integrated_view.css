@@ -467,9 +467,6 @@ div.calendar {
 }
 
 .zfimg {
-	height: 16px;
-	width: 16px;
-	/*align:absmiddle;*/ /*FIXME*/
 	margin: 0px;
 	padding: 0px;
 }
@@ -633,3 +630,5 @@ li.zfacestab {
 	background-color: #D6DDE6; /*verylightgrey*/
 	color: black;
 }
+
+

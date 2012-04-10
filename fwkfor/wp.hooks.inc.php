@@ -43,6 +43,6 @@ function zing_apps_player_header()
 	//echo '</script>';
 	
 	if (wsIsAdminPage()) echo '<link rel="stylesheet" href="' . ZING_APPS_PLAYER_URL . 'css/apps_wp_admin.css" type="text/css" media="screen" />';
-	echo '<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/' . APHPS_JSDIR . '/sorttable.js"></script>';
+	echo '<script type="text/javascript" src="' . ZING_APPS_PLAYER_URL . 'js/' . APHPS_JSDIR . '/tablesorter.jquery.js"></script>'; 
 }
 ?>

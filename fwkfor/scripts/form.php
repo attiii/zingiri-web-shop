@@ -40,6 +40,7 @@ if (isset($_GET['showform'])) $showform=$_GET['showform']; else $showform="edit"
 
 //echo 'action='.$action;die();
 
+trigger_error('action-step:'.$action.'-'.$step);
 if ($action == "add" && ($step == "" || $step == "poll")) {
 	if ($zfform->allowAccess()) {
 		$allowed=true;
@@ -204,8 +205,13 @@ if ($allowed && $success && $showform == "edit") {
 	$zfform->Render($action);
 	if (count($_POST) > 0) {
 		foreach ($_POST as $name => $value) {
-			if (!strstr($name,"element_"))
-			echo '<input type="hidden" name="'.$name.'" value="'.str_replace("\'","'",$value).'" />';
+			if (!strstr($name,"element_")) {
+				if (is_array($value)) {
+					foreach ($value as $i => $v) {
+						echo '<input type="hidden" name="'.$name.'['.$i.']'.'" value="'.str_replace("\'","'",$v).'" />';
+					}
+				} else echo '<input type="hidden" name="'.$name.'" value="'.str_replace("\'","'",$value).'" />';
+			}
 		}
 	}
 	if (isset($_GET['redirect']) && $_GET['redirect']) echo '<input type="hidden" name="redirect" value="'.$_GET['redirect'].'" />';
@@ -229,13 +235,13 @@ if ($allowed && $success && $showform == "edit") {
 		}
 		echo '</div>';
 	}
-	if (!$noForm && !$zfform->hasSubmit) {
+	if (!$noForm) {
 		echo '<div class="aphps_form_buttons">';
-		if (($action == 'add' or $action == 'edit') && (!isset($override_save) || !$override_save)) {
+		if (!$zfform->hasSubmit && ($action == 'add' or $action == 'edit') && (!isset($override_save) || !$override_save)) {
 			echo '<input id="appscommit" class="art-button" type="submit" name="save" value="'.z_('Save').'">';
 		} elseif ($action == 'delete') {
 			echo '<input class="art-button" type="submit" name="delete" value="'.z_('Delete').'">';
-		} elseif (!empty($action)) {
+		} elseif (!$zfform->hasSubmit && !empty($action)) {
 			echo '<input class="art-button" type="submit" name="other" value="'.z_('Confirm').'">';
 		}
 		echo '</div>';

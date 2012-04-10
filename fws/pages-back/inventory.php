@@ -282,7 +282,7 @@ function wsOrderByRelevance($sql,$query,$searchitems,$searchmethod,$start_record
 	}
 	return $rows;
 }
-if (!wsIsAdminPage()) {
+if (!wsIsAdminPage() && !ZING_LIVE) {
 	?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
@@ -335,16 +335,14 @@ if (!wsIsAdminPage()) {
 			$admin_edit = "<br /><br />";
 			if ($stock_enabled == 1) { $admin_edit .= $txt['productadmin12'].": ".$row[5]."<br />"; }
 			if (wsIsAdminPage()) {
-				//$admin_edit .= "<a href=\"".zurl("?page=product&zfaces=form&form=product&action=edit&id=".$row[0]."&redirect=".wsCurrentPageURL(true))."\">".$txt['browse7']."</a>";
 				$admin_edit .= "<a href=\"".zurl("?page=product&zfaces=form&form=product&action=edit&zfp=62&id=".$row[0])."\">".$txt['browse7']."</a>";
-				//$admin_edit .= " | <a href=\"".zurl("?page=product&zfaces=form&form=product&action=delete&id=".$row[0]."&redirect=".wsCurrentPageURL(true))."\" >".$txt['browse8']."</a>";
 				$admin_edit .= " | <a href=\"".zurl("?page=product&zfaces=form&form=product&action=delete&zfp=62&id=".$row[0])."\" >".$txt['browse8']."</a>";
 				$admin_edit .= " | ".$txt['productadmin14'].' <input id="wsfp'.$row[0].'" type="checkbox" class="wsfrontpage" onclick="wsFrontPage('.$row[0].',this.checked);"';
 				if ($row['FRONTPAGE']) $admin_edit.=" checked";
 				$admin_edit.='>';
-			} elseif (ZING_CMS=='wp' && isadmin()) {
-				$admin_edit .= "<a href=\"".get_option('siteurl')."/wp-admin/admin.php?page=product&zfaces=form&form=product&action=edit&id=".$row[0]."&redirect=".wsCurrentPageURL(true)."\">".$txt['browse7']."</a>";
-				$admin_edit .= " | <a href=\"".get_option('siteurl')."/wp-admin/admin.php?page=product&zfaces=form&form=product&action=delete&id=".$row[0]."&redirect=".wsCurrentPageURL(true)."\" >".$txt['browse8']."</a>";
+			} elseif (ZING_CMS=='wp' && IsAdmin()) {
+				$admin_edit .= "<a href=\"".zurl("?page=product&zfaces=form&form=product&action=edit&id=".$row[0]."&redirect=".wsCurrentPageURL(true))."\">".$txt['browse7']."</a>";
+				$admin_edit .= " | <a href=\"".zurl("?page=product&zfaces=form&form=product&action=delete&id=".$row[0]."&redirect=".wsCurrentPageURL(true))."\" >".$txt['browse8']."</a>";
 			}
 		}
 		// make up the description to print according to the pricelist_format and max_description
@@ -367,7 +365,7 @@ if (!wsIsAdminPage()) {
 		}
 
 		$output.= "<td>".$stockpic;
-		if (!wsIsAdminPage()) $output.= "<a class=\"plain\" href=\"".zurl("index.php?page=details&prod=".$row[0]."&cat=".$row[2]."&group=".$group)."\">".$thumb.$print_description."</a> ";
+		if (!wsIsAdminPage() && !ZING_LIVE) $output.= "<a class=\"plain\" href=\"".zurl("index.php?page=details&prod=".$row[0]."&cat=".$row[2]."&group=".$group)."\">".$thumb.$print_description."</a> ";
 		else $output.= $thumb.$print_description;
 		$output.= $picturelink." ".$new." ".$stocktext.$admin_edit."</td>";
 		if ($ordering_enabled) {

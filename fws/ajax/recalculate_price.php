@@ -36,17 +36,18 @@ $price = 0;
 $wsFeatures=new wsFeatures($row['FEATURES'],$row['FEATURESHEADER'],$row['FEATURES_SET']);
 for ($i=0;$i<$featureSets;$i++) {
 	$wsFeatures->validate($i);
-	$price+=$wsFeatures->calcPrice($i,$row['PRICE'],$row['PRICE_FORMULA_TYPE'],$row['PRICE_FORMULA_RULE']);
+	$price+=$wsFeatures->calcPrice($i,$row['PRICE'],isset($row['PRICE_FORMULA_TYPE']) ? $row['PRICE_FORMULA_TYPE'] : null,isset($row['PRICE_FORMULA_RULE']) ? $row['PRICE_FORMULA_RULE'] : null);
 	//$wsFeatures->parse($i);
+	
 }
 $tax=new wsTax($price,$row['TAXCATEGORYID']);
 $a['pricein']=$tax->inFtd;
 $a['priceex']=$tax->exFtd;
 //$a['msg'][]=$wsFeatures->featureString;
 //$a['msg'][]=$_POST;
-$a['f']=$wsFeatures->f;
-$a['p']=$wsFeatures->p;
-$a['row']=$row['PRICE_FORMULA_RULE'];
+if (isset($wsFeatures->f)) $a['f']=$wsFeatures->f;
+if (isset($wsFeatures->p)) $a['p']=$wsFeatures->p;
+if (isset($row['PRICE_FORMULA_RULE'])) $a['row']=$row['PRICE_FORMULA_RULE'];
 $a['post']=$wsFeatures->post;
 echo json_encode($a);
 ?>

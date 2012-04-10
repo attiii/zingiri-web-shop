@@ -51,9 +51,6 @@ else {
 			<strong>Lightbox JS: Fullsize Image Overlays</strong><br />
 			by Lokesh Dhakar - http://www.huddletogether.com<br />
 			<br />
-			<strong>TinyMCE: WYSIWYG editor</strong><br />
-			by Moxiecode Systems AB - http://tinymce.moxiecode.com/<br/ >
-			<br />
 			<strong>email2: Sends e-mail messages without the need of an smtp server</strong><br />
             by Jason Jacques - http://poss.sourceforge.net/email/<br />
 			<br />

@@ -64,7 +64,7 @@ class dateZfSubElement extends zfSubElement {
 		$field_markup.="<input id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" size=\"{$this->size}\" value=\"{$e->populated_value['element_'.$e->id.'_'.$i]}\" maxlength=\"{$this->maxlength}\" type=\"text\" {$e->readonly}/>";
 		$field_markup.='<script type="text/javascript" language="javascript">';
 		$field_markup.='jQuery(document).ready(function() {';
-	    $field_markup.='jQuery("#'.$element.'").datepicker({disabled:true,dateFormat:\'dd-mm-yy\',buttonImage:\''.ZING_APPS_PLAYER_URL.'images/calendar.gif\',buttonImageOnly:true,showOn:\'button\'});';
+	    $field_markup.='jQuery("#'.$element.'").datepicker({dateFormat:\'dd-mm-yy\',buttonImage:\''.ZING_APPS_PLAYER_URL.'images/calendar.gif\',buttonImageOnly:true,showOn:\'button\'});';
 	    $field_markup.='})';
 		$field_markup.='</script>';
 		$subscript_markup.="<label id=\"label_{$e->id}_{$i}\"for=\"element_{$e->id}_{$i}\">".z_($xmlf->fields->{'field'.$i}->label)."</label>";

@@ -334,16 +334,17 @@ function zing_main($process,$content="") {
 	switch ($process)
 	{
 		case "content":
+			if (!$zing_loaded) {
+				require_once(ZING_LOC."./startmodules.inc.php");
+				$zing_loaded=TRUE;
+			}
 			//apps player integration
 			if (isset($_GET['zfaces']) || isset($_POST['zfaces'])) {
-				if (!$zing_loaded) {
-					require_once(ZING_LOC."./startmodules.inc.php");
-					$zing_loaded=TRUE;
-				}
 				return $content;
 			}
 			if (isset($post)) $cf=get_post_custom();
 			if (isset($_GET['page'])) {
+				$page=$_GET['page'];
 				//do nothing, page already set
 			}  elseif (isset($cf['zing_page'])) {
 				$page=$_GET['page']=$cf['zing_page'][0];

@@ -279,7 +279,6 @@ class element {
 		else
 		$position="";
 
-		//$element_markup = $style_markup;
 		$element_markup='';
 
 		if (!empty($_POST['zf_label'])) $label=$_POST['zf_label'];
@@ -293,11 +292,6 @@ class element {
 		if(!empty($this->attributes['zfguidelines'])){
 			$guidelines = "<p class=\"guidelines\" id=\"guide_{$this->id}\"><small>{$this->attributes['zfguidelines']}</small></p>";
 		}
-
-		//if (defined("ZING_APPS_TRANSLATE")) {
-		//$tempfunc=ZING_APPS_TRANSLATE;
-		//$label=$tempfunc($label);
-		//}
 
 		$jsRule=array();
 		if (isset($this->rules) && is_array($this->rules) && count($this->rules) > 0) {
@@ -342,7 +336,9 @@ class element {
 				$e=new $c("","",$xmlf,$this,$i,$ai);
 				if (method_exists($e,"display")) {
 					$e->mode=$this->mode;
-					$e->display($field_markup,$subscript_markup);
+					trigger_error('output with mode '.$mode);
+					if ($mode=='print') $e->printout($field_markup,$subscript_markup);
+					else $e->display($field_markup,$subscript_markup);
 					$this->divider=isset($e->divider) ? $e->divider : null;
 				}
 				if ($ac > 1) $field_markup.='<br />';
@@ -380,16 +376,7 @@ class element {
 		}
 
 		function includeJavaScript($id) {
-			if (ZING_PROTOTYPE) {
 				?>
-<script type="text/javascript" language="javascript">
-//<![CDATA[
-	document.observe("dom:loaded", function() {
-	    appsRepeatable.init('<?php echo 'zf_'.$id.'_sf';?>');
-	});
-//]]>
-</script>
-				<?php } elseif (ZING_JQUERY) {?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
 	jQuery(document).ready(function() {
@@ -398,8 +385,6 @@ class element {
 //]]>
 </script>
 				<?php
-				}
-
 		}
 
 	}

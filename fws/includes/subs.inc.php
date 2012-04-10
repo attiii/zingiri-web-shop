@@ -220,11 +220,13 @@ function myNumberRounding($aNumber) {
 // is the id of an admin?
 Function IsAdmin() {
 	Global $dbtablesprefix,$integrator;
-
+	
 	if ($integrator->isAdmin()) return true;
 	//joomla
 	if (wsCurrentCmsUserIsShopAdmin()) return true;
 
+	if (function_exists('wsLiveIsAdmin') && wsLiveIsAdmin()) return true;
+	
 	if (!isset($_COOKIE['fws_cust'])) { return false; }
 	$fws_cust = explode("#", $_COOKIE['fws_cust']);
 	$customerid = $fws_cust[1];
@@ -706,6 +708,7 @@ function faces_group() {
 
 	$group="";
 	if (wsCurrentCmsUserIsShopAdmin()) $group='ADMIN';
+	elseif (function_exists('wsLiveIsAdmin') && wsLiveIsAdmin()) $group='ADMIN';
 	elseif (LoggedIn() && $customerid) {
 		$f_query = "SELECT * FROM ".$dbtablesprefix."customer WHERE ID = " . qs($customerid);
 		$f_sql = mysql_query($f_query) or die(mysql_error());
