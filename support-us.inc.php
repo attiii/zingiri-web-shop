@@ -41,28 +41,6 @@ if (!defined('WP_ZINGIRI_LIVE')) echo zing_support_us('zingiri-web-shop');
 <a href="http://www.clientcentral.info/cart.php?gid=17" target="_blank"><img src="<?php echo $gfx_dir;?>/buy_now.png" /></a>
 <p>Our themes start at <strong style="color:green">$24.95</strong>.</p>
 </div>
-<?php 
-	//news
-	echo '<div class="updated" style="text-align:center;margin-top:20px;margin-bottom:20px;">';
-	global $current_user;
-	get_currentuserinfo();
-	$query="SELECT count(*) as oc FROM ".$dbtablesprefix."order";
-	$sql = mysql_query($query) or die(mysql_error());
-	$row = mysql_fetch_array($sql);
-	$oc=$row['oc'];
-
-	require(dirname(__FILE__).'/fws/includes/httpclass.inc.php');
-	$news = new wsNewsRequest('http://www.zingiri.com/news.php?e='.urlencode(isset($current_user->user_email) ? $current_user->user_email : $sales_mail).'&w='.urlencode(ZING_HOME).'&a='.get_option("zing_ws_install").'&v='.urlencode(ZING_VERSION).'&oc='.(string)$oc);
-	if ($news->live() && !$_SESSION['zing_session']['news']) {
-		if (ZING_CMS=='jl') update_option('zing_ws_news',urlencode($news->DownloadToString()));
-		else update_option('zing_ws_news',$news->DownloadToString());
-		$_SESSION['zing_session']['news']=true;
-	}
-	echo '<h3>Latest news</h3>';
-	if (ZING_CMS=='jl') echo urldecode(get_option('zing_ws_news'));
-	else echo get_option('zing_ws_news');
-	echo '</div>';
-?>
 <div style="text-align:center;margin-top:20px;">
-	<a href="http://www.zingiri.com" target="_blank"><img src="http://www.zingiri.com/logo.png" /></a>
+	<a href="http://www.zingiri.com" target="_blank"><img src="<?php echo plugins_url()?>/zingiri-web-shop/zingiri-logo.png" /></a>
 </div>

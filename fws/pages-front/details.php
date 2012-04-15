@@ -35,7 +35,7 @@ else {
 					$screenshot = "<a id=\"highlight_ref\" href=\"".$thumb."\"><div style=\"text-align:center;height:".$product_max_height."px\"><img class=\"borderimg\" id=\"highlight_image\" src=\"".$thumb."\" ".$height." ".$width." alt=\"\"/></div>"."</a>";
 				}
 				else {
-					$screenshot = "<a id=\"highlight_ref\" style=\"text-align:center;\" href=\"".$thumb."\" rel=\"lightbox\" title=\"".$txt['details2'].": ".$row[1]."\"><div style=\"text-align:center;height:".$product_max_height."px\"><img id=\"highlight_image\" class=\"borderimg\" src=\"".$thumb."\" ".$height." ".$width." alt=\"\"/></div>"."</a>";
+					$screenshot = "<a id=\"highlight_ref\" href=\"".$thumb."\"><div style=\"text-align:center;height:".$product_max_height."px\"><img class=\"borderimg\" id=\"highlight_image\" src=\"".$thumb."\" ".$height." ".$width." alt=\"\"/></div>"."</a>";
 				}
 			}
 

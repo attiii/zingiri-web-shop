@@ -477,7 +477,6 @@ function jsScripts() {
 	$v[]=ZING_URL . 'fws/js/'.APHPS_JSDIR.'/checkout.jquery.js';
 	$v[]=ZING_URL . 'fws/js/'.APHPS_JSDIR.'/cart.jquery.js';
 	$v[]=ZING_URL . 'fws/js/'.APHPS_JSDIR.'/search.jquery.js';
-	$v[]=ZING_URL . 'fws/addons/lightbox/lightbox.js';
 
 	return $v;
 }
@@ -487,8 +486,6 @@ function jsAdminScripts() {
 	$v[]=ZING_URL . 'fws/js/'.APHPS_JSDIR.'/lib.jquery.js';
 	$v[]=ZING_URL . 'fws/js/'.APHPS_JSDIR.'/cookie.jquery.js';
 	$v[]=ZING_URL . 'fws/js/'.APHPS_JSDIR.'/admin.jquery.js';
-	//$v[]='http://connect.facebook.net/en_US/all.js#xfbml=1';
-	$v[]=ZING_URL . 'fws/addons/lightbox/lightbox.js';
 
 	return $v;
 }
@@ -497,7 +494,6 @@ function jsStyleSheets() {
 	$v=array();
 	$v[]=ZING_URL . 'zing.css';
 	if (is_admin()) $v[]=ZING_URL . 'admin.css';
-	$v[]=ZING_URL . 'fws/addons/lightbox/lightbox.css';
 
 	return $v;
 }
