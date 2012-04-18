@@ -22,7 +22,7 @@ else {
 		$notify=$_POST['notify'];
 	}
 	if (!empty($_POST['orderid'])) {
-		$orderid=$_POST['orderid'];
+		$orderid=intval($_POST['orderid']);
 	}
 
 	if (!empty($_POST['tracking'])) {
@@ -31,13 +31,13 @@ else {
 	// show pull down to choose new status
 	if ($action == "showstatus") {
 		if (!empty($_GET['orderid'])) {
-			$orderid=$_GET['orderid'];
+			$orderid=intval($_GET['orderid']);
 		}
 		if (!empty($_GET['oldstatus'])) {
 			$oldstatus=$_GET['oldstatus'];
 		}
 		// read old status text
-		$query = "SELECT * FROM `".$dbtablesprefix."order` WHERE `ID` = ".$orderid;
+		$query = "SELECT * FROM `".$dbtablesprefix."order` WHERE `ID` = ".qs($orderid);
 		$sql = mysql_query($query) or die(mysql_error());
 		if ($row = mysql_fetch_array($sql)) {
 			$status_id = $row[0]; // status of this order
@@ -75,19 +75,19 @@ else {
 		// you shouldnt remove orders unless they are test orders
 		if ($newstatus == "delete") {
 			// first get the customerid from the order
-			$query = "SELECT * FROM `".$dbtablesprefix."order` WHERE `ID` = ".$orderid;
+			$query = "SELECT * FROM `".$dbtablesprefix."order` WHERE `ID` = ".qs($orderid);
 			$sql = mysql_query($query) or die(mysql_error());
 			 
 			while ($row = mysql_fetch_row($sql)) {
 				$webid = $row[7]; //webid of this order, so we can derive the filename from it
 			}
-			$query = "DELETE FROM `".$dbtablesprefix."order` WHERE ID = " . $orderid; // delete the record
+			$query = "DELETE FROM `".$dbtablesprefix."order` WHERE ID = " . qs($orderid); // delete the record
 			$sql = mysql_query($query) or die(mysql_error());
 			unlink($orders_dir."/".strval($webid).".php"); // delete the file
 			PutWindow($gfx_dir, $txt['general13'], $txt['orderadmin3'], "notify.gif", "50");
 		}
 		else {
-			$query = "UPDATE `".$dbtablesprefix."order` SET `TRACKING` = ".qs($tracking).", `STATUS` = '" . $newstatus . "' WHERE `ID` = " . $orderid;
+			$query = "UPDATE `".$dbtablesprefix."order` SET `TRACKING` = ".qs($tracking).", `STATUS` = '" . $newstatus . "' WHERE `ID` = " . qs($orderid);
 			$sql = mysql_query($query) or die(mysql_error());
 			$message = $txt['orderadmin15'];
 			// send notification to customer??
@@ -99,7 +99,7 @@ else {
 				$zingPrompts->load(true);
 
 				// first get the customerid from the order
-				$query = "SELECT `CUSTOMERID`, `WEBID` FROM `".$dbtablesprefix."order` WHERE `ID` = '".$orderid."'";
+				$query = "SELECT `CUSTOMERID`, `WEBID` FROM `".$dbtablesprefix."order` WHERE `ID` = '".qs($orderid)."'";
 				$sql = mysql_query($query) or die(mysql_error());
 				 
 				while ($row = mysql_fetch_row($sql)) {

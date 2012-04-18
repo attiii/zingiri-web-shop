@@ -28,7 +28,6 @@ class passwordZfSubElement extends zfSubElement {
 		} elseif (($method=='digest') && !$login) {
 			return $this->error("Login is required!");
 		}
-		//87fd274b7b6c01e48d7c2f965da8ddf7
 		
 		if ($method=='digest') $this->int=md5($login.':'.(defined('APHPS_FWKUSR_REALM') ? APHPS_FWKUSR_REALM : 'APHPS').':'.$pass1);
 		else $this->int=md5($pass1);

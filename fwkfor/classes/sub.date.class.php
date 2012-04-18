@@ -57,10 +57,10 @@ class dateZfSubElement extends zfSubElement {
 		$element='element_'.$e->id.'_'.$i;
 		
 		if($e->populated_value['element_'.$e->id.'_'.$i] == ""){
-			$e->populated_value['element_'.$e->id.'_'.$i] = $xmlf->fields->{'field'.$i}->default;
+			$e->populated_value['element_'.$e->id.'_'.$i] = trim($xmlf->fields->{'field'.$i}->default);
 		}
 		if ($e->populated_value['element_'.$e->id.'_'.$i]=='0000-00-00') $e->populated_value['element_'.$e->id.'_'.$i]='';
-		else $e->populated_value['element_'.$e->id.'_'.$i]=date('d-m-Y',strtotime($e->populated_value['element_'.$e->id.'_'.$i]));
+		elseif ($e->populated_value['element_'.$e->id.'_'.$i]) $e->populated_value['element_'.$e->id.'_'.$i]=date('d-m-Y',strtotime($e->populated_value['element_'.$e->id.'_'.$i]));
 		$field_markup.="<input id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" size=\"{$this->size}\" value=\"{$e->populated_value['element_'.$e->id.'_'.$i]}\" maxlength=\"{$this->maxlength}\" type=\"text\" {$e->readonly}/>";
 		$field_markup.='<script type="text/javascript" language="javascript">';
 		$field_markup.='jQuery(document).ready(function() {';

@@ -54,8 +54,8 @@ class zfForm {
 			$this->form=$row['NAME'];
 			$post=$this->filter($post);
 			$this->label=$row['LABEL'];
-			if ($row['CUSTOM']!='') $this->json=zf_json_decode($row['CUSTOM'],true); //form data
-			else $this->json=zf_json_decode($row['DATA'],true);
+			if ($row['CUSTOM']!='') $this->json=zf_json_decode($row['CUSTOM'],true,true,false); //form data
+			else $this->json=zf_json_decode($row['DATA'],true,true,false);
 			$this->elementcount=$row['ELEMENTCOUNT'];
 			$this->type=$row['TYPE'];
 			$this->entity=$row['ENTITY'];

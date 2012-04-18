@@ -36,7 +36,7 @@ while ($f_row = mysql_fetch_array($f_sql)) {
 	?>
 	<p><?php echo $f_row['DESCRIPTION'] ?></p>
 	<?php  ?> <?php if (1==1) { ?> <img class="slidim"
-		src="<?php echo ZING_URL; ?>fws/addons/timthumb/timthumb.php?src=<?php echo urlencode($thumb); ?>&dir=<?php echo urlencode(BLOGUPLOADDIR.'zingiri-web-shop/cache')?>&amp;h=180&amp;w=400&amp;zc=1"
+		src="<?php echo ZING_URL; ?>fws/addons/timthumb/timthumb2.php?src=<?php echo urlencode($thumb); ?>&dir=<?php echo urlencode(BLOGUPLOADDIR.'zingiri-web-shop/cache')?>&amp;h=180&amp;w=400&amp;zc=1"
 		alt=""
 	/> <?php } else { ?> <img src="<?php ZING_CAROUSEL_URL; ?>images/place1.jpg" alt="" /> <?php } ?></div>
 	</li>

@@ -38,9 +38,6 @@ $allowed=false;
 $success=true;
 if (isset($_GET['showform'])) $showform=$_GET['showform']; else $showform="edit";
 
-//echo 'action='.$action;die();
-
-trigger_error('action-step:'.$action.'-'.$step);
 if ($action == "add" && ($step == "" || $step == "poll")) {
 	if ($zfform->allowAccess()) {
 		$allowed=true;
@@ -203,14 +200,15 @@ if ($allowed && $success && $showform == "edit") {
 		echo '<form enctype="multipart/form-data" name="faces" method="POST" action="'.zurl($formURL).'" >';
 	}
 	$zfform->Render($action);
+$_POST['lastname']='<script>alert(123)</script>';
 	if (count($_POST) > 0) {
 		foreach ($_POST as $name => $value) {
 			if (!strstr($name,"element_")) {
 				if (is_array($value)) {
 					foreach ($value as $i => $v) {
-						echo '<input type="hidden" name="'.$name.'['.$i.']'.'" value="'.str_replace("\'","'",$v).'" />';
+						echo '<input type="hidden" name="'.$name.'['.$i.']'.'" value="'.str_replace("\'","'",preg_replace('/[^a-zA-Z0-9_@\-]/','',$v)).'" />';
 					}
-				} else echo '<input type="hidden" name="'.$name.'" value="'.str_replace("\'","'",$value).'" />';
+				} else echo '<input type="hidden" name="'.$name.'" value="'.str_replace("\'","'",preg_replace('/[^a-zA-Z0-9_@\-]/','',$value)).'" />';
 			}
 		}
 	}

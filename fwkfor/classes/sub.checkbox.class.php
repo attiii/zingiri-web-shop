@@ -35,7 +35,6 @@ class checkboxZfSubElement extends zfSubElement {
 		else { $this->int=0; }
 		return true;
 	}
-
 	
 	function display(&$field_markup,&$subscript_markup) {
 		$e=$this->element;

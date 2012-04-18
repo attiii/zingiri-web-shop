@@ -157,13 +157,16 @@ function do_query($query) {
 	return $result;
 }
 
-function zf_json_decode($json,$assoc=true,$strip=true) {
+function zf_json_decode($json,$assoc=true,$strip=true,$stripSlashes=true) {
 	if ($strip) {
 		$json=str_replace('\"','"',$json);
-		$json=str_replace("\\",'',$json);
 		$json=str_replace("\'",'"',$json);
 	}
-
+	
+	if ($stripSlashes) { //Should probably be removed
+		$json=str_replace("\\",'',$json);
+	}
+	
 	if (!extension_loaded("json")){
 		if (!class_exists('Services_JSON')) require_once(dirname(__FILE__).'/JSON.php');
 		$j = new Services_JSON(16);

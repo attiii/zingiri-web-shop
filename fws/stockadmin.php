@@ -27,7 +27,7 @@ if (IsAdmin() == false) {
 }
 else {
 	if (!empty($_POST['minimal_stock'])) {
-	   $stock_warning_level = $_POST['minimal_stock'];
+	   $stock_warning_level = intval($_POST['minimal_stock']);
 	}
 ?>
     <div align="center">
@@ -46,7 +46,7 @@ else {
 	if (!empty($_POST['showall'])) { 
 	    $query ="SELECT * FROM ".$dbtablesprefix."product ORDER BY STOCK ASC";
 	} else {
-	    $query ="SELECT * FROM ".$dbtablesprefix."product WHERE STOCK < ". $stock_warning_level . " ORDER BY STOCK ASC";
+	    $query ="SELECT * FROM ".$dbtablesprefix."product WHERE STOCK < ". qs($stock_warning_level) . " ORDER BY STOCK ASC";
 	} 
     $sql = mysql_query($query) or die(mysql_error());
 ?>

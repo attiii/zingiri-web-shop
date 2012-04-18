@@ -70,7 +70,7 @@ else {
 	// search form
 	if (!empty($_POST['lastname'])) {
 		$lastname=$_POST['lastname'];
-		$selectSQL = $selectSQL." AND `LASTNAME` LIKE '%".$lastname."%'";
+		$selectSQL = $selectSQL." AND `LASTNAME` LIKE '%".qs($lastname)."%'";
 	}
 
 

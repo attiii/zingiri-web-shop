@@ -93,6 +93,8 @@ class element {
 		if ($this->disabled) return true;
 
 		for ($i=1; $i<=$this->fields; $i++) {
+			if ($this->xmlf->fields->{'field'.$i}->cat=='parameter') continue;
+		
 			$int=$ext=isset($this->input['element_'.$this->id.'_'.$i]) ? $this->input['element_'.$this->id.'_'.$i] : '';
 			$type=$this->xmlf->fields->{'field'.$i}->type;
 			if ($this->fields > 1)
@@ -336,7 +338,6 @@ class element {
 				$e=new $c("","",$xmlf,$this,$i,$ai);
 				if (method_exists($e,"display")) {
 					$e->mode=$this->mode;
-					trigger_error('output with mode '.$mode);
 					if ($mode=='print') $e->printout($field_markup,$subscript_markup);
 					else $e->display($field_markup,$subscript_markup);
 					$this->divider=isset($e->divider) ? $e->divider : null;
