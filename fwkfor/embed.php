@@ -131,6 +131,7 @@ function zing_apps_player_install($version='') {
 	//remote forms
 	if (get_option('zing_apps_remote_url') == 'http://www.aphps.com') update_option('zing_apps_remote_url','http://forms.aphps.com');
 
+	trigger_error('update version:'.ZING_APPS_PLAYER_VERSION);
 	if (!$zing_version) add_option("zing_apps_player_version",ZING_APPS_PLAYER_VERSION);
 	else update_option("zing_apps_player_version",ZING_APPS_PLAYER_VERSION);
 }
@@ -289,10 +290,7 @@ function zing_apps_player_load($dir) {
 		while (false !== ($file = readdir($handle))) {
 			if (strstr($file,".json")) {
 				$file_content = file_get_contents($dir.$file);
-				$a=zf_json_decode($file_content,true,false);
-				//zing_apps_error_handler(0,$file);
-				//zing_apps_error_handler(0,$file_content);
-				//zing_apps_error_handler(0,$a);
+				$a=zf_json_decode($file_content,true,false,false);
 				zfCreate($a['NAME'],$a['ELEMENTCOUNT'],$a['ENTITY'],$a['TYPE'],$a['DATA'],$a['LABEL'],$a['PROJECT'],$a['ID']);
 			}
 		}

@@ -36,7 +36,7 @@ function zfCreateColumns($entity,$data)
 		$query.="ADD `DATE_UPDATED` datetime default NULL";
 		$newtable->update($query);
 	}
-	$jdata=zf_json_decode($data,true);
+	$jdata=zf_json_decode($data,true,true);
 	foreach ($jdata as $element) {
 		if ($element['column']!='ID' && $element['column']!='DATE_CREATED' && $element['column']!='DATE_UPDATED') {
 			$zfrepeatable=isset($element['attributes']['zfrepeatable']) ? $element['attributes']['zfrepeatable'] : '';
@@ -201,4 +201,3 @@ function zfCreate($name,$elementcount,$entity,$type,$data,$label,$project,$id=fa
 	return $msg;
 
 }
-?>

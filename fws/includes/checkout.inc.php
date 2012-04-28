@@ -8,8 +8,8 @@ function CheckoutInit() {
 	elseif (!empty($_GET['weightid'])) { $weightid=intval($_GET['weightid']); }
 	if (!empty($_POST['paymentid'])) { $paymentid=intval($_POST['paymentid']); }
 	elseif (!empty($_GET['paymentid'])) { $paymentid=intval($_GET['paymentid']); }
-	if (!empty($_POST['notes']))    { $notes=$_POST['notes']; }
-	elseif (!empty($_GET['notes']))    { $notes=$_GET['notes']; }
+	if (!empty($_POST['notes']))    { $notes=aphpsSanitize($_POST['notes']); }
+	elseif (!empty($_GET['notes']))    { $notes=aphpsSanitize($_GET['notes']); }
 	else { $notes = ""; }
 	if (!empty($_POST['discount_code']))	{ $discount_code= stripslashes(htmlentities($_POST['discount_code'])); }
 	elseif (!empty($_POST['discount_code']))	{ $discount_code= stripslashes(htmlentities($_POST['discount_code'])); }

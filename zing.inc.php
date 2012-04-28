@@ -344,8 +344,7 @@ function zing_main($process,$content="") {
 			}
 			if (isset($post)) $cf=get_post_custom();
 			if (isset($_GET['page'])) {
-				$page=$_GET['page'];
-				//do nothing, page already set
+				$page=aphpsSanitize($_GET['page'],'string');
 			}  elseif (isset($cf['zing_page'])) {
 				$page=$_GET['page']=$cf['zing_page'][0];
 				if (isset($cf['zing_action']))
@@ -366,7 +365,7 @@ function zing_main($process,$content="") {
 			if (isset($cf['cat'])) {
 				$_GET['cat']=$cf['cat'][0];
 			}
-			if (!$page) $page=$_GET['page'];
+			if (!$page) $page=aphpsSanitize($_GET['page'],'string');
 			$to_include="loadmain.php";
 			break;
 		case "sidebar":
@@ -398,7 +397,7 @@ function zing_main($process,$content="") {
 		exit;
 	} elseif ($to_include) {
 		if (isset($prefix)) echo $prefix;
-		if ($process=='content' && $page!='ajax' && $page!='downldr') echo '<div class="zing_ws_page" id="zing_ws_'.$_GET['page'].'">';
+		if ($process=='content' && $page!='ajax' && $page!='downldr') echo '<div class="zing_ws_page" id="zing_ws_'.aphpsSanitize($_GET['page'],'string').'">';
 		$aphps->doAction('content_before');
 		include($scripts_dir.$to_include);
 		$aphps->doAction('content_after');

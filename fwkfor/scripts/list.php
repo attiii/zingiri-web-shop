@@ -20,8 +20,6 @@ if (!isset($action) && isset($_REQUEST['action'])) $action=$_REQUEST['action'];
 if ($action=='search') {
 	$search=$zflist->setSearch($_POST,$map);
 } else $search='';
-trigger_error($action);
-trigger_error(print_r($search,true));
 
 $stack=new zfStack('list',$formname,$search);
 

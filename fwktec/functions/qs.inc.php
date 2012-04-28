@@ -1,33 +1,4 @@
 <?php
-/*
- * //old version from webshop
- * 
-if (!function_exists('qs')) {
-	function qs($value) {
-		return quote_smart($value);
-	}
-}
-
-
-function quote_smart($value)
-{
-	if( is_array($value) ) {
-		return array_map("quote_smart", $value);
-	} else {
-		if( get_magic_quotes_gpc() ) {
-			$value = stripslashes($value);
-		}
-		if( $value == '' ) {
-			$value = '';
-		}
-		if( !is_numeric($value) || $value[0] == '0' ) {
-			$value = "'".wsEscapeString($value)."'";
-		}
-		return $value;
-	}
-}
-*/
-
 function qs($value,$checknull = FALSE,$forcequotes = FALSE)
 {
 	$value=quote_smart($value,$checknull);
@@ -60,4 +31,33 @@ function quote_smart($value,$checknull = FALSE)
 		}
 		return $value;
 	}
+}
+
+function aphpsSanitize($var,$type=null){
+	$flags = NULL;
+	switch($type)
+	{
+		case 'url':
+			$filter = FILTER_SANITIZE_URL;
+			break;
+		case 'int':
+			$filter = FILTER_SANITIZE_NUMBER_INT;
+			break;
+		case 'float':
+			$filter = FILTER_SANITIZE_NUMBER_FLOAT;
+			$flags = FILTER_FLAG_ALLOW_FRACTION | FILTER_FLAG_ALLOW_THOUSAND;
+			break;
+		case 'email':
+			$var = substr($var, 0, 254);
+			$filter = FILTER_SANITIZE_EMAIL;
+			break;
+		case 'string':
+		default:
+			$filter = FILTER_SANITIZE_STRING;
+			$flags = FILTER_FLAG_NO_ENCODE_QUOTES;
+			break;
+
+	}
+	$output = filter_var($var, $filter, $flags);
+	return($output);
 }

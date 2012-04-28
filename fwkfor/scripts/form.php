@@ -179,7 +179,7 @@ if (!$success || !$allowed) {
 if ($allowed && $success && $showform == "edit") {
 	if (!$noLabel && (is_admin() || ZING_CMS=='gn')) echo '<h2 class="zfaces-form-label">'.$zfform->label.'</h2>';
 	echo '<div class="zfaces-form">';
-	if (defined("ZING_APPS_BUILDER") && ZingAppsIsAdmin()) {
+	if (defined("APHPS_SHOW_EDIT_LINK") && APHPS_SHOW_EDIT_LINK) {
 		echo '<a href="'.zurl('?page=apps_edit&zfaces=edit&form='.$form).'" >'.z_('Edit form').'</a>';
 	}
 	if (!$noForm && !isset($formURL)) {

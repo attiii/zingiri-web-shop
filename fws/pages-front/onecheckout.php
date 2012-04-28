@@ -25,7 +25,7 @@ if ($count == 0) {
 			$conditions=true;
 		}
 		if (!empty($_POST['notes'])) {
-			$notes=$_POST['notes'];
+			$notes=aphpsSanitize($_POST['notes']);
 		} else $notes='';
 		if (!empty($_GET['prodid'])) {
 			$prodid=intval($_GET['prodid']);
