@@ -31,20 +31,15 @@ $query = sprintf("SELECT * FROM `".$dbtablesprefix."product` WHERE `ID` = %s", q
 $sql = mysql_query($query) or die(mysql_error());
 $row = mysql_fetch_array($sql);
 $price = 0;
-//print_r($row);
 
 $wsFeatures=new wsFeatures($row['FEATURES'],$row['FEATURESHEADER'],$row['FEATURES_SET']);
 for ($i=0;$i<$featureSets;$i++) {
 	$wsFeatures->validate($i);
 	$price+=$wsFeatures->calcPrice($i,$row['PRICE'],isset($row['PRICE_FORMULA_TYPE']) ? $row['PRICE_FORMULA_TYPE'] : null,isset($row['PRICE_FORMULA_RULE']) ? $row['PRICE_FORMULA_RULE'] : null);
-	//$wsFeatures->parse($i);
-	
 }
 $tax=new wsTax($price,$row['TAXCATEGORYID']);
 $a['pricein']=$tax->inFtd;
 $a['priceex']=$tax->exFtd;
-//$a['msg'][]=$wsFeatures->featureString;
-//$a['msg'][]=$_POST;
 if (isset($wsFeatures->f)) $a['f']=$wsFeatures->f;
 if (isset($wsFeatures->p)) $a['p']=$wsFeatures->p;
 if (isset($row['PRICE_FORMULA_RULE'])) $a['row']=$row['PRICE_FORMULA_RULE'];

@@ -57,7 +57,7 @@ if ($action=="add") {
 		$prodprice = 0;
 		$allfeatures = $row['FEATURES'];
 		$productfeatures = "";
-		$uniqueSet=isset($_POST['featuresuniqueset']) ? $_POST['featuresuniqueset'] : CreateRandomCode(10).time();
+		$uniqueSet=isset($_POST['featuresuniqueset']) ? intval($_POST['featuresuniqueset']) : CreateRandomCode(10).time();
 
 		for ($i=0;$i<$featureSets;$i++) {
 			//features

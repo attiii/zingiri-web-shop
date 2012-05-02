@@ -48,6 +48,7 @@ class wsFeatures {
 		}
 		return $definition;
 	}
+	
 	function setProduct($productid) {
 		$this->productid=$productid;
 	}
@@ -81,11 +82,9 @@ class wsFeatures {
 				while (isset($features[$counter1]) && (!$features[$counter1] == NULL)) {
 					$feature = explode(":", $features[$counter1]);
 					$counter1 += 1;
-					//if (!empty($this->post["wsfeature".$counter1][$index])) {
-						$detail = explode("+", $this->post["wsfeature".$counter1][$index]);
-						$productfeatures .= $feature[0].": ".$detail[0];
-						if (isset($detail[1])) $prodprice += wsPrice::price($detail[1]);
-					//}
+					$detail = explode("+", aphpsSanitize($this->post["wsfeature".$counter1][$index]));
+					$productfeatures .= $feature[0].": ".$detail[0];
+					if (isset($detail[1])) $prodprice += wsPrice::price($detail[1]);
 					if (!empty($features[$counter1])) {
 						$productfeatures .= ", ";
 					}
