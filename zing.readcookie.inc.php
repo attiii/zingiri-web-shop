@@ -2,9 +2,9 @@
 // open the cookie and read the fortune ;-)
 if (isset($_COOKIE['fws_cust'])) {
 	$fws_cust = explode("#", $_COOKIE['fws_cust']);
-	$name = $fws_cust[0];
-	$customerid = $fws_cust[1];
-	$md5pass = $fws_cust[2];
+	$name = aphpsSanitize($fws_cust[0]);
+	$customerid = intval($fws_cust[1]);
+	$md5pass = aphpsSanitize($fws_cust[2]);
 }
 if (!isset($_COOKIE['fws_cust'])) {
 	// you're not logged in, so you're a guest. let's see if you already have a session id
@@ -13,6 +13,6 @@ if (!isset($_COOKIE['fws_cust'])) {
 		setcookie ("fws_guest", $fws_guest, time()+172800, '/');
 		$customerid = $fws_guest;
 	} else {
-		$customerid = $_COOKIE['fws_guest'];
+		$customerid = intval($_COOKIE['fws_guest']);
 	}
 }
