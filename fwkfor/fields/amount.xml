@@ -8,7 +8,7 @@
 			<default></default>
 			<width></width>
 			<type>amount</type>
-			<format>decimal(12,2)</format>
+			<format>decimal(20,3)</format>
 		</field1>
 	</fields>
 </config>

@@ -127,7 +127,7 @@ function InsertRecord($table,$keys,$row,$action="")
 	 
 	$id = mysql_insert_id();
 
-	if (function_exists('zfDumpQuery')) zfDumpQuery($query,$table);
+	if (function_exists('zfDumpQuery')) zfDumpQuery($query,$table,$row);
 	
 	return $id;
 }

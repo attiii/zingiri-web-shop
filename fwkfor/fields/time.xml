@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config type="module" version="1.5.0">
-	<name>Time</name>
+	<name>Time Picker</name>
 	<fields count="1">
 		<field1>
 			<name>time</name>
-			<label>Time</label>
-			<maxlength></maxlength>
-			<default></default>
-			<width></width>
-			<format>time</format>
+			<type>time_picker</type>
+			<format>varchar(10)</format>
 		</field1>
 	</fields>
 </config>

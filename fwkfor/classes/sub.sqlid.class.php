@@ -1,26 +1,4 @@
 <?php
-/*  sub.sql.class.php
- Copyright 2008,2009 Erik Bogaerts
- Support site: http://www.aphps.com
-
- This file is part of APhPS.
-
- APhPS is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
-
- APhPS is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with APhPS; if not, write to the Free Software
- Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
-?>
-<?php
 class sqlidZfSubElement extends zfSubElement {
 
 	function output($mode="edit",$input="")
@@ -50,9 +28,9 @@ class sqlidZfSubElement extends zfSubElement {
 		$e=$this->element;
 		$i=$this->subid;
 		$xmlf=$this->xmlf;
-		$key=strtoupper($e->populated_value['element_'.$e->id.'_2']);
-		$value=strtoupper($e->populated_value['element_'.$e->id.'_3']);
-		$table=$e->populated_value['element_'.$e->id.'_4'];
+		$key=isset($e->populated_value['element_'.$e->id.'_2']) ? strtoupper($e->populated_value['element_'.$e->id.'_2']) : null;
+		$value=isset($e->populated_value['element_'.$e->id.'_3']) ? strtoupper($e->populated_value['element_'.$e->id.'_3']) : null;
+		$table=isset($e->populated_value['element_'.$e->id.'_4']) ? $e->populated_value['element_'.$e->id.'_4'] : null;
 		
 		$field_markup.="<select id=\"element_{$e->id}_{$i}_{$this->ai}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" {$e->readonly}>";
 		$option_markup="";

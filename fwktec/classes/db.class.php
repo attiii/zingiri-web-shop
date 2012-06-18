@@ -200,6 +200,7 @@ if (!class_exists('aphpsDb')) {
 			}
 			$query.=")";
 			//echo $query."<br />";
+			if (($table=='flink') && defined('APHPS_DISPLAY_LINKS_ON_SAVE') && APHPS_DISPLAY_LINKS_ON_SAVE) echo $query.chr(10);
 			$sql_insert = mysql_query($query) or die($this->error($query));
 			$id = mysql_insert_id();
 

@@ -9,7 +9,9 @@ $ret=array();
 $name = $_FILES['userfile']['name'];
 $ext = strtolower(substr(strrchr($name, '.'), 1));
 
-if ($ext == "jpg" || $ext == "gif" || $ext == "png"  || $ext == "jpeg"  || $ext == "zip"  || $ext == "pdf") {
+$allowedExtensions=array('jpg','bmp','png','zip','pdf','gif','doc','xls','wav','jpeg','docx','ppt','pptx','mp3');
+
+if (in_array(strtolower($ext),$allowedExtensions)) {
 
 	$target_path = $dir."/".$key."__".$name;
 
@@ -24,4 +26,3 @@ if ($ext == "jpg" || $ext == "gif" || $ext == "png"  || $ext == "jpeg"  || $ext 
 	$ret['error']='Extension not allowed';
 }
 echo json_encode($ret);
-?>

@@ -1,3 +1,4 @@
+<?php if ($index_refer <> 1) { exit(); } ?>
 <?php
 $fh=$_REQUEST['fh'];
 $error='';

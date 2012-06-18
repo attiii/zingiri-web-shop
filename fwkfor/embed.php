@@ -1,5 +1,5 @@
 <?php
-define("ZING_APPS_PLAYER_VERSION","1.3.0");
+define("ZING_APPS_PLAYER_VERSION","1.4.0");
 
 if (!defined('APHPS_JSDIR')) define('APHPS_JSDIR','min');
 if (!defined('APHPS_XD')) define('APHPS_XD',0);
@@ -15,6 +15,7 @@ if (defined('ZING_APPS_BUILDER')) {
 	$aphps_projects['player']['dir']=ZING_APPS_PLAYER_DIR;
 	$aphps_projects['player']['url']=ZING_APPS_PLAYER_URL;
 	$aphps_projects['player']['level']='admin';
+	$aphps_projects['player']['system']=1;
 }
 
 if (get_option('zing_apps_remote_url')) define("ZING_APPS_REMOTE_URL",get_option('zing_apps_remote_url').'/');
@@ -127,7 +128,7 @@ function zing_apps_player_install($version='') {
 			if ($id != 'player') zing_apps_player_load($project['dir'].'forms/');
 		}
 	}
-	
+
 	//remote forms
 	if (get_option('zing_apps_remote_url') == 'http://www.aphps.com') update_option('zing_apps_remote_url','http://forms.aphps.com');
 
@@ -209,18 +210,6 @@ function zing_apps_player_content($content='') {
 	}
 
 	require_once(dirname(__FILE__)."/includes/all.inc.php");
-/*
-	if (isset($aphps_projects)) {
-		foreach ($aphps_projects as $id => $project) {
-			if ($id != 'player') {
-				if (file_exists($project['dir']."classes/index.php")) require($project['dir']."classes/index.php");
-			}
-		}
-		foreach ($aphps_projects as $id => $project) {
-			if ($id != 'player' && file_exists($project['dir']."services/index.php")) require($project['dir']."services/index.php");
-		}
-	}
-*/
 	echo actionCompleteMessage();
 	echo '<div class="zing_ws_page" id="zing_ws_'.(isset($_GET['form']) ? $_GET['form'] : 'form_'.$_GET['formid']).'">';
 	if (isset($prefix)) echo $prefix;
@@ -237,6 +226,14 @@ function zing_apps_player_content($content='') {
 			break;
 		case "ajax":
 			require(dirname(__FILE__)."/scripts/ajax.php");
+			break;
+		default:
+			foreach ($aphps_projects as $id => $project) {
+				if (file_exists($project['dir'].'scripts/'.$zfaces.'.php')) {
+					require($project['dir'].'scripts/'.$zfaces.'.php');
+					break;
+				}
+			}
 			break;
 	}
 	if (isset($postfix)) echo $postfix;
@@ -283,7 +280,7 @@ function zing_apps_player_load($dir) {
 	if (!function_exists('zfReadRecord')) require(dirname(__FILE__).'/includes/db.inc.php');
 	if (!function_exists('zf_json_decode')) require(dirname(__FILE__).'/includes/faces.inc.php');
 	if (!class_exists('db')) require(dirname(__FILE__).'/classes/db.class.php');
-	
+
 	$prefix=$dbtablesprefix;
 	if (file_exists($dir) && $handle = opendir($dir)) {
 		$files=array();
@@ -302,12 +299,12 @@ if (!function_exists('zing_apps_error_handler')) {
 		if (is_array($msg)) $msg=print_r($msg,true);
 		$myFile = defined('APHPS_LOG_FILE') ? APHPS_LOG_FILE : dirname(__FILE__)."/../log.txt";
 		if ($fh = fopen($myFile, 'a')) {
-					$time=date('Y-m-d h:i:s');
-		if (function_exists('microtime')) {
-			list($usec,$sec)=explode(" ",microtime());
-			$time.=':'.round($usec*100,0);
-		}
-			
+			$time=date('Y-m-d h:i:s');
+			if (function_exists('microtime')) {
+				list($usec,$sec)=explode(" ",microtime());
+				$time.=':'.round($usec*100,0);
+			}
+				
 			fwrite($fh, $time.' '.$msg.' ('.$filename.'-'.$linenum.')'."\r\n");
 			fclose($fh);
 		}
@@ -431,7 +428,7 @@ function zScripts() {
 	$v[]=ZING_APPS_PLAYER_URL.'js/'.APHPS_JSDIR.'/formfield.jquery.js';
 	$v[]=ZING_APPS_PLAYER_URL.'js/'.APHPS_JSDIR.'/core.jquery.js';
 
-	
+
 	return $v;
 }
 

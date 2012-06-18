@@ -1,7 +1,7 @@
 <?php
 global $zfform,$zfSuccess;
 
-if (isset($_GET['form'])) $form=$_GET['form'];
+if (!isset($formname) && isset($_GET['form'])) $formname=$_GET['form'];
 if (!isset($formid) && isset($_GET['formid'])) $formid=$_GET['formid']; else $formid='';
 if (!isset($action) && isset($_GET['action'])) $action=$_GET['action'];
 $step=isset($_GET['step']) ? $_GET['step'] : null;
@@ -19,19 +19,20 @@ if (!isset($noForm)) {
 }
 $noLabel=isset($_REQUEST['no_label']) ? $_REQUEST['no_label'] : false; 
 if (isset($_POST['map'])) {
-	$json=str_replace("\'",'"',$_POST['map']);
+	$json=$_POST['map'];
 	$map=zf_json_decode($json,true);
 } elseif (isset($_GET['map'])) {
-	$json=str_replace("\'",'"',$_GET['map']);
+	$json=$_GET['map'];
 	$map=zf_json_decode($json,true);
 } else $map='';
-if (empty($form)) $form=zfGetForm($formid);
-if (class_exists('zf'.$form)) $zfClass='zf'.$form;
+if (empty($formname)) $formname=zfGetForm($formid);
+if (class_exists('zf'.$formname)) $zfClass='zf'.$formname;
 else $zfClass='zfForm';
-$zfform=new $zfClass($form,$formid,$map,$action,'form',$id);
-$form=$zfform->form;
+
+$zfform=new $zfClass($formname,$formid,$map,$action,'form',$id);
+$formname=$zfform->form;
 $formid=$zfform->id;
-$stack=new zfStack('form',$form);
+$stack=new zfStack('form',$formname);
 $zfform->noAlert=isset($_REQUEST['no_alert']) ? $_REQUEST['no_alert'] : false;
 
 $allowed=false;
@@ -180,10 +181,10 @@ if ($allowed && $success && $showform == "edit") {
 	if (!$noLabel && (is_admin() || ZING_CMS=='gn')) echo '<h2 class="zfaces-form-label">'.$zfform->label.'</h2>';
 	echo '<div class="zfaces-form">';
 	if (defined("APHPS_SHOW_EDIT_LINK") && APHPS_SHOW_EDIT_LINK) {
-		echo '<a href="'.zurl('?page=apps_edit&zfaces=edit&form='.$form).'" >'.z_('Edit form').'</a>';
+		echo '<a href="'.zurl('?page=apps_edit&zfaces=edit&form='.$formname).'" >'.z_('Edit form').'</a>';
 	}
 	if (!$noForm && !isset($formURL)) {
-		$aurl='?page='.$page.'&zfaces=form&form='.$form.'&action='.$action;
+		$aurl='?page='.$page.'&zfaces=form&form='.$formname.'&action='.$action;
 		if (!empty($newstep)) $aurl.='&step='.$newstep;
 		if (!empty($id)) $aurl.='&id='.$id;
 
@@ -200,7 +201,6 @@ if ($allowed && $success && $showform == "edit") {
 		echo '<form enctype="multipart/form-data" name="faces" method="POST" action="'.zurl($formURL).'" >';
 	}
 	$zfform->Render($action);
-$_POST['lastname']='<script>alert(123)</script>';
 	if (count($_POST) > 0) {
 		foreach ($_POST as $name => $value) {
 			if (!strstr($name,"element_")) {
@@ -251,7 +251,7 @@ $_POST['lastname']='<script>alert(123)</script>';
 	if ($stack->getPrevious()) {
 		$redirect2=$stack->getPrevious();
 	} else {
-		$redirect2='?page='.$page.'&zfaces=form&form='.$form.'&zft='.$zft.'&zfp='.$zfp.'&action='.$action.'&id='.$id;
+		$redirect2='?page='.$page.'&zfaces=form&form='.$formname.'&zft='.$zft.'&zfp='.$zfp.'&action='.$action.'&id='.$id;
 	}
 	if (!$noRedirect && !$redirect && (!defined("ZING_SAAS") || !ZING_SAAS)) {
 		header('Location: '.zurl($redirect2.'&zmsg=complete'));

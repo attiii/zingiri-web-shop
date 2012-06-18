@@ -1,26 +1,4 @@
 <?php
-/*  faces.inc.php
- Copyright 2008,2009 Erik Bogaerts
- Support site: http://www.aphps.com
-
- This file is part of APhPS.
-
- APhPS is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
-
- APhPS is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with APhPS; if not, write to the Free Software
- Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
-?>
-<?php
 function zfKeys($key,&$key1,&$key2)
 {
 	$key2=(int)substr($key,-2);
@@ -158,15 +136,17 @@ function do_query($query) {
 }
 
 function zf_json_decode($json,$assoc=true,$strip=true,$stripSlashes=true) {
+	if (!get_magic_quotes_gpc()) return json_decode($json,$assoc);
+
 	if ($strip) {
 		$json=str_replace('\"','"',$json);
 		$json=str_replace("\'",'"',$json);
 	}
-	
+
 	if ($stripSlashes) { //Should probably be removed
 		$json=str_replace("\\",'',$json);
 	}
-	
+
 	if (!extension_loaded("json")){
 		if (!class_exists('Services_JSON')) require_once(dirname(__FILE__).'/JSON.php');
 		$j = new Services_JSON(16);
@@ -190,33 +170,37 @@ function zf_json_encode($a) {
 	return $ret;
 }
 
-function zfDumpQuery($query,$table="") {
-	
-	$include=array("frole","faccess","flink","menugroup","menucategory");
+function zfDumpQuery($query,$table="",$data=array()) {
+	global $aphps_projects;
+	$dir='';
 	if (!defined("ZING_APPS_BUILDER") || !ZING_APPS_BUILDER) return true;
+	$include=array("frole","faccess","flink","menugroup","menucategory");
 	if (!empty($table) && !in_array($table,$include)) return true;
-	$query=str_replace(DB_PREFIX,"##",$query);
-	if (defined("ZING_APPS_CUSTOM")) $dir=ZING_APPS_CUSTOM.'../db/';
-	else $dir=ZING_APPS_PLAYER_DIR.'db/';
-	$file="dbc";
-	if (defined("VERSION")) $file.='-'.VERSION;
-	$file.=".sql";
-	/*
-	if ($handle = fopen($dir.$file, "a")) {
-		if (!fwrite($handle, $query.";\r\n"))
-		{
-			return false;
+
+	//evaluate $data here
+	if ($table=='flink') {
+		$db=new db();
+		if ($db->select(sprintf("select `PROJECT` from `##faces` where `ID`=%s",qs($data['FORMIN']))) && $db->next()) {
+			$dir=$aphps_projects[$db->get('project')]['srcdir'].'../db/';
 		}
-		fclose($handle);
 	}
-*/
-	if (defined("APHPS_DATADUMP_DIR")) {
-		if ($handle = fopen (APHPS_DATADUMP_DIR."/$file", "a")) {
-			if (fwrite($handle, $query.";\r\n")) fclose($handle);
-		}
+	if ($dir) {
+		$file='dbc-'.ZING_APPS_PLAYER_VERSION.'.sql';
+	} else {
+		if (defined("APHPS_DATADUMP_DIR")) $dir=APHPS_DATADUMP_DIR.'/';
+		elseif (defined("ZING_APPS_CUSTOM")) $dir=ZING_APPS_CUSTOM.'../db/';
+		else $dir=ZING_APPS_PLAYER_DIR.'db/';
+		if (substr($dir,-1) != '/') $dir.='/';
+		$file="dbc";
+		if (defined("VERSION")) $file.='-'.VERSION;
+		$file.=".sql";
+	}
+	//echo $table.'--'.$dir.'--'.print_r($data,true).'--';echo '+'.$dir.$file.'+';
+	$query=str_replace(DB_PREFIX,"##",$query);
+	if ($handle = fopen ($dir.$file, "a")) {
+		if (fwrite($handle, $query.";\r\n")) fclose($handle);
 	}
 
-	//chmod($file,0666);
 	return true;
 }
 
@@ -299,4 +283,26 @@ function loadJavascript($file) {
 	} else return '';
 }
 
-?>
+function aphpsGetFormSaveDir($project,$formName,$prefix='') {
+	global $aphps_projects;
+	
+	if (defined("ZING_APPS_CUSTOM")) $appsFormsDir=ZING_APPS_CUSTOM."apps/forms/";
+	elseif (defined("APHPS_DEV_DIR")) $appsFormsDir=APHPS_DEV_DIR.$project."/forms/";
+	else $appsFormsDir=ZING_APPS_PLAYER_DIR."forms/";
+	if (isset($aphps_projects[$project]['srcdir'])) {
+		if ($aphps_projects[$project]['srcdir']) {
+			if (!in_array($formName,array('faces','frole','flink','faccess'))) {
+				$saveToDir=$aphps_projects[$project]['srcdir'].$prefix.$formName.".json";
+			} else {
+				$saveToDir=$aphps_projects[$project]['srcdir'].$prefix.$formName.".json";
+			}
+		}
+	} else {
+		if (!in_array($formName,array('faces','frole','flink','faccess'))) {
+			$saveToDir=$appsFormsDir.$prefix.$formName.".json";
+		} else {
+			$saveToDir=ZING_APPS_PLAYER_DIR."forms/".$prefix.$formName.".json";
+		}
+	}
+	return $saveToDir;
+}

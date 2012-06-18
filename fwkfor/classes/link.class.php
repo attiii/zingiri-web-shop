@@ -51,7 +51,7 @@ class zfLink {
 	/*
 	 * Show all links except add
 	 */
-	function getLinks($id='') {
+	function getLinks($id='',$data=array()) {
 		$a=array();
 		foreach ($this->links as $i => $link) {
 			if ($link['ACTION']!='add') {
@@ -63,14 +63,15 @@ class zfLink {
 						$v=explode(":",$value);
 						$from=$v[1];
 						$to=$v[0];
-						if ($$from) $map[$to]=$$from;
+						if ($$from) $map[$to]=(string)$$from;
 						elseif ($_POST[$from]) $map[$to]=$_POST[$from];
 						elseif ($_GET[$from]) $map[$to]=$_GET[$from];
+						elseif (isset($data[$from])) $map[$to]=$data[$from];
 						else $map[$to]=$from;
 						$url.="&".$to."=".$map[$to];
 					}
-					$json=zf_json_encode($map);
-					$json=str_replace('"',"'",$json);
+					$json=json_encode($map);
+					//$json=str_replace('"',"'",$json);
 					if ($this->escape_quote) $json=str_replace("'","\'",$json);
 				}
 				$link['MAP']=isset($json) ? $json : '';

@@ -11,8 +11,11 @@
 				<option1 value="USD">USD</option1>
 				<option2 value="GBP">GBP</option2>
 				<option3 value="EUR">EUR</option3>
-				<option4 value="CAD">CAD</option4>
-				<option5 value="JPY">JPY</option5>
+				<option4 value="AUD">AUD</option4>
+				<option5 value="CAD">CAD</option5>
+				<option6 value="NZD">NZD</option6>
+				<option7 value="JPY">JPY</option7>
+				<option8 value="MXN">MXN</option8>
 			</values>
 		</field1>
 	</fields>

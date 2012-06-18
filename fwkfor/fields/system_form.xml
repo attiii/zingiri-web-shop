@@ -1,14 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config type="system" version="1.5.0">
 	<name>Form</name>
-	<fields count="1">
+	<fields count="4">
 		<field1>
 			<name>formid</name>
 			<format>int(11)</format>
-			<type>sql</type>
+			<type>form</type>
 			<values type="sql">
 				<query>(select id,`label`,`project` from ##faces) union (select '0','*','*' from ##faces) order by `project`,`label`</query>
 			</values>
 		</field1>
+		<field2>
+			<label>Hide system forms</label>
+			<type>checkbox</type>
+			<format>none</format>
+			<cat>parameter</cat>
+		</field2>	
+		<field3>
+			<label>Hide wildcard</label>
+			<type>checkbox</type>
+			<format>none</format>
+			<cat>parameter</cat>
+		</field3>	
+		<field4>
+			<name>Type</name>
+			<type>select</type>
+			<values type="multi">
+				<option value=""></option>
+				<option value="DB">Table</option>
+				<option value="service">Service</option>
+				<option value="formonly">Form only</option>
+				<option value="eventitf">Event interface</option>
+			</values>
+			<format>none</format>
+			<cat>parameter</cat>
+		</field4>
 	</fields>
 </config>

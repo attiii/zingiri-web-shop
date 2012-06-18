@@ -42,13 +42,6 @@ class htmlareaZfSubElement extends zfSubElement {
 		if (!defined("ZING_AJAX") || !ZING_AJAX) {
 			if ($this->mode!='edit' && defined('ZING_CMS') && ZING_CMS=='wp') {} //do nothing
 			elseif ($this->mode!='edit' && defined('APHPS_HTML_EDITOR') && APHPS_HTML_EDITOR=='wordpress_client') {
-				/*
-				$field_markup.='<script type="text/javascript">';
-				$field_markup.='jQuery(document).ready(function() {';
-				$field_markup.="edCanvas = document.getElementById('element_".$e->id."_".$i."');";
-				$field_markup.='});';
-				$field_markup.='</script>';
-				*/
 			} elseif ($this->mode!='edit' && defined("ZING_DIR")) require(ZING_DIR.'/addons/tinymce/tinymce.inc');
 			elseif ($this->mode!='edit') require(dirname(__FILE__).'/../../addons/tinymce/tinymce.inc');
 		}

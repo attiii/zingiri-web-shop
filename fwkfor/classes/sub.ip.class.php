@@ -21,7 +21,7 @@
  */
 ?>
 <?php
-class ipZfSubElement {
+class ipZfSubElement extends zfSubElement {
 	function verify()
 	{
 		$isValid=true;

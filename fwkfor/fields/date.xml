@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config type="module" version="1.5.0">
 	<name>Date</name>
-	<fields count="1">
+	<fields count="3">
 		<field1>
 			<name>date</name>
 			<maxlength>12</maxlength>
@@ -11,5 +11,25 @@
 			<type>date</type>
 			<size>12</size>
 		</field1>
+		<field2>
+			<label>Format</label>
+			<format>none</format>
+			<cat>parameter</cat>
+			<type>select</type>
+			<values type="multi">
+				<option value="mm/dd/yy">US</option>
+				<option value="dd-mm-yy">Europe</option>
+			</values>
+		</field2>
+		<field3>
+			<label>Default</label>
+			<format>none</format>
+			<cat>parameter</cat>
+			<type>select</type>
+			<values type="multi">
+				<option value="none">None</option>
+				<option value="today">Today</option>
+			</values>
+		</field3>
 	</fields>
 </config>

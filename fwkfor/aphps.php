@@ -5,7 +5,6 @@ if (!class_exists('aphps')) {
 		var $bootstrap=false;
 		var $form=null;
 
-		
 		function addAction($action,$f) {
 			$this->actions[$action]=$f;
 		}
@@ -23,10 +22,35 @@ if (!class_exists('aphps')) {
 			$this->bootstrap=true;
 		}
 
-		function showForm($name,$mode,$id=0,$options=array()) {
+		function showList($formIdOrName=null) {
+			global $line,$page;
+			if (!$page) $page='aphps';
+				
+			$notitle=true;
+			if (is_numeric($formIdOrName)) $formid=$formIdOrName;
+			elseif ($formIdOrName) $formname=$formIdOrName;
+			if (defined("ZING_APPS_CUSTOM")) { require(ZING_APPS_CUSTOM."globals.php"); }
+			require_once(dirname(__FILE__)."/includes/all.inc.php");
+			require(dirname(__FILE__).'/scripts/list.php');
+		}
+
+		function editForm($formIdOrName,$action) {
+			global $page;
+			if (!$page) $page='aphps';
+			if (is_numeric($formIdOrName)) $formid=$formIdOrName;
+			elseif ($formIdOrName) $formname=$formIdOrName;
+			$this->bootstrap();
+			require(dirname(__FILE__)).'/scripts/form.php';
+		}
+
+		function showForm($formIdOrName,$mode,$id=0,$options=array()) {
 			$this->bootstrap();
 			if (!$this->form) {
-				$this->form=new zfForm($name,null,null,$mode,'form',$id);
+				if (is_numeric($formIdOrName)) {
+					$this->form=new zfForm(null,$formIdOrName,null,$mode,'form',$id);
+				} else {
+					$this->form=new zfForm($formIdOrName,null,null,$mode,'form',$id);
+				}
 				$this->form->noAlert=true;
 			}
 			$this->form->Prepare($id);
@@ -43,7 +67,7 @@ if (!class_exists('aphps')) {
 
 		function processForm($name,$mode,$id=0) {
 			$this->bootstrap();
-				
+
 			if (!$this->form) {
 				$this->form=new zfForm($name,null,null,$mode,'form',$id);
 				$this->form->noAlert=true;

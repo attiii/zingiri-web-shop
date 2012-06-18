@@ -38,7 +38,7 @@ class zfForm {
 	var $hasSubmit=false;
 	var $onSubmitActions=array();
 
-	function zfForm($form,$id=0,$post=null,$action="",$page="",$id='') {
+	function zfForm($form=null,$formid=0,$post=null,$action="",$page="",$id='') {
 		$this->recid=$id;
 		$this->page=$page;
 		$this->action=$action;
@@ -46,14 +46,14 @@ class zfForm {
 		$this->maxRows=ZING_APPS_MAX_ROWS;
 		$table=new aphpsDb();
 		if ($form) $query="select * from `".DB_PREFIX."faces` WHERE `NAME`=".qs($form);
-		else $query="select * from `".DB_PREFIX."faces` WHERE `ID`=".qs($id);
+		else $query="select * from `".DB_PREFIX."faces` WHERE `ID`=".qs($formid);
 		$table->select($query);
 		if ($row=$table->next())
 		{
 			$this->id=$row['ID'];
 			$this->form=$row['NAME'];
 			$post=$this->filter($post);
-			$this->label=$row['LABEL'];
+			$this->label=$row['LABEL'] ? $row['LABEL'] : ucwords($row['NAME']);
 			if ($row['CUSTOM']!='') $this->json=zf_json_decode($row['CUSTOM'],true,true,false); //form data
 			else $this->json=zf_json_decode($row['DATA'],true,true,false);
 			$this->elementcount=$row['ELEMENTCOUNT'];
@@ -63,7 +63,7 @@ class zfForm {
 			//check if form has a sub form to include
 			$this->includeSubForm();
 
-			
+
 			foreach ($this->json as $i => $value)
 			{
 				$key=$value['id'];
@@ -226,15 +226,17 @@ class zfForm {
 		foreach ($this->json as $i => $value)
 		{
 			$key1=$value['id'];
-			foreach ($value['subelements'] as $key2 => $value2)
-			{
-				if ($this->elements['format'][$key1][$key2] != 'none') {
-					if ($all || !isset($value2['hide']) || !$value2['hide']) {
-						if (!isset($value2['sortorder'])) $value2['sortorder']=1;
-						if ((!isset($value['attributes']['zfrepeatable']) || !$value['attributes']['zfrepeatable']) && (!isset($value['attributes']['zfmeta']) || !$value['attributes']['zfmeta'])) {
-							$s[$key1*100+$key2]=$value2['sortorder'];
-						} else {
-							$sa[$key1*100+$key2]=$value2['sortorder'];
+			if (count($value['subelements']) > 0) {
+				foreach ($value['subelements'] as $key2 => $value2)
+				{
+					if ($this->elements['format'][$key1][$key2] != 'none') {
+						if ($all || !isset($value2['hide']) || !$value2['hide']) {
+							if (!isset($value2['sortorder'])) $value2['sortorder']=1;
+							if ((!isset($value['attributes']['zfrepeatable']) || !$value['attributes']['zfrepeatable']) && (!isset($value['attributes']['zfmeta']) || !$value['attributes']['zfmeta'])) {
+								$s[$key1*100+$key2]=$value2['sortorder'];
+							} else {
+								$sa[$key1*100+$key2]=$value2['sortorder'];
+							}
 						}
 					}
 				}
@@ -256,32 +258,34 @@ class zfForm {
 			else
 			{
 				$count=$this->countSubelements($value['subelements'],$key1);
-				foreach ($value['subelements'] as $key2 => $value2)
-				{
-					if ($this->elements['format'][$key1][$key2] != 'none') {
-						if ($all || !isset($value2['hide']) || !$value2['hide']) {
+				if (count($value['subelements']) > 0) {
+					foreach ($value['subelements'] as $key2 => $value2)
+					{
+						if ($this->elements['format'][$key1][$key2] != 'none') {
+							if ($all || !isset($value2['hide']) || !$value2['hide']) {
 
-							if ($count > 1) {
-								$f[$key1*100+$key2]=strtoupper('`'.$value['column'].'_'.$this->elements['name'][$key1][$key2].'`');
-								if (defined("ZING_APPS_TRANSLATE")) {
-									$tempfunc=ZING_APPS_TRANSLATE;
-									//$h[$key1*100+$key2]=$tempfunc($value['label']).' '.$tempfunc($this->elements['label'][$key1][$key2]);
-									$h[$key1*100+$key2]=$tempfunc($this->elements['label'][$key1][$key2]);
-								} else {
-									$h[$key1*100+$key2]=$value['label'].' '.$this->elements['label'][$key1][$key2];
+								if ($count > 1) {
+									$f[$key1*100+$key2]=strtoupper('`'.$value['column'].'_'.$this->elements['name'][$key1][$key2].'`');
+									if (defined("ZING_APPS_TRANSLATE")) {
+										$tempfunc=ZING_APPS_TRANSLATE;
+										//$h[$key1*100+$key2]=$tempfunc($value['label']).' '.$tempfunc($this->elements['label'][$key1][$key2]);
+										$h[$key1*100+$key2]=$tempfunc($this->elements['label'][$key1][$key2]);
+									} else {
+										$h[$key1*100+$key2]=$value['label'].' '.$this->elements['label'][$key1][$key2];
+									}
+								}
+								else {
+									$f[$key1*100+$key2]=strtoupper('`'.$value['column'].'`');
+									if (defined("ZING_APPS_TRANSLATE")) {
+										$tempfunc=ZING_APPS_TRANSLATE;
+										$h[$key1*100+$key2]=$tempfunc($value['label']);
+									} else {
+										$h[$key1*100+$key2]=$value['label'];
+									}
 								}
 							}
-							else {
-								$f[$key1*100+$key2]=strtoupper('`'.$value['column'].'`');
-								if (defined("ZING_APPS_TRANSLATE")) {
-									$tempfunc=ZING_APPS_TRANSLATE;
-									$h[$key1*100+$key2]=$tempfunc($value['label']);
-								} else {
-									$h[$key1*100+$key2]=$value['label'];
-								}
-							}
+							$c['element_'.$key1."_".$key2]=strtolower($value['column']);
 						}
-						$c['element_'.$key1."_".$key2]=strtolower($value['column']);
 					}
 				}
 			}
@@ -293,7 +297,7 @@ class zfForm {
 			$i=round($key/100,0);
 			if ($this->json[$i]['type']!='submit') $t[$key]=$h[$key];
 		}
-		
+
 		foreach ($sa as $key => $sortorder) {
 			$m[$key]=$f[$key];
 		}
@@ -310,8 +314,10 @@ class zfForm {
 
 	function countSubelements($sub,$key1) {
 		$count=0;
-		foreach ($sub as $key2 => $value2) {
-			if ($this->elements['format'][$key1][$key2] != 'none') $count++;
+		if (count($sub) > 0) {
+			foreach ($sub as $key2 => $value2) {
+				if ($this->elements['format'][$key1][$key2] != 'none') $count++;
+			}
 		}
 		return $count;
 	}
@@ -342,6 +348,7 @@ class zfForm {
 				$element->error_message=isset($this->elements['error_message'][$key]) ? $this->elements['error_message'][$key] : '';
 				$element->is_required=isset($value['mandatory']) ? $value['mandatory'] : '';
 				$element->is_searchable=isset($value['searchable']) ? $value['searchable'] : false;
+				if (($mode=='search') && !$element->is_searchable) continue;
 				if ($element->is_searchable) $this->searchable=true;
 				$element->readonly=isset($value['readonly']) ? $value['readonly'] : '';
 				if (isset($value['searchable']) && $value['searchable'] && $mode=="search") $element->readonly='';
@@ -361,25 +368,27 @@ class zfForm {
 					}
 				}
 
-				foreach ($value['subelements'] as $key2 => $sub)
-				{
-					if (isset($this->elements['cat'][$key][$key2]) && $this->elements['cat'][$key][$key2]=='parameter') {
-						$populated_value['element_'.$key.'_'.$key2]=$sub['populate'];
-					}
-					elseif (isset($sub['populate']) && empty($this->input))
+				if (count($value['subelements']) > 0) {
+					foreach ($value['subelements'] as $key2 => $sub)
 					{
-						$populated_value['element_'.$key.'_'.$key2]=$sub['populate'];
+						if (isset($this->elements['cat'][$key][$key2]) && $this->elements['cat'][$key][$key2]=='parameter') {
+							$populated_value['element_'.$key.'_'.$key2]=$sub['populate'];
+						}
+						elseif (isset($sub['populate']) && empty($this->input))
+						{
+							$populated_value['element_'.$key.'_'.$key2]=$sub['populate'];
+						}
+						elseif (!empty($this->input) && isset($this->input['element_'.$key.'_'.$key2]))
+						{
+							$populated_value['element_'.$key.'_'.$key2]=$this->input['element_'.$key.'_'.$key2];
+						}
+						if ($c > 1) {
+							$f=strtoupper($this->column[$key]."_".$element->xmlf->fields->{'field'.$key2}->name);
+						} else {
+							$f=$this->column[$key];
+						}
+						if (isset($populated_value['element_'.$key.'_'.$key2])) $populated_column[$f]=$populated_value['element_'.$key.'_'.$key2];
 					}
-					elseif (!empty($this->input) && isset($this->input['element_'.$key.'_'.$key2]))
-					{
-						$populated_value['element_'.$key.'_'.$key2]=$this->input['element_'.$key.'_'.$key2];
-					}
-					if ($c > 1) {
-						$f=strtoupper($this->column[$key]."_".$element->xmlf->fields->{'field'.$key2}->name);
-					} else {
-						$f=$this->column[$key];
-					}
-					if (isset($populated_value['element_'.$key.'_'.$key2])) $populated_column[$f]=$populated_value['element_'.$key.'_'.$key2];
 				}
 				if ($isFirst) {
 					$ret.='<ul id="zfaces'.$numDiv.'" class="zfaces">';
@@ -571,28 +580,28 @@ class zfForm {
 		$ret=$tabs.$ret;
 		$ret='<div id="zfacestabs">'.$ret.'</div>'.$js;
 		/*
-		if (count($jsRules) > 0) {
+		 if (count($jsRules) > 0) {
 			$js_markup='<script type="text/javascript">';
 			$js_markup.='jQuery(document).ready(function() {';
 			foreach ($jsRules as $jsRule) {
-				$data=$jsRule[0];
-				if (isset($data['fnct']) && function_exists($data['fnct'])) {
-					$fnct=$data['fnct'];
-					$data['value']=$this->input['element_'.$data['field'].'_'.$data['subField']];
-					$r=$fnct($data);
-				}
-				if (version_compare (PHP_VERSION,'5.3.0') >= 0) $js_markup.="wsFormField.add(".json_encode($data,JSON_FORCE_OBJECT).",".$jsRule[1].",".$r['result'].");";
-				else $js_markup.="wsFormField.add(".json_encode($data).",".$jsRule[1].",".$r['result'].");";
+			$data=$jsRule[0];
+			if (isset($data['fnct']) && function_exists($data['fnct'])) {
+			$fnct=$data['fnct'];
+			$data['value']=$this->input['element_'.$data['field'].'_'.$data['subField']];
+			$r=$fnct($data);
+			}
+			if (version_compare (PHP_VERSION,'5.3.0') >= 0) $js_markup.="wsFormField.add(".json_encode($data,JSON_FORCE_OBJECT).",".$jsRule[1].",".$r['result'].");";
+			else $js_markup.="wsFormField.add(".json_encode($data).",".$jsRule[1].",".$r['result'].");";
 			}
 			$js_markup.='});';
 			$js_markup.='</script>';
-		}
-		$ret.=$js_markup;
-		*/
+			}
+			$ret.=$js_markup;
+			*/
 		if ($display) echo $ret;
 		return $ret;
 	}
-	
+
 	function Verify($input,$id=0)
 	{
 		if ($id) { //get image of record before update
@@ -700,10 +709,17 @@ class zfForm {
 				if ($onSubmitAction['action']=='mailto') $this->mailTo($onSubmitAction['to']);
 			}
 		}
+		$this->updateWorkflow();
 		$this->alert("Save successful!");
 		return $success;
 	}
 
+	function updateWorkflow() {
+		if (!isset($_SESSION['aphps']['workflow']['event']) || ($_SESSION['aphps']['workflow']['event']!='captureform')) return;
+		$wf=new aphpsWorkflow();
+		$wf->updateSession($wf->step+1,array_merge($this->rec,array('ID'=>$this->recid)),$this->form);	
+	}
+	
 	function mailTo($to) {
 		if (!defined('APHPS_ADMIN_EMAIL')) return false;
 
@@ -987,8 +1003,10 @@ class zfForm {
 			}
 			foreach ($this->json as $key1 => $sub) {
 				if (($this->page=='list') && ($this->json[$key1]['type']=='submit')) continue;
-				foreach ($sub['subelements'] as $key2 => $data) {
-					if (!isset($input['element_'.$key1."_".$key2])) $input['element_'.$key1."_".$key2]=$data['populate'];
+				if (count($sub['subelements']) > 0) {
+					foreach ($sub['subelements'] as $key2 => $data) {
+						if (!isset($input['element_'.$key1."_".$key2])) $input['element_'.$key1."_".$key2]=$data['populate'];
+					}
 				}
 			}
 			$output=$this->output($input,"list");

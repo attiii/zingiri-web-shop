@@ -30,7 +30,7 @@ class fileZfSubElement extends zfSubElement {
 		$eln='file_element_'.$this->elementid.'_'.$this->subid;
 		if (isset($_FILES[$eln]['name']) && $file = $_FILES[$eln]['name']) {
 			$path_info = pathinfo($file);
-			$allowedExtensions=array('jpg','bmp','png','zip','pdf','gif');
+			$allowedExtensions=array('jpg','bmp','png','zip','pdf','gif','doc','xls','wav','jpeg','docx','ppt','pptx','mp3');
 			if (!in_array(strtolower($path_info['extension']),$allowedExtensions)) return $this->error("File extension not allowed!");
 			$this->ext=$this->int=$file;
 		}
@@ -41,7 +41,7 @@ class fileZfSubElement extends zfSubElement {
 
 		$dir=defined('APHPS_DATA_DIR') ? APHPS_DATA_DIR : constant($this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+2)]);
 		$eln='file_element_'.$this->elementid.'_'.$this->subid;
-		
+
 		if (APHPS_XD) {
 			$fh=$this->element->input[$eln];
 			if (!$fh) return true;
@@ -51,18 +51,18 @@ class fileZfSubElement extends zfSubElement {
 			$target_path=$dir.$file;
 			unlink($link);
 			if(rename($ori_path, $target_path)) {
-					chmod($target_path,0644); // new uploaded file can sometimes have wrong permissions
-					//update full file name
-					$column=$this->element->elementToColumn['element_'.$this->elementid.'_'.$this->subid];
-					$db=new aphpsDb();
-					$db->updateRecord($this->element->entity,array('ID' => $id),array($column => $file));
-					$this->ext=$this->int=$file;
-					$_FILES[$eln]['name']=basename($ori_path);
-					return true;
+				chmod($target_path,0644); // new uploaded file can sometimes have wrong permissions
+				//update full file name
+				$column=$this->element->elementToColumn['element_'.$this->elementid.'_'.$this->subid];
+				$db=new aphpsDb();
+				$db->updateRecord($this->element->entity,array('ID' => $id),array($column => $file));
+				$this->ext=$this->int=$file;
+				$_FILES[$eln]['name']=basename($ori_path);
+				return true;
 			} else {
 				return false;
 			}
-			
+
 		} else {
 			$secret=$this->element->populated_value['element_'.$this->elementid.'_'.($this->subid+1)];
 
@@ -105,7 +105,7 @@ class fileZfSubElement extends zfSubElement {
 		$eln='file_element_'.$this->elementid.'_'.$this->subid;
 		$field_markup.='<p>'.$_FILES[$eln]['name'].'</p>';
 	}
-	
+
 	function display(&$field_markup,&$subscript_markup) {
 		$e=$this->element;
 		$i=$this->subid;

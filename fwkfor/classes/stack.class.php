@@ -34,7 +34,8 @@ class zfStack {
 		}
 		if (!empty($previous)) {
 			if (is_admin()) return '?'.$previous;
-			else return get_option("home").'/index.php?'.$previous;
+			elseif ($home=get_option("home")) return $home.'/index.php?'.$previous;
+			else return '?'.$previous;
 		}
 		else return false;
 	}
