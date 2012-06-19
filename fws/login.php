@@ -1,4 +1,5 @@
 <?php
+global $txt;
 $lostlogin = 0;
 if (!empty($_GET['lostlogin'])) {
 	$lostlogin=$_GET['lostlogin'];
@@ -58,22 +59,6 @@ if ($lostlogin == 0) {
 	{
 		// if a cookie already exists, then the user was logged in as a guest. so let's check if he has stuff in his cart
 		wsGuestToCustomer($id);
-		/*
-		if (isset($_COOKIE['fws_guest'])) {
-			$fws_cust = $_COOKIE['fws_guest'];
-			$sessionid = $fws_cust; // read the sessionid
-
-			// now check if this guest has products in his basket
-			$query = "SELECT * FROM ".$dbtablesprefix."basket WHERE (CUSTOMERID = ".$sessionid." AND STATUS = 0) ORDER BY ID";
-			$sql = mysql_query($query) or die(mysql_error());
-			while ($row = mysql_fetch_row($sql)) {
-				$update_query = "UPDATE `".$dbtablesprefix."basket` SET `CUSTOMERID` = ".$id." WHERE ID = '".$row[0]."'";
-				$update_sql = mysql_query($update_query) or die(mysql_error());
-			}
-			// now kill the cookie
-			setcookie ("fws_guest", "", time() - 3600, '/');
-		}
-		*/
 
 		$cookie_data = $name.'#'.$id.'#'.md5($pass); //name userid and encrypted password
 			

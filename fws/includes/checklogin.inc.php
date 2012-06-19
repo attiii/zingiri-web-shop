@@ -86,6 +86,6 @@ if (LoggedIn() == false) {
 }
 $checkLogin=ob_get_contents();
 ob_clean();
-$aphps->doAction('loginform',&$checkLogin);
+$aphps->doAction('loginform',$checkLogin);
 echo $checkLogin;
 ?>

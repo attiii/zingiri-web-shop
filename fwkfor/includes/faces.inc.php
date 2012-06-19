@@ -210,7 +210,7 @@ function showForm() {
 	require(dirname(__FILE__).'/../scripts/form.php');
 }
 
-function appsForm($form,$action,$formURL,$noRedirect=true) {
+function appsForm($formname,$action,$formURL,$noRedirect=true) {
 	global $line;
 	$notitle=true;
 	require(dirname(__FILE__).'/../scripts/form.php');

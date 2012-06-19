@@ -10,29 +10,35 @@ class amountZfSubElement extends zfSubElement {
 	function verify()
 	{
 		if (empty($this->ext)) { $this->ext=0; }
-		if (!is_numeric($this->ext)) {
-			return ($this->error("Amount format incorrect!"));
+		if (function_exists('myNumberFormat')) {
+			if (myNumberFormat($this->ext)===false) {
+				return ($this->error("Amount format incorrect1!"));
+			}
+			$this->int=myStringToNumber($this->ext);
+		} else {
+			if (!is_numeric($this->ext)) {
+				return ($this->error("Amount format incorrect!"));
+			}
+			$this->int=$this->ext;
 		}
-		$this->int=$this->ext;
 		return true;
-
 	}
-	
+
 	function display(&$field_markup,&$subscript_markup) {
 		$e=$this->element;
 		$i=$this->subid;
 		$xmlf=$this->xmlf;
-		
+
 		if($e->values['element_'.$e->id.'_'.$i][$this->ai] == ""){
 			$e->values['element_'.$e->id.'_'.$i][$this->ai] = $xmlf->fields->{'field'.$i}->default;
 		}
 		$readonly=isset($e->readonly) ? $e->readonly : '';
-		
+
 		if (function_exists('myNumberFormat')) $value=myNumberFormat($e->values['element_'.$e->id.'_'.$i][$this->ai]*1);
 		else $value=number_format($e->values['element_'.$e->id.'_'.$i][$this->ai]*1,2);
 		$field_markup.="<input id=\"element_{$e->id}_{$i}{$this->ail}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" size=\"{$this->size}\" value=\"$value\" maxlength=\"{$this->maxlength}\" type=\"text\" {$readonly}/>";
 		$subscript_markup.="<label id=\"label_{$e->id}_{$i}\"for=\"element_{$e->id}_{$i}\">".z_($xmlf->fields->{'field'.$i}->label)."</label>";
 	}
-	
+
 }
 ?>

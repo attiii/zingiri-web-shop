@@ -176,7 +176,6 @@ Function escape_data($data){
 Function myNumberFormat ($aNumber,$format='') {
 	global $number_format;
 	if (!$format) $format=$number_format;
-	
 	if ($format == "1234,56") {
 		$aNumber = number_format($aNumber, 2, ',', '');
 	}
@@ -197,6 +196,18 @@ Function myNumberFormat ($aNumber,$format='') {
 	}
 	if ($format == "1234") {
 		$aNumber = number_format($aNumber, 0, '.', '');
+	}
+	return $aNumber;
+}
+
+Function myStringToNumber($aNumber,$format='') {
+	global $number_format;
+	if (!$format) $format=$number_format;
+	if (in_array($format,array("1234,56","1.234,56","1.234"))) {
+		$aNumber=str_replace('.','',$aNumber);
+		$aNumber=str_replace(',','.',$aNumber);
+	} else {
+		$aNumber=str_replace(',','',$aNumber);
 	}
 	return $aNumber;
 }
