@@ -32,7 +32,7 @@ class sqlidZfSubElement extends zfSubElement {
 		$value=isset($e->populated_value['element_'.$e->id.'_3']) ? strtoupper($e->populated_value['element_'.$e->id.'_3']) : null;
 		$table=isset($e->populated_value['element_'.$e->id.'_4']) ? $e->populated_value['element_'.$e->id.'_4'] : null;
 		
-		$field_markup.="<select id=\"element_{$e->id}_{$i}_{$this->ai}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" {$e->readonly}>";
+		$field_markup.="<select id=\"element_{$e->id}_{$i}{$this->ail}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" {$e->readonly}>";
 		$option_markup="";
 		$option_markup='<option value="0"></option>';
 		if (!empty($key) && !empty($value)) {
@@ -58,13 +58,12 @@ class sqlidZfSubElement extends zfSubElement {
 					$query=str_replace("$".$wherefield,$wherevalue,$query);
 				}
 			}
-				
 			if ($result = do_query($query)) {
 				while($row = mysql_fetch_array($result)){
 					$key=$row[0];
 					$option=$row[1];
 					$selected="";
-					if(trim($e->populated_value['element_'.$e->id.'_'.$i][$this->ai]) == $key){
+					if(trim($e->populated_value['element_'.$e->id.'_'.$i][$this->ai]) == $key) {
 						$selected = 'selected="selected"';
 					} elseif ($e->default_value == $key) {
 						$selected = 'selected="selected"';

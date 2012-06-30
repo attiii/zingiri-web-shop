@@ -3,20 +3,20 @@
 if (!isset($group)) $group='';
 if (isset($_GET['displaytype']) && ($_GET['displaytype']=='list' || $_GET['displaytype']=='grid')) {
 	if (!isset($_COOKIE['fws_displaytype']) || ($_COOKIE['fws_displaytype'] != $_GET['displaytype'])) {
-		setcookie ("fws_displaytype",$_GET['displaytype'], 0, '/');
+		setcookie ("fws_displaytype",aphpsSanitize($_GET['displaytype']), 0, '/');
 	}
 	$wsProductDisplayType=$_GET['displaytype'];
-} else $wsProductDisplayType=isset($_COOKIE['fws_displaytype']) ? $_COOKIE['fws_displaytype'] : 'list';
+} else $wsProductDisplayType=isset($_COOKIE['fws_displaytype']) ? aphpsSanitize($_COOKIE['fws_displaytype']) : 'list';
 
 if (isset($_GET['itemsperpage'])) {
 	if ($_COOKIE['fws_itemsperpage'] != $_GET['itemsperpage']) {
 		setcookie ("fws_itemsperpage",intval($_GET['itemsperpage']), 0, '/');
 	}
 	$products_per_page=$_GET['itemsperpage'];
-} elseif (isset($_COOKIE['fws_itemsperpage'])) $products_per_page=$_COOKIE['fws_itemsperpage'];
+} elseif (isset($_COOKIE['fws_itemsperpage'])) $products_per_page=aphpsSanitize($_COOKIE['fws_itemsperpage']);
 
-if (isset($_GET['includesearch']) && $_GET['includesearch']) $includesearch=$_GET['includesearch'];
-elseif (isset($_POST['includesearch']) && $_POST['includesearch']) $includesearch=$_POST['includesearch'];
+if (isset($_GET['includesearch']) && $_GET['includesearch']) $includesearch=aphpsSanitize($_GET['includesearch']);
+elseif (isset($_POST['includesearch']) && $_POST['includesearch']) $includesearch=aphpsSanitize($_POST['includesearch']);
 else $includesearch='';
 if ($includesearch) {
 	require(dirname(__FILE__).'/search.php');
@@ -24,25 +24,25 @@ if ($includesearch) {
 $searchmethod = "AND"; //default
 
 if (!empty($_POST['searchmethod'])) {
-	$searchmethod=$_POST['searchmethod'];
+	$searchmethod=aphpsSanitize($_POST['searchmethod']);
 }
 if (!empty($_GET['searchmethod'])) {
-	$searchmethod=$_GET['searchmethod'];
+	$searchmethod=aphpsSanitize($_GET['searchmethod']);
 }
 if (!empty($_POST['searchfor'])) {
-	$searchfor=$_POST['searchfor'];
+	$searchfor=aphpsSanitize($_POST['searchfor']);
 } elseif (!empty($_GET['searchfor'])) {
-	$searchfor=$_GET['searchfor'];
+	$searchfor=aphpsSanitize($_GET['searchfor']);
 } else $searchfor='';
-$orderby=isset($_GET['orderby']) ? $_GET['orderby'] : 0;
+$orderby=isset($_GET['orderby']) ? aphpsSanitize($_GET['orderby']) : 0;
 if ($orderby == 1) $orderby_field = "PRODUCTID";
 else $orderby_field = "PRICE";
 
 if (empty($cat) && isset($_GET['cat'])) {
-	$cat=$_GET['cat'];
+	$cat=aphpsSanitize($_GET['cat']);
 }
 if (empty($cat) && isset($_GET['kat'])) {
-	$cat=$_GET['kat'];
+	$cat=aphpsSanitize($_GET['kat']);
 }
 if (!empty($cat)){
 	// find the product category

@@ -94,7 +94,7 @@ class element {
 
 		for ($i=1; $i<=$this->fields; $i++) {
 			if ($this->xmlf->fields->{'field'.$i}->cat=='parameter') continue;
-		
+
 			$int=$ext=isset($this->input['element_'.$this->id.'_'.$i]) ? $this->input['element_'.$this->id.'_'.$i] : '';
 			$type=$this->xmlf->fields->{'field'.$i}->type;
 			if ($this->fields > 1)
@@ -195,18 +195,28 @@ class element {
 
 		for ($i=1; $i<=$this->fields; $i++) {
 
-			$int=$ext=isset($input['element_'.$this->id.'_'.$i]) ? $input['element_'.$this->id.'_'.$i] : '';
-
-			$type=$this->xmlf->fields->{'field'.$i}->type;
-			if ($this->fields > 1)
-			$this->name[$i]=(string)$this->xmlf->fields->{'field'.$i}->name;
-			if (class_exists($type."ZfSubElement"))	{ $c=$type."ZfSubElement"; }
-			else { $c="zfSubElement"; }
-
-			$subelement=new $c($int,$ext,$this->xmlf->fields->{'field'.$i},$this,$i);
-			$ext=$subelement->output($mode,$input);
-
-			$output['element_'.$this->id.'_'.$i]=$ext;
+			if (isset($input['element_'.$this->id.'_'.$i]) && is_array($input['element_'.$this->id.'_'.$i])) {
+				$ac=count($input['element_'.$this->id.'_'.$i]);
+				for ($ai=0; $ai < $ac; $ai++) {
+					$int=$ext=isset($input['element_'.$this->id.'_'.$i][$ai]) ? $input['element_'.$this->id.'_'.$i][$ai] : '';
+					$type=$this->xmlf->fields->{'field'.$i}->type;
+					if ($this->fields > 1) $this->name[$i]=(string)$this->xmlf->fields->{'field'.$i}->name;
+					if (class_exists($type."ZfSubElement"))	{ $c=$type."ZfSubElement"; }
+					else { $c="zfSubElement"; }
+					$subelement=new $c($int,$ext,$this->xmlf->fields->{'field'.$i},$this,$i,$ai);
+					$ext=$subelement->output($mode,$input);
+					$output['element_'.$this->id.'_'.$i][$ai]=$ext;
+				}
+			} else {
+				$int=$ext=isset($input['element_'.$this->id.'_'.$i]) ? $input['element_'.$this->id.'_'.$i] : '';
+				$type=$this->xmlf->fields->{'field'.$i}->type;
+				if ($this->fields > 1) $this->name[$i]=(string)$this->xmlf->fields->{'field'.$i}->name;
+				if (class_exists($type."ZfSubElement"))	{ $c=$type."ZfSubElement"; }
+				else { $c="zfSubElement"; }
+				$subelement=new $c($int,$ext,$this->xmlf->fields->{'field'.$i},$this,$i);
+				$ext=$subelement->output($mode,$input);
+				$output['element_'.$this->id.'_'.$i]=$ext;
+			}
 
 		}
 		return $success;
@@ -309,7 +319,7 @@ class element {
 					$ruleParameters['params']=$aParams[1];
 					$ruleParameters['condition']=$rule['parameters'][3];
 					$ruleParameters['compare']=$rule['parameters'][4];
-						
+
 					$jsRule=array($ruleParameters,$this->id);
 				}
 			}
@@ -320,6 +330,7 @@ class element {
 		if ($xmlf->attributes()->header == "none") { $label=""; }
 		$element_markup.= '<label id="zf_'.$this->id.'_name" class="zfelabel">'.z_($label).' '.$span_required.'</label>';
 		$element_markup.='<div class="zfsubelements" id="zf_'.$this->id.'_sf">';
+		$ac=1;
 		for ($i=1; $i<=$fields; $i++) {
 			$fn=$xmlf->fields->{'field'.$i}->name;
 			if ($fields>1) $this->name[$i]=(string)$fn;
@@ -328,9 +339,7 @@ class element {
 
 			$subscript_markup = '';
 			$field_markup ="<div id=\"zf_{$this->id}_{$fn}\" style=\"width: {$xmlf->fields->{'field'.$i}->width}\" class=\"zfsub\">";
-			$ac=1;
 			if (isset($this->isRepeatable) && $this->isRepeatable) $ac=max($ac,count($this->populated_value['element_'.$this->id.'_'.$i]));
-
 			//default
 			for ($ai=0; $ai < $ac; $ai++) {
 				if (!empty($type) && class_exists($type."ZfSubElement")) $c=$type."ZfSubElement";
@@ -377,7 +386,7 @@ class element {
 		}
 
 		function includeJavaScript($id) {
-				?>
+			?>
 <script type="text/javascript" language="javascript">
 //<![CDATA[
 	jQuery(document).ready(function() {
@@ -385,7 +394,7 @@ class element {
 	});
 //]]>
 </script>
-				<?php
+			<?php
 		}
 
 	}

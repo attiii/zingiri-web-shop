@@ -21,6 +21,7 @@ if (!class_exists('zfAccess')) {
 		function allowed() {
 			$allowed=false;
 			
+			if (defined('ZING_APPS_BUILDER') && ZING_APPS_BUILDER) return true;
 			if (defined('APHPS_ACCESS_CHECK_DISABLED') && APHPS_ACCESS_CHECK_DISABLED) return true;
 			if (function_exists('faces_group')) $role=faces_group();
 			elseif (!function_exists('faces_group') && ZING_CMS=='wp' && current_user_can('edit_plugins')) $role="ADMIN";

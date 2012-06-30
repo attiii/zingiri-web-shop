@@ -4,7 +4,7 @@
 	<fields count="1">
 		<field1>
 			<name>time</name>
-			<type>time_picker</type>
+			<type>time</type>
 			<format>varchar(10)</format>
 		</field1>
 	</fields>

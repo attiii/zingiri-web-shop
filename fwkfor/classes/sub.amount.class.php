@@ -2,7 +2,7 @@
 class amountZfSubElement extends zfSubElement {
 
 	function output($mode="edit",$input="") {
-		if (function_exists('myNumberFormat')) $this->ext=myNumberFormat($this->int);
+		if (function_exists('myNumberFormat')) $this->ext=myNumberFormat($this->int*1);
 		else $this->ext=number_format($this->int*1,2);
 		return $this->ext;
 	}

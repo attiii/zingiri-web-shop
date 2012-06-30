@@ -240,10 +240,10 @@ Function IsAdmin() {
 	
 	if (!isset($_COOKIE['fws_cust'])) { return false; }
 	$fws_cust = explode("#", $_COOKIE['fws_cust']);
-	$customerid = $fws_cust[1];
-	$md5pass = $fws_cust[2];
+	$customerid = aphpsSanitize($fws_cust[1]);
+	$md5pass = aphpsSanitize($fws_cust[2]);
 	if (is_null($customerid)) { return false; }
-	$f_query = "SELECT * FROM ".$dbtablesprefix."customer WHERE ID = " . $customerid;
+	$f_query = "SELECT * FROM ".$dbtablesprefix."customer WHERE ID = " . qs($customerid);
 	if ($f_sql = mysql_query($f_query)) {
 		while ($f_row = mysql_fetch_row($f_sql)) {
 			if ($f_row[13] == "ADMIN" && md5($f_row[2]) == $md5pass)
@@ -288,14 +288,14 @@ Function PrintUsername($guestname) {
 	}
 	else {
 		$fws_cust = explode("#", $_COOKIE['fws_cust']);
-		echo $fws_cust[0];
+		echo aphpsSanitize($fws_cust[0]);
 	}
 }
 
 // if we know the category but not the group, this is how we find out
 Function TheGroup($TheCat) {
 	Global $dbtablesprefix;
-	$g_query = "SELECT * FROM `".$dbtablesprefix."category` WHERE `ID` = ".$TheCat;
+	$g_query = "SELECT * FROM `".$dbtablesprefix."category` WHERE `ID` = ".qs($TheCat);
 	$g_sql = mysql_query($g_query) or die(mysql_error());
 	while ($g_row = mysql_fetch_row($g_sql)) {
 		$FoundIt =  $g_row[2];
@@ -407,9 +407,9 @@ Function IsCustomerFromDefaultSendCountry($f_send_default_country) {
 	// determine sendcosts depending on the country of origin
 	Global $dbtablesprefix;
 	$fws_cust = explode("#", $_COOKIE['fws_cust']);
-	$customerid = $fws_cust[1];
+	$customerid = aphpsSanitize($fws_cust[1]);
 
-	$f_query="SELECT * FROM `".$dbtablesprefix."customer` WHERE `ID` = " . $customerid;
+	$f_query="SELECT * FROM `".$dbtablesprefix."customer` WHERE `ID` = " . qs($customerid);
 	$f_sql = mysql_query($f_query) or zfdbexit($f_query);
 	while ($f_row = mysql_fetch_row($f_sql)) {
 		$country = $f_row[14];
@@ -487,9 +487,9 @@ function IsBanned() {
 	Global $dbtablesprefix;
 	if (!isset($_COOKIE['fws_cust'])) { return false; }
 	$fws_cust = explode("#", $_COOKIE['fws_cust']);
-	$customerid = $fws_cust[1];
+	$customerid = aphpsSanitize($fws_cust[1]);
 	if (is_null($customerid)) { return false; }
-	$f_query = "SELECT * FROM ".$dbtablesprefix."customer WHERE ID = " . $customerid;
+	$f_query = "SELECT * FROM ".$dbtablesprefix."customer WHERE ID = " . qs($customerid);
 	$f_sql = mysql_query($f_query) or die(mysql_error());
 	while ($f_row = mysql_fetch_row($f_sql)) {
 		$userip = $f_row[6];

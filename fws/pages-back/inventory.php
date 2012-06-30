@@ -5,14 +5,14 @@ if (IsAdmin() == false) {
 } else {
 
 	if (!isset($group)) $group='';
-	$wsProductDisplayType=isset($_COOKIE['fws_displaytype']) ? $_COOKIE['fws_displaytype'] : 'list';
+	$wsProductDisplayType=isset($_COOKIE['fws_displaytype']) ? aphpsSanitize($_COOKIE['fws_displaytype']) : 'list';
 
 	if (isset($_GET['itemsperpage'])) {
 		if ($_COOKIE['fws_itemsperpage'] != $_GET['itemsperpage']) {
 			setcookie ("fws_itemsperpage",intval($_GET['itemsperpage']), 0, '/');
 		}
 		$products_per_page=$_GET['itemsperpage'];
-	} elseif (isset($_COOKIE['fws_itemsperpage'])) $products_per_page=$_COOKIE['fws_itemsperpage'];
+	} elseif (isset($_COOKIE['fws_itemsperpage'])) $products_per_page=aphpsSanitize($_COOKIE['fws_itemsperpage']);
 
 	if ($_GET['includesearch']) $includesearch=$_GET['includesearch'];
 	elseif ($_POST['includesearch']) $includesearch=$_POST['includesearch'];

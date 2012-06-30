@@ -21,21 +21,22 @@ function zfCreateColumns($entity,$data)
 	$allfields=array('ID','DATE_CREATED','DATE_UPDATED');
 
 	$newtable=new aphpsDb();
+	$query='';
 	if (is_new_field($entity,'ID')==1) {
-		$query="ALTER TABLE `".DB_PREFIX.$entity."`";
+		if (!$query) $query="ALTER TABLE `".DB_PREFIX.$entity."`";
 		$query.="ADD COLUMN `ID` int(11) NOT NULL auto_increment PRIMARY KEY";
-		$newtable->update($query);
 	}
 	if (is_new_field($entity,'DATE_CREATED')==1) {
-		$query="ALTER TABLE `".DB_PREFIX.$entity."`";
+		if (!$query) $query="ALTER TABLE `".DB_PREFIX.$entity."`";
+		else $query.=' , ';
 		$query.="ADD COLUMN `DATE_CREATED` datetime NOT NULL default '0000-00-00 00:00:00'";
-		$newtable->update($query);
 	}
 	if (is_new_field($entity,'DATE_UPDATED')==1) {
-		$query="ALTER TABLE `".DB_PREFIX.$entity."`";
+		if (!$query) $query="ALTER TABLE `".DB_PREFIX.$entity."`";
+		else $query.=' , ';
 		$query.="ADD `DATE_UPDATED` datetime default NULL";
-		$newtable->update($query);
 	}
+	if ($query)	$newtable->update($query);
 	$jdata=zf_json_decode($data,true,true);
 	foreach ($jdata as $element) {
 		if ($element['column']!='ID' && $element['column']!='DATE_CREATED' && $element['column']!='DATE_UPDATED') {
@@ -89,7 +90,12 @@ function faces_add_element($fieldname,$multiformat,$form_dbtable,$maxlength) {
 		} else {
 			$format="varchar(255)";
 		}
-		if ($maxlength > 0) $format=preg_replace('/varchar(.*)/','varchar('.$maxlength.')',$format);
+		
+		if ($maxlength > 0) { 
+			$format=preg_replace('/varchar(.*)/','varchar('.$maxlength.')',$format);
+			//$format=preg_replace('/tinyint(.*)/','tinyint('.$maxlength.')',$format);
+			$format=preg_replace('/int(.*)/','int('.$maxlength.')',$format);
+		}
 		if (!empty($format) && $format != "none") {
 			$isNewField=is_new_field($form_dbtable,$fieldname,$format);
 			if ($isNewField==1) { //new field
@@ -105,10 +111,12 @@ function faces_add_element($fieldname,$multiformat,$form_dbtable,$maxlength) {
 		$allfields[]=$fieldname;
 	}
 
+	
 	$table=new aphpsDb();
-	if (!$isfirst && $table->update($query)) { 
+	if (!$isfirst && $table->update($query)) {
 		//zfDumpQuery($query);
 	}
+	
 }
 
 function faces_add_repeatable_element($fieldname,$multiformat,$form_dbtable,$maxlength) {
@@ -146,7 +154,9 @@ function is_new_field($form_dbtable,$fieldname,$format='')
 	if (isset($field_array[strtoupper($fieldname)])) {
 		if (!$format) return 2; //update field
 		if ($field_array[strtoupper($fieldname)]['type']== strtoupper($format)) return 0; //no change
-		else return 2; //update field
+		else { 
+			return 2; //update field
+		}
 		
 	}
 	return 1; //new field

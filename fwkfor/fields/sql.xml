@@ -3,7 +3,7 @@
 	<name>SQL</name>
 	<fields count="4">
 		<field1>
-			<format>int(11)</format>
+			<format>varchar(11)</format>
 			<type>sqlid</type>
 		</field1>
 		<field2>

@@ -61,8 +61,8 @@ else {
 			$print_description=printDescription($row_details[1],$row_details[3],$row_details['EXCERPT']);
 			?>
 	<tr <?php echo $kleur; ?>>
-		<td><a href="index.php?page=details&prod=<?php echo $row_details[0]; ?>"><?php echo $thumb.$print_description; ?></a>
-		<?php
+		<td><a href="index.php?page=details&prod=<?php echo $row_details[0]; ?>"><?php echo $thumb.$print_description; ?>
+		</a> <?php
 		$productprice = $row[3]; // the price of a product
 		if ($row[7]) {
 			$wsFeatures=new wsFeatures($row[7]);
@@ -88,7 +88,7 @@ else {
 					if (strstr($img,$row_details['LINK'].'__')) {
 						$f=explode('__',$img);
 						if (isset($_REQUEST['wslive'])) $linkhtml.= '<form method="POST" action="'.get_option('home').'/index.php?page=downldr'.'">';
-						else $linkhtml.= '<form method="POST" action="'.ZING_URL.'fws/download.php">';
+						else $linkhtml.= '<form method="POST" action="'.zurl('index.php?page=downldr').'">';
 						$linkhtml.= '<input type="hidden" name="basketid" value="'.$row[0].'">';
 						if (isset($_REQUEST['wslive'])) {
 							$linkhtml.= '<input type="hidden" name="wslive" value="wp">';
@@ -99,13 +99,14 @@ else {
 						}
 						$linkhtml.= '<input type="submit" value="'.$f[1].'" name="wsfilename">';
 						$linkhtml.= '</form>';
-						echo $linkhtml;							
+						echo $linkhtml;
 					}
 				}
 				closedir($handle);
 			}
 
-		}	?></td>
+		}	?>
+		</td>
 	</tr>
 	<?php
 
@@ -115,6 +116,6 @@ else {
 </table>
 <br />
 <br />
-<?php
+	<?php
 }
 ?>

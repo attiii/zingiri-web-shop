@@ -51,7 +51,7 @@ class sqlZfSubElement extends zfSubElement {
 		$e=$this->element;
 		$i=$this->subid;
 		$xmlf=$this->xmlf;
-		$field_markup.="<select id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" {$e->readonly}>";
+		$field_markup.="<select id=\"element_{$e->id}_{$i}{$this->ail}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" {$e->readonly}>";
 		$option_markup="";
 		$query=$xmlf->fields->{'field'.$i}->values->query;
 		$query=str_replace("##",DB_PREFIX,$query);
@@ -82,7 +82,7 @@ class sqlZfSubElement extends zfSubElement {
 			$option=$row[1];
 			$selected="";
 			//if ($fields > 1) { $fieldsuffix='_'.$i; } else { $fieldsuffix=''; }
-			if(trim($e->populated_value['element_'.$e->id.'_'.$i]) == $key){
+			if(trim($e->populated_value['element_'.$e->id.'_'.$i][$this->ai]) == $key){
 				$selected = 'selected="selected"';
 			} elseif ($e->default_value == $key) {
 				$selected = 'selected="selected"';

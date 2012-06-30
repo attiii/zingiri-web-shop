@@ -533,7 +533,7 @@ function zing_login($loginname) {
 		$pass = $row[2];
 		$group = $row[13];
 		if (isset($_COOKIE['fws_guest'])) {
-			$fws_cust = $_COOKIE['fws_guest'];
+			$fws_cust = aphpsSanitize($_COOKIE['fws_guest']);
 			$sessionid = $fws_cust; // read the sessionid
 
 			// now check if this guest has products in his basket

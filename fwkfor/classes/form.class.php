@@ -1102,7 +1102,6 @@ class zfForm {
 			$this->data=$r;
 
 			//load attributes
-			//print_r($this->allFieldAttributes);
 			$db=new aphpsDb();
 			foreach ($this->allFieldAttributes as $key => $column)
 			{

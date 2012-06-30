@@ -89,7 +89,7 @@ function faces_log($msg,$fileerr="warning") {
 
 function faces_directory($dir,$filters,$dirsOnly=false) {
 	$files=array();
-	if ($handle=opendir($dir)) {
+	if (file_exists($dir) && ($handle=opendir($dir))) {
 		if (!$filters || $filters == "all"){
 			while(($file = readdir($handle))!==false){
 				if ($file!='.' && $file!='..' && ($dirsOnly==false || ($dirsOnly==true && is_dir($dir.'/'.$file)))) $files[] = $file;

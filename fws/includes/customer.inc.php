@@ -46,10 +46,10 @@ function LoggedIn() {
 
 	if (isset($_COOKIE['fws_cust'])) {
 		$fws_cust = explode("#", $_COOKIE['fws_cust']);
-		$customerid = $fws_cust[1];
-		$md5pass = $fws_cust[2];
+		$customerid = aphpsSanitize($fws_cust[1]);
+		$md5pass = aphpsSanitize($fws_cust[2]);
 		if (is_null($customerid)) { return false; }
-		$f_query = "SELECT * FROM ".$dbtablesprefix."customer WHERE ID = " . $customerid;
+		$f_query = "SELECT * FROM ".$dbtablesprefix."customer WHERE ID = " . qs($customerid);
 		$f_sql = mysql_query($f_query) or die(mysql_error());
 		if ($f_row = mysql_fetch_array($f_sql)) {
 			if ($f_row['GROUP']=='GUEST') {
@@ -91,7 +91,7 @@ function wsCreateCustomer($user_login,$first_name,$last_name,$user_email,$group=
 function wsGuestToCustomer($id) {
 	global $dbtablesprefix;
 	if (isset($_COOKIE['fws_guest'])) {
-		$fws_cust = $_COOKIE['fws_guest'];
+		$fws_cust = aphpsSanitize($_COOKIE['fws_guest']);
 		$sessionid = $fws_cust; // read the sessionid
 
 		// now check if this guest has products in his basket
@@ -99,7 +99,7 @@ function wsGuestToCustomer($id) {
 		$update_sql = mysql_query($update_query) or die(mysql_error());
 
 		// now kill the cookie
-		setcookie ("fws_guest", "", time() - 3600, '/');
+		setcookie("fws_guest", "", time() - 3600, '/');
 	}
 }
 

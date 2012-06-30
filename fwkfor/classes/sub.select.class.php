@@ -43,7 +43,7 @@ class selectZfSubElement extends zfSubElement {
 		if($e->populated_value['element_'.$e->id.'_'.$i] == ""){
 			$e->populated_value['element_'.$e->id.'_'.$i] = $xmlf->fields->{'field'.$i}->default;
 		}
-		$field_markup.="<select id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" style=\"width: {$xmlf->fields->{'field'.$i}->width}\" {$e->readonly}>";
+		$field_markup.="<select id=\"element_{$e->id}_{$i}{$this->ail}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" style=\"width: {$xmlf->fields->{'field'.$i}->width}\" {$e->readonly}>";
 		$option_markup="";
 		if ($xmlf->fields->{'field'.$i}->values->attributes()->type=='multi') {
 			foreach ($xmlf->fields->{'field'.$i}->values->children() as $child) {

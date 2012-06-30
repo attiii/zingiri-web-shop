@@ -123,12 +123,14 @@ function InsertRecord($table,$keys,$row,$action="")
 		}
 	}
 	$query.=")";
+	
 	$sql_insert = mysql_query($query) or zing_apps_error_handler(0,$query);
-	 
 	$id = mysql_insert_id();
 
-	if (function_exists('zfDumpQuery')) zfDumpQuery($query,$table,$row);
-	
+	if (defined('APHPS_DISPLAY_JSON_ON_UPDATE') && APHPS_DISPLAY_JSON_ON_UPDATE) {
+		echo $query.chr(10);
+	} elseif (function_exists('zfDumpQuery')) zfDumpQuery($query,$table,$row);
+
 	return $id;
 }
 

@@ -14,7 +14,7 @@ class timeZfSubElement extends zfSubElement {
 			$e->populated_value['element_'.$e->id.'_'.$i] = trim($xmlf->fields->{'field'.$i}->default);
 		}
 		if ($e->populated_value['element_'.$e->id.'_'.$i]=='0000-00-00') $e->populated_value['element_'.$e->id.'_'.$i]='';
-		elseif ($e->populated_value['element_'.$e->id.'_'.$i]) $e->populated_value['element_'.$e->id.'_'.$i]=date($dateFormat=='mm/dd/yy' ? 'm/d/Y' : 'd-m-Y',strtotime($e->populated_value['element_'.$e->id.'_'.$i]));
+		//elseif ($e->populated_value['element_'.$e->id.'_'.$i]) $e->populated_value['element_'.$e->id.'_'.$i]=date($dateFormat=='mm/dd/yy' ? 'm/d/Y' : 'd-m-Y',strtotime($e->populated_value['element_'.$e->id.'_'.$i]));
 		$field_markup.="<input id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" size=\"{$this->size}\" value=\"{$e->populated_value['element_'.$e->id.'_'.$i]}\" maxlength=\"{$this->maxlength}\" type=\"text\" {$e->readonly}/>";
 		if ($this->mode=='add' || $this->mode=='edit') {
 			if (!$timepickerLoaded) { 

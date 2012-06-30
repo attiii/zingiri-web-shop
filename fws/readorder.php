@@ -55,7 +55,7 @@ else {
 						if (strstr($img,$row_prod['LINK'].'__')) {
 							$f=explode('__',$img);
 							if (isset($_REQUEST['wslive'])) $linkhtml.= '<form method="POST" action="'.get_option('home').'/index.php?page=downldr'.'">';
-							else $linkhtml.= '<form method="POST" action="'.ZING_URL.'fws/download.php">';
+							else $linkhtml.= '<form method="POST" action="'.zurl('index.php?page=downldr').'">';
 							$linkhtml.= '<input type="hidden" name="basketid" value="'.$row_basket['ID'].'">';
 							if (isset($_REQUEST['wslive'])) {
 								$linkhtml.= '<input type="hidden" name="wslive" value="wp">';

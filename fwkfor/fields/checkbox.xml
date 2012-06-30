@@ -5,7 +5,7 @@
 		<field1>
 			<type>checkbox</type>
 			<name>checkbox</name>
-			<format>int(6)</format>
+			<format>tinyint(1)</format>
 		</field1>
 	</fields>
 </config>
