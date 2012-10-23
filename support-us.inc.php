@@ -16,7 +16,7 @@ if (!function_exists('zing_support_us')) {
 ?>
 <div class="updated" style="text-align:center;margin-bottom:20px;">
 	<h3>Documentation & Support</h3>
-	Our <a href="http://wiki.zingiri.com" target="_blank">wiki</a> provides ample documentation to help you set up your shop. If you encounter any issues, you will most likely find the answer by searching or posting on our <a href="http://forums.zingiri.com" target="_blank">forums</a>. And if you're really stuck, you can always ask your question via our <a href="http://www.clientcentral.info/submitticket.php" target="_blank">support desk</a>. Finally, if you need professional support, you can sign up for one of our <a href="http://www.zingiri.com/pricing" target="_blank">support packages</a>. 
+	Our <a href="http://go.zingiri.com/downloads.php?action=displaycat&catid=6" target="_blank">user manual</a> provides ample documentation to help you set up your shop. If you encounter any issues, you will most likely find the answer by searching or posting on our <a href="http://forums.zingiri.com/forumdisplay.php?fid=78" target="_blank">forums</a>. Finally, if you need professional support, you can sign up for one of our <a href="http://www.zingiri.com/support" target="_blank">support packages</a>. 
 </div>
 
 <div class="updated" style="text-align:center;">
@@ -37,8 +37,8 @@ if (!defined('WP_ZINGIRI_LIVE')) echo zing_support_us('zingiri-web-shop');
 </div>
 <div class="updated" style="text-align:center;margin-top:20px;padding-bottom:10px;">
 <h3>Discover our Themes</h3>
-<p>Our themes have been developed in collaboration with renown design companies and will give you a headstart when building your shop. Have a look at our <a target="_blank" href="http://webshop.zingiri.com">demo site</a> to see them in action.</p> 
-<a href="http://www.clientcentral.info/cart.php?gid=17" target="_blank"><img src="<?php echo $gfx_dir;?>/buy_now.png" /></a>
+<p>Our themes have been developed in collaboration with renown design companies and will give you a headstart when building your shop.</p> 
+<a href="http://go.zingiri.com/cart.php?gid=17" target="_blank"><img src="<?php echo $gfx_dir;?>/buy_now.png" /></a>
 <p>Our themes start at <strong style="color:green">$24.95</strong>.</p>
 </div>
 <div style="text-align:center;margin-top:20px;">
