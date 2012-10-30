@@ -20,7 +20,7 @@
 				<input type="hidden" name="prodprice" value="[PRICE]"> 
 				<big><strong>[TEXT:details5]:<span class="wspricein" id="wsprice[ID]">[PRICEWITHTAX]</span></strong></big>
 				<br />
-				<small condition="[VAT] eq 1">(<span class="wspriceex" id="wsprice[ID]">[PRICEWITHOUTTAX]</span> [TEXT:general6] [TEXT:general5])</small>
+				<small condition="[SHOW_TAXES_BREAKDOWN] eq 1">(<span class="wspriceex" id="wsprice[ID]">[PRICEWITHOUTTAX]</span> [TEXT:general6] [TEXT:general5])</small>
 				<div style="clear:both"></div>
 				<div class="wsfeatures">[FEATURES]</div>
 				<div style="clear:both"></div>

@@ -134,7 +134,7 @@ else {
 	$tpl->parse('similar',$similarOut);
 	$tpl->parse('features',$wsFeaturesOut);
 	$tpl->parse('orderaction',$orderAction);
-	$tpl->parse('vat',$no_vat ? 0 : 1);
+	$tpl->parse('show_taxes_breakdown', $no_vat || !wsSetting('show_tax_breakdown') ? 0 : 1);
 	$tpl->parse('images_count',$imagesCount);
 	$tpl->parse('ordering_enabled',$ordering_enabled);
 	$tpl->parse('id',$row['ID']);
