@@ -98,7 +98,7 @@ if ($lostlogin == 0) {
 			echo $txt['login1'];
 			global $saasRet;
 			$saasRet['status']='loginfailed';
-			$saasRet['redirect']=$pagetoload;
+			$saasRet['redirect']=$_REQUEST['pagetoload'];
 			//header('Location:'.zurl('index.php?page=my'));
 			//echo $txt['login1'].'<a href="index.php?page=my">'.$txt['login2'].'</a>';
 		} else {

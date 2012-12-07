@@ -70,7 +70,7 @@
 				else $percent=$percenth;
 				$height = round(($size[1] / $percent));
 				$width = round(($size[0] / $percent));
-				echo "<a style=\"text-align:center\" href=\"index.php?page=browse&action=list&group=" . $group . "&cat=" . $row_cat[0] . "\">";
+				echo "<a style=\"text-align:center\" href=\"".zurl("index.php?page=browse&action=list&group=" . $group . "&cat=" . $row_cat[0]) . "\">";
 				if ($category_thumb_height) echo '<div style="min-height:'.($category_thumb_height+10).'px">';
 				echo '<img src="'.$thumb.'" height="'.$height.'" width="'.$width.'" />';
 				if ($category_thumb_height) echo '</div>';

@@ -46,17 +46,17 @@ class widget_sidebar_products {
 					$row_cat = mysql_fetch_row($sql_cat);
 					$ahref = zurl("index.php?page=browse&action=list&group=".$row[0]."&cat=".$row_cat[0]);
 					if ($group != $row[0]) {
-						echo "<li><a href=".$ahref.">" . $row[1] . "</a></li>\n";
+						echo "<li><a href=\"".$ahref."\">" . $row[1] . "</a></li>\n";
 					}
 					else {
 						//select/highlight
-						echo "<li id=\"active\"><a id=\"current\" href=".$ahref.">" . $row[1] . "</a></li>\n";
+						echo "<li id=\"active\"><a id=\"current\" href=\"".$ahref."\">" . $row[1] . "</a></li>\n";
 					}
 				}
 				// if there are more categories in the group, then show the category list
 				if (mysql_num_rows($sql_cat) > 1) {
 					if (SHOWCAT && (ZING_JQUERY)) {
-						$ahref = zurl("\"index.php?page=browse&action=list&orderby=DESCRIPTION&group=".$row[0]."\"");
+						$ahref = zurl("index.php?page=browse&action=list&orderby=DESCRIPTION&group=".$row[0]);
 						if (!$wsCatCollapse) {
 							echo '<li>'.$row[1];
 							echo '<ul id="group'.$row[0].'">';
@@ -74,23 +74,23 @@ class widget_sidebar_products {
 						}
 						while ($row_cat = mysql_fetch_row($sql_cat)) {
 							if ($cat==$row_cat[0]) $active='id="active"'; else $active="";
-							$ahref = zurl("\"index.php?page=browse&action=list&orderby=DESCRIPTION&group=".$row[0]."&kat=".$row_cat[0]."\"");
-							echo "<li ".$active."><a href=".$ahref.">" . $row_cat[1] . "</a>";
+							$ahref = zurl("index.php?page=browse&action=list&orderby=DESCRIPTION&group=".$row[0]."&kat=".$row_cat[0]);
+							echo "<li ".$active."><a href=\"".$ahref."\">" . $row_cat[1] . "</a>";
 						}
 						echo '</ul>';
 						echo '</li>';
 					} else {
 						if ($row_cat = mysql_fetch_row($sql_cat)) {
-							$ahref = zurl("\"index.php?page=categories&group=".$row[0]."\"");
+							$ahref = zurl("index.php?page=categories&group=".$row[0]);
 						}
 						// now show the menu link, if ahref is not empty
 						if ($ahref != "") {
 							if ($group != $row[0]) {
-								echo "<li><a href=".$ahref.">" . $row[1] . "</a></li>\n";
+								echo "<li><a href=\"".$ahref."\">" . $row[1] . "</a></li>\n";
 							}
 							else {
 								//select/highlight
-								echo "<li id=\"active\"><a id=\"current\" href=".$ahref.">" . $row[1] . "</a></li>\n";
+								echo "<li id=\"active\"><a id=\"current\" href=\"".$ahref."\">" . $row[1] . "</a></li>\n";
 							}
 						}
 					}

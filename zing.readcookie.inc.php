@@ -12,6 +12,7 @@ if (!isset($_COOKIE['fws_cust'])) {
 		$fws_guest = create_sessionid(8); // create a sessionid of 8 numbers, assuming a shop will never get 10.000.000 customers it's always a non existing customer id
 		setcookie ("fws_guest", $fws_guest, time()+172800, '/');
 		$customerid = $fws_guest;
+		$_COOKIE['fws_guest']=$customerid;
 	} else {
 		$customerid = intval($_COOKIE['fws_guest']);
 	}

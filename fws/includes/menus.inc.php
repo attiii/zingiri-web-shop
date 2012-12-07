@@ -40,5 +40,6 @@ $menus['readorder']=array('page' => 'readorder', 'hide' => true, 'group' => 'adm
 $menus['printorder']=array('page' => 'printorder', 'hide' => true, 'group' => 'admin23', 'label' => 'readorder1','href' => 'page=printorder', 'img' => 'orders.gif', 'func' => 'CountAllOrders');
 $menus['customeradmin']=array('hide' => true,'page' => 'customeradmin', 'group' => 'menu9', 'label' => 'admin3','href' => 'page=customeradmin&action=showcustomers', 'img' => 'customers.gif', 'func' => 'CountCustomers','param' => 'CUSTOMER');
 $menus['ajax']=array('hide' => true,'grouping' => 'products','type' => 'apps');
+$menus['main']=array('hide' => true,'page' => 'customeradmin', 'group' => 'menu9', 'label' => 'admin3','href' => 'page=customeradmin&action=showcustomers', 'img' => 'customers.gif', 'func' => 'CountCustomers','param' => 'CUSTOMER');
 
 ?>

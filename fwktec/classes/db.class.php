@@ -7,7 +7,7 @@ if (!class_exists('aphpsDb')) {
 		var $table;
 		var $onError; //1=die, 2=return false
 
-		function db($onError='') {
+		function aphpsDb($onError='') {
 			if ($onError) $this->onError=$onError;
 			elseif (defined('APHPS_DB_ON_ERROR')) $this->onError=APHPS_DB_ON_ERROR;
 			else $this->onError=1;

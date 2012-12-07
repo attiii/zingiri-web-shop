@@ -43,7 +43,7 @@ if (!class_exists('aphps')) {
 			require(dirname(__FILE__)).'/scripts/form.php';
 		}
 
-		function showForm($formIdOrName,$mode,$id=0,$options=array()) {
+		function showForm($formIdOrName,$mode,$id=0,$options=array(),$showLabels=true) {
 			$this->bootstrap();
 			if (!$this->form) {
 				if (is_numeric($formIdOrName)) {
@@ -61,10 +61,27 @@ if (!class_exists('aphps')) {
 					$this->form->output=array_merge($this->form->output,$options['input']);
 					$this->form->input=array_merge($this->form->input,$options['input']);
 				}
+				$this->form->showLabels=$showLabels;
 				$this->form->Render($mode);
 			}
 		}
 
+		function verifyForm($formIdOrName,$mode,$id=0) {
+			$this->bootstrap();
+
+			if (!$this->form) {
+				if (is_numeric($formIdOrName)) {
+					$this->form=new zfForm(null,$formIdOrName,null,$mode,'form',$id);
+				} else {
+					$this->form=new zfForm($formIdOrName,null,null,$mode,'form',$id);
+				}
+				$this->form->noAlert=true;
+			}
+			
+			if ($this->form->Verify($_POST,$id)) return true;
+			else return false;
+		}
+		
 		function processForm($name,$mode,$id=0) {
 			$this->bootstrap();
 

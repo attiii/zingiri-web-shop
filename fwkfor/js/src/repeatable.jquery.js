@@ -3,8 +3,10 @@ appsRepeatable = {
 	n : {},
 	html : Array(),
 	
-	init : function(id) {
+	init : function(x) {
+		var id='zf_'+x+'_sf';
 		var max=1;
+		this.html[x]=new Array();
 		that=this;
 		jQuery('#'+id).children().each(function(i, itemin) {
 			if (itemin.id) {
@@ -12,7 +14,7 @@ appsRepeatable = {
 				if (divTag.attr('class')=='zfsub') {
 					divTag.children('.element').each(function(k,input) {
 						inputTag=jQuery('#'+input.id);
-						that.html[i]=inputTag.html();
+						that.html[x][i]=inputTag.html();
 						inputTag.attr('pos',k+1);
 						if ((k+1) > max) max=k+1;
 						if (inputTag.attr('name').indexOf('[]')<0) inputTag.attr('name',inputTag.attr('name')+'[]');
@@ -23,15 +25,18 @@ appsRepeatable = {
 				}
 			}
 		});
-		this.j.id=this.n.id=max;
+		if (this.j.id==null) this.j.id=new Array();
+		if (this.n.id==null) this.n.id=new Array();
+		this.j.id[x]=this.n.id[x]=max;
 	},
 
-	del : function(id,pos) {
-		if (this.n.id==1) {
+	del : function(x,pos) {
+		var id='zf_'+x+'_sf';
+		if (this.n.id[x]==1) {
 			alert('You can\'t remove this element');
 			return;
 		}
-		this.n.id--;
+		this.n.id[x]--;
 		item=jQuery('#'+id);
 		jQuery('#'+id).children().each(function(i, itemin) {
 			if (itemin.id) {
@@ -63,9 +68,10 @@ appsRepeatable = {
 		
 	},
 	
-	add : function(id,pos) {
-		this.j.id++;
-		this.n.id++;
+	add : function(x,pos) {
+		var id='zf_'+x+'_sf';
+		this.j.id[x]++;
+		this.n.id[x]++;
 		that=this;
 		var html="";
 		item=jQuery('#'+id);
@@ -76,7 +82,6 @@ appsRepeatable = {
 					divTag.children('.element').each(function(i,input) {
 						inputTag=jQuery('#'+input.id);
 						if (inputTag.attr('pos')==pos || (pos==1 && i==0)) {
-							//type=inputTag.attr('type');
 							type=inputTag.get(0).tagName;
 							if (type=='TEXTAREA') {
 								newInputTag=jQuery("<textarea>");
@@ -85,7 +90,6 @@ appsRepeatable = {
 							} else if (type=="SELECT") {
 								newInputTag=jQuery("<select>");
 							} else if (type=="select-one") {
-								alert('select-one in repeatable.jquery.js?')
 								newInputTag=jQuery("<select>");
 							} else if (type=="INPUT"){
 								newInputTag=jQuery("<input>");
@@ -93,11 +97,11 @@ appsRepeatable = {
 							} else {
 								alert('unidentied tag in repeatable.jquery.js');
 							}
-							key=divTag.attr('id')+'_'+that.j.id;
-							newInputTag.attr('id',divTag.attr('id')+'_'+that.j.id);
-							newInputTag.attr('pos',that.j.id);
+							key=divTag.attr('id')+'_'+that.j.id[x];
+							newInputTag.attr('id',divTag.attr('id')+'_'+that.j.id[x]);
+							newInputTag.attr('pos',that.j.id[x]);
 							newInputTag.attr('class',inputTag.attr('class'));
-							newInputTag.html(that.html[k]);
+							newInputTag.html(that.html[x][k]);
 							
 							newInputTag.bind('keydown',that,function(event) {
 								return event.data.tab(event);
@@ -111,7 +115,6 @@ appsRepeatable = {
 							newInputTag.before(jQuery('<br />'));
 							if (k==0) newInputTag.focus();
 							if (type=="textarea") {
-								//alert ('reloading for '+newInputTag.attr('id'));
 								tinyMCE.addMCEControl(document.getElementById(newInputTag.attr('id')),newInputTag.attr('id'));
 							}
 
@@ -123,11 +126,11 @@ appsRepeatable = {
 						inputTag=jQuery('#'+input.id);
 						if (inputTag.attr('pos')==pos || (pos==1 && i==0)) {
 							newInputTag=jQuery("<input>");
-							newInputTag.attr('id',divTag.attr('id')+'_'+that.j.id);
-							if (inputTag.attr('value')=="+") action='appsRepeatable.add(\''+id+'\','+that.j.id+')';
-							else action='appsRepeatable.del(\''+id+'\','+that.j.id+')';
+							newInputTag.attr('id',divTag.attr('id')+'_'+that.j.id[x]);
+							if (inputTag.attr('value')=="+") action='appsRepeatable.add(\''+id+'\','+that.j.id[x]+')';
+							else action='appsRepeatable.del(\''+id+'\','+that.j.id[x]+')';
 							newInputTag.attr('onclick',action);
-							newInputTag.attr('pos',that.j.id);
+							newInputTag.attr('pos',that.j.id[x]);
 							newInputTag.attr('class',inputTag.attr('class'));
 							newInputTag.attr('value',inputTag.attr('value'));
 							newInputTag.attr('type',inputTag.attr('type'));

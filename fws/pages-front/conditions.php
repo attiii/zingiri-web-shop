@@ -1,6 +1,6 @@
 <?php if ($index_refer <> 1) { exit(); } ?>
 <?php
-if ($action == "checkout") { include (dirname(__FILE__)."/includes/checklogin.inc.php"); }
+if ($action == "checkout") { include (ZING_DIR."/includes/checklogin.inc.php"); }
 ?>
 <?php
 if (LoggedIn() == False && $action == "checkout") {

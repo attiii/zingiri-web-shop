@@ -601,7 +601,6 @@
                         if (doc.body.firstChild && doc.body.firstChild.nodeName.toUpperCase() == 'PRE') {
                             response = doc.body.firstChild.firstChild.nodeValue;
                         }
-                        
                         if (response) {
                             response = eval("(" + response + ")");
                         } else {

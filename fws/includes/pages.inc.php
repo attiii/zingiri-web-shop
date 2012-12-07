@@ -2,7 +2,7 @@
 $wsPages['details']='details1';
 $wsPages['browse']='browse9';
 $wsPages['checkout']='checkout13';
-$wsPages['onecheckout']='cart9';
+$wsPages['checkout1']=$wsPages['onecheckout']='cart9';
 $wsPages['accesslogadmin']='accesslogadmin1';
 $wsPages['admin']='admin1';
 $wsPages['cart']='cart11';

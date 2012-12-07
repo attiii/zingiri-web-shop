@@ -37,6 +37,7 @@ class zfForm {
 	var $noAlert=false;
 	var $hasSubmit=false;
 	var $onSubmitActions=array();
+	var $showLabels=true;
 
 	function zfForm($form=null,$formid=0,$post=null,$action="",$page="",$id='') {
 		$this->recid=$id;
@@ -358,6 +359,7 @@ class zfForm {
 				$element->linksin=isset($value['links']) ? $value['links'] : '';
 				$element->rules=isset($this->elements['rules'][$key]) ? $this->elements['rules'][$key] : '';
 				$element->showSubscript=true;
+				$element->showLabels=$this->showLabels;
 
 				$c=$this->countSubelements($value['subelements'],$key);
 
@@ -421,7 +423,8 @@ class zfForm {
 
 			}
 		}
-		$ret.='</ul>';
+		if ($ret) $ret.='</ul>';
+		
 		if (count($dividers) > 0) {
 			$tabs='<ul>';
 			foreach ($dividers as $id => $divider) {

@@ -62,7 +62,7 @@ if ($action=="add" && isset($_GET['step']) && $_GET['step']=="save" && $custForm
 			$update_sql = mysql_query($update_query) or die(mysql_error());
 			$update_query = "UPDATE `".$dbtablesprefix."basket` SET `CUSTOMERID` = ".$newcustomerid." WHERE STATUS = 0 AND CUSTOMERID = '".$customerid."'";
 			$update_sql = mysql_query($update_query) or die(mysql_error());
-			if (!$pagetoload) $pagetoload='page=onecheckout';
+			if (!$pagetoload) $pagetoload='page=checkout1';
 			else $pagetoload=base64url_decode($pagetoload);
 			header('Location: '.zurl('index.php?'.$pagetoload));
 	}

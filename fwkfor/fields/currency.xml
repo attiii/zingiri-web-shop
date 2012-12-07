@@ -17,6 +17,9 @@
 				<option7 value="JPY">JPY</option7>
 				<option8 value="MXN">MXN</option8>
 				<option9 value="SEK">SEK</option9>
+				<option10 value="DKK">DKK</option10>
+				<option11 value="CHF">CHF</option11>
+				<option11 value="NOK">NOK</option11>
 			</values>
 		</field1>
 	</fields>

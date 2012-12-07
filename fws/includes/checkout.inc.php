@@ -47,7 +47,7 @@ function CheckoutThisStep() {
 	global $page,$action,$step,$dbtablesprefix,$customerid,$conditions_page,$shipping_page;
 
 	if (FASTCHECKOUT) {
-		if ($page=="onecheckout") $step=1;
+		if ($page=="onecheckout" || $page=="checkout1") $step=1;
 		//elseif ($page=="checkout" && isset($_GET['status'])) $step=2;
 		elseif ($page=="checkout") $step=2;
 		$newstep=$step;
@@ -102,7 +102,7 @@ function CheckoutNextStep() {
 
 	$redir="";
 	if ($page=="conditions" && FASTCHECKOUT) {
-		$redir="?page=onecheckout";
+		$redir="?page=checkout1";
 	}
 	elseif ($page=="conditions" && !$conditions_page) {
 		$redir="?page=shipping";

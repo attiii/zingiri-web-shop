@@ -365,8 +365,9 @@ if (!wsIsAdminPage() && !ZING_LIVE) {
 		}
 
 		$output.= "<td>".$stockpic;
-		if (!wsIsAdminPage() && !ZING_LIVE) $output.= "<a class=\"plain\" href=\"".zurl("index.php?page=details&prod=".$row[0]."&cat=".$row[2]."&group=".$group)."\">".$thumb.$print_description."</a> ";
-		else $output.= $thumb.$print_description;
+		//if (!wsIsAdminPage() && !ZING_LIVE) $output.= "<a class=\"plain\" href=\"".zurl("index.php?page=details&prod=".$row[0]."&cat=".$row[2]."&group=".$group)."\">".$thumb.$print_description."</a> ";
+		//else 
+		$output.= $thumb.$print_description;
 		$output.= $picturelink." ".$new." ".$stocktext.$admin_edit."</td>";
 		if ($ordering_enabled) {
 			$output.= "<td><div style=\"text-align:right;\">";

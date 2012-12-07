@@ -89,7 +89,7 @@ class widget_sidebar_cart {
 		}
 		if ($countCart > 0) {
 			echo '<ul>';
-			echo '<li><a href="'.zurl('index.php?page=onecheckout').'">'.$txt['menu3'].'</a></li>';
+			echo '<li><a href="'.zurl('index.php?page=checkout1').'">'.$txt['menu3'].'</a></li>';
 			echo '</ul>';
 		}
 	}

@@ -13,7 +13,7 @@ class sqlidZfSubElement extends zfSubElement {
 		$table=$input['element_'.$e->id.'_4'];
 
 		$query="select `".$key."`,`".$value."` FROM `##".$table."`"; //` ORDER BY `".$value."`";
-		$query.=" where `".$key."`=".qs($this->int);
+		$query.=" where `".$key."`='".$this->int."'";
 		$query=str_replace("##",DB_PREFIX,$query);
 		$result = do_query($query);
 		if ($row = mysql_fetch_array($result)){
@@ -63,7 +63,9 @@ class sqlidZfSubElement extends zfSubElement {
 					$key=$row[0];
 					$option=$row[1];
 					$selected="";
-					if(trim($e->populated_value['element_'.$e->id.'_'.$i][$this->ai]) == $key) {
+					if(is_array($e->populated_value['element_'.$e->id.'_'.$i]) && trim($e->populated_value['element_'.$e->id.'_'.$i][$this->ai]) == $key) {
+						$selected = 'selected="selected"';
+					} elseif(!is_array($e->populated_value['element_'.$e->id.'_'.$i]) && trim($e->populated_value['element_'.$e->id.'_'.$i]) == $key) {
 						$selected = 'selected="selected"';
 					} elseif ($e->default_value == $key) {
 						$selected = 'selected="selected"';

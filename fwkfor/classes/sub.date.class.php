@@ -5,7 +5,7 @@ class dateZfSubElement extends zfSubElement {
 	{
 		$e=$this->element;
 		$dateFormat=isset($e->populated_value['element_'.$e->id.'_2']) ? $e->populated_value['element_'.$e->id.'_2'] : 'mm/dd/yy';
-		
+		//print_r($e);
 		if ($this->int!='' && $this->int!='0000-00-00') $this->ext=date($dateFormat=='mm/dd/yy' ? 'm/d/Y' : 'd-m-Y',strtotime($this->int));
 		else $this->ext='';
 		
@@ -50,11 +50,13 @@ class dateZfSubElement extends zfSubElement {
 		elseif ($e->populated_value['element_'.$e->id.'_'.$i]=='0000-00-00') $e->populated_value['element_'.$e->id.'_'.$i]='';
 		elseif ($e->populated_value['element_'.$e->id.'_'.$i]) $e->populated_value['element_'.$e->id.'_'.$i]=date($dateFormat=='mm/dd/yy' ? 'm/d/Y' : 'd-m-Y',strtotime($e->populated_value['element_'.$e->id.'_'.$i]));
 		$field_markup.="<input id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" size=\"{$this->size}\" value=\"{$e->populated_value['element_'.$e->id.'_'.$i]}\" maxlength=\"{$this->maxlength}\" type=\"text\" {$e->readonly}/>";
-		$field_markup.='<script type="text/javascript" language="javascript">';
-		$field_markup.='jQuery(document).ready(function() {';
-		$field_markup.='jQuery("#'.$element.'").datepicker({dateFormat:\''.$dateFormat.'\',buttonImage:\''.ZING_APPS_PLAYER_URL.'images/calendar.gif\',buttonImageOnly:true,showOn:\'button\'});';
-		$field_markup.='})';
-		$field_markup.='</script>';
+		if ($this->mode != 'view') {
+			$field_markup.='<script type="text/javascript" language="javascript">';
+			$field_markup.='jQuery(document).ready(function() {';
+			$field_markup.='jQuery("#'.$element.'").datepicker({dateFormat:\''.$dateFormat.'\',buttonImage:\''.ZING_APPS_PLAYER_URL.'images/calendar.gif\',buttonImageOnly:true,showOn:\'button\'});';
+			$field_markup.='})';
+			$field_markup.='</script>';
+		}
 		$subscript_markup.="<label id=\"label_{$e->id}_{$i}\"for=\"element_{$e->id}_{$i}\">".z_($xmlf->fields->{'field'.$i}->label)."</label>";
 	}
 }

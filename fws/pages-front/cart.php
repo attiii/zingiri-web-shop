@@ -235,7 +235,7 @@ else {
 		<td nowrap><?php
 		// if the conditions page is disabled, then we might as well skip it ;)
 		if ($ordering_enabled == 1) { 
-			echo "<form method=\"post\" action=\"".zurl("index.php?page=onecheckout")."\">"; 
+			echo "<form method=\"post\" action=\"".zurl("index.php?page=checkout1")."\">"; 
 		 	echo "<input type=\"submit\" value=\"".$txt['cart9']."\">"; 
 		 	echo '</form>'; 
 		}

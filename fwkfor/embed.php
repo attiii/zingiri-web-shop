@@ -43,7 +43,7 @@ function zing_apps_player_activate() {
 	error_reporting($apper);
 }
 
-function zing_apps_player_install($version='') {
+function zing_apps_player_install($version='',$loadAll=true) {
 	global $dbtablesprefix,$aphps_projects;
 
 	if (!function_exists('zfCreate')) require(dirname(__FILE__).'/includes/create.inc.php');
@@ -123,7 +123,7 @@ function zing_apps_player_install($version='') {
 
 	//load forms
 	zing_apps_player_load(ZING_APPS_PLAYER_DIR.'forms/');
-	if (count($aphps_projects) > 0) {
+	if ($loadAll && (count($aphps_projects) > 0)) {
 		foreach ($aphps_projects as $id => $project) {
 			if ($id != 'player') zing_apps_player_load($project['dir'].'forms/');
 		}
@@ -294,6 +294,21 @@ function zing_apps_player_load($dir) {
 	}
 }
 
+function aphpsCreateForm($project,$file){
+	global $aphps_projects;
+
+	if (!function_exists('zfCreate')) require(dirname(__FILE__).'/includes/create.inc.php');
+	if (!function_exists('zfReadRecord')) require(dirname(__FILE__).'/includes/db.inc.php');
+	if (!function_exists('zf_json_decode')) require(dirname(__FILE__).'/includes/faces.inc.php');
+	if (!class_exists('db')) require(dirname(__FILE__).'/classes/db.class.php');
+
+	$dir=$aphps_projects[$project]['dir'].'forms/';
+	trigger_error('Loading '.$dir.$file.'.json');
+	$file_content = file_get_contents($dir.$file.'.json');
+	$a=zf_json_decode($file_content,true,false,false);
+	zfCreate($a['NAME'],$a['ELEMENTCOUNT'],$a['ENTITY'],$a['TYPE'],$a['DATA'],$a['LABEL'],$a['PROJECT'],$a['ID']);
+}
+
 if (!function_exists('zing_apps_error_handler')) {
 	function zing_apps_error_handler($severity, $msg, $filename="", $linenum=0) {
 		if (is_array($msg)) $msg=print_r($msg,true);
@@ -304,7 +319,7 @@ if (!function_exists('zing_apps_error_handler')) {
 				list($usec,$sec)=explode(" ",microtime());
 				$time.=':'.round($usec*100,0);
 			}
-				
+
 			fwrite($fh, $time.' '.$msg.' ('.$filename.'-'.$linenum.')'."\r\n");
 			fclose($fh);
 		}
@@ -422,20 +437,38 @@ function zVars() {
 }
 
 function zScripts() {
+	global $aphps_projects;
 	$v=array();
 	$v[]=ZING_APPS_PLAYER_URL.'js/'.APHPS_JSDIR.'/sortlist.jquery.js';
 	$v[]=ZING_APPS_PLAYER_URL.'js/'.APHPS_JSDIR.'/repeatable.jquery.js';
 	$v[]=ZING_APPS_PLAYER_URL.'js/'.APHPS_JSDIR.'/formfield.jquery.js';
 	$v[]=ZING_APPS_PLAYER_URL.'js/'.APHPS_JSDIR.'/core.jquery.js';
 
+	foreach ($aphps_projects as $id => $project) {
+		if (isset($project['js'])) {
+			foreach ($project['js'] as $script) {
+				//$v[]=$project['url'].'js/'.APHPS_JSDIR.'/'.$script;
+				$v[]=$project['url'].'js/'.$script;
+			}
+		}
+	}
 
 	return $v;
 }
 
 function zStyleSheets() {
+	global $aphps_projects;
 	$v=array();
 	$v[]=ZING_APPS_PLAYER_URL . 'css/integrated_view.css';
 
+	foreach ($aphps_projects as $id => $project) {
+		if (isset($project['css'])) {
+			foreach ($project['css'] as $css) {
+				$v[]=$project['url'].'css/'.$css;
+			}
+		}
+	}
+	
 	return $v;
 }
 

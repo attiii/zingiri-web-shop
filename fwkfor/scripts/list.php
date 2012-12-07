@@ -15,7 +15,7 @@ $zflist=new $zfClass($formname,$formid,'','list','list');
 $formname=$zflist->form;
 $formid=$zflist->id;
 if (!isset($action) && isset($_REQUEST['action'])) $action=$_REQUEST['action'];
-if ($action=='search') {
+if (isset($action) && ($action=='search')) {
 	$search=$zflist->setSearch($_POST,$map);
 } else $search='';
 

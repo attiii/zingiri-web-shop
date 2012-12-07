@@ -236,7 +236,7 @@ Function IsAdmin() {
 	//joomla
 	if (wsCurrentCmsUserIsShopAdmin()) return true;
 
-	if (function_exists('wsLiveIsAdmin') && wsLiveIsAdmin()) return true;
+	if (function_exists('wsLiveIsAdmin')) return wsLiveIsAdmin();
 	
 	if (!isset($_COOKIE['fws_cust'])) { return false; }
 	$fws_cust = explode("#", $_COOKIE['fws_cust']);

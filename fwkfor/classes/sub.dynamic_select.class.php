@@ -55,18 +55,28 @@ class dynamic_selectZfSubElement extends zfSubElement {
 			$e->populated_value['element_'.$e->id.'_'.$i] = $xmlf->fields->{'field'.$i}->default;
 		}
 
-		$field_markup.="<select id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" style=\"width: {$xmlf->fields->{'field'.$i}->width}\" {$e->readonly}>";
-		$option_markup="";
-		if (count($keypairs) > 0) {
-			foreach ($keypairs as $keypair) {
-				list($value,$option)=explode("=",$keypair);
-				$selected="";
-				if(trim($e->populated_value['element_'.$e->id.'_'.$i]) == trim($option)) {
-					$selected = 'selected="selected"';
-				} elseif ($e->populated_value['element_'.$e->id.'_'.$i] == $value) {
-					$selected = 'selected="selected"';
+	
+		if ($this->mode=='view') {
+			if (count($keypairs) > 0) {
+				foreach ($keypairs as $keypair) {
+					list($value,$option)=explode("=",$keypair);
+					if ($e->populated_value['element_'.$e->id.'_'.$i] == $value) $field_markup.=$option;
 				}
-				if (!$e->readonly || ($e->readonly && $selected)) $option_markup .= "<option value=\"".$value."\" {$selected}>".$option."</option>";
+			}
+		} else {
+			$field_markup.="<select id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" style=\"width: {$xmlf->fields->{'field'.$i}->width}\" {$e->readonly}>";
+			$option_markup="";
+			if (count($keypairs) > 0) {
+				foreach ($keypairs as $keypair) {
+					list($value,$option)=explode("=",$keypair);
+					$selected="";
+					if(trim($e->populated_value['element_'.$e->id.'_'.$i]) == trim($option)) {
+						$selected = 'selected="selected"';
+					} elseif ($e->populated_value['element_'.$e->id.'_'.$i] == $value) {
+						$selected = 'selected="selected"';
+					}
+					if (!$e->readonly || ($e->readonly && $selected)) $option_markup .= "<option value=\"".$value."\" {$selected}>".$option."</option>";
+				}
 			}
 		}
 
