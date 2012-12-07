@@ -295,7 +295,7 @@ else {
 		}
 		else {
 			//fixed amount
-			echo '</td><td class="col-discount">-'.wsPrice::currencySymbolPre().wsPrice::format($discount->discount).currencySymbolPost().'</td></tr>';
+			echo '</td><td class="col-discount">-'.wsPrice::currencySymbolPre().wsPrice::format($discount->discount).wsPrice::currencySymbolPost().'</td></tr>';
 		}
 		$discountValue=$discount->discount;
 	} else {

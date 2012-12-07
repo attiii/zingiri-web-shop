@@ -220,7 +220,7 @@ if (LoggedIn() == True) {
 					$tpl->replace('DISCOUNTRATE',$discount->percentage.'%');
 				}
 				else {
-					$tpl->replace('DISCOUNTRATE','');
+					$tpl->replace('DISCOUNTRATE',wsPrice::currencySymbolPre().wsPrice::format($discount->discount).wsPrice::currencySymbolPost());
 				}
 				$tpl->replace('DISCOUNTAMOUNT',wsPrice::currencySymbolPre().wsPrice::format($discount->discount).wsPrice::currencySymbolPost());
 				$total -= $discount->discount;
@@ -250,6 +250,7 @@ if (LoggedIn() == True) {
 			$total_nodecimals = number_format($total, 2,"","");
 			$zingPrompts->load(true);
 			$taxheader=$txt['checkout102'];
+			$noTaxes=true;
 			if (count($tax->taxByCategory)>0) {
 				foreach ($tax->taxByCategory as $taxCategory => $taxes) {
 					if (count($taxes)>0) {
@@ -259,6 +260,7 @@ if (LoggedIn() == True) {
 							$tpl->replace('TAXTOTAL',wsPrice::currencySymbolPre().wsPrice::format($data['TAX']).wsPrice::currencySymbolPost());
 							$tpl->replace('TAXLABEL',$label.' '.$data['CATEGORY']);
 							$taxheader="";
+							$noTaxes=false;
 						}
 					}
 				}
@@ -273,11 +275,12 @@ if (LoggedIn() == True) {
 							$tpl->replace('TAXTOTAL',wsPrice::currencySymbolPre().wsPrice::format($data['TAX']).wsPrice::currencySymbolPost());
 							$tpl->replace('TAXLABEL',$label.' '.$data['CATEGORY']);
 							$taxheader="";
+							$noTaxes=false;
 						}
 					}
 				}
 			}
-			if (count($tax->taxByCategory)==0 && count($shippingTax->taxByCategory)==0) {
+			if ($noTaxes) {
 				$tpl->removeRow(array('TAXLABEL','TAXRATE','TAXTOTAL'));
 			}
 				
@@ -350,7 +353,7 @@ if (LoggedIn() == True) {
 
 			//basket update
 			$query = sprintf("UPDATE `".$dbtablesprefix."basket` SET `ORDERID` = '".$lastid."',`STATUS`=%s WHERE (`CUSTOMERID` = %s AND `STATUS` = '0')", qs($basket_status), quote_smart(wsCid()));
-			$sql = mysql_query($query) or die(mysql_error());
+			//$sql = mysql_query($query) or die(mysql_error());
 
 			// make pdf
 			$pdf = "";
