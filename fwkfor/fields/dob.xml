@@ -8,7 +8,7 @@
 			<format>varchar(4)</format>
 			<type>select</type>
 			<default>1951</default>
-			<values type="range" start="1930" end="2010">
+			<values type="range" start="1930" end="2013">
 			</values>
 		</field1>
 		<field2>
@@ -28,4 +28,5 @@
 			</values>
 		</field3>
 	</fields>
+	<help>Date of birth with drop downs for year, month and day.</help>
 </config>

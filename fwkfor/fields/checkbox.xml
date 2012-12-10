@@ -8,4 +8,5 @@
 			<format>tinyint(1)</format>
 		</field1>
 	</fields>
+	<help>Tick box for selecting yes/no values.</help>
 </config>

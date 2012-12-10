@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<config type="module" version="1.5.0">
+<config type="module" version="1.5.0" depreciated="1">
 	<name>Date+time</name>
 	<fields count="1">
 		<field1>

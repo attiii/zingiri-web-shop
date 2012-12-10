@@ -1,7 +1,6 @@
 <?php
-define("ZING_APPS_PLAYER_VERSION","1.4.0");
+define("ZING_APPS_PLAYER_VERSION","1.4.1");
 
-if (!defined('APHPS_JSDIR')) define('APHPS_JSDIR','min');
 if (!defined('APHPS_XD')) define('APHPS_XD',0);
 
 require_once(dirname(__FILE__).'/aphps.php');
@@ -447,8 +446,8 @@ function zScripts() {
 	foreach ($aphps_projects as $id => $project) {
 		if (isset($project['js'])) {
 			foreach ($project['js'] as $script) {
-				//$v[]=$project['url'].'js/'.APHPS_JSDIR.'/'.$script;
-				$v[]=$project['url'].'js/'.$script;
+				$v[]=$project['url'].'js/'.APHPS_JSDIR.'/'.$script;
+				//$v[]=$project['url'].'js/'.$script;
 			}
 		}
 	}

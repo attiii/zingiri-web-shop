@@ -107,6 +107,6 @@ class imageZfSubElement extends zfSubElement {
 				$field_markup.='<a id="handle_element_'.$e->id.'_'.$i.'" href="javascript:void(0);" onclick="'.$js.'"><img src="'.ZING_APPS_PLAYER_URL.'/images/delete.png" height="16px" /></a>';
 			}
 		}
-		$subscript_markup.="<label id=\"label_{$e->id}_{$i}\"for=\"element_{$e->id}_{$i}\">".z_($xmlf->fields->{'field'.$i}->label)."</label>";
+		$subscript_markup.="<label class=\"subname\" class=\"subname\" id=\"label_{$e->id}_{$i}\"for=\"element_{$e->id}_{$i}\">".z_($xmlf->fields->{'field'.$i}->label)."</label>";
 	}
 }

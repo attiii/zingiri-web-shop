@@ -17,14 +17,14 @@ define ("ZING_APPS_MAX_ROWS",15);
 global $aphps_projects;
 if (isset($aphps_projects)) {
 	foreach ($aphps_projects as $id => $project) {
-		if ($id != 'player') {
+		if (isset($project['dir']) && ($id != 'player')) {
 			if (file_exists($project['dir']."classes/index.php")) require($project['dir']."classes/index.php");
 		}
 	}
 	foreach ($aphps_projects as $id => $project) {
-		if ($id != 'player' && file_exists($project['dir']."services/index.php")) {
+		if (isset($project['dir']) && ($id != 'player') && file_exists($project['dir']."services/index.php")) {
 			require($project['dir']."services/index.php");
-		} elseif ($id != 'player' && is_dir($project['dir']."services")) {
+		} elseif (isset($project['dir']) && ($id != 'player') && is_dir($project['dir']."services")) {
 			$dirs=array('.');
 			foreach ($dirs as $dir) {
 				if ($handle = opendir($project['dir']."services/".$dir)) {

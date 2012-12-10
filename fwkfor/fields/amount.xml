@@ -11,4 +11,5 @@
 			<format>decimal(20,3)</format>
 		</field1>
 	</fields>
+	<help>Amount field, up to 3 decimals</help>
 </config>

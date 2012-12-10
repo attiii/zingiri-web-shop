@@ -11,4 +11,5 @@
 			<format>decimal(13,8)</format>
 		</field1>
 	</fields>
+	<help>Rate field, up to 8 decimals allowed</help>
 </config>

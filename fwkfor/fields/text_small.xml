@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config type="module" version="1.5.0">
 	<name>Text small</name>
+	<settings>
+		<fieldattributes>
+			<size>yes</size>
+			<maxlength>yes</maxlength>
+			<regex>yes</regex>
+		</fieldattributes>
+	</settings>
 	<fields count="1">
 		<field1>
 			<name>smalltext</name>
@@ -9,4 +16,5 @@
 			<maxlength>20</maxlength>
 		</field1>
 	</fields>
+	<help>Small text field set to 20 characters.</help>
 </config>

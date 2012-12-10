@@ -1,7 +1,7 @@
 <?php
 require(dirname(__FILE__).'/init.inc.php');
 
-if (ZING_CMS=='wp') require(dirname(__FILE__).'/../../fwkfor/includes/faces.inc.php');
+if (ZING_CMS=='wp') require(dirname(__FILE__).'/../../'.ZING_APPS_EMBED.'/includes/faces.inc.php');
 
 if (!IsAdmin()) die('No access');
 

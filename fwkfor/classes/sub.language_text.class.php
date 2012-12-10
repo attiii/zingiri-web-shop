@@ -57,7 +57,7 @@ class language_textZfSubElement extends zfSubElement {
 			if (!is_numeric($sizes[1])) $sizes[1]=3;
 			$field_markup.="<textarea id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"{$mceNoEditor} element text\" cols=\"{$sizes[0]}\" rows=\"{$sizes[1]}\" {$e->readonly}>{$e->populated_value['element_'.$e->id.'_'.$i]}</textarea>";
 		}
-		$subscript_markup.="<label id=\"label_{$e->id}_{$i}\"for=\"element_{$e->id}_{$i}\">".z_($xmlf->fields->{'field'.$i}->label)."</label>";
+		$subscript_markup.="<label class=\"subname\" id=\"label_{$e->id}_{$i}\"for=\"element_{$e->id}_{$i}\">".z_($xmlf->fields->{'field'.$i}->label)."</label>";
 		$field_markup.="<div id=\"helper_{$e->id}_{$i}\" name=\"helper_{$e->id}_{$i}\" style=\"display:none\" >{$e->populated_value['element_'.$e->id.'_'.($i+1)]}</div>";
 		
 	}

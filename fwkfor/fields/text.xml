@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config type="module" version="1.5.0">
 	<name>Text free</name>
+	<settings>
+		<fieldattributes>
+			<size>yes</size>
+			<maxlength>yes</maxlength>
+			<regex>yes</regex>
+		</fieldattributes>
+	</settings>
 	<fields count="1">
 		<field1>
 			<name>freetext</name>
@@ -9,4 +16,5 @@
 			<format>tinytext</format>
 		</field1>
 	</fields>
+	<help>Input field with variable number of characters.</help>
 </config>

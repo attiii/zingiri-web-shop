@@ -32,4 +32,5 @@
 			</values>
 		</field3>
 	</fields>
+	<help>Date field with option to choose style (US vs Europe).</help>
 </config>

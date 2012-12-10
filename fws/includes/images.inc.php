@@ -85,7 +85,8 @@ function wsResizeImage($image,$thumb=true,$gfx=false) {
 		$maxWidth=$product_max_width;
 		$maxHeight=$product_max_height;
 	}
-	$size = getimagesize(str_replace($product_url,$product_dir,$image));
+	if (!gfx) $size = getimagesize(str_replace($product_url,$product_dir,$image));
+	else $size = getimagesize(str_replace(ZING_URL,ZING_DIR,$image));
 	$height = $size[1];
 	$width = $size[0];
 	$resized = 0;

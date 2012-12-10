@@ -8,4 +8,5 @@
 			<type>captcha</type>
 		</field1>
 	</fields>
+	<help>Requires entering a captcha. Useful to protect your form from spam.</help>
 </config>

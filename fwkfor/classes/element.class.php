@@ -48,12 +48,16 @@ class element {
 	var $disabled=false;
 	var $onSubmitActions=array();
 	var $showLabels=true;
+	var $settings;
+	var $parameters;
 
 	function element($constraint) {
 		$this->constraint=$constraint;
 		$xmlf=faces_get_xml($this->constraint);
 		$this->xmlf=$xmlf;
-		$this->fields=$xmlf->fields->attributes()->count;
+		$this->settings=$xmlf->settings;
+		$this->fields=isset($xmlf->fields->attributes()->count) ? $xmlf->fields->attributes()->count : $xmlf->fields->count();
+		
 		$this->name=array();
 		$this->sublabel=array();
 		$this->help=z_((string)$xmlf->help);
@@ -269,7 +273,7 @@ class element {
 
 		$xmlf=$this->xmlf;
 
-		$fields=$xmlf->fields->attributes()->count;
+		$fields=$this->fields; //$xmlf->fields->attributes()->count;
 
 		if(!empty($this->is_error)){
 			$error_class = 'zferror';
@@ -333,13 +337,13 @@ class element {
 		$element_markup.='<div class="zfsubelements" id="zf_'.$this->id.'_sf">';
 		$ac=1;
 		for ($i=1; $i<=$fields; $i++) {
-			$fn=$xmlf->fields->{'field'.$i}->name;
-			if ($fields>1) $this->name[$i]=(string)$fn;
 			$size=$xmlf->fields->{'field'.$i}->size;
 			$type=$xmlf->fields->{'field'.$i}->type;
-
+			$fn=$xmlf->fields->{'field'.$i}->name ? $xmlf->fields->{'field'.$i}->name : $type;
+			if ($fields>1) $this->name[$i]=(string)$fn;
+			
 			$subscript_markup = '';
-			$field_markup ="<div id=\"zf_{$this->id}_{$fn}\" style=\"width: {$xmlf->fields->{'field'.$i}->width}\" class=\"zfsub\">";
+			$field_markup ="<div id=\"zf_{$this->id}_{$fn}\" style=\"width: {$xmlf->fields->{'field'.$i}->width}\" class=\"zfsub $type\">";
 			if (isset($this->isRepeatable) && $this->isRepeatable) $ac=max($ac,count($this->populated_value['element_'.$this->id.'_'.$i]));
 			//default
 			for ($ai=0; $ai < $ac; $ai++) {

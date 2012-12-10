@@ -57,4 +57,5 @@
 			<type>country_iso</type>
 		</field6>
 	</fields>
+	<help>US style address field</help>
 </config>

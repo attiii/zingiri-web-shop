@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="module" version="1.5.0">
+	<name>Multiple Choice</name>
+	<fields count="1">
+		<field1>
+			<format>varchar(256)</format>
+			<type>multiple_choice</type>
+		</field1>
+	</fields>
+	<settings>
+		<parameters>
+			<choice>
+				<label>Choices</label>
+				<type>choice</type>
+			</choice>
+		</parameters>
+	</settings>
+	<help>Provides a fully customisable multiple choice list in the form of radio buttons.</help>
+</config>

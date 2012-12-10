@@ -1,5 +1,4 @@
 .zfaces-form {
-/*	border: 1px solid black;*/
 }
 
 /**** Errors ****/
@@ -426,7 +425,7 @@ div.calendar {
 	background-color:red;
 }
 
-.zfsub label {
+.zfsub label.subname {
 	clear: both;
 	/*color:white;*/
 	display: block;
@@ -467,6 +466,7 @@ div.calendar {
 }
 
 .zfimg {
+	vertical-align:middle;
 	margin: 0px;
 	padding: 0px;
 }
@@ -487,10 +487,8 @@ div.calendar {
 
 .zfelabel {
 	width: 24%;
-	/*font-weight: bold;*/
 	text-align: left;
 	clear: both;
-	/*border:1px solid blue;*/
 	float: left;
 }
 
@@ -606,7 +604,6 @@ li.zfacestab {
 
 .aphps-list-table th {
 	font-weight: bold;
-	/*remove-color: black;*/
 	text-align: left;
 	padding: 4px;
 	border: 1px solid #808080; /*darkgrey*/
@@ -631,4 +628,39 @@ li.zfacestab {
 	color: black;
 }
 
+/* Form */
+li.zfli {
+	list-style-type: none !important;
+}
+
+/*** Parameters ****/
+ul.zfattributeslist div.parameterlabel {
+	font-weight: bold;
+	background-color: #FF0084;
+	width: 30%;
+	-moz-border-radius: 10px 10px 0px 0px;
+	border-radius: 10px 10px 0px 0px;
+	padding:10px;
+}
+
+ul.zfattributeslist div.parametercontent {
+	background-color: #FF0084;
+	padding: 10px;
+	-moz-border-radius: 0px 10px 10px 10px;
+	border-radius: 0px 10px 10px 10px;
+	font-size: smaller;
+}
+
+.parameterdel,.parameteradd {
+	display:inline;
+}
+
+/**** Multiple choice ****/
+.zfsub.multiple_choice {
+	clear: left;
+}
+	
+.zfsub.multiple_choice label {
+	margin-left:10px;
+}
 

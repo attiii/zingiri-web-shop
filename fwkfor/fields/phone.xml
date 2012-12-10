@@ -9,4 +9,5 @@
 			<format>varchar(30)</format>
 		</field1>
 	</fields>
+	<help>Phone field, no specific formatting at this time</help>
 </config>

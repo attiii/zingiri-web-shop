@@ -1,26 +1,4 @@
 <?php
-/*  sub.-default.class.php
- Copyright 2008,2009 Erik Bogaerts
- Support site: http://www.aphps.com
-
- This file is part of APhPS.
-
- APhPS is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
- (at your option) any later version.
-
- APhPS is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with APhPS; if not, write to the Free Software
- Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
-?>
-<?php
 class zfSubElement {
 	var $int;
 	var $xmlf;
@@ -43,7 +21,6 @@ class zfSubElement {
 		else $this->ext=trim($ext);
 		$this->error_message="";
 		$this->is_error=false;
-		//$this->size=isset($element->attributes['zfsize']) ? $element->attributes['zfsize'] : $xmlf->fields->{'field'.$this->subid}->size;
 		if (isset($element->attributes['zfsize'])) $this->size=$element->attributes['zfsize'];
 		elseif (isset($xmlf->fields->{'field'.$this->subid}->size)) $this->size=$xmlf->fields->{'field'.$this->subid}->size;
 		else $this->size=null;
@@ -97,6 +74,11 @@ class zfSubElement {
 				}
 			}
 		}
+		if (isset($this->element->attributes['zfregex']) && $this->element->attributes['zfregex']) {
+			$p=preg_match('/'.trim($this->element->attributes['zfregex']).'/',$this->ext,$matches);
+			if ($p===false) return $this->error("There is an error in your regular expression");
+			elseif ($matches[0]!=$this->ext)return $this->error("Value not allowed!");
+		}
 		return $this->verify();
 	}
 
@@ -132,11 +114,10 @@ class zfSubElement {
 		
 		if ($this->mode=='view') {
 			$field_markup.="<input id=\"element_{$e->id}_{$i}{$this->ail}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" size=\"{$this->size}\" value=\"{$e->values['element_'.$e->id.'_'.$i][$this->ai]}\" maxlength=\"{$this->maxlength}\" type=\"text\" {$readonly}/>";
-			//$field_markup.="<p id=\"element_{$e->id}_{$i}{$this->ail}\" class=\"element text\">{$e->values['element_'.$e->id.'_'.$i][$this->ai]}</p>";
 		} else {
 			$field_markup.="<input id=\"element_{$e->id}_{$i}{$this->ail}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" size=\"{$this->size}\" value=\"{$e->values['element_'.$e->id.'_'.$i][$this->ai]}\" maxlength=\"{$this->maxlength}\" type=\"text\" {$readonly}/>";
 		}
-		$subscript_markup.="<label id=\"label_{$e->id}_{$i}\"for=\"element_{$e->id}_{$i}\">".z_($xmlf->fields->{'field'.$i}->label)."</label>";
+		$subscript_markup.="<label class=\"subname\" id=\"label_{$e->id}_{$i}\"for=\"element_{$e->id}_{$i}\">".z_($xmlf->fields->{'field'.$i}->label)."</label>";
 	}
 
 	function createRandomCode($len=16) {

@@ -8,4 +8,5 @@
 			<format>varchar(10)</format>
 		</field1>
 	</fields>
+	<help>Time picker field.</help>
 </config>

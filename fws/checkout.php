@@ -353,7 +353,7 @@ if (LoggedIn() == True) {
 
 			//basket update
 			$query = sprintf("UPDATE `".$dbtablesprefix."basket` SET `ORDERID` = '".$lastid."',`STATUS`=%s WHERE (`CUSTOMERID` = %s AND `STATUS` = '0')", qs($basket_status), quote_smart(wsCid()));
-			//$sql = mysql_query($query) or die(mysql_error());
+			$sql = mysql_query($query) or die(mysql_error());
 
 			// make pdf
 			$pdf = "";

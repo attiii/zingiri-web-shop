@@ -40,4 +40,5 @@
 			<size>3</size>
 		</field4>
 	</fields>
+	<help>Name field in 4 parts.</help>
 </config>

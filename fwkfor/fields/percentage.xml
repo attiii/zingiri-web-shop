@@ -10,4 +10,5 @@
 			<format>decimal(5,2)</format>
 		</field1>
 	</fields>
+	<help>Percentage field, up to 2 decimals allowed.</help>
 </config>

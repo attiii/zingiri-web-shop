@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config type="module" version="1.5.0">
 	<name>Text large</name>
+	<settings>
+		<fieldattributes>
+			<size>yes</size>
+			<maxlength>yes</maxlength>
+			<regex>yes</regex>
+		</fieldattributes>
+	</settings>
 	<fields count="1">
 		<field1>
 			<name>largetext</name>
@@ -9,4 +16,5 @@
 			<maxlength>40</maxlength>
 		</field1>
 	</fields>
+	<help>Large text field set to 40 characters.</help>
 </config>

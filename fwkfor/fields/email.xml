@@ -11,4 +11,5 @@
 			<format>text</format>
 		</field1>
 	</fields>
+	<help>Email field, verifies email formatting.</help>
 </config>

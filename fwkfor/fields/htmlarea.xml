@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config type="module" version="1.5.0">
 	<name>Textarea with editor</name>
+	<settings>
+		<fieldattributes>
+			<rows>yes</rows>
+			<size>yes</size>
+		</fieldattributes>
+	</settings>
 	<fields count="1">
 		<field1>
 			<name>textarea</name>
@@ -11,4 +17,5 @@
 			<format>mediumtext</format>
 		</field1>
 	</fields>
+	<help>Text area field with HTML editor.</help>
 </config>

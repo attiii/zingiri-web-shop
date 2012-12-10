@@ -43,7 +43,7 @@ class amountZfSubElement extends zfSubElement {
 			else $value=number_format($e->values['element_'.$e->id.'_'.$i]*1,2);
 		}
 		$field_markup.="<input id=\"element_{$e->id}_{$i}{$this->ail}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" size=\"{$this->size}\" value=\"$value\" maxlength=\"{$this->maxlength}\" type=\"text\" {$readonly}/>";
-		$subscript_markup.="<label id=\"label_{$e->id}_{$i}\"for=\"element_{$e->id}_{$i}\">".z_($xmlf->fields->{'field'.$i}->label)."</label>";
+		$subscript_markup.="<label class=\"subname\" id=\"label_{$e->id}_{$i}\"for=\"element_{$e->id}_{$i}\">".z_($xmlf->fields->{'field'.$i}->label)."</label>";
 	}
 
 }

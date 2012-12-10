@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<config type="module" version="1.5.0">
+<config type="module" version="1.5.0" hide="forms">
 	<name>Action button</name>
 	<fields count="1">
 		<field1>
@@ -10,4 +10,5 @@
 			<maxlength>128</maxlength>
 		</field1>
 	</fields>
+	<help>Allows to enter an URL and displays as a button in list view</help>
 </config>

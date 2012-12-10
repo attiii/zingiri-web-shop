@@ -76,7 +76,7 @@ class sqlidZfSubElement extends zfSubElement {
 		}
 		$field_markup.=$option_markup;
 		$field_markup.="</select>";
-		$subscript_markup.="<label for=\"element_{$e->id}_{$i}\">".z_($xmlf->fields->{'field'.$i}->label)."</label>";
+		$subscript_markup.="<label class=\"subname\" for=\"element_{$e->id}_{$i}\">".z_($xmlf->fields->{'field'.$i}->label)."</label>";
 		}
 	}
 	?>

@@ -23,4 +23,5 @@
 			</values>
 		</field1>
 	</fields>
+	<help>Dropdown of common currencies.</help>
 </config>

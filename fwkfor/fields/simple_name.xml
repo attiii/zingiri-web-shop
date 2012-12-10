@@ -17,4 +17,5 @@
 			<format>varchar(60)</format>
 		</field2>
 	</fields>
+	<help>Name field in 2 parts.</help>
 </config>

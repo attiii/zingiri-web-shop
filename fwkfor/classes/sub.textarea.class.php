@@ -46,7 +46,7 @@ class textareaZfSubElement extends zfSubElement {
 		if (!isset($sizes[0]) || !is_numeric($sizes[0])) $sizes[0]=40;
 		if (!isset($sizes[1]) || !is_numeric($sizes[1])) $sizes[1]=3;
 		$field_markup.="<textarea id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"mceNoEditor element text\" cols=\"{$sizes[0]}\" rows=\"{$sizes[1]}\" {$e->readonly}>".$e->populated_value['element_'.$e->id.'_'.$i]."</textarea>";
-		$subscript_markup.="<label id=\"label_{$e->id}_{$i}\"for=\"element_{$e->id}_{$i}\">".z_($xmlf->fields->{'field'.$i}->label)."</label>";
+		$subscript_markup.="<label class=\"subname\" id=\"label_{$e->id}_{$i}\"for=\"element_{$e->id}_{$i}\">".z_($xmlf->fields->{'field'.$i}->label)."</label>";
 	}
 }
 ?>

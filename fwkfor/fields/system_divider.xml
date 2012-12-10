@@ -10,4 +10,5 @@
 			<cat>parameter</cat>
 		</field1>
 	</fields>
+	<help>Dividers are used to create tabbed forms. Insert a divider anywhere in your form to create a new tab. Don't forget the divider at the top of your form.</help>
 </config>

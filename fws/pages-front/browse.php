@@ -14,6 +14,7 @@ if (isset($_GET['itemsperpage'])) {
 	}
 	$products_per_page=$_GET['itemsperpage'];
 } elseif (isset($_COOKIE['fws_itemsperpage'])) $products_per_page=aphpsSanitize($_COOKIE['fws_itemsperpage']);
+else $products_per_page='10';
 
 if (isset($_GET['includesearch']) && $_GET['includesearch']) $includesearch=aphpsSanitize($_GET['includesearch']);
 elseif (isset($_POST['includesearch']) && $_POST['includesearch']) $includesearch=aphpsSanitize($_POST['includesearch']);
@@ -83,7 +84,6 @@ if ($action == "search" || $searchfor) {
 		$searchquery .= ")";
 	}
 	else {
-		//$searchquery = "WHERE (DESCRIPTION = 'never_find_me')";
 		$searchquery = " ";
 	} // just to cause that the searchresult is empty
 	$query = "SELECT * FROM `".$dbtablesprefix."product` $searchquery ORDER BY `$orderby_field` ASC";

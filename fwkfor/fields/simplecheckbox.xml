@@ -10,4 +10,5 @@
 			<format>varchar(1)</format>
 		</field1>
 	</fields>
+	<help>Same as normal checkbox except this on is without a label</help>
 </config>

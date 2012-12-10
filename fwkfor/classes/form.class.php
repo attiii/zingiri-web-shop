@@ -38,6 +38,7 @@ class zfForm {
 	var $hasSubmit=false;
 	var $onSubmitActions=array();
 	var $showLabels=true;
+	var $formAttributes;
 
 	function zfForm($form=null,$formid=0,$post=null,$action="",$page="",$id='') {
 		$this->recid=$id;
@@ -60,6 +61,7 @@ class zfForm {
 			$this->elementcount=$row['ELEMENTCOUNT'];
 			$this->type=$row['TYPE'];
 			$this->entity=$row['ENTITY'];
+			$this->formAttributes=json_decode($row['ATTRIBUTES']);
 
 			//check if form has a sub form to include
 			$this->includeSubForm();
@@ -269,7 +271,6 @@ class zfForm {
 									$f[$key1*100+$key2]=strtoupper('`'.$value['column'].'_'.$this->elements['name'][$key1][$key2].'`');
 									if (defined("ZING_APPS_TRANSLATE")) {
 										$tempfunc=ZING_APPS_TRANSLATE;
-										//$h[$key1*100+$key2]=$tempfunc($value['label']).' '.$tempfunc($this->elements['label'][$key1][$key2]);
 										$h[$key1*100+$key2]=$tempfunc($this->elements['label'][$key1][$key2]);
 									} else {
 										$h[$key1*100+$key2]=$value['label'].' '.$this->elements['label'][$key1][$key2];
@@ -335,6 +336,7 @@ class zfForm {
 
 		$populated_value=array();
 		$populated_column=array();
+		$parameters=array();
 		if ($a=$this->json)
 		{
 			$isFirst=true;
@@ -373,6 +375,9 @@ class zfForm {
 				if (count($value['subelements']) > 0) {
 					foreach ($value['subelements'] as $key2 => $sub)
 					{
+						if (isset($sub['parameters'])) {
+							$parameters[$key][$key2]=$sub['parameters'];
+						}
 						if (isset($this->elements['cat'][$key][$key2]) && $this->elements['cat'][$key][$key2]=='parameter') {
 							$populated_value['element_'.$key.'_'.$key2]=$sub['populate'];
 						}
@@ -404,6 +409,7 @@ class zfForm {
 				$element_markup='<li class="zfli" style="background-image:none;">';
 				$element->populated_value=$populated_value;
 				$element->populated_column=$populated_column;
+				$element->parameters=$parameters;
 				$element->column=$this->column;
 				$element->prepare();
 				$retDisplay=$element->display($mode);
@@ -424,7 +430,7 @@ class zfForm {
 			}
 		}
 		if ($ret) $ret.='</ul>';
-		
+
 		if (count($dividers) > 0) {
 			$tabs='<ul>';
 			foreach ($dividers as $id => $divider) {
@@ -625,6 +631,7 @@ class zfForm {
 			$element->hidden=isset($value['hidden']) ? $value['hidden'] : '';
 			$element->unique=isset($value['unique']) ? $value['unique'] : '';
 			$element->rules=isset($this->elements['rules'][$key]) ? $this->elements['rules'][$key] : '';
+			$element->attributes=$value['attributes'];
 
 			$c=$this->countSubelements($value['subelements'],$key);
 			foreach ($value['subelements'] as $key2 => $sub)
@@ -707,23 +714,30 @@ class zfForm {
 		$this->recid=$id;
 		$this->postSaveElements();
 		$success=$this->postSave($success);
+		if ($this->formAttributes->sendemail && $this->formAttributes->emailfield) {
+			$emailAddress=$this->output['element_'.$this->formAttributes->emailfield.'_1'];
+			if ($emailAddress) {
+				$this->mailTo($emailAddress);
+			}
+		}
 		if (count($this->onSubmitActions) > 0) {
 			foreach ($this->onSubmitActions as $onSubmitAction) {
-				if ($onSubmitAction['action']=='mailto') $this->mailTo($onSubmitAction['to']);
+				if ($onSubmitAction['action']=='mailto') $this->mailTo($onSubmitAction['to'],true);
 			}
 		}
 		$this->updateWorkflow();
-		$this->alert("Save successful!");
+		if (isset($this->formAttributes->confirmation) && $this->formAttributes->confirmation) $this->alert($this->formAttributes->confirmation);
+		else $this->alert("Save successful!");
 		return $success;
 	}
 
 	function updateWorkflow() {
 		if (!isset($_SESSION['aphps']['workflow']['event']) || ($_SESSION['aphps']['workflow']['event']!='captureform')) return;
 		$wf=new aphpsWorkflow();
-		$wf->updateSession($wf->step+1,array_merge($this->rec,array('ID'=>$this->recid)),$this->form);	
+		$wf->updateSession($wf->step+1,array_merge($this->rec,array('ID'=>$this->recid)),$this->form);
 	}
-	
-	function mailTo($to) {
+
+	function mailTo($to,$legacy=false) {
 		if (!defined('APHPS_ADMIN_EMAIL')) return false;
 
 		$from=APHPS_ADMIN_EMAIL;
@@ -733,7 +747,14 @@ class zfForm {
 		$headers .= 'From: '.$from.' <'.$from.'>' . "\r\n";
 
 		$subject=$this->label.' submitted';
-		$message=$render=$this->printout();
+		if ($legacy) {
+			$message=$this->printout();
+		} else {
+			$message='';
+			if ($this->formAttributes->emailconfirmation) $message.=$this->formAttributes->emailconfirmation;
+			if ($this->formAttributes->sendemailformtouser) $message=$this->printout();
+		}
+		//		echo 'mail '.$from.'++'.$to.'--'.$subject.'--'.$message;
 		mail($to, '=?UTF-8?B?'.base64_encode($subject).'?=', $message, $headers);
 		return true;
 	}
@@ -1037,6 +1058,11 @@ class zfForm {
 		{
 			$element=new element($value['type']);
 			$element->id=$value['id'];
+			foreach ($value['subelements'] as $key2 => $sub) {
+				if (isset($sub['parameters'])) {
+					$element->parameters[$key][$key2]=$sub['parameters'];
+				}
+			}
 			$success=$element->output($input,$output,$mode);
 		}
 

@@ -63,7 +63,7 @@ function faces_add_element($fieldname,$multiformat,$form_dbtable,$maxlength) {
 	global $allfields;
 	
 	$xmlf=faces_get_xml($multiformat);
-	$fields=$xmlf->fields->attributes()->count;
+	$fields=isset($xmlf->fields->attributes()->count) ? $xmlf->fields->attributes()->count : $xmlf->fields->count();
 	
 	//check how many database fields are present
 	$realfields=0;

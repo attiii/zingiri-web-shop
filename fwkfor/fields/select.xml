@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config type="module" version="1.5.0">
-	<name>Select</name>
+	<name>Dropdown</name>
 	<fields count="3">
 		<field1>
 			<format>varchar(256)</format>

@@ -9,4 +9,5 @@
 			<format>int(11)</format>
 		</field1>
 	</fields>
+	<help>Number field, only integers allowed.</help>
 </config>

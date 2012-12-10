@@ -51,7 +51,7 @@ class radioZfSubElement extends zfSubElement {
 			if ($value==$default) { $checked="checked"; } else { $checked=""; }
 			$field_markup.="<input id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" value=\"{$value}\" type=\"radio\" {$e->readonly} {$checked}/> {$option}<br />";
 		}
-		$subscript_markup.="<label for=\"element_{$e->id}_{$i}\">".z_($xmlf->fields->{'field'.$i}->label)."</label>";
+		$subscript_markup.="<label class=\"subname\" for=\"element_{$e->id}_{$i}\">".z_($xmlf->fields->{'field'.$i}->label)."</label>";
 	}
 }
 ?>

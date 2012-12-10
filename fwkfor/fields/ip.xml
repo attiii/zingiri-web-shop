@@ -9,4 +9,5 @@
 			<maxlength>15</maxlength>
 		</field1>
 	</fields>
+	<help>IP address field.</help>
 </config>
