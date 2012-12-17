@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="module" version="1.5.0" hide="forms">
+	<name>Unique ID</name>
+	<fields count="1">
+		<field1>
+			<name>uniqueid</name>
+			<type>uniqueid</type>
+			<format>char(16)</format>
+		</field1>
+	</fields>
+	<help>Retrieves a unique id.</help>
+</config>

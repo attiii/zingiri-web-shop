@@ -1,10 +1,11 @@
 <?php
-// A Zingiri Web Shop 2.2.9r2 kiadásának magyar változata. Elkövette: Domi <domokos dot endrejanos at chello dot hu>
+// A Zingiri Web Shop 2.5.2 magyar fordítása Samli által, melyhez felhasználva a 2.2.9r2 kiadásának magyar változata, amit Domi <domokos dot endrejanos at chello dot hu> készített el.
 $charset = "UTF-8";
 
 // first some values that can also be used further along in this lang file
 // database values for orders
 $txt['frontpage1'] = 'További információ';
+
 $txt['db_shipping1'] = 'Ha a terméket - előre egyeztetett időben - személyesen veszi át, megtakarítja a szállítási költséget.';
 
 // fizetés
@@ -283,6 +284,7 @@ $txt['admin36'] = '<strong><font color="red">A Zingiri Web Shop hírei</font></s
 $txt['admin37'] = 'Szállítási körzetek';
 $txt['admin38'] = 'Kedvezmény';
 
+
 // customeradmin.php
 $txt['customeradmin1'] = 'Teljes név';
 $txt['customeradmin2'] = 'Csatlakozás napja';
@@ -488,7 +490,7 @@ $txt['productadmin24'] = 'E kép törlése';
 $txt['productadmin25'] = 'Kép törölve';
 $txt['productadmin26'] = 'Termék törölve';
 $txt['productadmin27'] = 'Extra lehetőségek';
-$txt['productadmin28'] = 'Bélyegképek ujragenerálása az összes termékről';
+$txt['productadmin28'] = 'Bélyegképek újragenerálása az összes termékről';
 $txt['productadmin29'] = 'Az összes bélyegkép kész.';
 $txt['productadmin30'] = 'Jellemzők <a href=# class=info>(?)<span>Tekintse meg a docs/manual.txt állományt az opció használatához (ha szükséges)</span></a>';
 $txt['productadmin31'] = 'Súly <a href=# class=info>(?)<span>A súly a szállítási költség kiszámításánál lesz használva.</span></a>';
@@ -538,11 +540,11 @@ $txt['groupadmin39'] = 'A kategóriának még nincs neve.';
 // uploadadmin.php
 $txt['uploadadmin1'] = ' feltöltve a ';
 $txt['uploadadmin2'] = 'Az állomány feltöltése közben hiba lépett fel, fusson neki ismét!';
-$txt['uploadadmin3'] = 'Kérem csak .sql állományokat töltsön fel';
+$txt['uploadadmin3'] = 'Kérem csak .xml vagy .sql állományokat töltsön fel';
 $txt['uploadadmin4'] = 'Árlista feltöltése (.SQL)';
-$txt['uploadadmin5'] = 'SQL file kiválasztása';
-$txt['uploadadmin6'] = 'SQL feltöltés';
-$txt['uploadadmin7'] = 'SQL file beillesztve az adatbázisba';
+$txt['uploadadmin5'] = 'XML vagy SQL file kiválasztása';
+$txt['uploadadmin6'] = 'Fájl feltöltés';
+$txt['uploadadmin7'] = 'Adatfájl beillesztve az adatbázisba';
 
 // adminedit.php
 $txt['adminedit1'] = 'Változtatások elmentése';
@@ -638,5 +640,193 @@ $txt['discountadmin6'] = 'Még nem használt kódok';
 $txt['discountadmin7'] = 'Kedvezménykód';
 $txt['discountadmin8'] = 'Nincsenek használaton kívüli kódok';
 $txt['discountadmin9'] = 'Létrehozás dátuma: ';
+
+//v1.1.0 - new
+$txt['groupadmin100'] = 'Kategória típusa';
+$txt['groupadmin101'] = 'Fizikai';
+$txt['groupadmin102'] = 'Digitális';
+$txt['groupadmin103'] = 'Új kategória típusa';
+$txt['productadmin100'] = 'Digitális forrás? <a href=# class=info>(?)<span>Ha ez egy digitális termék, feltölthető zene, videó, ebook, ... fájl ide</span></a>';
+$txt['readorder100'] = 'Az Ön letöltései';
+$txt['products1'] = 'Letöltés';
+
+//v1.2.2 - added
+$txt['generic1'] = 'Töröl';
+
+//v1.2.4 - added
+$txt['checkout100'] = "A fizetésének feldolgozása sikeresen megtörtént";
+$txt['checkout101'] = "Fizetését nem sikerült feldolgozni";
+
+//v1.2.4 - modified
+$txt['uploadadmin100'] = "Nem sikerült feltölteni a fájlt:";
+$txt['uploadadmin101'] = "Hiányzó mező:";
+$txt['uploadadmin102'] = "kapcsolatban";
+$txt['uploadadmin103'] = "Figyelem: Ismeretlen mező kihagyása ";
+
+//v1.2.5
+$txt['uploadadmin104'] = 'Maximális fájlméret bájtokban <a href=# class=info>(?)<span>A rendszerben engedélyezett maximális fájlméret. Növeléséhez módosítani kell a php.ini fájlt.</span></a>';
+$txt['uploadadmin105'] = 'Szimbolikus link a digitális termékre <a href=# class=info>(?)<span>A digitális termék másolása helyett egy szimbolikus linket hoz létre a termékhez.</span></a>';
+$txt['details100'] = 'Egyéb termékek';
+
+//v1.2.7 - new
+$txt['admin100'] = 'Adók';
+$txt['general100'] = 'Arány';
+$txt['general101'] = 'Címke';
+$txt['taxes1'] = 'Lépcsős';
+$txt['checkout102'] = "Adók";
+$txt['checkout103'] = "Kérjük fogadja el a feltételeket, mielőtt továbblépne";
+$txt['checkout104'] = "Most átirányítjuk a fizetési oldalra";
+$txt['editsettings110'] = 'Gyors fizetés aktiválása';
+$txt['cart100'] = 'mutat';
+$txt['cart101'] = 'elrejt';
+$txt['editsettings111'] = 'Születési idős regisztráció formátum'; //nem használt
+
+//v1.3.0 - added
+$txt['admin101'] = 'Promptok és címkék';
+$txt['editsettings112'] = 'Termék azonosító (ID) és teljes leírás';
+$txt['prompt1'] = 'Nyelv';
+$txt['prompt2'] = 'Sablon szöveg';
+$txt['prompt3'] = 'Egyéni szöveg';
+
+//v1.3.7 - added
+$txt['discountadmin100'] = 'Lejárati idő';
+$txt['discountadmin101'] = 'Mennyiségi lejárat';
+
+//v1.4.0 - added
+$txt['admin102'] = 'Irányítópult';
+$txt['dashboard1'] = 'Havi feliratkozás';
+$txt['dashboard2'] = 'Hónap';
+$txt['dashboard3'] = 'Statisztikák';
+$txt['dashboard4'] = 'Összes értékesítés';
+$txt['dashboard5'] = 'Átlagos értékesítés';
+$txt['dashboard6'] = 'Utolsó 5 rendelés';
+
+//v1.4.1 - added
+$txt['paymentadmin100'] = 'Kereskedő ID';
+$txt['paymentadmin101'] = 'Titkos';
+
+//v1.4.8 - changed
+$txt['editsettings8'] = 'Pénznem <a href=# class=info>(?)<span>Győződjön meg a pénznem ISO kódjáról, például HUF, EUR, USD, GBP, ...</span></a>';
+
+//1.4.9 - new
+$txt['address1'] = 'Első';
+$txt['address2'] = 'Utolsó';
+$txt['address3'] = 'Utca';
+$txt['address4'] = 'Név';
+$txt['address5'] = '2.sor';
+
+//1.5.0 - added
+$txt['general102'] = "Bekapcsolva";
+$txt['general103'] = "Kikapcsolva";
+$txt['stockadmin100'] = "Csak állapot";
+$txt['groupadmin104'] = 'Ez a csoport még tartalmaz kategóriákat';
+
+//1.5.1 - added
+$txt['dashboard7'] = 'Rekordok nem találhatók';
+$txt['my10'] = 'Egyéb címek';
+$txt['address6'] = 'Név';
+$txt['groupadmin105'] = 'Ez a kategória még tartalmaz termékeket';
+$txt['template1'] = 'Tartalom';
+$txt['template2'] = 'Cím';
+$txt['template3'] = 'Sablonok';
+
+//1.5.5 - added
+$txt['productadmin101'] = 'Termékkód';
+$txt['productadmin102'] = 'Rövid leírás';
+
+//1.6.0 - added
+$txt['editsettings113'] = 'Kép animáció rendelés esetén';
+$txt['editsettings114'] = 'Rövid leírás';
+$txt['editsettings117'] = 'Termék azonosító (ID) és rövid leírás';
+$txt['banned1'] = 'Tiltott IP-címek';
+$txt['banned2'] = 'IP-cím';
+$txt['customeradmin100'] = 'Ügyfél-azonosító';
+$txt['wishlist1'] = 'Bevásárlólista';
+$txt['wishlist2'] = 'Hozzáadás a bevásárlólistához';
+$txt['wishlist3'] = 'Bevásárlólista aktiválása';
+$txt['wishlist4'] = 'Üres a bevásárlólista.';
+$txt['browse100'] = 'Lista';
+$txt['browse101'] = 'Rács';
+
+//1.6.5 - added
+$txt['general104'] = 'Típus';
+$txt['general105'] = 'Meghatározás';
+$txt['editsettings115'] = 'Kosár lezárása és küldés';
+$txt['editsettings116'] = 'Küldés, a kosár nyitva hagyása';
+$txt['db_status0'] = 'Rendelés folyamatban';
+
+//1.6.7 - added
+$txt['generic2'] = 'Új';
+$txt['apps1'] = 'Amount format incorrect!';
+$txt['apps2'] = 'Code incorrect!';
+$txt['apps3'] = 'Hibás dátum formátum!';
+$txt['apps4'] = 'Kötelező mező!';
+$txt['apps5'] = 'Hibás e-mail formátum!';  
+$txt['apps6'] = 'Érvénytelen IP-cím formátum!';  
+$txt['apps7'] = 'Helytelen számformátum!';  
+$txt['apps8'] = 'A jelszavak nem egyeznek!';  
+$txt['apps9'] = 'Rekord nem található';  
+$txt['apps10'] = 'Ismét';
+$txt['apps11'] = 'Alacsony';
+$txt['apps12'] = 'Magas';
+$txt['apps13'] = 'Amount';
+$txt['apps14'] = 'A jelszó túl hosszú!';
+
+//1.6.9 - added
+$txt['taxes2'] = 'Adó kategóriák';
+$txt['taxes3'] = 'Adó kategória';
+
+//1.7.0 - added
+$txt['pay1'] = 'Érvénytelen kibocsátó kérés.';
+$txt['pay2'] = 'A tranzakció befejeződött';
+$txt['pay3'] = 'A kibocsájtó kérésének végrehajtása ';
+$txt['pay4'] = 'Érvénytelen tranzakció kérés.';
+$txt['pay5'] = 'A tranzakció kérés végrehajtása ';
+$txt['pay6'] = 'Érvénytelen visszatérési kérés.';
+$txt['pay7'] = 'A kérés állapot végrehajtása ';
+$txt['pay8'] = 'Válassza ki a bankot';
+$txt['pay9'] = 'A fizetés még nem teljes';
+$txt['pay10'] = 'Tovább';
+$txt['pay11'] = 'A fizetés meg lett szakítva. Kérjük, próbálja újra.';
+$txt['pay12'] = 'A fizetés sikertelen. Kérjük, próbálja újra.';
+$txt['pay13'] = 'Válasszon másik fizetési módot';
+$txt['pay14'] = "Nem tudok fizetni iDEAL-on keresztül";
+$txt['pay15'] = 'Érvénytelen jelentés kérés.';
+$txt['pay16'] = 'A tranzakció frissítésre került.';
+$txt['pay17'] = 'Nyitott ügyletek ellenőrzése.';
+$txt['pay18'] = 'Összes nyitott ügylet frissítve';
+$txt['pay19'] = 'Nem található nyitott ügylet.';
+$txt['pay20'] = 'Ablak bezárása';
+$txt['pay21'] = 'for';
+$txt['pay22'] = 'Fogadott';
+$txt['task1'] = 'Feladatok és karbantartás';
+$txt['task2'] = 'Feladatok';
+$txt['general106'] = 'Mehet';
+$txt['order100'] = 'E-mail ügyfél';
+$txt['order101'] = 'E-mail shop adminisztrátor';
+$txt['checkout105'] = 'Megrendelés visszaigazoló e-mail másolat küldése';
+$txt['checkout106'] = 'Tovább regisztráció nélkül';
+
+//1.7.2 - added
+$txt['paymentadmin103'] = 'Sub ID';
+$txt['paymentadmin104'] = 'Teszt mód';
+
+//1.8.0 -added
+$txt['migrate1'] = 'Áttelepítés';
+$txt['migrate2'] = 'Web Shop 1.x áttelepítése';
+$txt['migrate3'] = 'Hibás fájlformátum';
+
+//2.1 - added
+$txt['checklogin19'] = 'Folytatás a Facebook belépési adatokkal';
+$txt['menu20'] = 'Kosár';
+$txt['menu21'] = 'Személyes';
+
+//2.3.0 - added
+$txt['region1'] = 'Észak-Amerika';
+$txt['region2'] = 'Latin-Amerika és a Karib-térség';
+$txt['region3'] = 'Európa';
+$txt['region4'] = 'Afrika';
+$txt['region5'] = 'Ázsia';
+$txt['region6'] = 'Óceánia';
 
 ?>

@@ -85,12 +85,11 @@ function wsResizeImage($image,$thumb=true,$gfx=false) {
 		$maxWidth=$product_max_width;
 		$maxHeight=$product_max_height;
 	}
-	if (!gfx) $size = getimagesize(str_replace($product_url,$product_dir,$image));
-	else $size = getimagesize(str_replace(ZING_URL,ZING_DIR,$image));
-	$height = $size[1];
-	$width = $size[0];
+	if (!$gfx) $size = getimagesize(str_replace($product_url,$product_dir,$image));
+	else $size = getimagesize(str_replace(ZING_URL,ZING_LOC,$image));
+	$height = $size[1] ? $size[1] : $pricelist_thumb_height;
+	$width = $size[0] ? $size[0] : $pricelist_thumb_width;
 	$resized = 0;
-	
 	$percent = min($maxHeight / $size[1], $maxWidth / $size[0]);
 	$height = intval($size[1] * $percent);
 	$width = intval($size[0] * $percent);
@@ -167,4 +166,3 @@ function wsProductImage($picture,$default_image) {
 	}
 	return $thumb;
 }
-?>

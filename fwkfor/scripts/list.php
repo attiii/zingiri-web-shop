@@ -121,8 +121,10 @@ echo $topspan;
 				if ($links) {
 					foreach ($links as $i => $link) {
 						if ($span) $span.=" | ";
-						if ($link['FORMOUTALT']) $span.='<a href="'.zurl('?'.$link['FORMOUTALT'].'&id='.$id.'&map='.urlencode($link['MAP']).$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION']).'">'.z_(ucfirst($link['ACTION'])).'</a>';
-						else $span.='<a href="'.zurl('?page='.$page.'&zfaces='.$link['DISPLAYOUT'].'&action='.$link['ACTIONOUT'].'&formid='.$link['FORMOUT'].'&id='.$id.'&map='.rawurlencode($link['MAP']).$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION']).'">'.z_(ucfirst($link['ACTION'])).'</a>';
+						if (fwktecLicensedFor(array('module'=>'fwkfor','page'=>'list','action'=>$link['ACTION']))) {
+							if ($link['FORMOUTALT']) $span.='<a href="'.zurl('?'.$link['FORMOUTALT'].'&id='.$id.'&map='.urlencode($link['MAP']).$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION']).'">'.z_(ucfirst($link['ACTION'])).'</a>';
+							else $span.='<a href="'.zurl('?page='.$page.'&zfaces='.$link['DISPLAYOUT'].'&action='.$link['ACTIONOUT'].'&formid='.$link['FORMOUT'].'&id='.$id.'&map='.rawurlencode($link['MAP']).$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION']).'">'.z_(ucfirst($link['ACTION'])).'</a>';
+						}
 					}
 				}
 				$line=$id;

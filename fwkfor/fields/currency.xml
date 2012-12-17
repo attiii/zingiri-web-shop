@@ -19,7 +19,8 @@
 				<option9 value="SEK">SEK</option9>
 				<option10 value="DKK">DKK</option10>
 				<option11 value="CHF">CHF</option11>
-				<option11 value="NOK">NOK</option11>
+				<option12 value="NOK">NOK</option12>
+				<option13 value="ZAR">ZAR</option13>
 			</values>
 		</field1>
 	</fields>

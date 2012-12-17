@@ -50,6 +50,7 @@ class element {
 	var $showLabels=true;
 	var $settings;
 	var $parameters;
+	var $formAttributes;
 
 	function element($constraint) {
 		$this->constraint=$constraint;
@@ -333,7 +334,7 @@ class element {
 		if ($this->hidden) $hidden='display:none;'; else $hidden="";
 		$element_markup.= '<div data-field="'.(isset($this->column[$this->id]) ? $this->column[$this->id] : '').'" id="zf_'.$this->id.'" class="zfelement '.$error_class.'" style="'.$position.$hidden.'">';
 		if ($xmlf->attributes()->header == "none") { $label=""; }
-		if ($this->showLabels) $element_markup.= '<label id="zf_'.$this->id.'_name" class="zfelabel">'.z_($label).' '.$span_required.'</label>';
+		if ($this->showLabels) $element_markup.= '<label id="zf_'.$this->id.'_name" class="zfelabel '.(isset($this->formAttributes->labelposition) ? $this->formAttributes->labelposition : 'left').'">'.z_($label).' '.$span_required.'</label>';
 		$element_markup.='<div class="zfsubelements" id="zf_'.$this->id.'_sf">';
 		$ac=1;
 		for ($i=1; $i<=$fields; $i++) {

@@ -48,6 +48,7 @@ if (!class_exists('aphps')) {
 			if (!$this->form) {
 				if (is_numeric($formIdOrName)) {
 					$this->form=new zfForm(null,$formIdOrName,null,$mode,'form',$id);
+					
 				} else {
 					$this->form=new zfForm($formIdOrName,null,null,$mode,'form',$id);
 				}

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config type="module" version="1.5.0">
-	<name>Multiple Choice</name>
+	<name>Dropdown</name>
 	<fields count="1">
 		<field1>
 			<format>varchar(256)</format>
-			<type>multiple_choice</type>
+			<type>dropdown</type>
 		</field1>
 	</fields>
 	<settings>
@@ -17,6 +17,5 @@
 			</controllers>
 		</field1>
 	</settings>
-	<help>Provides a fully customisable multiple choice list in the form of
-		radio buttons.</help>
+	<help>Provides a drop down list of selectable options.</help>
 </config>

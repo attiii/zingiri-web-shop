@@ -110,7 +110,6 @@ class zfForm {
 						$dbKey=$this->json[$linkedElement]['subelements'][2]['populate'];
 						$dbTable=$this->json[$linkedElement]['subelements'][4]['populate'];
 						$query="select ".$dbField." from ##".$dbTable." where ".$dbKey."=".qs($dbValue);
-						//echo '<br />'.$linkedElement.'-'.$dbField.'-'.$dbKey.'-'.$dbTable;
 						$db=new aphpsDb();
 						$db->select($query);
 						if ($row=$db->next()) {
@@ -138,7 +137,6 @@ class zfForm {
 					if ($db->next()) {
 						$dbValue=$db->get($getField);
 					}
-					//echo '<br />'.$linkedElement.'-'.$dbField.'-'.$dbKey.'-'.$dbTable;
 
 					if (is_numeric($dbValue)) {
 						$dbField=$value['subelements'][2]['populate'];
@@ -191,7 +189,6 @@ class zfForm {
 	}
 
 	function filter($post='') {
-		//print_r($post);
 		$linksin=new aphpsDb();
 		$query="select * from ##flink where (displayout='".$this->page."' or displayout='any') and formout='".$this->id."' and mapping <> ''";
 		$linksin->select($query);
@@ -342,6 +339,7 @@ class zfForm {
 			$isFirst=true;
 			foreach ($a as $i => $value)
 			{
+				$columnName=null;
 				$key=$value['id'];
 				$element=new element($value['type']);
 				$element->isRepeatable=isset($value['attributes']['zfrepeatable']) ? $value['attributes']['zfrepeatable'] : '';
@@ -362,9 +360,9 @@ class zfForm {
 				$element->rules=isset($this->elements['rules'][$key]) ? $this->elements['rules'][$key] : '';
 				$element->showSubscript=true;
 				$element->showLabels=$this->showLabels;
+				$element->formAttributes=$this->formAttributes;
 
 				$c=$this->countSubelements($value['subelements'],$key);
-
 				$ca=0;
 				if ($element->isRepeatable) {
 					foreach ($value['subelements'] as $key2 => $sub) {
@@ -394,9 +392,13 @@ class zfForm {
 						} else {
 							$f=$this->column[$key];
 						}
-						if (isset($populated_value['element_'.$key.'_'.$key2])) $populated_column[$f]=$populated_value['element_'.$key.'_'.$key2];
+						if (isset($populated_value['element_'.$key.'_'.$key2])) { 
+							$populated_column[$f]=$populated_value['element_'.$key.'_'.$key2];
+						}
 					}
 				}
+				$columnName=$this->column[$key];
+				if ($columnName && !fwktecLicensedFor(array('module'=>'fwkfor','page'=>'form','action'=>'render','par1'=>$columnName))) continue;
 				if ($isFirst) {
 					$ret.='<ul id="zfaces'.$numDiv.'" class="zfaces">';
 					$numDiv++;
@@ -409,6 +411,7 @@ class zfForm {
 				$element_markup='<li class="zfli" style="background-image:none;">';
 				$element->populated_value=$populated_value;
 				$element->populated_column=$populated_column;
+				$element->columnName=$columnName;
 				$element->parameters=$parameters;
 				$element->column=$this->column;
 				$element->prepare();
@@ -831,7 +834,6 @@ class zfForm {
 			$keys=array();
 			$row=array();
 			$row['PARENTID']=$id;
-			//echo 'save grid'.print_r($this->grid,true);
 			foreach ($this->grid as $name => $values) {
 				$db->update('delete from ##'.$this->entity.'_attributes where parentid='.qs($id).' and name='.qs($name));
 				$row['NAME']=$name;
@@ -1029,7 +1031,7 @@ class zfForm {
 				if (($this->page=='list') && ($this->json[$key1]['type']=='submit')) continue;
 				if (count($sub['subelements']) > 0) {
 					foreach ($sub['subelements'] as $key2 => $data) {
-						if (!isset($input['element_'.$key1."_".$key2])) $input['element_'.$key1."_".$key2]=$data['populate'];
+						if (!isset($input['element_'.$key1."_".$key2])) $input['element_'.$key1."_".$key2]=isset($data['populate']) ? $data['populate'] : '';
 					}
 				}
 			}

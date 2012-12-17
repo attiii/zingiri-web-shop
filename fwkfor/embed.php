@@ -1,5 +1,5 @@
 <?php
-define("ZING_APPS_PLAYER_VERSION","1.4.1");
+define("ZING_APPS_PLAYER_VERSION","1.4.2");
 
 if (!defined('APHPS_XD')) define('APHPS_XD',0);
 

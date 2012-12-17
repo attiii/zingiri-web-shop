@@ -6,3 +6,9 @@ function fwktecSendEmail($from,$to,$subject,$message,$charset) {
 	mail($to, $subject, $message, $headers);
 	return true;
 }
+
+if (!function_exists('fwktecLicensedFor')) {
+	function fwktecLicensedFor($option) {
+		return true;
+	}
+}

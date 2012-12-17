@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<config type="module" version="1.5.0">
+<config type="module" version="1.5.0" deprecated="1">
 	<name>Radio buttons</name>
 	<fields count="2">
 		<field1>

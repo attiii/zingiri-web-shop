@@ -1,6 +1,7 @@
 <?php
 $zing_version=get_option("zing_webshop_version");
 
+//define('APHPS_HTML_EDITOR','wordpress_client');
 if (!defined("ZING_DIG") && get_option('zing_webshop_dig')!="") {
 	define("ZING_DIG",BLOGUPLOADDIR.'/zingiri-web-shop/digital-'.get_option('zing_webshop_dig').'/');
 }

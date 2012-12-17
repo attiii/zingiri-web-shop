@@ -37,7 +37,7 @@ class htmlareaZfSubElement extends zfSubElement {
 			} elseif ($this->mode!='build' && defined('ZING_CMS') && ZING_CMS=='wp') {
 				$field_markup.='<div id="poststuff">';
 				ob_start();
-				the_editor($e->populated_value['element_'.$e->id.'_'.$i],"element_".$e->id."_".$i,'title',true,2,true);
+				wp_editor($e->populated_value['element_'.$e->id.'_'.$i],"element_".$e->id."_".$i,'title',true,2,true);
 				$field_markup.=ob_get_clean();
 				$field_markup.='</div>';
 			}

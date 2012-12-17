@@ -274,8 +274,8 @@ function zing_init()
 		define("ZING_LIVE",false);
 		if (!session_id()) @session_start();
 		wp_enqueue_script('jquery');
-		wp_enqueue_script('jquery-ui-core');
-		wp_enqueue_script('jquery-ui-sortable');
+		wp_enqueue_script(array('jquery-ui-core','jquery-ui-dialog','jquery-ui-datepicker','jquery-ui-sortable','jquery-ui-tabs'));
+		wp_enqueue_style('jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/flick/jquery-ui.css');
 		ob_start();
 		if ( ( defined( 'WP_ADMIN' ) && WP_ADMIN == true ) || ( strpos( $_SERVER[ 'PHP_SELF' ], 'wp-admin' ) !== false ) ) return; //bail out
 	} else {
@@ -673,12 +673,12 @@ function zurl($url,$printurl=false,$interface='') {
 
 	if (isset($_REQUEST['wslive']) && $_REQUEST['wslive']=='wp') {
 		if (IsAdmin()) {
-			
+				
 			$url=str_replace('index.php','',$url);
 			$url=str_replace('?','admin.php?',$url);
 			//$url='http://mymac/ws5/wp-admin/'.$url;
-			
-			
+				
+				
 		} else {
 			if (strstr($url,ZING_HOME)===false) {
 				$url=str_replace('index.php',$_REQUEST['wsliveurl'].'/index.php',$url);

@@ -1,6 +1,6 @@
 <?php
 class wsPrice {
-
+	
 	function price($price,$nice=true) {
 		if (class_exists('wsMultiCurrency')) {
 			$mc=new wsMultiCurrency();

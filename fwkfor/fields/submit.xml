@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<config type="module" version="1.5.0" header="none">
+<config type="module" version="1.5.0" header="none" deprecated="1">
 	<name>Submit</name>
 	<fields count="3">
 		<field1>

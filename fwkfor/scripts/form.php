@@ -239,7 +239,7 @@ if ($allowed && $success && $showform == "edit") {
 			echo '<input id="appscommit" class="art-button" type="submit" name="save" value="'.z_('Save').'">';
 		} elseif ($action == 'delete') {
 			echo '<input class="art-button" type="submit" name="delete" value="'.z_('Delete').'">';
-		} elseif (!$zfform->hasSubmit && !empty($action)) {
+		} elseif (!$zfform->hasSubmit && !empty($action) && ($action!='view')) {
 			echo '<input class="art-button" type="submit" name="other" value="'.z_('Confirm').'">';
 		}
 		echo '</div>';
