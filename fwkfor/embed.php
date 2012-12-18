@@ -3,6 +3,8 @@ define("ZING_APPS_PLAYER_VERSION","1.4.2");
 
 if (!defined('APHPS_XD')) define('APHPS_XD',0);
 
+require(dirname(__FILE__).'/autoload.php');
+
 require_once(dirname(__FILE__).'/aphps.php');
 require(dirname(__FILE__).'/'.ZING_CMS.'.init.inc.php');
 require(dirname(__FILE__).'/'.ZING_CMS.'.hooks.inc.php');
