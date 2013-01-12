@@ -37,8 +37,7 @@ echo $tmp;
 //<![CDATA[
 	jQuery(document).ready(function() {
 	    wsFrontPage=true;
-		//cart=new wsCart();
-		wsCart.order();
+			wsCart.order();
 	});
 //]]>
 </script>

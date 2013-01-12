@@ -30,7 +30,6 @@ class widget_sidebar_general {
 		if (ZING_CMS=='dp') { echo "<li"; if ($page == "main") { echo " id=\"active\""; }; echo "><a href=\"".zurl("index.php?page=main")."\">" . $txt['main1'] . "</a></li>\n"; }
 		echo "<li"; if ($page == "search") { echo " id=\"active\""; }; echo "><a href=\"".zurl("index.php?page=search")."\">" . $txt['menu4'] . "</a></li>\n";
 		if ($new_page == 1) { echo "<li"; if ($page == "browse" && $action=="shownew") { echo " id=\"active\""; }; echo "><a href=\"".zurl("index.php?page=browse&action=shownew")."\">" . $txt['menu16'] . "</a></li>\n"; }
-		echo "<li"; if ($page == "contact") { echo " id=\"active\""; }; echo "><a href=\"".zurl("index.php?page=contact")."\">" . $txt['menu8'] . "</a></li>\n";
 		if ((ZING_CMS=='jl' || ZING_CMS=='dp' || ZING_LIVE)) {
 			if (!LoggedIn()) {
 				echo "<li"; if ($page == "my") { echo " id=\"active\""; }; echo "><a href=\"".zurl("index.php?page=my")."\">" . $txt['menu12'] . "</a></li>\n";

@@ -36,6 +36,7 @@ function zing_admin_notices() {
 		}
 	}
 	if ($message) echo "<div id='zing-warning' style='background-color:greenyellow' class='updated fade'><p><strong>".$message."</strong> "."</p></div>";
+	echo "<div id='zing-warning' style='background-color:greenyellow' class='updated fade'><p><strong>Please note that the Ideal gateway is no longer include with Web Shop, you can download it for free <a href=\"https://go.zingiri.com/cart.php?gid=18\" target=\"_blank\">here</a>.</strong> "."</p></div>";
 }
 
 
@@ -332,6 +333,7 @@ function zing_main($process,$content="") {
 
 	$to_include="";
 
+	
 	switch ($process)
 	{
 		case "content":

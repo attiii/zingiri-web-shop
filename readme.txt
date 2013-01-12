@@ -4,7 +4,7 @@ Donate link: http://www.zingiri.com/
 Tags: ecommerce, e-commerce, paypal, freewebshop, shop, cart, web shop, shopping cart, iDEAL, payson, Google Checkout, Worldpay, 2checkout, facebook, Payson, webshop, free web shop
 Requires at least: 2.1.7
 Tested up to: 3.5
-Stable tag: 2.5.6
+Stable tag: 2.5.7
 
 Zingiri Web Shop is a Wordpress plugin that adds fantastic ecommerce capabilities to a great content management system.
 
@@ -19,7 +19,7 @@ The main features of the basic version are:
 * Full customer management module
 * Complete ordering and stock management module
 * Ajax powered shopping cart & one page checkout
-* Support for payment portals like Paypal, Worldpay, Google Checkout and iDEAL and possibility to add your own
+* Support for payment portals like Paypal, Worldpay and Google Checkout
 * Multiple language libraries included: English, Dutch, French, German, Spanish, Portuguese, Danish, Estonian, Finish, Greek, Hungarian, Italian, Japanese, Norwegian, Polish, Romanian, Russian, Swedish, Slovak, Thai, Turkish and Serbian
 * Localized tax support: including support for complex cascading tax systems 
 * Easily migrate your current web shop by uploading your products via an XML file
@@ -29,7 +29,7 @@ The Web Shop can also easily be extended with a number of additional professiona
 * Social media: integrate your shop with Facebook and start selling on the largest social media market 
 * Order management: manual ordering
 * Product features: extend the power of product features and define customer price formulas for your products
-* Additional gateways: Payson, 2Checkout
+* Additional gateways: Payson, 2Checkout, iDEAL
 * Offline credit cards: record credit card details during registration and process them offline 
 * Forms editor: edit the customer registration and other forms to your liking (coming soon)  
 * Multi-lingual: provide multiple languages at once (coming soon)
@@ -59,6 +59,11 @@ Upgrades are handled automatically. Simply upload the latest version, go to sett
 Before upgrading, make sure you back up your database first!
 
 == Changelog ==
+
+= 2.5.7 =
+* Made email mandatory
+* Removed contact page in favor of other Wordpress plugins
+* Moved Ideal payment gateway to separate plugin
 
 = 2.5.6 =
 * Fixed issue with missing fwktecLicensedFor() function

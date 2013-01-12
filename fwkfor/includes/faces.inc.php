@@ -43,7 +43,7 @@ function faces_get_xml($type,$dir="") {
 
 	if (count($aphps_projects) > 0) {
 		foreach ($aphps_projects as $id => $project) {
-			if ($id != 'player') {
+			if (($id != 'player') && isset($project['dir'])) {
 				$url_details=$project['dir'].'fields/'.$type.".xml";
 				if (file_exists($url_details)) {
 					if ($xmlf=simplexml_load_file($url_details)) {
@@ -173,6 +173,7 @@ function zf_json_encode($a) {
 function zfDumpQuery($query,$table="",$data=array()) {
 	global $aphps_projects;
 	$dir='';
+	if (!defined("APHPS_DEV") || !APHPS_DEV) return true;
 	if (!defined("ZING_APPS_BUILDER") || !ZING_APPS_BUILDER) return true;
 	$include=array("frole","faccess","flink","menugroup","menucategory");
 	if (!empty($table) && !in_array($table,$include)) return true;

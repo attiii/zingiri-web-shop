@@ -344,7 +344,7 @@ class element {
 			if ($fields>1) $this->name[$i]=(string)$fn;
 			
 			$subscript_markup = '';
-			$field_markup ="<div id=\"zf_{$this->id}_{$fn}\" style=\"width: {$xmlf->fields->{'field'.$i}->width}\" class=\"zfsub $type\">";
+			$field_markup ="<div id=\"zf_{$this->id}_{$fn}\" style=\"width: {$xmlf->fields->{'field'.$i}->width}\" class=\"zfsub $type".($this->isRepeatable ? ' zfrepeatable' : '')."\">";
 			if (isset($this->isRepeatable) && $this->isRepeatable) $ac=max($ac,count($this->populated_value['element_'.$this->id.'_'.$i]));
 			//default
 			for ($ai=0; $ai < $ac; $ai++) {
@@ -357,7 +357,7 @@ class element {
 					else $e->display($field_markup,$subscript_markup);
 					$this->divider=isset($e->divider) ? $e->divider : null;
 				}
-				if ($ac > 1) $field_markup.='<br />';
+				//if ($ac > 1) $field_markup.='<br />';
 				if ($ac > 1 && $ai!=$ac-1) $subscript_markup='';
 			}
 			if ($xmlf->fields->{'field'.$i}->subscript != "none" && $xmlf->fields->{'field'.$i}->label != "") {
@@ -371,14 +371,14 @@ class element {
 			if (isset($this->attributes['zfrepeatable']) && $this->attributes['zfrepeatable']) {
 				$element_markup.='<div id="zfc_'.$this->id.'_del" class="zftablecontrol" style="float:left;position:relative;">';
 				for ($ai=1; $ai <= $ac; $ai++) {
-					$element_markup.='<input type="button" pos="'.$ai.'" id="zfci_'.$this->id.'_del_'.$ai.'" class="zfrepeatable_del" onclick="appsRepeatable.del(\''.$this->id.'\','.$ai.')" value="-" height="16px"/>';
-					if ($ac > 1 && $ai < $ac) $element_markup.='<br />';
+					$element_markup.='<input type="button" data-pos="'.$ai.'" id="zfci_'.$this->id.'_del_'.$ai.'" class="zfrepeatable_del" onclick="appsRepeatable.del(\''.$this->id.'\','.$ai.')" value="-" height="16px"/>';
+					//if ($ac > 1 && $ai < $ac) $element_markup.='<br />';
 				}
 				$element_markup.='</div>';
 				$element_markup.='<div id="zfc_'.$this->id.'_add" class="zftablecontrol" style="float:left;position:relative;">';
 				for ($ai=1; $ai <= $ac; $ai++) {
-					$element_markup.='<input type="button" pos="'.$ai.'" id="zfci_'.$this->id.'_add_'.$ai.'" class="zfrepeatable_add" onclick="appsRepeatable.add(\''.$this->id.'\','.$ai.')" value="+" height="16px"/>';
-					if ($ac > 1 && $ai < $ac) $element_markup.='<br />';
+					$element_markup.='<input type="button" data-pos="'.$ai.'" id="zfci_'.$this->id.'_add_'.$ai.'" class="zfrepeatable_add" onclick="appsRepeatable.add(\''.$this->id.'\','.$ai.')" value="+" height="16px"/>';
+					//if ($ac > 1 && $ai < $ac) $element_markup.='<br />';
 				}
 				$element_markup.='</div>';
 				$this->includeJavascript($this->id);

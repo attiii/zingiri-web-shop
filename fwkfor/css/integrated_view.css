@@ -86,25 +86,6 @@
 	text-align: center;
 }
 
-.password h2 {
-	color: #DF0000;
-	font-weight: bold;
-	margin: 0pt auto 10px;
-}
-
-.password input.text {
-	font-size: 170% !important;
-	width: 380px;
-	text-align: center;
-}
-
-.password label {
-	display: block;
-	font-size: 120% !important;
-	padding-top: 10px;
-	font-weight: bold;
-}
-
 #li_captcha {
 	padding-left: 5px;
 }
@@ -424,15 +405,16 @@ div.calendar {
 
 .zfsub label.subname {
 	clear: both;
-	/*color:white;*/
 	display: block;
-	font-size: 9px;
+	font-size: 9px !important;
 	line-height: 9px;
 	margin: 0;
 	padding-top: 1px;
 	padding-bottom: 1px;
 	text-align: left;
+	font-weight: normal;
 }
+
 
 .zfedit {
 	border: 0px;
@@ -646,3 +628,15 @@ li.zfli {
 	margin-left:10px;
 }
 
+div.zfsub .element {
+	margin-bottom: 3px;
+}
+
+.zfrepeatable .element, .zfrepeatable_add, .zfrepeatable_del {
+	height: 2em;
+	margin-bottom: 3px;
+}
+
+.zfrepeatable .element, .zfrepeatable_add, .zfrepeatable_del {
+	display: block;
+}

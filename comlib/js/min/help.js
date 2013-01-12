@@ -1,0 +1,1 @@
+jQuery(document).ready(function(){var a,b;jQuery("#help").find("div").each(function(c,d){a=jQuery(d);b=jQuery("#"+a.attr("data-field"));if(b.length>0){b.bubbletip(a,{deltaDirection:a.attr("data-direction"),calculateOnShow:true})}})});

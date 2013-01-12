@@ -53,7 +53,6 @@ if ($shop_disabled == 1 && IsAdmin() == true) {
 //<![CDATA[
 	jQuery(document).ready(function() {
 	    wsFrontPage=true;
-		//cart=new wsCart();
 		wsCart.order();
 	});
 //]]>

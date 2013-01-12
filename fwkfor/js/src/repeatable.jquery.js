@@ -11,11 +11,11 @@ appsRepeatable = {
 		jQuery('#'+id).children().each(function(i, itemin) {
 			if (itemin.id) {
 				divTag=jQuery('#'+itemin.id);
-				if (divTag.attr('class')=='zfsub') {
+				if (divTag.hasClass('zfsub')) {
 					divTag.children('.element').each(function(k,input) {
 						inputTag=jQuery('#'+input.id);
 						that.html[x][i]=inputTag.html();
-						inputTag.attr('pos',k+1);
+						inputTag.attr('data-pos',k+1);
 						if ((k+1) > max) max=k+1;
 						if (inputTag.attr('name').indexOf('[]')<0) inputTag.attr('name',inputTag.attr('name')+'[]');
 						inputTag.bind('keydown',that,function(event) {
@@ -42,22 +42,22 @@ appsRepeatable = {
 			if (itemin.id) {
 				divTag=jQuery('#'+itemin.id);
 				c=divTag.children('.element').size();
-				if (divTag.attr('class')=='zfsub') {
+				if (divTag.hasClass('zfsub')) {
 					divTag.children('.element').each(function(i,input) {
 						inputTag=jQuery('#'+input.id);
-						if (inputTag.attr('pos')==pos || (pos==1 && i==0)) {
-							if (i>0) inputTag.prev().remove();
-							else inputTag.next().remove();
+						if (inputTag.attr('data-pos')==pos || (pos==1 && i==0)) {
+							//if (i>0) inputTag.prev().remove();
+							//else inputTag.next().remove();
 							inputTag.remove();
 						}
 					});
 				}
-				if (divTag.attr('class')=='zftablecontrol') {
+				if (divTag.hasClass('zftablecontrol')) {
 					divTag.children('input').each(function(i,input) {
 						inputTag=jQuery('#'+input.id);
-						if (inputTag.attr('pos')==pos || (pos==1 && i==0)) {
-							if (i>0) inputTag.prev().remove();
-							else inputTag.next().remove();
+						if (inputTag.attr('data-pos')==pos || (pos==1 && i==0)) {
+							//if (i>0) inputTag.prev().remove();
+							//else inputTag.next().remove();
 							inputTag.remove();
 						}
 					});
@@ -74,14 +74,15 @@ appsRepeatable = {
 		this.n.id[x]++;
 		that=this;
 		var html="";
+		
 		item=jQuery('#'+id);
 		jQuery('#'+id).children().each(function(k, itemin) {
 			if (itemin.id) {
 				divTag=jQuery('#'+itemin.id);
-				if (divTag.attr('class')=='zfsub') {
+				if (divTag.hasClass('zfsub')) {
 					divTag.children('.element').each(function(i,input) {
 						inputTag=jQuery('#'+input.id);
-						if (inputTag.attr('pos')==pos || (pos==1 && i==0)) {
+						if (inputTag.attr('data-pos')==pos || (pos==1 && i==0)) {
 							type=inputTag.get(0).tagName;
 							if (type=='TEXTAREA') {
 								newInputTag=jQuery("<textarea>");
@@ -99,7 +100,7 @@ appsRepeatable = {
 							}
 							key=divTag.attr('id')+'_'+that.j.id[x];
 							newInputTag.attr('id',divTag.attr('id')+'_'+that.j.id[x]);
-							newInputTag.attr('pos',that.j.id[x]);
+							newInputTag.attr('data-pos',that.j.id[x]);
 							newInputTag.attr('class',inputTag.attr('class'));
 							newInputTag.html(that.html[x][k]);
 							
@@ -112,7 +113,7 @@ appsRepeatable = {
 							if (inputTag.attr('size')>0) newInputTag.attr('size',inputTag.attr('size'));
 							if (inputTag.attr('maxlength')>0) newInputTag.attr('maxlength',inputTag.attr('maxlength'));
 							inputTag.after(newInputTag);
-							newInputTag.before(jQuery('<br />'));
+							//newInputTag.before(jQuery('<br />'));
 							if (k==0) newInputTag.focus();
 							if (type=="textarea") {
 								tinyMCE.addMCEControl(document.getElementById(newInputTag.attr('id')),newInputTag.attr('id'));
@@ -121,21 +122,21 @@ appsRepeatable = {
 						}
 					});
 				}
-				if (divTag.attr('class')=='zftablecontrol') {
+				if (divTag.hasClass('zftablecontrol')) {
 					divTag.children('input').each(function(i,input) {
 						inputTag=jQuery('#'+input.id);
-						if (inputTag.attr('pos')==pos || (pos==1 && i==0)) {
+						if (inputTag.attr('data-pos')==pos || (pos==1 && i==0)) {
 							newInputTag=jQuery("<input>");
 							newInputTag.attr('id',divTag.attr('id')+'_'+that.j.id[x]);
-							if (inputTag.attr('value')=="+") action='appsRepeatable.add(\''+id+'\','+that.j.id[x]+')';
-							else action='appsRepeatable.del(\''+id+'\','+that.j.id[x]+')';
+							if (inputTag.attr('value')=="+") action='appsRepeatable.add(\''+x+'\','+that.j.id[x]+')';
+							else action='appsRepeatable.del(\''+x+'\','+that.j.id[x]+')';
 							newInputTag.attr('onclick',action);
-							newInputTag.attr('pos',that.j.id[x]);
+							newInputTag.attr('data-pos',that.j.id[x]);
 							newInputTag.attr('class',inputTag.attr('class'));
 							newInputTag.attr('value',inputTag.attr('value'));
 							newInputTag.attr('type',inputTag.attr('type'));
 							inputTag.after(newInputTag);
-							newInputTag.before(jQuery('<br />'));
+							//newInputTag.before(jQuery('<br />'));
 						}
 					});
 				}
@@ -146,14 +147,14 @@ appsRepeatable = {
 	tab: function(event) {
 
 		var t = jQuery(event.target);
-		pos=t.attr('pos');
+		pos=t.attr('data-pos');
     	 if (event.keyCode == '9' && !event.shiftKey) {
     		 p=t.parent();
     		 s=p.next();
-    		 if (s.attr('class')=='zfsub') {
+    		 if (s.hasClass('zfsub')) {
     			 s.children('input').each(function(i,input) {
     				 c=jQuery('#'+input.id);
-    				 if (c.attr('pos')==pos) {
+    				 if (c.attr('data-pos')==pos) {
     					 c.focus();
     				 }
     			 });
@@ -161,7 +162,7 @@ appsRepeatable = {
     			 s=p.parent().children().eq(0);
     			 s.children('input').each(function(i,input) {
     				 c=jQuery('#'+input.id);
-    				 if (c.attr('pos')==pos) {
+    				 if (c.attr('data-pos')==pos) {
     					 if (c.next() && c.next().next()) c.next().next().focus();
     					 else return true;
     				 }
@@ -172,10 +173,10 @@ appsRepeatable = {
     	 if (event.keyCode == '9' && event.shiftKey) {
     		 p=t.parent();
     		 s=p.prev();
-    		 if (s.attr('class')=='zfsub') {
+    		 if (s.hasClass('zfsub')) {
     			 s.children('input').each(function(i,input) {
     				 c=jQuery('#'+input.id);
-    				 if (c.attr('pos')==pos) {
+    				 if (c.attr('data-pos')==pos) {
     					 c.focus();
     				 }
     			 });
@@ -183,7 +184,7 @@ appsRepeatable = {
     			 s=p.parent().children().eq(-4);
     			 s.children('input').each(function(i,input) {
     				 c=jQuery('#'+input.id);
-    				 if (c.attr('pos')==pos) {
+    				 if (c.attr('data-pos')==pos) {
     					 if (c.next() && c.prev().prev()) c.prev().prev().focus();
     					 else return true;
     				 }
