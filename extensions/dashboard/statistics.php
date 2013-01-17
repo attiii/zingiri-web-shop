@@ -21,10 +21,7 @@
  */
 ?>
 <?php
-
-$zing->addToDashboard('statistics');
-
-function statistics() {
+function statistics_widget() {
 
 	global $txt;
 

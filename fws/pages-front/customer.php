@@ -22,7 +22,9 @@ if ($action=="add" && isset($_GET['step']) && $_GET['step']=="save" && $custForm
 			$zingPrompts->load(true);
 			$newcustomerid=$custForm->recid;
 			if ($integrator->wpCustomer) {
-				$integrator->createWpUser(array('user_login'=>$login,'first_name'=>$initials,'last_name'=>$surname,'user_email'=>$email),'subscriber');
+				//suppress hook from firing
+				if (ZING_CMS=='wp') remove_action('user_register','zing_profile');
+				$integrator->createWpUser(array('user_login'=>$login,'first_name'=>$initials,'last_name'=>$surname,'user_email'=>$email,'user_pass'=>$pass1),'subscriber');
 				$integrator->loginWpUser($login,$pass1);
 			}
 			mymail($webmaster_mail, $webmaster_mail, $txt['customer36'], $txt['customer37']."<br /><br />".str_replace($pass1,'********',$txt['customer12']), $charset);
@@ -43,6 +45,7 @@ if ($action=="add" && isset($_GET['step']) && $_GET['step']=="save" && $custForm
 			if (!$pagetoload) $pagetoload='page=my';
 			else $pagetoload=base64url_decode($pagetoload);
 			header('Location: '.zurl('index.php?'.$pagetoload));
+			die();
 		}
 		else {
 			// update existing customer
@@ -65,6 +68,7 @@ if ($action=="add" && isset($_GET['step']) && $_GET['step']=="save" && $custForm
 			if (!$pagetoload) $pagetoload='page=checkout1';
 			else $pagetoload=base64url_decode($pagetoload);
 			header('Location: '.zurl('index.php?'.$pagetoload));
+			die();
 	}
 }
 ?>

@@ -484,16 +484,16 @@ function file_trim(&$value, $key){
 // check if current user is banned
 function IsBanned() {
 	// check ip from database
-	Global $dbtablesprefix;
+	global $dbtablesprefix;
 	if (!isset($_COOKIE['fws_cust'])) { return false; }
 	$fws_cust = explode("#", $_COOKIE['fws_cust']);
 	$customerid = aphpsSanitize($fws_cust[1]);
 	if (is_null($customerid)) { return false; }
 	$f_query = "SELECT * FROM ".$dbtablesprefix."customer WHERE ID = " . qs($customerid);
 	$f_sql = mysql_query($f_query) or die(mysql_error());
-	while ($f_row = mysql_fetch_row($f_sql)) {
+	if ($f_row = mysql_fetch_row($f_sql)) {
 		$userip = $f_row[6];
-	}
+	} else $userip='';
 	// get current computers ip
 	$ip = GetUserIP();
 

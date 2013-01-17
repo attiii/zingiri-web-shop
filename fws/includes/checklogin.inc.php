@@ -33,7 +33,8 @@ if (LoggedIn() == false) {
 		</div>
 		<input type="hidden" name="redirect_to"
 			value="<?php echo urlencode(zurl(wsHomePage($pagetoload),true));?>"
-		/> <input type="hidden" name="testcookie" value="1" />
+		/>  
+		<input type="hidden" name="testcookie" value="1" />
 	</form>
 	<div style="text-align: center">
 		<a href="<?php zurl(get_option('siteurl')."/wp-login.php?action=lostpassword",true)?>"><?php echo $txt['checklogin11'] ?>

@@ -840,4 +840,10 @@ $txt['region4'] = 'Africa';
 $txt['region5'] = 'Asia';
 $txt['region6'] = 'Oceania';
 
+//2.5.9 - added
+$txt['errorlog_widget']='Error log';
+$txt['lastorders_widget']='Last Orders';
+$txt['lastseen_widget']='Last Seen';
+$txt['monthlysignupchart_widget']='Monthly Signup Chart';
+$txt['statistics_widget']='Statistics';
 ?>

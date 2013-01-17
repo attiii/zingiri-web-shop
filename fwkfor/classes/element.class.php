@@ -51,6 +51,7 @@ class element {
 	var $settings;
 	var $parameters;
 	var $formAttributes;
+	var $isRepeatable;
 
 	function element($constraint) {
 		$this->constraint=$constraint;

@@ -21,10 +21,7 @@
  */
 ?>
 <?php
-
-$zing->addToDashboard('lastOrders');
-
-function lastOrders() {
+function lastorders_widget() {
 	global $txt;
 
 	//lastorders

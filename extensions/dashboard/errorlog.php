@@ -21,10 +21,7 @@
  */
 ?>
 <?php
-
-$zing->addToDashboard('errorLog');
-
-function errorLog() {
+function errorlog_widget() {
 	global $txt;
 
 	//log
@@ -33,7 +30,7 @@ function errorLog() {
 	$headers=array();
 	$headers[]=$txt['errorlogadmin6'];
 	$headers[]=$txt['errorlogadmin2'];
-	$headers[]=$txt['errorlogadmin10'];
+	$headers[]=$txt['errorlogadmin3'];
 	display_table($txt['errorlogadmin1'],$headers,null,$sql);
 	echo '</div>';
 }

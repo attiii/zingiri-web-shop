@@ -21,13 +21,11 @@
  */
 ?>
 <?php
-
-$zing->addToDashboard('monthlySignUpChart');
-
-function monthlySignupChart() {
+function monthlysignupchart_widget() {
 	global $txt,$dbtablesprefix;
 
 	//Monthly signups chart
+	echo '<script type="text/javascript" src="'.ZING_URL.'fws/addons/fusioncharts/FusionCharts/FusionCharts.js"></script>';
 	echo '<div id="dashboard_monthlySignUpChart" class="dashboard">';
 	$FC = new FusionCharts("MSColumn3D","350","220");
 	$FC->setSWFPath(ZING_URL."fws/addons/fusioncharts/FusionCharts/");

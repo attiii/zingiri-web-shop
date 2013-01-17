@@ -82,14 +82,12 @@ class integrator {
 	}
 
 	function createWpUser($user,$role) {
-		require_once(ABSPATH.'wp-includes/registration.php');
 		global $wpdb;
 		$user['role']=$role;
 		$id=wp_insert_user($user);
 	}
 
 	function updateWpUser($user) {
-		require_once(ABSPATH.'wp-includes/registration.php');
 		global $wpdb;
 		$olduser=get_userdatabylogin($user['user_login']);
 		$id=$user['ID']=$olduser->ID;

@@ -57,6 +57,7 @@ if ($action == "add" && ($step == "" || $step == "poll")) {
 			elseif (isset($_GET['redirect'])) $redirect=$_GET['redirect'];
 			else $redirect=null;
 			if ($redirect && (!defined("ZING_SAAS") || !ZING_SAAS)) {
+				trigger_error('redirect1');
 				header('Location:'.zurl($redirect.'&zmsg=add'));
 				exit;
 			}
@@ -91,6 +92,7 @@ if ($action == "add" && ($step == "" || $step == "poll")) {
 			elseif (isset($_GET['redirect'])) $redirect=$_GET['redirect'];
 			else $redirect=null;
 			if ($redirect && (!defined("ZING_SAAS") || !ZING_SAAS)) {
+				trigger_error('redirect2');
 				header('Location:'.zurl($redirect.'&zmsg=edit'));
 				exit;
 			}
@@ -118,6 +120,7 @@ if ($action == "add" && ($step == "" || $step == "poll")) {
 		elseif (isset($_GET['redirect'])) $redirect=$_GET['redirect'];
 		else $redirect=null;
 		if ($redirect && (!defined("ZING_SAAS") || !ZING_SAAS)) {
+				trigger_error('redirect3');
 			header('Location:'.zurl($redirect.'&zmsg=delete'));
 			exit;
 		}
@@ -153,6 +156,7 @@ if ($action == "add" && ($step == "" || $step == "poll")) {
 							elseif (isset($_GET['redirect'])) $redirect=$_GET['redirect'];
 							else $redirect=null;
 							if ($redirect && (!defined("ZING_SAAS") || !ZING_SAAS)) {
+				trigger_error('redirect4');
 								header('Location:'.zurl($redirect.'&zmsg=delete'));
 								exit;
 							}
@@ -254,6 +258,7 @@ if ($allowed && $success && $showform == "edit") {
 		$redirect2='?page='.$page.'&zfaces=form&form='.$formname.'&zft='.$zft.'&zfp='.$zfp.'&action='.$action.'&id='.$id;
 	}
 	if (!$noRedirect && !$redirect && (!defined("ZING_SAAS") || !ZING_SAAS)) {
+				trigger_error('redirect5');
 		header('Location: '.zurl($redirect2.'&zmsg=complete'));
 		die();
 	} else {

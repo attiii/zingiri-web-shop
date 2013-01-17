@@ -21,11 +21,7 @@
  */
 ?>
 <?php
-
-
-$zing->addToDashboard('lastSeen');
-
-function lastSeen() {
+function lastseen_widget() {
 	global $txt;
 
 	//lastseen
