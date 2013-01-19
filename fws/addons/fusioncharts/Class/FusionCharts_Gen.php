@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /*
    FUSIONCHARTS FREE API PHP CLASS 
    Author  :  Infosoft Global Pvt. Ltd. 
@@ -2156,7 +2156,3 @@ class FusionCharts{
 
 
 }
-
-
-
-?>

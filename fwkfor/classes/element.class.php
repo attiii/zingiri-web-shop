@@ -395,11 +395,9 @@ class element {
 		function includeJavaScript($id) {
 			?>
 <script type="text/javascript" language="javascript">
-//<![CDATA[
 	jQuery(document).ready(function() {
 	    appsRepeatable.init('<?php echo $id;?>');
 	});
-//]]>
 </script>
 			<?php
 		}

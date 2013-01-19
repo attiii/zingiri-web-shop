@@ -444,11 +444,9 @@ class zfForm {
 			$tabs.='</ul>';
 			$tabs.='<div class="zfclear"></div>';
 			$js='<script type="text/javascript" language="javascript">';
-			$js.='//<![CDATA['.chr(13);
 			$js.='jQuery(document).ready(function() {';
 			$js.="jQuery('#zfacestabs').tabs();";
 			$js.="});";
-			$js.=chr(13)." //]]>";
 			$js.="</script>";
 		}
 		$ret=$tabs.$ret;
@@ -582,11 +580,9 @@ class zfForm {
 			$tabs.='</ul>';
 			$tabs.='<div class="zfclear"></div>';
 			$js='<script type="text/javascript" language="javascript">';
-			$js.='//<![CDATA['.chr(13);
 			$js.='jQuery(document).ready(function() {';
 			$js.="jQuery('#zfacestabs').tabs();";
 			$js.="});";
-			$js.=chr(13)." //]]>";
 			$js.="</script>";
 		}
 		$ret=$tabs.$ret;

@@ -186,17 +186,13 @@ echo $topspan;
 		?>
 
 <script type="text/javascript" language="javascript">
-//<![CDATA[
 	jQuery(document).ready(function() {
 	    appsSortList.init('<?php echo $zflist->ajaxUpdateURL;?>');
 	});
-//]]>
 </script>
 		<?php }?>
 <script type="text/javascript" language="javascript">
-//<![CDATA[
 	jQuery(document).ready(function() {
 	    jQuery('table#<?php echo $zflist->form;?>').tablesorter();
 	});
-//]]>
 </script>
