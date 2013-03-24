@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<links>
+  <form formname="flocale">
+    <link>
+      <formin>1067</formin>
+      <formout>1067</formout>
+      <action>edit</action>
+      <icon>edit.png</icon>
+      <displayin>list</displayin>
+      <actionout>edit</actionout>
+      <displayout>form</displayout>
+      <position>R</position>
+      <forminname type="comment">flocale</forminname>
+      <formoutname type="comment">flocale</formoutname>
+    </link>
+    <link>
+      <formin>1067</formin>
+      <formout>1067</formout>
+      <action>delete</action>
+      <icon>delete.png</icon>
+      <displayin>list</displayin>
+      <actionout>delete</actionout>
+      <displayout>form</displayout>
+      <position>R</position>
+      <forminname type="comment">flocale</forminname>
+      <formoutname type="comment">flocale</formoutname>
+    </link>
+    <link>
+      <formin>1067</formin>
+      <formout>1067</formout>
+      <action>view</action>
+      <icon>view.png</icon>
+      <displayin>list</displayin>
+      <actionout>view</actionout>
+      <displayout>form</displayout>
+      <position>R</position>
+      <forminname type="comment">flocale</forminname>
+      <formoutname type="comment">flocale</formoutname>
+    </link>
+    <link>
+      <formin>1067</formin>
+      <formout>1067</formout>
+      <action>add</action>
+      <icon>add.png</icon>
+      <displayin>list</displayin>
+      <actionout>add</actionout>
+      <displayout>form</displayout>
+      <position>R</position>
+      <forminname type="comment">flocale</forminname>
+      <formoutname type="comment">flocale</formoutname>
+    </link>
+  </form>
+</links>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<acls target="faccess">
+  <acl>
+    <formid>3</formid>
+    <roleid>1</roleid>
+    <action>0</action>
+    <rules/>
+    <allowed>1</allowed>
+    <type>1</type>
+    <page/>
+    <project>player</project>
+    <formname type="comment">faccess</formname>
+    <rolename type="comment">ADMIN</rolename>
+  </acl>
+  <acl>
+    <formid>1</formid>
+    <roleid>1</roleid>
+    <action>0</action>
+    <rules/>
+    <allowed>1</allowed>
+    <type>1</type>
+    <page/>
+    <project>player</project>
+    <formname type="comment">flink</formname>
+    <rolename type="comment">ADMIN</rolename>
+  </acl>
+  <acl>
+    <formid>2</formid>
+    <roleid>1</roleid>
+    <action>0</action>
+    <rules/>
+    <allowed>1</allowed>
+    <type>1</type>
+    <page/>
+    <project>player</project>
+    <formname type="comment">frole</formname>
+    <rolename type="comment">ADMIN</rolename>
+  </acl>
+</acls>

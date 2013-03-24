@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<acls target="faccess">
+  <acl>
+    <formid>0</formid>
+    <roleid>1</roleid>
+    <action>*</action>
+    <rules/>
+    <allowed>1</allowed>
+    <type>1</type>
+    <page/>
+    <project>fwktec</project>
+    <rolename type="comment">ADMIN</rolename>
+  </acl>
+</acls>

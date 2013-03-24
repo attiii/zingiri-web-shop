@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<roles target="frole">
+  <role>
+    <id>1</id>
+    <name>ADMIN</name>
+    <description>Administrator</description>
+    <project>fwktec</project>
+  </role>
+</roles>

@@ -1,0 +1,15 @@
+CREATE TABLE IF NOT EXISTS `##faces` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `NAME` varchar(40) NOT NULL,
+  `ELEMENTCOUNT` smallint(6) NOT NULL DEFAULT '0',
+  `DATA` text NOT NULL,
+  `TYPE` varchar(12) NOT NULL,
+  `ENTITY` varchar(40) NOT NULL,
+  `LABEL` varchar(75) DEFAULT NULL,
+  `LOGIN` varchar(60) DEFAULT NULL,
+  `CUSTOM` text,
+  `PROJECT` varchar(75) NOT NULL,
+  `ATTRIBUTES` text,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10000 ;
+
