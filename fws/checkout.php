@@ -370,8 +370,7 @@ if (LoggedIn() == True) {
 					$m.=$message;
 				}
 				$m.='</body></html>';
-				require_once(dirname(__FILE__)."/addons/dompdf-0.6.1/dompdf_config.inc.php");
-				//require_once(ZING_LOC."comlib/addons/dompdf/dompdf_config.inc.php");
+				require_once(ZING_LOC."comlib/addons/dompdf/dompdf_config.inc.php");
 				$dompdf = new DOMPDF();
 				$dompdf->load_html($m);
 				$dompdf->render();

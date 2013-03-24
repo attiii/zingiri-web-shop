@@ -63,6 +63,7 @@ Before upgrading, make sure you back up your database first!
 = 2.6.1 =
 * Fixed issue with uploaded category images not appearing
 * Added data upload directory and URL to settings page
+* Updated DOMPDF library
 
 = 2.6.0 =
 * Fixed encoding issue in FusionCharts file

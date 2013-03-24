@@ -208,8 +208,7 @@ class invoice {
 		$pdf = "";
 		$fullpdf = "";
 		if ($create_pdf == 1) {
-			require_once(dirname(__FILE__)."/../addons/dompdf/dompdf_config.inc.php");
-			//require_once(ZING_LOC."comlib/addons/dompdf/dompdf_config.inc.php");
+			require_once(ZING_LOC."comlib/addons/dompdf/dompdf_config.inc.php");
 			$dompdf = new DOMPDF();
 			$dompdf->load_html($this->content);
 			$dompdf->render();
