@@ -52,6 +52,7 @@ class element {
 	var $parameters;
 	var $formAttributes;
 	var $isRepeatable;
+	var $displayGuidelines=true;
 
 	function element($constraint) {
 		$this->constraint=$constraint;
@@ -211,6 +212,7 @@ class element {
 					if (class_exists($type."ZfSubElement"))	{ $c=$type."ZfSubElement"; }
 					else { $c="zfSubElement"; }
 					$subelement=new $c($int,$ext,$this->xmlf->fields->{'field'.$i},$this,$i,$ai);
+					$subelement->parameters=$this->parameters;
 					$ext=$subelement->output($mode,$input);
 					$output['element_'.$this->id.'_'.$i][$ai]=$ext;
 				}
@@ -221,6 +223,7 @@ class element {
 				if (class_exists($type."ZfSubElement"))	{ $c=$type."ZfSubElement"; }
 				else { $c="zfSubElement"; }
 				$subelement=new $c($int,$ext,$this->xmlf->fields->{'field'.$i},$this,$i);
+				$subelement->parameters=$this->parameters;
 				$ext=$subelement->output($mode,$input);
 				$output['element_'.$this->id.'_'.$i]=$ext;
 			}
@@ -257,8 +260,7 @@ class element {
 	}
 
 	function display($mode="edit") {
-
-		Global $facesdefaultvalues;
+		global $facesdefaultvalues;
 		$this->mode=$mode;
 
 		if ($mode=="search" && !$this->is_searchable) return;
@@ -308,7 +310,7 @@ class element {
 		if(empty($this->attributes['zfguidelines']) && $label && function_exists('h_')){
 			$this->guidelines=h_($label);
 		}
-		if(!empty($this->attributes['zfguidelines'])){
+		if (!empty($this->attributes['zfguidelines'])){
 			$guidelines = "<p class=\"guidelines\" id=\"guide_{$this->id}\"><small>{$this->attributes['zfguidelines']}</small></p>";
 		}
 
@@ -321,9 +323,15 @@ class element {
 					$ruleParameters['action']=$rule['parameters'][5];
 					$ruleParameters['field']=$ruleFields[0];
 					$ruleParameters['subField']=$ruleFields[1];
-					$aParams=explode(",",$rule['parameters'][2],2);
-					$fnct=$ruleParameters['fnct']=$aParams[0];
-					$ruleParameters['params']=$aParams[1];
+					$aParams=explode(",",$rule['parameters'][2]);
+					if (count($aParams)==2) {
+						$ruleParameters['fnct']=$aParams[0];
+						$ruleParameters['params']=$aParams[1];
+					} elseif (count($aParams)==3) {
+						$ruleParameters['class']=$aParams[0];
+						$ruleParameters['fnct']=$aParams[1];
+						$ruleParameters['params']=$aParams[2];
+					}
 					$ruleParameters['condition']=$rule['parameters'][3];
 					$ruleParameters['compare']=$rule['parameters'][4];
 
@@ -339,26 +347,29 @@ class element {
 		$element_markup.='<div class="zfsubelements" id="zf_'.$this->id.'_sf">';
 		$ac=1;
 		for ($i=1; $i<=$fields; $i++) {
-			$size=$xmlf->fields->{'field'.$i}->size;
+			if (isset($this->isRepeatable) && $this->isRepeatable) $ac=max($ac,count($this->populated_value['element_'.$this->id.'_'.$i]));
+		}
+		for ($i=1; $i<=$fields; $i++) {
 			$type=$xmlf->fields->{'field'.$i}->type;
 			$fn=$xmlf->fields->{'field'.$i}->name ? $xmlf->fields->{'field'.$i}->name : $type;
 			if ($fields>1) $this->name[$i]=(string)$fn;
 			
 			$subscript_markup = '';
 			$field_markup ="<div id=\"zf_{$this->id}_{$fn}\" style=\"width: {$xmlf->fields->{'field'.$i}->width}\" class=\"zfsub $type".($this->isRepeatable ? ' zfrepeatable' : '')."\">";
-			if (isset($this->isRepeatable) && $this->isRepeatable) $ac=max($ac,count($this->populated_value['element_'.$this->id.'_'.$i]));
+//			if (isset($this->isRepeatable) && $this->isRepeatable) $ac=max($ac,count($this->populated_value['element_'.$this->id.'_'.$i]));
 			//default
 			for ($ai=0; $ai < $ac; $ai++) {
 				if (!empty($type) && class_exists($type."ZfSubElement")) $c=$type."ZfSubElement";
 				else $c="zfSubElement";
 				$e=new $c("","",$xmlf,$this,$i,$ai);
+				$e->parameters=$this->parameters;
 				if (method_exists($e,"display")) {
 					$e->mode=$this->mode;
+					if ($xmlf->fields->{'field'.$i}->order) $e->order=$xmlf->fields->{'field'.$i}->order;
 					if ($mode=='print') $e->printout($field_markup,$subscript_markup);
 					else $e->display($field_markup,$subscript_markup);
 					$this->divider=isset($e->divider) ? $e->divider : null;
 				}
-				//if ($ac > 1) $field_markup.='<br />';
 				if ($ac > 1 && $ai!=$ac-1) $subscript_markup='';
 			}
 			if ($xmlf->fields->{'field'.$i}->subscript != "none" && $xmlf->fields->{'field'.$i}->label != "") {
@@ -388,7 +399,8 @@ class element {
 			$element_markup.='</div>'.$error_message;
 			$element_markup.='<div class="zfclear"></div>';
 
-			$element_markup.=$guidelines.'</div>';
+			if ($this->displayGuidelines) $element_markup.=$guidelines;
+			$element_markup.='</div>';
 			return array('markup' => $element_markup,'jsrule' => $jsRule);
 		}
 

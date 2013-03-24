@@ -9,6 +9,8 @@ class zfSubElement {
 	var $element;
 	var $populated_column=array();
 	var $submit=null;
+	var $size=12;
+	var $name;
 
 	function zfSubElement($int,$ext="",$xmlf="",$element="",$subid="",$ai=0) {
 		$this->int=$int;
@@ -21,9 +23,8 @@ class zfSubElement {
 		else $this->ext=trim($ext);
 		$this->error_message="";
 		$this->is_error=false;
-		if (isset($element->attributes['zfsize'])) $this->size=$element->attributes['zfsize'];
-		elseif (isset($xmlf->fields->{'field'.$this->subid}->size)) $this->size=$xmlf->fields->{'field'.$this->subid}->size;
-		else $this->size=null;
+		if (isset($element->attributes['zfsize']) && !empty($element->attributes['zfsize'])) $this->size=$element->attributes['zfsize'];
+		elseif (!empty($xmlf->fields->{'field'.$this->subid}->size)) $this->size=$xmlf->fields->{'field'.$this->subid}->size;
 		
 		if (isset($element->attributes['zfmaxlength'])) $this->maxlength=$element->attributes['zfmaxlength'];
 		elseif (isset($xmlf->fields->{'field'.$this->subid}->maxlength)) $this->maxlength=$xmlf->fields->{'field'.$this->subid}->maxlength;
@@ -31,6 +32,7 @@ class zfSubElement {
 		
 		$this->ai=$ai;
 		$this->ail='';
+		$this->name='element_'.$this->element->id.'_'.$this->subid;
 		if (!isset($element->populated_value['element_'.$element->id.'_'.$subid])) $element->populated_value['element_'.$element->id.'_'.$subid]=null;		
 		if (isset($element->isRepeatable) && $element->isRepeatable) {
 			if ($ai>0) $this->ail='_'.$this->ai;
@@ -38,6 +40,7 @@ class zfSubElement {
 		} else {
 			$element->values['element_'.$element->id.'_'.$subid][0]=$element->populated_value['element_'.$element->id.'_'.$subid];
 		}
+		
 	}
 
 	function getLabel($label) {
@@ -112,8 +115,10 @@ class zfSubElement {
 		}
 		$readonly=isset($e->readonly) ? $e->readonly : '';
 		
-		if ($this->mode=='view') {
-			$field_markup.="<input id=\"element_{$e->id}_{$i}{$this->ail}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" size=\"{$this->size}\" value=\"{$e->values['element_'.$e->id.'_'.$i][$this->ai]}\" maxlength=\"{$this->maxlength}\" type=\"text\" {$readonly}/>";
+		if (in_array($this->mode,array('view'))) {
+			$field_markup.="<input id=\"element_{$e->id}_{$i}{$this->ail}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" size=\"{$this->size}\" value=\"{$e->values['element_'.$e->id.'_'.$i][$this->ai]}\" maxlength=\"{$this->maxlength}\" type=\"text\" disabled=\"DISABLED\"}/>";
+		} elseif (in_array($this->mode,array('print'))) {
+			$field_markup.="<div class=\"element text\" >{$e->values['element_'.$e->id.'_'.$i][$this->ai]}</div>";
 		} else {
 			$field_markup.="<input id=\"element_{$e->id}_{$i}{$this->ail}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" size=\"{$this->size}\" value=\"{$e->values['element_'.$e->id.'_'.$i][$this->ai]}\" maxlength=\"{$this->maxlength}\" type=\"text\" {$readonly}/>";
 		}

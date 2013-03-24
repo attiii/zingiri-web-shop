@@ -31,12 +31,12 @@ function zing_check() {
 
 	if ($zing_version) {
 		$dirs=array();
-		$dirs[]=BLOGUPLOADDIR.'zingiri-web-shop';
-		$dirs[]=BLOGUPLOADDIR.'zingiri-web-shop/prodgfx';
-		$dirs[]=BLOGUPLOADDIR.'zingiri-web-shop/cats';
-		$dirs[]=BLOGUPLOADDIR.'zingiri-web-shop/orders';
-		$dirs[]=BLOGUPLOADDIR.'zingiri-web-shop/cache';
-		$dirs[]=BLOGUPLOADDIR.'zingiri-web-shop/digital-'.get_option('zing_webshop_dig');
+		$dirs[]=ZING_UPLOADS_DIR;
+		$dirs[]=ZING_UPLOADS_DIR.'prodgfx';
+		$dirs[]=ZING_UPLOADS_DIR.'cats';
+		$dirs[]=ZING_UPLOADS_DIR.'orders';
+		$dirs[]=ZING_UPLOADS_DIR.'cache';
+		$dirs[]=ZING_UPLOADS_DIR.'digital-'.get_option('zing_webshop_dig');
 
 		foreach ($dirs as $file) {
 			if (!file_exists($file)) $warnings[]='Directory '.$file. " doesn't exist";

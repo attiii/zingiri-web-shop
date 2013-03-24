@@ -74,21 +74,21 @@ if (!defined("ZING_URL")) {
 
 define("ZING_TPL_DIR",ZING_DIR.'/templates/');
 
-define("ZING_TIMTHUMB",ZING_URL.'fws/addons/timthumb/timthumb2.php?dir='.urlencode(BLOGUPLOADDIR.'zingiri-web-shop/cache'));
-
 if (!defined('ZING_APPS_CUSTOM')) define("ZING_APPS_CUSTOM_URL",ZING_URL."fws/");
 
 if (!defined("ZING_HOME")) {
 	define("ZING_HOME", get_option("home"));
 }
 if (!defined("ZING_UPLOADS_URL")) {
-	define("ZING_UPLOADS_URL", BLOGUPLOADURL . "zingiri-web-shop/");
+	define("ZING_UPLOADS_URL", get_option('zing_ws_uploads_url') ? get_option('zing_ws_uploads_url') : BLOGUPLOADURL . "zingiri-web-shop/");
 	define("APHPS_DATA_URL",ZING_UPLOADS_URL);
 }
 if (!defined("ZING_UPLOADS_DIR")) {
-	define("ZING_UPLOADS_DIR", BLOGUPLOADDIR . "zingiri-web-shop/");
+	define("ZING_UPLOADS_DIR", get_option('zing_ws_uploads_dir') ? get_option('zing_ws_uploads_dir') : BLOGUPLOADDIR . "zingiri-web-shop/");
 	define("APHPS_DATA_DIR",ZING_UPLOADS_DIR);
 }
+
+define("ZING_TIMTHUMB",ZING_URL.'fws/addons/timthumb/timthumb2.php?dir='.urlencode(ZING_UPLOADS_DIR.'cache'));
 
 define('APHPS_LOG_FILE',ZING_UPLOADS_DIR.'log.txt');
 
@@ -97,5 +97,3 @@ if (function_exists("qtrans_getLanguage")) {
 	if (isset($_GET['lang'])) $_SESSION['lang']=$_GET['lang'];
 	elseif (isset($_SESSION['lang'])) $_GET['lang']= $_SESSION['lang'];
 }
-
-?>

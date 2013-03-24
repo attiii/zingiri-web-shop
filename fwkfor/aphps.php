@@ -4,6 +4,7 @@ if (!class_exists('aphps')) {
 		var $actions=array();
 		var $bootstrap=false;
 		var $form=null;
+		var $jsDateFormat='dd-mm-yy';
 
 		function addAction($action,$f) {
 			$this->actions[$action]=$f;

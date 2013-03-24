@@ -1,5 +1,5 @@
 <?php
-define("ZING_APPS_PLAYER_VERSION","1.4.2");
+define("ZING_APPS_PLAYER_VERSION","1.6.0");
 
 if (!defined('APHPS_XD')) define('APHPS_XD',0);
 
@@ -44,6 +44,9 @@ function zing_apps_player_activate() {
 	error_reporting($apper);
 }
 
+/*
+ * Legacy version of the installer (< v1.4.5)
+ */
 function zing_apps_player_install($version='',$loadAll=true) {
 	global $dbtablesprefix,$aphps_projects;
 
@@ -229,10 +232,18 @@ function zing_apps_player_content($content='') {
 			require(dirname(__FILE__)."/scripts/ajax.php");
 			break;
 		default:
-			foreach ($aphps_projects as $id => $project) {
+			if (isset($_REQUEST['mod'])) {
+				$project=$aphps_projects[$_REQUEST['mod']];
 				if (file_exists($project['dir'].'scripts/'.$zfaces.'.php')) {
 					require($project['dir'].'scripts/'.$zfaces.'.php');
 					break;
+				}
+			} else {
+				foreach ($aphps_projects as $id => $project) {
+					if (file_exists($project['dir'].'scripts/'.$zfaces.'.php')) {
+						require($project['dir'].'scripts/'.$zfaces.'.php');
+						break;
+					}
 				}
 			}
 			break;
@@ -287,6 +298,7 @@ function zing_apps_player_load($dir) {
 		$files=array();
 		while (false !== ($file = readdir($handle))) {
 			if (strstr($file,".json")) {
+				display('Process '.$file);
 				$file_content = file_get_contents($dir.$file);
 				$a=zf_json_decode($file_content,true,false,false);
 				zfCreate($a['NAME'],$a['ELEMENTCOUNT'],$a['ENTITY'],$a['TYPE'],$a['DATA'],$a['LABEL'],$a['PROJECT'],$a['ID']);
@@ -429,10 +441,13 @@ function zing_apps_settings() {
 }
 
 function zVars() {
+	global $aphps;
 	$v=array();
-	if (is_admin()) $v['aphpsAjaxURL']=zurl('admin.php?page=ajax&zfaces=ajax&form=');
+	if (defined('APHPS_AJAX_URL')) $v['aphpsAjaxURL']=APHPS_AJAX_URL;
+	elseif (is_admin()) $v['aphpsAjaxURL']=zurl('admin.php?page=ajax&zfaces=ajax&form=');
 	else $v['aphpsAjaxURL']=zurl('index.php?zfaces=ajax&form=');
 	$v['aphpsURL']=ZING_APPS_PLAYER_URL;
+	$v['aphpsDateFormat']=$aphps->jsDateFormat;
 
 	return $v;
 }
@@ -469,7 +484,6 @@ function zStyleSheets() {
 			}
 		}
 	}
-	
+
 	return $v;
 }
-

@@ -33,11 +33,11 @@ $brands_url = BLOGUPLOADURL.'zingiri-web-shop/'.$brands_dir;
 define('ZING_WS_CATS_URL',$brands_url.'/');
 $orders_url = BLOGUPLOADURL.'zingiri-web-shop/'.$orders_dir;
 
-$product_dir = BLOGUPLOADDIR.'zingiri-web-shop/'.$product_dir;
+$product_dir = ZING_UPLOADS_DIR.$product_dir;
 if (!defined("ZING_WS_PRODUCT_DIR")) define("ZING_WS_PRODUCT_DIR",$product_dir);
-$brands_dir = BLOGUPLOADDIR.'zingiri-web-shop/'.$brands_dir;
+$brands_dir = ZING_UPLOADS_DIR.$brands_dir;
 define('ZING_WS_CATS_DIR',$brands_dir.'/');
-$orders_dir = BLOGUPLOADDIR.'zingiri-web-shop/'.$orders_dir;
+$orders_dir = ZING_UPLOADS_DIR.$orders_dir;
 $lang_dir = ZING_DIR.$lang_dir;
 
 $gfx_dir = ZING_URL.'fws/'.$template_dir."/".$template."/images";

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="system" version="1.5.0" hide="forms">
+	<name>Project</name>
+	<fields count="1">
+		<field1>
+			<name>project</name>
+			<format>varchar(20)</format>
+			<type>project</type>
+		</field1>
+	</fields>
+</config>

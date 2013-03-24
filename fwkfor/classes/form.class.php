@@ -361,7 +361,7 @@ class zfForm {
 				$element->showSubscript=true;
 				$element->showLabels=$this->showLabels;
 				$element->formAttributes=$this->formAttributes;
-
+				
 				$c=$this->countSubelements($value['subelements'],$key);
 				$ca=0;
 				if ($element->isRepeatable) {
@@ -392,7 +392,7 @@ class zfForm {
 						} else {
 							$f=$this->column[$key];
 						}
-						if (isset($populated_value['element_'.$key.'_'.$key2])) { 
+						if (isset($populated_value['element_'.$key.'_'.$key2])) {
 							$populated_column[$f]=$populated_value['element_'.$key.'_'.$key2];
 						}
 					}
@@ -412,7 +412,7 @@ class zfForm {
 				$element->populated_value=$populated_value;
 				$element->populated_column=$populated_column;
 				$element->columnName=$columnName;
-				$element->parameters=$parameters;
+				$element->parameters=$parameters ? $parameters : (isset($value['parameters']) ? $value['parameters'] : '');
 				$element->column=$this->column;
 				$element->prepare();
 				$retDisplay=$element->display($mode);
@@ -460,6 +460,8 @@ class zfForm {
 					$fnct=$data['fnct'];
 					$data['value']=$this->input['element_'.$data['field'].'_'.$data['subField']];
 					$r=$fnct($data);
+				} else {
+					$r['result']="'".$this->input['element_'.$data['field'].'_'.$data['subField']]."'";
 				}
 				if (version_compare (PHP_VERSION,'5.3.0') >= 0) $js_markup.="wsFormField.add(".json_encode($data,JSON_FORCE_OBJECT).",".$jsRule[1].",".$r['result'].");";
 				else $js_markup.="wsFormField.add(".json_encode($data).",".$jsRule[1].",".$r['result'].");";
@@ -489,6 +491,7 @@ class zfForm {
 			$isFirst=true;
 			foreach ($a as $i => $value)
 			{
+				$parameters=array();
 				$key=$value['id'];
 				if ($value['type']=='submit') continue;
 				$element=new element($value['type']);
@@ -508,6 +511,8 @@ class zfForm {
 				$element->linksin=isset($value['links']) ? $value['links'] : '';
 				$element->rules=isset($this->elements['rules'][$key]) ? $this->elements['rules'][$key] : '';
 				$element->showSubscript=true;
+				$element->attributes=$value['attributes'];
+				$element->displayGuidelines=false;
 
 				$c=$this->countSubelements($value['subelements'],$key);
 
@@ -520,6 +525,9 @@ class zfForm {
 
 				foreach ($value['subelements'] as $key2 => $sub)
 				{
+					if (isset($sub['parameters'])) {
+						$parameters[$key][$key2]=$sub['parameters'];
+					}
 					if (isset($this->elements['cat'][$key][$key2]) && $this->elements['cat'][$key][$key2]=='parameter') {
 						$populated_value['element_'.$key.'_'.$key2]=$sub['populate'];
 					}
@@ -552,6 +560,7 @@ class zfForm {
 				$element->populated_column=$populated_column;
 				$element->column=$this->column;
 				$element->prepare();
+				$element->parameters=$parameters;
 				$retDisplay=$element->display($mode);
 				if (isset($retDisplay['jsrule']) && is_array($retDisplay['jsrule']) && count($retDisplay['jsrule']) > 0) {
 					$jsRules[]=$retDisplay['jsrule'];
@@ -587,25 +596,6 @@ class zfForm {
 		}
 		$ret=$tabs.$ret;
 		$ret='<div id="zfacestabs">'.$ret.'</div>'.$js;
-		/*
-		 if (count($jsRules) > 0) {
-			$js_markup='<script type="text/javascript">';
-			$js_markup.='jQuery(document).ready(function() {';
-			foreach ($jsRules as $jsRule) {
-			$data=$jsRule[0];
-			if (isset($data['fnct']) && function_exists($data['fnct'])) {
-			$fnct=$data['fnct'];
-			$data['value']=$this->input['element_'.$data['field'].'_'.$data['subField']];
-			$r=$fnct($data);
-			}
-			if (version_compare (PHP_VERSION,'5.3.0') >= 0) $js_markup.="wsFormField.add(".json_encode($data,JSON_FORCE_OBJECT).",".$jsRule[1].",".$r['result'].");";
-			else $js_markup.="wsFormField.add(".json_encode($data).",".$jsRule[1].",".$r['result'].");";
-			}
-			$js_markup.='});';
-			$js_markup.='</script>';
-			}
-			$ret.=$js_markup;
-			*/
 		if ($display) echo $ret;
 		return $ret;
 	}
@@ -713,11 +703,9 @@ class zfForm {
 		$this->recid=$id;
 		$this->postSaveElements();
 		$success=$this->postSave($success);
-		if ($this->formAttributes->sendemail && $this->formAttributes->emailfield) {
+		if (($this->formAttributes->sendemail && $this->formAttributes->emailfield) || $this->formAttributes->adminemail) {
 			$emailAddress=$this->output['element_'.$this->formAttributes->emailfield.'_1'];
-			if ($emailAddress) {
-				$this->mailTo($emailAddress);
-			}
+			$this->mailTo($emailAddress);
 		}
 		if (count($this->onSubmitActions) > 0) {
 			foreach ($this->onSubmitActions as $onSubmitAction) {
@@ -732,7 +720,7 @@ class zfForm {
 
 	function updateWorkflow() {
 		if (!isset($_SESSION['aphps']['workflow']['event']) || ($_SESSION['aphps']['workflow']['event']!='captureform')) return;
-		$wf=new aphpsWorkflow();
+		$wf=new fwkevt_workflow();
 		$wf->updateSession($wf->step+1,array_merge($this->rec,array('ID'=>$this->recid)),$this->form);
 	}
 
@@ -745,16 +733,25 @@ class zfForm {
 		$headers .= 'Content-type: text/html; charset=UTF-8'."\r\n";
 		$headers .= 'From: '.$from.' <'.$from.'>' . "\r\n";
 
+		//$headers .= 'Bcc: ' . $this->formAttributes->adminemail . "\r\n";
+
 		$subject=$this->label.' submitted';
 		if ($legacy) {
 			$message=$this->printout();
 		} else {
 			$message='';
 			if ($this->formAttributes->emailconfirmation) $message.=$this->formAttributes->emailconfirmation;
-			if ($this->formAttributes->sendemailformtouser) $message=$this->printout();
+			if ($this->formAttributes->emailformtouser) $message=$this->printout();
 		}
-		//		echo 'mail '.$from.'++'.$to.'--'.$subject.'--'.$message;
-		mail($to, '=?UTF-8?B?'.base64_encode($subject).'?=', $message, $headers);
+
+		if ($to) {
+			mail($to, '=?UTF-8?B?'.base64_encode($subject).'?=', $message, $headers);
+		}
+
+		if ($this->formAttributes->adminemail && !$legacy) {
+			mail($this->formAttributes->adminemail, '=?UTF-8?B?'.base64_encode($subject).'?=', $message, $headers);
+		}
+
 		return true;
 	}
 
@@ -1061,6 +1058,7 @@ class zfForm {
 					$element->parameters[$key][$key2]=$sub['parameters'];
 				}
 			}
+			if (!$element->parameters && isset($value['parameters'])) $element->parameters=$value['parameters'];
 			$success=$element->output($input,$output,$mode);
 		}
 
@@ -1139,8 +1137,7 @@ class zfForm {
 					foreach ($r as $field => $value) {
 						$r[strtoupper($field)]=$value;
 					}
-					if ($r['SET']==0) $input['element_'.$key1."_".$key2]=$r['VALUE'];
-					else $input['element_'.$key1."_".$key2][]=$r['VALUE'];
+					$input['element_'.$key1."_".$key2][]=$r['VALUE'];
 				}
 			}
 		}
@@ -1171,8 +1168,9 @@ class zfForm {
 		return false;
 	}
 
-	function allowAccess() {
-		$access=new zfAccess($this->id,$this->page,$this->action,$this->filter,$this->data);
+	function allowAccess($action='') {
+		if (!$action) $action=$this->action;
+		$access=new zfAccess($this->id,$this->page,$action,$this->filter,$this->data);
 		$allowed=$access->allowed();
 		if ($allowed) return true;
 		else {

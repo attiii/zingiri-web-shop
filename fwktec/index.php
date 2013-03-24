@@ -7,3 +7,4 @@ $aphps_projects['fwktec']['level']='admin';
 $aphps_projects['fwktec']['system']=1;
 
 require(dirname(__FILE__).'/functions-core/index.php');
+require(dirname(__FILE__).'/classes-core/index.php');

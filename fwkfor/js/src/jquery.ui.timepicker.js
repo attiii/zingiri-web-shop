@@ -132,8 +132,6 @@
 
         /* Debug logging (if enabled). */
         log: function () {
-            if (this.debug)
-                console.log.apply('', arguments);
         },
 
         _widgetTimepicker: function () {

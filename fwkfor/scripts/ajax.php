@@ -11,12 +11,10 @@ if (file_exists($f)) {
 	die();
 }
 
-foreach($aphps_projects as $id=>$project) {
-	$f=$aphps_projects[$mod]['dir'].'ajax/'.$form.'.php';
-	if (file_exists($f)) {
-		require($f);
-		die();
-	}
+$f=$aphps_projects[$mod]['dir'].'ajax/'.$form.'.php';
+if (file_exists($f)) {
+	require($f);
+	die();
 }
 
 die('Not found');

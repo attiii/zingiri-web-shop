@@ -29,12 +29,15 @@ class multiple_choiceZfSubElement extends zfSubElement {
 			$e->populated_value['element_'.$e->id.'_'.$i] = $xmlf->fields->{'field'.$i}->default;
 		}
 		if (in_array($this->mode,array('build','edit','add'))) {
+			$first=true;
 			$field_markup.="<div id=\"element_{$e->id}_{$i}\" >";
 			if (is_array($e->parameters[$e->id][$i])) {
 				foreach ($e->parameters[$e->id][$i] as $j => $option) {
 					$k=$j+1;
-					if ($e->populated_value['element_'.$e->id.'_'.$i]==$option['value']) $checked='checked="checked"';
+					if ($e->populated_value['element_'.$e->id.'_'.$i] && ($e->populated_value['element_'.$e->id.'_'.$i]==$option['value'])) $checked='checked="checked"';
+					elseif (!$e->populated_value['element_'.$e->id.'_'.$i] && $first) $checked='checked="checked"';
 					else $checked='';
+					$first=false;
 					$field_markup.="<div class=\"zfsuboption\" id=\"option_{$e->id}_{$i}_{$k}\" >";
 					$field_markup.="<input value=\"".$option['value']."\" type=\"radio\" id=\"element_{$e->id}_{$i}_{$k}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" {$e->readonly} {$checked}/>";
 					$field_markup.="<label id=\"label_{$e->id}_{$i}_{$k}\" for=\"element_{$e->id}_{$i}_{$k}\">".$option['label']."</label>";

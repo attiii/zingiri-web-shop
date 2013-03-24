@@ -170,41 +170,6 @@ function zf_json_encode($a) {
 	return $ret;
 }
 
-function zfDumpQuery($query,$table="",$data=array()) {
-	global $aphps_projects;
-	$dir='';
-	if (!defined("APHPS_DEV") || !APHPS_DEV) return true;
-	if (!defined("ZING_APPS_BUILDER") || !ZING_APPS_BUILDER) return true;
-	$include=array("frole","faccess","flink","menugroup","menucategory");
-	if (!empty($table) && !in_array($table,$include)) return true;
-
-	//evaluate $data here
-	if ($table=='flink') {
-		$db=new db();
-		if ($db->select(sprintf("select `PROJECT` from `##faces` where `ID`=%s",qs($data['FORMIN']))) && $db->next()) {
-			$dir=$aphps_projects[$db->get('project')]['srcdir'].'../db/';
-		}
-	}
-	if ($dir) {
-		$file='dbc-'.ZING_APPS_PLAYER_VERSION.'.sql';
-	} else {
-		if (defined("APHPS_DATADUMP_DIR")) $dir=APHPS_DATADUMP_DIR.'/';
-		elseif (defined("ZING_APPS_CUSTOM")) $dir=ZING_APPS_CUSTOM.'../db/';
-		else $dir=ZING_APPS_PLAYER_DIR.'db/';
-		if (substr($dir,-1) != '/') $dir.='/';
-		$file="dbc";
-		if (defined("VERSION")) $file.='-'.VERSION;
-		$file.=".sql";
-	}
-	//echo $table.'--'.$dir.'--'.print_r($data,true).'--';echo '+'.$dir.$file.'+';
-	$query=str_replace(DB_PREFIX,"##",$query);
-	if ($handle = fopen ($dir.$file, "a")) {
-		if (fwrite($handle, $query.";\r\n")) fclose($handle);
-	}
-
-	return true;
-}
-
 function showForm() {
 	global $line;
 	$notitle=true;
@@ -292,11 +257,7 @@ function aphpsGetFormSaveDir($project,$formName,$prefix='') {
 	else $appsFormsDir=ZING_APPS_PLAYER_DIR."forms/";
 	if (isset($aphps_projects[$project]['srcdir'])) {
 		if ($aphps_projects[$project]['srcdir']) {
-			if (!in_array($formName,array('faces','frole','flink','faccess'))) {
-				$saveToDir=$aphps_projects[$project]['srcdir'].$prefix.$formName.".json";
-			} else {
-				$saveToDir=$aphps_projects[$project]['srcdir'].$prefix.$formName.".json";
-			}
+			$saveToDir=$aphps_projects[$project]['srcdir'].'forms/'.$prefix.$formName.".json";
 		}
 	} else {
 		if (!in_array($formName,array('faces','frole','flink','faccess'))) {

@@ -12,3 +12,10 @@ if (!function_exists('fwktecLicensedFor')) {
 		return true;
 	}
 }
+
+
+function display($message='') {
+	if (is_array($message)) $message=print_r($message,true);
+	//if (APHPS_DEV) trigger_error($message);
+	echo $message.EOL;
+}

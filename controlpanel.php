@@ -42,6 +42,20 @@ function zing_set_options() {
 			"options" => array("Zingiri"));
 	}
 
+	$zing_ws_options[]=	array(	"name" => "Data directory",
+			"desc" => "Data directory where all your images, etc are stored. Can be left to the default value in most cases.",
+			"id" => "zing_ws_uploads_dir",
+			"size" => 80,
+			"std" => ZING_UPLOADS_DIR,
+			"type" => "text");
+
+	$zing_ws_options[]=	array(	"name" => "Data URL",
+			"desc" => "URL to your data directory. Can be left to the default value in most cases.",
+			"id" => "zing_ws_uploads_url",
+			"size" => 80,
+			"std" => ZING_UPLOADS_URL,
+			"type" => "text");
+			
 	$zing_ws_options[]= array(	"name" => "Logo",
 			"desc" => "Select how and where you want to display the Zingiri logo. You can display it at the bottom of your site or a the bottom of every shop page.<br />Only select other if you received a written confirmation from us that it is ok to do so.",
 			"id" => "zing_ws_logo",
@@ -187,7 +201,7 @@ function zing_ws_admin() {
 		<td><input name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>"
 			type="<?php echo $value['type']; ?>"
 			value="<?php if ( get_option( $value['id'] ) != "") { echo get_option( $value['id'] ); } else { echo $value['std']; } ?>"
-			size="40"
+			size="<?php echo isset($value['size']) ? $value['size'] : 40?>"
 		/></td>
 
 	</tr>

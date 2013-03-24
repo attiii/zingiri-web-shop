@@ -1,7 +1,7 @@
 <?php if ($index_refer <> 1) { exit(); } ?>
 <?php
 $aphps_projects['comlib']['label']='Common Library';
-$aphps_projects['comlib']['dir']=BASE_DIR.'comlib/';
+$aphps_projects['comlib']['dir']=dirname(__FILE__).'/';
 $aphps_projects['comlib']['url']=BASE_URL.'comlib/';
 $aphps_projects['comlib']['level']='admin';
 $aphps_projects['comlib']['system']=1;

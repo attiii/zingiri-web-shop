@@ -6,9 +6,15 @@ $zft=isset($_GET['zft']) ? $_GET['zft'] : '';
 $pos=isset($_GET['pos']) ? intval($_GET['pos']) : 0;
 $orderkeys=isset($_REQUEST['orderkeys']) ? $_REQUEST['orderkeys'] : '';
 
-$mapflat=isset($_GET['map']) ? $_GET['map'] : '';
-if ($mapflat) $map=zf_json_decode($mapflat,true);
-else $map=null;
+$mapflat=null;
+if (isset($_REQUEST['mape'])) {
+	$map=unserialize(base64_decode($_REQUEST['mape']));
+	if ($map && is_array($map)) $mapflat=base64_encode(serialize($map));
+} elseif (isset($_GET['map'])) {
+	$mapflat=isset($_GET['map']) ? $_GET['map'] : '';
+	if ($mapflat) $map=zf_json_decode($mapflat,true);
+} else $map=null;
+
 if (class_exists('zf'.$formname)) $zfClass='zf'.$formname;
 else $zfClass='zfForm';
 $zflist=new $zfClass($formname,$formid,'','list','list');
@@ -49,8 +55,8 @@ $topspan='';
 if ($links) {
 	$topspan='';
 	foreach ($links as $i => $link) {
-		if ($link['FORMOUTALT']) $topspan.='<a class="art-button" href="'.zurl('?'.$link['FORMOUTALT'].'&id='.$id.'&map='.urlencode($link['MAP']).'&orderkeys='.urlencode($orderkeys).$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION']).'">'.ucfirst($link['ACTION']).'</a>';
-		else $topspan.='<a class="art-button" href="'.zurl('?page='.$page.'&zfaces='.$link['DISPLAYOUT'].'&action='.$link['ACTIONOUT'].'&formid='.$link['FORMOUT'].'&id='.$id.'&map='.urlencode($link['MAP']).'&orderkeys='.urlencode($orderkeys).$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION']).'">'.ucfirst($link['ACTION']).'</a>';
+		if ($link['FORMOUTALT']) $topspan.='<a class="art-button" href="'.zurl('?'.$link['FORMOUTALT'].'&id='.$id.'&mape='.urlencode(base64_encode($link['MAP'])).'&orderkeys='.urlencode($orderkeys).$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION']).'">'.ucfirst($link['ACTION']).'</a>';
+		else $topspan.='<a class="art-button" href="'.zurl('?page='.$page.'&zfaces='.$link['DISPLAYOUT'].'&action='.$link['ACTIONOUT'].'&formid='.$link['FORMOUT'].'&id='.$id.'&mape='.urlencode(base64_encode($link['MAP'])).'&orderkeys='.urlencode($orderkeys).$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION']).'">'.ucfirst($link['ACTION']).'</a>';
 		$topspan.='&nbsp';
 	}
 }
@@ -58,26 +64,29 @@ if ($links) {
 $alink=new zfLink($zflist->id,false,'list','R');
 ?>
 <div id="<?php echo $formname;?>">
-<div
-	style="float: left; position: relative; padding-left: 1%; margin-bottom: 10px;">
-<?php if ($alink->canAdd) {
-	echo '<a class="art-button" href="'.zurl('?page='.$page.'&zfaces=form&form='.$formname.'&action=add&zft=list&zfp='.$formid.'&map='.urlencode($mapflat)).'">'.z_('Add').'</a>';
-}
-echo $topspan;
-?></div>
-<div
-	style="float: right; position: relative; padding-right: 1%; padding-bottom: 10px;">
-<?php if (defined("ZING_APPS_BUILDER") && ZING_APPS_BUILDER && ZingAppsIsAdmin()) {?>
-<select id="zfheader">
-	<option value="none" selected="selected">Add column</option>
-	<?php
-	foreach ($zflist->allheaders as $key => $value)
-	{
-		echo '<option value="'.$key.'">'.$value.'</option>';
-	}
-	?>
-</select> <?php } ?></div>
-<div style="clear: both;"></div>
+	<div
+		style="float: left; position: relative; padding-left: 1%; margin-bottom: 10px;">
+		<?php if ($zflist->allowAccess('add') && $alink->canAdd) {
+			echo '<a class="art-button" href="'.zurl('?page='.$page.'&zfaces=form&form='.$formname.'&action=add&zft=list&zfp='.$formid.'&mape='.urlencode($mapflat)).'">'.z_('Add').'</a>';
+		}
+		echo $topspan;
+		?>
+	</div>
+	<div
+		style="float: right; position: relative; padding-right: 1%; padding-bottom: 10px;">
+		<?php if (defined("ZING_APPS_BUILDER") && ZING_APPS_BUILDER && ZingAppsIsAdmin()) {?>
+		<select id="zfheader">
+			<option value="none" selected="selected">Add column</option>
+			<?php
+			foreach ($zflist->allheaders as $key => $value)
+			{
+				echo '<option value="'.$key.'">'.$value.'</option>';
+			}
+			?>
+		</select>
+		<?php } ?>
+	</div>
+	<div style="clear: both;"></div>
 	<?php
 	if ($zflist)
 	{
@@ -122,8 +131,8 @@ echo $topspan;
 					foreach ($links as $i => $link) {
 						if ($span) $span.=" | ";
 						if (fwktecLicensedFor(array('module'=>'fwkfor','page'=>'list','action'=>$link['ACTION']))) {
-							if ($link['FORMOUTALT']) $span.='<a href="'.zurl('?'.$link['FORMOUTALT'].'&id='.$id.'&map='.urlencode($link['MAP']).$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION']).'">'.z_(ucfirst($link['ACTION'])).'</a>';
-							else $span.='<a href="'.zurl('?page='.$page.'&zfaces='.$link['DISPLAYOUT'].'&action='.$link['ACTIONOUT'].'&formid='.$link['FORMOUT'].'&id='.$id.'&map='.rawurlencode($link['MAP']).$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION']).'">'.z_(ucfirst($link['ACTION'])).'</a>';
+							if ($link['FORMOUTALT']) $span.='<a href="'.zurl('?'.$link['FORMOUTALT'].'&id='.$id.'&mape='.urlencode(base64_encode($link['MAP'])).$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION']).'">'.z_(ucfirst($link['ACTION'])).'</a>';
+							else $span.='<a href="'.zurl('?page='.$page.'&zfaces='.$link['DISPLAYOUT'].'&action='.$link['ACTIONOUT'].'&formid='.$link['FORMOUT'].'&id='.$id.'&mape='.urlencode(base64_encode($link['MAP'])).$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION']).'">'.z_(ucfirst($link['ACTION'])).'</a>';
 						}
 					}
 				}
@@ -170,16 +179,17 @@ echo $topspan;
 			$s=max(0,$pos-5*$zflist->maxRows);
 			$e=min($zflist->rowsCount,$pos+5*$zflist->maxRows);
 			$i=0;
-			if ($s != 0) echo '<a href="'.zurl('?page='.$page.'&zfaces=list&form='.$formname.'&pos='.$i.'&zft=list&zfp='.$zfp.'&map='.urlencode(zf_json_encode($map)).'&orderkeys='.urlencode($orderkeys).$search).'">['.$i.']</a> ... ';
+			if ($s != 0) echo '<a href="'.zurl('?page='.$page.'&zfaces=list&form='.$formname.'&pos='.$i.'&zft=list&zfp='.$zfp.'&mape='.urlencode($mapflat).'&orderkeys='.urlencode($orderkeys).$search).'">['.$i.']</a> ... ';
 			for ($i=$s;$i<=$e;$i=$i+$zflist->maxRows) {
-				echo '<a href="'.zurl('?page='.$page.'&zfaces=list&form='.$formname.'&pos='.$i.'&zft=list&zfp='.$zfp.'&map='.urlencode(zf_json_encode($map)).'&orderkeys='.urlencode($orderkeys).$search).'">['.$i.']</a> ';
+				echo '<a href="'.zurl('?page='.$page.'&zfaces=list&form='.$formname.'&pos='.$i.'&zft=list&zfp='.$zfp.'&mape='.urlencode($mapflat).'&orderkeys='.urlencode($orderkeys).$search).'">['.$i.']</a> ';
 				$k=$i;
 			}
 			$i=round($zflist->rowsCount/$zflist->maxRows-0.5,0)*$zflist->maxRows;
-			if ($k!=$i) echo ' ... <a href="'.zurl('?page='.$page.'&zfaces=list&form='.$formname.'&pos='.$i.'&zft=list&zfp='.$zfp.'&map='.urlencode(zf_json_encode($map)).'&orderkeys='.urlencode($orderkeys).$search).'">['.$i.']</a> ';
+			if ($k!=$i) echo ' ... <a href="'.zurl('?page='.$page.'&zfaces=list&form='.$formname.'&pos='.$i.'&zft=list&zfp='.$zfp.'&mape='.urlencode($mapflat).'&orderkeys='.urlencode($orderkeys).$search).'">['.$i.']</a> ';
 		}
 	}
-	?></div>
+	?>
+</div>
 	<?php
 	if (method_exists($zflist,'sortlist')) {
 		$zflist->sortlist();

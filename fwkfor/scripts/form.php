@@ -24,7 +24,11 @@ if (isset($_POST['map'])) {
 } elseif (isset($_GET['map'])) {
 	$json=$_GET['map'];
 	$map=zf_json_decode($json,true);
+} elseif (isset($_REQUEST['mape'])) {
+	$map=unserialize(base64_decode($_REQUEST['mape']));
 } else $map='';
+
+
 if (empty($formname)) $formname=zfGetForm($formid);
 if (class_exists('zf'.$formname)) $zfClass='zf'.$formname;
 else $zfClass='zfForm';
@@ -169,7 +173,7 @@ if ($action == "add" && ($step == "" || $step == "poll")) {
 }
 
 if (!$allowed) {
-	if (function_exists('fwktecError')) fwktecError($zfform->errorMessage); else echo $zfform->errorMessage; 	
+//	if (function_exists('fwktecError')) fwktecError($zfform->errorMessage); else echo $zfform->errorMessage; 	
 }
 if (!$success || !$allowed) {
 	if (!empty($zfform->errorMessage)) {
@@ -178,8 +182,10 @@ if (!$success || !$allowed) {
 }
 
 if ($allowed && $success && $showform == "edit") {
-	if (!$noLabel && (is_admin() || ZING_CMS=='gn')) echo '<h2 class="zfaces-form-label">'.$zfform->label.'</h2>';
+	if (!$noLabel && (is_admin() || ZING_CMS=='gn')) echo '<h2 class="zfaces-form-label">'.z_($zfform->label).'</h2>';
 	echo '<div class="zfaces-form">';
+	aphpsHooks::doAction('form_display',$zfform);
+	
 	if (defined("APHPS_SHOW_EDIT_LINK") && APHPS_SHOW_EDIT_LINK) {
 		echo '<a href="'.zurl('?page=apps_edit&zfaces=edit&form='.$formname).'" >'.z_('Edit form').'</a>';
 	}
@@ -227,7 +233,7 @@ if ($allowed && $success && $showform == "edit") {
 					echo '<input class="art-button" type="submit" name="save" value="'.z_($link['ACTION']).'" onclick="form.action=\''.$link['URL'].'\'">';
 				}
 				else {
-					echo '<input class="art-button" type="submit" name="save" value="'.z_($link['ACTION']).'" onclick="form.action=\'?zfaces='.$link['DISPLAYOUT'].'&formid='.$link['FORMOUT'].'&id='.$id.'&map='.$link['MAP'].'\'">';
+					echo '<input class="art-button" type="submit" name="save" value="'.z_($link['ACTION']).'" onclick="form.action=\'?zfaces='.$link['DISPLAYOUT'].'&formid='.$link['FORMOUT'].'&id='.$id.'&mape='.urlencode(base64_encode($link['MAP'])).'\'">';
 				}
 			}
 		}
@@ -236,7 +242,8 @@ if ($allowed && $success && $showform == "edit") {
 	if (!$noForm) {
 		echo '<div class="aphps_form_buttons">';
 		if (!$zfform->hasSubmit && ($action == 'add' or $action == 'edit') && (!isset($override_save) || !$override_save)) {
-			echo '<input id="appscommit" class="art-button" type="submit" name="save" value="'.z_('Save').'">';
+			$saveButtonText=isset($zfform->formAttributes->savebuttontext) && $zfform->formAttributes->savebuttontext ? $zfform->formAttributes->savebuttontext : 'Save';
+			echo '<input id="appscommit" class="art-button" type="submit" name="save" value="'.z_($saveButtonText).'">';
 		} elseif ($action == 'delete') {
 			echo '<input class="art-button" type="submit" name="delete" value="'.z_('Delete').'">';
 		} elseif (!$zfform->hasSubmit && !empty($action) && ($action!='view')) {
@@ -248,6 +255,8 @@ if ($allowed && $success && $showform == "edit") {
 	echo '</div>';
 	if ($stack->getPrevious()) echo '<a href="'.zurl($stack->getPrevious()).'">'.z_('Back').'</a>';
 } elseif ($showform == "saved") {
+	aphpsHooks::doAction('form_saved',$zfform);
+	
 	if ($stack->getPrevious()) {
 		$redirect2=$stack->getPrevious();
 	} else {
@@ -260,4 +269,3 @@ if ($allowed && $success && $showform == "edit") {
 		if (!$noBackLink) echo '<a href="'.zurl($redirect2).'" class="button">'.z_('Back').'</a>';
 	}
 }
-?>

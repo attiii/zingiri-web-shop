@@ -63,7 +63,7 @@ if (!class_exists('aphpsDb')) {
 			global $dbtablesprefix;
 			$query=str_replace("##",$dbtablesprefix,$query);
 			if ($sql = mysql_query($query)) {
-				//			if (function_exists('zfDumpQuery')) zfDumpQuery($table,$query);
+				//continue
 			} else {
 				if ($this->onError == 2) return $this->error(); 
 				else die($this->error($query));
@@ -121,6 +121,8 @@ if (!class_exists('aphpsDb')) {
 
 			Global $dbtablesprefix;
 
+			if (!isset($row['DATE_UPDATED'])) $row['DATE_UPDATED']=date('Y-m-d H:i:s');
+			
 			$query="UPDATE `".$dbtablesprefix.$table."` ";
 			$first=TRUE;
 			foreach ($row as $field => $val)
@@ -149,7 +151,7 @@ if (!class_exists('aphpsDb')) {
 			//zing_ws_error_handler(0,$query);
 
 			if ($sql_update = mysql_query($query)) {
-				if (function_exists('zfDumpQuery')) zfDumpQuery($query,$table);
+				//continue
 			} else {
 				die($this->error($query));
 			}
@@ -160,6 +162,8 @@ if (!class_exists('aphpsDb')) {
 		{
 			global $dbtablesprefix;
 
+			if (!isset($row['DATE_CREATED'])) $row['DATE_CREATED']=date('Y-m-d H:i:s');
+			if (!isset($row['DATE_UPDATED'])) $row['DATE_UPDATED']=date('Y-m-d H:i:s');
 			$query="INSERT INTO `".$dbtablesprefix.$table."` ";
 			$first=TRUE;
 			foreach ($row as $field => $val)

@@ -239,7 +239,7 @@ function zing_header()
 
 function zing_ws_header_custom()
 {
-	if (file_exists(BLOGUPLOADDIR . 'zingiri-web-shop/custom.css')) echo '<link rel="stylesheet" type="text/css" href="' . BLOGUPLOADURL . 'zingiri-web-shop/custom.css" media="screen" />';
+	if (file_exists(ZING_UPLOADS_DIR . 'custom.css')) echo '<link rel="stylesheet" type="text/css" href="' . BLOGUPLOADURL . 'zingiri-web-shop/custom.css" media="screen" />';
 }
 
 /**

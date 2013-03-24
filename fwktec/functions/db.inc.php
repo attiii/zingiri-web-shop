@@ -75,7 +75,6 @@ function UpdateRecord($table,$keys,$row,$action="")
 		$first=FALSE;
 		$query.= "`".$keyfield."`=".qs($keyval);
 	}
-	if (function_exists('zfDumpQuery')) zfDumpQuery($query,$table);
 	
 	$sql_update = mysql_query($query) or die(dbError(1,$query,"substax.inc.php",$action));
 }
@@ -129,7 +128,7 @@ function InsertRecord($table,$keys,$row,$action="")
 
 	if (defined('APHPS_DISPLAY_JSON_ON_UPDATE') && APHPS_DISPLAY_JSON_ON_UPDATE) {
 		echo $query.chr(10);
-	} elseif (function_exists('zfDumpQuery')) zfDumpQuery($query,$table,$row);
+	}
 
 	return $id;
 }
@@ -150,8 +149,6 @@ function DeleteRecord($table,$keys,$action="")
 	//	echo $query."<br />";
 	$sql = mysql_query($query) or die(dbError(1,$query,"",$action));
 	
-	if (function_exists('zfDumpQuery')) zfDumpQuery($query,$table);
-	
 }
 
 function txbegin()
@@ -160,7 +157,11 @@ function txbegin()
 
 	$txglobal=TRUE;
 	$query="START TRANSACTION";
-	$sql=mysql_query($query) or die(mysql_error());
+	if ($sql=mysql_query($query)) {
+		return true;
+	} else {
+		die(mysql_error());
+	}
 }
 
 function txcommit()

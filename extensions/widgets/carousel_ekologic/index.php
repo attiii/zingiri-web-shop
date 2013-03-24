@@ -36,7 +36,7 @@ while ($f_row = mysql_fetch_array($f_sql)) {
 	?>
 	<p><?php echo $f_row['DESCRIPTION'] ?></p>
 	<?php  ?> <?php if (1==1) { ?> <img class="slidim"
-		src="<?php echo ZING_URL; ?>fws/addons/timthumb/timthumb2.php?src=<?php echo urlencode(preg_replace('/'.$_SERVER['HTTP_HOST'].'\/[a-z0-9]*\//',$_SERVER['HTTP_HOST'],$thumb)); ?>&dir=<?php echo urlencode(BLOGUPLOADDIR.'zingiri-web-shop/cache')?>&amp;h=<?php echo $height;?>&amp;w=<?php echo $width?>&amp;zc=1"
+		src="<?php echo ZING_URL; ?>fws/addons/timthumb/timthumb2.php?src=<?php echo urlencode(preg_replace('/'.$_SERVER['HTTP_HOST'].'\/[a-z0-9]*\//',$_SERVER['HTTP_HOST'],$thumb)); ?>&dir=<?php echo urlencode(ZING_UPLOADS_DIR.'cache')?>&amp;h=<?php echo $height;?>&amp;w=<?php echo $width?>&amp;zc=1"
 		alt=""
 	/> <?php } else { ?> <img src="<?php ZING_CAROUSEL_URL; ?>images/place1.jpg" alt="" /> <?php } ?></div>
 	</li>

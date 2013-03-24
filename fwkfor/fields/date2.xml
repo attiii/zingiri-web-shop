@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="module" version="1.5.0" hide="forms">
+	<name>Date</name>
+	<fields count="1">
+		<field1>
+			<name>date</name>
+			<maxlength>12</maxlength>
+			<default></default>
+			<width></width>
+			<format>date</format>
+			<type>date</type>
+			<size>12</size>
+		</field1>
+	</fields>
+	<help>Date field with option to choose style (US vs Europe).</help>
+</config>

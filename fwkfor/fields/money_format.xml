@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="module" version="1.5.0" hide="form">
+	<name>Money format</name>
+	<fields count="1">
+		<field1>
+			<name>moneyformat</name>
+			<format>varchar(10)</format>
+			<default>1,234.00</default>
+			<type>select</type>
+			<values type="multi">
+				<option1 value="1,234.00">1,234.00</option1>
+				<option1 value="1.234,00">1.234,00</option1>
+			</values>
+		</field1>
+	</fields>
+	<help>Dropdown of common money formats.</help>
+</config>

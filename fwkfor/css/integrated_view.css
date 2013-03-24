@@ -421,7 +421,7 @@ div.calendar {
 }
 
 .zfaces {
-	background-color:#F8F8F8; 
+	/*background-color:#F8F8F8; removed v1.5.0*/ 
 	border-radius: 12px;
 	-moz-border-radius: 12px;	
 }
@@ -630,6 +630,14 @@ li.zfli {
 
 div.zfsub .element {
 	margin-bottom: 3px;
+}
+
+input.formpricingfieldoption {
+	text-align: right;
+}
+
+input.element.amount {
+	text-align: right;
 }
 
 .zfrepeatable .element, .zfrepeatable_add, .zfrepeatable_del {

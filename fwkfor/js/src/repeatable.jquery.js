@@ -46,8 +46,6 @@ appsRepeatable = {
 					divTag.children('.element').each(function(i,input) {
 						inputTag=jQuery('#'+input.id);
 						if (inputTag.attr('data-pos')==pos || (pos==1 && i==0)) {
-							//if (i>0) inputTag.prev().remove();
-							//else inputTag.next().remove();
 							inputTag.remove();
 						}
 					});
@@ -56,8 +54,6 @@ appsRepeatable = {
 					divTag.children('input').each(function(i,input) {
 						inputTag=jQuery('#'+input.id);
 						if (inputTag.attr('data-pos')==pos || (pos==1 && i==0)) {
-							//if (i>0) inputTag.prev().remove();
-							//else inputTag.next().remove();
 							inputTag.remove();
 						}
 					});
@@ -95,13 +91,17 @@ appsRepeatable = {
 							} else if (type=="INPUT"){
 								newInputTag=jQuery("<input>");
 								newInputTag.attr('type',inputTag.attr('type'));
+								if (inputTag.attr('type')=='button') newInputTag.val(inputTag.val());
 							} else {
 								alert('unidentied tag in repeatable.jquery.js');
 							}
 							key=divTag.attr('id')+'_'+that.j.id[x];
+							if (inputTag.attr('onclick')) newInputTag.attr('onclick',inputTag.attr('onclick'));
 							newInputTag.attr('id',divTag.attr('id')+'_'+that.j.id[x]);
 							newInputTag.attr('data-pos',that.j.id[x]);
 							newInputTag.attr('class',inputTag.attr('class'));
+							newInputTag.removeClass('hasDatepicker'); //remove datepicker class
+							newInputTag.removeClass('hasTimepicker'); //remove timepicker class
 							newInputTag.html(that.html[x][k]);
 							
 							newInputTag.bind('keydown',that,function(event) {
@@ -113,12 +113,18 @@ appsRepeatable = {
 							if (inputTag.attr('size')>0) newInputTag.attr('size',inputTag.attr('size'));
 							if (inputTag.attr('maxlength')>0) newInputTag.attr('maxlength',inputTag.attr('maxlength'));
 							inputTag.after(newInputTag);
-							//newInputTag.before(jQuery('<br />'));
+							if (inputTag.attr('data-js')) { 
+								var evalStr=inputTag.attr('data-js');
+								eval(evalStr);
+							}
+							if (inputTag.attr('data-jq')) { 
+								var evalStr='newInputTag.'+inputTag.attr('data-jq');
+								eval(evalStr);
+							}
 							if (k==0) newInputTag.focus();
 							if (type=="textarea") {
 								tinyMCE.addMCEControl(document.getElementById(newInputTag.attr('id')),newInputTag.attr('id'));
 							}
-
 						}
 					});
 				}

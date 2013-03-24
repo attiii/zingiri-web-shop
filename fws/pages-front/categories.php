@@ -51,6 +51,7 @@
 				else { echo "<td width=\"33%\" valign=\"top\"><div style=\"text-align:center;\">"; }
 
 				if (file_exists($brands_dir."/" . $row_cat['IMAGE'])) { $thumb = $brands_url."/".$row_cat['IMAGE']; }
+				elseif (file_exists(ZING_UPLOADS_DIR . $row_cat['IMAGE'])) { $thumb = BLOGUPLOADURL."zingiri-web-shop/".$row_cat['IMAGE']; }
 				else $thumb = $gfx_dir."/cat.gif";
 
 				// determine resize of thumbs

@@ -1,16 +1,17 @@
 var wsFormField = {
 	add : function(rule,field,result) {
 		var e=jQuery('#element_'+rule.field+'_'+rule.subField);
-		rule.value=e.attr('value');
-		if (result == rule.compare) this.action(rule,field,true);
-		else this.action(rule,field,false);
+		rule.value=e.val();
+		this.ajax(rule, field);
+		//if (result == rule.compare) this.action(rule,field,true);
+		//else this.action(rule,field,false);
 
 		e.bind('change', this, function(v) {v.data.change(v,rule,field); });
 	},
 
 	change : function(v,rule,field) {
 		var e = jQuery(v.target);
-		rule.value=e.attr('value');
+		rule.value=e.val();
 		this.ajax(rule, field);
 	},
 	
@@ -19,7 +20,7 @@ var wsFormField = {
 		new jQuery.ajax({
 			url : aphpsAjaxURL + "form_field",
 			type : "post",
-			data : { 'cms' : wsCms, 'wsData' : rule, 'mod' : 'fwkfor'},
+			data : { 'cms' : wsCms, 'wsData' : rule, 'mod' : 'fwkfor', 'action' : 'aphps_ajax'},
 			success : function(request) {
 				a=eval("(" + request + ")");
 				if (a.error == 0) {

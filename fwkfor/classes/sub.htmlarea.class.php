@@ -8,18 +8,23 @@ class htmlareaZfSubElement extends zfSubElement {
 
 	function verify()
 	{
-		$this->int=stripslashes(nl2br($this->ext));
+		/*
+		if (!defined('APHPS_HTML_EDITOR') || (APHPS_HTML_EDITOR!='aphps_tiny_mce')) {
+			$this->int=stripslashes(nl2br($this->ext));
+		} else $this->int=$this->ext;
+		*/
 		return true;
 	}
 
 	function display(&$field_markup,&$subscript_markup) {
+		global $aphps_projects;
 		$e=$this->element;
 		$i=$this->subid;
 		$xmlf=$this->xmlf;
 		$use_wysiwyg=1;
 		if (!defined("ZING_AJAX") || !ZING_AJAX) {
 			if ($this->mode!='edit' && defined('ZING_CMS') && ZING_CMS=='wp') {} //do nothing
-			elseif ($this->mode!='edit' && defined('APHPS_HTML_EDITOR') && APHPS_HTML_EDITOR=='wordpress_client') {
+			elseif ($this->mode!='edit' && defined('APHPS_HTML_EDITOR')) {
 			} elseif ($this->mode!='edit' && defined("ZING_DIR")) require(ZING_DIR.'/addons/tinymce/tinymce.inc');
 			elseif ($this->mode!='edit') require(dirname(__FILE__).'/../../addons/tinymce/tinymce.inc');
 		}
@@ -34,6 +39,15 @@ class htmlareaZfSubElement extends zfSubElement {
 				$field_markup.="<textarea id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"theEditor element text\" cols=\"{$sizes[0]}\" rows=\"{$sizes[1]}\" {$e->readonly}>{$e->populated_value['element_'.$e->id.'_'.$i]}</textarea>";
 				$field_markup.='</div>';
 				$field_markup.='<input id="title" type="hidden" size="40" value="(no subject)" name="msgsubject">';
+			} elseif ($this->mode!='build' && defined('APHPS_HTML_EDITOR') && (APHPS_HTML_EDITOR=='aphps_tiny_mce')) {
+				$field_markup.='<script type="text/javascript">';
+				$field_markup.="var aphpsTinyMceUrl='".$aphps_projects['comlib']['url']."addons/tiny_mce/';";
+				$field_markup.='</script>';
+				$field_markup.='<script type="text/javascript" src="'.$aphps_projects['comlib']['url'].'addons/tiny_mce/jquery.tinymce.js"></script>';
+				$field_markup.='<script type="text/javascript" src="'.$aphps_projects['comlib']['url'].'js/'.APHPS_JSDIR.'/tinymce_bootstrap.jquery.js"></script>';
+				$text="{$e->populated_value['element_'.$e->id.'_'.$i]}";
+				//$text=str_replace('<br />','',$text);
+				$field_markup.="<textarea id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"tinymce element text\" cols=\"{$sizes[0]}\" rows=\"{$sizes[1]}\" {$e->readonly}>$text</textarea>";
 			} elseif ($this->mode!='build' && defined('ZING_CMS') && ZING_CMS=='wp') {
 				$field_markup.='<div id="poststuff">';
 				ob_start();

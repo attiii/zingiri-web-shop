@@ -21,7 +21,7 @@ if (!class_exists('zfAccess')) {
 		function allowed() {
 			$allowed=false;
 			
-			if (defined('ZING_APPS_BUILDER') && ZING_APPS_BUILDER) return true;
+			//if (defined('ZING_APPS_BUILDER') && ZING_APPS_BUILDER) return true;
 			if (defined('APHPS_ACCESS_CHECK_DISABLED') && APHPS_ACCESS_CHECK_DISABLED) return true;
 			if (function_exists('faces_group')) $role=faces_group();
 			elseif (!function_exists('faces_group') && ZING_CMS=='wp' && current_user_can('edit_plugins')) $role="ADMIN";
@@ -37,7 +37,7 @@ if (!class_exists('zfAccess')) {
 					case "list":
 						$access=new aphpsDb();
 						//check on role, form, action & rules
-						$query="select id,rules,allowed from ##faccess where (type<>2 or type is null) and (roleid=0 or roleid=".$roleid.") and formid=".qs($this->formid)." and action=".qs($this->action)." and (rules is not null or rules<>'')";
+						$query="select id,rules,allowed from ##faccess where (`type`<>2 or `type` is null) and (roleid=0 or roleid=".$roleid.") and formid=".qs($this->formid)." and `action`=".qs($this->action)." and (rules is not null and rules<>'')";
 						if (!$allowed && $access->select($query)) {
 							$access->next();
 							$rules=explode(",",$access->get('rules'));
@@ -47,9 +47,10 @@ if (!class_exists('zfAccess')) {
 							break;
 						}
 						//check on role, form, any action & rules
-						$query="select id,rules,allowed from ##faccess where (type<>2 or type is null) and (roleid=0 or roleid=".$roleid.") and formid=".qs($this->formid)." and (action=0 or action is null) and (rules is not null or rules<>'')";
+						$query="select id,rules,allowed from ##faccess where (`type`<>2 or `type` is null) and (roleid=0 or roleid=".$roleid.") and formid=".qs($this->formid)." and (`action`='0' or `action`='*' or `action` is null) and (rules is not null and rules<>'')";
 						if (!$allowed && $access->select($query)) {
-							$access->next();
+							$row=$access->next();
+							print_r($row);
 							$rules=explode(",",$access->get('rules'));
 							$check=$this->checkRules($rules);
 							if ($access->get('allowed')) $allowed=$check;
@@ -57,7 +58,7 @@ if (!class_exists('zfAccess')) {
 							break;
 						}
 						//check on role, form & action
-						$query="select id,allowed from ##faccess where (type<>2 or type is null) and (roleid=0 or roleid=".$roleid.") and formid=".qs($this->formid)." and action=".qs($this->action)." and (rules is null or rules='')";
+						$query="select id,allowed from ##faccess where (`type`<>2 or `type` is null) and (roleid=0 or roleid=".$roleid.") and formid=".qs($this->formid)." and `action`=".qs($this->action)." and (rules is null or rules='')";
 						if (!$allowed && $access->select($query)) {
 							$access->next();
 							if ($access->get('allowed')) $allowed=true;
@@ -66,7 +67,7 @@ if (!class_exists('zfAccess')) {
 							break;
 						}
 						//check on role & form
-						$query="select id,allowed from ##faccess where (type<>2 or type is null) and (roleid=0 or roleid=".$roleid.") and formid=".qs($this->formid)." and (action=0 or action is null) and (rules is null or rules='')";
+						$query="select id,allowed from ##faccess where (`type`<>2 or `type` is null) and (roleid=0 or roleid=".$roleid.") and formid=".qs($this->formid)." and (`action`='0' or `action`='*' or `action` is null) and (rules is null or rules='')";
 						if (!$allowed && $access->select($query)) {
 							$access->next();
 							if ($access->get('allowed')) $allowed=true;
@@ -74,7 +75,7 @@ if (!class_exists('zfAccess')) {
 							break;
 						}
 						//check on role & any form
-						$query="select id,allowed from ##faccess where (type<>2 or type is null) and (roleid=0 or roleid=".$roleid.") and formid=0 and (action=0 or action is null) and (rules is null or rules='')";
+						$query="select id,allowed from ##faccess where (`type`<>2 or `type` is null) and (roleid=0 or roleid is null or roleid=".$roleid.") and (formid=0 or formid is null) and (`action`='0' or `action`='*' or `action` is null) and (rules is null or rules='')";
 						if (!$allowed && $access->select($query)) {
 							$access->next();
 							if ($access->get('allowed')) $allowed=true;
@@ -90,7 +91,7 @@ if (!class_exists('zfAccess')) {
 					case "page":
 						$access=new aphpsDb();
 						//check on role, page, action & rules
-						$query="select id,rules,allowed from ##faccess where type=2 and (roleid=0 or roleid=".$roleid.") and page=".qs($this->page)." and action=".qs($this->action)." and (rules is not null or rules<>'')";
+						$query="select id,rules,allowed from ##faccess where `type`=2 and (roleid=0 or roleid=".$roleid.") and page=".qs($this->page)." and `action`=".qs($this->action)." and (rules is not null and rules<>'')";
 						if (!$allowed && $access->select($query)) {
 							$access->next();
 							$rules=explode(",",$access->get('rules'));
@@ -100,7 +101,7 @@ if (!class_exists('zfAccess')) {
 							break;
 						}
 						//check on role, page, any action & rules
-						$query="select id,rules,allowed from ##faccess where type=2 and (roleid=0 or roleid=".$roleid.") and page=".qs($this->page)." and (action=0 or action is null) and (rules is not null or rules<>'')";
+						$query="select id,rules,allowed from ##faccess where `type`=2 and (roleid=0 or roleid=".$roleid.") and page=".qs($this->page)." and (`action`='0' or `action`='*' or `action` is null) and (rules is not null and rules<>'')";
 						if (!$allowed && $access->select($query)) {
 							$access->next();
 							$rules=explode(",",$access->get('rules'));
@@ -110,7 +111,7 @@ if (!class_exists('zfAccess')) {
 							break;
 						}
 						//check on role, page & action
-						$query="select id,allowed from ##faccess where type=2 and (roleid=0 or roleid=".$roleid.") and page=".qs($this->page)." and action=".qs($this->action)." and (rules is null or rules='')";
+						$query="select id,allowed from ##faccess where `type`=2 and (roleid=0 or roleid=".$roleid.") and page=".qs($this->page)." and `action`=".qs($this->action)." and (rules is null or rules='')";
 						if (!$allowed && $access->select($query)) {
 							$access->next();
 							if ($access->get('allowed')) $allowed=true;
@@ -119,7 +120,7 @@ if (!class_exists('zfAccess')) {
 							break;
 						}
 						//check on role & page
-						$query="select id,allowed from ##faccess where type=2 and (roleid=0 or roleid=".$roleid.") and page=".qs($this->page)." and (action=0 or action is null) and (rules is null or rules='')";
+						$query="select id,allowed from ##faccess where `type`=2 and (roleid=0 or roleid=".$roleid.") and page=".qs($this->page)." and (`action`='0' or `action`='*' or `action` is null) and (rules is null or rules='')";
 						if (!$allowed && $access->select($query)) {
 							$access->next();
 							if ($access->get('allowed')) $allowed=true;
@@ -127,7 +128,7 @@ if (!class_exists('zfAccess')) {
 							break;
 						}
 						//check on role & any page
-						$query="select id,allowed from ##faccess where type=2 and (roleid=0 or roleid=".$roleid.") and page='' and (action=0 or action is null) and (rules is null or rules='')";
+						$query="select id,allowed from ##faccess where `type`=2 and (roleid=0 or roleid is null or roleid=".$roleid.") and page='' and (`action`='0' or `action`='*' or `action` is null) and (rules is null or rules='')";
 						if (!$allowed && $access->select($query)) {
 							$access->next();
 							if ($access->get('allowed')) $allowed=true;

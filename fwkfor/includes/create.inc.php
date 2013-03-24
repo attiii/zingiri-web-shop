@@ -114,7 +114,7 @@ function faces_add_element($fieldname,$multiformat,$form_dbtable,$maxlength) {
 	
 	$table=new aphpsDb();
 	if (!$isfirst && $table->update($query)) {
-		//zfDumpQuery($query);
+		//continue
 	}
 	
 }

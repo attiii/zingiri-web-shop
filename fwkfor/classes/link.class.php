@@ -67,12 +67,12 @@ class zfLink {
 						elseif ($_POST[$from]) $map[$to]=$_POST[$from];
 						elseif ($_GET[$from]) $map[$to]=$_GET[$from];
 						elseif (isset($data[$from])) $map[$to]=$data[$from];
+						elseif (isset($data[strtoupper($from)])) $map[$to]=$data[strtoupper($from)];
+						elseif (isset($data[strtolower($from)])) $map[$to]=$data[strtolower($from)];
 						else $map[$to]=$from;
 						$url.="&".$to."=".$map[$to];
 					}
-					$json=json_encode($map);
-					//$json=str_replace('"',"'",$json);
-					if ($this->escape_quote) $json=str_replace("'","\'",$json);
+					$json=serialize($map);
 				}
 				$link['MAP']=isset($json) ? $json : '';
 				$link['URL']=$url;
