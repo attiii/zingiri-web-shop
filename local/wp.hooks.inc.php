@@ -458,6 +458,7 @@ require(dirname(dirname(__FILE__)).'/extensions/widgets/index.php');
 function zing_sidebar_init()
 {
 	global $wsWidgets;
+
 	foreach ($wsWidgets as $w) {
 		if (isset($w['class'])) {
 			$wstemp=new $w['class'];

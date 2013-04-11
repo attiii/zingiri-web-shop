@@ -77,7 +77,7 @@ function zing_check() {
 function wsVersion() {
 	$s=$p=false;
 	if (get_option('zing_webshop_version') == ZING_VERSION) $s=true;
-	if (!get_option('zing_webshop_pro') || (get_option('zing_ws_pro_version') == ZING_WS_PRO_VERSION)) $p=true;
+	if (!get_option('zing_webshop_proX') || (get_option('zing_ws_pro_version') == ZING_WS_PRO_VERSION)) $p=true;
 	if ($s && $p) return true;
 	else return false;
 }

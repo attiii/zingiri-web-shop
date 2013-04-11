@@ -20,6 +20,7 @@
 				<option10 value="DKK">DKK</option10>
 				<option11 value="CHF">CHF</option11>
 				<option12 value="NOK">NOK</option12>
+				<option12 value="RUB">RUB</option12>
 				<option13 value="ZAR">ZAR</option13>
 			</values>
 		</field1>

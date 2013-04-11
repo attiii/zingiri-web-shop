@@ -5,10 +5,7 @@
 		<field1>
 			<name>category</name>
 			<format>int(11)</format>
-			<type>sql</type>
-			<values type="sql">
-				<query>select `##category`.`id`,concat(`##group`.`name`,'-',`##category`.`desc`) from ##category,##group where `##group`.`id`=`##category`.`groupid` order by `##group`.`sortorder`,`##group`.`id`,`##category`.`sortorder`,`##category`.`id`</query>
-			</values>
+			<type>product_category</type>
 		</field1>
 	</fields>
 </config>

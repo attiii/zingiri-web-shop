@@ -23,15 +23,15 @@ function zing_admin_notices() {
 	} elseif (!wsVersion()) {
 		if ((!isset($_GET['page']) || ($_GET['page']!='zingiri-web-shop')) && ZING_CMS=="wp") {
 			$message='You downloaded Zingiri Web Shop version '.ZING_VERSION;
-			$message.=get_option('zing_webshop_pro') ? '/'.ZING_WS_PRO_VERSION : '';
+			//$message.=get_option('zing_webshop_pro') ? '/'.ZING_WS_PRO_VERSION : '';
 			$message.=' and need to <a href="admin.php?page=zingiri-web-shop">upgrade</a> your database (currently at version '.$zing_version;
-			$message.=get_option('zing_webshop_pro') ? '/'.$zing_version_pro : '';
+			//$message.=get_option('zing_webshop_pro') ? '/'.$zing_version_pro : '';
 			$message.=') from the integration page.';
 		} else {
 			$message='You downloaded Zingiri Web Shop version '.ZING_VERSION;
-			$message.=get_option('zing_webshop_pro') ? '/'.ZING_WS_PRO_VERSION : '';
+			//$message.=get_option('zing_webshop_pro') ? '/'.ZING_WS_PRO_VERSION : '';
 			$message.=' and need to upgrade your database (currently at version '.$zing_version;
-			$message.=get_option('zing_webshop_pro') ? '/'.$zing_version_pro : '';
+			//$message.=get_option('zing_webshop_pro') ? '/'.$zing_version_pro : '';
 			$message.=') by clicking the Upgrade button below.';
 		}
 	}
