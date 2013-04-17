@@ -13,6 +13,9 @@ class htmlareaZfSubElement extends zfSubElement {
 			$this->int=stripslashes(nl2br($this->ext));
 		} else $this->int=$this->ext;
 		*/
+		if (defined('APHPS_HTML_EDITOR') && (APHPS_HTML_EDITOR=='wordpress')) {
+			$this->int=stripslashes($this->ext);
+		}
 		return true;
 	}
 
@@ -48,7 +51,7 @@ class htmlareaZfSubElement extends zfSubElement {
 				$text="{$e->populated_value['element_'.$e->id.'_'.$i]}";
 				//$text=str_replace('<br />','',$text);
 				$field_markup.="<textarea id=\"element_{$e->id}_{$i}\" name=\"element_{$e->id}_{$i}\" class=\"tinymce element text\" cols=\"{$sizes[0]}\" rows=\"{$sizes[1]}\" {$e->readonly}>$text</textarea>";
-			} elseif ($this->mode!='build' && defined('ZING_CMS') && ZING_CMS=='wp') {
+			} elseif ($this->mode!='build' && (defined('ZING_CMS') && ZING_CMS=='wp') || (defined('APHPS_HTML_EDITOR') && APHPS_HTML_EDITOR=='wordpress')) {
 				$field_markup.='<div id="poststuff">';
 				ob_start();
 				wp_editor($e->populated_value['element_'.$e->id.'_'.$i],"element_".$e->id."_".$i,'title',true,2,true);
