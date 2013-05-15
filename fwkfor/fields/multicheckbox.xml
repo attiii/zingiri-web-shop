@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config type="module" version="1.5.0">
+	<name>Multi-Checkbox</name>
+	<fields count="1">
+		<field1>
+			<format>varchar(256)</format>
+			<type>multicheckbox</type>
+		</field1>
+	</fields>
+	<settings>
+		<field1>
+			<controllers>
+				<choice>
+					<label>Choices</label>
+					<type>choice</type>
+				</choice>
+			</controllers>
+		</field1>
+	</settings>
+	<help>Provides multiple checkboxes.</help>
+</config>

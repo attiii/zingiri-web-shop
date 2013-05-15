@@ -11,7 +11,8 @@ class zfSubElement {
 	var $submit=null;
 	var $size=12;
 	var $name;
-
+	var $isDataSet=false;
+	
 	function zfSubElement($int,$ext="",$xmlf="",$element="",$subid="",$ai=0) {
 		$this->int=$int;
 		$this->xmlf=$xmlf;
@@ -114,7 +115,7 @@ class zfSubElement {
 			$e->values['element_'.$e->id.'_'.$i][$this->ai] = $xmlf->fields->{'field'.$i}->default;
 		}
 		$readonly=isset($e->readonly) ? $e->readonly : '';
-		
+
 		if (in_array($this->mode,array('view'))) {
 			$field_markup.="<input id=\"element_{$e->id}_{$i}{$this->ail}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" size=\"{$this->size}\" value=\"{$e->values['element_'.$e->id.'_'.$i][$this->ai]}\" maxlength=\"{$this->maxlength}\" type=\"text\" disabled=\"DISABLED\"}/>";
 		} elseif (in_array($this->mode,array('print'))) {

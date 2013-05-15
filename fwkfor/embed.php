@@ -1,5 +1,5 @@
 <?php
-define("ZING_APPS_PLAYER_VERSION","1.6.0");
+define("ZING_APPS_PLAYER_VERSION","1.6.2");
 
 if (!defined('APHPS_XD')) define('APHPS_XD',0);
 
@@ -458,6 +458,7 @@ function zScripts() {
 	$v[]=ZING_APPS_PLAYER_URL.'js/'.APHPS_JSDIR.'/sortlist.jquery.js';
 	$v[]=ZING_APPS_PLAYER_URL.'js/'.APHPS_JSDIR.'/repeatable.jquery.js';
 	$v[]=ZING_APPS_PLAYER_URL.'js/'.APHPS_JSDIR.'/formfield.jquery.js';
+	$v[]=ZING_APPS_PLAYER_URL.'js/'.APHPS_JSDIR.'/form.jquery.js';
 	$v[]=ZING_APPS_PLAYER_URL.'js/'.APHPS_JSDIR.'/core.jquery.js';
 
 	foreach ($aphps_projects as $id => $project) {
@@ -487,3 +488,4 @@ function zStyleSheets() {
 
 	return $v;
 }
+

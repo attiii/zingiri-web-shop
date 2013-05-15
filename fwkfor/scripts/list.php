@@ -55,8 +55,8 @@ $topspan='';
 if ($links) {
 	$topspan='';
 	foreach ($links as $i => $link) {
-		if ($link['FORMOUTALT']) $topspan.='<a class="art-button" href="'.zurl('?'.$link['FORMOUTALT'].'&id='.$id.'&mape='.urlencode(base64_encode($link['MAP'])).'&orderkeys='.urlencode($orderkeys).$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION']).'">'.ucfirst($link['ACTION']).'</a>';
-		else $topspan.='<a class="art-button" href="'.zurl('?page='.$page.'&zfaces='.$link['DISPLAYOUT'].'&action='.$link['ACTIONOUT'].'&formid='.$link['FORMOUT'].'&id='.$id.'&mape='.urlencode(base64_encode($link['MAP'])).'&orderkeys='.urlencode($orderkeys).$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION']).'">'.ucfirst($link['ACTION']).'</a>';
+		if ($link['FORMOUTALT']) $topspan.='<a class="art-button button" href="'.zurl('?'.$link['FORMOUTALT'].'&mape='.urlencode(base64_encode($link['MAP'])).'&orderkeys='.urlencode($orderkeys).$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION']).'">'.ucfirst($link['ACTION']).'</a>';
+		else $topspan.='<a class="art-button button" href="'.zurl('?page='.$page.'&zfaces='.$link['DISPLAYOUT'].'&action='.$link['ACTIONOUT'].'&formid='.$link['FORMOUT'].'&mape='.urlencode(base64_encode($link['MAP'])).'&orderkeys='.urlencode($orderkeys).$search.'&zft=list&zfp='.$formid.'" alt="'.$link['ACTION']).'">'.ucfirst($link['ACTION']).'</a>';
 		$topspan.='&nbsp';
 	}
 }

@@ -1,20 +1,33 @@
 <?php
-class multiple_choiceZfSubElement extends zfSubElement {
+class multicheckboxZfSubElement extends zfSubElement {
+	var $isDataSet=true;
 
 	function output($mode="edit",$input="")
 	{
 		$e=$this->element;
 		$i=$this->subid;
-		$this->ext=$this->int;
-
-		if (isset($e->parameters[$e->id][$i]) && is_array($e->parameters[$e->id][$i])) {
+		$data=unserialize($this->int);
+		$this->ext=implode(',',$data);
+		/*
+		 if (isset($e->parameters[$e->id][$i]) && is_array($e->parameters[$e->id][$i])) {
 			foreach ($e->parameters[$e->id][$i] as $pair) {
-				if(trim($this->int) == trim($pair['value'])) {
-					$this->ext=$pair['label'];
-				}
+			if(trim($this->int) == trim($pair['value'])) {
+			$this->ext=$pair['label'];
 			}
-		} else $this->ext='';
+			}
+			} else $this->ext='';
+			*/
 		return $this->ext;
+	}
+
+	function verify()
+	{
+		$e=$this->element;
+		$i=$this->subid;
+		//print_r($e->parameters[$e->id][$i]);
+		$this->int=serialize($this->ext);
+		//		$this->ext=$this->int;
+		return true;
 	}
 
 	function display(&$field_markup,&$subscript_markup) {
@@ -35,18 +48,18 @@ class multiple_choiceZfSubElement extends zfSubElement {
 				foreach ($e->parameters[$e->id][$i] as $j => $option) {
 					$k=$j+1;
 					if ($e->populated_value['element_'.$e->id.'_'.$i] && ($e->populated_value['element_'.$e->id.'_'.$i]==$option['value'])) $checked='checked="checked"';
-					elseif (!$e->populated_value['element_'.$e->id.'_'.$i] && $first) $checked='checked="checked"';
+					//elseif (!$e->populated_value['element_'.$e->id.'_'.$i] && $first) $checked='checked="checked"';
 					else $checked='';
 					$first=false;
 					$field_markup.="<div class=\"zfsuboption\" id=\"option_{$e->id}_{$i}_{$k}\" >";
-					$field_markup.="<input value=\"".$option['value']."\" type=\"radio\" id=\"element_{$e->id}_{$i}_{$k}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" {$e->readonly} {$checked}/>";
+					$field_markup.="<input value=\"".$option['value']."\" type=\"checkbox\" id=\"element_{$e->id}_{$i}_{$k}\" name=\"element_{$e->id}_{$i}[]\" class=\"element text\" {$e->readonly} {$checked}/>";
 					$field_markup.="&nbsp;<label id=\"label_{$e->id}_{$i}_{$k}\" for=\"element_{$e->id}_{$i}_{$k}\">".$option['label']."</label>";
 					$field_markup.="</div>";
 				}
 			} else {
 				$k=1;
 				$field_markup.="<div class=\"zfsuboption\" id=\"option_{$e->id}_{$i}_{$k}\" >";
-				$field_markup.="<input value=\"\" type=\"radio\" id=\"element_{$e->id}_{$i}_{$k}\" name=\"element_{$e->id}_{$i}\" class=\"element text\" {$e->readonly} {$checked}/>";
+				$field_markup.="<input value=\"\" type=\"checkbox\" id=\"element_{$e->id}_{$i}_{$k}\" name=\"element_{$e->id}_{$i}[]\" class=\"element text\" {$e->readonly} {$checked}/>";
 				$field_markup.="<label id=\"label_{$e->id}_{$i}_{$k}\" for=\"element_{$e->id}_{$i}_{$k}\"></label>";
 				$field_markup.="</div>";
 			}

@@ -3,8 +3,8 @@ Contributors: zingiri
 Donate link: http://www.zingiri.com/
 Tags: ecommerce, e-commerce, paypal, freewebshop, shop, cart, web shop, shopping cart, iDEAL, payson, Google Checkout, Worldpay, 2checkout, facebook, Payson, webshop, free web shop
 Requires at least: 2.1.7
-Tested up to: 3.5
-Stable tag: 2.6.3
+Tested up to: 3.5.1
+Stable tag: 2.6.4
 
 Zingiri Web Shop is a Wordpress plugin that adds fantastic ecommerce capabilities to a great content management system.
 
@@ -12,8 +12,7 @@ Zingiri Web Shop is a Wordpress plugin that adds fantastic ecommerce capabilitie
 
 Zingiri Web Shop is a Wordpress plugin that turns a great content management system into a fantastic e-commerce solution.
 
-The main features of the basic version are:
-
+**Main features**
 * Simple installation & easy configuration
 * Sell digital and physical products
 * Full customer management module
@@ -24,29 +23,37 @@ The main features of the basic version are:
 * Localized tax support: including support for complex cascading tax systems 
 * Easily migrate your current web shop by uploading your products via an XML file
 
-The Web Shop can also easily be extended with a number of additional professional extensions:
-
+**Extend Web Shop with a number of additional professional plugins**
 * Social media: integrate your shop with Facebook and start selling on the largest social media market 
 * Order management: manual ordering
 * Product features: extend the power of product features and define customer price formulas for your products
 * Additional gateways: Payson, 2Checkout, iDEAL
 * Offline credit cards: record credit card details during registration and process them offline 
-* Forms editor: edit the customer registration and other forms to your liking (coming soon)  
-* Multi-lingual: provide multiple languages at once (coming soon)
+* Forms editor: edit the customer registration and other forms to your liking 
 * Multi-currency: provides support for multiple currencies as once, useful if you target customers in different geographical areas
-* Customer group pricing: define customer groups and apply specific pricing and discounts to your customer groups (coming soon)
+* Multi level categories: define an infinite level of product categories
+
+**Coming soon**
+* Multi-lingual: provide multiple languages at once
+* Customer group pricing: define customer groups and apply specific pricing and discounts to your customer groups
+
+For support, please visit our [Support Forums](http://forums.zingiri.com "Support Forums")
+
+Want regular updates? Become a fan on [Facebook](http://www.facebook.com/zingiricom "Become a Zingiri fan on Facebook")!
+
+Or follow us on [Twitter](http://twitter.com/zingiri "Follow Zingiri on Twitter")!
 
 == Installation ==
 
-Please visit the [Zingiri](http://www.zingiri.com/documentation/web-shop-doc/installation-2 "Zingiri") website for installation instructions.
+Please visit the [Zingiri](http://www.zingiri.com/documentation/web-shop-doc/installation-2 "Web Shop Installation Instructions") website for installation instructions.
 
 == Frequently Asked Questions ==
 
-Please visit the [Zingiri](http://forums.zingiri.com/forumdisplay.php?fid=8 "Zingiri") forums for more information.
+Please visit the [Zingiri](http://forums.zingiri.com/forumdisplay.php?fid=8 "Web Shop FAQs") forums for more information.
 
 == Screenshots ==
 
-Register yourself as a user on the [Zingiri](http://webshop.zingiri.com "Zingiri") demo website and try it out. You can also login as an administrator using ID admin and password admin_1234.
+Register yourself as a user on the [Zingiri](http://webshop.zingiri.com "Web Shop Demo") demo website and try it out. You can also login as an administrator using ID admin and password admin_1234.
 
 == Other == 
 
@@ -59,6 +66,9 @@ Upgrades are handled automatically. Simply upload the latest version, go to sett
 Before upgrading, make sure you back up your database first!
 
 == Changelog ==
+
+= 2.6.4 =
+* Updated readme.txt
 
 = 2.6.3 =
 * Fixed issue with custom product URL

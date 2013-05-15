@@ -17,7 +17,7 @@ appsRepeatable = {
 						that.html[x][i]=inputTag.html();
 						inputTag.attr('data-pos',k+1);
 						if ((k+1) > max) max=k+1;
-						if (inputTag.attr('name').indexOf('[]')<0) inputTag.attr('name',inputTag.attr('name')+'[]');
+						if (inputTag.attr('name') && inputTag.attr('name').indexOf('[]')<0) inputTag.attr('name',inputTag.attr('name')+'[]');
 						inputTag.bind('keydown',that,function(event) {
 							return event.data.tab(event);
 				        });
@@ -92,6 +92,8 @@ appsRepeatable = {
 								newInputTag=jQuery("<input>");
 								newInputTag.attr('type',inputTag.attr('type'));
 								if (inputTag.attr('type')=='button') newInputTag.val(inputTag.val());
+							} else if (type=="DIV"){
+								newInputTag=jQuery("<div>");
 							} else {
 								alert('unidentied tag in repeatable.jquery.js');
 							}
@@ -102,7 +104,7 @@ appsRepeatable = {
 							newInputTag.attr('class',inputTag.attr('class'));
 							newInputTag.removeClass('hasDatepicker'); //remove datepicker class
 							newInputTag.removeClass('hasTimepicker'); //remove timepicker class
-							newInputTag.html(that.html[x][k]);
+							if (type!="DIV") newInputTag.html(that.html[x][k]);
 							
 							newInputTag.bind('keydown',that,function(event) {
 								return event.data.tab(event);

@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config type="module" version="1.5.0">
 	<name>Email</name>
+	<settings>
+		<fieldattributes>
+			<size>yes</size>
+		</fieldattributes>
+	</settings>
 	<fields count="1">
 		<field1>
 			<name>email</name>
 			<maxlength>128</maxlength>
-			<default></default>
-			<width></width>
 			<type>email</type>
-			<format>text</format>
+			<size>30</size>
+			<format>varchar(128)</format>
 		</field1>
 	</fields>
 	<help>Email field, verifies email formatting.</help>

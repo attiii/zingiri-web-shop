@@ -60,7 +60,7 @@ class element {
 		$this->xmlf=$xmlf;
 		$this->settings=$xmlf->settings;
 		$this->fields=isset($xmlf->fields->attributes()->count) ? $xmlf->fields->attributes()->count : $xmlf->fields->count();
-		
+
 		$this->name=array();
 		$this->sublabel=array();
 		$this->help=z_((string)$xmlf->help);
@@ -113,18 +113,36 @@ class element {
 			else { $c="zfSubElement"; }
 
 			if (is_array($int)) {
-				foreach ($int as $s => $v) {
-					$subelement=new $c($int[$s],$ext[$s],$this->xmlf->fields->{'field'.$i},$this,$i);
+				$subelement=new $c($int,$ext,$this->xmlf->fields->{'field'.$i},$this,$i);
+				$subelement->parameters=$this->parameters;
+				
+				if ($subelement->isDataSet) {
+					//					if (!$this->attributes['zfrepeatable']) $output['element_'.$this->id.'_'.$i]=serialize($output['element_'.$this->id.'_'.$i]);
 					if (!$subelement->verifyall($this->mode,$before))
 					{
 						$success=false;
 						$this->error_message=$subelement->error_message;
 						$this->is_error=$subelement->is_error;
 					}
-					$output['element_'.$this->id.'_'.$i][$s]=$subelement->int;
+					$output['element_'.$this->id.'_'.$i]=$subelement->int;
 					if ($success) {
 						$onSubmitActions=$subelement->onSubmitActions();
 						if ($onSubmitActions) $this->onSubmitActions[]=$onSubmitActions;
+					}
+				} else {
+					foreach ($int as $s => $v) {
+						$subelement=new $c($int[$s],$ext[$s],$this->xmlf->fields->{'field'.$i},$this,$i);
+						if (!$subelement->verifyall($this->mode,$before))
+						{
+							$success=false;
+							$this->error_message=$subelement->error_message;
+							$this->is_error=$subelement->is_error;
+						}
+						$output['element_'.$this->id.'_'.$i][$s]=$subelement->int;
+						if ($success) {
+							$onSubmitActions=$subelement->onSubmitActions();
+							if ($onSubmitActions) $this->onSubmitActions[]=$onSubmitActions;
+						}
 					}
 				}
 			} else {
@@ -335,7 +353,7 @@ class element {
 					$ruleParameters['condition']=$rule['parameters'][3];
 					$ruleParameters['compare']=$rule['parameters'][4];
 
-					$jsRule=array($ruleParameters,$this->id);
+					$jsRule[]=array($ruleParameters,$this->id);
 				}
 			}
 		}
@@ -353,10 +371,10 @@ class element {
 			$type=$xmlf->fields->{'field'.$i}->type;
 			$fn=$xmlf->fields->{'field'.$i}->name ? $xmlf->fields->{'field'.$i}->name : $type;
 			if ($fields>1) $this->name[$i]=(string)$fn;
-			
+
 			$subscript_markup = '';
 			$field_markup ="<div id=\"zf_{$this->id}_{$fn}\" style=\"width: {$xmlf->fields->{'field'.$i}->width}\" class=\"zfsub $type".($this->isRepeatable ? ' zfrepeatable' : '')."\">";
-//			if (isset($this->isRepeatable) && $this->isRepeatable) $ac=max($ac,count($this->populated_value['element_'.$this->id.'_'.$i]));
+			//			if (isset($this->isRepeatable) && $this->isRepeatable) $ac=max($ac,count($this->populated_value['element_'.$this->id.'_'.$i]));
 			//default
 			for ($ai=0; $ai < $ac; $ai++) {
 				if (!empty($type) && class_exists($type."ZfSubElement")) $c=$type."ZfSubElement";

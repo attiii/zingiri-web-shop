@@ -361,7 +361,7 @@ class zfForm {
 				$element->showSubscript=true;
 				$element->showLabels=$this->showLabels;
 				$element->formAttributes=$this->formAttributes;
-				
+
 				$c=$this->countSubelements($value['subelements'],$key);
 				$ca=0;
 				if ($element->isRepeatable) {
@@ -417,7 +417,7 @@ class zfForm {
 				$element->prepare();
 				$retDisplay=$element->display($mode);
 				if (isset($retDisplay['jsrule']) && is_array($retDisplay['jsrule']) && count($retDisplay['jsrule']) > 0) {
-					$jsRules[]=$retDisplay['jsrule'];
+					foreach ($retDisplay['jsrule'] as $rule) $jsRules[]=$rule;
 				}
 				if ($prefix) $element_markup.=str_replace('element_',$prefix.'_element_',$retDisplay['markup']);
 				elseif (isset($retDisplay['markup'])) $element_markup.=$retDisplay['markup'];
@@ -610,6 +610,7 @@ class zfForm {
 		}
 		$success=true;
 		$this->input=$this->sanitize($input);
+		$parameters=array();
 		foreach ($this->json as $key => $value)
 		{
 			$element=new element($value['type']);
@@ -625,6 +626,10 @@ class zfForm {
 			$c=$this->countSubelements($value['subelements'],$key);
 			foreach ($value['subelements'] as $key2 => $sub)
 			{
+				if (isset($sub['parameters'])) {
+					$parameters[$key][$key2]=$sub['parameters'];
+				}
+
 				if (isset($this->elements['cat'][$key][$key2]) && $this->elements['cat'][$key][$key2]=='parameter') {
 					$populated_value['element_'.$key.'_'.$key2]=$sub['populate'];
 				}
@@ -649,6 +654,7 @@ class zfForm {
 			$element->column_map=$column_map;
 			$element->populated_value=$populated_value;
 			$element->populated_column=$populated_column;
+			$element->parameters=$parameters;
 			$sv=$element->Verify($this->input,$this->output,$this->action,$this->before);
 			$success=$success && $sv;
 			$this->elements['name'][$key]=$element->name;
@@ -725,33 +731,50 @@ class zfForm {
 	}
 
 	function mailTo($to,$legacy=false) {
+		global $aphps_projects;
+
 		if (!defined('APHPS_ADMIN_EMAIL')) return false;
 
-		$from=APHPS_ADMIN_EMAIL;
-
-		$headers  = 'MIME-Version: 1.0' . "\r\n";
-		$headers .= 'Content-type: text/html; charset=UTF-8'."\r\n";
-		$headers .= 'From: '.$from.' <'.$from.'>' . "\r\n";
-
-		//$headers .= 'Bcc: ' . $this->formAttributes->adminemail . "\r\n";
-
-		$subject=$this->label.' submitted';
+		$email=new fwktec_email();
+		$email->addFrom(APHPS_ADMIN_EMAIL);
+		$email->setSubject($this->label.' submitted');
 		if ($legacy) {
 			$message=$this->printout();
 		} else {
 			$message='';
 			if ($this->formAttributes->emailconfirmation) $message.=$this->formAttributes->emailconfirmation;
-			if ($this->formAttributes->emailformtouser) $message=$this->printout();
+			if ($this->formAttributes->emailformtouser) {
+				if ($message) $message.='<br /><br />';
+				$message.=$this->printout();
+			}
 		}
 
-		if ($to) {
-			mail($to, '=?UTF-8?B?'.base64_encode($subject).'?=', $message, $headers);
+		$email->setBody($message);
+
+		//pdf
+		if (APHPS_DEV) {
+			echo 'Processing template Test1';
+			if ($template=new devtpl_template('Test1','en_GB')) {
+				foreach ($this->rec as $f => $v) {
+					$template->replace($f,$v);
+				}
+				$template->replace();
+				$output=$template->generatePdfData();
+				$email->addData('form.pdf',$output);
+			}
 		}
 
-		if ($this->formAttributes->adminemail && !$legacy) {
-			mail($this->formAttributes->adminemail, '=?UTF-8?B?'.base64_encode($subject).'?=', $message, $headers);
+		if ($to && $this->formAttributes->adminemail && !$legacy) { //to user and admin
+			$email->addTo($to);
+			$email->addBcc($this->formAttributes->adminemail);
+		} elseif ($to) { //to user only
+			$email->addTo($to);
+		} elseif ($this->formAttributes->adminemail && !$legacy) { //to admin only
+			$email->addTo($this->formAttributes->adminemail);
 		}
-
+		if ($to || ($this->formAttributes->adminemail && !$legacy)) { //to user or admin
+			$email->send();
+		}
 		return true;
 	}
 
@@ -823,7 +846,6 @@ class zfForm {
 
 		//insert or update attribute records
 		if (count($this->grid) > 0) {
-
 			$keys=array();
 			$row=array();
 			$row['PARENTID']=$id;
@@ -1040,6 +1062,61 @@ class zfForm {
 
 		}
 		return $rows;
+	}
+
+	function export($format='csv') {
+		global $aphpsData;
+
+		header("Content-type: text/csv");
+		header("Cache-Control: no-store, no-cache");
+		header('Content-Disposition: attachment; filename="'.preg_replace("/[^A-Za-z0-9_]/", '', $this->form).'_'.(date('YmdHis')).'.csv"');
+		$this->SelectRows();
+		$rows=array();
+
+		ob_start();
+		$outstream = fopen("php://output",'w');
+
+		//header
+		foreach ($this->fields as $key => $column)
+		{
+			zfKeys($key,$key1,$key2);
+			if (($this->page=='list') && ($this->json[$key1]['type']=='submit')) continue;
+			$row[]=str_replace('`','',$column);
+		}
+		if ($format=='csv') fputcsv($outstream, $row, ',', '"');
+
+		//data
+		while ($r=$this->db->next())
+		{
+			$row=array();
+			$id=$r['ID'];
+			$input=array();
+			foreach ($this->fields as $key => $column)
+			{
+				zfKeys($key,$key1,$key2);
+				if (($this->page=='list') && ($this->json[$key1]['type']=='submit')) continue;
+				$input['element_'.$key1."_".$key2]=$r[str_replace('`','',$column)];
+			}
+			foreach ($this->json as $key1 => $sub) {
+				if (($this->page=='list') && ($this->json[$key1]['type']=='submit')) continue;
+				if (count($sub['subelements']) > 0) {
+					foreach ($sub['subelements'] as $key2 => $data) {
+						if (!isset($input['element_'.$key1."_".$key2])) $input['element_'.$key1."_".$key2]=isset($data['populate']) ? $data['populate'] : '';
+					}
+				}
+			}
+			$output=$this->output($input,"list");
+			$o=array();
+			foreach ($this->fields as $key => $column)
+			{
+				zfKeys($key,$key1,$key2);
+				if (($this->page=='list') && ($this->json[$key1]['type']=='submit')) continue;
+				$row[]= $output['element_'.$key1."_".$key2];
+			}
+			if ($format=='csv') fputcsv($outstream, $row, ',', '"');
+		}
+		fclose($outstream);
+		$aphpsData=ob_get_clean();
 	}
 
 	/*

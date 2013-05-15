@@ -44,8 +44,10 @@
 			<label>Action</label>
 			<type>select</type>
 			<values type="multi">
-				<option value="hide">Hide</option>
-				<option value="show">Show</option>
+				<option value="hide">Hide/show</option>
+				<option value="show">Show/hide</option>
+				<option value="showonly">Show</option>
+				<option value="hideonly">Hide</option>
 			</values>
 		</field6>
 	</fields>
