@@ -225,8 +225,6 @@ function zing_apps_player_content($content='') {
 		case "list":
 			require(dirname(__FILE__)."/scripts/list.php");
 			break;
-		case "mform":
-			require(dirname(__FILE__)."/scripts/mform.php");
 			break;
 		case "ajax":
 			require(dirname(__FILE__)."/scripts/ajax.php");
