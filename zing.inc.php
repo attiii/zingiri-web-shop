@@ -23,23 +23,16 @@ function zing_admin_notices() {
 	} elseif (!wsVersion()) {
 		if ((!isset($_GET['page']) || ($_GET['page']!='zingiri-web-shop')) && ZING_CMS=="wp") {
 			$message='You downloaded Zingiri Web Shop version '.ZING_VERSION;
-			//$message.=get_option('zing_webshop_pro') ? '/'.ZING_WS_PRO_VERSION : '';
 			$message.=' and need to <a href="admin.php?page=zingiri-web-shop">upgrade</a> your database (currently at version '.$zing_version;
-			//$message.=get_option('zing_webshop_pro') ? '/'.$zing_version_pro : '';
 			$message.=') from the integration page.';
 		} else {
 			$message='You downloaded Zingiri Web Shop version '.ZING_VERSION;
-			//$message.=get_option('zing_webshop_pro') ? '/'.ZING_WS_PRO_VERSION : '';
 			$message.=' and need to upgrade your database (currently at version '.$zing_version;
-			//$message.=get_option('zing_webshop_pro') ? '/'.$zing_version_pro : '';
 			$message.=') by clicking the Upgrade button below.';
 		}
 	}
 	if ($message) echo "<div id='zing-warning' style='background-color:greenyellow' class='updated fade'><p><strong>".$message."</strong> "."</p></div>";
-	echo "<div id='zing-warning' style='background-color:greenyellow' class='updated fade'><p><strong>Please note that the Ideal gateway is no longer include with Web Shop, you can download it for free <a href=\"https://go.zingiri.com/cart.php?gid=18\" target=\"_blank\">here</a>.</strong> "."</p></div>";
 }
-
-
 
 function zing_ws_error_handler($severity, $msg, $filename="", $linenum=0) {
 	if (is_array($msg)) $msg=print_r($msg,true);
