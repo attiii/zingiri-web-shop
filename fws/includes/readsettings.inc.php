@@ -25,6 +25,8 @@
 // ------------------------------------------------------
 // read the settings from the database
 // ------------------------------------------------------
+if ($db = @mysql_connect($dblocation,$dbuser,$dbpass)) @mysql_select_db($dbname,$db);
+
 $query = "SELECT * FROM `".$dbtablesprefix."settings` where `ID`=1";
 $sql = mysql_query($query) or die(mysql_error());
 while ($row = mysql_fetch_array($sql)) {
